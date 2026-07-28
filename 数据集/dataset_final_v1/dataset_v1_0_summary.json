@@ -1,0 +1,25 @@
+{
+  "source_manifest": "数据集\\dataset_audit\\dataset_split_manifest.csv",
+  "review_queue": "数据集\\dataset_review_20260727\\review_queue.csv",
+  "original_images": 8563,
+  "reviewed_images": 823,
+  "kept_reviewed": 789,
+  "removed_exclude": 32,
+  "quarantined_needs_expert": 2,
+  "not_sampled_retained": 7740,
+  "final_images": 8529,
+  "final_by_split": {
+    "test": 1284,
+    "train": 5961,
+    "val": 1284
+  },
+  "final_by_class": {
+    "gangue_negative": 2427,
+    "metallic_hard_negative": 1173,
+    "target_mineral": 1661,
+    "ti_bearing_negative": 3268
+  },
+  "split_group_leakage_count": 0,
+  "photo_id_leakage_count": 0,
+  "validation_passed": true
+}

@@ -1,0 +1,5 @@
+﻿four_class_id,four_class_label,included_minerals
+0,target_mineral,ilmenite|magnetite|titanomagnetite
+1,ti_bearing_negative,anatase|perovskite|rutile|titanite
+2,gangue_negative,calcite|feldspar|fluorapatite|pyroxene|quartz|vesuvianite
+3,metallic_hard_negative,chalcopyrite|goethite|hematite|pyrite

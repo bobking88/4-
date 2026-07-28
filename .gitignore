@@ -1,0 +1,32 @@
+# Local environments and caches
+.venv-training/
+.pip-cache/
+.torch-cache/
+.codex_tmp/
+__pycache__/
+*.py[cod]
+
+# Browser and download working directories
+/downloads/
+/scripts/.browser*/
+
+# Original image assets are large and remain subject to their source terms.
+/数据集/**/raw_*/
+/数据集/**/selected_positive/
+/数据集/**/*.jpg
+/数据集/**/*.jpeg
+/数据集/**/*.png
+/数据集/**/*.webp
+/数据集/**/contact_sheets/
+
+# Reproducible review previews and generated office files
+/数据集/**/review_preview*/
+/数据集/**/*.xlsx
+
+# Trained binary checkpoints are reproducible from tracked code and manifests.
+/outputs/training/**/best_model.pt
+/outputs/training/**/environment.json
+/outputs/training/smoke_*/
+
+# Office temporary files
+~$*

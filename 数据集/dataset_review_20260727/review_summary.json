@@ -1,0 +1,28 @@
+{
+  "manifest_path": "D:\\成信工科研\\人工智能选矿\\数据集\\dataset_audit\\dataset_split_manifest.csv",
+  "dataset_root": "D:\\成信工科研\\人工智能选矿\\数据集\\mindat_manual_positive_v1",
+  "sample_count": 823,
+  "per_mineral_limit": 50,
+  "seed": 20260727,
+  "missing_images": 0,
+  "sample_by_mineral": {
+    "anatase": 50,
+    "calcite": 50,
+    "chalcopyrite": 50,
+    "feldspar": 50,
+    "fluorapatite": 50,
+    "goethite": 50,
+    "hematite": 50,
+    "ilmenite": 50,
+    "magnetite": 50,
+    "perovskite": 50,
+    "pyrite": 50,
+    "pyroxene": 50,
+    "quartz": 50,
+    "rutile": 50,
+    "titanite": 50,
+    "titanomagnetite": 23,
+    "vesuvianite": 50
+  },
+  "contact_sheet_count": 33
+}

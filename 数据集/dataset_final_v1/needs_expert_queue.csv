@@ -1,0 +1,3 @@
+﻿image_id,relative_path,mineral_label,four_class_label,four_class_id,mindat_photo_id,split_group_id,split,review_decision,review_reason,expert_note,reviewer,review_date
+VTM-000137,raw_positive/ilmenite_ti_mineral/ilmenite_mindat_p1665765_112_raw.jpg,ilmenite,target_mineral,0,1665765,DG-c1aed5f668d2,train,needs_expert,uncertain_primary_mineral,,,
+VTM-005152,raw_negative/metallic_hard_negative/pyrite/pyrite_mindat_p1455040_page3_027_raw.jpg,pyrite,metallic_hard_negative,3,1455040,DG-6f1ea5aee3a5,test,needs_expert,uncertain_primary_mineral,,,

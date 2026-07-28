@@ -1,0 +1,180 @@
+{
+  "dataset_root": "D:\\成信工科研\\人工智能选矿\\数据集\\mindat_manual_positive_v1",
+  "grain": "one row per physical image file in raw_positive/raw_negative",
+  "generated_seed": 20260725,
+  "minimum_dimension": 300,
+  "near_duplicate_hamming_threshold": 3,
+  "candidate_images": 8606,
+  "eligible_images": 8563,
+  "excluded_images": 43,
+  "metadata_missing_core_images": 0,
+  "metadata_missing_core_rate": 0.0,
+  "quality_status_counts": {
+    "exclude_exact_label_conflict": 20,
+    "exclude_low_resolution": 13,
+    "exclude_near_label_conflict": 10,
+    "pass": 8563
+  },
+  "candidate_by_class": {
+    "gangue_negative": 2429,
+    "metallic_hard_negative": 1191,
+    "target_mineral": 1705,
+    "ti_bearing_negative": 3281
+  },
+  "eligible_by_class": {
+    "gangue_negative": 2429,
+    "metallic_hard_negative": 1191,
+    "target_mineral": 1673,
+    "ti_bearing_negative": 3270
+  },
+  "candidate_by_mineral": {
+    "anatase": 1192,
+    "calcite": 339,
+    "chalcopyrite": 313,
+    "feldspar": 302,
+    "fluorapatite": 535,
+    "goethite": 271,
+    "hematite": 304,
+    "ilmenite": 330,
+    "magnetite": 1340,
+    "perovskite": 376,
+    "pyrite": 303,
+    "pyroxene": 491,
+    "quartz": 262,
+    "rutile": 1364,
+    "titanite": 349,
+    "titanomagnetite": 35,
+    "vesuvianite": 500
+  },
+  "eligible_by_mineral": {
+    "anatase": 1191,
+    "calcite": 339,
+    "chalcopyrite": 313,
+    "feldspar": 302,
+    "fluorapatite": 535,
+    "goethite": 271,
+    "hematite": 304,
+    "ilmenite": 330,
+    "magnetite": 1320,
+    "perovskite": 374,
+    "pyrite": 303,
+    "pyroxene": 491,
+    "quartz": 262,
+    "rutile": 1359,
+    "titanite": 346,
+    "titanomagnetite": 23,
+    "vesuvianite": 500
+  },
+  "split_by_class": {
+    "gangue_negative": {
+      "test": 366,
+      "train": 1696,
+      "val": 367
+    },
+    "metallic_hard_negative": {
+      "test": 180,
+      "train": 831,
+      "val": 180
+    },
+    "target_mineral": {
+      "test": 252,
+      "train": 1169,
+      "val": 252
+    },
+    "ti_bearing_negative": {
+      "test": 491,
+      "train": 2288,
+      "val": 491
+    }
+  },
+  "split_by_mineral": {
+    "anatase": {
+      "test": 179,
+      "train": 833,
+      "val": 179
+    },
+    "calcite": {
+      "test": 51,
+      "train": 237,
+      "val": 51
+    },
+    "chalcopyrite": {
+      "test": 47,
+      "train": 219,
+      "val": 47
+    },
+    "feldspar": {
+      "test": 46,
+      "train": 210,
+      "val": 46
+    },
+    "fluorapatite": {
+      "test": 80,
+      "train": 374,
+      "val": 81
+    },
+    "goethite": {
+      "test": 41,
+      "train": 189,
+      "val": 41
+    },
+    "hematite": {
+      "test": 46,
+      "train": 212,
+      "val": 46
+    },
+    "ilmenite": {
+      "test": 50,
+      "train": 230,
+      "val": 50
+    },
+    "magnetite": {
+      "test": 198,
+      "train": 924,
+      "val": 198
+    },
+    "perovskite": {
+      "test": 56,
+      "train": 262,
+      "val": 56
+    },
+    "pyrite": {
+      "test": 46,
+      "train": 211,
+      "val": 46
+    },
+    "pyroxene": {
+      "test": 74,
+      "train": 343,
+      "val": 74
+    },
+    "quartz": {
+      "test": 40,
+      "train": 182,
+      "val": 40
+    },
+    "rutile": {
+      "test": 204,
+      "train": 951,
+      "val": 204
+    },
+    "titanite": {
+      "test": 52,
+      "train": 242,
+      "val": 52
+    },
+    "titanomagnetite": {
+      "test": 4,
+      "train": 15,
+      "val": 4
+    },
+    "vesuvianite": {
+      "test": 75,
+      "train": 350,
+      "val": 75
+    }
+  },
+  "exact_duplicate_files": 20,
+  "near_duplicate_groups": 19,
+  "near_duplicate_files": 40
+}

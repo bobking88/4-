@@ -1,0 +1,14 @@
+{
+  "candidate_row_count": 8606,
+  "candidate_row_count_matches_summary": true,
+  "eligible_row_count": 8563,
+  "eligible_row_count_matches_summary": true,
+  "accepted_split_values_only": true,
+  "four_class_labels_match_plan": true,
+  "split_group_leakage_count": 0,
+  "photo_id_leakage_count": 0,
+  "sha256_leakage_count": 0,
+  "near_duplicate_group_leakage_count": 0,
+  "core_metadata_missing_cells": 0,
+  "passed": true
+}
