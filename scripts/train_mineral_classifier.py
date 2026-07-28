@@ -96,6 +96,19 @@ def compute_class_weights(class_counts: Iterable[int]) -> list[float]:
     return [value / mean_inverse for value in inverse]
 
 
+def compute_focal_loss(logits, targets, class_weights, gamma: float, torch):
+    if gamma < 0:
+        raise ValueError("Focal loss gamma must be non-negative.")
+    log_probabilities = torch.nn.functional.log_softmax(logits, dim=1)
+    target_log_probabilities = log_probabilities.gather(1, targets.unsqueeze(1)).squeeze(1)
+    target_probabilities = target_log_probabilities.exp()
+    losses = -((1.0 - target_probabilities) ** gamma) * target_log_probabilities
+    if class_weights is None:
+        return losses.mean()
+    sample_weights = class_weights[targets]
+    return (losses * sample_weights).sum() / sample_weights.sum()
+
+
 def resolve_device_name(requested_device: str, cuda_available: bool) -> str:
     if requested_device == "auto":
         return "cuda" if cuda_available else "cpu"
@@ -318,6 +331,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--batch-size", type=int, default=16)
     parser.add_argument("--learning-rate", type=float, default=1e-4)
     parser.add_argument("--weight-decay", type=float, default=1e-4)
+    parser.add_argument("--loss", choices=("cross_entropy", "focal"), default="cross_entropy")
+    parser.add_argument("--focal-gamma", type=float, default=2.0)
     parser.add_argument("--num-workers", type=int, default=2)
     parser.add_argument("--image-size", type=int, default=224)
     parser.add_argument("--seed", type=int, default=20260727)
@@ -368,9 +383,13 @@ def main() -> None:
         models=dependencies["models"],
         nn=dependencies["nn"],
     ).to(device)
-    criterion = dependencies["nn"].CrossEntropyLoss(
-        weight=torch.tensor(class_weights, dtype=torch.float32, device=device)
-    )
+    class_weight_tensor = torch.tensor(class_weights, dtype=torch.float32, device=device)
+    if args.loss == "cross_entropy":
+        criterion = dependencies["nn"].CrossEntropyLoss(weight=class_weight_tensor)
+    else:
+        criterion = lambda logits, labels: compute_focal_loss(
+            logits, labels, class_weight_tensor, args.focal_gamma, torch
+        )
     optimizer = torch.optim.AdamW(
         model.parameters(), lr=args.learning_rate, weight_decay=args.weight_decay
     )
@@ -395,6 +414,8 @@ def main() -> None:
         "torch_home": str(torch_home),
         "seed": args.seed,
         "model": args.model,
+        "loss": args.loss,
+        "focal_gamma": args.focal_gamma if args.loss == "focal" else None,
         "smoke_run": args.smoke_run,
     }
     write_json(output_dir / "environment.json", environment)

@@ -13,6 +13,7 @@ sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
 
 from train_mineral_classifier import (
     CLASS_LABELS,
+    compute_focal_loss,
     compute_class_weights,
     configure_torch_home,
     load_manifest_records,
@@ -79,6 +80,20 @@ class ClassWeightTests(unittest.TestCase):
         self.assertGreater(weights[2], weights[0])
         self.assertGreater(weights[3], weights[1])
         self.assertAlmostEqual(sum(weights) / len(weights), 1.0)
+
+
+class FocalLossTests(unittest.TestCase):
+    def test_gamma_zero_matches_weighted_cross_entropy(self) -> None:
+        dependencies = __import__("train_mineral_classifier").require_training_dependencies()
+        torch = dependencies["torch"]
+        logits = torch.tensor([[2.0, 0.5], [0.1, 1.5]], dtype=torch.float32)
+        targets = torch.tensor([0, 1], dtype=torch.long)
+        class_weights = torch.tensor([1.0, 2.0], dtype=torch.float32)
+
+        focal = compute_focal_loss(logits, targets, class_weights, gamma=0.0, torch=torch)
+        cross_entropy = torch.nn.functional.cross_entropy(logits, targets, weight=class_weights)
+
+        self.assertTrue(torch.allclose(focal, cross_entropy))
 
 
 class DeviceSelectionTests(unittest.TestCase):
