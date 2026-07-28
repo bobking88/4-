@@ -1,0 +1,7 @@
+﻿error_pair,count,share_of_test
+ti_bearing_negative__as__gangue_negative,50,0.038941
+ti_bearing_negative__as__target_mineral,43,0.033489
+gangue_negative__as__ti_bearing_negative,40,0.031153
+target_mineral__as__ti_bearing_negative,40,0.031153
+gangue_negative__as__metallic_hard_negative,23,0.017913
+ti_bearing_negative__as__metallic_hard_negative,23,0.017913

@@ -1,0 +1,17 @@
+﻿true_label,predicted_label,count
+target_mineral,target_mineral,180
+target_mineral,ti_bearing_negative,40
+target_mineral,gangue_negative,14
+target_mineral,metallic_hard_negative,17
+ti_bearing_negative,target_mineral,43
+ti_bearing_negative,ti_bearing_negative,375
+ti_bearing_negative,gangue_negative,50
+ti_bearing_negative,metallic_hard_negative,23
+gangue_negative,target_mineral,10
+gangue_negative,ti_bearing_negative,40
+gangue_negative,gangue_negative,293
+gangue_negative,metallic_hard_negative,23
+metallic_hard_negative,target_mineral,19
+metallic_hard_negative,ti_bearing_negative,18
+metallic_hard_negative,gangue_negative,19
+metallic_hard_negative,metallic_hard_negative,120

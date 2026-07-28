@@ -1,0 +1,6 @@
+﻿metric,cross_entropy_percent,focal_loss_percent,delta_focal_minus_baseline_percent
+macro_f1,73.799879,73.511381,-0.288498
+class_recall.target_mineral,71.713147,72.908367,1.195219
+class_recall.ti_bearing_negative,76.374745,78.207739,1.832994
+class_recall.gangue_negative,80.054645,80.054645,0.000000
+class_recall.metallic_hard_negative,68.181818,61.931818,-6.250000

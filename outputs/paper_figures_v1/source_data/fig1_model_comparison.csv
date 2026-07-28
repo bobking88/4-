@@ -1,0 +1,5 @@
+﻿model,metric,mean_percent,sample_std_percent,runs
+ResNet50,Accuracy,74.844237,1.563463,3
+EfficientNet-B0,Accuracy,74.688474,1.282093,3
+ResNet50,Macro F1,72.062315,0.918107,3
+EfficientNet-B0,Macro F1,72.873254,1.214101,3

@@ -1,0 +1,9 @@
+﻿model,class_label,mean_recall_percent,sample_std_percent,runs
+ResNet50,target_mineral,71.580345,5.184388,3
+ResNet50,ti_bearing_negative,77.528853,8.321278,3
+ResNet50,gangue_negative,83.606557,0.819672,3
+ResNet50,metallic_hard_negative,53.787879,4.264519,3
+EfficientNet-B0,target_mineral,71.978752,0.829349,3
+EfficientNet-B0,ti_bearing_negative,74.338086,2.145754,3
+EfficientNet-B0,gangue_negative,81.967213,2.852543,3
+EfficientNet-B0,metallic_hard_negative,64.393939,3.471648,3
