@@ -8,6 +8,7 @@ from statistics import mean, stdev
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib.patches import FancyBboxPatch
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -21,6 +22,10 @@ MODEL_SPECS = {
     "EfficientNet-B0": [TRAINING_DIR / f"formal_efficientnet_b0_seed{seed}" / "test_metrics.json" for seed in (20260727, 20260728, 20260729)],
     "Role-aware EfficientNet-B0": [
         TRAINING_DIR / f"formal_role_aware_efficientnet_b0_seed{seed}" / "test_metrics.json"
+        for seed in (20260727, 20260728, 20260729)
+    ],
+    "Hierarchical EfficientNet-B0": [
+        TRAINING_DIR / f"formal_hierarchical_efficientnet_b0_seed{seed}" / "test_metrics.json"
         for seed in (20260727, 20260728, 20260729)
     ],
 }
@@ -40,12 +45,14 @@ COLORS = {
     "ResNet50": "#6f8fb3",
     "EfficientNet-B0": "#d58b5a",
     "Role-aware EfficientNet-B0": "#709c7a",
+    "Hierarchical EfficientNet-B0": "#8c73a8",
     "Focal loss": "#b55d60",
 }
 MODEL_DISPLAY = {
     "ResNet50": "ResNet50",
     "EfficientNet-B0": "EfficientNet-B0",
     "Role-aware EfficientNet-B0": "Role-aware\nEfficientNet-B0",
+    "Hierarchical EfficientNet-B0": "Hierarchical\nEfficientNet-B0",
 }
 TARGET_PROXY_SUMMARY_PATH = (
     PROJECT_ROOT / "outputs" / "business_metrics" / "efficientnet_b0_cross_entropy" / "target_proxy_metrics_summary.json"
@@ -69,11 +76,13 @@ TARGET_PROXY_STRATEGY_PATHS = {
     "Cross entropy": TARGET_PROXY_SUMMARY_PATH,
     "Focal loss": PROJECT_ROOT / "outputs" / "business_metrics" / "efficientnet_b0_focal" / "target_proxy_metrics_summary.json",
     "Role-aware": PROJECT_ROOT / "outputs" / "business_metrics" / "role_aware_efficientnet_b0" / "target_proxy_metrics_summary.json",
+    "Hierarchical": PROJECT_ROOT / "outputs" / "business_metrics" / "hierarchical_efficientnet_b0" / "target_proxy_metrics_summary.json",
 }
 TARGET_PROXY_STRATEGY_COLORS = {
     "Cross entropy": "#d58b5a",
     "Focal loss": "#b55d60",
     "Role-aware": "#709c7a",
+    "Hierarchical": "#8c73a8",
 }
 
 
@@ -400,6 +409,59 @@ def plot_target_proxy_strategy_comparison(source_dir: Path) -> None:
     write_csv(source_dir / "fig7_target_proxy_strategy_comparison.csv", source_rows, ["metric", "metric_key", "strategy", "mean_percent", "sample_std_percent", "runs"])
 
 
+def plot_hierarchical_architecture(output_dir: Path) -> None:
+    """Render the proposed species-role hierarchy without implying unverified process outcomes."""
+    output_dir.mkdir(parents=True, exist_ok=True)
+    fig, axis = plt.subplots(figsize=(7.3, 3.55), constrained_layout=True)
+    axis.set_xlim(0, 1)
+    axis.set_ylim(0, 1)
+    axis.axis("off")
+
+    boxes = [
+        (0.03, 0.40, 0.15, 0.22, "Input mineral\nimage", "#e9f2fb"),
+        (0.24, 0.34, 0.18, 0.34, "EfficientNet-B0\nshared visual\nbackbone", "#eaf4ea"),
+        (0.51, 0.67, 0.18, 0.16, "17-species\nclassification head", "#fff0db"),
+        (0.51, 0.40, 0.18, 0.16, "4-role\nclassification head", "#fff0db"),
+        (0.51, 0.13, 0.18, 0.16, "Target / non-target\nauxiliary head", "#fff0db"),
+        (0.78, 0.67, 0.18, 0.16, "Species-to-role\nprobability mapping", "#f3eafa"),
+        (0.78, 0.40, 0.18, 0.16, "Role prediction\nand risk metrics", "#f3eafa"),
+        (0.78, 0.13, 0.18, 0.16, "Hard-negative\nprojection head", "#f3eafa"),
+    ]
+    for x, y, width, height, text, color in boxes:
+        patch = FancyBboxPatch(
+            (x, y), width, height, boxstyle="round,pad=0.012,rounding_size=0.025",
+            facecolor=color, edgecolor="#355d7a", linewidth=0.9,
+        )
+        axis.add_patch(patch)
+        axis.text(x + width / 2, y + height / 2, text, ha="center", va="center", fontsize=8)
+
+    arrows = [
+        ((0.18, 0.51), (0.24, 0.51), ""),
+        ((0.42, 0.56), (0.51, 0.75), ""),
+        ((0.42, 0.51), (0.51, 0.48), ""),
+        ((0.42, 0.44), (0.51, 0.21), ""),
+        ((0.69, 0.75), (0.78, 0.75), ""),
+        ((0.69, 0.48), (0.78, 0.48), ""),
+        ((0.69, 0.75), (0.78, 0.52), "KL consistency"),
+        ((0.69, 0.21), (0.78, 0.21), "target vs. Ti / metallic"),
+    ]
+    for start, end, label in arrows:
+        axis.annotate("", xy=end, xytext=start, arrowprops={"arrowstyle": "->", "lw": 1.0, "color": "#355d7a"})
+        if label:
+            axis.text((start[0] + end[0]) / 2, (start[1] + end[1]) / 2 + 0.045, label, ha="center", va="bottom", fontsize=6.3, color="#355d7a")
+
+    axis.text(0.24, 0.08, "L = L_role + alpha L_species + beta L_consistency + gamma L_binary + eta L_hard", fontsize=7.8, color="#1a1a1a")
+    for extension, kwargs in {"png": {"dpi": 600}, "pdf": {}, "svg": {}}.items():
+        fig.savefig(output_dir / f"fig8_hierarchical_architecture.{extension}", bbox_inches="tight", **kwargs)
+    plt.close(fig)
+    (output_dir / "fig8_hierarchical_architecture.md").write_text(
+        "# Hierarchical model architecture\n\n"
+        "The diagram describes a proposed closed-set species-role consistency model. "
+        "It does not represent a production sorting flow or a grade-prediction system.\n",
+        encoding="utf-8",
+    )
+
+
 def main() -> None:
     configure_style()
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -413,6 +475,7 @@ def main() -> None:
     plot_focal_ablation(source_dir)
     plot_target_proxy_metrics(source_dir)
     plot_target_proxy_strategy_comparison(source_dir)
+    plot_hierarchical_architecture(OUTPUT_DIR)
     print(f"Exported figures to {OUTPUT_DIR}")
 
 

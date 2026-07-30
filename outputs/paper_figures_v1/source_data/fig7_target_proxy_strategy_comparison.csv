@@ -2,12 +2,16 @@
 Target F1,target_f1,Cross entropy,70.451071,1.340551,3
 Target F1,target_f1,Focal loss,69.943942,1.203547,3
 Target F1,target_f1,Role-aware,70.672360,2.567425,3
+Target F1,target_f1,Hierarchical,72.035285,2.049886,3
 Target miss rate,target_miss_rate,Cross entropy,28.021248,0.460040,3
 Target miss rate,target_miss_rate,Focal loss,27.888446,0.796813,3
 Target miss rate,target_miss_rate,Role-aware,31.606906,3.341234,3
+Target miss rate,target_miss_rate,Hierarchical,22.443559,2.194251,3
 Ti-bearing -> target,ti_bearing_intrusion_rate,Cross entropy,9.843856,1.244420,3
 Ti-bearing -> target,ti_bearing_intrusion_rate,Focal loss,9.572301,1.411039,3
 Ti-bearing -> target,ti_bearing_intrusion_rate,Role-aware,7.739308,0.352760,3
+Ti-bearing -> target,ti_bearing_intrusion_rate,Hierarchical,10.930075,3.373322,3
 Metallic -> target,metallic_intrusion_rate,Cross entropy,11.553030,0.656080,3
 Metallic -> target,metallic_intrusion_rate,Focal loss,13.825758,2.624319,3
 Metallic -> target,metallic_intrusion_rate,Role-aware,9.659091,0.984120,3
+Metallic -> target,metallic_intrusion_rate,Hierarchical,14.393939,2.915683,3

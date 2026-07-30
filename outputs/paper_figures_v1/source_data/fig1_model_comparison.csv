@@ -2,6 +2,8 @@
 ResNet50,Accuracy,74.844237,1.563463,3
 EfficientNet-B0,Accuracy,74.688474,1.282093,3
 Role-aware EfficientNet-B0,Accuracy,74.792316,0.840015,3
+Hierarchical EfficientNet-B0,Accuracy,75.415369,2.593976,3
 ResNet50,Macro F1,72.062315,0.918107,3
 EfficientNet-B0,Macro F1,72.873254,1.214101,3
 Role-aware EfficientNet-B0,Macro F1,73.022135,1.089618,3
+Hierarchical EfficientNet-B0,Macro F1,73.411390,2.401140,3

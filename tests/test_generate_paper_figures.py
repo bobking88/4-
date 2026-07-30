@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -30,6 +31,17 @@ class FigureSummaryTests(unittest.TestCase):
             MODEL_SPECS["Role-aware EfficientNet-B0"],
             [
                 PROJECT_ROOT / "outputs" / "training" / f"formal_role_aware_efficientnet_b0_seed{seed}" / "test_metrics.json"
+                for seed in (20260727, 20260728, 20260729)
+            ],
+        )
+
+    def test_hierarchical_model_spec_has_three_formal_seeds(self) -> None:
+        from generate_paper_figures import MODEL_SPECS
+
+        self.assertEqual(
+            MODEL_SPECS["Hierarchical EfficientNet-B0"],
+            [
+                PROJECT_ROOT / "outputs" / "training" / f"formal_hierarchical_efficientnet_b0_seed{seed}" / "test_metrics.json"
                 for seed in (20260727, 20260728, 20260729)
             ],
         )
@@ -101,6 +113,16 @@ class FigureSummaryTests(unittest.TestCase):
         self.assertEqual(len(rows), 2)
         self.assertEqual(rows[1]["strategy"], "Role-aware")
         self.assertEqual(rows[1]["mean_percent"], "72.000000")
+
+    def test_hierarchical_architecture_figure_exports_a_png_and_source_description(self) -> None:
+        from generate_paper_figures import plot_hierarchical_architecture
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            output_dir = Path(temp_dir)
+            plot_hierarchical_architecture(output_dir)
+
+            self.assertTrue((output_dir / "fig8_hierarchical_architecture.png").is_file())
+            self.assertTrue((output_dir / "fig8_hierarchical_architecture.md").is_file())
 
 
 if __name__ == "__main__":

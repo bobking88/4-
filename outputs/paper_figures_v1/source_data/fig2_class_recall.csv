@@ -11,3 +11,7 @@ Role-aware EfficientNet-B0,target_mineral,68.393094,3.341234,3
 Role-aware EfficientNet-B0,ti_bearing_negative,76.714189,0.311105,3
 Role-aware EfficientNet-B0,gangue_negative,81.238616,0.417357,3
 Role-aware EfficientNet-B0,metallic_hard_negative,65.151515,1.429893,3
+Hierarchical EfficientNet-B0,target_mineral,77.556441,2.194251,3
+Hierarchical EfficientNet-B0,ti_bearing_negative,75.152749,5.544056,3
+Hierarchical EfficientNet-B0,gangue_negative,81.693989,2.839428,3
+Hierarchical EfficientNet-B0,metallic_hard_negative,60.037879,2.151102,3
