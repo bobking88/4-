@@ -1,6 +1,6 @@
-﻿metric,cross_entropy_percent,focal_loss_percent,delta_focal_minus_baseline_percent
-macro_f1,73.799879,73.511381,-0.288498
-class_recall.target_mineral,71.713147,72.908367,1.195219
-class_recall.ti_bearing_negative,76.374745,78.207739,1.832994
-class_recall.gangue_negative,80.054645,80.054645,0.000000
-class_recall.metallic_hard_negative,68.181818,61.931818,-6.250000
+﻿metric,cross_entropy_mean_percent,cross_entropy_std_percent,focal_loss_mean_percent,focal_loss_std_percent,delta_focal_minus_baseline_percent,runs
+macro_f1,72.873254,1.214101,73.219922,0.826275,0.346667,3
+target_mineral,71.978752,0.829349,72.111554,0.796813,0.132802,3
+ti_bearing_negative,74.338086,2.145754,76.985743,1.775519,2.647658,3
+gangue_negative,81.967213,2.852543,81.329690,1.375198,-0.637523,3
+metallic_hard_negative,64.393939,3.471648,61.931818,3.409091,-2.462121,3

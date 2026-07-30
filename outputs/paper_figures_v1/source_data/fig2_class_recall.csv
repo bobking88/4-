@@ -7,3 +7,7 @@ EfficientNet-B0,target_mineral,71.978752,0.829349,3
 EfficientNet-B0,ti_bearing_negative,74.338086,2.145754,3
 EfficientNet-B0,gangue_negative,81.967213,2.852543,3
 EfficientNet-B0,metallic_hard_negative,64.393939,3.471648,3
+Role-aware EfficientNet-B0,target_mineral,68.393094,3.341234,3
+Role-aware EfficientNet-B0,ti_bearing_negative,76.714189,0.311105,3
+Role-aware EfficientNet-B0,gangue_negative,81.238616,0.417357,3
+Role-aware EfficientNet-B0,metallic_hard_negative,65.151515,1.429893,3

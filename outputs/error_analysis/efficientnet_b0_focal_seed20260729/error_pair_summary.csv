@@ -1,0 +1,13 @@
+﻿error_pair,count,share_of_test
+ti_bearing_negative__as__target_mineral,55,0.042835
+ti_bearing_negative__as__gangue_negative,50,0.038941
+target_mineral__as__ti_bearing_negative,43,0.033489
+gangue_negative__as__ti_bearing_negative,36,0.028037
+metallic_hard_negative__as__target_mineral,27,0.021028
+metallic_hard_negative__as__gangue_negative,24,0.018692
+metallic_hard_negative__as__ti_bearing_negative,22,0.017134
+ti_bearing_negative__as__metallic_hard_negative,18,0.014019
+target_mineral__as__gangue_negative,15,0.011682
+gangue_negative__as__target_mineral,14,0.010903
+gangue_negative__as__metallic_hard_negative,13,0.010125
+target_mineral__as__metallic_hard_negative,12,0.009346

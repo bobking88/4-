@@ -1,0 +1,8 @@
+﻿metric,metric_key,mean_percent,sample_std_percent,runs
+Target precision,target_precision,69.016919,2.509052,3
+Target recall,target_recall,71.978752,0.460040,3
+Target F1,target_f1,70.451071,1.340551,3
+Target miss rate,target_miss_rate,28.021248,0.460040,3
+Ti-bearing -> target,ti_bearing_intrusion_rate,9.843856,1.244420,3
+Metallic -> target,metallic_intrusion_rate,11.553030,0.656080,3
+Gangue -> target,gangue_intrusion_rate,3.460838,0.687599,3
