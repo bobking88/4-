@@ -32,7 +32,7 @@
 - Produces: \`build_candidate_set_rows(mapping, candidate_sizes, seed) -> list[dict[str, object]]\`.
 - Produces: \`summarize_candidate_sets(rows) -> dict[str, object]\`.
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 \`\`\`python
 def test_role_consistent_candidates_preserve_role_identifiability(self):
@@ -43,13 +43,13 @@ def test_role_consistent_candidates_preserve_role_identifiability(self):
     self.assertLess(summary["role_consistent"]["species_unique_rate"], 1.0)
 \`\`\`
 
-- [ ] **Step 2: Run the focused test and verify it fails**
+- [x] **Step 2: Run the focused test and verify it fails**
 
 Run: \`.venv-training\\Scripts\\python.exe -m unittest tests.test_analyze_role_identifiability -v\`
 
 Expected: FAIL because \`analyze_role_identifiability\` does not exist.
 
-- [ ] **Step 3: Implement deterministic candidate-set construction**
+- [x] **Step 3: Implement deterministic candidate-set construction**
 
 \`\`\`python
 def build_candidate_set_rows(mapping, candidate_sizes=(2, 3, 4), seed=20260801):
@@ -67,11 +67,11 @@ def build_candidate_set_rows(mapping, candidate_sizes=(2, 3, 4), seed=20260801):
 
 \`make_row\` reports \`candidate_size\`, \`scenario\`, candidate labels, \`species_unique\`, and \`role_unique\`. \`summarize_candidate_sets\` calculates rates, counts, and size breakdowns without inferring visual labels.
 
-- [ ] **Step 4: Add command-line output**
+- [x] **Step 4: Add command-line output**
 
 Implement arguments \`--manifest\`, \`--dataset-root\`, \`--output-dir\`, \`--candidate-sizes\`, and \`--seed\`. Load records with existing helpers, validate the mapping, write UTF-8 JSON and Markdown, and state that this is a controlled logical validation.
 
-- [ ] **Step 5: Run focused tests and analysis**
+- [x] **Step 5: Run focused tests and analysis**
 
 \`\`\`powershell
 .venv-training\Scripts\python.exe -m unittest tests.test_analyze_role_identifiability -v
@@ -80,7 +80,7 @@ Implement arguments \`--manifest\`, \`--dataset-root\`, \`--output-dir\`, \`--ca
 
 Expected: PASS; every role-consistent row has \`role_unique=True\`, while role-conflict rows have \`role_unique=False\`.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 \`\`\`bash
 git add scripts/analyze_role_identifiability.py tests/test_analyze_role_identifiability.py outputs/theory_validation/role_identifiability
@@ -100,7 +100,7 @@ git commit -m "feat: validate role identifiability under candidate ambiguity"
 - Consumes: CSV prediction records with \`true_label\`, \`predicted_label\`, and \`confidence\`.
 - Produces: \`calculate_selective_metrics(rows, thresholds) -> list[dict[str, float]]\`.
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 \`\`\`python
 def test_threshold_defers_low_confidence_errors(self):
@@ -115,13 +115,13 @@ def test_threshold_defers_low_confidence_errors(self):
     self.assertEqual(values[1]["risk"], 0.0)
 \`\`\`
 
-- [ ] **Step 2: Run the focused test and verify it fails**
+- [x] **Step 2: Run the focused test and verify it fails**
 
 Run: \`.venv-training\\Scripts\\python.exe -m unittest tests.test_analyze_selective_recognition -v\`
 
 Expected: FAIL because \`analyze_selective_recognition\` does not exist.
 
-- [ ] **Step 3: Implement threshold metrics**
+- [x] **Step 3: Implement threshold metrics**
 
 \`\`\`python
 def calculate_selective_metrics(rows, thresholds):
@@ -136,20 +136,20 @@ def calculate_selective_metrics(rows, thresholds):
 
 Return target-proxy miss rate, titanium-interference intrusion rate, and metallic-hard-negative intrusion rate for retained records. Return \`None\` for an undefined denominator so zero is never fabricated.
 
-- [ ] **Step 4: Implement aggregation and figure**
+- [x] **Step 4: Implement aggregation and figure**
 
 For the three full-hierarchical seeds, calculate thresholds \`0.00\` to \`0.95\` by \`0.05\`, retain seed-level values, and write mean and standard deviation. Plot a two-panel Chinese figure: coverage versus threshold and retained risk versus coverage. State below the figure that lower coverage means more samples are deferred for later inspection.
 
-- [ ] **Step 5: Run focused tests and real analysis**
+- [x] **Step 5: Run focused tests and real analysis**
 
 \`\`\`powershell
 .venv-training\Scripts\python.exe -m unittest tests.test_analyze_selective_recognition -v
-.venv-training\Scripts\python.exe scripts\analyze_selective_recognition.py --input-glob outputs\hierarchical_role_aware_efficientnet_b0_seed*\test_predictions.csv --output-dir outputs\theory_validation\selective_recognition --figure outputs\paper_figures_v1\fig9_selective_recognition.png
+.venv-training\Scripts\python.exe scripts\analyze_selective_recognition.py --input-glob outputs\training\formal_hierarchical_efficientnet_b0_seed*\test_predictions.csv --output-dir outputs\theory_validation\selective_recognition --figure outputs\paper_figures_v1\fig9_selective_recognition.png
 \`\`\`
 
 Expected: PASS; every threshold is recorded and the Markdown does not call the method industrial cost-optimal.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 \`\`\`bash
 git add scripts/analyze_selective_recognition.py tests/test_analyze_selective_recognition.py outputs/theory_validation/selective_recognition outputs/paper_figures_v1/fig9_selective_recognition.png
@@ -166,7 +166,7 @@ git commit -m "feat: add selective mineral recognition analysis"
 **Interfaces:**
 - Produces: \`plot_theory_aware_hierarchical_architecture(output_path: Path) -> None\`.
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 \`\`\`python
 def test_theory_aware_architecture_figure_is_created(self):
@@ -176,17 +176,17 @@ def test_theory_aware_architecture_figure_is_created(self):
     self.assertGreater(output.stat().st_size, 10_000)
 \`\`\`
 
-- [ ] **Step 2: Run the focused test and verify it fails**
+- [x] **Step 2: Run the focused test and verify it fails**
 
-Run: \`.venv-training\\Scripts\\python.exe -m unittest tests.test_generate_paper_figures.PaperFigureTests.test_theory_aware_architecture_figure_is_created -v\`
+Run: \`.venv-training\\Scripts\\python.exe -m unittest tests.test_generate_paper_figures.FigureSummaryTests.test_theory_aware_architecture_figure_is_created -v\`
 
 Expected: FAIL because the new figure function is absent.
 
-- [ ] **Step 3: Implement the architecture diagram**
+- [x] **Step 3: Implement the architecture diagram**
 
 Draw \`矿物图像 -> EfficientNet-B0共享主干 -> 共享特征 h\`, then four independent sibling branches: \`角色头 p_r\`, \`种类头 p_s\`, \`目标代理二分类头 p_b\`, and \`投影头 e\`. Draw \`A p_s = p_tilde_r\` from the species head to the consistency-loss box and role output into the same box. Draw the footer \`L = L_role + alpha L_species + beta L_cons + gamma L_binary + eta L_hard\`. Annotate that hard-negative constraint only targets the two predefined high-risk pair families. No sibling head arrow is permitted.
 
-- [ ] **Step 4: Run focused test and regenerate figures**
+- [x] **Step 4: Run focused test and regenerate figures**
 
 \`\`\`powershell
 .venv-training\Scripts\python.exe -m unittest tests.test_generate_paper_figures -v
@@ -195,11 +195,11 @@ Draw \`矿物图像 -> EfficientNet-B0共享主干 -> 共享特征 h\`, then fou
 
 Expected: PASS; the PNG is nonempty and existing figures remain generated.
 
-- [ ] **Step 5: Visually inspect the PNG**
+- [x] **Step 5: Visually inspect the PNG**
 
 Open \`outputs/paper_figures_v1/fig10_theory_aware_hierarchical_architecture_cn.png\`; verify readable Chinese labels, correct four sibling branches, and only the species-to-role aggregation arrow.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 \`\`\`bash
 git add scripts/generate_paper_figures.py tests/test_generate_paper_figures.py outputs/paper_figures_v1/fig10_theory_aware_hierarchical_architecture_cn.png
@@ -217,19 +217,19 @@ git commit -m "docs: add Chinese hierarchical network architecture figure"
 - Consumes: component ablations, both analysis JSON files, \`fig9_selective_recognition.png\`, and \`fig10_theory_aware_hierarchical_architecture_cn.png\`.
 - Produces: an updated DOCX whose added conclusions each point to a reproducible output.
 
-- [ ] **Step 1: Add theoretical-model content**
+- [x] **Step 1: Add theoretical-model content**
 
 Insert a Chapter 4 subsection with a notation table for \`x\`, \`S\`, \`R\`, \`A\`, \`p_s\`, \`p_r\`, \`p_tilde_r\`, and \`q(x)\`; aggregation \`p_tilde_r=A p_s\`; joint loss; KL loss; and role-identifiability proposition with proof outline. Render equations as matplotlib MathText images where Word has no robust equation API.
 
-- [ ] **Step 2: Add two verification subsections**
+- [x] **Step 2: Add two verification subsections**
 
 Report candidate-set counts and rates from JSON, label it controlled logical-condition verification, add the threshold table and selective-recognition figure, and explain coverage-risk tradeoff without a real XRF-cost claim.
 
-- [ ] **Step 3: Insert structure figure and revise wording**
+- [x] **Step 3: Insert structure figure and revise wording**
 
 Embed \`fig10_theory_aware_hierarchical_architecture_cn.png\`, explain all heads share visual features, and say species-to-role mapping is probability aggregation. Define current contributions as role-level formalization, species-role consistency plus hard-negative learning, and selective-recognition evaluation. Put stage-conditioned decisions, true cost matrices, XRF, source-held-out testing, and real ore imaging only in future work.
 
-- [ ] **Step 4: Rebuild and structurally verify DOCX**
+- [x] **Step 4: Rebuild and structurally verify DOCX**
 
 \`\`\`powershell
 $docPython='C:\Users\bob\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe'
@@ -248,7 +248,7 @@ print("docx structural verification passed")
 
 Set \`DOCX_PATH\` to the generated report before the inline verification. Attempt the local document renderer; if LibreOffice is unavailable, record that structural verification passed and visual rendering could not be automated.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 \`\`\`bash
 git add scripts/build_technical_report.py docs/experiment_records/2026-07-30_role_aware_hard_negative_learning.md 结题/基于深度学习的钒钛矿相关矿物图像识别方法研究_技术报告（初稿）.docx
@@ -265,17 +265,17 @@ git commit -m "docs: add theory validation to technical report"
 - Consumes: all outputs from Tasks 1 through 4.
 - Produces: exact reproduction commands and clear evidentiary boundaries.
 
-- [ ] **Step 1: Document reproduction commands**
+- [x] **Step 1: Document reproduction commands**
 
 Add candidate-set analysis, selective-recognition analysis, and report-generation commands. Link JSON summaries, figures, and report; state images and weights are not redistributed.
 
-- [ ] **Step 2: Run all tests**
+- [x] **Step 2: Run all tests**
 
 Run: \`.venv-training\\Scripts\\python.exe -m unittest discover -s tests -v\`
 
 Expected: every existing test and both new analysis modules pass.
 
-- [ ] **Step 3: Verify tracked scope**
+- [x] **Step 3: Verify tracked scope**
 
 \`\`\`bash
 git status --short
@@ -285,14 +285,13 @@ git ls-files outputs/theory_validation outputs/paper_figures_v1
 
 Expected: no raw images, weights, caches, papers, or unrelated user files are staged.
 
-- [ ] **Step 4: Update checklist, commit, and push**
+- [x] **Step 4: Update checklist and commit (push is controller-owned)**
 
 Mark checkboxes complete only after commands pass.
 
 \`\`\`bash
 git add README.md docs/superpowers/plans/2026-08-01-theory-aware-hierarchical-mineral-recognition.md
 git commit -m "docs: document theory-aware experiment reproduction"
-git push origin main
 \`\`\`
 
 ## Self-Review

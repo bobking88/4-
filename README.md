@@ -89,3 +89,28 @@ python .\scripts\train_hierarchical_mineral_classifier.py `
 本仓库不分发原始矿物图片、模型权重、虚拟环境或下载缓存。原始图像来自公开矿物图像页面，仍须遵守各图片页面的署名、许可和使用条件。仓库保留来源元数据、质量控制记录和最终数据清单，以支持研究过程审计和合法复现。
 
 当前结果是基于公开矿物标本图像的“钒钛矿相关矿物识别”基线，不应直接解释为工业传送带场景下的实际分选性能。
+## Theory-aware evidence reproduction
+
+Run these commands from the repository root with the fixed manifest and a locally
+authorized image directory. The analyses read existing data and prediction outputs;
+they do not alter the frozen split.
+
+```powershell
+.\.venv-training\Scripts\python.exe .\scripts\analyze_role_identifiability.py `
+  --manifest .\数据集\dataset_final_v1\dataset_split_manifest_v1_0.csv `
+  --dataset-root .\数据集\mindat_manual_positive_v1 `
+  --output-dir .\outputs\theory_validation\role_identifiability `
+  --candidate-sizes 2 3 4 `
+  --seed 20260801
+
+.\.venv-training\Scripts\python.exe .\scripts\analyze_selective_recognition.py `
+  --input-glob "outputs\training\formal_hierarchical_efficientnet_b0_seed*\test_predictions.csv" `
+  --output-dir .\outputs\theory_validation\selective_recognition `
+  --figure .\outputs\paper_figures_v1\fig9_selective_recognition.png
+
+.\.venv-training\Scripts\python.exe .\scripts\build_technical_report.py
+```
+
+Outputs: [candidate-set JSON summary](outputs/theory_validation/role_identifiability/role_identifiability_summary.json), [candidate-set Markdown summary](outputs/theory_validation/role_identifiability/role_identifiability_summary.md), [selective-recognition JSON summary](outputs/theory_validation/selective_recognition/selective_recognition_summary.json), [selective-recognition Markdown summary](outputs/theory_validation/selective_recognition/selective_recognition_summary.md), [Figure 9](outputs/paper_figures_v1/fig9_selective_recognition.png), [Figure 10](outputs/paper_figures_v1/fig10_theory_aware_hierarchical_architecture_cn.png), and the [technical report](结题/基于深度学习的钒钛矿相关矿物图像识别方法研究_技术报告（初稿）.docx).
+
+Source images and trained model weights are not redistributed. The manifest and metadata support auditability, but reproduction requires separately obtained images whose licenses permit their use. Candidate-set results are controlled logical-condition validation; selective-recognition results describe the fixed test split and are not claims of industrial sorting, XRF, or cost optimization.
