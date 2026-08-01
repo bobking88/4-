@@ -1,0 +1,1883 @@
+{
+  "validation_type": "controlled logical validation",
+  "uses_visual_labels": false,
+  "uses_model_predictions": false,
+  "manifest": "数据集\\dataset_final_v1\\dataset_split_manifest_v1_0.csv",
+  "dataset_root": "D:\\成信工科研\\人工智能选矿\\数据集\\mindat_manual_positive_v1",
+  "seed": 20260801,
+  "candidate_sizes": [
+    2,
+    3,
+    4
+  ],
+  "fixed_split_consumed_unchanged": true,
+  "split_counts": {
+    "test": 1284,
+    "train": 5961,
+    "val": 1284
+  },
+  "species_labels": [
+    "anatase",
+    "calcite",
+    "chalcopyrite",
+    "feldspar",
+    "fluorapatite",
+    "goethite",
+    "hematite",
+    "ilmenite",
+    "magnetite",
+    "perovskite",
+    "pyrite",
+    "pyroxene",
+    "quartz",
+    "rutile",
+    "titanite",
+    "titanomagnetite",
+    "vesuvianite"
+  ],
+  "species_role_ids": [
+    1,
+    2,
+    3,
+    2,
+    2,
+    3,
+    3,
+    0,
+    0,
+    1,
+    3,
+    2,
+    2,
+    1,
+    1,
+    0,
+    2
+  ],
+  "summary": {
+    "row_count": 99,
+    "scenario_count": {
+      "role_consistent": 48,
+      "role_conflict": 51
+    },
+    "species_unique_count": 0,
+    "species_unique_rate": 0.0,
+    "role_unique_count": 48,
+    "role_unique_rate": 0.48484848484848486,
+    "role_consistent": {
+      "row_count": 48,
+      "species_unique_count": 0,
+      "species_unique_rate": 0.0,
+      "role_unique_count": 48,
+      "role_unique_rate": 1.0
+    },
+    "role_conflict": {
+      "row_count": 51,
+      "species_unique_count": 0,
+      "species_unique_rate": 0.0,
+      "role_unique_count": 0,
+      "role_unique_rate": 0.0
+    },
+    "by_candidate_size": {
+      "2": {
+        "row_count": 34,
+        "species_unique_count": 0,
+        "species_unique_rate": 0.0,
+        "role_unique_count": 17,
+        "role_unique_rate": 0.5
+      },
+      "3": {
+        "row_count": 34,
+        "species_unique_count": 0,
+        "species_unique_rate": 0.0,
+        "role_unique_count": 17,
+        "role_unique_rate": 0.5
+      },
+      "4": {
+        "row_count": 31,
+        "species_unique_count": 0,
+        "species_unique_rate": 0.0,
+        "role_unique_count": 14,
+        "role_unique_rate": 0.45161290322580644
+      }
+    }
+  },
+  "rows": [
+    {
+      "candidate_size": 2,
+      "scenario": "role_consistent",
+      "true_species_label": "anatase",
+      "true_role_id": 1,
+      "candidate_species_labels": [
+        "anatase",
+        "titanite"
+      ],
+      "candidate_role_ids": [
+        1,
+        1
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 2,
+      "scenario": "role_conflict",
+      "true_species_label": "anatase",
+      "true_role_id": 1,
+      "candidate_species_labels": [
+        "anatase",
+        "titanomagnetite"
+      ],
+      "candidate_role_ids": [
+        1,
+        0
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 2,
+      "scenario": "role_consistent",
+      "true_species_label": "calcite",
+      "true_role_id": 2,
+      "candidate_species_labels": [
+        "calcite",
+        "pyroxene"
+      ],
+      "candidate_role_ids": [
+        2,
+        2
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 2,
+      "scenario": "role_conflict",
+      "true_species_label": "calcite",
+      "true_role_id": 2,
+      "candidate_species_labels": [
+        "calcite",
+        "rutile"
+      ],
+      "candidate_role_ids": [
+        2,
+        1
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 2,
+      "scenario": "role_consistent",
+      "true_species_label": "chalcopyrite",
+      "true_role_id": 3,
+      "candidate_species_labels": [
+        "chalcopyrite",
+        "pyrite"
+      ],
+      "candidate_role_ids": [
+        3,
+        3
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 2,
+      "scenario": "role_conflict",
+      "true_species_label": "chalcopyrite",
+      "true_role_id": 3,
+      "candidate_species_labels": [
+        "chalcopyrite",
+        "feldspar"
+      ],
+      "candidate_role_ids": [
+        3,
+        2
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 2,
+      "scenario": "role_consistent",
+      "true_species_label": "feldspar",
+      "true_role_id": 2,
+      "candidate_species_labels": [
+        "feldspar",
+        "calcite"
+      ],
+      "candidate_role_ids": [
+        2,
+        2
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 2,
+      "scenario": "role_conflict",
+      "true_species_label": "feldspar",
+      "true_role_id": 2,
+      "candidate_species_labels": [
+        "feldspar",
+        "hematite"
+      ],
+      "candidate_role_ids": [
+        2,
+        3
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 2,
+      "scenario": "role_consistent",
+      "true_species_label": "fluorapatite",
+      "true_role_id": 2,
+      "candidate_species_labels": [
+        "fluorapatite",
+        "pyroxene"
+      ],
+      "candidate_role_ids": [
+        2,
+        2
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 2,
+      "scenario": "role_conflict",
+      "true_species_label": "fluorapatite",
+      "true_role_id": 2,
+      "candidate_species_labels": [
+        "fluorapatite",
+        "hematite"
+      ],
+      "candidate_role_ids": [
+        2,
+        3
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 2,
+      "scenario": "role_consistent",
+      "true_species_label": "goethite",
+      "true_role_id": 3,
+      "candidate_species_labels": [
+        "goethite",
+        "hematite"
+      ],
+      "candidate_role_ids": [
+        3,
+        3
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 2,
+      "scenario": "role_conflict",
+      "true_species_label": "goethite",
+      "true_role_id": 3,
+      "candidate_species_labels": [
+        "goethite",
+        "anatase"
+      ],
+      "candidate_role_ids": [
+        3,
+        1
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 2,
+      "scenario": "role_consistent",
+      "true_species_label": "hematite",
+      "true_role_id": 3,
+      "candidate_species_labels": [
+        "hematite",
+        "pyrite"
+      ],
+      "candidate_role_ids": [
+        3,
+        3
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 2,
+      "scenario": "role_conflict",
+      "true_species_label": "hematite",
+      "true_role_id": 3,
+      "candidate_species_labels": [
+        "hematite",
+        "titanomagnetite"
+      ],
+      "candidate_role_ids": [
+        3,
+        0
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 2,
+      "scenario": "role_consistent",
+      "true_species_label": "ilmenite",
+      "true_role_id": 0,
+      "candidate_species_labels": [
+        "ilmenite",
+        "magnetite"
+      ],
+      "candidate_role_ids": [
+        0,
+        0
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 2,
+      "scenario": "role_conflict",
+      "true_species_label": "ilmenite",
+      "true_role_id": 0,
+      "candidate_species_labels": [
+        "ilmenite",
+        "chalcopyrite"
+      ],
+      "candidate_role_ids": [
+        0,
+        3
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 2,
+      "scenario": "role_consistent",
+      "true_species_label": "magnetite",
+      "true_role_id": 0,
+      "candidate_species_labels": [
+        "magnetite",
+        "titanomagnetite"
+      ],
+      "candidate_role_ids": [
+        0,
+        0
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 2,
+      "scenario": "role_conflict",
+      "true_species_label": "magnetite",
+      "true_role_id": 0,
+      "candidate_species_labels": [
+        "magnetite",
+        "chalcopyrite"
+      ],
+      "candidate_role_ids": [
+        0,
+        3
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 2,
+      "scenario": "role_consistent",
+      "true_species_label": "perovskite",
+      "true_role_id": 1,
+      "candidate_species_labels": [
+        "perovskite",
+        "titanite"
+      ],
+      "candidate_role_ids": [
+        1,
+        1
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 2,
+      "scenario": "role_conflict",
+      "true_species_label": "perovskite",
+      "true_role_id": 1,
+      "candidate_species_labels": [
+        "perovskite",
+        "titanomagnetite"
+      ],
+      "candidate_role_ids": [
+        1,
+        0
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 2,
+      "scenario": "role_consistent",
+      "true_species_label": "pyrite",
+      "true_role_id": 3,
+      "candidate_species_labels": [
+        "pyrite",
+        "hematite"
+      ],
+      "candidate_role_ids": [
+        3,
+        3
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 2,
+      "scenario": "role_conflict",
+      "true_species_label": "pyrite",
+      "true_role_id": 3,
+      "candidate_species_labels": [
+        "pyrite",
+        "titanomagnetite"
+      ],
+      "candidate_role_ids": [
+        3,
+        0
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 2,
+      "scenario": "role_consistent",
+      "true_species_label": "pyroxene",
+      "true_role_id": 2,
+      "candidate_species_labels": [
+        "pyroxene",
+        "fluorapatite"
+      ],
+      "candidate_role_ids": [
+        2,
+        2
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 2,
+      "scenario": "role_conflict",
+      "true_species_label": "pyroxene",
+      "true_role_id": 2,
+      "candidate_species_labels": [
+        "pyroxene",
+        "rutile"
+      ],
+      "candidate_role_ids": [
+        2,
+        1
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 2,
+      "scenario": "role_consistent",
+      "true_species_label": "quartz",
+      "true_role_id": 2,
+      "candidate_species_labels": [
+        "quartz",
+        "fluorapatite"
+      ],
+      "candidate_role_ids": [
+        2,
+        2
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 2,
+      "scenario": "role_conflict",
+      "true_species_label": "quartz",
+      "true_role_id": 2,
+      "candidate_species_labels": [
+        "quartz",
+        "hematite"
+      ],
+      "candidate_role_ids": [
+        2,
+        3
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 2,
+      "scenario": "role_consistent",
+      "true_species_label": "rutile",
+      "true_role_id": 1,
+      "candidate_species_labels": [
+        "rutile",
+        "titanite"
+      ],
+      "candidate_role_ids": [
+        1,
+        1
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 2,
+      "scenario": "role_conflict",
+      "true_species_label": "rutile",
+      "true_role_id": 1,
+      "candidate_species_labels": [
+        "rutile",
+        "fluorapatite"
+      ],
+      "candidate_role_ids": [
+        1,
+        2
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 2,
+      "scenario": "role_consistent",
+      "true_species_label": "titanite",
+      "true_role_id": 1,
+      "candidate_species_labels": [
+        "titanite",
+        "anatase"
+      ],
+      "candidate_role_ids": [
+        1,
+        1
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 2,
+      "scenario": "role_conflict",
+      "true_species_label": "titanite",
+      "true_role_id": 1,
+      "candidate_species_labels": [
+        "titanite",
+        "chalcopyrite"
+      ],
+      "candidate_role_ids": [
+        1,
+        3
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 2,
+      "scenario": "role_consistent",
+      "true_species_label": "titanomagnetite",
+      "true_role_id": 0,
+      "candidate_species_labels": [
+        "titanomagnetite",
+        "magnetite"
+      ],
+      "candidate_role_ids": [
+        0,
+        0
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 2,
+      "scenario": "role_conflict",
+      "true_species_label": "titanomagnetite",
+      "true_role_id": 0,
+      "candidate_species_labels": [
+        "titanomagnetite",
+        "feldspar"
+      ],
+      "candidate_role_ids": [
+        0,
+        2
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 2,
+      "scenario": "role_consistent",
+      "true_species_label": "vesuvianite",
+      "true_role_id": 2,
+      "candidate_species_labels": [
+        "vesuvianite",
+        "quartz"
+      ],
+      "candidate_role_ids": [
+        2,
+        2
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 2,
+      "scenario": "role_conflict",
+      "true_species_label": "vesuvianite",
+      "true_role_id": 2,
+      "candidate_species_labels": [
+        "vesuvianite",
+        "hematite"
+      ],
+      "candidate_role_ids": [
+        2,
+        3
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 3,
+      "scenario": "role_consistent",
+      "true_species_label": "anatase",
+      "true_role_id": 1,
+      "candidate_species_labels": [
+        "anatase",
+        "titanite",
+        "perovskite"
+      ],
+      "candidate_role_ids": [
+        1,
+        1,
+        1
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 3,
+      "scenario": "role_conflict",
+      "true_species_label": "anatase",
+      "true_role_id": 1,
+      "candidate_species_labels": [
+        "anatase",
+        "ilmenite",
+        "quartz"
+      ],
+      "candidate_role_ids": [
+        1,
+        0,
+        2
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 3,
+      "scenario": "role_consistent",
+      "true_species_label": "calcite",
+      "true_role_id": 2,
+      "candidate_species_labels": [
+        "calcite",
+        "vesuvianite",
+        "quartz"
+      ],
+      "candidate_role_ids": [
+        2,
+        2,
+        2
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 3,
+      "scenario": "role_conflict",
+      "true_species_label": "calcite",
+      "true_role_id": 2,
+      "candidate_species_labels": [
+        "calcite",
+        "anatase",
+        "goethite"
+      ],
+      "candidate_role_ids": [
+        2,
+        1,
+        3
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 3,
+      "scenario": "role_consistent",
+      "true_species_label": "chalcopyrite",
+      "true_role_id": 3,
+      "candidate_species_labels": [
+        "chalcopyrite",
+        "goethite",
+        "hematite"
+      ],
+      "candidate_role_ids": [
+        3,
+        3,
+        3
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 3,
+      "scenario": "role_conflict",
+      "true_species_label": "chalcopyrite",
+      "true_role_id": 3,
+      "candidate_species_labels": [
+        "chalcopyrite",
+        "ilmenite",
+        "anatase"
+      ],
+      "candidate_role_ids": [
+        3,
+        0,
+        1
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 3,
+      "scenario": "role_consistent",
+      "true_species_label": "feldspar",
+      "true_role_id": 2,
+      "candidate_species_labels": [
+        "feldspar",
+        "pyroxene",
+        "quartz"
+      ],
+      "candidate_role_ids": [
+        2,
+        2,
+        2
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 3,
+      "scenario": "role_conflict",
+      "true_species_label": "feldspar",
+      "true_role_id": 2,
+      "candidate_species_labels": [
+        "feldspar",
+        "perovskite",
+        "titanomagnetite"
+      ],
+      "candidate_role_ids": [
+        2,
+        1,
+        0
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 3,
+      "scenario": "role_consistent",
+      "true_species_label": "fluorapatite",
+      "true_role_id": 2,
+      "candidate_species_labels": [
+        "fluorapatite",
+        "pyroxene",
+        "calcite"
+      ],
+      "candidate_role_ids": [
+        2,
+        2,
+        2
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 3,
+      "scenario": "role_conflict",
+      "true_species_label": "fluorapatite",
+      "true_role_id": 2,
+      "candidate_species_labels": [
+        "fluorapatite",
+        "perovskite",
+        "titanite"
+      ],
+      "candidate_role_ids": [
+        2,
+        1,
+        1
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 3,
+      "scenario": "role_consistent",
+      "true_species_label": "goethite",
+      "true_role_id": 3,
+      "candidate_species_labels": [
+        "goethite",
+        "hematite",
+        "chalcopyrite"
+      ],
+      "candidate_role_ids": [
+        3,
+        3,
+        3
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 3,
+      "scenario": "role_conflict",
+      "true_species_label": "goethite",
+      "true_role_id": 3,
+      "candidate_species_labels": [
+        "goethite",
+        "feldspar",
+        "magnetite"
+      ],
+      "candidate_role_ids": [
+        3,
+        2,
+        0
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 3,
+      "scenario": "role_consistent",
+      "true_species_label": "hematite",
+      "true_role_id": 3,
+      "candidate_species_labels": [
+        "hematite",
+        "goethite",
+        "chalcopyrite"
+      ],
+      "candidate_role_ids": [
+        3,
+        3,
+        3
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 3,
+      "scenario": "role_conflict",
+      "true_species_label": "hematite",
+      "true_role_id": 3,
+      "candidate_species_labels": [
+        "hematite",
+        "quartz",
+        "rutile"
+      ],
+      "candidate_role_ids": [
+        3,
+        2,
+        1
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 3,
+      "scenario": "role_consistent",
+      "true_species_label": "ilmenite",
+      "true_role_id": 0,
+      "candidate_species_labels": [
+        "ilmenite",
+        "magnetite",
+        "titanomagnetite"
+      ],
+      "candidate_role_ids": [
+        0,
+        0,
+        0
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 3,
+      "scenario": "role_conflict",
+      "true_species_label": "ilmenite",
+      "true_role_id": 0,
+      "candidate_species_labels": [
+        "ilmenite",
+        "chalcopyrite",
+        "calcite"
+      ],
+      "candidate_role_ids": [
+        0,
+        3,
+        2
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 3,
+      "scenario": "role_consistent",
+      "true_species_label": "magnetite",
+      "true_role_id": 0,
+      "candidate_species_labels": [
+        "magnetite",
+        "titanomagnetite",
+        "ilmenite"
+      ],
+      "candidate_role_ids": [
+        0,
+        0,
+        0
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 3,
+      "scenario": "role_conflict",
+      "true_species_label": "magnetite",
+      "true_role_id": 0,
+      "candidate_species_labels": [
+        "magnetite",
+        "rutile",
+        "titanite"
+      ],
+      "candidate_role_ids": [
+        0,
+        1,
+        1
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 3,
+      "scenario": "role_consistent",
+      "true_species_label": "perovskite",
+      "true_role_id": 1,
+      "candidate_species_labels": [
+        "perovskite",
+        "anatase",
+        "rutile"
+      ],
+      "candidate_role_ids": [
+        1,
+        1,
+        1
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 3,
+      "scenario": "role_conflict",
+      "true_species_label": "perovskite",
+      "true_role_id": 1,
+      "candidate_species_labels": [
+        "perovskite",
+        "hematite",
+        "calcite"
+      ],
+      "candidate_role_ids": [
+        1,
+        3,
+        2
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 3,
+      "scenario": "role_consistent",
+      "true_species_label": "pyrite",
+      "true_role_id": 3,
+      "candidate_species_labels": [
+        "pyrite",
+        "goethite",
+        "chalcopyrite"
+      ],
+      "candidate_role_ids": [
+        3,
+        3,
+        3
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 3,
+      "scenario": "role_conflict",
+      "true_species_label": "pyrite",
+      "true_role_id": 3,
+      "candidate_species_labels": [
+        "pyrite",
+        "ilmenite",
+        "quartz"
+      ],
+      "candidate_role_ids": [
+        3,
+        0,
+        2
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 3,
+      "scenario": "role_consistent",
+      "true_species_label": "pyroxene",
+      "true_role_id": 2,
+      "candidate_species_labels": [
+        "pyroxene",
+        "vesuvianite",
+        "fluorapatite"
+      ],
+      "candidate_role_ids": [
+        2,
+        2,
+        2
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 3,
+      "scenario": "role_conflict",
+      "true_species_label": "pyroxene",
+      "true_role_id": 2,
+      "candidate_species_labels": [
+        "pyroxene",
+        "rutile",
+        "perovskite"
+      ],
+      "candidate_role_ids": [
+        2,
+        1,
+        1
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 3,
+      "scenario": "role_consistent",
+      "true_species_label": "quartz",
+      "true_role_id": 2,
+      "candidate_species_labels": [
+        "quartz",
+        "pyroxene",
+        "feldspar"
+      ],
+      "candidate_role_ids": [
+        2,
+        2,
+        2
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 3,
+      "scenario": "role_conflict",
+      "true_species_label": "quartz",
+      "true_role_id": 2,
+      "candidate_species_labels": [
+        "quartz",
+        "pyrite",
+        "magnetite"
+      ],
+      "candidate_role_ids": [
+        2,
+        3,
+        0
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 3,
+      "scenario": "role_consistent",
+      "true_species_label": "rutile",
+      "true_role_id": 1,
+      "candidate_species_labels": [
+        "rutile",
+        "titanite",
+        "anatase"
+      ],
+      "candidate_role_ids": [
+        1,
+        1,
+        1
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 3,
+      "scenario": "role_conflict",
+      "true_species_label": "rutile",
+      "true_role_id": 1,
+      "candidate_species_labels": [
+        "rutile",
+        "titanomagnetite",
+        "pyrite"
+      ],
+      "candidate_role_ids": [
+        1,
+        0,
+        3
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 3,
+      "scenario": "role_consistent",
+      "true_species_label": "titanite",
+      "true_role_id": 1,
+      "candidate_species_labels": [
+        "titanite",
+        "anatase",
+        "perovskite"
+      ],
+      "candidate_role_ids": [
+        1,
+        1,
+        1
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 3,
+      "scenario": "role_conflict",
+      "true_species_label": "titanite",
+      "true_role_id": 1,
+      "candidate_species_labels": [
+        "titanite",
+        "ilmenite",
+        "hematite"
+      ],
+      "candidate_role_ids": [
+        1,
+        0,
+        3
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 3,
+      "scenario": "role_consistent",
+      "true_species_label": "titanomagnetite",
+      "true_role_id": 0,
+      "candidate_species_labels": [
+        "titanomagnetite",
+        "ilmenite",
+        "magnetite"
+      ],
+      "candidate_role_ids": [
+        0,
+        0,
+        0
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 3,
+      "scenario": "role_conflict",
+      "true_species_label": "titanomagnetite",
+      "true_role_id": 0,
+      "candidate_species_labels": [
+        "titanomagnetite",
+        "feldspar",
+        "hematite"
+      ],
+      "candidate_role_ids": [
+        0,
+        2,
+        3
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 3,
+      "scenario": "role_consistent",
+      "true_species_label": "vesuvianite",
+      "true_role_id": 2,
+      "candidate_species_labels": [
+        "vesuvianite",
+        "feldspar",
+        "quartz"
+      ],
+      "candidate_role_ids": [
+        2,
+        2,
+        2
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 3,
+      "scenario": "role_conflict",
+      "true_species_label": "vesuvianite",
+      "true_role_id": 2,
+      "candidate_species_labels": [
+        "vesuvianite",
+        "titanomagnetite",
+        "chalcopyrite"
+      ],
+      "candidate_role_ids": [
+        2,
+        0,
+        3
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 4,
+      "scenario": "role_consistent",
+      "true_species_label": "anatase",
+      "true_role_id": 1,
+      "candidate_species_labels": [
+        "anatase",
+        "perovskite",
+        "rutile",
+        "titanite"
+      ],
+      "candidate_role_ids": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 4,
+      "scenario": "role_conflict",
+      "true_species_label": "anatase",
+      "true_role_id": 1,
+      "candidate_species_labels": [
+        "anatase",
+        "goethite",
+        "titanomagnetite",
+        "pyrite"
+      ],
+      "candidate_role_ids": [
+        1,
+        3,
+        0,
+        3
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 4,
+      "scenario": "role_consistent",
+      "true_species_label": "calcite",
+      "true_role_id": 2,
+      "candidate_species_labels": [
+        "calcite",
+        "quartz",
+        "vesuvianite",
+        "feldspar"
+      ],
+      "candidate_role_ids": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 4,
+      "scenario": "role_conflict",
+      "true_species_label": "calcite",
+      "true_role_id": 2,
+      "candidate_species_labels": [
+        "calcite",
+        "rutile",
+        "hematite",
+        "goethite"
+      ],
+      "candidate_role_ids": [
+        2,
+        1,
+        3,
+        3
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 4,
+      "scenario": "role_consistent",
+      "true_species_label": "chalcopyrite",
+      "true_role_id": 3,
+      "candidate_species_labels": [
+        "chalcopyrite",
+        "hematite",
+        "pyrite",
+        "goethite"
+      ],
+      "candidate_role_ids": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 4,
+      "scenario": "role_conflict",
+      "true_species_label": "chalcopyrite",
+      "true_role_id": 3,
+      "candidate_species_labels": [
+        "chalcopyrite",
+        "titanomagnetite",
+        "ilmenite",
+        "rutile"
+      ],
+      "candidate_role_ids": [
+        3,
+        0,
+        0,
+        1
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 4,
+      "scenario": "role_consistent",
+      "true_species_label": "feldspar",
+      "true_role_id": 2,
+      "candidate_species_labels": [
+        "feldspar",
+        "fluorapatite",
+        "quartz",
+        "vesuvianite"
+      ],
+      "candidate_role_ids": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 4,
+      "scenario": "role_conflict",
+      "true_species_label": "feldspar",
+      "true_role_id": 2,
+      "candidate_species_labels": [
+        "feldspar",
+        "magnetite",
+        "rutile",
+        "perovskite"
+      ],
+      "candidate_role_ids": [
+        2,
+        0,
+        1,
+        1
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 4,
+      "scenario": "role_consistent",
+      "true_species_label": "fluorapatite",
+      "true_role_id": 2,
+      "candidate_species_labels": [
+        "fluorapatite",
+        "calcite",
+        "vesuvianite",
+        "feldspar"
+      ],
+      "candidate_role_ids": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 4,
+      "scenario": "role_conflict",
+      "true_species_label": "fluorapatite",
+      "true_role_id": 2,
+      "candidate_species_labels": [
+        "fluorapatite",
+        "perovskite",
+        "titanite",
+        "titanomagnetite"
+      ],
+      "candidate_role_ids": [
+        2,
+        1,
+        1,
+        0
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 4,
+      "scenario": "role_consistent",
+      "true_species_label": "goethite",
+      "true_role_id": 3,
+      "candidate_species_labels": [
+        "goethite",
+        "hematite",
+        "pyrite",
+        "chalcopyrite"
+      ],
+      "candidate_role_ids": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 4,
+      "scenario": "role_conflict",
+      "true_species_label": "goethite",
+      "true_role_id": 3,
+      "candidate_species_labels": [
+        "goethite",
+        "pyroxene",
+        "quartz",
+        "feldspar"
+      ],
+      "candidate_role_ids": [
+        3,
+        2,
+        2,
+        2
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 4,
+      "scenario": "role_consistent",
+      "true_species_label": "hematite",
+      "true_role_id": 3,
+      "candidate_species_labels": [
+        "hematite",
+        "pyrite",
+        "chalcopyrite",
+        "goethite"
+      ],
+      "candidate_role_ids": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 4,
+      "scenario": "role_conflict",
+      "true_species_label": "hematite",
+      "true_role_id": 3,
+      "candidate_species_labels": [
+        "hematite",
+        "titanite",
+        "fluorapatite",
+        "calcite"
+      ],
+      "candidate_role_ids": [
+        3,
+        1,
+        2,
+        2
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 4,
+      "scenario": "role_conflict",
+      "true_species_label": "ilmenite",
+      "true_role_id": 0,
+      "candidate_species_labels": [
+        "ilmenite",
+        "vesuvianite",
+        "fluorapatite",
+        "titanite"
+      ],
+      "candidate_role_ids": [
+        0,
+        2,
+        2,
+        1
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 4,
+      "scenario": "role_conflict",
+      "true_species_label": "magnetite",
+      "true_role_id": 0,
+      "candidate_species_labels": [
+        "magnetite",
+        "goethite",
+        "pyrite",
+        "vesuvianite"
+      ],
+      "candidate_role_ids": [
+        0,
+        3,
+        3,
+        2
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 4,
+      "scenario": "role_consistent",
+      "true_species_label": "perovskite",
+      "true_role_id": 1,
+      "candidate_species_labels": [
+        "perovskite",
+        "titanite",
+        "rutile",
+        "anatase"
+      ],
+      "candidate_role_ids": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 4,
+      "scenario": "role_conflict",
+      "true_species_label": "perovskite",
+      "true_role_id": 1,
+      "candidate_species_labels": [
+        "perovskite",
+        "pyrite",
+        "ilmenite",
+        "pyroxene"
+      ],
+      "candidate_role_ids": [
+        1,
+        3,
+        0,
+        2
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 4,
+      "scenario": "role_consistent",
+      "true_species_label": "pyrite",
+      "true_role_id": 3,
+      "candidate_species_labels": [
+        "pyrite",
+        "hematite",
+        "chalcopyrite",
+        "goethite"
+      ],
+      "candidate_role_ids": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 4,
+      "scenario": "role_conflict",
+      "true_species_label": "pyrite",
+      "true_role_id": 3,
+      "candidate_species_labels": [
+        "pyrite",
+        "anatase",
+        "magnetite",
+        "titanite"
+      ],
+      "candidate_role_ids": [
+        3,
+        1,
+        0,
+        1
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 4,
+      "scenario": "role_consistent",
+      "true_species_label": "pyroxene",
+      "true_role_id": 2,
+      "candidate_species_labels": [
+        "pyroxene",
+        "quartz",
+        "vesuvianite",
+        "calcite"
+      ],
+      "candidate_role_ids": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 4,
+      "scenario": "role_conflict",
+      "true_species_label": "pyroxene",
+      "true_role_id": 2,
+      "candidate_species_labels": [
+        "pyroxene",
+        "titanite",
+        "pyrite",
+        "hematite"
+      ],
+      "candidate_role_ids": [
+        2,
+        1,
+        3,
+        3
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 4,
+      "scenario": "role_consistent",
+      "true_species_label": "quartz",
+      "true_role_id": 2,
+      "candidate_species_labels": [
+        "quartz",
+        "vesuvianite",
+        "fluorapatite",
+        "pyroxene"
+      ],
+      "candidate_role_ids": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 4,
+      "scenario": "role_conflict",
+      "true_species_label": "quartz",
+      "true_role_id": 2,
+      "candidate_species_labels": [
+        "quartz",
+        "titanite",
+        "ilmenite",
+        "rutile"
+      ],
+      "candidate_role_ids": [
+        2,
+        1,
+        0,
+        1
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 4,
+      "scenario": "role_consistent",
+      "true_species_label": "rutile",
+      "true_role_id": 1,
+      "candidate_species_labels": [
+        "rutile",
+        "perovskite",
+        "anatase",
+        "titanite"
+      ],
+      "candidate_role_ids": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 4,
+      "scenario": "role_conflict",
+      "true_species_label": "rutile",
+      "true_role_id": 1,
+      "candidate_species_labels": [
+        "rutile",
+        "vesuvianite",
+        "ilmenite",
+        "feldspar"
+      ],
+      "candidate_role_ids": [
+        1,
+        2,
+        0,
+        2
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 4,
+      "scenario": "role_consistent",
+      "true_species_label": "titanite",
+      "true_role_id": 1,
+      "candidate_species_labels": [
+        "titanite",
+        "perovskite",
+        "anatase",
+        "rutile"
+      ],
+      "candidate_role_ids": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 4,
+      "scenario": "role_conflict",
+      "true_species_label": "titanite",
+      "true_role_id": 1,
+      "candidate_species_labels": [
+        "titanite",
+        "chalcopyrite",
+        "pyroxene",
+        "magnetite"
+      ],
+      "candidate_role_ids": [
+        1,
+        3,
+        2,
+        0
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 4,
+      "scenario": "role_conflict",
+      "true_species_label": "titanomagnetite",
+      "true_role_id": 0,
+      "candidate_species_labels": [
+        "titanomagnetite",
+        "chalcopyrite",
+        "perovskite",
+        "anatase"
+      ],
+      "candidate_role_ids": [
+        0,
+        3,
+        1,
+        1
+      ],
+      "species_unique": false,
+      "role_unique": false
+    },
+    {
+      "candidate_size": 4,
+      "scenario": "role_consistent",
+      "true_species_label": "vesuvianite",
+      "true_role_id": 2,
+      "candidate_species_labels": [
+        "vesuvianite",
+        "fluorapatite",
+        "calcite",
+        "quartz"
+      ],
+      "candidate_role_ids": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "species_unique": false,
+      "role_unique": true
+    },
+    {
+      "candidate_size": 4,
+      "scenario": "role_conflict",
+      "true_species_label": "vesuvianite",
+      "true_role_id": 2,
+      "candidate_species_labels": [
+        "vesuvianite",
+        "titanite",
+        "perovskite",
+        "magnetite"
+      ],
+      "candidate_role_ids": [
+        2,
+        1,
+        1,
+        0
+      ],
+      "species_unique": false,
+      "role_unique": false
+    }
+  ]
+}
