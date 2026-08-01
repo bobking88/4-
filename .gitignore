@@ -3,6 +3,7 @@
 .pip-cache/
 .torch-cache/
 .codex_tmp/
+.worktrees/
 __pycache__/
 *.py[cod]
 
