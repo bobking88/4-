@@ -67,6 +67,11 @@ class TechnicalReportIntegrationTests(unittest.TestCase):
             "受控逻辑条件验证",
             "固定测试划分上的选择性识别",
             "阶段条件化决策",
+            "outputs/theory_validation/role_identifiability/role_identifiability_summary.json",
+            "见§5.9",
+            "outputs/theory_validation/selective_recognition/selective_recognition_summary.json",
+            "图 9 和§5.10",
+            "outputs/paper_figures_v1/fig9_selective_recognition.png",
         ):
             self.assertIn(required, report_text)
         for prohibited in (

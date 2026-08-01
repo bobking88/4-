@@ -688,9 +688,9 @@ def build_report():
         "脉石/废石较易识别，而含钛干扰矿物与金属光泽干扰矿物是主要难点。三随机种子 Focal Loss 消融未在总体和目标代理风险指标上形成一致改善，说明统一难例权重不足以解决类别关系混淆。",
         "角色感知困难负样本学习在总体 Macro F1 上与基线接近，但可降低含钛干扰和金属光泽干扰误入目标的比例，代价是目标类漏选增加；该方法构成后续依据实际分选风险阈值调优的可解释原型。",
         "矿物种类—选矿角色分层一致性模型将种类概率与角色概率联合约束。两项三随机种子组件消融显示：去除一致性或困难负样本约束后，完整模型在目标代理 F1 和两类关键干扰误入目标风险上均呈更优方向，但总体 Macro F1 差异仍与种子间波动相近；当前应将其视为可量化的风险改善趋势，而非已被证明的稳定性能改进。",
-        f"角色可识别性命题得到受控逻辑条件验证：{role_consistent['row_count']} 个角色一致候选集的角色唯一可识别率为 {100 * role_consistent['role_unique_rate']:.2f}%，{role_conflict['row_count']} 个角色冲突候选集为 {100 * role_conflict['role_unique_rate']:.2f}%。该证据不使用视觉标签推断或模型预测。",
-        f"固定测试划分上的选择性识别表明阈值提高会降低覆盖率并降低保留样本错误率；阈值 0.90 时平均覆盖率为 {100 * threshold_090['mean']['coverage']:.2f}%，保留样本错误率为 {100 * threshold_090['mean']['risk']:.2f}%。这只是固定划分证据，不是检查成本或处置策略的最优性证明。",
-        "当前结果支持公开矿物标本图像上的理论形式化、受控逻辑验证与固定划分选择性识别评价，但不等同于工业现场分选、精矿品位/回收率、XRF 成本最优、外部验证或统计显著性结论。",
+        f"角色可识别性命题得到受控逻辑条件验证：{role_consistent['row_count']} 个角色一致候选集的角色唯一可识别率为 {100 * role_consistent['role_unique_rate']:.2f}%，{role_conflict['row_count']} 个角色冲突候选集为 {100 * role_conflict['role_unique_rate']:.2f}%。该证据不使用视觉标签推断或模型预测；可复现汇总见 outputs/theory_validation/role_identifiability/role_identifiability_summary.json，见§5.9。",
+        f"固定测试划分上的选择性识别表明阈值提高会降低覆盖率并降低保留样本错误率；阈值 0.90 时平均覆盖率为 {100 * threshold_090['mean']['coverage']:.2f}%，保留样本错误率为 {100 * threshold_090['mean']['risk']:.2f}%。这只是固定划分证据，不是检查成本或处置策略的最优性证明；可复现汇总见 outputs/theory_validation/selective_recognition/selective_recognition_summary.json，见图 9 和§5.10。",
+        "当前结果支持公开矿物标本图像上的理论形式化、受控逻辑验证与固定划分选择性识别评价，但不等同于工业现场分选、精矿品位/回收率、XRF 成本最优、外部验证或统计显著性结论。结论 7 的证据追溯至 outputs/theory_validation/role_identifiability/role_identifiability_summary.json（§5.9）；结论 8 的证据追溯至 outputs/theory_validation/selective_recognition/selective_recognition_summary.json 和 outputs/paper_figures_v1/fig9_selective_recognition.png（图 9、§5.10）。",
     ]
     for idx, text in enumerate(conclusions, 1):
         p = doc.add_paragraph()
@@ -728,7 +728,7 @@ def build_report():
         ("split", "train、val 或 test 固定数据划分"),
     ], [4.2, 9.9], 10.5)
     add_heading(doc, "A.2 可复现材料", 2)
-    add_body(doc, "本项目保留数据清单、采集与筛选辅助脚本、数据质量审计记录、训练脚本、实验指标、混淆矩阵、逐图预测结果和图表源数据。正式复现时应以固定清单 dataset_split_manifest_v1_0.csv 为准，并保持图片编号分组、训练随机种子和评价指标定义一致。由于公开网页图片可能具有不同作者与许可，公开共享时应优先发布元数据、脚本、图表源数据和处理规则，而不应在未核实许可的情况下整体再分发原始图片。")
+    add_body(doc, "本项目保留数据清单、采集与筛选辅助脚本、数据质量审计记录、训练脚本、实验指标、混淆矩阵、逐图预测结果和图表源数据。候选集受控逻辑条件验证的可复现汇总为 outputs/theory_validation/role_identifiability/role_identifiability_summary.json（§5.9）；固定测试划分选择性识别的可复现汇总为 outputs/theory_validation/selective_recognition/selective_recognition_summary.json，图表文件为 outputs/paper_figures_v1/fig9_selective_recognition.png（图 9、§5.10）。正式复现时应以固定清单 dataset_split_manifest_v1_0.csv 为准，并保持图片编号分组、训练随机种子和评价指标定义一致。由于公开网页图片可能具有不同作者与许可，公开共享时应优先发布元数据、脚本、图表源数据和处理规则，而不应在未核实许可的情况下整体再分发原始图片。")
     add_heading(doc, "A.3 结题前待补信息", 2)
     add_table(doc, ["项目", "当前状态", "建议补充位置"], [
         ("项目编号、承担单位、负责人", "待核验", "封面及验收报告基本信息"),

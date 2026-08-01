@@ -55,3 +55,9 @@ Task 4 已完成实现、DOCX 重建、结构验证和范围审计。已尝试�
 ## 自审结论与剩余风险
 
 代码和文档改动均限定在 Task 4，数值由指定输出动态生成，公式方向与训练实现一致，必需图像已嵌入，禁止性声明审计通过。唯一未闭合项是 LibreOffice 缺失导致的页面级视觉 QA 不可用；可能仍存在只能通过 Word/LibreOffice 页面渲染发现的分页、表格跨页或图像缩放问题。提交中不包含原有计划文件修改和构建产生的未跟踪总体技术路线 PNG。
+
+## Fix round 1/5 (2026-08-01)
+
+- Added concise DOCX provenance references in conclusions 7-9: the controlled candidate-set validation now cites `outputs/theory_validation/role_identifiability/role_identifiability_summary.json` and §5.9; selective recognition now cites `outputs/theory_validation/selective_recognition/selective_recognition_summary.json`, Figure 9, and §5.10.
+- Extended Appendix A.2 with the exact JSON and Figure 9 output paths, and added DOCX-text assertions for those references in `tests/test_build_technical_report.py`.
+- Rebuilt the DOCX and ran `python -m unittest tests.test_build_technical_report -v`: 4 tests passed. No claims or boundaries were changed; no industrial, XRF, or external-validation assertions were added.
