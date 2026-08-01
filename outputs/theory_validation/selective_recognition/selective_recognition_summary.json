@@ -1,0 +1,1546 @@
+{
+  "analysis_type": "confidence-based selective-recognition risk analysis",
+  "fixed_split_consumed_unchanged": true,
+  "input_files": [
+    "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\training\\formal_hierarchical_efficientnet_b0_seed20260727\\test_predictions.csv",
+    "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\training\\formal_hierarchical_efficientnet_b0_seed20260728\\test_predictions.csv",
+    "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\training\\formal_hierarchical_efficientnet_b0_seed20260729\\test_predictions.csv"
+  ],
+  "thresholds": [
+    0.0,
+    0.05,
+    0.1,
+    0.15,
+    0.2,
+    0.25,
+    0.3,
+    0.35,
+    0.4,
+    0.45,
+    0.5,
+    0.55,
+    0.6,
+    0.65,
+    0.7,
+    0.75,
+    0.8,
+    0.85,
+    0.9,
+    0.95
+  ],
+  "seed_level_metrics": {
+    "formal_hierarchical_efficientnet_b0_seed20260727": [
+      {
+        "threshold": 0.0,
+        "retained_count": 1284,
+        "coverage": 1.0,
+        "risk": 0.2749221183800623,
+        "target_proxy_miss_rate": 0.199203187250996,
+        "titanium_interference_intrusion_rate": 0.1446028513238289,
+        "metallic_hard_negative_intrusion_rate": 0.17613636363636365
+      },
+      {
+        "threshold": 0.05,
+        "retained_count": 1284,
+        "coverage": 1.0,
+        "risk": 0.2749221183800623,
+        "target_proxy_miss_rate": 0.199203187250996,
+        "titanium_interference_intrusion_rate": 0.1446028513238289,
+        "metallic_hard_negative_intrusion_rate": 0.17613636363636365
+      },
+      {
+        "threshold": 0.1,
+        "retained_count": 1284,
+        "coverage": 1.0,
+        "risk": 0.2749221183800623,
+        "target_proxy_miss_rate": 0.199203187250996,
+        "titanium_interference_intrusion_rate": 0.1446028513238289,
+        "metallic_hard_negative_intrusion_rate": 0.17613636363636365
+      },
+      {
+        "threshold": 0.15,
+        "retained_count": 1284,
+        "coverage": 1.0,
+        "risk": 0.2749221183800623,
+        "target_proxy_miss_rate": 0.199203187250996,
+        "titanium_interference_intrusion_rate": 0.1446028513238289,
+        "metallic_hard_negative_intrusion_rate": 0.17613636363636365
+      },
+      {
+        "threshold": 0.2,
+        "retained_count": 1284,
+        "coverage": 1.0,
+        "risk": 0.2749221183800623,
+        "target_proxy_miss_rate": 0.199203187250996,
+        "titanium_interference_intrusion_rate": 0.1446028513238289,
+        "metallic_hard_negative_intrusion_rate": 0.17613636363636365
+      },
+      {
+        "threshold": 0.25,
+        "retained_count": 1284,
+        "coverage": 1.0,
+        "risk": 0.2749221183800623,
+        "target_proxy_miss_rate": 0.199203187250996,
+        "titanium_interference_intrusion_rate": 0.1446028513238289,
+        "metallic_hard_negative_intrusion_rate": 0.17613636363636365
+      },
+      {
+        "threshold": 0.3,
+        "retained_count": 1282,
+        "coverage": 0.9984423676012462,
+        "risk": 0.2745709828393136,
+        "target_proxy_miss_rate": 0.199203187250996,
+        "titanium_interference_intrusion_rate": 0.14519427402862986,
+        "metallic_hard_negative_intrusion_rate": 0.17613636363636365
+      },
+      {
+        "threshold": 0.35,
+        "retained_count": 1274,
+        "coverage": 0.9922118380062306,
+        "risk": 0.271585557299843,
+        "target_proxy_miss_rate": 0.1927710843373494,
+        "titanium_interference_intrusion_rate": 0.1422680412371134,
+        "metallic_hard_negative_intrusion_rate": 0.17714285714285713
+      },
+      {
+        "threshold": 0.4,
+        "retained_count": 1258,
+        "coverage": 0.9797507788161994,
+        "risk": 0.2686804451510334,
+        "target_proxy_miss_rate": 0.18775510204081633,
+        "titanium_interference_intrusion_rate": 0.13778705636743216,
+        "metallic_hard_negative_intrusion_rate": 0.1781609195402299
+      },
+      {
+        "threshold": 0.45,
+        "retained_count": 1222,
+        "coverage": 0.9517133956386293,
+        "risk": 0.2569558101472995,
+        "target_proxy_miss_rate": 0.18410041841004185,
+        "titanium_interference_intrusion_rate": 0.1351931330472103,
+        "metallic_hard_negative_intrusion_rate": 0.17964071856287425
+      },
+      {
+        "threshold": 0.5,
+        "retained_count": 1184,
+        "coverage": 0.9221183800623053,
+        "risk": 0.24662162162162163,
+        "target_proxy_miss_rate": 0.1794871794871795,
+        "titanium_interference_intrusion_rate": 0.12582781456953643,
+        "metallic_hard_negative_intrusion_rate": 0.18354430379746836
+      },
+      {
+        "threshold": 0.55,
+        "retained_count": 1126,
+        "coverage": 0.8769470404984424,
+        "risk": 0.2291296625222025,
+        "target_proxy_miss_rate": 0.16517857142857142,
+        "titanium_interference_intrusion_rate": 0.11722488038277512,
+        "metallic_hard_negative_intrusion_rate": 0.18421052631578946
+      },
+      {
+        "threshold": 0.6,
+        "retained_count": 1070,
+        "coverage": 0.8333333333333334,
+        "risk": 0.21401869158878506,
+        "target_proxy_miss_rate": 0.13875598086124402,
+        "titanium_interference_intrusion_rate": 0.12,
+        "metallic_hard_negative_intrusion_rate": 0.16901408450704225
+      },
+      {
+        "threshold": 0.65,
+        "retained_count": 994,
+        "coverage": 0.7741433021806854,
+        "risk": 0.19014084507042253,
+        "target_proxy_miss_rate": 0.1326530612244898,
+        "titanium_interference_intrusion_rate": 0.12195121951219512,
+        "metallic_hard_negative_intrusion_rate": 0.13953488372093023
+      },
+      {
+        "threshold": 0.7,
+        "retained_count": 941,
+        "coverage": 0.7328660436137072,
+        "risk": 0.179596174282678,
+        "target_proxy_miss_rate": 0.12234042553191489,
+        "titanium_interference_intrusion_rate": 0.11470588235294117,
+        "metallic_hard_negative_intrusion_rate": 0.15
+      },
+      {
+        "threshold": 0.75,
+        "retained_count": 877,
+        "coverage": 0.6830218068535826,
+        "risk": 0.16419612314709237,
+        "target_proxy_miss_rate": 0.09195402298850575,
+        "titanium_interference_intrusion_rate": 0.10231023102310231,
+        "metallic_hard_negative_intrusion_rate": 0.15384615384615385
+      },
+      {
+        "threshold": 0.8,
+        "retained_count": 804,
+        "coverage": 0.6261682242990654,
+        "risk": 0.14676616915422885,
+        "target_proxy_miss_rate": 0.09146341463414634,
+        "titanium_interference_intrusion_rate": 0.09057971014492754,
+        "metallic_hard_negative_intrusion_rate": 0.1588785046728972
+      },
+      {
+        "threshold": 0.85,
+        "retained_count": 725,
+        "coverage": 0.5646417445482866,
+        "risk": 0.13517241379310344,
+        "target_proxy_miss_rate": 0.08843537414965986,
+        "titanium_interference_intrusion_rate": 0.0860655737704918,
+        "metallic_hard_negative_intrusion_rate": 0.15625
+      },
+      {
+        "threshold": 0.9,
+        "retained_count": 635,
+        "coverage": 0.4945482866043614,
+        "risk": 0.10236220472440945,
+        "target_proxy_miss_rate": 0.06015037593984962,
+        "titanium_interference_intrusion_rate": 0.06572769953051644,
+        "metallic_hard_negative_intrusion_rate": 0.1506849315068493
+      },
+      {
+        "threshold": 0.95,
+        "retained_count": 480,
+        "coverage": 0.37383177570093457,
+        "risk": 0.08333333333333333,
+        "target_proxy_miss_rate": 0.06,
+        "titanium_interference_intrusion_rate": 0.04487179487179487,
+        "metallic_hard_negative_intrusion_rate": 0.16326530612244897
+      }
+    ],
+    "formal_hierarchical_efficientnet_b0_seed20260728": [
+      {
+        "threshold": 0.0,
+        "retained_count": 1284,
+        "coverage": 1.0,
+        "risk": 0.2250778816199377,
+        "target_proxy_miss_rate": 0.2350597609561753,
+        "titanium_interference_intrusion_rate": 0.07739307535641547,
+        "metallic_hard_negative_intrusion_rate": 0.11931818181818182
+      },
+      {
+        "threshold": 0.05,
+        "retained_count": 1284,
+        "coverage": 1.0,
+        "risk": 0.2250778816199377,
+        "target_proxy_miss_rate": 0.2350597609561753,
+        "titanium_interference_intrusion_rate": 0.07739307535641547,
+        "metallic_hard_negative_intrusion_rate": 0.11931818181818182
+      },
+      {
+        "threshold": 0.1,
+        "retained_count": 1284,
+        "coverage": 1.0,
+        "risk": 0.2250778816199377,
+        "target_proxy_miss_rate": 0.2350597609561753,
+        "titanium_interference_intrusion_rate": 0.07739307535641547,
+        "metallic_hard_negative_intrusion_rate": 0.11931818181818182
+      },
+      {
+        "threshold": 0.15,
+        "retained_count": 1284,
+        "coverage": 1.0,
+        "risk": 0.2250778816199377,
+        "target_proxy_miss_rate": 0.2350597609561753,
+        "titanium_interference_intrusion_rate": 0.07739307535641547,
+        "metallic_hard_negative_intrusion_rate": 0.11931818181818182
+      },
+      {
+        "threshold": 0.2,
+        "retained_count": 1284,
+        "coverage": 1.0,
+        "risk": 0.2250778816199377,
+        "target_proxy_miss_rate": 0.2350597609561753,
+        "titanium_interference_intrusion_rate": 0.07739307535641547,
+        "metallic_hard_negative_intrusion_rate": 0.11931818181818182
+      },
+      {
+        "threshold": 0.25,
+        "retained_count": 1284,
+        "coverage": 1.0,
+        "risk": 0.2250778816199377,
+        "target_proxy_miss_rate": 0.2350597609561753,
+        "titanium_interference_intrusion_rate": 0.07739307535641547,
+        "metallic_hard_negative_intrusion_rate": 0.11931818181818182
+      },
+      {
+        "threshold": 0.3,
+        "retained_count": 1284,
+        "coverage": 1.0,
+        "risk": 0.2250778816199377,
+        "target_proxy_miss_rate": 0.2350597609561753,
+        "titanium_interference_intrusion_rate": 0.07739307535641547,
+        "metallic_hard_negative_intrusion_rate": 0.11931818181818182
+      },
+      {
+        "threshold": 0.35,
+        "retained_count": 1281,
+        "coverage": 0.9976635514018691,
+        "risk": 0.22404371584699453,
+        "target_proxy_miss_rate": 0.2350597609561753,
+        "titanium_interference_intrusion_rate": 0.07755102040816327,
+        "metallic_hard_negative_intrusion_rate": 0.12
+      },
+      {
+        "threshold": 0.4,
+        "retained_count": 1274,
+        "coverage": 0.9922118380062306,
+        "risk": 0.22135007849293564,
+        "target_proxy_miss_rate": 0.232,
+        "titanium_interference_intrusion_rate": 0.07802874743326489,
+        "metallic_hard_negative_intrusion_rate": 0.1206896551724138
+      },
+      {
+        "threshold": 0.45,
+        "retained_count": 1251,
+        "coverage": 0.9742990654205608,
+        "risk": 0.21502797761790568,
+        "target_proxy_miss_rate": 0.22857142857142856,
+        "titanium_interference_intrusion_rate": 0.07515657620041753,
+        "metallic_hard_negative_intrusion_rate": 0.11377245508982035
+      },
+      {
+        "threshold": 0.5,
+        "retained_count": 1227,
+        "coverage": 0.955607476635514,
+        "risk": 0.2078239608801956,
+        "target_proxy_miss_rate": 0.2190082644628099,
+        "titanium_interference_intrusion_rate": 0.07203389830508475,
+        "metallic_hard_negative_intrusion_rate": 0.10625
+      },
+      {
+        "threshold": 0.55,
+        "retained_count": 1189,
+        "coverage": 0.92601246105919,
+        "risk": 0.19596299411269974,
+        "target_proxy_miss_rate": 0.2077922077922078,
+        "titanium_interference_intrusion_rate": 0.06783369803063458,
+        "metallic_hard_negative_intrusion_rate": 0.10256410256410256
+      },
+      {
+        "threshold": 0.6,
+        "retained_count": 1144,
+        "coverage": 0.8909657320872274,
+        "risk": 0.18793706293706294,
+        "target_proxy_miss_rate": 0.1981981981981982,
+        "titanium_interference_intrusion_rate": 0.05963302752293578,
+        "metallic_hard_negative_intrusion_rate": 0.10526315789473684
+      },
+      {
+        "threshold": 0.65,
+        "retained_count": 1101,
+        "coverage": 0.8574766355140186,
+        "risk": 0.1771117166212534,
+        "target_proxy_miss_rate": 0.19047619047619047,
+        "titanium_interference_intrusion_rate": 0.05714285714285714,
+        "metallic_hard_negative_intrusion_rate": 0.10344827586206896
+      },
+      {
+        "threshold": 0.7,
+        "retained_count": 1053,
+        "coverage": 0.8200934579439252,
+        "risk": 0.16904083570750236,
+        "target_proxy_miss_rate": 0.18274111675126903,
+        "titanium_interference_intrusion_rate": 0.05707196029776675,
+        "metallic_hard_negative_intrusion_rate": 0.10294117647058823
+      },
+      {
+        "threshold": 0.75,
+        "retained_count": 1002,
+        "coverage": 0.780373831775701,
+        "risk": 0.15868263473053892,
+        "target_proxy_miss_rate": 0.17616580310880828,
+        "titanium_interference_intrusion_rate": 0.052770448548812667,
+        "metallic_hard_negative_intrusion_rate": 0.109375
+      },
+      {
+        "threshold": 0.8,
+        "retained_count": 959,
+        "coverage": 0.7468847352024922,
+        "risk": 0.15224191866527634,
+        "target_proxy_miss_rate": 0.16853932584269662,
+        "titanium_interference_intrusion_rate": 0.049315068493150684,
+        "metallic_hard_negative_intrusion_rate": 0.09917355371900827
+      },
+      {
+        "threshold": 0.85,
+        "retained_count": 879,
+        "coverage": 0.6845794392523364,
+        "risk": 0.1285551763367463,
+        "target_proxy_miss_rate": 0.16463414634146342,
+        "titanium_interference_intrusion_rate": 0.029940119760479042,
+        "metallic_hard_negative_intrusion_rate": 0.09259259259259259
+      },
+      {
+        "threshold": 0.9,
+        "retained_count": 787,
+        "coverage": 0.6129283489096573,
+        "risk": 0.10927573062261753,
+        "target_proxy_miss_rate": 0.14285714285714285,
+        "titanium_interference_intrusion_rate": 0.02912621359223301,
+        "metallic_hard_negative_intrusion_rate": 0.08602150537634409
+      },
+      {
+        "threshold": 0.95,
+        "retained_count": 670,
+        "coverage": 0.5218068535825545,
+        "risk": 0.09850746268656717,
+        "target_proxy_miss_rate": 0.1557377049180328,
+        "titanium_interference_intrusion_rate": 0.03076923076923077,
+        "metallic_hard_negative_intrusion_rate": 0.08450704225352113
+      }
+    ],
+    "formal_hierarchical_efficientnet_b0_seed20260729": [
+      {
+        "threshold": 0.0,
+        "retained_count": 1284,
+        "coverage": 1.0,
+        "risk": 0.23753894080996885,
+        "target_proxy_miss_rate": 0.23904382470119523,
+        "titanium_interference_intrusion_rate": 0.10590631364562118,
+        "metallic_hard_negative_intrusion_rate": 0.13636363636363635
+      },
+      {
+        "threshold": 0.05,
+        "retained_count": 1284,
+        "coverage": 1.0,
+        "risk": 0.23753894080996885,
+        "target_proxy_miss_rate": 0.23904382470119523,
+        "titanium_interference_intrusion_rate": 0.10590631364562118,
+        "metallic_hard_negative_intrusion_rate": 0.13636363636363635
+      },
+      {
+        "threshold": 0.1,
+        "retained_count": 1284,
+        "coverage": 1.0,
+        "risk": 0.23753894080996885,
+        "target_proxy_miss_rate": 0.23904382470119523,
+        "titanium_interference_intrusion_rate": 0.10590631364562118,
+        "metallic_hard_negative_intrusion_rate": 0.13636363636363635
+      },
+      {
+        "threshold": 0.15,
+        "retained_count": 1284,
+        "coverage": 1.0,
+        "risk": 0.23753894080996885,
+        "target_proxy_miss_rate": 0.23904382470119523,
+        "titanium_interference_intrusion_rate": 0.10590631364562118,
+        "metallic_hard_negative_intrusion_rate": 0.13636363636363635
+      },
+      {
+        "threshold": 0.2,
+        "retained_count": 1284,
+        "coverage": 1.0,
+        "risk": 0.23753894080996885,
+        "target_proxy_miss_rate": 0.23904382470119523,
+        "titanium_interference_intrusion_rate": 0.10590631364562118,
+        "metallic_hard_negative_intrusion_rate": 0.13636363636363635
+      },
+      {
+        "threshold": 0.25,
+        "retained_count": 1284,
+        "coverage": 1.0,
+        "risk": 0.23753894080996885,
+        "target_proxy_miss_rate": 0.23904382470119523,
+        "titanium_interference_intrusion_rate": 0.10590631364562118,
+        "metallic_hard_negative_intrusion_rate": 0.13636363636363635
+      },
+      {
+        "threshold": 0.3,
+        "retained_count": 1284,
+        "coverage": 1.0,
+        "risk": 0.23753894080996885,
+        "target_proxy_miss_rate": 0.23904382470119523,
+        "titanium_interference_intrusion_rate": 0.10590631364562118,
+        "metallic_hard_negative_intrusion_rate": 0.13636363636363635
+      },
+      {
+        "threshold": 0.35,
+        "retained_count": 1284,
+        "coverage": 1.0,
+        "risk": 0.23753894080996885,
+        "target_proxy_miss_rate": 0.23904382470119523,
+        "titanium_interference_intrusion_rate": 0.10590631364562118,
+        "metallic_hard_negative_intrusion_rate": 0.13636363636363635
+      },
+      {
+        "threshold": 0.4,
+        "retained_count": 1281,
+        "coverage": 0.9976635514018691,
+        "risk": 0.23575331772053085,
+        "target_proxy_miss_rate": 0.23904382470119523,
+        "titanium_interference_intrusion_rate": 0.10590631364562118,
+        "metallic_hard_negative_intrusion_rate": 0.13218390804597702
+      },
+      {
+        "threshold": 0.45,
+        "retained_count": 1274,
+        "coverage": 0.9922118380062306,
+        "risk": 0.2315541601255887,
+        "target_proxy_miss_rate": 0.236,
+        "titanium_interference_intrusion_rate": 0.10040983606557377,
+        "metallic_hard_negative_intrusion_rate": 0.12790697674418605
+      },
+      {
+        "threshold": 0.5,
+        "retained_count": 1258,
+        "coverage": 0.9797507788161994,
+        "risk": 0.22655007949125597,
+        "target_proxy_miss_rate": 0.23790322580645162,
+        "titanium_interference_intrusion_rate": 0.09917355371900827,
+        "metallic_hard_negative_intrusion_rate": 0.13095238095238096
+      },
+      {
+        "threshold": 0.55,
+        "retained_count": 1225,
+        "coverage": 0.9540498442367601,
+        "risk": 0.21714285714285714,
+        "target_proxy_miss_rate": 0.22727272727272727,
+        "titanium_interference_intrusion_rate": 0.09129511677282377,
+        "metallic_hard_negative_intrusion_rate": 0.12883435582822086
+      },
+      {
+        "threshold": 0.6,
+        "retained_count": 1187,
+        "coverage": 0.9244548286604362,
+        "risk": 0.2055602358887953,
+        "target_proxy_miss_rate": 0.21982758620689655,
+        "titanium_interference_intrusion_rate": 0.08533916849015317,
+        "metallic_hard_negative_intrusion_rate": 0.12101910828025478
+      },
+      {
+        "threshold": 0.65,
+        "retained_count": 1151,
+        "coverage": 0.8964174454828661,
+        "risk": 0.19374456993918332,
+        "target_proxy_miss_rate": 0.2,
+        "titanium_interference_intrusion_rate": 0.08126410835214447,
+        "metallic_hard_negative_intrusion_rate": 0.11920529801324503
+      },
+      {
+        "threshold": 0.7,
+        "retained_count": 1118,
+        "coverage": 0.8707165109034268,
+        "risk": 0.18604651162790697,
+        "target_proxy_miss_rate": 0.19724770642201836,
+        "titanium_interference_intrusion_rate": 0.06993006993006994,
+        "metallic_hard_negative_intrusion_rate": 0.12244897959183673
+      },
+      {
+        "threshold": 0.75,
+        "retained_count": 1077,
+        "coverage": 0.8387850467289719,
+        "risk": 0.17827298050139276,
+        "target_proxy_miss_rate": 0.18660287081339713,
+        "titanium_interference_intrusion_rate": 0.06987951807228916,
+        "metallic_hard_negative_intrusion_rate": 0.12142857142857143
+      },
+      {
+        "threshold": 0.8,
+        "retained_count": 1040,
+        "coverage": 0.8099688473520249,
+        "risk": 0.16634615384615384,
+        "target_proxy_miss_rate": 0.17326732673267325,
+        "titanium_interference_intrusion_rate": 0.0678391959798995,
+        "metallic_hard_negative_intrusion_rate": 0.10948905109489052
+      },
+      {
+        "threshold": 0.85,
+        "retained_count": 989,
+        "coverage": 0.7702492211838006,
+        "risk": 0.1577350859453994,
+        "target_proxy_miss_rate": 0.1693121693121693,
+        "titanium_interference_intrusion_rate": 0.06036745406824147,
+        "metallic_hard_negative_intrusion_rate": 0.11538461538461539
+      },
+      {
+        "threshold": 0.9,
+        "retained_count": 923,
+        "coverage": 0.7188473520249221,
+        "risk": 0.13976164680390032,
+        "target_proxy_miss_rate": 0.12790697674418605,
+        "titanium_interference_intrusion_rate": 0.05056179775280899,
+        "metallic_hard_negative_intrusion_rate": 0.1206896551724138
+      },
+      {
+        "threshold": 0.95,
+        "retained_count": 838,
+        "coverage": 0.6526479750778816,
+        "risk": 0.11575178997613365,
+        "target_proxy_miss_rate": 0.12903225806451613,
+        "titanium_interference_intrusion_rate": 0.043343653250773995,
+        "metallic_hard_negative_intrusion_rate": 0.0891089108910891
+      }
+    ]
+  },
+  "threshold_summary": [
+    {
+      "threshold": 0.0,
+      "seed_values": {
+        "formal_hierarchical_efficientnet_b0_seed20260727": {
+          "threshold": 0.0,
+          "retained_count": 1284,
+          "coverage": 1.0,
+          "risk": 0.2749221183800623,
+          "target_proxy_miss_rate": 0.199203187250996,
+          "titanium_interference_intrusion_rate": 0.1446028513238289,
+          "metallic_hard_negative_intrusion_rate": 0.17613636363636365
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260728": {
+          "threshold": 0.0,
+          "retained_count": 1284,
+          "coverage": 1.0,
+          "risk": 0.2250778816199377,
+          "target_proxy_miss_rate": 0.2350597609561753,
+          "titanium_interference_intrusion_rate": 0.07739307535641547,
+          "metallic_hard_negative_intrusion_rate": 0.11931818181818182
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260729": {
+          "threshold": 0.0,
+          "retained_count": 1284,
+          "coverage": 1.0,
+          "risk": 0.23753894080996885,
+          "target_proxy_miss_rate": 0.23904382470119523,
+          "titanium_interference_intrusion_rate": 0.10590631364562118,
+          "metallic_hard_negative_intrusion_rate": 0.13636363636363635
+        }
+      },
+      "mean": {
+        "retained_count": 1284.0,
+        "coverage": 1.0,
+        "risk": 0.24584631360332296,
+        "target_proxy_miss_rate": 0.2244355909694555,
+        "titanium_interference_intrusion_rate": 0.10930074677528852,
+        "metallic_hard_negative_intrusion_rate": 0.14393939393939395
+      },
+      "sample_std": {
+        "retained_count": 0.0,
+        "coverage": 0.0,
+        "risk": 0.02593976323322284,
+        "target_proxy_miss_rate": 0.021942512140582092,
+        "titanium_interference_intrusion_rate": 0.0337332199560213,
+        "metallic_hard_negative_intrusion_rate": 0.029156826360493663
+      }
+    },
+    {
+      "threshold": 0.05,
+      "seed_values": {
+        "formal_hierarchical_efficientnet_b0_seed20260727": {
+          "threshold": 0.05,
+          "retained_count": 1284,
+          "coverage": 1.0,
+          "risk": 0.2749221183800623,
+          "target_proxy_miss_rate": 0.199203187250996,
+          "titanium_interference_intrusion_rate": 0.1446028513238289,
+          "metallic_hard_negative_intrusion_rate": 0.17613636363636365
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260728": {
+          "threshold": 0.05,
+          "retained_count": 1284,
+          "coverage": 1.0,
+          "risk": 0.2250778816199377,
+          "target_proxy_miss_rate": 0.2350597609561753,
+          "titanium_interference_intrusion_rate": 0.07739307535641547,
+          "metallic_hard_negative_intrusion_rate": 0.11931818181818182
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260729": {
+          "threshold": 0.05,
+          "retained_count": 1284,
+          "coverage": 1.0,
+          "risk": 0.23753894080996885,
+          "target_proxy_miss_rate": 0.23904382470119523,
+          "titanium_interference_intrusion_rate": 0.10590631364562118,
+          "metallic_hard_negative_intrusion_rate": 0.13636363636363635
+        }
+      },
+      "mean": {
+        "retained_count": 1284.0,
+        "coverage": 1.0,
+        "risk": 0.24584631360332296,
+        "target_proxy_miss_rate": 0.2244355909694555,
+        "titanium_interference_intrusion_rate": 0.10930074677528852,
+        "metallic_hard_negative_intrusion_rate": 0.14393939393939395
+      },
+      "sample_std": {
+        "retained_count": 0.0,
+        "coverage": 0.0,
+        "risk": 0.02593976323322284,
+        "target_proxy_miss_rate": 0.021942512140582092,
+        "titanium_interference_intrusion_rate": 0.0337332199560213,
+        "metallic_hard_negative_intrusion_rate": 0.029156826360493663
+      }
+    },
+    {
+      "threshold": 0.1,
+      "seed_values": {
+        "formal_hierarchical_efficientnet_b0_seed20260727": {
+          "threshold": 0.1,
+          "retained_count": 1284,
+          "coverage": 1.0,
+          "risk": 0.2749221183800623,
+          "target_proxy_miss_rate": 0.199203187250996,
+          "titanium_interference_intrusion_rate": 0.1446028513238289,
+          "metallic_hard_negative_intrusion_rate": 0.17613636363636365
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260728": {
+          "threshold": 0.1,
+          "retained_count": 1284,
+          "coverage": 1.0,
+          "risk": 0.2250778816199377,
+          "target_proxy_miss_rate": 0.2350597609561753,
+          "titanium_interference_intrusion_rate": 0.07739307535641547,
+          "metallic_hard_negative_intrusion_rate": 0.11931818181818182
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260729": {
+          "threshold": 0.1,
+          "retained_count": 1284,
+          "coverage": 1.0,
+          "risk": 0.23753894080996885,
+          "target_proxy_miss_rate": 0.23904382470119523,
+          "titanium_interference_intrusion_rate": 0.10590631364562118,
+          "metallic_hard_negative_intrusion_rate": 0.13636363636363635
+        }
+      },
+      "mean": {
+        "retained_count": 1284.0,
+        "coverage": 1.0,
+        "risk": 0.24584631360332296,
+        "target_proxy_miss_rate": 0.2244355909694555,
+        "titanium_interference_intrusion_rate": 0.10930074677528852,
+        "metallic_hard_negative_intrusion_rate": 0.14393939393939395
+      },
+      "sample_std": {
+        "retained_count": 0.0,
+        "coverage": 0.0,
+        "risk": 0.02593976323322284,
+        "target_proxy_miss_rate": 0.021942512140582092,
+        "titanium_interference_intrusion_rate": 0.0337332199560213,
+        "metallic_hard_negative_intrusion_rate": 0.029156826360493663
+      }
+    },
+    {
+      "threshold": 0.15,
+      "seed_values": {
+        "formal_hierarchical_efficientnet_b0_seed20260727": {
+          "threshold": 0.15,
+          "retained_count": 1284,
+          "coverage": 1.0,
+          "risk": 0.2749221183800623,
+          "target_proxy_miss_rate": 0.199203187250996,
+          "titanium_interference_intrusion_rate": 0.1446028513238289,
+          "metallic_hard_negative_intrusion_rate": 0.17613636363636365
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260728": {
+          "threshold": 0.15,
+          "retained_count": 1284,
+          "coverage": 1.0,
+          "risk": 0.2250778816199377,
+          "target_proxy_miss_rate": 0.2350597609561753,
+          "titanium_interference_intrusion_rate": 0.07739307535641547,
+          "metallic_hard_negative_intrusion_rate": 0.11931818181818182
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260729": {
+          "threshold": 0.15,
+          "retained_count": 1284,
+          "coverage": 1.0,
+          "risk": 0.23753894080996885,
+          "target_proxy_miss_rate": 0.23904382470119523,
+          "titanium_interference_intrusion_rate": 0.10590631364562118,
+          "metallic_hard_negative_intrusion_rate": 0.13636363636363635
+        }
+      },
+      "mean": {
+        "retained_count": 1284.0,
+        "coverage": 1.0,
+        "risk": 0.24584631360332296,
+        "target_proxy_miss_rate": 0.2244355909694555,
+        "titanium_interference_intrusion_rate": 0.10930074677528852,
+        "metallic_hard_negative_intrusion_rate": 0.14393939393939395
+      },
+      "sample_std": {
+        "retained_count": 0.0,
+        "coverage": 0.0,
+        "risk": 0.02593976323322284,
+        "target_proxy_miss_rate": 0.021942512140582092,
+        "titanium_interference_intrusion_rate": 0.0337332199560213,
+        "metallic_hard_negative_intrusion_rate": 0.029156826360493663
+      }
+    },
+    {
+      "threshold": 0.2,
+      "seed_values": {
+        "formal_hierarchical_efficientnet_b0_seed20260727": {
+          "threshold": 0.2,
+          "retained_count": 1284,
+          "coverage": 1.0,
+          "risk": 0.2749221183800623,
+          "target_proxy_miss_rate": 0.199203187250996,
+          "titanium_interference_intrusion_rate": 0.1446028513238289,
+          "metallic_hard_negative_intrusion_rate": 0.17613636363636365
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260728": {
+          "threshold": 0.2,
+          "retained_count": 1284,
+          "coverage": 1.0,
+          "risk": 0.2250778816199377,
+          "target_proxy_miss_rate": 0.2350597609561753,
+          "titanium_interference_intrusion_rate": 0.07739307535641547,
+          "metallic_hard_negative_intrusion_rate": 0.11931818181818182
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260729": {
+          "threshold": 0.2,
+          "retained_count": 1284,
+          "coverage": 1.0,
+          "risk": 0.23753894080996885,
+          "target_proxy_miss_rate": 0.23904382470119523,
+          "titanium_interference_intrusion_rate": 0.10590631364562118,
+          "metallic_hard_negative_intrusion_rate": 0.13636363636363635
+        }
+      },
+      "mean": {
+        "retained_count": 1284.0,
+        "coverage": 1.0,
+        "risk": 0.24584631360332296,
+        "target_proxy_miss_rate": 0.2244355909694555,
+        "titanium_interference_intrusion_rate": 0.10930074677528852,
+        "metallic_hard_negative_intrusion_rate": 0.14393939393939395
+      },
+      "sample_std": {
+        "retained_count": 0.0,
+        "coverage": 0.0,
+        "risk": 0.02593976323322284,
+        "target_proxy_miss_rate": 0.021942512140582092,
+        "titanium_interference_intrusion_rate": 0.0337332199560213,
+        "metallic_hard_negative_intrusion_rate": 0.029156826360493663
+      }
+    },
+    {
+      "threshold": 0.25,
+      "seed_values": {
+        "formal_hierarchical_efficientnet_b0_seed20260727": {
+          "threshold": 0.25,
+          "retained_count": 1284,
+          "coverage": 1.0,
+          "risk": 0.2749221183800623,
+          "target_proxy_miss_rate": 0.199203187250996,
+          "titanium_interference_intrusion_rate": 0.1446028513238289,
+          "metallic_hard_negative_intrusion_rate": 0.17613636363636365
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260728": {
+          "threshold": 0.25,
+          "retained_count": 1284,
+          "coverage": 1.0,
+          "risk": 0.2250778816199377,
+          "target_proxy_miss_rate": 0.2350597609561753,
+          "titanium_interference_intrusion_rate": 0.07739307535641547,
+          "metallic_hard_negative_intrusion_rate": 0.11931818181818182
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260729": {
+          "threshold": 0.25,
+          "retained_count": 1284,
+          "coverage": 1.0,
+          "risk": 0.23753894080996885,
+          "target_proxy_miss_rate": 0.23904382470119523,
+          "titanium_interference_intrusion_rate": 0.10590631364562118,
+          "metallic_hard_negative_intrusion_rate": 0.13636363636363635
+        }
+      },
+      "mean": {
+        "retained_count": 1284.0,
+        "coverage": 1.0,
+        "risk": 0.24584631360332296,
+        "target_proxy_miss_rate": 0.2244355909694555,
+        "titanium_interference_intrusion_rate": 0.10930074677528852,
+        "metallic_hard_negative_intrusion_rate": 0.14393939393939395
+      },
+      "sample_std": {
+        "retained_count": 0.0,
+        "coverage": 0.0,
+        "risk": 0.02593976323322284,
+        "target_proxy_miss_rate": 0.021942512140582092,
+        "titanium_interference_intrusion_rate": 0.0337332199560213,
+        "metallic_hard_negative_intrusion_rate": 0.029156826360493663
+      }
+    },
+    {
+      "threshold": 0.3,
+      "seed_values": {
+        "formal_hierarchical_efficientnet_b0_seed20260727": {
+          "threshold": 0.3,
+          "retained_count": 1282,
+          "coverage": 0.9984423676012462,
+          "risk": 0.2745709828393136,
+          "target_proxy_miss_rate": 0.199203187250996,
+          "titanium_interference_intrusion_rate": 0.14519427402862986,
+          "metallic_hard_negative_intrusion_rate": 0.17613636363636365
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260728": {
+          "threshold": 0.3,
+          "retained_count": 1284,
+          "coverage": 1.0,
+          "risk": 0.2250778816199377,
+          "target_proxy_miss_rate": 0.2350597609561753,
+          "titanium_interference_intrusion_rate": 0.07739307535641547,
+          "metallic_hard_negative_intrusion_rate": 0.11931818181818182
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260729": {
+          "threshold": 0.3,
+          "retained_count": 1284,
+          "coverage": 1.0,
+          "risk": 0.23753894080996885,
+          "target_proxy_miss_rate": 0.23904382470119523,
+          "titanium_interference_intrusion_rate": 0.10590631364562118,
+          "metallic_hard_negative_intrusion_rate": 0.13636363636363635
+        }
+      },
+      "mean": {
+        "retained_count": 1283.3333333333333,
+        "coverage": 0.9994807892004154,
+        "risk": 0.24572926842307338,
+        "target_proxy_miss_rate": 0.2244355909694555,
+        "titanium_interference_intrusion_rate": 0.10949788767688884,
+        "metallic_hard_negative_intrusion_rate": 0.14393939393939395
+      },
+      "sample_std": {
+        "retained_count": 1.1547005383792515,
+        "coverage": 0.0008992994847190113,
+        "risk": 0.025743015885582126,
+        "target_proxy_miss_rate": 0.021942512140582092,
+        "titanium_interference_intrusion_rate": 0.0340429902970322,
+        "metallic_hard_negative_intrusion_rate": 0.029156826360493663
+      }
+    },
+    {
+      "threshold": 0.35,
+      "seed_values": {
+        "formal_hierarchical_efficientnet_b0_seed20260727": {
+          "threshold": 0.35,
+          "retained_count": 1274,
+          "coverage": 0.9922118380062306,
+          "risk": 0.271585557299843,
+          "target_proxy_miss_rate": 0.1927710843373494,
+          "titanium_interference_intrusion_rate": 0.1422680412371134,
+          "metallic_hard_negative_intrusion_rate": 0.17714285714285713
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260728": {
+          "threshold": 0.35,
+          "retained_count": 1281,
+          "coverage": 0.9976635514018691,
+          "risk": 0.22404371584699453,
+          "target_proxy_miss_rate": 0.2350597609561753,
+          "titanium_interference_intrusion_rate": 0.07755102040816327,
+          "metallic_hard_negative_intrusion_rate": 0.12
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260729": {
+          "threshold": 0.35,
+          "retained_count": 1284,
+          "coverage": 1.0,
+          "risk": 0.23753894080996885,
+          "target_proxy_miss_rate": 0.23904382470119523,
+          "titanium_interference_intrusion_rate": 0.10590631364562118,
+          "metallic_hard_negative_intrusion_rate": 0.13636363636363635
+        }
+      },
+      "mean": {
+        "retained_count": 1279.6666666666667,
+        "coverage": 0.9966251298026999,
+        "risk": 0.2443894046522688,
+        "target_proxy_miss_rate": 0.22229155666490666,
+        "titanium_interference_intrusion_rate": 0.10857512509696594,
+        "metallic_hard_negative_intrusion_rate": 0.1445021645021645
+      },
+      "sample_std": {
+        "retained_count": 5.131601439446884,
+        "coverage": 0.003996574329787259,
+        "risk": 0.024500067618742197,
+        "target_proxy_miss_rate": 0.025642969910145943,
+        "titanium_interference_intrusion_rate": 0.03244094807748092,
+        "metallic_hard_negative_intrusion_rate": 0.029427933342463165
+      }
+    },
+    {
+      "threshold": 0.4,
+      "seed_values": {
+        "formal_hierarchical_efficientnet_b0_seed20260727": {
+          "threshold": 0.4,
+          "retained_count": 1258,
+          "coverage": 0.9797507788161994,
+          "risk": 0.2686804451510334,
+          "target_proxy_miss_rate": 0.18775510204081633,
+          "titanium_interference_intrusion_rate": 0.13778705636743216,
+          "metallic_hard_negative_intrusion_rate": 0.1781609195402299
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260728": {
+          "threshold": 0.4,
+          "retained_count": 1274,
+          "coverage": 0.9922118380062306,
+          "risk": 0.22135007849293564,
+          "target_proxy_miss_rate": 0.232,
+          "titanium_interference_intrusion_rate": 0.07802874743326489,
+          "metallic_hard_negative_intrusion_rate": 0.1206896551724138
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260729": {
+          "threshold": 0.4,
+          "retained_count": 1281,
+          "coverage": 0.9976635514018691,
+          "risk": 0.23575331772053085,
+          "target_proxy_miss_rate": 0.23904382470119523,
+          "titanium_interference_intrusion_rate": 0.10590631364562118,
+          "metallic_hard_negative_intrusion_rate": 0.13218390804597702
+        }
+      },
+      "mean": {
+        "retained_count": 1271.0,
+        "coverage": 0.9898753894080997,
+        "risk": 0.24192794712149995,
+        "target_proxy_miss_rate": 0.2195996422473372,
+        "titanium_interference_intrusion_rate": 0.10724070581543942,
+        "metallic_hard_negative_intrusion_rate": 0.14367816091954022
+      },
+      "sample_std": {
+        "retained_count": 11.789826122551595,
+        "coverage": 0.009182107572080649,
+        "risk": 0.0242618102823548,
+        "target_proxy_miss_rate": 0.027802156792753233,
+        "titanium_interference_intrusion_rate": 0.029901493666955804,
+        "metallic_hard_negative_intrusion_rate": 0.030410934609937823
+      }
+    },
+    {
+      "threshold": 0.45,
+      "seed_values": {
+        "formal_hierarchical_efficientnet_b0_seed20260727": {
+          "threshold": 0.45,
+          "retained_count": 1222,
+          "coverage": 0.9517133956386293,
+          "risk": 0.2569558101472995,
+          "target_proxy_miss_rate": 0.18410041841004185,
+          "titanium_interference_intrusion_rate": 0.1351931330472103,
+          "metallic_hard_negative_intrusion_rate": 0.17964071856287425
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260728": {
+          "threshold": 0.45,
+          "retained_count": 1251,
+          "coverage": 0.9742990654205608,
+          "risk": 0.21502797761790568,
+          "target_proxy_miss_rate": 0.22857142857142856,
+          "titanium_interference_intrusion_rate": 0.07515657620041753,
+          "metallic_hard_negative_intrusion_rate": 0.11377245508982035
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260729": {
+          "threshold": 0.45,
+          "retained_count": 1274,
+          "coverage": 0.9922118380062306,
+          "risk": 0.2315541601255887,
+          "target_proxy_miss_rate": 0.236,
+          "titanium_interference_intrusion_rate": 0.10040983606557377,
+          "metallic_hard_negative_intrusion_rate": 0.12790697674418605
+        }
+      },
+      "mean": {
+        "retained_count": 1249.0,
+        "coverage": 0.9727414330218069,
+        "risk": 0.2345126492969313,
+        "target_proxy_miss_rate": 0.21622394899382347,
+        "titanium_interference_intrusion_rate": 0.10358651510440053,
+        "metallic_hard_negative_intrusion_rate": 0.14044005013229355
+      },
+      "sample_std": {
+        "retained_count": 26.057628441590765,
+        "coverage": 0.02029410314765636,
+        "risk": 0.02111990243315384,
+        "target_proxy_miss_rate": 0.028066649804397954,
+        "titanium_interference_intrusion_rate": 0.030144079133244996,
+        "metallic_hard_negative_intrusion_rate": 0.0346765840251412
+      }
+    },
+    {
+      "threshold": 0.5,
+      "seed_values": {
+        "formal_hierarchical_efficientnet_b0_seed20260727": {
+          "threshold": 0.5,
+          "retained_count": 1184,
+          "coverage": 0.9221183800623053,
+          "risk": 0.24662162162162163,
+          "target_proxy_miss_rate": 0.1794871794871795,
+          "titanium_interference_intrusion_rate": 0.12582781456953643,
+          "metallic_hard_negative_intrusion_rate": 0.18354430379746836
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260728": {
+          "threshold": 0.5,
+          "retained_count": 1227,
+          "coverage": 0.955607476635514,
+          "risk": 0.2078239608801956,
+          "target_proxy_miss_rate": 0.2190082644628099,
+          "titanium_interference_intrusion_rate": 0.07203389830508475,
+          "metallic_hard_negative_intrusion_rate": 0.10625
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260729": {
+          "threshold": 0.5,
+          "retained_count": 1258,
+          "coverage": 0.9797507788161994,
+          "risk": 0.22655007949125597,
+          "target_proxy_miss_rate": 0.23790322580645162,
+          "titanium_interference_intrusion_rate": 0.09917355371900827,
+          "metallic_hard_negative_intrusion_rate": 0.13095238095238096
+        }
+      },
+      "mean": {
+        "retained_count": 1223.0,
+        "coverage": 0.9524922118380063,
+        "risk": 0.22699855399769106,
+        "target_proxy_miss_rate": 0.21213288991881368,
+        "titanium_interference_intrusion_rate": 0.09901175553120982,
+        "metallic_hard_negative_intrusion_rate": 0.14024889491661643
+      },
+      "sample_std": {
+        "retained_count": 37.16180835212409,
+        "coverage": 0.028942218342775803,
+        "risk": 0.01940271802580476,
+        "target_proxy_miss_rate": 0.02980875204086898,
+        "titanium_interference_intrusion_rate": 0.026897323115077656,
+        "metallic_hard_negative_intrusion_rate": 0.03947684421023611
+      }
+    },
+    {
+      "threshold": 0.55,
+      "seed_values": {
+        "formal_hierarchical_efficientnet_b0_seed20260727": {
+          "threshold": 0.55,
+          "retained_count": 1126,
+          "coverage": 0.8769470404984424,
+          "risk": 0.2291296625222025,
+          "target_proxy_miss_rate": 0.16517857142857142,
+          "titanium_interference_intrusion_rate": 0.11722488038277512,
+          "metallic_hard_negative_intrusion_rate": 0.18421052631578946
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260728": {
+          "threshold": 0.55,
+          "retained_count": 1189,
+          "coverage": 0.92601246105919,
+          "risk": 0.19596299411269974,
+          "target_proxy_miss_rate": 0.2077922077922078,
+          "titanium_interference_intrusion_rate": 0.06783369803063458,
+          "metallic_hard_negative_intrusion_rate": 0.10256410256410256
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260729": {
+          "threshold": 0.55,
+          "retained_count": 1225,
+          "coverage": 0.9540498442367601,
+          "risk": 0.21714285714285714,
+          "target_proxy_miss_rate": 0.22727272727272727,
+          "titanium_interference_intrusion_rate": 0.09129511677282377,
+          "metallic_hard_negative_intrusion_rate": 0.12883435582822086
+        }
+      },
+      "mean": {
+        "retained_count": 1180.0,
+        "coverage": 0.9190031152647975,
+        "risk": 0.21407850459258645,
+        "target_proxy_miss_rate": 0.20008116883116883,
+        "titanium_interference_intrusion_rate": 0.09211789839541115,
+        "metallic_hard_negative_intrusion_rate": 0.13853632823603762
+      },
+      "sample_std": {
+        "retained_count": 50.1098792654702,
+        "coverage": 0.03902638572077114,
+        "risk": 0.016794334335148257,
+        "target_proxy_miss_rate": 0.0317571431160546,
+        "titanium_interference_intrusion_rate": 0.024705868750854534,
+        "metallic_hard_negative_intrusion_rate": 0.04167890148878128
+      }
+    },
+    {
+      "threshold": 0.6,
+      "seed_values": {
+        "formal_hierarchical_efficientnet_b0_seed20260727": {
+          "threshold": 0.6,
+          "retained_count": 1070,
+          "coverage": 0.8333333333333334,
+          "risk": 0.21401869158878506,
+          "target_proxy_miss_rate": 0.13875598086124402,
+          "titanium_interference_intrusion_rate": 0.12,
+          "metallic_hard_negative_intrusion_rate": 0.16901408450704225
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260728": {
+          "threshold": 0.6,
+          "retained_count": 1144,
+          "coverage": 0.8909657320872274,
+          "risk": 0.18793706293706294,
+          "target_proxy_miss_rate": 0.1981981981981982,
+          "titanium_interference_intrusion_rate": 0.05963302752293578,
+          "metallic_hard_negative_intrusion_rate": 0.10526315789473684
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260729": {
+          "threshold": 0.6,
+          "retained_count": 1187,
+          "coverage": 0.9244548286604362,
+          "risk": 0.2055602358887953,
+          "target_proxy_miss_rate": 0.21982758620689655,
+          "titanium_interference_intrusion_rate": 0.08533916849015317,
+          "metallic_hard_negative_intrusion_rate": 0.12101910828025478
+        }
+      },
+      "mean": {
+        "retained_count": 1133.6666666666667,
+        "coverage": 0.8829179646936657,
+        "risk": 0.20250533013821442,
+        "target_proxy_miss_rate": 0.18559392175544626,
+        "titanium_interference_intrusion_rate": 0.08832406533769632,
+        "metallic_hard_negative_intrusion_rate": 0.13176545022734462
+      },
+      "sample_std": {
+        "retained_count": 59.18051481132395,
+        "coverage": 0.04609074362252643,
+        "risk": 0.0133064711753448,
+        "target_proxy_miss_rate": 0.04197978247697685,
+        "titanium_interference_intrusion_rate": 0.030293977097840947,
+        "metallic_hard_negative_intrusion_rate": 0.03320629548616835
+      }
+    },
+    {
+      "threshold": 0.65,
+      "seed_values": {
+        "formal_hierarchical_efficientnet_b0_seed20260727": {
+          "threshold": 0.65,
+          "retained_count": 994,
+          "coverage": 0.7741433021806854,
+          "risk": 0.19014084507042253,
+          "target_proxy_miss_rate": 0.1326530612244898,
+          "titanium_interference_intrusion_rate": 0.12195121951219512,
+          "metallic_hard_negative_intrusion_rate": 0.13953488372093023
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260728": {
+          "threshold": 0.65,
+          "retained_count": 1101,
+          "coverage": 0.8574766355140186,
+          "risk": 0.1771117166212534,
+          "target_proxy_miss_rate": 0.19047619047619047,
+          "titanium_interference_intrusion_rate": 0.05714285714285714,
+          "metallic_hard_negative_intrusion_rate": 0.10344827586206896
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260729": {
+          "threshold": 0.65,
+          "retained_count": 1151,
+          "coverage": 0.8964174454828661,
+          "risk": 0.19374456993918332,
+          "target_proxy_miss_rate": 0.2,
+          "titanium_interference_intrusion_rate": 0.08126410835214447,
+          "metallic_hard_negative_intrusion_rate": 0.11920529801324503
+        }
+      },
+      "mean": {
+        "retained_count": 1082.0,
+        "coverage": 0.8426791277258567,
+        "risk": 0.1869990438769531,
+        "target_proxy_miss_rate": 0.1743764172335601,
+        "titanium_interference_intrusion_rate": 0.08678606166906558,
+        "metallic_hard_negative_intrusion_rate": 0.12072948586541474
+      },
+      "sample_std": {
+        "retained_count": 80.20598481410225,
+        "coverage": 0.06246572026020423,
+        "risk": 0.00875020790772468,
+        "target_proxy_miss_rate": 0.03644591286353201,
+        "titanium_interference_intrusion_rate": 0.03275515126777081,
+        "metallic_hard_negative_intrusion_rate": 0.018091522272775534
+      }
+    },
+    {
+      "threshold": 0.7,
+      "seed_values": {
+        "formal_hierarchical_efficientnet_b0_seed20260727": {
+          "threshold": 0.7,
+          "retained_count": 941,
+          "coverage": 0.7328660436137072,
+          "risk": 0.179596174282678,
+          "target_proxy_miss_rate": 0.12234042553191489,
+          "titanium_interference_intrusion_rate": 0.11470588235294117,
+          "metallic_hard_negative_intrusion_rate": 0.15
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260728": {
+          "threshold": 0.7,
+          "retained_count": 1053,
+          "coverage": 0.8200934579439252,
+          "risk": 0.16904083570750236,
+          "target_proxy_miss_rate": 0.18274111675126903,
+          "titanium_interference_intrusion_rate": 0.05707196029776675,
+          "metallic_hard_negative_intrusion_rate": 0.10294117647058823
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260729": {
+          "threshold": 0.7,
+          "retained_count": 1118,
+          "coverage": 0.8707165109034268,
+          "risk": 0.18604651162790697,
+          "target_proxy_miss_rate": 0.19724770642201836,
+          "titanium_interference_intrusion_rate": 0.06993006993006994,
+          "metallic_hard_negative_intrusion_rate": 0.12244897959183673
+        }
+      },
+      "mean": {
+        "retained_count": 1037.3333333333333,
+        "coverage": 0.8078920041536864,
+        "risk": 0.17822784053936244,
+        "target_proxy_miss_rate": 0.1674430829017341,
+        "titanium_interference_intrusion_rate": 0.08056930419359262,
+        "metallic_hard_negative_intrusion_rate": 0.12513005202080832
+      },
+      "sample_std": {
+        "retained_count": 89.53397865242745,
+        "coverage": 0.06973051296918024,
+        "risk": 0.008585016383343672,
+        "target_proxy_miss_rate": 0.03972779332323094,
+        "titanium_interference_intrusion_rate": 0.03025412735728906,
+        "metallic_hard_negative_intrusion_rate": 0.023643695354578633
+      }
+    },
+    {
+      "threshold": 0.75,
+      "seed_values": {
+        "formal_hierarchical_efficientnet_b0_seed20260727": {
+          "threshold": 0.75,
+          "retained_count": 877,
+          "coverage": 0.6830218068535826,
+          "risk": 0.16419612314709237,
+          "target_proxy_miss_rate": 0.09195402298850575,
+          "titanium_interference_intrusion_rate": 0.10231023102310231,
+          "metallic_hard_negative_intrusion_rate": 0.15384615384615385
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260728": {
+          "threshold": 0.75,
+          "retained_count": 1002,
+          "coverage": 0.780373831775701,
+          "risk": 0.15868263473053892,
+          "target_proxy_miss_rate": 0.17616580310880828,
+          "titanium_interference_intrusion_rate": 0.052770448548812667,
+          "metallic_hard_negative_intrusion_rate": 0.109375
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260729": {
+          "threshold": 0.75,
+          "retained_count": 1077,
+          "coverage": 0.8387850467289719,
+          "risk": 0.17827298050139276,
+          "target_proxy_miss_rate": 0.18660287081339713,
+          "titanium_interference_intrusion_rate": 0.06987951807228916,
+          "metallic_hard_negative_intrusion_rate": 0.12142857142857143
+        }
+      },
+      "mean": {
+        "retained_count": 985.3333333333334,
+        "coverage": 0.7673935617860852,
+        "risk": 0.1670505794596747,
+        "target_proxy_miss_rate": 0.1515742323035704,
+        "titanium_interference_intrusion_rate": 0.07498673254806805,
+        "metallic_hard_negative_intrusion_rate": 0.12821657509157508
+      },
+      "sample_std": {
+        "retained_count": 101.03629710818451,
+        "coverage": 0.07868870491291624,
+        "risk": 0.010102294416900226,
+        "target_proxy_miss_rate": 0.051895665663392675,
+        "titanium_interference_intrusion_rate": 0.02516168201206326,
+        "metallic_hard_negative_intrusion_rate": 0.022999535351801884
+      }
+    },
+    {
+      "threshold": 0.8,
+      "seed_values": {
+        "formal_hierarchical_efficientnet_b0_seed20260727": {
+          "threshold": 0.8,
+          "retained_count": 804,
+          "coverage": 0.6261682242990654,
+          "risk": 0.14676616915422885,
+          "target_proxy_miss_rate": 0.09146341463414634,
+          "titanium_interference_intrusion_rate": 0.09057971014492754,
+          "metallic_hard_negative_intrusion_rate": 0.1588785046728972
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260728": {
+          "threshold": 0.8,
+          "retained_count": 959,
+          "coverage": 0.7468847352024922,
+          "risk": 0.15224191866527634,
+          "target_proxy_miss_rate": 0.16853932584269662,
+          "titanium_interference_intrusion_rate": 0.049315068493150684,
+          "metallic_hard_negative_intrusion_rate": 0.09917355371900827
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260729": {
+          "threshold": 0.8,
+          "retained_count": 1040,
+          "coverage": 0.8099688473520249,
+          "risk": 0.16634615384615384,
+          "target_proxy_miss_rate": 0.17326732673267325,
+          "titanium_interference_intrusion_rate": 0.0678391959798995,
+          "metallic_hard_negative_intrusion_rate": 0.10948905109489052
+        }
+      },
+      "mean": {
+        "retained_count": 934.3333333333334,
+        "coverage": 0.7276739356178609,
+        "risk": 0.15511808055521967,
+        "target_proxy_miss_rate": 0.14442335573650542,
+        "titanium_interference_intrusion_rate": 0.06924465820599257,
+        "metallic_hard_negative_intrusion_rate": 0.12251370316226533
+      },
+      "sample_std": {
+        "retained_count": 119.91802755771683,
+        "coverage": 0.09339410245928104,
+        "risk": 0.010101889949255833,
+        "target_proxy_miss_rate": 0.045925537767977316,
+        "titanium_interference_intrusion_rate": 0.020668191883039023,
+        "metallic_hard_negative_intrusion_rate": 0.031912402968261394
+      }
+    },
+    {
+      "threshold": 0.85,
+      "seed_values": {
+        "formal_hierarchical_efficientnet_b0_seed20260727": {
+          "threshold": 0.85,
+          "retained_count": 725,
+          "coverage": 0.5646417445482866,
+          "risk": 0.13517241379310344,
+          "target_proxy_miss_rate": 0.08843537414965986,
+          "titanium_interference_intrusion_rate": 0.0860655737704918,
+          "metallic_hard_negative_intrusion_rate": 0.15625
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260728": {
+          "threshold": 0.85,
+          "retained_count": 879,
+          "coverage": 0.6845794392523364,
+          "risk": 0.1285551763367463,
+          "target_proxy_miss_rate": 0.16463414634146342,
+          "titanium_interference_intrusion_rate": 0.029940119760479042,
+          "metallic_hard_negative_intrusion_rate": 0.09259259259259259
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260729": {
+          "threshold": 0.85,
+          "retained_count": 989,
+          "coverage": 0.7702492211838006,
+          "risk": 0.1577350859453994,
+          "target_proxy_miss_rate": 0.1693121693121693,
+          "titanium_interference_intrusion_rate": 0.06036745406824147,
+          "metallic_hard_negative_intrusion_rate": 0.11538461538461539
+        }
+      },
+      "mean": {
+        "retained_count": 864.3333333333334,
+        "coverage": 0.6731568016614745,
+        "risk": 0.1404875586917497,
+        "target_proxy_miss_rate": 0.14079389660109753,
+        "titanium_interference_intrusion_rate": 0.05879104919973744,
+        "metallic_hard_negative_intrusion_rate": 0.12140906932573599
+      },
+      "sample_std": {
+        "retained_count": 132.6097030135176,
+        "coverage": 0.1032785849014934,
+        "risk": 0.01529885143278722,
+        "target_proxy_miss_rate": 0.04540409815976846,
+        "titanium_interference_intrusion_rate": 0.028095914937755574,
+        "metallic_hard_negative_intrusion_rate": 0.03225347909024195
+      }
+    },
+    {
+      "threshold": 0.9,
+      "seed_values": {
+        "formal_hierarchical_efficientnet_b0_seed20260727": {
+          "threshold": 0.9,
+          "retained_count": 635,
+          "coverage": 0.4945482866043614,
+          "risk": 0.10236220472440945,
+          "target_proxy_miss_rate": 0.06015037593984962,
+          "titanium_interference_intrusion_rate": 0.06572769953051644,
+          "metallic_hard_negative_intrusion_rate": 0.1506849315068493
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260728": {
+          "threshold": 0.9,
+          "retained_count": 787,
+          "coverage": 0.6129283489096573,
+          "risk": 0.10927573062261753,
+          "target_proxy_miss_rate": 0.14285714285714285,
+          "titanium_interference_intrusion_rate": 0.02912621359223301,
+          "metallic_hard_negative_intrusion_rate": 0.08602150537634409
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260729": {
+          "threshold": 0.9,
+          "retained_count": 923,
+          "coverage": 0.7188473520249221,
+          "risk": 0.13976164680390032,
+          "target_proxy_miss_rate": 0.12790697674418605,
+          "titanium_interference_intrusion_rate": 0.05056179775280899,
+          "metallic_hard_negative_intrusion_rate": 0.1206896551724138
+        }
+      },
+      "mean": {
+        "retained_count": 781.6666666666666,
+        "coverage": 0.6087746625129803,
+        "risk": 0.1171331940503091,
+        "target_proxy_miss_rate": 0.11030483184705951,
+        "titanium_interference_intrusion_rate": 0.04847190362518614,
+        "metallic_hard_negative_intrusion_rate": 0.1191320306852024
+      },
+      "sample_std": {
+        "retained_count": 144.0740550318944,
+        "coverage": 0.11220720796876509,
+        "risk": 0.019899355909235635,
+        "target_proxy_miss_rate": 0.044073562962533966,
+        "titanium_interference_intrusion_rate": 0.0183900227384605,
+        "metallic_hard_negative_intrusion_rate": 0.0323598410883953
+      }
+    },
+    {
+      "threshold": 0.95,
+      "seed_values": {
+        "formal_hierarchical_efficientnet_b0_seed20260727": {
+          "threshold": 0.95,
+          "retained_count": 480,
+          "coverage": 0.37383177570093457,
+          "risk": 0.08333333333333333,
+          "target_proxy_miss_rate": 0.06,
+          "titanium_interference_intrusion_rate": 0.04487179487179487,
+          "metallic_hard_negative_intrusion_rate": 0.16326530612244897
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260728": {
+          "threshold": 0.95,
+          "retained_count": 670,
+          "coverage": 0.5218068535825545,
+          "risk": 0.09850746268656717,
+          "target_proxy_miss_rate": 0.1557377049180328,
+          "titanium_interference_intrusion_rate": 0.03076923076923077,
+          "metallic_hard_negative_intrusion_rate": 0.08450704225352113
+        },
+        "formal_hierarchical_efficientnet_b0_seed20260729": {
+          "threshold": 0.95,
+          "retained_count": 838,
+          "coverage": 0.6526479750778816,
+          "risk": 0.11575178997613365,
+          "target_proxy_miss_rate": 0.12903225806451613,
+          "titanium_interference_intrusion_rate": 0.043343653250773995,
+          "metallic_hard_negative_intrusion_rate": 0.0891089108910891
+        }
+      },
+      "mean": {
+        "retained_count": 662.6666666666666,
+        "coverage": 0.5160955347871236,
+        "risk": 0.09919752866534472,
+        "target_proxy_miss_rate": 0.11492332099418297,
+        "titanium_interference_intrusion_rate": 0.03966155963059988,
+        "metallic_hard_negative_intrusion_rate": 0.11229375308901973
+      },
+      "sample_std": {
+        "retained_count": 179.11262750943422,
+        "coverage": 0.13949581581731638,
+        "risk": 0.016220241245634443,
+        "target_proxy_miss_rate": 0.049403680173485516,
+        "titanium_interference_intrusion_rate": 0.007738794391733611,
+        "metallic_hard_negative_intrusion_rate": 0.044202587172236026
+      }
+    }
+  ],
+  "defer_interpretation": "Lower coverage means more samples are deferred for later inspection.",
+  "limitations": [
+    "This is not an industrial cost-optimal policy.",
+    "This is not real XRF validation."
+  ]
+}
