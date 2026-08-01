@@ -483,7 +483,13 @@ def plot_theory_aware_hierarchical_architecture(output_path: Path) -> None:
         )
         axis.text(x + width / 2, y + height / 2, label, ha="center", va="center", fontsize=9.2, linespacing=1.35)
 
-    def add_arrow(start: tuple[float, float], end: tuple[float, float], label: str = "", dashed: bool = False) -> None:
+    def add_arrow(
+        start: tuple[float, float],
+        end: tuple[float, float],
+        label: str = "",
+        dashed: bool = False,
+        label_position: tuple[float, float] | None = None,
+    ) -> None:
         axis.annotate(
             "",
             xy=end,
@@ -498,8 +504,8 @@ def plot_theory_aware_hierarchical_architecture(output_path: Path) -> None:
             },
         )
         if label:
-            midpoint = ((start[0] + end[0]) / 2, (start[1] + end[1]) / 2)
-            axis.text(midpoint[0], midpoint[1] + 0.022, label, ha="center", va="bottom", fontsize=8.2, color="#24465e")
+            position = label_position or ((start[0] + end[0]) / 2, (start[1] + end[1]) / 2 + 0.022)
+            axis.text(position[0], position[1], label, ha="right", va="bottom", fontsize=8.2, color="#24465e")
 
     add_box(0.025, 0.43, 0.13, 0.16, "矿物图像\nx", "#e9f2fb")
     add_box(0.205, 0.37, 0.19, 0.28, "EfficientNet-B0\n共享主干", "#eaf4ea")
@@ -515,7 +521,7 @@ def plot_theory_aware_hierarchical_architecture(output_path: Path) -> None:
     for y, label, color in heads:
         add_box(head_x, y, head_w, head_h, label, color)
 
-    add_box(0.825, 0.665, 0.145, 0.16, "一致性损失\nA p_s = p_tilde_r\n与角色输出共同约束", "#f3eafa")
+    add_box(0.825, 0.645, 0.145, 0.20, "一致性损失\nL_cons = KL(p_r || p_tilde_r)\n角色后验与聚合后验共同约束", "#f3eafa")
     add_box(0.825, 0.365, 0.145, 0.17, "二分类损失\nL_binary", "#f3eafa")
     add_box(0.765, 0.055, 0.205, 0.205, "困难负样本约束 L_hard\n仅针对两类预设高风险对：\n目标矿物 - 含钛干扰\n目标矿物 - 金属光泽困难干扰", "#f8e8e8", edge="#9a4f55")
 
@@ -524,8 +530,8 @@ def plot_theory_aware_hierarchical_architecture(output_path: Path) -> None:
     for y, _, _ in heads:
         add_arrow((0.535, 0.51), (head_x, y + head_h / 2))
 
-    add_arrow((head_x + head_w, 0.8225), (0.825, 0.755), "角色输出")
-    add_arrow((head_x + head_w, 0.6425), (0.825, 0.735), "A p_s = p_tilde_r")
+    add_arrow((head_x + head_w, 0.8225), (0.825, 0.79), "p_r", label_position=(0.815, 0.845))
+    add_arrow((head_x + head_w, 0.6425), (0.825, 0.70), "A p_s = p_tilde_r", label_position=(0.815, 0.69))
     add_arrow((head_x + head_w, 0.4625), (0.825, 0.45))
     add_arrow((head_x + head_w, 0.2825), (0.765, 0.19), "困难负样本嵌入", dashed=True)
 

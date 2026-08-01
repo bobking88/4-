@@ -134,6 +134,13 @@ class FigureSummaryTests(unittest.TestCase):
             self.assertTrue(output.exists())
             self.assertGreater(output.stat().st_size, 10_000)
 
+    def test_theory_aware_consistency_labels_show_both_posteriors(self) -> None:
+        source = (PROJECT_ROOT / "scripts" / "generate_paper_figures.py").read_text(encoding="utf-8")
+
+        self.assertIn('"p_r", label_position=', source)
+        self.assertIn('"A p_s = p_tilde_r", label_position=', source)
+        self.assertIn("L_cons = KL(p_r || p_tilde_r)", source)
+
 
 if __name__ == "__main__":
     unittest.main()
