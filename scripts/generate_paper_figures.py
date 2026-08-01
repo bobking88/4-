@@ -462,6 +462,80 @@ def plot_hierarchical_architecture(output_dir: Path) -> None:
     )
 
 
+def plot_theory_aware_hierarchical_architecture(output_path: Path) -> None:
+    """Render the Chinese theory-aware architecture with four independent heads."""
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    mpl.rcParams["font.sans-serif"] = ["SimHei", "Microsoft YaHei", "Noto Sans SC", "DejaVu Sans"]
+    fig, axis = plt.subplots(figsize=(11.5, 6.7), constrained_layout=True)
+    axis.set_xlim(0, 1)
+    axis.set_ylim(0, 1)
+    axis.axis("off")
+
+    def add_box(x: float, y: float, width: float, height: float, label: str, color: str, edge: str = "#355d7a") -> None:
+        axis.add_patch(
+            FancyBboxPatch(
+                (x, y), width, height,
+                boxstyle="round,pad=0.012,rounding_size=0.018",
+                facecolor=color,
+                edgecolor=edge,
+                linewidth=1.0,
+            )
+        )
+        axis.text(x + width / 2, y + height / 2, label, ha="center", va="center", fontsize=9.2, linespacing=1.35)
+
+    def add_arrow(start: tuple[float, float], end: tuple[float, float], label: str = "", dashed: bool = False) -> None:
+        axis.annotate(
+            "",
+            xy=end,
+            xytext=start,
+            arrowprops={
+                "arrowstyle": "->",
+                "lw": 1.1,
+                "color": "#355d7a",
+                "linestyle": "--" if dashed else "-",
+                "shrinkA": 3,
+                "shrinkB": 3,
+            },
+        )
+        if label:
+            midpoint = ((start[0] + end[0]) / 2, (start[1] + end[1]) / 2)
+            axis.text(midpoint[0], midpoint[1] + 0.022, label, ha="center", va="bottom", fontsize=8.2, color="#24465e")
+
+    add_box(0.025, 0.43, 0.13, 0.16, "矿物图像\nx", "#e9f2fb")
+    add_box(0.205, 0.37, 0.19, 0.28, "EfficientNet-B0\n共享主干", "#eaf4ea")
+    add_box(0.435, 0.445, 0.10, 0.13, "共享特征\nh", "#e9f2fb")
+
+    head_x, head_w, head_h = 0.585, 0.20, 0.105
+    heads = [
+        (0.77, "角色头\np_r", "#fff0db"),
+        (0.59, "种类头\np_s", "#fff0db"),
+        (0.41, "目标代理二分类头\np_b", "#fff0db"),
+        (0.23, "投影头\ne", "#fff0db"),
+    ]
+    for y, label, color in heads:
+        add_box(head_x, y, head_w, head_h, label, color)
+
+    add_box(0.825, 0.665, 0.145, 0.16, "一致性损失\nA p_s = p_tilde_r\n与角色输出共同约束", "#f3eafa")
+    add_box(0.825, 0.365, 0.145, 0.17, "二分类损失\nL_binary", "#f3eafa")
+    add_box(0.765, 0.055, 0.205, 0.205, "困难负样本约束 L_hard\n仅针对两类预设高风险对：\n目标矿物 - 含钛干扰\n目标矿物 - 金属光泽困难干扰", "#f8e8e8", edge="#9a4f55")
+
+    add_arrow((0.155, 0.51), (0.205, 0.51))
+    add_arrow((0.395, 0.51), (0.435, 0.51))
+    for y, _, _ in heads:
+        add_arrow((0.535, 0.51), (head_x, y + head_h / 2))
+
+    add_arrow((head_x + head_w, 0.8225), (0.825, 0.755), "角色输出")
+    add_arrow((head_x + head_w, 0.6425), (0.825, 0.735), "A p_s = p_tilde_r")
+    add_arrow((head_x + head_w, 0.4625), (0.825, 0.45))
+    add_arrow((head_x + head_w, 0.2825), (0.765, 0.19), "困难负样本嵌入", dashed=True)
+
+    axis.text(0.025, 0.92, "理论感知的层次化矿物识别网络", fontsize=13, color="#1a1a1a", ha="left")
+    axis.text(0.025, 0.875, "共享视觉表示 h 驱动四个彼此独立的输出头；种类映射是唯一的角色聚合来源。", fontsize=9.2, color="#4b4b4b", ha="left")
+    axis.text(0.20, 0.005, "L = L_role + alpha L_species + beta L_cons + gamma L_binary + eta L_hard", fontsize=9.7, color="#1a1a1a", ha="left")
+    fig.savefig(output_path, dpi=600, bbox_inches="tight")
+    plt.close(fig)
+
+
 def main() -> None:
     configure_style()
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -476,6 +550,7 @@ def main() -> None:
     plot_target_proxy_metrics(source_dir)
     plot_target_proxy_strategy_comparison(source_dir)
     plot_hierarchical_architecture(OUTPUT_DIR)
+    plot_theory_aware_hierarchical_architecture(OUTPUT_DIR / "fig10_theory_aware_hierarchical_architecture_cn.png")
     print(f"Exported figures to {OUTPUT_DIR}")
 
 

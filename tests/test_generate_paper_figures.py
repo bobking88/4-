@@ -124,6 +124,16 @@ class FigureSummaryTests(unittest.TestCase):
             self.assertTrue((output_dir / "fig8_hierarchical_architecture.png").is_file())
             self.assertTrue((output_dir / "fig8_hierarchical_architecture.md").is_file())
 
+    def test_theory_aware_architecture_figure_is_created(self) -> None:
+        from generate_paper_figures import plot_theory_aware_hierarchical_architecture
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            output = Path(temp_dir) / "architecture_cn.png"
+            plot_theory_aware_hierarchical_architecture(output)
+
+            self.assertTrue(output.exists())
+            self.assertGreater(output.stat().st_size, 10_000)
+
 
 if __name__ == "__main__":
     unittest.main()
