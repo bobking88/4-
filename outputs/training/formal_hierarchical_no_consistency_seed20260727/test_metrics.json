@@ -1,0 +1,46 @@
+{
+  "accuracy": 0.7258566978193146,
+  "macro_precision": 0.7077108558625456,
+  "macro_recall": 0.7163710003624053,
+  "macro_f1": 0.7074814905900302,
+  "class_recall": {
+    "target_mineral": 0.8127490039840638,
+    "ti_bearing_negative": 0.6945010183299389,
+    "gangue_negative": 0.7786885245901639,
+    "metallic_hard_negative": 0.5795454545454546
+  },
+  "confusion_matrix": [
+    [
+      204,
+      28,
+      7,
+      12
+    ],
+    [
+      71,
+      341,
+      53,
+      26
+    ],
+    [
+      23,
+      38,
+      285,
+      20
+    ],
+    [
+      32,
+      20,
+      22,
+      102
+    ]
+  ],
+  "test_loss": 1.5916569110389067,
+  "test_role_loss": 0.7577036687889575,
+  "test_species_loss": 1.4734904766082764,
+  "test_binary_loss": 0.38883202633243114,
+  "test_consistency_loss": 0.056253711057600575,
+  "test_contrast_loss": 0.0,
+  "species_accuracy": 0.5490654205607477,
+  "best_val_macro_f1": 0.7229757831573792
+}

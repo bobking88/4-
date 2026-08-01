@@ -1,0 +1,30 @@
+{
+  "target_precision": {
+    "mean": 0.6582347067489813,
+    "sample_std": 0.035616767926484286
+  },
+  "target_recall": {
+    "mean": 0.7715803452855245,
+    "sample_std": 0.037018220092340945
+  },
+  "target_f1": {
+    "mean": 0.7091892556132429,
+    "sample_std": 0.0060204165221364484
+  },
+  "target_miss_rate": {
+    "mean": 0.22841965471447542,
+    "sample_std": 0.03701822009234091
+  },
+  "ti_bearing_intrusion_rate": {
+    "mean": 0.12016293279022403,
+    "sample_std": 0.021553982167532303
+  },
+  "metallic_intrusion_rate": {
+    "mean": 0.14772727272727273,
+    "sample_std": 0.034090909090909095
+  },
+  "gangue_intrusion_rate": {
+    "mean": 0.04553734061930783,
+    "sample_std": 0.015048006959798094
+  }
+}

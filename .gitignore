@@ -27,6 +27,8 @@ __pycache__/
 /outputs/training/**/best_model.pt
 /outputs/training/**/environment.json
 /outputs/training/smoke_*/
+/outputs/training/**/*.stdout.log
+/outputs/training/**/*.stderr.log
 
 # Office temporary files
 ~$*

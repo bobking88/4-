@@ -1,0 +1,38 @@
+{
+  "accuracy": {
+    "mean": 0.7523364485981309,
+    "sample_std": 0.02326041202970107
+  },
+  "macro_precision": {
+    "mean": 0.7337754868750569,
+    "sample_std": 0.023036727283431847
+  },
+  "macro_recall": {
+    "mean": 0.738506532618009,
+    "sample_std": 0.019430622467328296
+  },
+  "macro_f1": {
+    "mean": 0.7340453502199483,
+    "sample_std": 0.023419703492047337
+  },
+  "species_accuracy": {
+    "mean": 0.5737279335410177,
+    "sample_std": 0.022360752110746465
+  },
+  "target_mineral_recall": {
+    "mean": 0.7715803452855245,
+    "sample_std": 0.037018220092340945
+  },
+  "ti_bearing_negative_recall": {
+    "mean": 0.7413441955193483,
+    "sample_std": 0.04334785469204225
+  },
+  "gangue_negative_recall": {
+    "mean": 0.8142076502732241,
+    "sample_std": 0.03150973386522079
+  },
+  "metallic_hard_negative_recall": {
+    "mean": 0.6268939393939394,
+    "sample_std": 0.04339560317193029
+  }
+}

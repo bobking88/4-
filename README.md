@@ -11,6 +11,7 @@
 - 正式对照：ResNet50、EfficientNet-B0、Focal Loss 与角色感知困难负样本学习，均使用 3 个随机种子
 - 分层模型：矿物种类—选矿角色分层一致性 EfficientNet-B0，使用 17 类细粒度矿物标签与四类角色标签联合训练
 - 分层模型结果：Macro F1 为 `73.41% ± 2.40%`；目标代理召回提高，但两类困难干扰误入目标率也上升，当前仅作为召回—风险取舍原型，不宣称稳定优于基线
+- 分层组件消融：分别移除困难负样本约束和层级一致性约束，各完成 3 个随机种子。完整模型的总体 Macro F1 与两种删减配置接近，但目标代理 F1 更高、含钛和金属光泽干扰误入目标的比例呈更低方向；均值差与种子间波动相近，作为风险趋势报告而不作显著性宣称。
 
 完整实验汇总见 [outputs/training/formal_experiment_summary_v1.md](outputs/training/formal_experiment_summary_v1.md)。
 
@@ -61,6 +62,25 @@ python .\scripts\train_hierarchical_mineral_classifier.py `
   --dataset-root .\数据集\mindat_manual_positive_v1 `
   --output-dir .\outputs\training\formal_hierarchical_efficientnet_b0_seed20260727
 ```
+
+组件消融示例（移除困难负样本约束）：
+
+```powershell
+python .\scripts\train_hierarchical_mineral_classifier.py `
+  --epochs 30 `
+  --batch-size 16 `
+  --num-workers 2 `
+  --seed 20260727 `
+  --lambda-species 0.50 `
+  --lambda-consistency 0.10 `
+  --lambda-binary 0.25 `
+  --lambda-contrast 0.0 `
+  --manifest .\数据集\dataset_final_v1\dataset_split_manifest_v1_0.csv `
+  --dataset-root .\数据集\mindat_manual_positive_v1 `
+  --output-dir .\outputs\training\formal_hierarchical_no_contrast_seed20260727
+```
+
+两项组件消融的汇总结果位于 [outputs/business_metrics/hierarchical_component_ablation/hierarchical_component_ablation.md](outputs/business_metrics/hierarchical_component_ablation/hierarchical_component_ablation.md)。
 
 开放集评价工具位于 `scripts/evaluate_open_set_protocol.py`。它需要独立、经核验的未知矿物图像预测表；当前仓库不以闭集四分类测试集伪造未知矿物结果。
 
