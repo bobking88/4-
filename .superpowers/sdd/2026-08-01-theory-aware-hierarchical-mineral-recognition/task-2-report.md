@@ -48,3 +48,23 @@ The real analysis confirmed three inputs and 20 recorded thresholds. The Figure 
 - Numerical handling: per-seed values remain intact; mean and sample standard deviation are calculated only from defined values. An undefined rate remains undefined in both seed-level and aggregate output.
 - Interpretation: the output limits its claims to the frozen public-image test split. It makes no claim of industrial economics, process performance, recovery, grade, or physical XRF validation.
 - Residual limitation: confidence thresholds are descriptive on this fixed evaluation split and have not been calibrated or externally validated; deferred records are recommendations for later inspection only.
+
+## Fix Round 1/5: Exact Input Cardinality
+
+### Finding
+
+The input resolver previously collapsed glob matches into a dictionary keyed by parent seed-directory name. Multiple matching CSV files under an expected seed directory could therefore be overwritten silently, leaving one arbitrary path accepted instead of enforcing exactly one prediction file per required seed.
+
+### Changed files
+
+- `scripts/analyze_selective_recognition.py`: `_resolve_input_paths` now builds a list of matching paths for every expected seed and raises `ValueError` when any expected seed has zero or more than one match. The error includes missing, duplicate, and unexpected seed names.
+- `tests/test_analyze_selective_recognition.py`: added a filesystem-backed regression test that creates one expected CSV for all three seeds plus an alternate CSV for one expected seed, then asserts that the resolver rejects the input.
+- `.superpowers/sdd/2026-08-01-theory-aware-hierarchical-mineral-recognition/task-2-report.md`: appended this fix record.
+
+### Test command and output
+
+```powershell
+D:\成信工科研\人工智能选矿\.venv-training\Scripts\python.exe -m unittest tests.test_analyze_selective_recognition -v
+```
+
+Output: `Ran 5 tests in 0.521s` and `OK`. The new duplicate-file resolver test passed.

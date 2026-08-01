@@ -125,16 +125,22 @@ def _load_prediction_rows(path: Path) -> list[dict[str, str]]:
 
 
 def _resolve_input_paths(input_glob: str) -> list[Path]:
-    candidates = {Path(path).resolve() for path in glob.glob(input_glob)}
-    by_name = {path.parent.name: path for path in candidates}
-    unexpected_names = sorted(set(by_name) - set(EXPECTED_RUN_NAMES))
-    missing_names = [name for name in EXPECTED_RUN_NAMES if name not in by_name]
-    if unexpected_names or missing_names:
+    candidates = sorted({Path(path).resolve() for path in glob.glob(input_glob)})
+    paths_by_name = {
+        run_name: [path for path in candidates if path.parent.name == run_name]
+        for run_name in EXPECTED_RUN_NAMES
+    }
+    unexpected_names = sorted(
+        {path.parent.name for path in candidates} - set(EXPECTED_RUN_NAMES)
+    )
+    missing_names = [name for name, paths in paths_by_name.items() if not paths]
+    duplicate_names = [name for name, paths in paths_by_name.items() if len(paths) > 1]
+    if unexpected_names or missing_names or duplicate_names:
         raise ValueError(
             "Input must be exactly the three full-hierarchical seed prediction files; "
-            f"missing={missing_names}, unexpected={unexpected_names}."
+            f"missing={missing_names}, duplicate={duplicate_names}, unexpected={unexpected_names}."
         )
-    return [by_name[name] for name in EXPECTED_RUN_NAMES]
+    return [paths_by_name[name][0] for name in EXPECTED_RUN_NAMES]
 
 
 def _plot(aggregated: list[dict[str, object]], figure_path: Path) -> None:

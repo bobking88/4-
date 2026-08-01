@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -70,6 +71,20 @@ class SelectiveRecognitionTests(unittest.TestCase):
         self.assertAlmostEqual(threshold["sample_std"]["coverage"], 0.2)
         self.assertAlmostEqual(threshold["mean"]["risk"], 0.3)
         self.assertAlmostEqual(threshold["sample_std"]["risk"], 0.1414213562)
+
+    def test_input_resolver_rejects_duplicate_files_for_expected_seed(self) -> None:
+        from analyze_selective_recognition import EXPECTED_RUN_NAMES, _resolve_input_paths
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            for run_name in EXPECTED_RUN_NAMES:
+                run_dir = root / run_name
+                run_dir.mkdir()
+                (run_dir / "test_predictions.csv").touch()
+            (root / EXPECTED_RUN_NAMES[0] / "alternate_predictions.csv").touch()
+
+            with self.assertRaisesRegex(ValueError, "duplicate"):
+                _resolve_input_paths(str(root / "*" / "*.csv"))
 
 
 if __name__ == "__main__":
