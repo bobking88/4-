@@ -95,10 +95,15 @@ Run these commands from the repository root with the fixed manifest and a locall
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.
 
+For the candidate-set command, replace `"<外部原始图片数据根目录>"` with an
+external, license-compliant source-image root. It must contain every image at the
+path specified by that record's `relative_path` in the fixed manifest; image files
+are not distributed by this repository.
+
 ```powershell
 .\.venv-training\Scripts\python.exe .\scripts\analyze_role_identifiability.py `
   --manifest .\数据集\dataset_final_v1\dataset_split_manifest_v1_0.csv `
-  --dataset-root .\数据集\mindat_manual_positive_v1 `
+  --dataset-root "<外部原始图片数据根目录>" `
   --output-dir .\outputs\theory_validation\role_identifiability `
   --candidate-sizes 2 3 4 `
   --seed 20260801
