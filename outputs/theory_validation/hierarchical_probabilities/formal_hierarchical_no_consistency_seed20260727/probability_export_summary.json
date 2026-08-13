@@ -1,0 +1,43 @@
+{
+  "generated_at": "2026-08-13T11:13:19",
+  "checkpoint": "D:\\成信工科研\\人工智能选矿\\outputs\\training\\formal_hierarchical_no_consistency_seed20260727\\best_model.pt",
+  "manifest": "D:\\成信工科研\\人工智能选矿\\数据集\\dataset_final_v1\\dataset_split_manifest_v1_0.csv",
+  "dataset_root": "D:\\成信工科研\\人工智能选矿\\数据集\\mindat_manual_positive_v1",
+  "audit_manifest": "D:\\成信工科研\\人工智能选矿\\数据集\\dataset_audit\\dataset_master_manifest.csv",
+  "device": "cuda",
+  "class_labels": [
+    "target_mineral",
+    "ti_bearing_negative",
+    "gangue_negative",
+    "metallic_hard_negative"
+  ],
+  "species_labels": [
+    "anatase",
+    "calcite",
+    "chalcopyrite",
+    "feldspar",
+    "fluorapatite",
+    "goethite",
+    "hematite",
+    "ilmenite",
+    "magnetite",
+    "perovskite",
+    "pyrite",
+    "pyroxene",
+    "quartz",
+    "rutile",
+    "titanite",
+    "titanomagnetite",
+    "vesuvianite"
+  ],
+  "splits": {
+    "val": {
+      "rows": 1284,
+      "output": "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\theory_validation\\hierarchical_probabilities\\formal_hierarchical_no_consistency_seed20260727\\val_hierarchical_probabilities.csv"
+    },
+    "test": {
+      "rows": 1284,
+      "output": "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\theory_validation\\hierarchical_probabilities\\formal_hierarchical_no_consistency_seed20260727\\test_hierarchical_probabilities.csv"
+    }
+  }
+}

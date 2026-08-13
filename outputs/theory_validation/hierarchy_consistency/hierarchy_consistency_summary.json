@@ -1,0 +1,758 @@
+{
+  "analysis": "empirical hard-label role-risk contraction and dual-head consistency",
+  "theoretical_scope": "Hard species predictions induce role predictions through the fixed species-role map; KL/TV results quantify distribution consistency and do not guarantee accuracy gains.",
+  "run_metrics": {
+    "full": {
+      "20260727": {
+        "row_count": 1284,
+        "species_accuracy": 0.544392523364486,
+        "direct_role_accuracy": 0.7250778816199377,
+        "mapped_role_accuracy": 0.7336448598130841,
+        "species_error_count": 585,
+        "species_wrong_role_correct_count": 243,
+        "species_wrong_role_correct_rate_all": 0.18925233644859812,
+        "species_wrong_role_correct_rate_among_species_errors": 0.4153846153846154,
+        "hard_species_role_accuracy": 0.7336448598130841,
+        "hard_species_role_error_rate": 0.26635514018691586,
+        "empirical_hard_role_risk_contraction": 0.18925233644859812,
+        "mean_kl_mapped_to_direct": 0.03941534532918666,
+        "mean_total_variation": 0.07391469471528138,
+        "mean_pinsker_slack": 0.036856855845671194,
+        "minimum_pinsker_slack": 0.0004080274882712516,
+        "pinsker_violation_count": 0,
+        "head_disagreement_rate": 0.0763239875389408,
+        "mean_direct_minus_mapped_confidence": 0.013511608369253877,
+        "kl_deciles": [
+          {
+            "decile": 1,
+            "count": 128,
+            "mean_kl": 0.0003424777208819222,
+            "mean_tv": 0.001770288512167234,
+            "head_disagreement_rate": 0
+          },
+          {
+            "decile": 2,
+            "count": 128,
+            "mean_kl": 0.0017482820453476413,
+            "mean_tv": 0.0067640956605121705,
+            "head_disagreement_rate": 0
+          },
+          {
+            "decile": 3,
+            "count": 129,
+            "mean_kl": 0.004000677089122942,
+            "mean_tv": 0.014473041164290957,
+            "head_disagreement_rate": 0
+          },
+          {
+            "decile": 4,
+            "count": 128,
+            "mean_kl": 0.008028774925973538,
+            "mean_tv": 0.025047233021435744,
+            "head_disagreement_rate": 0.015625
+          },
+          {
+            "decile": 5,
+            "count": 129,
+            "mean_kl": 0.013482279927364938,
+            "mean_tv": 0.039752833966571935,
+            "head_disagreement_rate": 0.023255813953488372
+          },
+          {
+            "decile": 6,
+            "count": 128,
+            "mean_kl": 0.021360515079019374,
+            "mean_tv": 0.0615400330142819,
+            "head_disagreement_rate": 0.0390625
+          },
+          {
+            "decile": 7,
+            "count": 128,
+            "mean_kl": 0.031836961817272566,
+            "mean_tv": 0.08152291569979653,
+            "head_disagreement_rate": 0.078125
+          },
+          {
+            "decile": 8,
+            "count": 129,
+            "mean_kl": 0.04764799334069412,
+            "mean_tv": 0.11149570701288156,
+            "head_disagreement_rate": 0.12403100775193798
+          },
+          {
+            "decile": 9,
+            "count": 128,
+            "mean_kl": 0.07639012825999772,
+            "mean_tv": 0.14970316158952746,
+            "head_disagreement_rate": 0.1328125
+          },
+          {
+            "decile": 10,
+            "count": 129,
+            "mean_kl": 0.1885650922945126,
+            "mean_tv": 0.24616957207883697,
+            "head_disagreement_rate": 0.3488372093023256
+          }
+        ]
+      },
+      "20260728": {
+        "row_count": 1284,
+        "species_accuracy": 0.5708722741433022,
+        "direct_role_accuracy": 0.7749221183800623,
+        "mapped_role_accuracy": 0.7733644859813084,
+        "species_error_count": 551,
+        "species_wrong_role_correct_count": 256,
+        "species_wrong_role_correct_rate_all": 0.19937694704049844,
+        "species_wrong_role_correct_rate_among_species_errors": 0.4646098003629764,
+        "hard_species_role_accuracy": 0.7702492211838006,
+        "hard_species_role_error_rate": 0.22975077881619937,
+        "empirical_hard_role_risk_contraction": 0.19937694704049844,
+        "mean_kl_mapped_to_direct": 0.04367009243544416,
+        "mean_total_variation": 0.06655501712281248,
+        "mean_pinsker_slack": 0.03702573717652421,
+        "minimum_pinsker_slack": 0.00021406159935336504,
+        "pinsker_violation_count": 0,
+        "head_disagreement_rate": 0.0630841121495327,
+        "mean_direct_minus_mapped_confidence": 0.007589590094542578,
+        "kl_deciles": [
+          {
+            "decile": 1,
+            "count": 128,
+            "mean_kl": 4.179592215028595e-05,
+            "mean_tv": 0.0001893581588108226,
+            "head_disagreement_rate": 0
+          },
+          {
+            "decile": 2,
+            "count": 128,
+            "mean_kl": 0.00034150478274396693,
+            "mean_tv": 0.0012036837768867048,
+            "head_disagreement_rate": 0
+          },
+          {
+            "decile": 3,
+            "count": 129,
+            "mean_kl": 0.0013145898773977128,
+            "mean_tv": 0.004284826877259317,
+            "head_disagreement_rate": 0
+          },
+          {
+            "decile": 4,
+            "count": 128,
+            "mean_kl": 0.003389005063126477,
+            "mean_tv": 0.009533842233421477,
+            "head_disagreement_rate": 0
+          },
+          {
+            "decile": 5,
+            "count": 129,
+            "mean_kl": 0.007568409403119485,
+            "mean_tv": 0.023013755101143812,
+            "head_disagreement_rate": 0
+          },
+          {
+            "decile": 6,
+            "count": 128,
+            "mean_kl": 0.01474907565739756,
+            "mean_tv": 0.03781019250895685,
+            "head_disagreement_rate": 0.015625
+          },
+          {
+            "decile": 7,
+            "count": 128,
+            "mean_kl": 0.026511417826182507,
+            "mean_tv": 0.06222029141766772,
+            "head_disagreement_rate": 0.0390625
+          },
+          {
+            "decile": 8,
+            "count": 129,
+            "mean_kl": 0.04615026223061554,
+            "mean_tv": 0.09869911251286773,
+            "head_disagreement_rate": 0.06976744186046512
+          },
+          {
+            "decile": 9,
+            "count": 128,
+            "mean_kl": 0.0820618859603053,
+            "mean_tv": 0.15035325912641448,
+            "head_disagreement_rate": 0.15625
+          },
+          {
+            "decile": 10,
+            "count": 129,
+            "mean_kl": 0.25352704065930387,
+            "mean_tv": 0.2771719310998531,
+            "head_disagreement_rate": 0.3488372093023256
+          }
+        ]
+      },
+      "20260729": {
+        "row_count": 1284,
+        "species_accuracy": 0.5887850467289719,
+        "direct_role_accuracy": 0.7624610591900312,
+        "mapped_role_accuracy": 0.7671339563862928,
+        "species_error_count": 528,
+        "species_wrong_role_correct_count": 223,
+        "species_wrong_role_correct_rate_all": 0.17367601246105918,
+        "species_wrong_role_correct_rate_among_species_errors": 0.42234848484848486,
+        "hard_species_role_accuracy": 0.7624610591900312,
+        "hard_species_role_error_rate": 0.23753894080996885,
+        "empirical_hard_role_risk_contraction": 0.17367601246105918,
+        "mean_kl_mapped_to_direct": 0.04469691088927813,
+        "mean_total_variation": 0.05787189812814928,
+        "mean_pinsker_slack": 0.03597978836453956,
+        "minimum_pinsker_slack": -8.831804665376808e-08,
+        "pinsker_violation_count": 3,
+        "head_disagreement_rate": 0.0514018691588785,
+        "mean_direct_minus_mapped_confidence": -0.00025101038525780414,
+        "kl_deciles": [
+          {
+            "decile": 1,
+            "count": 128,
+            "mean_kl": 4.461682334957702e-06,
+            "mean_tv": 1.3255408786716043e-05,
+            "head_disagreement_rate": 0
+          },
+          {
+            "decile": 2,
+            "count": 128,
+            "mean_kl": 5.152579071573235e-05,
+            "mean_tv": 0.00018737054020700182,
+            "head_disagreement_rate": 0
+          },
+          {
+            "decile": 3,
+            "count": 129,
+            "mean_kl": 0.0002692501179227311,
+            "mean_tv": 0.0009304554451240531,
+            "head_disagreement_rate": 0
+          },
+          {
+            "decile": 4,
+            "count": 128,
+            "mean_kl": 0.000911787865049982,
+            "mean_tv": 0.0027650105816025205,
+            "head_disagreement_rate": 0
+          },
+          {
+            "decile": 5,
+            "count": 129,
+            "mean_kl": 0.00248610203606859,
+            "mean_tv": 0.0071806188044693875,
+            "head_disagreement_rate": 0
+          },
+          {
+            "decile": 6,
+            "count": 128,
+            "mean_kl": 0.006410216496876302,
+            "mean_tv": 0.016959138957915607,
+            "head_disagreement_rate": 0.0078125
+          },
+          {
+            "decile": 7,
+            "count": 128,
+            "mean_kl": 0.016872475598142866,
+            "mean_tv": 0.04211339081198967,
+            "head_disagreement_rate": 0.03125
+          },
+          {
+            "decile": 8,
+            "count": 129,
+            "mean_kl": 0.03785217395553107,
+            "mean_tv": 0.06953465055650808,
+            "head_disagreement_rate": 0.007751937984496124
+          },
+          {
+            "decile": 9,
+            "count": 128,
+            "mean_kl": 0.08923133426873713,
+            "mean_tv": 0.14619697379163557,
+            "head_disagreement_rate": 0.1171875
+          },
+          {
+            "decile": 10,
+            "count": 129,
+            "mean_kl": 0.29168055888269023,
+            "mean_tv": 0.29176062608343434,
+            "head_disagreement_rate": 0.3488372093023256
+          }
+        ]
+      }
+    },
+    "no_consistency": {
+      "20260727": {
+        "row_count": 1284,
+        "species_accuracy": 0.5490654205607477,
+        "direct_role_accuracy": 0.7258566978193146,
+        "mapped_role_accuracy": 0.7390965732087228,
+        "species_error_count": 579,
+        "species_wrong_role_correct_count": 238,
+        "species_wrong_role_correct_rate_all": 0.1853582554517134,
+        "species_wrong_role_correct_rate_among_species_errors": 0.4110535405872193,
+        "hard_species_role_accuracy": 0.7344236760124611,
+        "hard_species_role_error_rate": 0.26557632398753894,
+        "empirical_hard_role_risk_contraction": 0.1853582554517134,
+        "mean_kl_mapped_to_direct": 0.05624854310525338,
+        "mean_total_variation": 0.0884575941289464,
+        "mean_pinsker_slack": 0.04599118457436739,
+        "minimum_pinsker_slack": 0.0006119820130897485,
+        "pinsker_violation_count": 0,
+        "head_disagreement_rate": 0.08722741433021806,
+        "mean_direct_minus_mapped_confidence": 0.02326105595377747,
+        "kl_deciles": [
+          {
+            "decile": 1,
+            "count": 128,
+            "mean_kl": 0.0005339570850477771,
+            "mean_tv": 0.002135542837829213,
+            "head_disagreement_rate": 0
+          },
+          {
+            "decile": 2,
+            "count": 128,
+            "mean_kl": 0.00251695040547902,
+            "mean_tv": 0.008159695613434437,
+            "head_disagreement_rate": 0
+          },
+          {
+            "decile": 3,
+            "count": 129,
+            "mean_kl": 0.006470325938619992,
+            "mean_tv": 0.018160068373556142,
+            "head_disagreement_rate": 0
+          },
+          {
+            "decile": 4,
+            "count": 128,
+            "mean_kl": 0.012972322817366364,
+            "mean_tv": 0.032665039958773345,
+            "head_disagreement_rate": 0.015625
+          },
+          {
+            "decile": 5,
+            "count": 129,
+            "mean_kl": 0.02127647271701267,
+            "mean_tv": 0.05339964865878255,
+            "head_disagreement_rate": 0.03875968992248062
+          },
+          {
+            "decile": 6,
+            "count": 128,
+            "mean_kl": 0.03267496699909514,
+            "mean_tv": 0.07319256472604785,
+            "head_disagreement_rate": 0.0625
+          },
+          {
+            "decile": 7,
+            "count": 128,
+            "mean_kl": 0.0476762180952692,
+            "mean_tv": 0.10122504540331079,
+            "head_disagreement_rate": 0.09375
+          },
+          {
+            "decile": 8,
+            "count": 129,
+            "mean_kl": 0.07183075595232648,
+            "mean_tv": 0.13180823821452928,
+            "head_disagreement_rate": 0.10852713178294573
+          },
+          {
+            "decile": 9,
+            "count": 128,
+            "mean_kl": 0.11150065126153663,
+            "mean_tv": 0.1802480211535169,
+            "head_disagreement_rate": 0.15625
+          },
+          {
+            "decile": 10,
+            "count": 129,
+            "mean_kl": 0.2540280330988602,
+            "mean_tv": 0.2825501410389798,
+            "head_disagreement_rate": 0.3953488372093023
+          }
+        ]
+      },
+      "20260728": {
+        "row_count": 1284,
+        "species_accuracy": 0.5786604361370716,
+        "direct_role_accuracy": 0.7694704049844237,
+        "mapped_role_accuracy": 0.7741433021806854,
+        "species_error_count": 541,
+        "species_wrong_role_correct_count": 255,
+        "species_wrong_role_correct_rate_all": 0.1985981308411215,
+        "species_wrong_role_correct_rate_among_species_errors": 0.4713493530499076,
+        "hard_species_role_accuracy": 0.7772585669781932,
+        "hard_species_role_error_rate": 0.22274143302180685,
+        "empirical_hard_role_risk_contraction": 0.1985981308411215,
+        "mean_kl_mapped_to_direct": 0.05541948360558907,
+        "mean_total_variation": 0.07095134580275161,
+        "mean_pinsker_slack": 0.042243228332199595,
+        "minimum_pinsker_slack": -6.670948993203751e-08,
+        "pinsker_violation_count": 1,
+        "head_disagreement_rate": 0.07087227414330217,
+        "mean_direct_minus_mapped_confidence": 0.009462014165622794,
+        "kl_deciles": [
+          {
+            "decile": 1,
+            "count": 128,
+            "mean_kl": 3.227758723373614e-05,
+            "mean_tv": 0.0001012909345477001,
+            "head_disagreement_rate": 0
+          },
+          {
+            "decile": 2,
+            "count": 128,
+            "mean_kl": 0.0003190989569337802,
+            "mean_tv": 0.0009909609272279545,
+            "head_disagreement_rate": 0
+          },
+          {
+            "decile": 3,
+            "count": 129,
+            "mean_kl": 0.0013040210406422101,
+            "mean_tv": 0.0035368721798799156,
+            "head_disagreement_rate": 0
+          },
+          {
+            "decile": 4,
+            "count": 128,
+            "mean_kl": 0.0032874602426196916,
+            "mean_tv": 0.009435269376608851,
+            "head_disagreement_rate": 0
+          },
+          {
+            "decile": 5,
+            "count": 129,
+            "mean_kl": 0.007151023486075156,
+            "mean_tv": 0.021416328111591058,
+            "head_disagreement_rate": 0
+          },
+          {
+            "decile": 6,
+            "count": 128,
+            "mean_kl": 0.015205401928897746,
+            "mean_tv": 0.03432946162786507,
+            "head_disagreement_rate": 0
+          },
+          {
+            "decile": 7,
+            "count": 128,
+            "mean_kl": 0.029403218512666834,
+            "mean_tv": 0.06341785756320283,
+            "head_disagreement_rate": 0.046875
+          },
+          {
+            "decile": 8,
+            "count": 129,
+            "mean_kl": 0.055188712678153375,
+            "mean_tv": 0.10228494726161795,
+            "head_disagreement_rate": 0.08527131782945736
+          },
+          {
+            "decile": 9,
+            "count": 128,
+            "mean_kl": 0.10408106314250827,
+            "mean_tv": 0.16202259844406408,
+            "head_disagreement_rate": 0.1640625
+          },
+          {
+            "decile": 10,
+            "count": 129,
+            "mean_kl": 0.33682574932308496,
+            "mean_tv": 0.31077313798894945,
+            "head_disagreement_rate": 0.4108527131782946
+          }
+        ]
+      },
+      "20260729": {
+        "row_count": 1284,
+        "species_accuracy": 0.5911214953271028,
+        "direct_role_accuracy": 0.7616822429906542,
+        "mapped_role_accuracy": 0.764018691588785,
+        "species_error_count": 525,
+        "species_wrong_role_correct_count": 217,
+        "species_wrong_role_correct_rate_all": 0.1690031152647975,
+        "species_wrong_role_correct_rate_among_species_errors": 0.41333333333333333,
+        "hard_species_role_accuracy": 0.7601246105919003,
+        "hard_species_role_error_rate": 0.2398753894080997,
+        "empirical_hard_role_risk_contraction": 0.1690031152647975,
+        "mean_kl_mapped_to_direct": 0.05774845502043062,
+        "mean_total_variation": 0.06628664717121012,
+        "mean_pinsker_slack": 0.04266257168951517,
+        "minimum_pinsker_slack": -3.0867652333482765e-08,
+        "pinsker_violation_count": 2,
+        "head_disagreement_rate": 0.0646417445482866,
+        "mean_direct_minus_mapped_confidence": 0.004889116271448284,
+        "kl_deciles": [
+          {
+            "decile": 1,
+            "count": 128,
+            "mean_kl": 5.0584559694064485e-06,
+            "mean_tv": 1.8970617060671165e-05,
+            "head_disagreement_rate": 0
+          },
+          {
+            "decile": 2,
+            "count": 128,
+            "mean_kl": 7.245792171058615e-05,
+            "mean_tv": 0.00017481199652536681,
+            "head_disagreement_rate": 0
+          },
+          {
+            "decile": 3,
+            "count": 129,
+            "mean_kl": 0.00041067079693498396,
+            "mean_tv": 0.001342932914675831,
+            "head_disagreement_rate": 0
+          },
+          {
+            "decile": 4,
+            "count": 128,
+            "mean_kl": 0.0014255048322560275,
+            "mean_tv": 0.003523971925410442,
+            "head_disagreement_rate": 0
+          },
+          {
+            "decile": 5,
+            "count": 129,
+            "mean_kl": 0.0039008020500789628,
+            "mean_tv": 0.009515045699087796,
+            "head_disagreement_rate": 0
+          },
+          {
+            "decile": 6,
+            "count": 128,
+            "mean_kl": 0.009632530101829353,
+            "mean_tv": 0.020459300898519744,
+            "head_disagreement_rate": 0.015625
+          },
+          {
+            "decile": 7,
+            "count": 128,
+            "mean_kl": 0.022645360818815463,
+            "mean_tv": 0.048527834571103545,
+            "head_disagreement_rate": 0.0390625
+          },
+          {
+            "decile": 8,
+            "count": 129,
+            "mean_kl": 0.05184224644925476,
+            "mean_tv": 0.08448893869186051,
+            "head_disagreement_rate": 0.046511627906976744
+          },
+          {
+            "decile": 9,
+            "count": 128,
+            "mean_kl": 0.12490708101589466,
+            "mean_tv": 0.17346833069360526,
+            "head_disagreement_rate": 0.1640625
+          },
+          {
+            "decile": 10,
+            "count": 129,
+            "mean_kl": 0.36118700259120456,
+            "mean_tv": 0.320171553376151,
+            "head_disagreement_rate": 0.3798449612403101
+          }
+        ]
+      }
+    }
+  },
+  "aggregate": {
+    "full": {
+      "species_accuracy": {
+        "mean": 0.5680166147455867,
+        "sample_std": 0.022333609775704165
+      },
+      "direct_role_accuracy": {
+        "mean": 0.754153686396677,
+        "sample_std": 0.02593976323322284
+      },
+      "mapped_role_accuracy": {
+        "mean": 0.7580477673935617,
+        "sample_std": 0.021361912333510556
+      },
+      "species_wrong_role_correct_rate_all": {
+        "mean": 0.18743509865005192,
+        "sample_std": 0.012946477299887522
+      },
+      "species_wrong_role_correct_rate_among_species_errors": {
+        "mean": 0.43411430019869224,
+        "sample_std": 0.026638421822244747
+      },
+      "hard_species_role_accuracy": {
+        "mean": 0.7554517133956387,
+        "sample_std": 0.01928258318246094
+      },
+      "hard_species_role_error_rate": {
+        "mean": 0.24454828660436137,
+        "sample_std": 0.019282583182460962
+      },
+      "empirical_hard_role_risk_contraction": {
+        "mean": 0.18743509865005192,
+        "sample_std": 0.012946477299887522
+      },
+      "mean_kl_mapped_to_direct": {
+        "mean": 0.04259411621796965,
+        "sample_std": 0.002800361995673799
+      },
+      "mean_total_variation": {
+        "mean": 0.06611386998874771,
+        "sample_std": 0.00803049118544093
+      },
+      "head_disagreement_rate": {
+        "mean": 0.06360332294911733,
+        "sample_std": 0.012469169219649872
+      }
+    },
+    "no_consistency": {
+      "species_accuracy": {
+        "mean": 0.5729491173416407,
+        "sample_std": 0.02160191491455316
+      },
+      "direct_role_accuracy": {
+        "mean": 0.7523364485981309,
+        "sample_std": 0.02326041202970107
+      },
+      "mapped_role_accuracy": {
+        "mean": 0.7590861889927311,
+        "sample_std": 0.01803650435377126
+      },
+      "species_wrong_role_correct_rate_all": {
+        "mean": 0.18431983385254413,
+        "sample_std": 0.014824809486260889
+      },
+      "species_wrong_role_correct_rate_among_species_errors": {
+        "mean": 0.4319120756568201,
+        "sample_std": 0.03417270109130689
+      },
+      "hard_species_role_accuracy": {
+        "mean": 0.7572689511941848,
+        "sample_std": 0.021559755656276818
+      },
+      "hard_species_role_error_rate": {
+        "mean": 0.24273104880581517,
+        "sample_std": 0.021559755656276807
+      },
+      "empirical_hard_role_risk_contraction": {
+        "mean": 0.18431983385254413,
+        "sample_std": 0.014824809486260889
+      },
+      "mean_kl_mapped_to_direct": {
+        "mean": 0.05647216057709102,
+        "sample_std": 0.0011804789464749282
+      },
+      "mean_total_variation": {
+        "mean": 0.07523186236763604,
+        "sample_std": 0.011688876712386711
+      },
+      "head_disagreement_rate": {
+        "mean": 0.07424714434060228,
+        "sample_std": 0.011664923124953777
+      }
+    }
+  },
+  "paired_full_minus_no_consistency": {
+    "species_accuracy": {
+      "values": [
+        -0.004672897196261738,
+        -0.007788161993769416,
+        -0.002336448598130869
+      ],
+      "mean": -0.004932502596054007,
+      "sample_std": 0.0027351126045827017
+    },
+    "direct_role_accuracy": {
+      "values": [
+        -0.0007788161993769194,
+        0.005451713395638658,
+        0.0007788161993769194
+      ],
+      "mean": 0.0018172377985462191,
+      "sample_std": 0.003242470404152864
+    },
+    "mapped_role_accuracy": {
+      "values": [
+        -0.005451713395638658,
+        -0.0007788161993770304,
+        0.0031152647975077885
+      ],
+      "mean": -0.0010384215991692998,
+      "sample_std": 0.0042893851614377865
+    },
+    "species_wrong_role_correct_rate_all": {
+      "values": [
+        0.0038940809968847356,
+        0.0007788161993769471,
+        0.004672897196261683
+      ],
+      "mean": 0.0031152647975077885,
+      "sample_std": 0.0020605539805798995
+    },
+    "species_wrong_role_correct_rate_among_species_errors": {
+      "values": [
+        0.004331074797396084,
+        -0.006739552686931216,
+        0.009015151515151532
+      ],
+      "mean": 0.002202224541872133,
+      "sample_std": 0.008090221176309968
+    },
+    "hard_species_role_accuracy": {
+      "values": [
+        -0.0007788161993769194,
+        -0.007009345794392607,
+        0.002336448598130869
+      ],
+      "mean": -0.0018172377985462191,
+      "sample_std": 0.0047586455814703
+    },
+    "hard_species_role_error_rate": {
+      "values": [
+        0.0007788161993769194,
+        0.007009345794392524,
+        -0.0023364485981308414
+      ],
+      "mean": 0.0018172377985462007,
+      "sample_std": 0.004758645581470242
+    },
+    "empirical_hard_role_risk_contraction": {
+      "values": [
+        0.0038940809968847356,
+        0.0007788161993769471,
+        0.004672897196261683
+      ],
+      "mean": 0.0031152647975077885,
+      "sample_std": 0.0020605539805798995
+    },
+    "mean_kl_mapped_to_direct": {
+      "values": [
+        -0.01683319777606672,
+        -0.01174939117014491,
+        -0.01305154413115249
+      ],
+      "mean": -0.013878044359121372,
+      "sample_std": 0.0026407573481348145
+    },
+    "mean_total_variation": {
+      "values": [
+        -0.014542899413665017,
+        -0.004396328679939138,
+        -0.008414749043060839
+      ],
+      "mean": -0.00911799237888833,
+      "sample_std": 0.0051097101488895595
+    },
+    "head_disagreement_rate": {
+      "values": [
+        -0.01090342679127726,
+        -0.007788161993769471,
+        -0.013239875389408094
+      ],
+      "mean": -0.010643821391484941,
+      "sample_std": 0.0027351126045827433
+    }
+  },
+  "figure": "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\paper_figures_v2\\fig_hierarchy_kl_disagreement.png"
+}

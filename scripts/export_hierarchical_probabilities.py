@@ -65,6 +65,9 @@ def build_probability_rows(records, role_logits, species_logits, mapping, metada
             "detail_page_url": source.get("detail_page_url", ""),
             "predicted_role": CLASS_LABELS[int(role_predictions[index])],
             "predicted_species": mapping.species_labels[int(species_predictions[index])],
+            "predicted_species_role": CLASS_LABELS[
+                mapping.species_role_ids[int(species_predictions[index])]
+            ],
             "role_confidence": float(role_probabilities[index].max()),
             "species_confidence": float(species_probabilities[index].max()),
         }
