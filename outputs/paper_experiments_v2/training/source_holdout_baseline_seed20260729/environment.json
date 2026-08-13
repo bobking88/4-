@@ -1,0 +1,33 @@
+{
+  "torch_version": "2.12.1+cu130",
+  "cuda_available": true,
+  "cuda_version": "13.0",
+  "device": "cuda",
+  "gpu_name": "NVIDIA GeForce RTX 5050 Laptop GPU",
+  "class_labels": [
+    "target_mineral",
+    "ti_bearing_negative",
+    "gangue_negative",
+    "metallic_hard_negative"
+  ],
+  "class_counts_train": {
+    "target_mineral": 984,
+    "ti_bearing_negative": 1444,
+    "gangue_negative": 1045,
+    "metallic_hard_negative": 474
+  },
+  "class_weights": {
+    "target_mineral": 0.851241937753125,
+    "ti_bearing_negative": 0.5800706833442347,
+    "gangue_negative": 0.8015522169847608,
+    "metallic_hard_negative": 1.7671351619178794
+  },
+  "manifest": "outputs\\paper_experiments_v2\\source_holdout\\photographer_holdout_manifest.csv",
+  "dataset_root": "D:\\成信工科研\\人工智能选矿\\数据集\\mindat_manual_positive_v1",
+  "torch_home": "D:\\成信工科研\\人工智能选矿\\.torch-cache",
+  "seed": 20260729,
+  "model": "efficientnet_b0",
+  "loss": "cross_entropy",
+  "focal_gamma": null,
+  "smoke_run": false
+}

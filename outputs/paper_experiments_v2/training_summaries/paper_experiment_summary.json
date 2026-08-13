@@ -1,0 +1,657 @@
+{
+  "source_holdout": {
+    "per_seed": {
+      "baseline": {
+        "20260727": {
+          "accuracy": 0.6737588652482269,
+          "macro_precision": 0.6522585231102227,
+          "macro_recall": 0.6653281275442011,
+          "macro_f1": 0.6569884745526562,
+          "target_recall": 0.6919431279620853,
+          "role_recall": {
+            "target_mineral": 0.6919431279620853,
+            "ti_bearing_negative": 0.6645161290322581,
+            "gangue_negative": 0.7008928571428571,
+            "metallic_hard_negative": 0.6039603960396039
+          }
+        },
+        "20260728": {
+          "accuracy": 0.6914893617021277,
+          "macro_precision": 0.6571735980660905,
+          "macro_recall": 0.6583276736965635,
+          "macro_f1": 0.6576547798606622,
+          "target_recall": 0.6872037914691943,
+          "role_recall": {
+            "target_mineral": 0.6872037914691943,
+            "ti_bearing_negative": 0.7129032258064516,
+            "gangue_negative": 0.7678571428571429,
+            "metallic_hard_negative": 0.46534653465346537
+          }
+        },
+        "20260729": {
+          "accuracy": 0.7174940898345153,
+          "macro_precision": 0.700989766629042,
+          "macro_recall": 0.6938411570705031,
+          "macro_f1": 0.6953135714269708,
+          "target_recall": 0.6635071090047393,
+          "role_recall": {
+            "target_mineral": 0.6635071090047393,
+            "ti_bearing_negative": 0.7225806451612903,
+            "gangue_negative": 0.8348214285714286,
+            "metallic_hard_negative": 0.5544554455445545
+          }
+        }
+      },
+      "hierarchical": {
+        "20260727": {
+          "accuracy": 0.723404255319149,
+          "macro_precision": 0.7023671909986565,
+          "macro_recall": 0.7129951593144278,
+          "macro_f1": 0.7068917278132917,
+          "target_recall": 0.7345971563981043,
+          "role_recall": {
+            "target_mineral": 0.7345971563981043,
+            "ti_bearing_negative": 0.7193548387096774,
+            "gangue_negative": 0.7544642857142857,
+            "metallic_hard_negative": 0.6435643564356436
+          }
+        },
+        "20260728": {
+          "accuracy": 0.7127659574468085,
+          "macro_precision": 0.689676695895167,
+          "macro_recall": 0.7029499799112853,
+          "macro_f1": 0.6949123203572057,
+          "target_recall": 0.7298578199052133,
+          "role_recall": {
+            "target_mineral": 0.7298578199052133,
+            "ti_bearing_negative": 0.6903225806451613,
+            "gangue_negative": 0.7678571428571429,
+            "metallic_hard_negative": 0.6237623762376238
+          }
+        },
+        "20260729": {
+          "accuracy": 0.710401891252955,
+          "macro_precision": 0.6854052424352435,
+          "macro_recall": 0.6948868335287784,
+          "macro_f1": 0.6892798146050071,
+          "target_recall": 0.6777251184834123,
+          "role_recall": {
+            "target_mineral": 0.6777251184834123,
+            "ti_bearing_negative": 0.7290322580645161,
+            "gangue_negative": 0.7589285714285714,
+            "metallic_hard_negative": 0.6138613861386139
+          }
+        }
+      }
+    },
+    "aggregate": {
+      "baseline": {
+        "accuracy": {
+          "mean": 0.69424743892829,
+          "sample_std": 0.021997675101982438
+        },
+        "macro_precision": {
+          "mean": 0.6701406292684517,
+          "sample_std": 0.02682892929982249
+        },
+        "macro_recall": {
+          "mean": 0.6724989861037559,
+          "sample_std": 0.018811373812101698
+        },
+        "macro_f1": {
+          "mean": 0.6699856086134297,
+          "sample_std": 0.021937189106719178
+        },
+        "target_recall": {
+          "mean": 0.6808846761453397,
+          "sample_std": 0.01523483532542334
+        },
+        "role_recall": {
+          "target_mineral": {
+            "mean": 0.6808846761453397,
+            "sample_std": 0.01523483532542334
+          },
+          "ti_bearing_negative": {
+            "mean": 0.7,
+            "sample_std": 0.031108550841912722
+          },
+          "gangue_negative": {
+            "mean": 0.7678571428571429,
+            "sample_std": 0.06696428571428575
+          },
+          "metallic_hard_negative": {
+            "mean": 0.5412541254125413,
+            "sample_std": 0.07024355331284739
+          }
+        }
+      },
+      "hierarchical": {
+        "accuracy": {
+          "mean": 0.7155240346729709,
+          "sample_std": 0.006926081887804197
+        },
+        "macro_precision": {
+          "mean": 0.692483043109689,
+          "sample_std": 0.00882233604456943
+        },
+        "macro_recall": {
+          "mean": 0.7036106575848305,
+          "sample_std": 0.009072223373079183
+        },
+        "macro_f1": {
+          "mean": 0.6970279542585015,
+          "sample_std": 0.008994542890957342
+        },
+        "target_recall": {
+          "mean": 0.7140600315955766,
+          "sample_std": 0.03155605743355163
+        },
+        "role_recall": {
+          "target_mineral": {
+            "mean": 0.7140600315955766,
+            "sample_std": 0.03155605743355163
+          },
+          "ti_bearing_negative": {
+            "mean": 0.7129032258064516,
+            "sample_std": 0.02014515483354322
+          },
+          "gangue_negative": {
+            "mean": 0.7604166666666666,
+            "sample_std": 0.006819309069874799
+          },
+          "metallic_hard_negative": {
+            "mean": 0.6270627062706271,
+            "sample_std": 0.015124012194573743
+          }
+        }
+      }
+    },
+    "paired_hierarchical_minus_baseline": {
+      "accuracy": {
+        "values": [
+          0.04964539007092206,
+          0.02127659574468077,
+          -0.007092198581560294
+        ],
+        "mean": 0.021276595744680844,
+        "sample_std": 0.028368794326241176
+      },
+      "macro_f1": {
+        "values": [
+          0.049903253260635494,
+          0.037257540496543506,
+          -0.0060337568219637205
+        ],
+        "mean": 0.02704234564507176,
+        "sample_std": 0.02933427907134165
+      },
+      "target_recall": {
+        "values": [
+          0.042654028436018954,
+          0.042654028436018954,
+          0.014218009478673022
+        ],
+        "mean": 0.033175355450236976,
+        "sample_std": 0.016417543199704974
+      },
+      "role_recall": {
+        "target_mineral": {
+          "values": [
+            0.042654028436018954,
+            0.042654028436018954,
+            0.014218009478673022
+          ],
+          "mean": 0.033175355450236976,
+          "sample_std": 0.016417543199704974
+        },
+        "ti_bearing_negative": {
+          "values": [
+            0.05483870967741933,
+            -0.022580645161290325,
+            0.006451612903225823
+          ],
+          "mean": 0.01290322580645161,
+          "sample_std": 0.03911082468703915
+        },
+        "gangue_negative": {
+          "values": [
+            0.0535714285714286,
+            0.0,
+            -0.0758928571428572
+          ],
+          "mean": -0.007440476190476201,
+          "sample_std": 0.0650520624833167
+        },
+        "metallic_hard_negative": {
+          "values": [
+            0.03960396039603964,
+            0.1584158415841584,
+            0.05940594059405935
+          ],
+          "mean": 0.08580858085808579,
+          "sample_std": 0.06365446046860035
+        }
+      }
+    }
+  },
+  "proxy_ablation_common_subset": {
+    "per_seed": {
+      "full_common_subset": {
+        "20260727": {
+          "row_count": 1087,
+          "accuracy": 0.7046918123275069,
+          "macro_precision": 0.626934803679645,
+          "macro_recall": 0.6821278258276398,
+          "macro_f1": 0.625431570741286,
+          "target_recall": 0.6666666666666666,
+          "role_recall": {
+            "target_mineral": 0.6666666666666666,
+            "ti_bearing_negative": 0.6924643584521385,
+            "gangue_negative": 0.7841530054644809,
+            "metallic_hard_negative": 0.5852272727272727
+          },
+          "species_counts": {
+            "anatase": 179,
+            "calcite": 51,
+            "chalcopyrite": 46,
+            "feldspar": 46,
+            "fluorapatite": 80,
+            "goethite": 41,
+            "hematite": 45,
+            "ilmenite": 50,
+            "perovskite": 56,
+            "pyrite": 44,
+            "pyroxene": 74,
+            "quartz": 40,
+            "rutile": 204,
+            "titanite": 52,
+            "titanomagnetite": 4,
+            "vesuvianite": 75
+          },
+          "species_role_recall": {
+            "anatase": 0.7653631284916201,
+            "calcite": 0.8235294117647058,
+            "chalcopyrite": 0.6521739130434783,
+            "feldspar": 0.8043478260869565,
+            "fluorapatite": 0.8375,
+            "goethite": 0.43902439024390244,
+            "hematite": 0.5555555555555556,
+            "ilmenite": 0.64,
+            "perovskite": 0.5,
+            "pyrite": 0.6818181818181818,
+            "pyroxene": 0.6891891891891891,
+            "quartz": 0.85,
+            "rutile": 0.7107843137254902,
+            "titanite": 0.5769230769230769,
+            "titanomagnetite": 1.0,
+            "vesuvianite": 0.7466666666666667
+          }
+        },
+        "20260728": {
+          "row_count": 1087,
+          "accuracy": 0.7773689052437902,
+          "macro_precision": 0.7026338722239687,
+          "macro_recall": 0.7511160484683906,
+          "macro_f1": 0.7038199500630069,
+          "target_recall": 0.7777777777777778,
+          "role_recall": {
+            "target_mineral": 0.7777777777777778,
+            "ti_bearing_negative": 0.8024439918533605,
+            "gangue_negative": 0.8333333333333334,
+            "metallic_hard_negative": 0.5909090909090909
+          },
+          "species_counts": {
+            "anatase": 179,
+            "calcite": 51,
+            "chalcopyrite": 46,
+            "feldspar": 46,
+            "fluorapatite": 80,
+            "goethite": 41,
+            "hematite": 45,
+            "ilmenite": 50,
+            "perovskite": 56,
+            "pyrite": 44,
+            "pyroxene": 74,
+            "quartz": 40,
+            "rutile": 204,
+            "titanite": 52,
+            "titanomagnetite": 4,
+            "vesuvianite": 75
+          },
+          "species_role_recall": {
+            "anatase": 0.8268156424581006,
+            "calcite": 0.8431372549019608,
+            "chalcopyrite": 0.6304347826086957,
+            "feldspar": 0.8695652173913043,
+            "fluorapatite": 0.8375,
+            "goethite": 0.5365853658536586,
+            "hematite": 0.5555555555555556,
+            "ilmenite": 0.76,
+            "perovskite": 0.6964285714285714,
+            "pyrite": 0.6363636363636364,
+            "pyroxene": 0.7432432432432432,
+            "quartz": 0.925,
+            "rutile": 0.8382352941176471,
+            "titanite": 0.6923076923076923,
+            "titanomagnetite": 1.0,
+            "vesuvianite": 0.84
+          }
+        },
+        "20260729": {
+          "row_count": 1087,
+          "accuracy": 0.7608095676172953,
+          "macro_precision": 0.6776557291922591,
+          "macro_recall": 0.7350574224937769,
+          "macro_f1": 0.6832199468934045,
+          "target_recall": 0.7222222222222222,
+          "role_recall": {
+            "target_mineral": 0.7222222222222222,
+            "ti_bearing_negative": 0.7596741344195519,
+            "gangue_negative": 0.8333333333333334,
+            "metallic_hard_negative": 0.625
+          },
+          "species_counts": {
+            "anatase": 179,
+            "calcite": 51,
+            "chalcopyrite": 46,
+            "feldspar": 46,
+            "fluorapatite": 80,
+            "goethite": 41,
+            "hematite": 45,
+            "ilmenite": 50,
+            "perovskite": 56,
+            "pyrite": 44,
+            "pyroxene": 74,
+            "quartz": 40,
+            "rutile": 204,
+            "titanite": 52,
+            "titanomagnetite": 4,
+            "vesuvianite": 75
+          },
+          "species_role_recall": {
+            "anatase": 0.7988826815642458,
+            "calcite": 0.9411764705882353,
+            "chalcopyrite": 0.717391304347826,
+            "feldspar": 0.8695652173913043,
+            "fluorapatite": 0.8375,
+            "goethite": 0.5365853658536586,
+            "hematite": 0.5777777777777777,
+            "ilmenite": 0.72,
+            "perovskite": 0.6428571428571429,
+            "pyrite": 0.6590909090909091,
+            "pyroxene": 0.6891891891891891,
+            "quartz": 0.925,
+            "rutile": 0.7843137254901961,
+            "titanite": 0.6538461538461539,
+            "titanomagnetite": 0.75,
+            "vesuvianite": 0.8266666666666667
+          }
+        }
+      },
+      "no_magnetite_proxy": {
+        "20260727": {
+          "row_count": 1087,
+          "accuracy": 0.7773689052437902,
+          "macro_precision": 0.7447478862951444,
+          "macro_recall": 0.6760852648129994,
+          "macro_f1": 0.6991430785823584,
+          "target_recall": 0.3888888888888889,
+          "role_recall": {
+            "target_mineral": 0.3888888888888889,
+            "ti_bearing_negative": 0.8228105906313645,
+            "gangue_negative": 0.8278688524590164,
+            "metallic_hard_negative": 0.6647727272727273
+          },
+          "species_counts": {
+            "anatase": 179,
+            "calcite": 51,
+            "chalcopyrite": 46,
+            "feldspar": 46,
+            "fluorapatite": 80,
+            "goethite": 41,
+            "hematite": 45,
+            "ilmenite": 50,
+            "perovskite": 56,
+            "pyrite": 44,
+            "pyroxene": 74,
+            "quartz": 40,
+            "rutile": 204,
+            "titanite": 52,
+            "titanomagnetite": 4,
+            "vesuvianite": 75
+          },
+          "species_role_recall": {
+            "anatase": 0.9162011173184358,
+            "calcite": 0.8823529411764706,
+            "chalcopyrite": 0.7608695652173914,
+            "feldspar": 0.8478260869565217,
+            "fluorapatite": 0.8875,
+            "goethite": 0.6585365853658537,
+            "hematite": 0.5777777777777777,
+            "ilmenite": 0.4,
+            "perovskite": 0.8214285714285714,
+            "pyrite": 0.6590909090909091,
+            "pyroxene": 0.6756756756756757,
+            "quartz": 0.875,
+            "rutile": 0.7941176470588235,
+            "titanite": 0.6153846153846154,
+            "titanomagnetite": 0.25,
+            "vesuvianite": 0.84
+          }
+        },
+        "20260728": {
+          "row_count": 1087,
+          "accuracy": 0.7764489420423183,
+          "macro_precision": 0.7030076576560194,
+          "macro_recall": 0.7056784323204893,
+          "macro_f1": 0.7032112582709578,
+          "target_recall": 0.5185185185185185,
+          "role_recall": {
+            "target_mineral": 0.5185185185185185,
+            "ti_bearing_negative": 0.8004073319755601,
+            "gangue_negative": 0.8333333333333334,
+            "metallic_hard_negative": 0.6704545454545454
+          },
+          "species_counts": {
+            "anatase": 179,
+            "calcite": 51,
+            "chalcopyrite": 46,
+            "feldspar": 46,
+            "fluorapatite": 80,
+            "goethite": 41,
+            "hematite": 45,
+            "ilmenite": 50,
+            "perovskite": 56,
+            "pyrite": 44,
+            "pyroxene": 74,
+            "quartz": 40,
+            "rutile": 204,
+            "titanite": 52,
+            "titanomagnetite": 4,
+            "vesuvianite": 75
+          },
+          "species_role_recall": {
+            "anatase": 0.8547486033519553,
+            "calcite": 0.9215686274509803,
+            "chalcopyrite": 0.8260869565217391,
+            "feldspar": 0.8478260869565217,
+            "fluorapatite": 0.8625,
+            "goethite": 0.5609756097560976,
+            "hematite": 0.5777777777777777,
+            "ilmenite": 0.5,
+            "perovskite": 0.7857142857142857,
+            "pyrite": 0.7045454545454546,
+            "pyroxene": 0.7297297297297297,
+            "quartz": 0.8,
+            "rutile": 0.8088235294117647,
+            "titanite": 0.5961538461538461,
+            "titanomagnetite": 0.75,
+            "vesuvianite": 0.8533333333333334
+          }
+        },
+        "20260729": {
+          "row_count": 1087,
+          "accuracy": 0.797608095676173,
+          "macro_precision": 0.7236232842795511,
+          "macro_recall": 0.7017350297995142,
+          "macro_f1": 0.7112180016515277,
+          "target_recall": 0.4444444444444444,
+          "role_recall": {
+            "target_mineral": 0.4444444444444444,
+            "ti_bearing_negative": 0.8370672097759674,
+            "gangue_negative": 0.860655737704918,
+            "metallic_hard_negative": 0.6647727272727273
+          },
+          "species_counts": {
+            "anatase": 179,
+            "calcite": 51,
+            "chalcopyrite": 46,
+            "feldspar": 46,
+            "fluorapatite": 80,
+            "goethite": 41,
+            "hematite": 45,
+            "ilmenite": 50,
+            "perovskite": 56,
+            "pyrite": 44,
+            "pyroxene": 74,
+            "quartz": 40,
+            "rutile": 204,
+            "titanite": 52,
+            "titanomagnetite": 4,
+            "vesuvianite": 75
+          },
+          "species_role_recall": {
+            "anatase": 0.8715083798882681,
+            "calcite": 0.9019607843137255,
+            "chalcopyrite": 0.8478260869565217,
+            "feldspar": 0.8695652173913043,
+            "fluorapatite": 0.875,
+            "goethite": 0.5365853658536586,
+            "hematite": 0.6,
+            "ilmenite": 0.44,
+            "perovskite": 0.8214285714285714,
+            "pyrite": 0.6590909090909091,
+            "pyroxene": 0.8108108108108109,
+            "quartz": 0.9,
+            "rutile": 0.8431372549019608,
+            "titanite": 0.7115384615384616,
+            "titanomagnetite": 0.5,
+            "vesuvianite": 0.84
+          }
+        }
+      }
+    },
+    "aggregate": {
+      "full_common_subset": {
+        "accuracy": {
+          "mean": 0.7476234283961974,
+          "sample_std": 0.038090624297314316
+        },
+        "macro_precision": {
+          "mean": 0.6690748016986243,
+          "sample_std": 0.03857215941722495
+        },
+        "macro_recall": {
+          "mean": 0.7227670989299357,
+          "sample_std": 0.03609893011933159
+        },
+        "macro_f1": {
+          "mean": 0.6708238225658991,
+          "sample_std": 0.04063782015473676
+        },
+        "target_recall": {
+          "mean": 0.7222222222222222,
+          "sample_std": 0.05555555555555558
+        },
+        "role_recall": {
+          "target_mineral": {
+            "mean": 0.7222222222222222,
+            "sample_std": 0.05555555555555558
+          },
+          "ti_bearing_negative": {
+            "mean": 0.7515274949083502,
+            "sample_std": 0.05544056044324316
+          },
+          "gangue_negative": {
+            "mean": 0.8169398907103825,
+            "sample_std": 0.028394275533916054
+          },
+          "metallic_hard_negative": {
+            "mean": 0.6003787878787878,
+            "sample_std": 0.021511016461364673
+          }
+        }
+      },
+      "no_magnetite_proxy": {
+        "accuracy": {
+          "mean": 0.7838086476540939,
+          "sample_std": 0.01195952161913526
+        },
+        "macro_precision": {
+          "mean": 0.7237929427435716,
+          "sample_std": 0.02087063151194567
+        },
+        "macro_recall": {
+          "mean": 0.6944995756443343,
+          "sample_std": 0.016068688135792934
+        },
+        "macro_f1": {
+          "mean": 0.704524112834948,
+          "sample_std": 0.0061435846304280645
+        },
+        "target_recall": {
+          "mean": 0.4506172839506173,
+          "sample_std": 0.0650348997089675
+        },
+        "role_recall": {
+          "target_mineral": {
+            "mean": 0.4506172839506173,
+            "sample_std": 0.0650348997089675
+          },
+          "ti_bearing_negative": {
+            "mean": 0.8200950441276307,
+            "sample_std": 0.018480186814414348
+          },
+          "gangue_negative": {
+            "mean": 0.8406193078324226,
+            "sample_std": 0.017565848380679292
+          },
+          "metallic_hard_negative": {
+            "mean": 0.6666666666666666,
+            "sample_std": 0.0032803992567592023
+          }
+        }
+      }
+    },
+    "target_species": {
+      "ilmenite": {
+        "full_common_subset": {
+          "count": 50,
+          "mean": 0.7066666666666667,
+          "sample_std": 0.06110100926607786
+        },
+        "no_magnetite_proxy": {
+          "count": 50,
+          "mean": 0.44666666666666666,
+          "sample_std": 0.05033222956847165
+        }
+      },
+      "titanomagnetite": {
+        "full_common_subset": {
+          "count": 4,
+          "mean": 0.9166666666666666,
+          "sample_std": 0.14433756729740643
+        },
+        "no_magnetite_proxy": {
+          "count": 4,
+          "mean": 0.5,
+          "sample_std": 0.25
+        }
+      }
+    }
+  },
+  "limitations": [
+    "Three seeds do not establish statistical significance.",
+    "Titanomagnetite has four common test images; its recall is descriptive only."
+  ]
+}
