@@ -64,7 +64,7 @@ def theory_equation_specs():
         ),
         "consistency": (
             r"$\mathcal{L}_{\mathrm{cons}}="
-            r"D_{\mathrm{KL}}\!\left(\mathbf{p}_r\,\Vert\,\widetilde{\mathbf{p}}_r\right)$"
+            r"D_{\mathrm{KL}}\!\left(\widetilde{\mathbf{p}}_r\,\Vert\,\mathbf{p}_r\right)$"
         ),
         "confidence": r"$q(x)=\max_{r\in\mathcal{R}}p_r(r\mid x)$",
         "coverage": (

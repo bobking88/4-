@@ -41,7 +41,7 @@ class TechnicalReportIntegrationTests(unittest.TestCase):
 
         self.assertIn(r"\widetilde{\mathbf{p}}_r = \mathbf{A}\mathbf{p}_s", equations["aggregation"])
         self.assertIn(
-            r"D_{\mathrm{KL}}\!\left(\mathbf{p}_r\,\Vert\,\widetilde{\mathbf{p}}_r\right)",
+            r"D_{\mathrm{KL}}\!\left(\widetilde{\mathbf{p}}_r\,\Vert\,\mathbf{p}_r\right)",
             equations["consistency"],
         )
 
@@ -54,7 +54,7 @@ class TechnicalReportIntegrationTests(unittest.TestCase):
     def test_generated_report_contains_required_sections_and_figures(self) -> None:
         from docx import Document
 
-        report_path = PROJECT_ROOT / "结题" / "基于深度学习的钒钛矿相关矿物图像识别方法研究_技术报告（初稿）.docx"
+        report_path = PROJECT_ROOT / "结题" / "基于深度学习的钒钛矿相关矿物图像识别方法研究_技术报告（正式版）.docx"
         document = Document(report_path)
         report_text = "\n".join(paragraph.text for paragraph in document.paragraphs)
 
@@ -62,16 +62,15 @@ class TechnicalReportIntegrationTests(unittest.TestCase):
         self.assertGreaterEqual(len(document.inline_shapes), 10)
         self.assertGreaterEqual(len(document.tables), 15)
         for required in (
-            "理论模型与符号定义",
+            "矿物种类—角色分层一致性模型",
             "角色可识别性命题",
-            "受控逻辑条件验证",
             "固定测试划分上的选择性识别",
-            "阶段条件化决策",
-            "outputs/theory_validation/role_identifiability/role_identifiability_summary.json",
-            "见§5.9",
-            "outputs/theory_validation/selective_recognition/selective_recognition_summary.json",
-            "图 9 和§5.10",
-            "outputs/paper_figures_v1/fig9_selective_recognition.png",
+            "角色风险收缩：种类错误不必然导致角色错误",
+            "温度校准与独立风险认证",
+            "摄影者留出条件下的来源外泛化",
+            "outputs/theory_validation/hierarchy_consistency/",
+            "outputs/theory_validation/calibrated_selective_recognition/",
+            "outputs/paper_experiments_v2/training_summaries/",
         ):
             self.assertIn(required, report_text)
         for prohibited in (
@@ -85,8 +84,9 @@ class TechnicalReportIntegrationTests(unittest.TestCase):
             self.assertNotIn(prohibited, report_text)
 
         required_figures = (
-            PROJECT_ROOT / "outputs" / "paper_figures_v1" / "fig9_selective_recognition.png",
-            PROJECT_ROOT / "outputs" / "paper_figures_v1" / "fig10_theory_aware_hierarchical_architecture_cn.png",
+            PROJECT_ROOT / "outputs" / "paper_figures_v2" / "fig_hierarchy_kl_disagreement.png",
+            PROJECT_ROOT / "outputs" / "paper_figures_v2" / "fig_calibrated_reliability.png",
+            PROJECT_ROOT / "outputs" / "paper_figures_v2" / "fig_source_holdout_comparison.png",
         )
         expected_hashes = {hashlib.sha256(path.read_bytes()).hexdigest() for path in required_figures}
         with zipfile.ZipFile(report_path) as archive:
