@@ -30,6 +30,8 @@ __pycache__/
 /outputs/training/smoke_*/
 /outputs/training/**/*.stdout.log
 /outputs/training/**/*.stderr.log
+/outputs/paper_experiments_v2/**/best_model.pt
+/outputs/paper_experiments_v2/smoke/
 
 # Office temporary files
 ~$*

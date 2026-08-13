@@ -1,0 +1,63 @@
+{
+  "interpretation": "Sensitivity to removal of ordinary magnetite proxy images; not a direct titanomagnetite performance claim.",
+  "original_rows": 8529,
+  "ablation_rows": 7213,
+  "removed_magnetite_rows": 1316,
+  "species_counts_before": {
+    "anatase": 1191,
+    "calcite": 339,
+    "chalcopyrite": 303,
+    "feldspar": 302,
+    "fluorapatite": 535,
+    "goethite": 270,
+    "hematite": 302,
+    "ilmenite": 322,
+    "magnetite": 1316,
+    "perovskite": 373,
+    "pyrite": 298,
+    "pyroxene": 491,
+    "quartz": 260,
+    "rutile": 1359,
+    "titanite": 345,
+    "titanomagnetite": 23,
+    "vesuvianite": 500
+  },
+  "species_counts_after": {
+    "anatase": 1191,
+    "calcite": 339,
+    "chalcopyrite": 303,
+    "feldspar": 302,
+    "fluorapatite": 535,
+    "goethite": 270,
+    "hematite": 302,
+    "ilmenite": 322,
+    "perovskite": 373,
+    "pyrite": 298,
+    "pyroxene": 491,
+    "quartz": 260,
+    "rutile": 1359,
+    "titanite": 345,
+    "titanomagnetite": 23,
+    "vesuvianite": 500
+  },
+  "role_counts_before": {
+    "target_mineral": 1661,
+    "gangue_negative": 2427,
+    "metallic_hard_negative": 1173,
+    "ti_bearing_negative": 3268
+  },
+  "role_counts_after": {
+    "target_mineral": 345,
+    "gangue_negative": 2427,
+    "metallic_hard_negative": 1173,
+    "ti_bearing_negative": 3268
+  },
+  "titanomagnetite_provenance": {
+    "downloaded": 35,
+    "excluded_exact_label_conflict": 10,
+    "excluded_near_label_conflict": 2,
+    "excluded_cross_label_conflict": 12,
+    "final": 23
+  },
+  "manifest_sha256": "07a27183edb90e2e68e0f5eb619a7228f22e065831c7fb728061edff8803deb3"
+}

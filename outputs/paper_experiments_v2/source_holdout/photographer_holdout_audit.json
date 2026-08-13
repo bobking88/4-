@@ -1,0 +1,38 @@
+{
+  "row_count": 5639,
+  "photographer_count": 4540,
+  "photographer_cross_split_count": 0,
+  "split_group_cross_split_count": 0,
+  "split_counts": {
+    "val": 846,
+    "train": 3947,
+    "test": 846
+  },
+  "split_role_counts": {
+    "train": {
+      "target_mineral": 984,
+      "gangue_negative": 1045,
+      "metallic_hard_negative": 474,
+      "ti_bearing_negative": 1444
+    },
+    "val": {
+      "target_mineral": 211,
+      "gangue_negative": 224,
+      "metallic_hard_negative": 101,
+      "ti_bearing_negative": 310
+    },
+    "test": {
+      "target_mineral": 211,
+      "gangue_negative": 224,
+      "metallic_hard_negative": 101,
+      "ti_bearing_negative": 310
+    }
+  },
+  "accepted": true,
+  "failures": [],
+  "source_field": "photographer_or_credit",
+  "missing_photographer_rows_excluded": 2890,
+  "target_test_ratio": 0.15,
+  "seed": 20260813,
+  "manifest_sha256": "f460f6b9eb47f03cf0bf7ec3015c4735fcbd0891b9fab7bb07103ea270ae9149"
+}
