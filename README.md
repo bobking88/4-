@@ -12,6 +12,7 @@
 - 分层模型：矿物种类—选矿角色分层一致性 EfficientNet-B0，使用 17 类细粒度矿物标签与四类角色标签联合训练
 - 分层模型结果：Macro F1 为 `73.41% ± 2.40%`；目标代理召回提高，但两类困难干扰误入目标率也上升，当前仅作为召回—风险取舍原型，不宣称稳定优于基线
 - 分层组件消融：分别移除困难负样本约束和层级一致性约束，各完成 3 个随机种子。完整模型的总体 Macro F1 与两种删减配置接近，但目标代理 F1 更高、含钛和金属光泽干扰误入目标的比例呈更低方向；均值差与种子间波动相近，作为风险趋势报告而不作显著性宣称。
+- 成对统计推断：10,000 次两阶段分层簇 Bootstrap 显示目标召回提高 `9.16` 个百分点，95%区间为 `[5.18, 13.28]`；但含钛和金属光泽干扰误入目标分别增加 `3.19` 和 `4.73` 个百分点。Accuracy 与 Macro F1 区间跨 0，三个种子的 Holm 校正 McNemar p 值均大于 0.05，因此结论定位为风险重分配而非总体稳定优势。
 
 完整实验汇总见 [outputs/training/formal_experiment_summary_v1.md](outputs/training/formal_experiment_summary_v1.md)。
 
@@ -27,6 +28,9 @@ tests/                      数据处理与训练辅助函数测试
 outputs/training/            正式实验的指标、混淆矩阵与逐图预测结果
 outputs/business_metrics/    目标代理风险指标与分层模型三随机种子汇总
 outputs/paper_figures_v1/    技术报告与论文图表、图表源数据及结构图
+outputs/paper_figures_v3/    成对簇 Bootstrap 论文图及矢量/高分辨率版本
+outputs/paper_experiments_v3/
+                            成对统计推断、逐种子指标和重采样分布
 docs/                       项目过程文档
 训练说明.md                  本地训练操作说明
 requirements-training.txt    训练环境依赖
@@ -81,6 +85,19 @@ python .\scripts\train_hierarchical_mineral_classifier.py `
 ```
 
 两项组件消融的汇总结果位于 [outputs/business_metrics/hierarchical_component_ablation/hierarchical_component_ablation.md](outputs/business_metrics/hierarchical_component_ablation/hierarchical_component_ablation.md)。
+
+成对簇 Bootstrap 与 McNemar 推断复现：
+
+```powershell
+python .\scripts\analyze_paired_cluster_statistics.py `
+  --training-root .\outputs\training `
+  --output-dir .\outputs\paper_experiments_v3\statistical_inference `
+  --figure-prefix .\outputs\paper_figures_v3\fig_paired_cluster_effects `
+  --bootstrap-replicates 10000 `
+  --rng-seed 20260819
+```
+
+方法、统计假设和解释边界见 [docs/experiment_records/2026-08-19_paired_cluster_inference.md](docs/experiment_records/2026-08-19_paired_cluster_inference.md)。
 
 开放集评价工具位于 `scripts/evaluate_open_set_protocol.py`。它需要独立、经核验的未知矿物图像预测表；当前仓库不以闭集四分类测试集伪造未知矿物结果。
 

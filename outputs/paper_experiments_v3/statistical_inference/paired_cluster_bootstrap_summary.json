@@ -1,0 +1,136 @@
+{
+  "analysis": {
+    "comparison": "hierarchical_minus_baseline",
+    "bootstrap": "two-stage resampling of seeds and true-role-stratified split_group_id clusters",
+    "confidence_interval": "percentile 95%",
+    "bootstrap_replicates": 10000,
+    "rng_seed": 20260819,
+    "mcnemar": "two-sided exact binomial test per seed with Holm correction across three seeds",
+    "effect_interpretation": "raw difference is comparison minus baseline; oriented improvement reverses lower-is-better metrics"
+  },
+  "run_provenance": {
+    "20260727": {
+      "baseline_run": "formal_role_aware_efficientnet_b0_seed20260727",
+      "comparison_run": "formal_hierarchical_efficientnet_b0_seed20260727",
+      "row_count": 1284,
+      "cluster_count": 1284
+    },
+    "20260728": {
+      "baseline_run": "formal_role_aware_efficientnet_b0_seed20260728",
+      "comparison_run": "formal_hierarchical_efficientnet_b0_seed20260728",
+      "row_count": 1284,
+      "cluster_count": 1284
+    },
+    "20260729": {
+      "baseline_run": "formal_role_aware_efficientnet_b0_seed20260729",
+      "comparison_run": "formal_hierarchical_efficientnet_b0_seed20260729",
+      "row_count": 1284,
+      "cluster_count": 1284
+    }
+  },
+  "summary": {
+    "accuracy": {
+      "label": "Accuracy",
+      "favorable_direction": 1,
+      "baseline_mean": 0.7479231568016614,
+      "comparison_mean": 0.754153686396677,
+      "difference": 0.006230529595015577,
+      "oriented_improvement": 0.006230529595015577,
+      "ci_low": -0.02388369678089301,
+      "ci_high": 0.03219106957424711,
+      "probability_favorable": 0.6853,
+      "bootstrap_replicates": 10000
+    },
+    "macro_f1": {
+      "label": "Macro F1",
+      "favorable_direction": 1,
+      "baseline_mean": 0.7302213545112912,
+      "comparison_mean": 0.7341139043149352,
+      "difference": 0.003892549803643952,
+      "oriented_improvement": 0.003892549803643952,
+      "ci_low": -0.024563443288072907,
+      "ci_high": 0.03038345885476358,
+      "probability_favorable": 0.6218,
+      "bootstrap_replicates": 10000
+    },
+    "target_recall": {
+      "label": "Target recall",
+      "favorable_direction": 1,
+      "baseline_mean": 0.6839309428950864,
+      "comparison_mean": 0.7755644090305445,
+      "difference": 0.09163346613545809,
+      "oriented_improvement": 0.09163346613545809,
+      "ci_low": 0.05179282868525892,
+      "ci_high": 0.13280212483399734,
+      "probability_favorable": 1.0,
+      "bootstrap_replicates": 10000
+    },
+    "target_miss_rate": {
+      "label": "Target miss rate",
+      "favorable_direction": -1,
+      "baseline_mean": 0.3160690571049137,
+      "comparison_mean": 0.22443559096945553,
+      "difference": -0.09163346613545814,
+      "oriented_improvement": 0.09163346613545814,
+      "ci_low": -0.13280212483399734,
+      "ci_high": -0.05179282868525892,
+      "probability_favorable": 1.0,
+      "bootstrap_replicates": 10000
+    },
+    "ti_to_target_intrusion": {
+      "label": "Ti-bearing intrusion",
+      "favorable_direction": -1,
+      "baseline_mean": 0.07739307535641549,
+      "comparison_mean": 0.10930074677528852,
+      "difference": 0.03190767141887303,
+      "oriented_improvement": -0.03190767141887303,
+      "ci_low": 0.0006788866259334706,
+      "ci_high": 0.06788866259334692,
+      "probability_favorable": 0.0205,
+      "bootstrap_replicates": 10000
+    },
+    "metallic_to_target_intrusion": {
+      "label": "Metallic intrusion",
+      "favorable_direction": -1,
+      "baseline_mean": 0.09659090909090909,
+      "comparison_mean": 0.14393939393939395,
+      "difference": 0.04734848484848486,
+      "oriented_improvement": -0.04734848484848486,
+      "ci_low": 0.01325757575757576,
+      "ci_high": 0.08143939393939394,
+      "probability_favorable": 0.0024,
+      "bootstrap_replicates": 10000
+    }
+  },
+  "mcnemar": [
+    {
+      "seed": "20260727",
+      "baseline_only_correct": 135,
+      "comparison_only_correct": 101,
+      "discordant_total": 236,
+      "p_value_two_sided_exact": 0.031486049698257336,
+      "p_value_holm_three_seeds": 0.09445814909477201
+    },
+    {
+      "seed": "20260728",
+      "baseline_only_correct": 83,
+      "comparison_only_correct": 110,
+      "discordant_total": 193,
+      "p_value_two_sided_exact": 0.06099215686116873,
+      "p_value_holm_three_seeds": 0.11012584486437328
+    },
+    {
+      "seed": "20260729",
+      "baseline_only_correct": 107,
+      "comparison_only_correct": 138,
+      "discordant_total": 245,
+      "p_value_two_sided_exact": 0.05506292243218664,
+      "p_value_holm_three_seeds": 0.11012584486437328
+    }
+  ],
+  "limitations": [
+    "Only three training seeds are available, so seed-level uncertainty remains imprecise.",
+    "The bootstrap quantifies uncertainty over observed seeds and image groups, not unseen industrial domains.",
+    "McNemar tests accuracy discordance only and does not replace interval estimates for Macro F1 or class-specific risks."
+  ]
+}
