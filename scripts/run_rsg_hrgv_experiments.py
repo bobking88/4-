@@ -74,6 +74,7 @@ def build_experiment_commands(
                 device,
                 "--torch-home",
                 str(torch_home),
+                "--couple-verifier-features",
                 *extra_flags,
             )
             commands.append(

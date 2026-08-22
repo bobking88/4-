@@ -60,6 +60,8 @@ class RSGHRGVExperimentMatrixTests(unittest.TestCase):
 
         self.assertIn("--disable-gate-regret", arguments["hrgv_reference"])
         self.assertNotIn("--detach-gate-features", arguments["hrgv_reference"])
+        for configuration in arguments:
+            self.assertIn("--couple-verifier-features", arguments[configuration])
         for configuration in ("rsg_complete", "rsg_hard_target", "rsg_unweighted"):
             self.assertIn("--lambda-gate-regret 0.1", arguments[configuration])
             self.assertIn("--detach-gate-features", arguments[configuration])
