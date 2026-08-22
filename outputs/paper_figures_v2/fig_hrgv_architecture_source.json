@@ -1,0 +1,13 @@
+{
+  "core_conclusion": "Hierarchical evidence is fused before asymmetric hard-negative verification.",
+  "archetype": "schematic-led composite",
+  "backend": "Python/matplotlib",
+  "final_width_mm": 183,
+  "evidence_scope": "Architecture and mathematical inference path; no industrial performance claim.",
+  "exports": {
+    "png": "outputs\\paper_figures_v2\\fig_hrgv_architecture.png",
+    "svg": "outputs\\paper_figures_v2\\fig_hrgv_architecture.svg",
+    "pdf": "outputs\\paper_figures_v2\\fig_hrgv_architecture.pdf",
+    "tiff": "outputs\\paper_figures_v2\\fig_hrgv_architecture.tiff"
+  }
+}

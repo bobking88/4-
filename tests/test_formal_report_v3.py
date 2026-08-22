@@ -23,7 +23,7 @@ class FormalReportV3Tests(unittest.TestCase):
     def test_paired_inference_section_and_evidence_are_present(self) -> None:
         required = (
             "5.16 成对簇 Bootstrap 与配对统计推断",
-            "5.17 实验结果的综合判断",
+            "5.18 实验结果的综合判断",
             "目标召回提高9.16个百分点",
             "95%簇 Bootstrap 区间为[5.18, 13.28]个百分点",
             "三组经 Holm 校正的 p 值均大于0.05",

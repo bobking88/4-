@@ -1,0 +1,4 @@
+﻿seed,baseline_only_correct,comparison_only_correct,discordant_total,p_value_two_sided_exact,p_value_holm_three_seeds
+20260727,79,130,209,0.0005127450042800289,0.0015382350128400868
+20260728,103,93,196,0.5204221958817009,1.0
+20260729,92,92,184,1.0,1.0

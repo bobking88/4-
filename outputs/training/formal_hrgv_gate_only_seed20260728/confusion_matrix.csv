@@ -1,0 +1,5 @@
+﻿actual/predicted,target_mineral,ti_bearing_negative,gangue_negative,metallic_hard_negative
+target_mineral,185,43,13,10
+ti_bearing_negative,56,359,60,16
+gangue_negative,17,24,316,9
+metallic_hard_negative,19,22,19,116
