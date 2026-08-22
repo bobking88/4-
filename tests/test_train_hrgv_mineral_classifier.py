@@ -42,6 +42,14 @@ class HRGVTrainingConfigurationTests(unittest.TestCase):
         self.assertEqual(args.lambda_consistency, 0.10)
         self.assertEqual(args.lambda_verifier, 0.50)
         self.assertEqual(args.lambda_contrast, 0.10)
+        self.assertEqual(args.lambda_gate_regret, 0.0)
+        self.assertEqual(args.gate_regret_temperature, 0.20)
+        self.assertEqual(args.gate_gap_temperature, 0.50)
+        self.assertFalse(args.disable_gate_regret)
+        self.assertFalse(args.hard_gate_target)
+        self.assertFalse(args.unweighted_gate_regret)
+        self.assertFalse(args.detach_gate_features)
+        self.assertFalse(args.couple_gate_features)
         self.assertEqual(args.gate_hidden_dim, 128)
         self.assertIsNone(args.fixed_gate)
         self.assertFalse(args.disable_verifiers)
@@ -83,11 +91,17 @@ class HRGVTrainingConfigurationTests(unittest.TestCase):
         ]
         negative = parse_args([*common, "--lambda-verifier", "-0.1"])
         invalid_gate = parse_args([*common, "--fixed-gate", "1.1"])
+        invalid_regret_weight = parse_args([*common, "--lambda-gate-regret", "-0.1"])
+        invalid_temperature = parse_args([*common, "--gate-regret-temperature", "0"])
 
         with self.assertRaisesRegex(ValueError, "non-negative"):
             validate_args(negative)
         with self.assertRaisesRegex(ValueError, "fixed gate"):
             validate_args(invalid_gate)
+        with self.assertRaisesRegex(ValueError, "non-negative"):
+            validate_args(invalid_regret_weight)
+        with self.assertRaisesRegex(ValueError, "Gate temperatures"):
+            validate_args(invalid_temperature)
 
     def test_validation_rejects_invalid_residual_parameters(self) -> None:
         from train_hrgv_mineral_classifier import parse_args, validate_args
@@ -123,6 +137,21 @@ class HRGVArtifactTests(unittest.TestCase):
         self.assertAlmostEqual(metrics["ti_to_target_intrusion_rate"], 0.5)
         self.assertAlmostEqual(metrics["metallic_to_target_intrusion_rate"], 0.5)
 
+    def test_gate_summary_reports_routing_accuracy_regret_and_disagreement_subset(self) -> None:
+        from train_hrgv_mineral_classifier import summarize_gate_routing
+
+        metrics = summarize_gate_routing(
+            gate_selection_correct=[True, False, True, True],
+            routing_regrets_nll=[0.00, 0.40, 0.10, 0.20],
+            weighted_gate_errors=[0.00, 0.30, 0.05, 0.10],
+            one_right_one_wrong=[True, True, False, False],
+        )
+
+        self.assertAlmostEqual(metrics["gate_selection_accuracy"], 0.75)
+        self.assertAlmostEqual(metrics["one_right_gate_selection_accuracy"], 0.50)
+        self.assertAlmostEqual(metrics["mean_routing_regret_nll"], 0.175)
+        self.assertAlmostEqual(metrics["mean_weighted_gate_error"], 0.1125)
+
     def test_prediction_rows_include_all_hrgv_diagnostics(self) -> None:
         from train_hrgv_mineral_classifier import HRGV_PREDICTION_FIELDS, build_hrgv_prediction_rows
 
@@ -147,6 +176,15 @@ class HRGVArtifactTests(unittest.TestCase):
             ti_target_probabilities=[0.90],
             metallic_target_probabilities=[0.80],
             expert_js_divergences=[0.12],
+            direct_true_probabilities=[0.22],
+            mapped_true_probabilities=[0.61],
+            fused_true_probabilities=[0.4735],
+            hard_oracle_gates=[0.0],
+            soft_oracle_gates=[0.03],
+            gate_gap_weights=[0.88],
+            gate_selection_correct=[True],
+            routing_regrets_nll=[0.2540],
+            weighted_gate_errors=[0.1365],
         )
 
         self.assertEqual(len(rows), 1)
@@ -158,6 +196,15 @@ class HRGVArtifactTests(unittest.TestCase):
         self.assertEqual(rows[0]["ti_target_probability"], "0.900000")
         self.assertEqual(rows[0]["metallic_target_probability"], "0.800000")
         self.assertEqual(rows[0]["expert_js_divergence"], "0.120000")
+        self.assertEqual(rows[0]["direct_true_probability"], "0.220000")
+        self.assertEqual(rows[0]["mapped_true_probability"], "0.610000")
+        self.assertEqual(rows[0]["fused_true_probability"], "0.473500")
+        self.assertEqual(rows[0]["hard_oracle_gate"], "0.000000")
+        self.assertEqual(rows[0]["soft_oracle_gate"], "0.030000")
+        self.assertEqual(rows[0]["gate_gap_weight"], "0.880000")
+        self.assertEqual(rows[0]["gate_selection_correct"], "1")
+        self.assertEqual(rows[0]["routing_regret_nll"], "0.254000")
+        self.assertEqual(rows[0]["weighted_gate_error"], "0.136500")
 
 
 if __name__ == "__main__":

@@ -236,15 +236,16 @@ $$
 
 ### 5.1 新增参数
 
-- `--lambda-gate-regret`：$\lambda_g$，默认候选值 0.10；
+- `--lambda-gate-regret`：$\lambda_g$；命令行兼容默认值为 0，RSG 正式实验显式传入候选值 0.10；
 - `--gate-regret-temperature`：$T_r$，默认候选值 0.20；
 - `--gate-gap-temperature`：$T_w$，默认候选值 0.50；
-- `--disable-gate-regret`：复现原始 HRGV；
+- `--disable-gate-regret`：即使已给出正的 $\lambda_g$，也强制复现原始 HRGV；
 - `--hard-gate-target`：硬最优门控目标消融；
 - `--unweighted-gate-regret`：取消差距权重的消融；
-- `--couple-gate-features`：允许门控路径更新共享特征的消融。
+- `--detach-gate-features`：启用 RSG 推荐的门控输入梯度隔离；不传该参数时保持原始 HRGV 计算图；
+- `--couple-gate-features`：仅供 RSG 消融脚本显式覆盖梯度隔离设置。
 
-默认参数只作为单随机种子试验起点，不能在测试集上调参。候选组合由验证集 Macro F1、目标召回和两类误入率共同选择。
+RSG 实验参数只作为单随机种子试验起点，不能在测试集上调参。候选组合由验证集 Macro F1、目标召回和两类误入率共同选择。旧命令不显式传入 RSG 参数时，输出必须与原始 HRGV 保持一致。
 
 ### 5.2 新增逐图输出
 

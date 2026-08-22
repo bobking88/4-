@@ -57,6 +57,110 @@ def mix_role_experts(direct, mapped, gate):
     return mixed / mixed.sum(dim=1, keepdim=True).clamp_min(epsilon)
 
 
+def regret_gate_targets(
+    direct,
+    mapped,
+    role_labels,
+    target_temperature: float,
+    gap_temperature: float,
+    torch,
+    hard_target: bool = False,
+    unweighted: bool = False,
+):
+    """Build detached oracle routing targets from the two experts' true-class losses."""
+    if direct.shape != mapped.shape:
+        raise ValueError("Direct and mapped probabilities must have the same shape.")
+    _validate_probability_matrix(direct, "direct")
+    if role_labels.ndim != 1 or role_labels.shape[0] != direct.shape[0]:
+        raise ValueError("Role labels must have shape [batch].")
+    if target_temperature <= 0 or gap_temperature <= 0:
+        raise ValueError("Gate temperatures must be positive.")
+    if bool(((role_labels < 0) | (role_labels >= direct.shape[1])).any()):
+        raise ValueError("Role labels contain an index outside the role dimension.")
+
+    epsilon = torch.finfo(direct.dtype).eps
+    gather_index = role_labels.view(-1, 1)
+    direct_true = direct.gather(1, gather_index).clamp_min(epsilon)
+    mapped_true = mapped.gather(1, gather_index).clamp_min(epsilon)
+    expert_loss_gap = mapped_true.log() * -1.0 - direct_true.log() * -1.0
+    hard_oracle_gate = (expert_loss_gap >= 0).to(direct.dtype)
+    soft_oracle_gate = torch.sigmoid(expert_loss_gap / target_temperature)
+    if hard_target:
+        soft_oracle_gate = hard_oracle_gate
+    gate_gap_weight = torch.ones_like(expert_loss_gap)
+    if not unweighted:
+        gate_gap_weight = torch.tanh(expert_loss_gap.abs() / gap_temperature)
+
+    return {
+        "direct_true_probability": direct_true.detach(),
+        "mapped_true_probability": mapped_true.detach(),
+        "expert_loss_gap": expert_loss_gap.detach(),
+        "soft_oracle_gate": soft_oracle_gate.detach(),
+        "hard_oracle_gate": hard_oracle_gate.detach(),
+        "gate_gap_weight": gate_gap_weight.detach(),
+    }
+
+
+def weighted_soft_gate_loss(gate, target, weight, torch):
+    """Return gap-weighted binary cross entropy for a soft oracle gate target."""
+    if gate.ndim != 2 or gate.shape[1] != 1:
+        raise ValueError("Gate must have shape [batch, 1].")
+    if target.shape != gate.shape or weight.shape != gate.shape:
+        raise ValueError("Gate target and weight must have the same shape as gate.")
+    if bool(((gate < 0) | (gate > 1)).any()) or bool(((target < 0) | (target > 1)).any()):
+        raise ValueError("Gate and target values must lie in [0, 1].")
+    if bool((weight < 0).any()):
+        raise ValueError("Gate weights must be non-negative.")
+
+    epsilon = torch.finfo(gate.dtype).eps
+    weight_sum = weight.sum()
+    if float(weight_sum.detach()) <= epsilon:
+        return gate.sum() * 0.0
+    safe_gate = gate.clamp(min=epsilon, max=1.0 - epsilon)
+    row_loss = -(target * safe_gate.log() + (1.0 - target) * (1.0 - safe_gate).log())
+    return (weight * row_loss).sum() / weight_sum.clamp_min(epsilon)
+
+
+def gate_routing_diagnostics(gate, direct, mapped, role_labels, torch):
+    """Compute label-dependent routing diagnostics without altering inference outputs."""
+    if direct.shape != mapped.shape:
+        raise ValueError("Direct and mapped probabilities must have the same shape.")
+    _validate_probability_matrix(direct, "direct")
+    if gate.shape != (direct.shape[0], 1):
+        raise ValueError("Gate must have shape [batch, 1].")
+    if role_labels.ndim != 1 or role_labels.shape[0] != direct.shape[0]:
+        raise ValueError("Role labels must have shape [batch].")
+
+    epsilon = torch.finfo(direct.dtype).eps
+    gather_index = role_labels.view(-1, 1)
+    direct_true = direct.gather(1, gather_index).clamp_min(epsilon)
+    mapped_true = mapped.gather(1, gather_index).clamp_min(epsilon)
+    fused_true = (gate * direct_true + (1.0 - gate) * mapped_true).clamp_min(epsilon)
+    oracle_true = torch.maximum(direct_true, mapped_true)
+    hard_oracle_gate = (direct_true >= mapped_true).to(direct.dtype)
+    hard_gate = (gate >= 0.5).to(direct.dtype)
+    direct_correct = direct.argmax(dim=1, keepdim=True) == gather_index
+    mapped_correct = mapped.argmax(dim=1, keepdim=True) == gather_index
+    one_right_one_wrong = direct_correct != mapped_correct
+    absolute_hard_gate_error = (gate - hard_oracle_gate).abs()
+    true_probability_gap = (direct_true - mapped_true).abs()
+
+    return {
+        "direct_true_probability": direct_true,
+        "mapped_true_probability": mapped_true,
+        "fused_true_probability": fused_true,
+        "hard_oracle_gate": hard_oracle_gate,
+        "hard_gate_selection_correct": hard_gate == hard_oracle_gate,
+        "direct_correct": direct_correct,
+        "mapped_correct": mapped_correct,
+        "one_right_one_wrong": one_right_one_wrong,
+        "absolute_hard_gate_error": absolute_hard_gate_error,
+        "true_probability_gap": true_probability_gap,
+        "weighted_gate_error": absolute_hard_gate_error * true_probability_gap,
+        "routing_regret_nll": -fused_true.log() + oracle_true.log(),
+    }
+
+
 def _validate_verifier_inputs(
     fused,
     ti_target_probability,
@@ -150,9 +254,17 @@ class HRGVLossWeights:
     consistency: float = 0.10
     verifier: float = 0.50
     contrast: float = 0.10
+    gate_regret: float = 0.0
 
     def validate(self) -> None:
-        values = (self.direct, self.species, self.consistency, self.verifier, self.contrast)
+        values = (
+            self.direct,
+            self.species,
+            self.consistency,
+            self.verifier,
+            self.contrast,
+            self.gate_regret,
+        )
         if any(value < 0 for value in values):
             raise ValueError("HRGV loss weights must be non-negative.")
 
@@ -175,6 +287,7 @@ class HierarchicalRiskGatedVerificationNet(nn.Module):
         ti_verifier_strength: float = 1.0,
         metallic_verifier_strength: float = 1.0,
         detach_verifier_features: bool = True,
+        detach_gate_features: bool = False,
     ) -> None:
         super().__init__()
         if verifier_mode not in {"residual", "multiplicative", "disabled"}:
@@ -229,6 +342,7 @@ class HierarchicalRiskGatedVerificationNet(nn.Module):
         self.ti_verifier_strength = ti_verifier_strength
         self.metallic_verifier_strength = metallic_verifier_strength
         self.detach_verifier_features = detach_verifier_features
+        self.detach_gate_features = detach_gate_features
         self.register_buffer("role_matrix", role_matrix.detach().clone().to(dtype=torch.float32))
 
     def forward(self, images: torch.Tensor) -> dict[str, torch.Tensor]:
@@ -251,6 +365,8 @@ class HierarchicalRiskGatedVerificationNet(nn.Module):
             gate_inputs = torch.cat(
                 [features, direct_entropy, mapped_entropy, expert_js_divergence], dim=1
             )
+            if self.detach_gate_features:
+                gate_inputs = gate_inputs.detach()
             gate = torch.sigmoid(self.gate_network(gate_inputs))
         else:
             gate = features.new_full((features.shape[0], 1), self.fixed_gate)
@@ -310,6 +426,10 @@ def compute_hrgv_losses(
     weights: HRGVLossWeights,
     temperature: float,
     torch,
+    gate_target_temperature: float = 0.20,
+    gate_gap_temperature: float = 0.50,
+    hard_gate_target: bool = False,
+    unweighted_gate_regret: bool = False,
 ):
     """Return the complete HRGV objective and its auditable loss terms."""
     weights.validate()
@@ -342,6 +462,22 @@ def compute_hrgv_losses(
     contrast_loss = compute_role_aware_contrastive_loss(
         outputs["embeddings"], role_labels, temperature, torch
     )
+    gate_targets = regret_gate_targets(
+        outputs["direct_role_probabilities"],
+        outputs["mapped_role_probabilities"],
+        role_labels,
+        target_temperature=gate_target_temperature,
+        gap_temperature=gate_gap_temperature,
+        torch=torch,
+        hard_target=hard_gate_target,
+        unweighted=unweighted_gate_regret,
+    )
+    gate_regret_loss = weighted_soft_gate_loss(
+        outputs["gate"],
+        gate_targets["soft_oracle_gate"],
+        gate_targets["gate_gap_weight"],
+        torch,
+    )
     total_loss = (
         final_role_loss
         + weights.direct * direct_role_loss
@@ -349,6 +485,7 @@ def compute_hrgv_losses(
         + weights.consistency * consistency_loss
         + weights.verifier * verifier_loss
         + weights.contrast * contrast_loss
+        + weights.gate_regret * gate_regret_loss
     )
     return total_loss, {
         "final_role_loss": final_role_loss,
@@ -359,4 +496,5 @@ def compute_hrgv_losses(
         "metallic_verifier_loss": metallic_verifier_loss,
         "verifier_loss": verifier_loss,
         "contrast_loss": contrast_loss,
+        "gate_regret_loss": gate_regret_loss,
     }

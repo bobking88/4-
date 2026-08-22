@@ -24,6 +24,8 @@
 
 ### Task 1: Regret-gate probability primitives
 
+**Status: completed (2026-08-22).**
+
 **Files:**
 - Modify: `scripts/hrgv_network.py`
 - Modify: `tests/test_hrgv_network.py`
@@ -102,6 +104,8 @@ git commit -m "feat: add regret-gate objectives and bounds"
 
 ### Task 2: Integrate RSG into the HRGV model and loss
 
+**Status: completed (2026-08-22).**
+
 **Files:**
 - Modify: `scripts/hrgv_network.py`
 - Modify: `tests/test_hrgv_network.py`
@@ -147,22 +151,24 @@ git commit -m "feat: integrate regret-supervised HRGV gate"
 
 ### Task 3: CLI, validation, training metrics, and prediction artifacts
 
+**Status: completed (2026-08-22).**
+
 **Files:**
 - Modify: `scripts/train_hrgv_mineral_classifier.py`
 - Modify: `tests/test_train_hrgv_mineral_classifier.py`
 
 **Interfaces:**
-- Adds CLI arguments: `--lambda-gate-regret`, `--gate-regret-temperature`, `--gate-gap-temperature`, `--disable-gate-regret`, `--hard-gate-target`, `--unweighted-gate-regret`, `--couple-gate-features`.
+- Adds CLI arguments: `--lambda-gate-regret`, `--gate-regret-temperature`, `--gate-gap-temperature`, `--disable-gate-regret`, `--hard-gate-target`, `--unweighted-gate-regret`, `--detach-gate-features`, `--couple-gate-features`.
 - Adds epoch outputs: `mean_gate_regret_loss`, `gate_selection_accuracy`, `mean_routing_regret_nll`, `mean_weighted_gate_error`.
 - Adds prediction CSV columns specified in the design.
 
 - [ ] **Step 1: Write failing parser-default and validation tests**
 
-Assert the RSG formal defaults are `lambda=0.10`, `T_r=0.20`, `T_w=0.50`, soft targets, weighted loss, and detached gate features. Assert nonpositive temperatures and negative loss weights raise `ValueError`.
+Assert the backward-compatible CLI defaults are `lambda=0`, `T_r=0.20`, `T_w=0.50`, soft targets, weighted loss, and the original coupled gate graph. Assert the RSG runner explicitly passes `lambda=0.10` and detached gate features. Assert nonpositive temperatures and negative loss weights raise `ValueError`.
 
 - [ ] **Step 2: Implement CLI options without changing legacy commands**
 
-`--disable-gate-regret` forces the effective gate-regret weight to zero. `--couple-gate-features` passes `detach_gate_features=False`; otherwise RSG commands pass `True`.
+`--disable-gate-regret` forces the effective gate-regret weight to zero. `--detach-gate-features` passes `detach_gate_features=True`; the base CLI otherwise preserves the original `False` behavior. The RSG runner always passes the detach flag, while `--couple-gate-features` is reserved for its coupled-gradient ablation.
 
 - [ ] **Step 3: Write failing prediction-row tests**
 
@@ -194,6 +200,8 @@ git commit -m "feat: export RSG routing diagnostics"
 ---
 
 ### Task 4: Reproducible pilot and formal experiment runner
+
+**Status: completed (2026-08-22).**
 
 **Files:**
 - Create: `scripts/run_rsg_hrgv_experiments.py`
@@ -229,6 +237,8 @@ git commit -m "feat: add RSG-HRGV experiment matrix"
 ---
 
 ### Task 5: Routing and classification analysis
+
+**Status: completed (2026-08-22).**
 
 **Files:**
 - Create: `scripts/analyze_rsg_hrgv_experiment.py`

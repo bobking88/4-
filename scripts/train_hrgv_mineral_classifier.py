@@ -15,6 +15,8 @@ from hrgv_network import (
     HRGVLossWeights,
     HierarchicalRiskGatedVerificationNet,
     compute_hrgv_losses,
+    gate_routing_diagnostics,
+    regret_gate_targets,
 )
 from mineral_hierarchy import SpeciesRoleMapping, validate_species_role_mapping
 from train_hierarchical_mineral_classifier import (
@@ -45,6 +47,15 @@ HRGV_PREDICTION_FIELDS = [
     "ti_target_probability",
     "metallic_target_probability",
     "expert_js_divergence",
+    "direct_true_probability",
+    "mapped_true_probability",
+    "fused_true_probability",
+    "hard_oracle_gate",
+    "soft_oracle_gate",
+    "gate_gap_weight",
+    "gate_selection_correct",
+    "routing_regret_nll",
+    "weighted_gate_error",
 ]
 
 
@@ -69,6 +80,14 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--lambda-consistency", type=float, default=0.10)
     parser.add_argument("--lambda-verifier", type=float, default=0.50)
     parser.add_argument("--lambda-contrast", type=float, default=0.10)
+    parser.add_argument("--lambda-gate-regret", type=float, default=0.0)
+    parser.add_argument("--gate-regret-temperature", type=float, default=0.20)
+    parser.add_argument("--gate-gap-temperature", type=float, default=0.50)
+    parser.add_argument("--disable-gate-regret", action="store_true")
+    parser.add_argument("--hard-gate-target", action="store_true")
+    parser.add_argument("--unweighted-gate-regret", action="store_true")
+    parser.add_argument("--detach-gate-features", action="store_true")
+    parser.add_argument("--couple-gate-features", action="store_true")
     parser.add_argument("--contrast-temperature", type=float, default=0.10)
     parser.add_argument("--embedding-dim", type=int, default=128)
     parser.add_argument("--gate-hidden-dim", type=int, default=128)
@@ -105,6 +124,7 @@ def validate_args(args: argparse.Namespace) -> None:
         consistency=args.lambda_consistency,
         verifier=args.lambda_verifier,
         contrast=args.lambda_contrast,
+        gate_regret=args.lambda_gate_regret,
     )
     loss_weights.validate()
     if args.fixed_gate is not None and not 0.0 <= args.fixed_gate <= 1.0:
@@ -121,6 +141,10 @@ def validate_args(args: argparse.Namespace) -> None:
         raise ValueError("Embedding and gate hidden dimensions must be positive.")
     if args.contrast_temperature <= 0:
         raise ValueError("Contrast temperature must be positive.")
+    if args.gate_regret_temperature <= 0 or args.gate_gap_temperature <= 0:
+        raise ValueError("Gate temperatures must be positive.")
+    if args.detach_gate_features and args.couple_gate_features:
+        raise ValueError("Gate features cannot be both detached and coupled.")
 
 
 def build_role_matrix(mapping: SpeciesRoleMapping, torch) -> torch.Tensor:
@@ -174,6 +198,39 @@ def verifier_subset_accuracy(
     return correct / len(eligible)
 
 
+def summarize_gate_routing(
+    gate_selection_correct: Sequence[bool],
+    routing_regrets_nll: Sequence[float],
+    weighted_gate_errors: Sequence[float],
+    one_right_one_wrong: Sequence[bool],
+) -> dict[str, float]:
+    sequences = (
+        gate_selection_correct,
+        routing_regrets_nll,
+        weighted_gate_errors,
+        one_right_one_wrong,
+    )
+    if len({len(sequence) for sequence in sequences}) != 1:
+        raise ValueError("All gate routing diagnostic fields must have matching lengths.")
+    count = len(gate_selection_correct)
+    if count == 0:
+        raise ValueError("Gate routing diagnostics cannot be empty.")
+    disagreement_indices = [
+        index for index, value in enumerate(one_right_one_wrong) if value
+    ]
+    disagreement_accuracy = float("nan")
+    if disagreement_indices:
+        disagreement_accuracy = sum(
+            bool(gate_selection_correct[index]) for index in disagreement_indices
+        ) / len(disagreement_indices)
+    return {
+        "gate_selection_accuracy": sum(bool(value) for value in gate_selection_correct) / count,
+        "one_right_gate_selection_accuracy": disagreement_accuracy,
+        "mean_routing_regret_nll": sum(routing_regrets_nll) / count,
+        "mean_weighted_gate_error": sum(weighted_gate_errors) / count,
+    }
+
+
 def build_hrgv_prediction_rows(
     records,
     final_prediction_ids: Sequence[int],
@@ -184,6 +241,15 @@ def build_hrgv_prediction_rows(
     ti_target_probabilities: Sequence[float],
     metallic_target_probabilities: Sequence[float],
     expert_js_divergences: Sequence[float],
+    direct_true_probabilities: Sequence[float],
+    mapped_true_probabilities: Sequence[float],
+    fused_true_probabilities: Sequence[float],
+    hard_oracle_gates: Sequence[float],
+    soft_oracle_gates: Sequence[float],
+    gate_gap_weights: Sequence[float],
+    gate_selection_correct: Sequence[bool],
+    routing_regrets_nll: Sequence[float],
+    weighted_gate_errors: Sequence[float],
 ) -> list[dict[str, str]]:
     sequences = (
         records,
@@ -195,6 +261,15 @@ def build_hrgv_prediction_rows(
         ti_target_probabilities,
         metallic_target_probabilities,
         expert_js_divergences,
+        direct_true_probabilities,
+        mapped_true_probabilities,
+        fused_true_probabilities,
+        hard_oracle_gates,
+        soft_oracle_gates,
+        gate_gap_weights,
+        gate_selection_correct,
+        routing_regrets_nll,
+        weighted_gate_errors,
     )
     if len({len(sequence) for sequence in sequences}) != 1:
         raise ValueError("All HRGV prediction fields must have matching lengths.")
@@ -212,6 +287,15 @@ def build_hrgv_prediction_rows(
                 "ti_target_probability": f"{ti_target_probabilities[index]:.6f}",
                 "metallic_target_probability": f"{metallic_target_probabilities[index]:.6f}",
                 "expert_js_divergence": f"{expert_js_divergences[index]:.6f}",
+                "direct_true_probability": f"{direct_true_probabilities[index]:.6f}",
+                "mapped_true_probability": f"{mapped_true_probabilities[index]:.6f}",
+                "fused_true_probability": f"{fused_true_probabilities[index]:.6f}",
+                "hard_oracle_gate": f"{hard_oracle_gates[index]:.6f}",
+                "soft_oracle_gate": f"{soft_oracle_gates[index]:.6f}",
+                "gate_gap_weight": f"{gate_gap_weights[index]:.6f}",
+                "gate_selection_correct": "1" if gate_selection_correct[index] else "0",
+                "routing_regret_nll": f"{routing_regrets_nll[index]:.6f}",
+                "weighted_gate_error": f"{weighted_gate_errors[index]:.6f}",
             }
         )
     return rows
@@ -229,6 +313,10 @@ def run_epoch(
     device,
     weights,
     contrast_temperature,
+    gate_target_temperature,
+    gate_gap_temperature,
+    hard_gate_target,
+    unweighted_gate_regret,
     max_batches: int | None,
 ):
     training = optimizer is not None
@@ -243,6 +331,7 @@ def run_epoch(
         "metallic_verifier_loss",
         "verifier_loss",
         "contrast_loss",
+        "gate_regret_loss",
     )
     totals = {name: 0.0 for name in loss_names}
     result = {
@@ -257,6 +346,16 @@ def run_epoch(
         "ti_target_probabilities": [],
         "metallic_target_probabilities": [],
         "expert_js_divergences": [],
+        "direct_true_probabilities": [],
+        "mapped_true_probabilities": [],
+        "fused_true_probabilities": [],
+        "hard_oracle_gates": [],
+        "soft_oracle_gates": [],
+        "gate_gap_weights": [],
+        "gate_selection_correct": [],
+        "routing_regrets_nll": [],
+        "weighted_gate_errors": [],
+        "one_right_one_wrong": [],
     }
     total_count = 0
     with torch.set_grad_enabled(training):
@@ -277,6 +376,10 @@ def run_epoch(
                 weights=weights,
                 temperature=contrast_temperature,
                 torch=torch,
+                gate_target_temperature=gate_target_temperature,
+                gate_gap_temperature=gate_gap_temperature,
+                hard_gate_target=hard_gate_target,
+                unweighted_gate_regret=unweighted_gate_regret,
             )
             if training:
                 optimizer.zero_grad(set_to_none=True)
@@ -312,11 +415,66 @@ def run_epoch(
             result["expert_js_divergences"].extend(
                 outputs["expert_js_divergence"].squeeze(1).cpu().tolist()
             )
+            gate_targets = regret_gate_targets(
+                outputs["direct_role_probabilities"],
+                outputs["mapped_role_probabilities"],
+                roles,
+                target_temperature=gate_target_temperature,
+                gap_temperature=gate_gap_temperature,
+                torch=torch,
+                hard_target=hard_gate_target,
+                unweighted=unweighted_gate_regret,
+            )
+            routing = gate_routing_diagnostics(
+                outputs["gate"],
+                outputs["direct_role_probabilities"],
+                outputs["mapped_role_probabilities"],
+                roles,
+                torch,
+            )
+            result["direct_true_probabilities"].extend(
+                routing["direct_true_probability"].squeeze(1).detach().cpu().tolist()
+            )
+            result["mapped_true_probabilities"].extend(
+                routing["mapped_true_probability"].squeeze(1).detach().cpu().tolist()
+            )
+            result["fused_true_probabilities"].extend(
+                routing["fused_true_probability"].squeeze(1).detach().cpu().tolist()
+            )
+            result["hard_oracle_gates"].extend(
+                routing["hard_oracle_gate"].squeeze(1).detach().cpu().tolist()
+            )
+            result["soft_oracle_gates"].extend(
+                gate_targets["soft_oracle_gate"].squeeze(1).cpu().tolist()
+            )
+            result["gate_gap_weights"].extend(
+                gate_targets["gate_gap_weight"].squeeze(1).cpu().tolist()
+            )
+            result["gate_selection_correct"].extend(
+                routing["hard_gate_selection_correct"].squeeze(1).detach().cpu().tolist()
+            )
+            result["routing_regrets_nll"].extend(
+                routing["routing_regret_nll"].squeeze(1).detach().cpu().tolist()
+            )
+            result["weighted_gate_errors"].extend(
+                routing["weighted_gate_error"].squeeze(1).detach().cpu().tolist()
+            )
+            result["one_right_one_wrong"].extend(
+                routing["one_right_one_wrong"].squeeze(1).detach().cpu().tolist()
+            )
     if total_count == 0:
         raise RuntimeError("No batches were evaluated.")
     result["losses"] = {name: value / total_count for name, value in totals.items()}
     result["mean_gate"] = sum(result["gates"]) / total_count
     result["mean_expert_js_divergence"] = sum(result["expert_js_divergences"]) / total_count
+    result.update(
+        summarize_gate_routing(
+            result["gate_selection_correct"],
+            result["routing_regrets_nll"],
+            result["weighted_gate_errors"],
+            result["one_right_one_wrong"],
+        )
+    )
     return result
 
 
@@ -367,6 +525,7 @@ def main(argv: Sequence[str] | None = None) -> None:
         ti_verifier_strength=args.ti_verifier_strength,
         metallic_verifier_strength=args.metallic_verifier_strength,
         detach_verifier_features=not args.couple_verifier_features,
+        detach_gate_features=args.detach_gate_features and not args.couple_gate_features,
     ).to(device)
     role_weight_tensor = torch.tensor(
         compute_class_weights(role_counts), dtype=torch.float32, device=device
@@ -381,12 +540,14 @@ def main(argv: Sequence[str] | None = None) -> None:
         )
     )
     verifier_criterion = nn.CrossEntropyLoss()
+    effective_gate_regret = 0.0 if args.disable_gate_regret else args.lambda_gate_regret
     loss_weights = HRGVLossWeights(
         direct=args.lambda_direct,
         species=args.lambda_species,
         consistency=args.lambda_consistency,
         verifier=args.lambda_verifier,
         contrast=args.lambda_contrast,
+        gate_regret=effective_gate_regret,
     )
     optimizer = torch.optim.AdamW(
         model.parameters(), lr=args.learning_rate, weight_decay=args.weight_decay
@@ -403,6 +564,14 @@ def main(argv: Sequence[str] | None = None) -> None:
         model_name += f"_fixed_gate_{args.fixed_gate:.2f}"
     if args.couple_verifier_features:
         model_name += "_coupled_verifier_features"
+    if effective_gate_regret > 0:
+        model_name += "_rsg"
+    if args.hard_gate_target:
+        model_name += "_hard_gate_target"
+    if args.unweighted_gate_regret:
+        model_name += "_unweighted_gate_regret"
+    if args.couple_gate_features:
+        model_name += "_coupled_gate_features"
     write_json(
         args.output_dir / "environment.json",
         {
@@ -424,6 +593,11 @@ def main(argv: Sequence[str] | None = None) -> None:
             "lambda_consistency": loss_weights.consistency,
             "lambda_verifier": loss_weights.verifier,
             "lambda_contrast": loss_weights.contrast,
+            "lambda_gate_regret": loss_weights.gate_regret,
+            "gate_regret_temperature": args.gate_regret_temperature,
+            "gate_gap_temperature": args.gate_gap_temperature,
+            "hard_gate_target": args.hard_gate_target,
+            "unweighted_gate_regret": args.unweighted_gate_regret,
             "contrast_temperature": args.contrast_temperature,
             "embedding_dim": args.embedding_dim,
             "gate_hidden_dim": args.gate_hidden_dim,
@@ -435,6 +609,8 @@ def main(argv: Sequence[str] | None = None) -> None:
             "ti_verifier_strength": args.ti_verifier_strength,
             "metallic_verifier_strength": args.metallic_verifier_strength,
             "detach_verifier_features": not args.couple_verifier_features,
+            "detach_gate_features": args.detach_gate_features
+            and not args.couple_gate_features,
             "smoke_run": args.smoke_run,
         },
     )
@@ -453,6 +629,10 @@ def main(argv: Sequence[str] | None = None) -> None:
             device,
             loss_weights,
             args.contrast_temperature,
+            args.gate_regret_temperature,
+            args.gate_gap_temperature,
+            args.hard_gate_target,
+            args.unweighted_gate_regret,
             max_batches,
         )
         val_result = run_epoch(
@@ -467,6 +647,10 @@ def main(argv: Sequence[str] | None = None) -> None:
             device,
             loss_weights,
             args.contrast_temperature,
+            args.gate_regret_temperature,
+            args.gate_gap_temperature,
+            args.hard_gate_target,
+            args.unweighted_gate_regret,
             max_batches,
         )
         val_metrics = calculate_metrics(
@@ -484,10 +668,34 @@ def main(argv: Sequence[str] | None = None) -> None:
                 "train_mean_expert_js_divergence": train_result[
                     "mean_expert_js_divergence"
                 ],
+                "train_gate_selection_accuracy": train_result[
+                    "gate_selection_accuracy"
+                ],
+                "train_one_right_gate_selection_accuracy": train_result[
+                    "one_right_gate_selection_accuracy"
+                ],
+                "train_mean_routing_regret_nll": train_result[
+                    "mean_routing_regret_nll"
+                ],
+                "train_mean_weighted_gate_error": train_result[
+                    "mean_weighted_gate_error"
+                ],
                 **{f"val_{key}": value for key, value in val_result["losses"].items()},
                 "val_mean_gate": val_result["mean_gate"],
                 "val_mean_expert_js_divergence": val_result[
                     "mean_expert_js_divergence"
+                ],
+                "val_gate_selection_accuracy": val_result[
+                    "gate_selection_accuracy"
+                ],
+                "val_one_right_gate_selection_accuracy": val_result[
+                    "one_right_gate_selection_accuracy"
+                ],
+                "val_mean_routing_regret_nll": val_result[
+                    "mean_routing_regret_nll"
+                ],
+                "val_mean_weighted_gate_error": val_result[
+                    "mean_weighted_gate_error"
                 ],
                 **{
                     key: value
@@ -539,6 +747,10 @@ def main(argv: Sequence[str] | None = None) -> None:
         device,
         loss_weights,
         args.contrast_temperature,
+        args.gate_regret_temperature,
+        args.gate_gap_temperature,
+        args.hard_gate_target,
+        args.unweighted_gate_regret,
         max_batches,
     )
     test_metrics = calculate_metrics(
@@ -571,6 +783,12 @@ def main(argv: Sequence[str] | None = None) -> None:
             ),
             "mean_gate": test_result["mean_gate"],
             "mean_expert_js_divergence": test_result["mean_expert_js_divergence"],
+            "gate_selection_accuracy": test_result["gate_selection_accuracy"],
+            "one_right_gate_selection_accuracy": test_result[
+                "one_right_gate_selection_accuracy"
+            ],
+            "mean_routing_regret_nll": test_result["mean_routing_regret_nll"],
+            "mean_weighted_gate_error": test_result["mean_weighted_gate_error"],
             "best_val_macro_f1": best_f1,
         }
     )
@@ -595,6 +813,15 @@ def main(argv: Sequence[str] | None = None) -> None:
         ti_target_probabilities=test_result["ti_target_probabilities"],
         metallic_target_probabilities=test_result["metallic_target_probabilities"],
         expert_js_divergences=test_result["expert_js_divergences"],
+        direct_true_probabilities=test_result["direct_true_probabilities"],
+        mapped_true_probabilities=test_result["mapped_true_probabilities"],
+        fused_true_probabilities=test_result["fused_true_probabilities"],
+        hard_oracle_gates=test_result["hard_oracle_gates"],
+        soft_oracle_gates=test_result["soft_oracle_gates"],
+        gate_gap_weights=test_result["gate_gap_weights"],
+        gate_selection_correct=test_result["gate_selection_correct"],
+        routing_regrets_nll=test_result["routing_regrets_nll"],
+        weighted_gate_errors=test_result["weighted_gate_errors"],
     )
     write_csv(
         args.output_dir / "test_predictions.csv", prediction_rows, HRGV_PREDICTION_FIELDS

@@ -142,6 +142,175 @@ class HRGVProbabilityPrimitiveTests(unittest.TestCase):
         self.assertTrue(self.torch.allclose(logits.grad, self.torch.zeros_like(logits.grad)))
 
 
+class RegretGatePrimitiveTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        from train_mineral_classifier import require_training_dependencies
+
+        cls.torch = require_training_dependencies()["torch"]
+
+    def test_regret_target_prefers_expert_with_lower_true_class_loss(self) -> None:
+        from hrgv_network import regret_gate_targets
+
+        direct = self.torch.tensor(
+            [[0.70, 0.10, 0.10, 0.10], [0.10, 0.20, 0.60, 0.10]],
+            dtype=self.torch.float32,
+        )
+        mapped = self.torch.tensor(
+            [[0.30, 0.30, 0.20, 0.20], [0.10, 0.20, 0.20, 0.50]],
+            dtype=self.torch.float32,
+        )
+        labels = self.torch.tensor([0, 2], dtype=self.torch.long)
+
+        targets = regret_gate_targets(
+            direct,
+            mapped,
+            labels,
+            target_temperature=0.20,
+            gap_temperature=0.50,
+            torch=self.torch,
+        )
+
+        self.assertGreater(float(targets["soft_oracle_gate"][0]), 0.5)
+        self.assertGreater(float(targets["soft_oracle_gate"][1]), 0.5)
+        self.assertTrue(
+            self.torch.equal(
+                targets["hard_oracle_gate"],
+                self.torch.ones((2, 1), dtype=self.torch.float32),
+            )
+        )
+
+    def test_regret_gap_weight_increases_with_expert_loss_gap(self) -> None:
+        from hrgv_network import regret_gate_targets
+
+        direct = self.torch.tensor(
+            [[0.55, 0.15, 0.15, 0.15], [0.90, 0.04, 0.03, 0.03]],
+            dtype=self.torch.float32,
+        )
+        mapped = self.torch.tensor(
+            [[0.45, 0.20, 0.20, 0.15], [0.10, 0.30, 0.30, 0.30]],
+            dtype=self.torch.float32,
+        )
+        labels = self.torch.tensor([0, 0], dtype=self.torch.long)
+
+        targets = regret_gate_targets(
+            direct,
+            mapped,
+            labels,
+            target_temperature=0.20,
+            gap_temperature=0.50,
+            torch=self.torch,
+        )
+
+        self.assertGreater(
+            float(targets["gate_gap_weight"][1]),
+            float(targets["gate_gap_weight"][0]),
+        )
+
+    def test_weighted_soft_gate_loss_rewards_matching_gate_targets(self) -> None:
+        from hrgv_network import weighted_soft_gate_loss
+
+        targets = self.torch.tensor([[0.90], [0.10]], dtype=self.torch.float32)
+        weights = self.torch.tensor([[1.00], [0.50]], dtype=self.torch.float32)
+        matching = self.torch.tensor([[0.85], [0.15]], dtype=self.torch.float32)
+        opposing = self.torch.tensor([[0.15], [0.85]], dtype=self.torch.float32)
+
+        matching_loss = weighted_soft_gate_loss(matching, targets, weights, self.torch)
+        opposing_loss = weighted_soft_gate_loss(opposing, targets, weights, self.torch)
+
+        self.assertLess(float(matching_loss), float(opposing_loss))
+
+    def test_weighted_soft_gate_loss_returns_differentiable_zero_for_zero_weights(self) -> None:
+        from hrgv_network import weighted_soft_gate_loss
+
+        gate = self.torch.tensor([[0.30], [0.70]], requires_grad=True)
+        targets = self.torch.tensor([[1.00], [0.00]])
+        weights = self.torch.zeros((2, 1))
+
+        loss = weighted_soft_gate_loss(gate, targets, weights, self.torch)
+        loss.backward()
+
+        self.assertEqual(float(loss.detach()), 0.0)
+        self.assertIsNotNone(gate.grad)
+        self.assertTrue(self.torch.allclose(gate.grad, self.torch.zeros_like(gate.grad)))
+
+    def test_routing_regret_bound_holds_for_deterministic_probability_pairs(self) -> None:
+        from hrgv_network import gate_routing_diagnostics
+
+        count = 200
+        direct_true = self.torch.linspace(0.10, 0.90, count)
+        mapped_true = self.torch.linspace(0.85, 0.15, count)
+        gate = self.torch.linspace(0.01, 0.99, count).view(-1, 1)
+        direct = self.torch.stack(
+            [direct_true, (1.0 - direct_true) / 3.0, (1.0 - direct_true) / 3.0,
+             (1.0 - direct_true) / 3.0],
+            dim=1,
+        )
+        mapped = self.torch.stack(
+            [mapped_true, (1.0 - mapped_true) / 3.0, (1.0 - mapped_true) / 3.0,
+             (1.0 - mapped_true) / 3.0],
+            dim=1,
+        )
+        labels = self.torch.zeros(count, dtype=self.torch.long)
+
+        diagnostics = gate_routing_diagnostics(gate, direct, mapped, labels, self.torch)
+        epsilon = 0.05
+        upper_bound = (
+            diagnostics["absolute_hard_gate_error"]
+            * diagnostics["true_probability_gap"]
+            / epsilon
+        )
+
+        self.assertTrue((diagnostics["routing_regret_nll"] >= -1e-7).all())
+        self.assertTrue((diagnostics["routing_regret_nll"] <= upper_bound + 1e-6).all())
+
+    def test_soft_oracle_approximation_bound_holds(self) -> None:
+        from hrgv_network import regret_gate_targets
+
+        direct_true = self.torch.linspace(0.10, 0.90, 200)
+        mapped_true = self.torch.linspace(0.85, 0.15, 200)
+        direct = self.torch.stack([direct_true, 1.0 - direct_true], dim=1)
+        mapped = self.torch.stack([mapped_true, 1.0 - mapped_true], dim=1)
+        labels = self.torch.zeros(200, dtype=self.torch.long)
+        temperature = 0.20
+
+        targets = regret_gate_targets(
+            direct,
+            mapped,
+            labels,
+            target_temperature=temperature,
+            gap_temperature=0.50,
+            torch=self.torch,
+        )
+        approximation_error = (
+            targets["soft_oracle_gate"] - targets["hard_oracle_gate"]
+        ).abs()
+        upper_bound = self.torch.exp(-targets["expert_loss_gap"].abs() / temperature)
+
+        self.assertTrue((approximation_error <= upper_bound + 1e-7).all())
+
+    def test_gate_routing_diagnostics_identify_one_right_one_wrong_rows(self) -> None:
+        from hrgv_network import gate_routing_diagnostics
+
+        direct = self.torch.tensor(
+            [[0.70, 0.10, 0.10, 0.10], [0.60, 0.10, 0.20, 0.10]],
+            dtype=self.torch.float32,
+        )
+        mapped = self.torch.tensor(
+            [[0.20, 0.60, 0.10, 0.10], [0.10, 0.60, 0.20, 0.10]],
+            dtype=self.torch.float32,
+        )
+        gate = self.torch.tensor([[0.80], [0.30]], dtype=self.torch.float32)
+        labels = self.torch.tensor([0, 1], dtype=self.torch.long)
+
+        diagnostics = gate_routing_diagnostics(gate, direct, mapped, labels, self.torch)
+
+        self.assertTrue(diagnostics["one_right_one_wrong"].all())
+        self.assertTrue(diagnostics["hard_gate_selection_correct"].all())
+        self.assertTrue((diagnostics["routing_regret_nll"] >= 0).all())
+        self.assertEqual(tuple(diagnostics["fused_true_probability"].shape), (2, 1))
+
+
 class HRGVModelTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
@@ -229,6 +398,92 @@ class HRGVModelTests(unittest.TestCase):
                 verifier_mode="unknown",
             )
 
+    def test_regret_gate_loss_is_isolated_from_backbone_and_experts_when_detached(self) -> None:
+        from hrgv_network import (
+            HierarchicalRiskGatedVerificationNet,
+            regret_gate_targets,
+            weighted_soft_gate_loss,
+        )
+
+        mapping = self.build_mapping()
+        model = HierarchicalRiskGatedVerificationNet(
+            self.dependencies["models"],
+            self.build_role_matrix(mapping),
+            pretrained=False,
+            embedding_dim=8,
+            gate_hidden_dim=16,
+            detach_gate_features=True,
+        )
+        outputs = model(self.torch.randn(4, 3, 64, 64))
+        role_labels = self.torch.tensor([0, 1, 2, 3], dtype=self.torch.long)
+        targets = regret_gate_targets(
+            outputs["direct_role_probabilities"],
+            outputs["mapped_role_probabilities"],
+            role_labels,
+            target_temperature=0.20,
+            gap_temperature=0.50,
+            torch=self.torch,
+        )
+        gate_loss = weighted_soft_gate_loss(
+            outputs["gate"],
+            targets["soft_oracle_gate"],
+            targets["gate_gap_weight"],
+            self.torch,
+        )
+
+        gate_loss.backward()
+
+        self.assertIsNotNone(model.gate_network[0].weight.grad)
+        self.assertGreater(float(model.gate_network[0].weight.grad.abs().sum()), 0.0)
+        self.assertIsNone(next(model.features.parameters()).grad)
+        self.assertIsNone(model.role_head.weight.grad)
+        self.assertIsNone(model.species_head.weight.grad)
+
+    def test_zero_regret_weight_preserves_original_hrgv_total_loss(self) -> None:
+        from hrgv_network import (
+            HRGVLossWeights,
+            HierarchicalRiskGatedVerificationNet,
+            compute_hrgv_losses,
+        )
+
+        mapping = self.build_mapping()
+        model = HierarchicalRiskGatedVerificationNet(
+            self.dependencies["models"],
+            self.build_role_matrix(mapping),
+            pretrained=False,
+            embedding_dim=8,
+            gate_hidden_dim=16,
+        )
+        role_labels = self.torch.tensor([0, 0, 1, 1, 3, 3], dtype=self.torch.long)
+        species_labels = self.torch.tensor([0, 1, 2, 3, 4, 5], dtype=self.torch.long)
+        outputs = model(self.torch.randn(6, 3, 64, 64))
+        weights = HRGVLossWeights(gate_regret=0.0)
+
+        total_loss, terms = compute_hrgv_losses(
+            outputs=outputs,
+            role_labels=role_labels,
+            species_labels=species_labels,
+            mapping=mapping,
+            final_role_criterion=self.torch.nn.NLLLoss(),
+            direct_role_criterion=self.torch.nn.CrossEntropyLoss(),
+            species_criterion=self.torch.nn.CrossEntropyLoss(),
+            verifier_criterion=self.torch.nn.CrossEntropyLoss(),
+            weights=weights,
+            temperature=0.10,
+            torch=self.torch,
+        )
+        original_formula = (
+            terms["final_role_loss"]
+            + weights.direct * terms["direct_role_loss"]
+            + weights.species * terms["species_loss"]
+            + weights.consistency * terms["consistency_loss"]
+            + weights.verifier * terms["verifier_loss"]
+            + weights.contrast * terms["contrast_loss"]
+        )
+
+        self.assertTrue(self.torch.allclose(total_loss, original_formula, atol=1e-7))
+        self.assertIn("gate_regret_loss", terms)
+
     def test_complete_loss_backpropagates_through_every_hrgv_module(self) -> None:
         from hrgv_network import (
             HRGVLossWeights,
@@ -276,6 +531,7 @@ class HRGVModelTests(unittest.TestCase):
                 "metallic_verifier_loss",
                 "verifier_loss",
                 "contrast_loss",
+                "gate_regret_loss",
             },
         )
         gradient_parameters = {
