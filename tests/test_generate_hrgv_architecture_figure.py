@@ -34,11 +34,13 @@ class HRGVArchitectureFigureTests(unittest.TestCase):
                 "Species expert",
                 "Mapping matrix A",
                 "Reliability gate",
+                "Regret-supervised gate",
                 "Ti-bearing verifier",
                 "Metallic verifier",
                 "Neutral-zone residual correction",
                 "Final role posterior",
                 "Role-aware contrastive head",
+                "soft oracle target",
             ):
                 self.assertIn(label, svg)
 

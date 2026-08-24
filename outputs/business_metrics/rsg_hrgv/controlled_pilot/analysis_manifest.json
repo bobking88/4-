@@ -1,0 +1,17 @@
+{
+  "training_root": "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\training\\rsg_controlled",
+  "stage": "pilot",
+  "reference": "hrgv_reference",
+  "configurations": [
+    "hrgv_reference",
+    "rsg_complete",
+    "rsg_hard_target",
+    "rsg_unweighted",
+    "rsg_coupled_gate"
+  ],
+  "seeds": [
+    "20260728"
+  ],
+  "bootstrap_replicates": 2000,
+  "rng_seed": 20260822
+}

@@ -27,7 +27,7 @@ class FormalReportV4Tests(unittest.TestCase):
         required = (
             "4.6 层级风险门控验证网络（HRGV-Net）",
             "5.17 HRGV-Net 三随机种子实验与组件验证",
-            "5.18 实验结果的综合判断",
+            "5.19 实验结果的综合判断",
             "命题1（凸融合对数损失上界）",
             "命题2（中性区残差校正的恒等性与单调性）",
             "命题3（验证式目标接纳的误收上界）",
@@ -38,7 +38,7 @@ class FormalReportV4Tests(unittest.TestCase):
             "Accuracy 提高1.09个百分点",
             "95%区间为[0.08, 2.15]个百分点",
             "不能解释为总体性能全面显著提高",
-            "图 5 HRGV-Net 的层级证据融合与困难负样本风险验证结构",
+            "图 5 RSG-HRGV-Net 的分层证据、后悔监督门控与困难负样本风险验证结构",
             "图 17 HRGV-Net 相对既有分层模型的成对效应及95%簇 Bootstrap 区间",
             "表 25 HRGV-Net 三随机种子组件消融",
         )

@@ -1,0 +1,537 @@
+{
+  "hrgv_reference": {
+    "accuracy": {
+      "mean": 0.7671339563862928,
+      "sample_std": 0.0,
+      "values": [
+        0.7671339563862928
+      ]
+    },
+    "macro_f1": {
+      "mean": 0.7493888243636889,
+      "sample_std": 0.0,
+      "values": [
+        0.7493888243636889
+      ]
+    },
+    "target_recall": {
+      "mean": 0.7051792828685259,
+      "sample_std": 0.0,
+      "values": [
+        0.7051792828685259
+      ]
+    },
+    "target_miss_rate": {
+      "mean": 0.29482071713147406,
+      "sample_std": 0.0,
+      "values": [
+        0.29482071713147406
+      ]
+    },
+    "ti_to_target_intrusion_rate": {
+      "mean": 0.0814663951120163,
+      "sample_std": 0.0,
+      "values": [
+        0.0814663951120163
+      ]
+    },
+    "metallic_to_target_intrusion_rate": {
+      "mean": 0.10227272727272728,
+      "sample_std": 0.0,
+      "values": [
+        0.10227272727272728
+      ]
+    },
+    "direct_accuracy": {
+      "mean": 0.7570093457943925,
+      "sample_std": 0.0,
+      "values": [
+        0.7570093457943925
+      ]
+    },
+    "mapped_accuracy": {
+      "mean": 0.7609034267912772,
+      "sample_std": 0.0,
+      "values": [
+        0.7609034267912772
+      ]
+    },
+    "fused_accuracy": {
+      "mean": 0.7671339563862928,
+      "sample_std": 0.0,
+      "values": [
+        0.7671339563862928
+      ]
+    },
+    "oracle_accuracy": {
+      "mean": 0.7873831775700935,
+      "sample_std": 0.0,
+      "values": [
+        0.7873831775700935
+      ]
+    },
+    "expert_prediction_disagreement_rate": {
+      "mean": 0.06074766355140187,
+      "sample_std": 0.0,
+      "values": [
+        0.06074766355140187
+      ]
+    },
+    "one_right_one_wrong_rate": {
+      "mean": 0.05685358255451713,
+      "sample_std": 0.0,
+      "values": [
+        0.05685358255451713
+      ]
+    },
+    "one_right_gate_selection_accuracy": {
+      "mean": 0.4383561643835616,
+      "sample_std": 0.0,
+      "values": [
+        0.4383561643835616
+      ]
+    },
+    "mean_routing_regret_nll": {
+      "mean": 0.10088592289719626,
+      "sample_std": 0.0,
+      "values": [
+        0.10088592289719626
+      ]
+    },
+    "complementarity_recovery": {
+      "mean": 0.23529411764705832,
+      "sample_std": 0.0,
+      "values": [
+        0.23529411764705832
+      ]
+    }
+  },
+  "rsg_complete": {
+    "accuracy": {
+      "mean": 0.7632398753894081,
+      "sample_std": 0.0,
+      "values": [
+        0.7632398753894081
+      ]
+    },
+    "macro_f1": {
+      "mean": 0.7455702848835618,
+      "sample_std": 0.0,
+      "values": [
+        0.7455702848835618
+      ]
+    },
+    "target_recall": {
+      "mean": 0.7211155378486056,
+      "sample_std": 0.0,
+      "values": [
+        0.7211155378486056
+      ]
+    },
+    "target_miss_rate": {
+      "mean": 0.2788844621513944,
+      "sample_std": 0.0,
+      "values": [
+        0.2788844621513944
+      ]
+    },
+    "ti_to_target_intrusion_rate": {
+      "mean": 0.07739307535641547,
+      "sample_std": 0.0,
+      "values": [
+        0.07739307535641547
+      ]
+    },
+    "metallic_to_target_intrusion_rate": {
+      "mean": 0.11363636363636363,
+      "sample_std": 0.0,
+      "values": [
+        0.11363636363636363
+      ]
+    },
+    "direct_accuracy": {
+      "mean": 0.7531152647975078,
+      "sample_std": 0.0,
+      "values": [
+        0.7531152647975078
+      ]
+    },
+    "mapped_accuracy": {
+      "mean": 0.764797507788162,
+      "sample_std": 0.0,
+      "values": [
+        0.764797507788162
+      ]
+    },
+    "fused_accuracy": {
+      "mean": 0.7632398753894081,
+      "sample_std": 0.0,
+      "values": [
+        0.7632398753894081
+      ]
+    },
+    "oracle_accuracy": {
+      "mean": 0.7842679127725857,
+      "sample_std": 0.0,
+      "values": [
+        0.7842679127725857
+      ]
+    },
+    "expert_prediction_disagreement_rate": {
+      "mean": 0.059190031152647975,
+      "sample_std": 0.0,
+      "values": [
+        0.059190031152647975
+      ]
+    },
+    "one_right_one_wrong_rate": {
+      "mean": 0.050623052959501556,
+      "sample_std": 0.0,
+      "values": [
+        0.050623052959501556
+      ]
+    },
+    "one_right_gate_selection_accuracy": {
+      "mean": 0.6,
+      "sample_std": 0.0,
+      "values": [
+        0.6
+      ]
+    },
+    "mean_routing_regret_nll": {
+      "mean": 0.08257281697819314,
+      "sample_std": 0.0,
+      "values": [
+        0.08257281697819314
+      ]
+    },
+    "complementarity_recovery": {
+      "mean": -0.08000000000000297,
+      "sample_std": 0.0,
+      "values": [
+        -0.08000000000000297
+      ]
+    }
+  },
+  "rsg_hard_target": {
+    "accuracy": {
+      "mean": 0.7616822429906542,
+      "sample_std": 0.0,
+      "values": [
+        0.7616822429906542
+      ]
+    },
+    "macro_f1": {
+      "mean": 0.7409954083210528,
+      "sample_std": 0.0,
+      "values": [
+        0.7409954083210528
+      ]
+    },
+    "target_recall": {
+      "mean": 0.6812749003984063,
+      "sample_std": 0.0,
+      "values": [
+        0.6812749003984063
+      ]
+    },
+    "target_miss_rate": {
+      "mean": 0.3187250996015937,
+      "sample_std": 0.0,
+      "values": [
+        0.3187250996015937
+      ]
+    },
+    "ti_to_target_intrusion_rate": {
+      "mean": 0.07739307535641547,
+      "sample_std": 0.0,
+      "values": [
+        0.07739307535641547
+      ]
+    },
+    "metallic_to_target_intrusion_rate": {
+      "mean": 0.11931818181818182,
+      "sample_std": 0.0,
+      "values": [
+        0.11931818181818182
+      ]
+    },
+    "direct_accuracy": {
+      "mean": 0.7577881619937694,
+      "sample_std": 0.0,
+      "values": [
+        0.7577881619937694
+      ]
+    },
+    "mapped_accuracy": {
+      "mean": 0.7655763239875389,
+      "sample_std": 0.0,
+      "values": [
+        0.7655763239875389
+      ]
+    },
+    "fused_accuracy": {
+      "mean": 0.7616822429906542,
+      "sample_std": 0.0,
+      "values": [
+        0.7616822429906542
+      ]
+    },
+    "oracle_accuracy": {
+      "mean": 0.7881619937694704,
+      "sample_std": 0.0,
+      "values": [
+        0.7881619937694704
+      ]
+    },
+    "expert_prediction_disagreement_rate": {
+      "mean": 0.06230529595015576,
+      "sample_std": 0.0,
+      "values": [
+        0.06230529595015576
+      ]
+    },
+    "one_right_one_wrong_rate": {
+      "mean": 0.0529595015576324,
+      "sample_std": 0.0,
+      "values": [
+        0.0529595015576324
+      ]
+    },
+    "one_right_gate_selection_accuracy": {
+      "mean": 0.4852941176470588,
+      "sample_std": 0.0,
+      "values": [
+        0.4852941176470588
+      ]
+    },
+    "mean_routing_regret_nll": {
+      "mean": 0.10711827258566978,
+      "sample_std": 0.0,
+      "values": [
+        0.10711827258566978
+      ]
+    },
+    "complementarity_recovery": {
+      "mean": -0.17241379310344726,
+      "sample_std": 0.0,
+      "values": [
+        -0.17241379310344726
+      ]
+    }
+  },
+  "rsg_unweighted": {
+    "accuracy": {
+      "mean": 0.7609034267912772,
+      "sample_std": 0.0,
+      "values": [
+        0.7609034267912772
+      ]
+    },
+    "macro_f1": {
+      "mean": 0.7420137628025785,
+      "sample_std": 0.0,
+      "values": [
+        0.7420137628025785
+      ]
+    },
+    "target_recall": {
+      "mean": 0.7171314741035857,
+      "sample_std": 0.0,
+      "values": [
+        0.7171314741035857
+      ]
+    },
+    "target_miss_rate": {
+      "mean": 0.2828685258964143,
+      "sample_std": 0.0,
+      "values": [
+        0.2828685258964143
+      ]
+    },
+    "ti_to_target_intrusion_rate": {
+      "mean": 0.0814663951120163,
+      "sample_std": 0.0,
+      "values": [
+        0.0814663951120163
+      ]
+    },
+    "metallic_to_target_intrusion_rate": {
+      "mean": 0.11931818181818182,
+      "sample_std": 0.0,
+      "values": [
+        0.11931818181818182
+      ]
+    },
+    "direct_accuracy": {
+      "mean": 0.7484423676012462,
+      "sample_std": 0.0,
+      "values": [
+        0.7484423676012462
+      ]
+    },
+    "mapped_accuracy": {
+      "mean": 0.764797507788162,
+      "sample_std": 0.0,
+      "values": [
+        0.764797507788162
+      ]
+    },
+    "fused_accuracy": {
+      "mean": 0.7609034267912772,
+      "sample_std": 0.0,
+      "values": [
+        0.7609034267912772
+      ]
+    },
+    "oracle_accuracy": {
+      "mean": 0.7850467289719626,
+      "sample_std": 0.0,
+      "values": [
+        0.7850467289719626
+      ]
+    },
+    "expert_prediction_disagreement_rate": {
+      "mean": 0.06542056074766354,
+      "sample_std": 0.0,
+      "values": [
+        0.06542056074766354
+      ]
+    },
+    "one_right_one_wrong_rate": {
+      "mean": 0.05685358255451713,
+      "sample_std": 0.0,
+      "values": [
+        0.05685358255451713
+      ]
+    },
+    "one_right_gate_selection_accuracy": {
+      "mean": 0.6301369863013698,
+      "sample_std": 0.0,
+      "values": [
+        0.6301369863013698
+      ]
+    },
+    "mean_routing_regret_nll": {
+      "mean": 0.08242403115264797,
+      "sample_std": 0.0,
+      "values": [
+        0.08242403115264797
+      ]
+    },
+    "complementarity_recovery": {
+      "mean": -0.19230769230769695,
+      "sample_std": 0.0,
+      "values": [
+        -0.19230769230769695
+      ]
+    }
+  },
+  "rsg_coupled_gate": {
+    "accuracy": {
+      "mean": 0.7546728971962616,
+      "sample_std": 0.0,
+      "values": [
+        0.7546728971962616
+      ]
+    },
+    "macro_f1": {
+      "mean": 0.7404610681708386,
+      "sample_std": 0.0,
+      "values": [
+        0.7404610681708386
+      ]
+    },
+    "target_recall": {
+      "mean": 0.7330677290836654,
+      "sample_std": 0.0,
+      "values": [
+        0.7330677290836654
+      ]
+    },
+    "target_miss_rate": {
+      "mean": 0.26693227091633465,
+      "sample_std": 0.0,
+      "values": [
+        0.26693227091633465
+      ]
+    },
+    "ti_to_target_intrusion_rate": {
+      "mean": 0.10183299389002037,
+      "sample_std": 0.0,
+      "values": [
+        0.10183299389002037
+      ]
+    },
+    "metallic_to_target_intrusion_rate": {
+      "mean": 0.11931818181818182,
+      "sample_std": 0.0,
+      "values": [
+        0.11931818181818182
+      ]
+    },
+    "direct_accuracy": {
+      "mean": 0.7554517133956387,
+      "sample_std": 0.0,
+      "values": [
+        0.7554517133956387
+      ]
+    },
+    "mapped_accuracy": {
+      "mean": 0.7577881619937694,
+      "sample_std": 0.0,
+      "values": [
+        0.7577881619937694
+      ]
+    },
+    "fused_accuracy": {
+      "mean": 0.7546728971962616,
+      "sample_std": 0.0,
+      "values": [
+        0.7546728971962616
+      ]
+    },
+    "oracle_accuracy": {
+      "mean": 0.780373831775701,
+      "sample_std": 0.0,
+      "values": [
+        0.780373831775701
+      ]
+    },
+    "expert_prediction_disagreement_rate": {
+      "mean": 0.05685358255451713,
+      "sample_std": 0.0,
+      "values": [
+        0.05685358255451713
+      ]
+    },
+    "one_right_one_wrong_rate": {
+      "mean": 0.04750778816199377,
+      "sample_std": 0.0,
+      "values": [
+        0.04750778816199377
+      ]
+    },
+    "one_right_gate_selection_accuracy": {
+      "mean": 0.4426229508196721,
+      "sample_std": 0.0,
+      "values": [
+        0.4426229508196721
+      ]
+    },
+    "mean_routing_regret_nll": {
+      "mean": 0.0757743761682243,
+      "sample_std": 0.0,
+      "values": [
+        0.0757743761682243
+      ]
+    },
+    "complementarity_recovery": {
+      "mean": -0.13793103448275812,
+      "sample_std": 0.0,
+      "values": [
+        -0.13793103448275812
+      ]
+    }
+  }
+}

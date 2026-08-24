@@ -128,7 +128,7 @@ def generate_hrgv_architecture_figure(prefix: Path) -> dict[str, Path]:
     axis.text(
         0.02,
         0.965,
-        "HRGV-Net: hierarchical evidence fusion with hard-negative risk verification",
+        "RSG-HRGV-Net: regret-supervised hierarchical evidence routing and risk verification",
         ha="left",
         va="top",
         fontsize=12,
@@ -138,7 +138,7 @@ def generate_hrgv_architecture_figure(prefix: Path) -> dict[str, Path]:
     axis.text(
         0.02,
         0.925,
-        "共享视觉表征同时支持角色识别、矿物种类识别、可靠性融合与两类高风险验证",
+        "共享视觉表征支持角色/种类双专家；训练期软后悔目标监督门控选择更可靠的证据",
         ha="left",
         va="top",
         fontsize=7.2,
@@ -152,7 +152,16 @@ def generate_hrgv_architecture_figure(prefix: Path) -> dict[str, Path]:
     _box(axis, (0.455, 0.765), 0.145, 0.13, "Direct role expert", "p_d(y|x), 4 roles", COLORS["expert"])
     _box(axis, (0.455, 0.555), 0.145, 0.13, "Species expert", "p_s(k|x), 17 minerals", COLORS["expert"])
     _box(axis, (0.635, 0.555), 0.12, 0.13, "Mapping matrix A", "p_m = A p_s\n17 species -> 4 roles", COLORS["expert"], 7.6)
-    _box(axis, (0.635, 0.765), 0.12, 0.13, "Reliability gate", "g(x)=sigmoid(MLP)\nentropy + JS cues", COLORS["gate"], 7.6)
+    _box(
+        axis,
+        (0.635, 0.765),
+        0.12,
+        0.13,
+        "Reliability gate",
+        "Regret-supervised gate\nsoft oracle target (train)",
+        COLORS["gate"],
+        7.4,
+    )
     _box(axis, (0.79, 0.69), 0.13, 0.14, "Adaptive fusion", "p_f = g p_d + (1-g) p_m", COLORS["gate"], 8.2)
 
     _box(axis, (0.455, 0.325), 0.145, 0.13, "Ti-bearing verifier", "target vs Ti-bearing\nv_Ti(x)", COLORS["verify"], 7.6)
@@ -192,14 +201,15 @@ def generate_hrgv_architecture_figure(prefix: Path) -> dict[str, Path]:
     objective = (
         r"$\mathcal{L}=\mathcal{L}_{role}+\lambda_d\mathcal{L}_{direct}+"
         r"\lambda_s\mathcal{L}_{species}+\lambda_c\mathcal{L}_{KL}+"
-        r"\lambda_v(\mathcal{L}_{Ti}+\mathcal{L}_{Met})+\lambda_{con}\mathcal{L}_{contrast}$"
+        r"\lambda_v(\mathcal{L}_{Ti}+\mathcal{L}_{Met})+\lambda_{con}\mathcal{L}_{contrast}+"
+        r"\lambda_g\mathcal{L}_{reg}$"
     )
     axis.text(0.02, 0.195, objective, fontsize=8.0, color=COLORS["ink"], ha="left", va="center")
     axis.text(
         0.02,
         0.155,
         "Solid arrows: inference path     Dashed arrows: uncertainty/training cues     "
-        "Gradient isolation is evaluated only as an ablation.",
+        "The regret target uses stop-gradient expert evidence; verifier coupling is retained in the formal model.",
         fontsize=6.2,
         color=COLORS["muted"],
         ha="left",
@@ -215,12 +225,16 @@ def generate_hrgv_architecture_figure(prefix: Path) -> dict[str, Path]:
         linewidth=0.8,
     )
     axis.add_patch(formula_box)
+    regret = (
+        r"$\Delta=\ell_m-\ell_d,\quad g^*=\sigma(\Delta/T_r),\quad "
+        r"w=\tanh(|\Delta|/T_w),\quad \mathcal{L}_{reg}=w\,\mathrm{BCE}(g,g^*)$"
+    )
     correction = (
         r"$c_h(v_h)=[\tau_h-v_h]_+/\tau_h,\quad "
-        r"q_T\propto p_{f,T}\exp[-\beta_{Ti}c_{Ti}-\beta_{Met}c_{Met}],\quad "
-        r"q_j\propto p_{f,j}\;(j\ne T)$"
+        r"q_T\propto p_{f,T}\exp[-\beta_{Ti}c_{Ti}-\beta_{Met}c_{Met}],\quad q_j\propto p_{f,j}$"
     )
-    axis.text(0.497, 0.079, correction, ha="center", va="center", fontsize=8.4, color=COLORS["ink"])
+    axis.text(0.497, 0.092, regret, ha="center", va="center", fontsize=7.8, color=COLORS["ink"])
+    axis.text(0.497, 0.058, correction, ha="center", va="center", fontsize=7.5, color=COLORS["ink"])
 
     prefix = Path(prefix)
     prefix.parent.mkdir(parents=True, exist_ok=True)
@@ -245,7 +259,7 @@ def generate_hrgv_architecture_figure(prefix: Path) -> dict[str, Path]:
     outputs["source_description"].write_text(
         json.dumps(
             {
-                "core_conclusion": "Hierarchical evidence is fused before asymmetric hard-negative verification.",
+                "core_conclusion": "A soft regret target supervises hierarchical expert routing before asymmetric hard-negative verification.",
                 "archetype": "schematic-led composite",
                 "backend": "Python/matplotlib",
                 "final_width_mm": 183,

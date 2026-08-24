@@ -1,5 +1,5 @@
 {
-  "core_conclusion": "Hierarchical evidence is fused before asymmetric hard-negative verification.",
+  "core_conclusion": "A soft regret target supervises hierarchical expert routing before asymmetric hard-negative verification.",
   "archetype": "schematic-led composite",
   "backend": "Python/matplotlib",
   "final_width_mm": 183,
