@@ -1,0 +1,42 @@
+{
+  "training_roots": {
+    "rsg_complete": "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\training\\rsg_controlled",
+    "rsg_hard_target": "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\training\\rsg_theory_ablation",
+    "rsg_unweighted": "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\training\\rsg_theory_ablation",
+    "rsg_coupled_gate": "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\training\\rsg_theory_ablation"
+  },
+  "stage": "formal",
+  "reference": "rsg_complete",
+  "configurations": [
+    "rsg_complete",
+    "rsg_hard_target",
+    "rsg_unweighted",
+    "rsg_coupled_gate"
+  ],
+  "seeds": [
+    "20260727",
+    "20260728",
+    "20260729"
+  ],
+  "bootstrap_replicates": 2000,
+  "rng_seed": 20260825,
+  "classification_metrics": [
+    "accuracy",
+    "macro_f1",
+    "target_recall",
+    "target_miss_rate",
+    "ti_to_target_intrusion_rate",
+    "metallic_to_target_intrusion_rate"
+  ],
+  "routing_metrics": [
+    "direct_accuracy",
+    "mapped_accuracy",
+    "fused_accuracy",
+    "oracle_accuracy",
+    "expert_prediction_disagreement_rate",
+    "one_right_one_wrong_rate",
+    "one_right_gate_selection_accuracy",
+    "mean_routing_regret_nll",
+    "complementarity_recovery"
+  ]
+}
