@@ -77,13 +77,21 @@ class RSGRoutingMetricTests(unittest.TestCase):
         self.assertIsNone(calculate_routing_metrics(rows)["complementarity_recovery"])
 
     def test_formal_seed_validation_rejects_missing_and_duplicate_seeds(self) -> None:
-        from analyze_rsg_hrgv_experiment import validate_formal_seeds
+        from analyze_rsg_hrgv_experiment import (
+            validate_custom_formal_seeds,
+            validate_formal_seeds,
+        )
 
         validate_formal_seeds(["20260727", "20260728", "20260729"])
         with self.assertRaisesRegex(ValueError, "duplicate"):
             validate_formal_seeds(["20260727", "20260727", "20260729"])
         with self.assertRaisesRegex(ValueError, "missing"):
             validate_formal_seeds(["20260727", "20260728"])
+        validate_custom_formal_seeds(["20260727", "20260729", "20260730"])
+        with self.assertRaisesRegex(ValueError, "exactly three"):
+            validate_custom_formal_seeds(["20260727", "20260729"])
+        with self.assertRaisesRegex(ValueError, "duplicates"):
+            validate_custom_formal_seeds(["20260727", "20260727", "20260730"])
 
 
 if __name__ == "__main__":

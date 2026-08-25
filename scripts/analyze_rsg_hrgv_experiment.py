@@ -104,6 +104,14 @@ def validate_formal_seeds(seeds: Sequence[str]) -> None:
         raise ValueError(f"Formal seed records contain unexpected seeds: {extra}")
 
 
+def validate_custom_formal_seeds(seeds: Sequence[str]) -> None:
+    """Validate an explicitly declared, independent three-seed repeat set."""
+    if len(seeds) != 3:
+        raise ValueError("A formal comparison requires exactly three seeds.")
+    if len(set(seeds)) != len(seeds):
+        raise ValueError("Formal seeds contain duplicates.")
+
+
 def calculate_routing_metrics(rows: Sequence[dict[str, str]]) -> dict[str, float | int | None]:
     if not rows:
         raise ValueError("Prediction rows must not be empty.")
@@ -274,6 +282,14 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     )
     parser.add_argument("--bootstrap-replicates", type=int, default=2000)
     parser.add_argument("--rng-seed", type=int, default=20260822)
+    parser.add_argument(
+        "--seeds",
+        nargs="+",
+        help=(
+            "Explicit seed set for a formal comparison. Use only for a separately "
+            "documented protocol; the default formal set remains frozen."
+        ),
+    )
     return parser.parse_args(argv)
 
 
@@ -282,9 +298,14 @@ def main(argv: Sequence[str] | None = None) -> None:
     configurations = tuple(args.config or DEFAULT_CONFIGURATIONS)
     if args.reference not in configurations:
         raise ValueError("The reference configuration must be included.")
-    seeds = PILOT_SEEDS if args.stage == "pilot" else FORMAL_SEEDS
+    seeds = tuple(args.seeds) if args.seeds else (
+        PILOT_SEEDS if args.stage == "pilot" else FORMAL_SEEDS
+    )
     if args.stage == "formal":
-        validate_formal_seeds(seeds)
+        if args.seeds:
+            validate_custom_formal_seeds(seeds)
+        else:
+            validate_formal_seeds(seeds)
     loaded = {
         configuration: load_configuration(
             args.training_root, args.stage, configuration, seeds

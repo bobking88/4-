@@ -1,0 +1,62 @@
+{
+  "accuracy": 0.7092198581560284,
+  "macro_precision": 0.6795271570494631,
+  "macro_recall": 0.6819666700328058,
+  "macro_f1": 0.6794233167620511,
+  "class_recall": {
+    "target_mineral": 0.7535545023696683,
+    "ti_bearing_negative": 0.6935483870967742,
+    "gangue_negative": 0.7857142857142857,
+    "metallic_hard_negative": 0.49504950495049505
+  },
+  "confusion_matrix": [
+    [
+      159,
+      23,
+      8,
+      21
+    ],
+    [
+      41,
+      215,
+      41,
+      13
+    ],
+    [
+      15,
+      23,
+      176,
+      10
+    ],
+    [
+      16,
+      18,
+      17,
+      50
+    ]
+  ],
+  "target_recall": 0.7535545023696683,
+  "target_miss_rate": 0.24644549763033174,
+  "ti_to_target_intrusion_rate": 0.13225806451612904,
+  "metallic_to_target_intrusion_rate": 0.15841584158415842,
+  "test_loss": 2.0543455440665532,
+  "test_final_role_loss": 0.8332622193205159,
+  "test_direct_role_loss": 0.8199814331165161,
+  "test_species_loss": 1.5879251790666693,
+  "test_consistency_loss": 0.03859860067812827,
+  "test_ti_verifier_loss": 0.2758101805445714,
+  "test_metallic_verifier_loss": 0.16072086493174234,
+  "test_verifier_loss": 0.4365310451944951,
+  "test_contrast_loss": 0.0,
+  "test_gate_regret_loss": 2.2942190722652644,
+  "species_accuracy": 0.5307328605200946,
+  "ti_verifier_subset_accuracy": 0.8234165067178503,
+  "metallic_verifier_subset_accuracy": 0.8141025641025641,
+  "mean_gate": 0.814403547788695,
+  "mean_expert_js_divergence": 0.009013383914507192,
+  "gate_selection_accuracy": 0.5673758865248227,
+  "one_right_gate_selection_accuracy": 0.35555555555555557,
+  "mean_routing_regret_nll": 0.11594145205456743,
+  "mean_weighted_gate_error": 0.02658338693264461,
+  "best_val_macro_f1": 0.735383619955002
+}
