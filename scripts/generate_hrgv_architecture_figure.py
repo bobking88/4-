@@ -275,6 +275,113 @@ def generate_hrgv_architecture_figure(prefix: Path) -> dict[str, Path]:
     return outputs
 
 
+def generate_cgdc_architecture_figure(prefix: Path) -> dict[str, Path]:
+    """Draw the CGDC-RSG-HRGV-Net evidence-decomposition architecture."""
+    mpl.rcParams.update(
+        {
+            "font.family": "sans-serif",
+            "font.sans-serif": ["Microsoft YaHei", "Arial", "DejaVu Sans", "sans-serif"],
+            "svg.fonttype": "none",
+            "pdf.fonttype": 42,
+            "font.size": 7,
+        }
+    )
+    figure, axis = plt.subplots(figsize=(13.0, 7.2), constrained_layout=True)
+    axis.set_xlim(0, 1)
+    axis.set_ylim(0, 1)
+    axis.axis("off")
+    figure.patch.set_facecolor("white")
+    axis.text(
+        0.02, 0.965,
+        "CGDC-RSG-HRGV-Net: decomposed cross-granularity evidence and disagreement calibration",
+        ha="left", va="top", fontsize=11.4, fontweight="bold", color=COLORS["ink"],
+    )
+    axis.text(
+        0.02, 0.928,
+        "双残差适配器将角色与种类证据显式分解；仅在两专家分歧时对融合后验施加有界校准。",
+        ha="left", va="top", fontsize=7.2, color=COLORS["muted"],
+    )
+
+    _box(axis, (0.02, 0.62), 0.085, 0.12, "Input image", "RGB mineral\nspecimen", COLORS["formula"])
+    _box(axis, (0.13, 0.59), 0.12, 0.18, "EfficientNet-B0", "shared backbone\nh in R^1280", COLORS["backbone"], 8.2)
+    _box(axis, (0.29, 0.77), 0.12, 0.115, "Direct residual adapter", "u_d = h + A_d(h)", COLORS["expert"], 7.1)
+    _box(axis, (0.29, 0.52), 0.12, 0.115, "Species residual adapter", "u_s = h + A_s(h)", COLORS["expert"], 7.0)
+    _box(axis, (0.45, 0.77), 0.11, 0.115, "Role expert", "p_d(y|x)\n4 roles", COLORS["expert"])
+    _box(axis, (0.45, 0.52), 0.11, 0.115, "Species expert", "p_s(k|x)\n17 minerals", COLORS["expert"])
+    _box(axis, (0.59, 0.52), 0.10, 0.115, "Mapping A", "p_m = A p_s\n17 -> 4", COLORS["expert"])
+    _box(axis, (0.60, 0.77), 0.10, 0.115, "RSG gate", "g*, gap-weighted\nsoft routing", COLORS["gate"], 7.2)
+    _box(axis, (0.73, 0.68), 0.12, 0.13, "RSG fusion", "p_f = g p_d\n+ (1-g)p_m", COLORS["gate"])
+
+    _box(axis, (0.55, 0.31), 0.14, 0.13, "Jensen-Shannon disagreement", "D_JS(p_d || p_m)\nrho = 1 - exp(-D_JS)", COLORS["training"], 6.7)
+    _box(axis, (0.73, 0.42), 0.15, 0.15, "Disagreement-triggered calibrator", "z_c=[u_d,u_s,u_d*u_s,|u_d-u_s|,...]\ntanh-bounded residual s", COLORS["training"], 6.2)
+    _box(axis, (0.90, 0.50), 0.08, 0.12, "Calibrated posterior", "p_c=softmax\n(log p_f+rho s)", COLORS["output"], 6.2)
+    _box(axis, (0.80, 0.21), 0.15, 0.14, "Residual hard-negative verifiers", "Ti-bearing and metallic\ncontradiction penalties", COLORS["verify"], 6.7)
+    _box(axis, (0.90, 0.08), 0.08, 0.10, "Final posterior", "q(y|x)", COLORS["output"], 7.1)
+    _box(axis, (0.28, 0.25), 0.16, 0.12, "Adapter decomposition loss", "L_dec=mean cos^2(A_d(h), A_s(h))", COLORS["training"], 6.2)
+
+    _arrow(axis, (0.105, 0.68), (0.13, 0.68))
+    _arrow(axis, (0.25, 0.71), (0.29, 0.825), connectionstyle="arc3,rad=0.08")
+    _arrow(axis, (0.25, 0.65), (0.29, 0.58), connectionstyle="arc3,rad=-0.07")
+    _arrow(axis, (0.41, 0.827), (0.45, 0.827))
+    _arrow(axis, (0.41, 0.578), (0.45, 0.578))
+    _arrow(axis, (0.56, 0.578), (0.59, 0.578))
+    _arrow(axis, (0.56, 0.827), (0.60, 0.827), label="p_d")
+    _arrow(axis, (0.69, 0.58), (0.73, 0.71), label="p_m", connectionstyle="arc3,rad=-0.13")
+    _arrow(axis, (0.70, 0.83), (0.73, 0.78), label="g")
+    _arrow(axis, (0.56, 0.80), (0.55, 0.44), dashed=True, label="p_d")
+    _arrow(axis, (0.69, 0.60), (0.66, 0.44), dashed=True, label="p_m")
+    _arrow(axis, (0.69, 0.375), (0.73, 0.49), label="rho")
+    _arrow(axis, (0.85, 0.74), (0.80, 0.57), label="p_f", connectionstyle="arc3,rad=0.15")
+    _arrow(axis, (0.88, 0.50), (0.90, 0.56), label="rho s")
+    _arrow(axis, (0.94, 0.50), (0.87, 0.35), label="p_c", connectionstyle="arc3,rad=0.08")
+    _arrow(axis, (0.91, 0.21), (0.94, 0.18), label="q")
+    _arrow(axis, (0.35, 0.52), (0.36, 0.37), dashed=True, label="A_d,A_s")
+
+    axis.text(0.02, 0.15, "Objective", fontsize=8.3, fontweight="bold", color=COLORS["ink"])
+    axis.text(
+        0.02, 0.105,
+        r"$\mathcal{L}_{CGDC}=\mathcal{L}_{HRGV}+\lambda_{dec}\mathcal{L}_{dec}+\lambda_{cal}\mathcal{L}_{cal},\quad "
+        r"\mathcal{L}_{cal}=-\log p_c(y|x)$",
+        fontsize=8.0, color=COLORS["ink"], ha="left",
+    )
+    axis.text(
+        0.02, 0.055,
+        r"Agreement identity: $p_d=p_m\Rightarrow\rho=0\Rightarrow p_c=p_f$.  "
+        r"Bounded shift: $|\log(p_{c,j}/p_{c,k})-\log(p_{f,j}/p_{f,k})|\leq2\rho$.",
+        fontsize=7.0, color=COLORS["muted"], ha="left",
+    )
+
+    prefix = Path(prefix)
+    prefix.parent.mkdir(parents=True, exist_ok=True)
+    outputs = {
+        "png": prefix.with_suffix(".png"),
+        "svg": prefix.with_suffix(".svg"),
+        "pdf": prefix.with_suffix(".pdf"),
+        "tiff": prefix.with_suffix(".tiff"),
+        "source_description": prefix.with_name(prefix.name + "_source.json"),
+    }
+    figure.savefig(outputs["png"], dpi=300, bbox_inches="tight", facecolor="white")
+    figure.savefig(outputs["svg"], bbox_inches="tight", facecolor="white")
+    figure.savefig(outputs["pdf"], bbox_inches="tight", facecolor="white")
+    figure.savefig(outputs["tiff"], dpi=600, bbox_inches="tight", facecolor="white", pil_kwargs={"compression": "tiff_lzw"})
+    plt.close(figure)
+    outputs["source_description"].write_text(
+        json.dumps(
+            {
+                "core_conclusion": "A disagreement-triggered calibrator corrects the fused role posterior only when decomposed role and species experts disagree.",
+                "archetype": "schematic-led composite",
+                "backend": "Python/matplotlib",
+                "evidence_scope": "Architecture and bounded-posterior mechanism; no industrial sorting, grade, recovery, or OOD claim.",
+                "exports": {name: str(path) for name, path in outputs.items() if name != "source_description"},
+            },
+            ensure_ascii=False,
+            indent=2,
+        ) + "\n",
+        encoding="utf-8",
+    )
+    return outputs
+
+
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Generate the HRGV-Net architecture figure.")
     parser.add_argument("--output-prefix", type=Path, required=True)

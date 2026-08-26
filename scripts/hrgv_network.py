@@ -43,6 +43,38 @@ def jensen_shannon_divergence(first, second, torch):
     return 0.5 * (first_kl + second_kl)
 
 
+def adapter_decomposition_loss(direct_delta, species_delta, torch):
+    """Penalize collinear expert residuals while preserving their magnitudes."""
+    if direct_delta.shape != species_delta.shape:
+        raise ValueError("Adapter residual tensors must have the same shape.")
+    if direct_delta.ndim != 2:
+        raise ValueError("Adapter residual tensors must have shape [batch, features].")
+    cosine_similarity = functional.cosine_similarity(direct_delta, species_delta, dim=1)
+    return cosine_similarity.square().mean()
+
+
+def disagreement_calibrated_role_probabilities(
+    fused,
+    direct,
+    mapped,
+    bounded_residual,
+    torch,
+):
+    """Calibrate a fused posterior only in proportion to expert disagreement."""
+    if fused.shape != direct.shape or direct.shape != mapped.shape:
+        raise ValueError("Fused, direct, and mapped posteriors must have matching shapes.")
+    if bounded_residual.shape != fused.shape:
+        raise ValueError("Calibration residual must have the same shape as role posteriors.")
+    _validate_probability_matrix(fused, "fused")
+    epsilon = torch.finfo(fused.dtype).eps
+    disagreement_gain = 1.0 - torch.exp(
+        -jensen_shannon_divergence(direct, mapped, torch)
+    )
+    bounded_residual = torch.tanh(bounded_residual)
+    calibrated_logits = fused.clamp_min(epsilon).log() + disagreement_gain * bounded_residual
+    return torch.softmax(calibrated_logits, dim=1), disagreement_gain
+
+
 def mix_role_experts(direct, mapped, gate):
     """Mix direct and species-mapped role posteriors using a scalar image gate."""
     if direct.shape != mapped.shape:
@@ -255,6 +287,8 @@ class HRGVLossWeights:
     verifier: float = 0.50
     contrast: float = 0.10
     gate_regret: float = 0.0
+    decomposition: float = 0.0
+    calibration: float = 0.0
 
     def validate(self) -> None:
         values = (
@@ -264,6 +298,8 @@ class HRGVLossWeights:
             self.verifier,
             self.contrast,
             self.gate_regret,
+            self.decomposition,
+            self.calibration,
         )
         if any(value < 0 for value in values):
             raise ValueError("HRGV loss weights must be non-negative.")
@@ -288,6 +324,11 @@ class HierarchicalRiskGatedVerificationNet(nn.Module):
         metallic_verifier_strength: float = 1.0,
         detach_verifier_features: bool = True,
         detach_gate_features: bool = False,
+        enable_cgdc: bool = False,
+        cgdc_shared_features: bool = False,
+        cgdc_unconditional: bool = False,
+        adapter_bottleneck_dim: int = 128,
+        calibration_hidden_dim: int = 256,
     ) -> None:
         super().__init__()
         if verifier_mode not in {"residual", "multiplicative", "disabled"}:
@@ -303,8 +344,8 @@ class HierarchicalRiskGatedVerificationNet(nn.Module):
             raise ValueError("Every species must map to exactly one role.")
         if bool((role_matrix < 0).any()):
             raise ValueError("role_matrix must be non-negative.")
-        if embedding_dim <= 0 or gate_hidden_dim <= 0:
-            raise ValueError("Embedding and gate hidden dimensions must be positive.")
+        if min(embedding_dim, gate_hidden_dim, adapter_bottleneck_dim, calibration_hidden_dim) <= 0:
+            raise ValueError("Network hidden dimensions must be positive.")
         if fixed_gate is not None and not 0.0 <= fixed_gate <= 1.0:
             raise ValueError("fixed_gate must lie in [0, 1].")
         if not 0.0 < ti_verifier_threshold <= 1.0 or not 0.0 < metallic_verifier_threshold <= 1.0:
@@ -321,6 +362,33 @@ class HierarchicalRiskGatedVerificationNet(nn.Module):
         num_roles, num_species = role_matrix.shape
         self.role_head = nn.Linear(feature_dim, num_roles)
         self.species_head = nn.Linear(feature_dim, num_species)
+        self.enable_cgdc = enable_cgdc
+        self.cgdc_shared_features = cgdc_shared_features
+        self.cgdc_unconditional = cgdc_unconditional
+        if enable_cgdc and not cgdc_shared_features:
+            self.direct_adapter = nn.Sequential(
+                nn.Linear(feature_dim, adapter_bottleneck_dim),
+                nn.ReLU(inplace=True),
+                nn.Linear(adapter_bottleneck_dim, feature_dim),
+            )
+            self.species_adapter = nn.Sequential(
+                nn.Linear(feature_dim, adapter_bottleneck_dim),
+                nn.ReLU(inplace=True),
+                nn.Linear(adapter_bottleneck_dim, feature_dim),
+            )
+        else:
+            self.direct_adapter = None
+            self.species_adapter = None
+        calibration_input_dim = feature_dim * 4 + num_roles + 3
+        self.calibration_network = (
+            nn.Sequential(
+                nn.Linear(calibration_input_dim, calibration_hidden_dim),
+                nn.ReLU(inplace=True),
+                nn.Linear(calibration_hidden_dim, num_roles),
+            )
+            if enable_cgdc
+            else None
+        )
         self.gate_network = nn.Sequential(
             nn.Linear(feature_dim + 3, gate_hidden_dim),
             nn.ReLU(inplace=True),
@@ -348,8 +416,20 @@ class HierarchicalRiskGatedVerificationNet(nn.Module):
     def forward(self, images: torch.Tensor) -> dict[str, torch.Tensor]:
         features = torch.flatten(self.avgpool(self.features(images)), 1)
         dropped_features = self.dropout(features)
-        role_logits = self.role_head(dropped_features)
-        species_logits = self.species_head(dropped_features)
+        if self.enable_cgdc:
+            if self.direct_adapter is None or self.species_adapter is None:
+                direct_adapter_delta = torch.zeros_like(dropped_features)
+                species_adapter_delta = torch.zeros_like(dropped_features)
+            else:
+                direct_adapter_delta = self.direct_adapter(dropped_features)
+                species_adapter_delta = self.species_adapter(dropped_features)
+            direct_features = dropped_features + direct_adapter_delta
+            species_features = dropped_features + species_adapter_delta
+        else:
+            direct_features = dropped_features
+            species_features = dropped_features
+        role_logits = self.role_head(direct_features)
+        species_logits = self.species_head(species_features)
         direct_role_probabilities = torch.softmax(role_logits, dim=1)
         species_probabilities = torch.softmax(species_logits, dim=1)
         mapped_role_probabilities = species_probabilities @ self.role_matrix.T
@@ -373,22 +453,61 @@ class HierarchicalRiskGatedVerificationNet(nn.Module):
         fused_role_probabilities = mix_role_experts(
             direct_role_probabilities, mapped_role_probabilities, gate
         )
+        if self.enable_cgdc:
+            if self.calibration_network is None:
+                raise RuntimeError("CGDC calibration network is not initialized.")
+            calibration_inputs = torch.cat(
+                [
+                    direct_features,
+                    species_features,
+                    direct_features * species_features,
+                    (direct_features - species_features).abs(),
+                    direct_role_probabilities.clamp_min(torch.finfo(direct_role_probabilities.dtype).eps).log()
+                    - mapped_role_probabilities.clamp_min(torch.finfo(mapped_role_probabilities.dtype).eps).log(),
+                    direct_entropy,
+                    mapped_entropy,
+                    expert_js_divergence,
+                ],
+                dim=1,
+            )
+            calibration_residual = self.calibration_network(calibration_inputs)
+            if self.cgdc_unconditional:
+                disagreement_gain = torch.ones_like(expert_js_divergence)
+                calibrated_logits = (
+                    fused_role_probabilities.clamp_min(
+                        torch.finfo(fused_role_probabilities.dtype).eps
+                    ).log()
+                    + torch.tanh(calibration_residual)
+                )
+                calibrated_role_probabilities = torch.softmax(calibrated_logits, dim=1)
+            else:
+                calibrated_role_probabilities, disagreement_gain = (
+                    disagreement_calibrated_role_probabilities(
+                        fused_role_probabilities,
+                        direct_role_probabilities,
+                        mapped_role_probabilities,
+                        calibration_residual,
+                        torch,
+                    )
+                )
+        else:
+            calibrated_role_probabilities = fused_role_probabilities
         verifier_features = features.detach() if self.detach_verifier_features else features
         ti_verifier_logits = self.ti_verifier_head(verifier_features)
         metallic_verifier_logits = self.metallic_verifier_head(verifier_features)
         ti_target_probability = torch.softmax(ti_verifier_logits, dim=1)[:, 1:2]
         metallic_target_probability = torch.softmax(metallic_verifier_logits, dim=1)[:, 1:2]
         if self.verifier_mode == "disabled":
-            final_role_probabilities = fused_role_probabilities
+            final_role_probabilities = calibrated_role_probabilities
         elif self.verifier_mode == "multiplicative":
             final_role_probabilities = apply_multiplicative_target_verifiers(
-                fused_role_probabilities,
+                calibrated_role_probabilities,
                 ti_target_probability,
                 metallic_target_probability,
             )
         else:
             final_role_probabilities = apply_residual_target_verifiers(
-                fused_role_probabilities,
+                calibrated_role_probabilities,
                 ti_target_probability,
                 metallic_target_probability,
                 ti_threshold=self.ti_verifier_threshold,
@@ -397,7 +516,7 @@ class HierarchicalRiskGatedVerificationNet(nn.Module):
                 metallic_strength=self.metallic_verifier_strength,
             )
         embeddings = functional.normalize(self.projection_head(features), p=2, dim=1)
-        return {
+        outputs = {
             "role_logits": role_logits,
             "species_logits": species_logits,
             "direct_role_probabilities": direct_role_probabilities,
@@ -412,6 +531,17 @@ class HierarchicalRiskGatedVerificationNet(nn.Module):
             "embeddings": embeddings,
             "expert_js_divergence": expert_js_divergence,
         }
+        if self.enable_cgdc:
+            outputs.update(
+                {
+                    "direct_adapter_delta": direct_adapter_delta,
+                    "species_adapter_delta": species_adapter_delta,
+                    "calibration_residual": torch.tanh(calibration_residual),
+                    "disagreement_gain": disagreement_gain,
+                    "calibrated_role_probabilities": calibrated_role_probabilities,
+                }
+            )
+        return outputs
 
 
 def compute_hrgv_losses(
@@ -478,6 +608,18 @@ def compute_hrgv_losses(
         gate_targets["gate_gap_weight"],
         torch,
     )
+    calibrated_role_probabilities = outputs.get(
+        "calibrated_role_probabilities", outputs["fused_role_probabilities"]
+    )
+    calibration_loss = final_role_criterion(
+        calibrated_role_probabilities.clamp_min(epsilon).log(), role_labels
+    )
+    direct_delta = outputs.get("direct_adapter_delta")
+    species_delta = outputs.get("species_adapter_delta")
+    if direct_delta is None or species_delta is None:
+        decomposition_loss = outputs["final_role_probabilities"].sum() * 0.0
+    else:
+        decomposition_loss = adapter_decomposition_loss(direct_delta, species_delta, torch)
     total_loss = (
         final_role_loss
         + weights.direct * direct_role_loss
@@ -486,6 +628,8 @@ def compute_hrgv_losses(
         + weights.verifier * verifier_loss
         + weights.contrast * contrast_loss
         + weights.gate_regret * gate_regret_loss
+        + weights.decomposition * decomposition_loss
+        + weights.calibration * calibration_loss
     )
     return total_loss, {
         "final_role_loss": final_role_loss,
@@ -497,4 +641,6 @@ def compute_hrgv_losses(
         "verifier_loss": verifier_loss,
         "contrast_loss": contrast_loss,
         "gate_regret_loss": gate_regret_loss,
+        "decomposition_loss": decomposition_loss,
+        "calibration_loss": calibration_loss,
     }

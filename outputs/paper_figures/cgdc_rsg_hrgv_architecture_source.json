@@ -1,0 +1,12 @@
+{
+  "core_conclusion": "A disagreement-triggered calibrator corrects the fused role posterior only when decomposed role and species experts disagree.",
+  "archetype": "schematic-led composite",
+  "backend": "Python/matplotlib",
+  "evidence_scope": "Architecture and bounded-posterior mechanism; no industrial sorting, grade, recovery, or OOD claim.",
+  "exports": {
+    "png": "outputs\\paper_figures\\cgdc_rsg_hrgv_architecture.png",
+    "svg": "outputs\\paper_figures\\cgdc_rsg_hrgv_architecture.svg",
+    "pdf": "outputs\\paper_figures\\cgdc_rsg_hrgv_architecture.pdf",
+    "tiff": "outputs\\paper_figures\\cgdc_rsg_hrgv_architecture.tiff"
+  }
+}

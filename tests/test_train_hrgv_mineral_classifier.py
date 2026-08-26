@@ -59,6 +59,31 @@ class HRGVTrainingConfigurationTests(unittest.TestCase):
         self.assertEqual(args.ti_verifier_strength, 1.0)
         self.assertEqual(args.metallic_verifier_strength, 1.0)
         self.assertFalse(args.couple_verifier_features)
+        self.assertFalse(args.enable_cgdc)
+        self.assertFalse(args.cgdc_shared_features)
+        self.assertFalse(args.cgdc_unconditional)
+        self.assertEqual(args.adapter_bottleneck_dim, 128)
+        self.assertEqual(args.calibration_hidden_dim, 256)
+        self.assertEqual(args.lambda_decomposition, 0.02)
+        self.assertEqual(args.lambda_calibration, 0.25)
+
+    def test_cli_exposes_cgdc_ablation_switches(self) -> None:
+        from train_hrgv_mineral_classifier import parse_args, validate_args
+
+        args = parse_args(
+            [
+                "--manifest", "split.csv", "--dataset-root", "dataset", "--output-dir", "output",
+                "--enable-cgdc", "--cgdc-shared-features", "--cgdc-unconditional",
+                "--adapter-bottleneck-dim", "32", "--calibration-hidden-dim", "64",
+            ]
+        )
+        validate_args(args)
+
+        self.assertTrue(args.enable_cgdc)
+        self.assertTrue(args.cgdc_shared_features)
+        self.assertTrue(args.cgdc_unconditional)
+        self.assertEqual(args.adapter_bottleneck_dim, 32)
+        self.assertEqual(args.calibration_hidden_dim, 64)
 
     def test_cli_can_restore_coupled_verifier_gradients_for_ablation(self) -> None:
         from train_hrgv_mineral_classifier import parse_args, validate_args
@@ -124,6 +149,18 @@ class HRGVTrainingConfigurationTests(unittest.TestCase):
 
 
 class HRGVArtifactTests(unittest.TestCase):
+    def test_calibration_metrics_measure_ece_and_brier_from_full_posteriors(self) -> None:
+        from train_hrgv_mineral_classifier import calculate_calibration_metrics
+
+        metrics = calculate_calibration_metrics(
+            targets=[0, 1],
+            probabilities=[[0.90, 0.10], [0.80, 0.20]],
+            bins=2,
+        )
+
+        self.assertAlmostEqual(metrics["brier_score"], 0.65)
+        self.assertAlmostEqual(metrics["expected_calibration_error"], 0.35)
+
     def test_risk_metrics_measure_target_recall_and_both_intrusions(self) -> None:
         from train_hrgv_mineral_classifier import calculate_hrgv_risk_metrics
 
@@ -185,12 +222,18 @@ class HRGVArtifactTests(unittest.TestCase):
             gate_selection_correct=[True],
             routing_regrets_nll=[0.2540],
             weighted_gate_errors=[0.1365],
+            final_role_probabilities=[[0.81, 0.10, 0.05, 0.04]],
+            calibrated_role_probabilities=[[0.80, 0.11, 0.05, 0.04]],
+            disagreement_gains=[0.07],
         )
 
         self.assertEqual(len(rows), 1)
         self.assertEqual(set(rows[0]), set(HRGV_PREDICTION_FIELDS))
         self.assertEqual(rows[0]["predicted_label"], "target_mineral")
         self.assertEqual(rows[0]["direct_predicted_label"], "ti_bearing_negative")
+        self.assertEqual(rows[0]["role_probability_target_mineral"], "0.810000")
+        self.assertEqual(rows[0]["calibrated_probability_target_mineral"], "0.800000")
+        self.assertEqual(rows[0]["disagreement_gain"], "0.070000")
         self.assertEqual(rows[0]["mapped_predicted_label"], "target_mineral")
         self.assertEqual(rows[0]["gate"], "0.350000")
         self.assertEqual(rows[0]["ti_target_probability"], "0.900000")

@@ -39,6 +39,10 @@ from train_mineral_classifier import (
 from train_role_aware_mineral_classifier import select_prediction_records
 
 
+ROLE_PROBABILITY_FIELDS = [
+    f"role_probability_{label}" for label in CLASS_LABELS
+] + [f"calibrated_probability_{label}" for label in CLASS_LABELS]
+
 HRGV_PREDICTION_FIELDS = [
     *PREDICTION_FIELDS,
     "direct_predicted_label",
@@ -47,6 +51,8 @@ HRGV_PREDICTION_FIELDS = [
     "ti_target_probability",
     "metallic_target_probability",
     "expert_js_divergence",
+    "disagreement_gain",
+    *ROLE_PROBABILITY_FIELDS,
     "direct_true_probability",
     "mapped_true_probability",
     "fused_true_probability",
@@ -88,6 +94,13 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--unweighted-gate-regret", action="store_true")
     parser.add_argument("--detach-gate-features", action="store_true")
     parser.add_argument("--couple-gate-features", action="store_true")
+    parser.add_argument("--enable-cgdc", action="store_true")
+    parser.add_argument("--cgdc-shared-features", action="store_true")
+    parser.add_argument("--cgdc-unconditional", action="store_true")
+    parser.add_argument("--adapter-bottleneck-dim", type=int, default=128)
+    parser.add_argument("--calibration-hidden-dim", type=int, default=256)
+    parser.add_argument("--lambda-decomposition", type=float, default=0.02)
+    parser.add_argument("--lambda-calibration", type=float, default=0.25)
     parser.add_argument("--contrast-temperature", type=float, default=0.10)
     parser.add_argument("--embedding-dim", type=int, default=128)
     parser.add_argument("--gate-hidden-dim", type=int, default=128)
@@ -125,6 +138,8 @@ def validate_args(args: argparse.Namespace) -> None:
         verifier=args.lambda_verifier,
         contrast=args.lambda_contrast,
         gate_regret=args.lambda_gate_regret,
+        decomposition=args.lambda_decomposition,
+        calibration=args.lambda_calibration,
     )
     loss_weights.validate()
     if args.fixed_gate is not None and not 0.0 <= args.fixed_gate <= 1.0:
@@ -137,8 +152,13 @@ def validate_args(args: argparse.Namespace) -> None:
         raise ValueError("Verifier strengths must be non-negative.")
     if min(args.epochs, args.batch_size, args.image_size, args.patience) <= 0:
         raise ValueError("Epochs, batch size, image size, and patience must be positive.")
-    if min(args.embedding_dim, args.gate_hidden_dim) <= 0:
-        raise ValueError("Embedding and gate hidden dimensions must be positive.")
+    if min(
+        args.embedding_dim,
+        args.gate_hidden_dim,
+        args.adapter_bottleneck_dim,
+        args.calibration_hidden_dim,
+    ) <= 0:
+        raise ValueError("Network hidden dimensions must be positive.")
     if args.contrast_temperature <= 0:
         raise ValueError("Contrast temperature must be positive.")
     if args.gate_regret_temperature <= 0 or args.gate_gap_temperature <= 0:
@@ -176,6 +196,48 @@ def calculate_hrgv_risk_metrics(
         "target_miss_rate": 1.0 - target_recall,
         "ti_to_target_intrusion_rate": conditional_rate(1, 0),
         "metallic_to_target_intrusion_rate": conditional_rate(3, 0),
+    }
+
+
+def calculate_calibration_metrics(
+    targets: Sequence[int], probabilities: Sequence[Sequence[float]], bins: int = 15
+) -> dict[str, float]:
+    """Compute multiclass Brier score and top-label expected calibration error."""
+    if len(targets) != len(probabilities) or not targets:
+        raise ValueError("Targets and probability rows must be non-empty and aligned.")
+    if bins <= 0:
+        raise ValueError("The number of calibration bins must be positive.")
+    class_count = len(probabilities[0])
+    if class_count < 2 or any(len(row) != class_count for row in probabilities):
+        raise ValueError("Probability rows must share a class dimension of at least two.")
+    if any(target < 0 or target >= class_count for target in targets):
+        raise ValueError("Targets contain an index outside the probability dimension.")
+    if any(abs(sum(row) - 1.0) > 1e-4 or min(row) < 0.0 for row in probabilities):
+        raise ValueError("Probability rows must be non-negative and sum to one.")
+
+    brier_sum = 0.0
+    confidence_bins: list[list[tuple[float, bool]]] = [[] for _ in range(bins)]
+    for target, row in zip(targets, probabilities):
+        predicted = max(range(class_count), key=row.__getitem__)
+        confidence = row[predicted]
+        brier_sum += sum(
+            (probability - float(index == target)) ** 2
+            for index, probability in enumerate(row)
+        )
+        bin_index = min(int(confidence * bins), bins - 1)
+        confidence_bins[bin_index].append((confidence, predicted == target))
+
+    ece = 0.0
+    total = len(targets)
+    for values in confidence_bins:
+        if not values:
+            continue
+        mean_confidence = sum(value[0] for value in values) / len(values)
+        mean_accuracy = sum(value[1] for value in values) / len(values)
+        ece += len(values) / total * abs(mean_accuracy - mean_confidence)
+    return {
+        "brier_score": brier_sum / total,
+        "expected_calibration_error": ece,
     }
 
 
@@ -250,6 +312,9 @@ def build_hrgv_prediction_rows(
     gate_selection_correct: Sequence[bool],
     routing_regrets_nll: Sequence[float],
     weighted_gate_errors: Sequence[float],
+    final_role_probabilities: Sequence[Sequence[float]],
+    calibrated_role_probabilities: Sequence[Sequence[float]],
+    disagreement_gains: Sequence[float],
 ) -> list[dict[str, str]]:
     sequences = (
         records,
@@ -270,6 +335,9 @@ def build_hrgv_prediction_rows(
         gate_selection_correct,
         routing_regrets_nll,
         weighted_gate_errors,
+        final_role_probabilities,
+        calibrated_role_probabilities,
+        disagreement_gains,
     )
     if len({len(sequence) for sequence in sequences}) != 1:
         raise ValueError("All HRGV prediction fields must have matching lengths.")
@@ -279,6 +347,10 @@ def build_hrgv_prediction_rows(
         mapped_id = mapped_prediction_ids[index]
         if direct_id not in range(len(CLASS_LABELS)) or mapped_id not in range(len(CLASS_LABELS)):
             raise ValueError("Invalid direct or mapped prediction id.")
+        final_probabilities = final_role_probabilities[index]
+        calibrated_probabilities = calibrated_role_probabilities[index]
+        if len(final_probabilities) != len(CLASS_LABELS) or len(calibrated_probabilities) != len(CLASS_LABELS):
+            raise ValueError("Role probability rows must match the fixed role labels.")
         row.update(
             {
                 "direct_predicted_label": CLASS_LABELS[direct_id],
@@ -287,6 +359,7 @@ def build_hrgv_prediction_rows(
                 "ti_target_probability": f"{ti_target_probabilities[index]:.6f}",
                 "metallic_target_probability": f"{metallic_target_probabilities[index]:.6f}",
                 "expert_js_divergence": f"{expert_js_divergences[index]:.6f}",
+                "disagreement_gain": f"{disagreement_gains[index]:.6f}",
                 "direct_true_probability": f"{direct_true_probabilities[index]:.6f}",
                 "mapped_true_probability": f"{mapped_true_probabilities[index]:.6f}",
                 "fused_true_probability": f"{fused_true_probabilities[index]:.6f}",
@@ -296,6 +369,18 @@ def build_hrgv_prediction_rows(
                 "gate_selection_correct": "1" if gate_selection_correct[index] else "0",
                 "routing_regret_nll": f"{routing_regrets_nll[index]:.6f}",
                 "weighted_gate_error": f"{weighted_gate_errors[index]:.6f}",
+            }
+        )
+        row.update(
+            {
+                f"role_probability_{label}": f"{final_probabilities[role_id]:.6f}"
+                for role_id, label in enumerate(CLASS_LABELS)
+            }
+        )
+        row.update(
+            {
+                f"calibrated_probability_{label}": f"{calibrated_probabilities[role_id]:.6f}"
+                for role_id, label in enumerate(CLASS_LABELS)
             }
         )
     return rows
@@ -332,6 +417,8 @@ def run_epoch(
         "verifier_loss",
         "contrast_loss",
         "gate_regret_loss",
+        "decomposition_loss",
+        "calibration_loss",
     )
     totals = {name: 0.0 for name in loss_names}
     result = {
@@ -346,6 +433,9 @@ def run_epoch(
         "ti_target_probabilities": [],
         "metallic_target_probabilities": [],
         "expert_js_divergences": [],
+        "disagreement_gains": [],
+        "final_role_probabilities": [],
+        "calibrated_role_probabilities": [],
         "direct_true_probabilities": [],
         "mapped_true_probabilities": [],
         "fused_true_probabilities": [],
@@ -414,6 +504,22 @@ def run_epoch(
             )
             result["expert_js_divergences"].extend(
                 outputs["expert_js_divergence"].squeeze(1).cpu().tolist()
+            )
+            result["disagreement_gains"].extend(
+                outputs.get("disagreement_gain", torch.zeros_like(outputs["gate"]))
+                .squeeze(1)
+                .detach()
+                .cpu()
+                .tolist()
+            )
+            result["final_role_probabilities"].extend(
+                outputs["final_role_probabilities"].detach().cpu().tolist()
+            )
+            result["calibrated_role_probabilities"].extend(
+                outputs.get("calibrated_role_probabilities", outputs["fused_role_probabilities"])
+                .detach()
+                .cpu()
+                .tolist()
             )
             gate_targets = regret_gate_targets(
                 outputs["direct_role_probabilities"],
@@ -526,6 +632,11 @@ def main(argv: Sequence[str] | None = None) -> None:
         metallic_verifier_strength=args.metallic_verifier_strength,
         detach_verifier_features=not args.couple_verifier_features,
         detach_gate_features=args.detach_gate_features and not args.couple_gate_features,
+        enable_cgdc=args.enable_cgdc,
+        cgdc_shared_features=args.cgdc_shared_features,
+        cgdc_unconditional=args.cgdc_unconditional,
+        adapter_bottleneck_dim=args.adapter_bottleneck_dim,
+        calibration_hidden_dim=args.calibration_hidden_dim,
     ).to(device)
     role_weight_tensor = torch.tensor(
         compute_class_weights(role_counts), dtype=torch.float32, device=device
@@ -541,6 +652,8 @@ def main(argv: Sequence[str] | None = None) -> None:
     )
     verifier_criterion = nn.CrossEntropyLoss()
     effective_gate_regret = 0.0 if args.disable_gate_regret else args.lambda_gate_regret
+    effective_decomposition = args.lambda_decomposition if args.enable_cgdc else 0.0
+    effective_calibration = args.lambda_calibration if args.enable_cgdc else 0.0
     loss_weights = HRGVLossWeights(
         direct=args.lambda_direct,
         species=args.lambda_species,
@@ -548,6 +661,8 @@ def main(argv: Sequence[str] | None = None) -> None:
         verifier=args.lambda_verifier,
         contrast=args.lambda_contrast,
         gate_regret=effective_gate_regret,
+        decomposition=effective_decomposition,
+        calibration=effective_calibration,
     )
     optimizer = torch.optim.AdamW(
         model.parameters(), lr=args.learning_rate, weight_decay=args.weight_decay
@@ -558,6 +673,12 @@ def main(argv: Sequence[str] | None = None) -> None:
     args.output_dir.mkdir(parents=True, exist_ok=True)
     effective_verifier_mode = "disabled" if args.disable_verifiers else args.verifier_mode
     model_name = f"hrgv_efficientnet_b0_{effective_verifier_mode}"
+    if args.enable_cgdc:
+        model_name = f"cgdc_{model_name}"
+        if args.cgdc_shared_features:
+            model_name += "_shared_features"
+        if args.cgdc_unconditional:
+            model_name += "_unconditional"
     if args.disable_verifiers:
         model_name += "_no_verifiers"
     if args.fixed_gate is not None:
@@ -594,6 +715,8 @@ def main(argv: Sequence[str] | None = None) -> None:
             "lambda_verifier": loss_weights.verifier,
             "lambda_contrast": loss_weights.contrast,
             "lambda_gate_regret": loss_weights.gate_regret,
+            "lambda_decomposition": loss_weights.decomposition,
+            "lambda_calibration": loss_weights.calibration,
             "gate_regret_temperature": args.gate_regret_temperature,
             "gate_gap_temperature": args.gate_gap_temperature,
             "hard_gate_target": args.hard_gate_target,
@@ -601,6 +724,11 @@ def main(argv: Sequence[str] | None = None) -> None:
             "contrast_temperature": args.contrast_temperature,
             "embedding_dim": args.embedding_dim,
             "gate_hidden_dim": args.gate_hidden_dim,
+            "enable_cgdc": args.enable_cgdc,
+            "cgdc_shared_features": args.cgdc_shared_features,
+            "cgdc_unconditional": args.cgdc_unconditional,
+            "adapter_bottleneck_dim": args.adapter_bottleneck_dim,
+            "calibration_hidden_dim": args.calibration_hidden_dim,
             "fixed_gate": args.fixed_gate,
             "disable_verifiers": args.disable_verifiers,
             "verifier_mode": effective_verifier_mode,
@@ -762,6 +890,11 @@ def main(argv: Sequence[str] | None = None) -> None:
         )
     )
     test_metrics.update(
+        calculate_calibration_metrics(
+            test_result["role_targets"], test_result["final_role_probabilities"]
+        )
+    )
+    test_metrics.update(
         {
             **{f"test_{key}": value for key, value in test_result["losses"].items()},
             "species_accuracy": sum(
@@ -822,6 +955,9 @@ def main(argv: Sequence[str] | None = None) -> None:
         gate_selection_correct=test_result["gate_selection_correct"],
         routing_regrets_nll=test_result["routing_regrets_nll"],
         weighted_gate_errors=test_result["weighted_gate_errors"],
+        final_role_probabilities=test_result["final_role_probabilities"],
+        calibrated_role_probabilities=test_result["calibrated_role_probabilities"],
+        disagreement_gains=test_result["disagreement_gains"],
     )
     write_csv(
         args.output_dir / "test_predictions.csv", prediction_rows, HRGV_PREDICTION_FIELDS

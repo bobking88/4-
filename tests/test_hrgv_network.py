@@ -98,6 +98,64 @@ class HRGVProbabilityPrimitiveTests(unittest.TestCase):
 
         self.assertLess(float(corrected[0, 0]), float(fused[0, 0]))
 
+
+class CGDCProbabilityPrimitiveTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        from train_mineral_classifier import require_training_dependencies
+
+        cls.torch = require_training_dependencies()["torch"]
+
+    def test_disagreement_calibration_is_identity_when_experts_agree(self) -> None:
+        from hrgv_network import disagreement_calibrated_role_probabilities
+
+        posterior = self.torch.tensor(
+            [[0.70, 0.10, 0.10, 0.10], [0.25, 0.25, 0.25, 0.25]],
+            dtype=self.torch.float32,
+        )
+        residual = self.torch.tensor(
+            [[3.0, -2.0, 1.0, -4.0], [-2.0, 3.0, -1.0, 4.0]],
+            dtype=self.torch.float32,
+        )
+
+        calibrated, gain = disagreement_calibrated_role_probabilities(
+            posterior, posterior, posterior, residual, self.torch
+        )
+
+        self.assertTrue(self.torch.allclose(gain, self.torch.zeros((2, 1))))
+        self.assertTrue(self.torch.allclose(calibrated, posterior, atol=1e-6))
+
+    def test_disagreement_calibration_keeps_simplex_and_bounded_log_odds_shift(self) -> None:
+        from hrgv_network import disagreement_calibrated_role_probabilities
+
+        direct = self.torch.tensor([[0.70, 0.10, 0.10, 0.10]], dtype=self.torch.float32)
+        mapped = self.torch.tensor([[0.10, 0.70, 0.10, 0.10]], dtype=self.torch.float32)
+        fused = 0.5 * (direct + mapped)
+        residual = self.torch.tensor([[7.0, -7.0, 1.0, -1.0]], dtype=self.torch.float32)
+
+        calibrated, gain = disagreement_calibrated_role_probabilities(
+            fused, direct, mapped, residual, self.torch
+        )
+        odds_shift = ((calibrated[:, 0] / calibrated[:, 1]).log() - (fused[:, 0] / fused[:, 1]).log()).abs()
+
+        self.assertTrue(self.torch.allclose(calibrated.sum(dim=1), self.torch.ones(1), atol=1e-6))
+        self.assertTrue((calibrated >= 0).all())
+        self.assertLessEqual(float(odds_shift[0]), float(2.0 * gain[0, 0]) + 1e-6)
+
+    def test_adapter_decomposition_penalizes_aligned_residuals_more_than_orthogonal(self) -> None:
+        from hrgv_network import adapter_decomposition_loss
+
+        direct_delta = self.torch.tensor([[1.0, 0.0], [0.0, 1.0]], dtype=self.torch.float32)
+        orthogonal_delta = self.torch.tensor([[0.0, 1.0], [1.0, 0.0]], dtype=self.torch.float32)
+
+        orthogonal_loss = adapter_decomposition_loss(
+            direct_delta, orthogonal_delta, self.torch
+        )
+        aligned_loss = adapter_decomposition_loss(direct_delta, direct_delta, self.torch)
+
+        self.assertLess(float(orthogonal_loss), 1e-6)
+        self.assertGreater(float(aligned_loss), 0.99)
+
     def test_masked_verifier_loss_uses_only_target_and_selected_negative(self) -> None:
         from hrgv_network import masked_verifier_loss
 
@@ -398,6 +456,83 @@ class HRGVModelTests(unittest.TestCase):
                 verifier_mode="unknown",
             )
 
+    def test_cgdc_model_exposes_decomposed_experts_and_calibrated_posterior(self) -> None:
+        from hrgv_network import HierarchicalRiskGatedVerificationNet
+
+        mapping = self.build_mapping()
+        model = HierarchicalRiskGatedVerificationNet(
+            self.dependencies["models"],
+            self.build_role_matrix(mapping),
+            pretrained=False,
+            embedding_dim=8,
+            gate_hidden_dim=16,
+            enable_cgdc=True,
+            calibration_hidden_dim=16,
+        )
+        outputs = model(self.torch.randn(2, 3, 64, 64))
+
+        for key in (
+            "direct_adapter_delta",
+            "species_adapter_delta",
+            "calibration_residual",
+            "disagreement_gain",
+            "calibrated_role_probabilities",
+        ):
+            self.assertIn(key, outputs)
+            self.assertTrue(self.torch.isfinite(outputs[key]).all(), key)
+        self.assertEqual(tuple(outputs["direct_adapter_delta"].shape), (2, 1280))
+        self.assertEqual(tuple(outputs["species_adapter_delta"].shape), (2, 1280))
+        self.assertEqual(tuple(outputs["calibration_residual"].shape), (2, 4))
+        self.assertEqual(tuple(outputs["disagreement_gain"].shape), (2, 1))
+        self.assertTrue(
+            self.torch.allclose(
+                outputs["calibrated_role_probabilities"].sum(dim=1),
+                self.torch.ones(2),
+                atol=1e-6,
+            )
+        )
+
+    def test_cgdc_loss_trains_adapters_and_calibration_head(self) -> None:
+        from hrgv_network import (
+            HRGVLossWeights,
+            HierarchicalRiskGatedVerificationNet,
+            compute_hrgv_losses,
+        )
+
+        mapping = self.build_mapping()
+        model = HierarchicalRiskGatedVerificationNet(
+            self.dependencies["models"],
+            self.build_role_matrix(mapping),
+            pretrained=False,
+            embedding_dim=8,
+            gate_hidden_dim=16,
+            enable_cgdc=True,
+            calibration_hidden_dim=16,
+        )
+        outputs = model(self.torch.randn(6, 3, 64, 64))
+        total_loss, terms = compute_hrgv_losses(
+            outputs=outputs,
+            role_labels=self.torch.tensor([0, 0, 1, 1, 3, 3], dtype=self.torch.long),
+            species_labels=self.torch.tensor([0, 1, 2, 3, 4, 5], dtype=self.torch.long),
+            mapping=mapping,
+            final_role_criterion=self.torch.nn.NLLLoss(),
+            direct_role_criterion=self.torch.nn.CrossEntropyLoss(),
+            species_criterion=self.torch.nn.CrossEntropyLoss(),
+            verifier_criterion=self.torch.nn.CrossEntropyLoss(),
+            weights=HRGVLossWeights(decomposition=0.02, calibration=0.25),
+            temperature=0.10,
+            torch=self.torch,
+        )
+        total_loss.backward()
+
+        self.assertIn("decomposition_loss", terms)
+        self.assertIn("calibration_loss", terms)
+        self.assertGreaterEqual(float(terms["decomposition_loss"].detach()), 0.0)
+        self.assertGreater(float(terms["calibration_loss"].detach()), 0.0)
+        self.assertIsNotNone(model.direct_adapter[0].weight.grad)
+        self.assertIsNotNone(model.species_adapter[0].weight.grad)
+        self.assertIsNotNone(model.calibration_network[0].weight.grad)
+
     def test_regret_gate_loss_is_isolated_from_backbone_and_experts_when_detached(self) -> None:
         from hrgv_network import (
             HierarchicalRiskGatedVerificationNet,
@@ -532,6 +667,8 @@ class HRGVModelTests(unittest.TestCase):
                 "verifier_loss",
                 "contrast_loss",
                 "gate_regret_loss",
+                "decomposition_loss",
+                "calibration_loss",
             },
         )
         gradient_parameters = {
