@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import tempfile
 import unittest
+import zipfile
 from pathlib import Path
 
 from docx import Document
@@ -105,6 +107,37 @@ class FormalReportV9EvidenceTests(unittest.TestCase):
             self.assertIn("命题 P1", text)
             self.assertIn("Brier", text)
             self.assertIn("不等同于工业分选", text)
+
+    def test_embeds_rendered_cgdc_formula_bundle(self) -> None:
+        import sys
+
+        sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
+        from update_formal_report_v9 import FORMULA_DIR, update_report
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_root = Path(temp_dir)
+            source = temp_root / "source.docx"
+            output = temp_root / "output.docx"
+            analysis_dir = temp_root / "analysis"
+            analysis_dir.mkdir()
+            self._write_complete_evidence(analysis_dir)
+            document = Document()
+            document.save(source)
+
+            update_report(source, output, analysis_dir)
+
+            expected = {
+                hashlib.sha256(path.read_bytes()).hexdigest()
+                for path in FORMULA_DIR.glob("cgdc_*.png")
+            }
+            self.assertGreaterEqual(len(expected), 3)
+            with zipfile.ZipFile(output) as archive:
+                embedded = {
+                    hashlib.sha256(archive.read(name)).hexdigest()
+                    for name in archive.namelist()
+                    if name.startswith("word/media/")
+                }
+            self.assertLessEqual(expected, embedded)
 
 
 if __name__ == "__main__":

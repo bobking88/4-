@@ -23,6 +23,7 @@ APPENDIX_HEADING = "附录 D CGDC-RSG-HRGV 网络理论与实验"
 ROOT = Path(__file__).resolve().parents[1]
 FIGURE_PATH = ROOT / "outputs" / "paper_figures" / "cgdc_rsg_hrgv_architecture.png"
 DEFAULT_ANALYSIS_DIR = ROOT / "outputs" / "business_metrics" / "cgdc_rsg_hrgv" / "formal"
+FORMULA_DIR = ROOT / "outputs" / "report_assets_v9"
 
 
 def load_formal_cgdc_evidence(analysis_dir: Path) -> dict[str, object]:
@@ -92,20 +93,69 @@ def _add_architecture_figure(document: Document) -> None:
     )
 
 
+def render_formulas() -> dict[str, Path]:
+    """Render the report's CGDC equations as stable bitmap formula assets."""
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    FORMULA_DIR.mkdir(parents=True, exist_ok=True)
+    formulas = {
+        "decomposition": (
+            r"$\mathbf{u}_d=\mathbf{h}+A_d(\mathbf{h}),\quad "
+            r"\mathbf{u}_s=\mathbf{h}+A_s(\mathbf{h}),\quad "
+            r"\mathcal{L}_{dec}=\operatorname{mean}\!\left["
+            r"\cos^2(A_d(\mathbf{h}),A_s(\mathbf{h}))\right]$"
+        ),
+        "calibration": (
+            r"$\rho=1-\exp[-D_{JS}(\mathbf{p}_d\Vert\mathbf{p}_m)],\quad "
+            r"\mathbf{p}_c=\operatorname{softmax}(\log\mathbf{p}_f+\rho\tanh("
+            r"\operatorname{MLP}(\mathbf{z}_c)))$"
+        ),
+        "bound": (
+            r"$\mathbf{p}_d=\mathbf{p}_m\Rightarrow\rho=0\Rightarrow"
+            r"\mathbf{p}_c=\mathbf{p}_f;\qquad "
+            r"\left|\log\frac{p_{c,j}}{p_{c,k}}-\log\frac{p_{f,j}}{p_{f,k}}\right|"
+            r"<2\rho$"
+        ),
+    }
+    paths: dict[str, Path] = {}
+    for name, formula in formulas.items():
+        figure = plt.figure(figsize=(14, 1.05), dpi=220, facecolor="white")
+        figure.text(0.5, 0.5, formula, ha="center", va="center", fontsize=16, color="#172033")
+        path = FORMULA_DIR / f"cgdc_{name}.png"
+        figure.savefig(path, bbox_inches="tight", pad_inches=0.12, facecolor="white")
+        plt.close(figure)
+        paths[name] = path
+    return paths
+
+
+def _add_formula(document: Document, path: Path, caption: str) -> None:
+    paragraph = document.add_paragraph()
+    paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    paragraph.add_run().add_picture(str(path), width=Cm(15.3))
+    _add_body(document, caption)
+
+
 def _add_theory_statement(document: Document) -> None:
+    formulas = render_formulas()
     document.add_heading("D.1 网络结构与理论定位", level=2)
     _add_body(
         document,
         "CGDC-RSG-HRGV-Net 以 EfficientNet-B0 为共享视觉主干，将共享特征 h 通过直接角色残差适配器和矿物种类残差适配器分解为 u_d=h+A_d(h) 与 u_s=h+A_s(h)。直接角色专家给出 p_d，种类专家经固定种类-角色映射聚合为 p_m；既有 RSG 门控给出融合后验 p_f=g p_d+(1-g)p_m。仅在两路证据不一致时，CGDC 校正器再执行受界后验修正。",
     )
+    _add_formula(document, formulas["decomposition"], "式（D-1） 跨粒度残差证据分解与适配器去相关约束")
     _add_body(
         document,
         "令 rho=1-exp[-D_JS(p_d||p_m)]，s=tanh(MLP[z_c])，其中 z_c 包含两路分解特征、逐元素乘积、绝对差、对数后验差、熵与 JS 分歧。最终校正后验为 p_c=softmax(log p_f+rho s)，总损失为 L_CGDC=L_HRGV+lambda_dec L_dec+lambda_cal L_cal，其中 L_dec=mean cos^2(A_d(h),A_s(h))，L_cal=-mean log p_c(y)。",
     )
+    _add_formula(document, formulas["calibration"], "式（D-2） 分歧触发的受界后验校正")
     _add_body(
         document,
         "命题 P1（协议一致性）：当 p_d=p_m 时 rho=0，故 p_c=p_f=p_d=p_m。命题 P2（概率有效性）：p_c 为 softmax 输出，非负且四类概率和为 1。命题 P3（有界对数几率修正）：因每个校正残差满足 |s_j|<1，任意类别 j、k 有 |log[p_c(j)/p_c(k)]-log[p_f(j)/p_f(k)]|<2rho。P1-P3 是当前公式与计算图的确定性性质；适配器分解和校正器是否改善分类或校准，必须由以下三随机种子实验检验。",
     )
+    _add_formula(document, formulas["bound"], "式（D-3） 协议一致性与分歧相关的有界对数几率修正")
     _add_architecture_figure(document)
 
 
