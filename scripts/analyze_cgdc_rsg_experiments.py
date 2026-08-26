@@ -1,11 +1,18 @@
 from __future__ import annotations
 
 import argparse
+import random
 from pathlib import Path
 from statistics import mean, stdev
 from typing import Sequence
 
-from analyze_paired_cluster_statistics import align_prediction_rows, paired_two_stage_bootstrap
+import numpy as np
+
+from analyze_paired_cluster_statistics import (
+    align_prediction_rows,
+    paired_two_stage_bootstrap,
+    resample_clusters,
+)
 from analyze_rsg_hrgv_experiment import (
     CLASSIFICATION_METRICS,
     FAVORABLE_DIRECTIONS,
@@ -65,6 +72,106 @@ def summarize_calibration(rows: Sequence[dict[str, str]], bins: int = 10) -> dic
             mean_accuracy = mean(value[1] for value in values)
             ece += len(values) / count * abs(mean_accuracy - mean_confidence)
     return {"brier_score": brier_sum / count, "expected_calibration_error": ece}
+
+
+def _align_calibration_rows(
+    reference: Sequence[dict[str, str]], comparison: Sequence[dict[str, str]]
+) -> list[dict[str, str]]:
+    reference_by_id = {row["image_id"]: row for row in reference}
+    comparison_by_id = {row["image_id"]: row for row in comparison}
+    if set(reference_by_id) != set(comparison_by_id):
+        raise ValueError("Prediction image_id sets do not match for calibration analysis.")
+    aligned: list[dict[str, str]] = []
+    for image_id in sorted(reference_by_id):
+        baseline = reference_by_id[image_id]
+        candidate = comparison_by_id[image_id]
+        if baseline["true_label"] != candidate["true_label"]:
+            raise ValueError(f"Prediction true label mismatch for {image_id}.")
+        if baseline["split_group_id"] != candidate["split_group_id"]:
+            raise ValueError(f"Prediction split group mismatch for {image_id}.")
+        aligned.append(
+            {
+                "image_id": image_id,
+                "split_group_id": baseline["split_group_id"],
+                "true_label": baseline["true_label"],
+                **{
+                    f"reference_{label}": baseline[f"role_probability_{label}"]
+                    for label in CLASS_LABELS
+                },
+                **{
+                    f"comparison_{label}": candidate[f"role_probability_{label}"]
+                    for label in CLASS_LABELS
+                },
+            }
+        )
+    return aligned
+
+
+def _calibration_rows(rows: Sequence[dict[str, str]], prefix: str) -> list[dict[str, str]]:
+    return [
+        {
+            "true_label": row["true_label"],
+            **{
+                f"role_probability_{label}": row[f"{prefix}_{label}"]
+                for label in CLASS_LABELS
+            },
+        }
+        for row in rows
+    ]
+
+
+def paired_calibration_bootstrap(
+    reference: dict[str, list[dict[str, str]]],
+    comparison: dict[str, list[dict[str, str]]],
+    replicates: int,
+    rng_seed: int,
+) -> dict[str, dict[str, object]]:
+    """Cluster-and-seed resampled intervals for calibration metric differences."""
+    if replicates < 1:
+        raise ValueError("Bootstrap replicates must be positive.")
+    if set(reference) != set(comparison) or not reference:
+        raise ValueError("Reference and comparison must share non-empty seed sets.")
+    aligned = {
+        seed: _align_calibration_rows(reference[seed], comparison[seed])
+        for seed in sorted(reference)
+    }
+    point_by_seed = {
+        seed: {
+            metric: summarize_calibration(_calibration_rows(rows, "comparison"))[metric]
+            - summarize_calibration(_calibration_rows(rows, "reference"))[metric]
+            for metric in CALIBRATION_METRICS
+        }
+        for seed, rows in aligned.items()
+    }
+    rng = random.Random(rng_seed)
+    samples = {metric: [] for metric in CALIBRATION_METRICS}
+    seed_ids = sorted(aligned)
+    for _ in range(replicates):
+        sampled_by_seed = []
+        for seed in rng.choices(seed_ids, k=len(seed_ids)):
+            sampled = resample_clusters(aligned[seed], rng)
+            reference_metrics = summarize_calibration(_calibration_rows(sampled, "reference"))
+            comparison_metrics = summarize_calibration(_calibration_rows(sampled, "comparison"))
+            sampled_by_seed.append(
+                {
+                    metric: comparison_metrics[metric] - reference_metrics[metric]
+                    for metric in CALIBRATION_METRICS
+                }
+            )
+        for metric in CALIBRATION_METRICS:
+            samples[metric].append(mean(item[metric] for item in sampled_by_seed))
+    return {
+        metric: {
+            "difference": mean(values[metric] for values in point_by_seed.values()),
+            "oriented_improvement": -mean(values[metric] for values in point_by_seed.values()),
+            "ci_low": float(np.quantile(samples[metric], 0.025)),
+            "ci_high": float(np.quantile(samples[metric], 0.975)),
+            "probability_favorable": sum(value < 0 for value in samples[metric]) / len(samples[metric]),
+            "per_seed_difference": {seed: values[metric] for seed, values in point_by_seed.items()},
+            "bootstrap_replicates": replicates,
+        }
+        for metric in CALIBRATION_METRICS
+    }
 
 
 def parse_config_roots(values: Sequence[str]) -> dict[str, Path]:
@@ -174,6 +281,10 @@ def main(argv: Sequence[str] | None = None) -> None:
                     aligned, args.bootstrap_replicates, args.rng_seed
                 )["summary"],
                 "routing_regret": paired_routing_regret_bootstrap(
+                    reference["predictions"], artifact["predictions"],
+                    args.bootstrap_replicates, args.rng_seed,
+                ),
+                "calibration": paired_calibration_bootstrap(
                     reference["predictions"], artifact["predictions"],
                     args.bootstrap_replicates, args.rng_seed,
                 ),
