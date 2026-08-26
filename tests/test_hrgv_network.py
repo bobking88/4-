@@ -142,6 +142,21 @@ class CGDCProbabilityPrimitiveTests(unittest.TestCase):
         self.assertTrue((calibrated >= 0).all())
         self.assertLessEqual(float(odds_shift[0]), float(2.0 * gain[0, 0]) + 1e-6)
 
+    def test_disagreement_gain_has_global_half_budget(self) -> None:
+        from hrgv_network import disagreement_calibrated_role_probabilities
+
+        direct = self.torch.tensor([[1.0, 0.0, 0.0, 0.0]], dtype=self.torch.float32)
+        mapped = self.torch.tensor([[0.0, 1.0, 0.0, 0.0]], dtype=self.torch.float32)
+        fused = 0.5 * (direct + mapped)
+        residual = self.torch.tensor([[5.0, -5.0, 0.0, 0.0]], dtype=self.torch.float32)
+
+        _, gain = disagreement_calibrated_role_probabilities(
+            fused, direct, mapped, residual, self.torch
+        )
+
+        self.assertGreater(float(gain[0, 0]), 0.49)
+        self.assertLessEqual(float(gain[0, 0]), 0.5 + 1e-6)
+
     def test_adapter_decomposition_penalizes_aligned_residuals_more_than_orthogonal(self) -> None:
         from hrgv_network import adapter_decomposition_loss
 

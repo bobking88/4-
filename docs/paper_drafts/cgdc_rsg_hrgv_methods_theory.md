@@ -72,6 +72,10 @@ For any roles j and k, because |s_j|<1 and |s_k|<1,
 
 The correction is therefore bounded by the expert disagreement. The bound does not state that the correction improves every prediction; that is an empirical question.
 
+### Proposition P4: Global correction budget
+
+For any two categorical posteriors, the Jensen-Shannon divergence with natural logarithms satisfies 0 <= D_JS <= ln 2. Therefore 0 <= rho = 1-exp[-D_JS] <= 1/2. Combining this with P3 yields a global log-odds adjustment strictly below one for every pair of roles. This prevents the calibration stage from overturning the RSG posterior through an unbounded correction, even under maximal expert disagreement.
+
 ## 6. Registered Empirical Tests
 
 The following five configurations are compared with the same three seeds: RSG complete, CGDC complete, shared-feature CGDC, unconditional CGDC calibration, and CGDC without the decomposition loss.

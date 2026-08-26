@@ -117,7 +117,7 @@ def render_formulas() -> dict[str, Path]:
             r"$\mathbf{p}_d=\mathbf{p}_m\Rightarrow\rho=0\Rightarrow"
             r"\mathbf{p}_c=\mathbf{p}_f;\qquad "
             r"\left|\log\frac{p_{c,j}}{p_{c,k}}-\log\frac{p_{f,j}}{p_{f,k}}\right|"
-            r"<2\rho$"
+            r"<2\rho\leq1$"
         ),
     }
     paths: dict[str, Path] = {}
@@ -153,9 +153,9 @@ def _add_theory_statement(document: Document) -> None:
     _add_formula(document, formulas["calibration"], "式（D-2） 分歧触发的受界后验校正")
     _add_body(
         document,
-        "命题 P1（协议一致性）：当 p_d=p_m 时 rho=0，故 p_c=p_f=p_d=p_m。命题 P2（概率有效性）：p_c 为 softmax 输出，非负且四类概率和为 1。命题 P3（有界对数几率修正）：因每个校正残差满足 |s_j|<1，任意类别 j、k 有 |log[p_c(j)/p_c(k)]-log[p_f(j)/p_f(k)]|<2rho。P1-P3 是当前公式与计算图的确定性性质；适配器分解和校正器是否改善分类或校准，必须由以下三随机种子实验检验。",
+        "命题 P1（协议一致性）：当 p_d=p_m 时 rho=0，故 p_c=p_f=p_d=p_m。命题 P2（概率有效性）：p_c 为 softmax 输出，非负且四类概率和为 1。命题 P3（有界对数几率修正）：因每个校正残差满足 |s_j|<1，任意类别 j、k 有 |log[p_c(j)/p_c(k)]-log[p_f(j)/p_f(k)]|<2rho。命题 P4（全局校正预算）：对任意两路四类后验，D_JS 不超过 ln2，故 rho=1-exp[-D_JS]≤0.5，结合 P3 可得任意对数几率修正严格小于 1。P1-P4 是当前公式与计算图的确定性性质；适配器分解和校正器是否改善分类或校准，必须由以下三随机种子实验检验。",
     )
-    _add_formula(document, formulas["bound"], "式（D-3） 协议一致性与分歧相关的有界对数几率修正")
+    _add_formula(document, formulas["bound"], "式（D-3） 协议一致性、分歧相关修正与全局校正预算")
     _add_architecture_figure(document)
 
 

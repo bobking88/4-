@@ -105,6 +105,8 @@ class FormalReportV9EvidenceTests(unittest.TestCase):
             text = "\n".join(paragraph.text for paragraph in rendered.paragraphs)
             self.assertEqual(text.count("附录 D CGDC-RSG-HRGV 网络理论与实验"), 1)
             self.assertIn("命题 P1", text)
+            self.assertIn("命题 P4", text)
+            self.assertIn("≤0.5", text)
             self.assertIn("Brier", text)
             self.assertIn("不等同于工业分选", text)
 
