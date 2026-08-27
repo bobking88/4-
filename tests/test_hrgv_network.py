@@ -99,6 +99,77 @@ class HRGVProbabilityPrimitiveTests(unittest.TestCase):
         self.assertLess(float(corrected[0, 0]), float(fused[0, 0]))
 
 
+class RPGProbabilityPrimitiveTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        from train_mineral_classifier import require_training_dependencies
+
+        cls.torch = require_training_dependencies()["torch"]
+
+    def test_partitioned_entropy_obeys_chain_rule(self) -> None:
+        from hrgv_network import role_partitioned_uncertainty
+
+        species = self.torch.tensor([[0.20, 0.30, 0.10, 0.40]])
+        role_matrix = self.torch.tensor([[1.0, 1.0, 0.0, 0.0], [0.0, 0.0, 1.0, 1.0]])
+
+        values = role_partitioned_uncertainty(species, role_matrix, self.torch)
+
+        self.assertTrue(self.torch.allclose(
+            values["total_species_entropy"],
+            values["between_role_entropy"] + values["within_role_entropy"],
+            atol=1e-6,
+        ))
+
+    def test_within_role_redistribution_preserves_mapped_role_posterior(self) -> None:
+        from hrgv_network import role_partitioned_uncertainty
+
+        role_matrix = self.torch.tensor([[1.0, 1.0, 0.0, 0.0], [0.0, 0.0, 1.0, 1.0]])
+        first = role_partitioned_uncertainty(
+            self.torch.tensor([[0.20, 0.30, 0.10, 0.40]]), role_matrix, self.torch
+        )
+        second = role_partitioned_uncertainty(
+            self.torch.tensor([[0.45, 0.05, 0.25, 0.25]]), role_matrix, self.torch
+        )
+
+        self.assertTrue(self.torch.allclose(
+            first["mapped_role_probabilities"], second["mapped_role_probabilities"]
+        ))
+
+    def test_singleton_role_has_zero_conditional_entropy(self) -> None:
+        from hrgv_network import role_partitioned_uncertainty
+
+        values = role_partitioned_uncertainty(
+            self.torch.tensor([[0.25, 0.75]]), self.torch.eye(2), self.torch
+        )
+
+        self.assertTrue(self.torch.allclose(
+            values["within_role_entropy"], self.torch.zeros((1, 1))
+        ))
+
+    def test_gate_feature_modes_do_not_conflate_partitioned_uncertainties(self) -> None:
+        from hrgv_network import role_partitioned_gate_features
+
+        partition = {
+            "between_role_entropy": self.torch.tensor([[0.4]]),
+            "within_role_entropy": self.torch.tensor([[0.3]]),
+            "total_species_entropy": self.torch.tensor([[0.7]]),
+        }
+
+        features = role_partitioned_gate_features(
+            self.torch.tensor([[0.6]]), partition, "partitioned", self.torch
+        )
+        without_between = role_partitioned_gate_features(
+            self.torch.tensor([[0.6]]), partition, "without_between", self.torch
+        )
+
+        self.assertTrue(self.torch.allclose(
+            features, self.torch.tensor([[0.4, 0.3, 0.2]])
+        ))
+        self.assertTrue(self.torch.allclose(
+            without_between, self.torch.tensor([[0.0, 0.3, 0.0]])
+        ))
+
+
 class CGDCProbabilityPrimitiveTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:

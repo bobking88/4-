@@ -27,6 +27,76 @@ def normalized_entropy(probabilities, torch):
     return entropy / math.log(probabilities.shape[1])
 
 
+RPG_ENTROPY_MODES = (
+    "partitioned",
+    "without_within",
+    "without_between",
+    "total_only",
+)
+
+
+def role_partitioned_uncertainty(species_probabilities, role_matrix, torch):
+    """Separate species uncertainty into mapped-role and within-role terms."""
+    _validate_probability_matrix(species_probabilities, "species_probabilities")
+    if role_matrix.ndim != 2 or role_matrix.shape[1] != species_probabilities.shape[1]:
+        raise ValueError("role_matrix must have one column per species.")
+    if bool((role_matrix < 0).any()) or not torch.allclose(
+        role_matrix.sum(dim=0), torch.ones_like(role_matrix.sum(dim=0))
+    ):
+        raise ValueError("Every species must map to exactly one non-negative role.")
+    if bool((species_probabilities < 0).any()):
+        raise ValueError("species_probabilities must be non-negative.")
+
+    epsilon = torch.finfo(species_probabilities.dtype).eps
+    species = species_probabilities / species_probabilities.sum(dim=1, keepdim=True).clamp_min(epsilon)
+    matrix = role_matrix.to(dtype=species.dtype, device=species.device)
+    mapped = species @ matrix.T
+    mapped = mapped / mapped.sum(dim=1, keepdim=True).clamp_min(epsilon)
+    total = -(species * species.clamp_min(epsilon).log()).sum(dim=1, keepdim=True)
+    between = -(mapped * mapped.clamp_min(epsilon).log()).sum(dim=1, keepdim=True)
+
+    conditional = (
+        species.unsqueeze(1) * matrix.unsqueeze(0)
+        / mapped.unsqueeze(2).clamp_min(epsilon)
+    )
+    conditional_entropy = -(
+        conditional * conditional.clamp_min(epsilon).log()
+    ).sum(dim=2)
+    within = (mapped * conditional_entropy).sum(dim=1, keepdim=True)
+    return {
+        "mapped_role_probabilities": mapped,
+        "total_species_entropy": total,
+        "between_role_entropy": between,
+        "within_role_entropy": within,
+    }
+
+
+def role_partitioned_gate_features(direct_entropy, partition, mode: str, torch):
+    """Return the three role-partitioned uncertainty features for the RPG gate."""
+    if mode not in RPG_ENTROPY_MODES:
+        raise ValueError(f"Unknown RPG entropy mode: {mode}")
+    if direct_entropy.ndim != 2 or direct_entropy.shape[1] != 1:
+        raise ValueError("direct_entropy must have shape [batch, 1].")
+    required = ("between_role_entropy", "within_role_entropy", "total_species_entropy")
+    if any(key not in partition for key in required):
+        raise ValueError("partition is missing a required entropy component.")
+    components = {key: partition[key] for key in required}
+    if any(value.shape != direct_entropy.shape for value in components.values()):
+        raise ValueError("All partitioned entropy components must match direct_entropy.")
+
+    zeros = torch.zeros_like(direct_entropy)
+    between = components["between_role_entropy"]
+    within = components["within_role_entropy"]
+    total = components["total_species_entropy"]
+    if mode == "partitioned":
+        return torch.cat([between, within, (direct_entropy - between).abs()], dim=1)
+    if mode == "without_within":
+        return torch.cat([between, zeros, (direct_entropy - between).abs()], dim=1)
+    if mode == "without_between":
+        return torch.cat([zeros, within, zeros], dim=1)
+    return torch.cat([total, zeros, zeros], dim=1)
+
+
 def jensen_shannon_divergence(first, second, torch):
     """Return per-image Jensen-Shannon divergence between role posteriors."""
     if first.shape != second.shape:
