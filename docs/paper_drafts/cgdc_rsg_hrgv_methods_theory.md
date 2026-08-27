@@ -6,6 +6,10 @@ This paper studies closed-set visual recognition of vanadium-titanium-magnetite-
 
 The central contribution is a cross-granularity evidence model for a fixed four-role task. The model is evaluated as an extension of RSG-HRGV, using the same data split, ImageNet-pretrained EfficientNet-B0 backbone, and three registered random seeds.
 
+### Related-work boundary
+
+CGDC must not be presented as a new generic disagreement-calibration mechanism. HiRoC (2026, doi:10.1007/s44443-026-01163-x) also uses Jensen-Shannon disagreement, a bounded gate, and residual decision-space correction, albeit for multimodal conversational emotion recognition rather than a deterministic mineral-species-to-role hierarchy. The CGDC experiment is therefore retained as a controlled reliability ablation only. The subsequent RPG-HRGV design shifts the proposed paper's methodological focus to the fixed species-to-role partition and the exact decomposition of species uncertainty into between-role and within-role components.
+
 ## 1. Problem and Label Granularity
 
 Each image x_i has a mineral species label s_i in a fixed 17-species vocabulary and a beneficiation-role label r_i in four roles: target_mineral, ti_bearing_negative, gangue_negative, and metallic_hard_negative. A fixed matrix M maps species probabilities to role probabilities. The proposed task preserves the species label as auxiliary evidence but evaluates the four-role posterior.
