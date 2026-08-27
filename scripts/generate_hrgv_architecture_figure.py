@@ -382,6 +382,119 @@ def generate_cgdc_architecture_figure(prefix: Path) -> dict[str, Path]:
     return outputs
 
 
+def generate_rpg_architecture_figure(prefix: Path) -> dict[str, Path]:
+    """Draw the Role-Partitioned Granularity Gate HRGV-Net architecture."""
+    mpl.rcParams.update(
+        {
+            "font.family": "sans-serif",
+            "font.sans-serif": ["Microsoft YaHei", "Arial", "DejaVu Sans", "sans-serif"],
+            "svg.fonttype": "none",
+            "pdf.fonttype": 42,
+            "font.size": 7,
+        }
+    )
+    figure, axis = plt.subplots(figsize=(13.2, 7.3), constrained_layout=True)
+    axis.set_xlim(0, 1)
+    axis.set_ylim(0, 1)
+    axis.axis("off")
+    figure.patch.set_facecolor("white")
+    axis.text(
+        0.02, 0.965,
+        "RPG-HRGV-Net: role-partitioned granularity gate for hierarchical evidence routing",
+        ha="left", va="top", fontsize=11.4, fontweight="bold", color=COLORS["ink"],
+    )
+    axis.text(
+        0.02, 0.928,
+        "角色间与角色内不确定性分离进入后悔监督门控；通过消融检验分区信息的独立贡献。",
+        ha="left", va="top", fontsize=7.2, color=COLORS["muted"],
+    )
+
+    _box(axis, (0.02, 0.61), 0.085, 0.12, "Input image", "RGB mineral\nspecimen", COLORS["formula"])
+    _box(axis, (0.13, 0.58), 0.12, 0.18, "EfficientNet-B0", "shared backbone\nh in R^1280", COLORS["backbone"], 8.2)
+    _box(axis, (0.29, 0.74), 0.11, 0.12, "Direct role expert", "p_d(y|x)\n4 roles", COLORS["expert"])
+    _box(axis, (0.29, 0.52), 0.11, 0.12, "Species expert", "p_s(k|x)\n17 minerals", COLORS["expert"])
+    _box(axis, (0.43, 0.52), 0.115, 0.12, "Frozen role partition M", "p_m=M p_s\n17 species -> 4 roles", COLORS["expert"], 7.0)
+    _box(axis, (0.58, 0.68), 0.105, 0.12, "U_between", "H(R)\nrole-level uncertainty", COLORS["training"], 7.2)
+    _box(axis, (0.58, 0.48), 0.105, 0.12, "U_within", "H(S|R)\nwithin-role uncertainty", COLORS["training"], 7.0)
+    _box(axis, (0.71, 0.64), 0.125, 0.16, "RPG regret gate", "g=G(h,H(p_d),\nU_between,U_within,\n|H(p_d)-U_between|)", COLORS["gate"], 6.6)
+    _box(axis, (0.86, 0.68), 0.10, 0.12, "RSG fusion", "p_f=g p_d\n+ (1-g)p_m", COLORS["gate"], 7.4)
+    _box(axis, (0.76, 0.33), 0.16, 0.15, "Residual hard-negative verifiers", "Ti-bearing and metallic\ncontradiction penalties", COLORS["verify"], 6.8)
+    _box(axis, (0.90, 0.12), 0.08, 0.105, "Final posterior", "q(y|x)\n4 roles", COLORS["output"], 6.9)
+    _box(axis, (0.29, 0.25), 0.16, 0.12, "Training supervision", "role/species/KL +\ncontrast + regret routing", COLORS["training"], 6.7)
+
+    _arrow(axis, (0.105, 0.67), (0.13, 0.67))
+    _arrow(axis, (0.25, 0.70), (0.29, 0.80), connectionstyle="arc3,rad=0.08")
+    _arrow(axis, (0.25, 0.64), (0.29, 0.58), connectionstyle="arc3,rad=-0.07")
+    _arrow(axis, (0.40, 0.58), (0.43, 0.58))
+    _arrow(axis, (0.40, 0.80), (0.71, 0.76), label="p_d", connectionstyle="arc3,rad=-0.03")
+    _arrow(axis, (0.545, 0.58), (0.86, 0.73), label="p_m", connectionstyle="arc3,rad=-0.12")
+    _arrow(axis, (0.545, 0.60), (0.58, 0.74), label="M p_s")
+    _arrow(axis, (0.545, 0.54), (0.58, 0.54), label="M p_s")
+    _arrow(axis, (0.685, 0.74), (0.71, 0.74), label="U_b")
+    _arrow(axis, (0.685, 0.54), (0.71, 0.69), label="U_w", connectionstyle="arc3,rad=-0.15")
+    _arrow(axis, (0.835, 0.74), (0.86, 0.74), label="g")
+    _arrow(axis, (0.25, 0.60), (0.76, 0.42), dashed=True, label="shared h", connectionstyle="arc3,rad=0.10")
+    _arrow(axis, (0.91, 0.68), (0.84, 0.48), label="p_f", connectionstyle="arc3,rad=0.12")
+    _arrow(axis, (0.88, 0.33), (0.94, 0.225), label="q")
+    _arrow(axis, (0.36, 0.52), (0.37, 0.37), dashed=True, label="losses")
+
+    formula_box = FancyBboxPatch(
+        (0.02, 0.035), 0.84, 0.15,
+        boxstyle="round,pad=0.008,rounding_size=0.010",
+        facecolor=COLORS["formula"], edgecolor="#C8D1D7", linewidth=0.8,
+    )
+    axis.add_patch(formula_box)
+    axis.text(
+        0.44, 0.142,
+        r"$H(S)=H(R)+H(S\mid R)=U_{between}+U_{within}$  (P-R1)",
+        ha="center", va="center", fontsize=9.2, color=COLORS["ink"],
+    )
+    axis.text(
+        0.44, 0.102,
+        r"$p_f=g p_d+(1-g)p_m,\quad g\in[0,1]$  (P-R3 convex evidence envelope)",
+        ha="center", va="center", fontsize=8.4, color=COLORS["ink"],
+    )
+    axis.text(
+        0.44, 0.062,
+        "Formal ablations: full partition / no U_within / no U_between / total entropy only; no industrial sorting or grade claim.",
+        ha="center", va="center", fontsize=6.2, color=COLORS["muted"],
+    )
+
+    prefix = Path(prefix)
+    prefix.parent.mkdir(parents=True, exist_ok=True)
+    outputs = {
+        "png": prefix.with_suffix(".png"),
+        "svg": prefix.with_suffix(".svg"),
+        "pdf": prefix.with_suffix(".pdf"),
+        "tiff": prefix.with_suffix(".tiff"),
+        "source_description": prefix.with_name(prefix.name + "_source.json"),
+    }
+    figure.savefig(outputs["png"], dpi=300, bbox_inches="tight", facecolor="white")
+    figure.savefig(outputs["svg"], bbox_inches="tight", facecolor="white")
+    figure.savefig(outputs["pdf"], bbox_inches="tight", facecolor="white")
+    figure.savefig(
+        outputs["tiff"], dpi=600, bbox_inches="tight", facecolor="white",
+        pil_kwargs={"compression": "tiff_lzw"},
+    )
+    plt.close(figure)
+    outputs["source_description"].write_text(
+        json.dumps(
+            {
+                "core_conclusion": "RPG separates between-role and within-role species uncertainty before regret-supervised evidence routing.",
+                "theory_identity": "H(S) = H(R) + H(S|R)",
+                "archetype": "schematic-led composite",
+                "backend": "Python/matplotlib",
+                "evidence_scope": "Architecture and entropy-decomposition mechanism; no industrial sorting, grade, recovery, or OOD claim.",
+                "exports": {name: str(path) for name, path in outputs.items() if name != "source_description"},
+            },
+            ensure_ascii=False,
+            indent=2,
+        ) + "\n",
+        encoding="utf-8",
+    )
+    return outputs
+
+
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Generate the HRGV-Net architecture figure.")
     parser.add_argument("--output-prefix", type=Path, required=True)

@@ -68,6 +68,29 @@ class HRGVArchitectureFigureTests(unittest.TestCase):
             ):
                 self.assertIn(label, svg)
 
+    def test_rpg_figure_exports_partitioned_uncertainty_modules(self) -> None:
+        from generate_hrgv_architecture_figure import generate_rpg_architecture_figure
+
+        with tempfile.TemporaryDirectory() as temporary:
+            outputs = generate_rpg_architecture_figure(
+                Path(temporary) / "fig_rpg_hrgv_architecture"
+            )
+
+            for path in outputs.values():
+                self.assertTrue(path.exists(), path)
+            svg = outputs["svg"].read_text(encoding="utf-8")
+            for label in (
+                "Frozen role partition M",
+                "U_between",
+                "U_within",
+                "RPG regret gate",
+                "RSG fusion",
+                "Residual hard-negative verifiers",
+            ):
+                self.assertIn(label, svg)
+            source_text = outputs["source_description"].read_text(encoding="utf-8")
+            self.assertIn("H(S) = H(R) + H(S|R)", source_text)
+
 
 if __name__ == "__main__":
     unittest.main()

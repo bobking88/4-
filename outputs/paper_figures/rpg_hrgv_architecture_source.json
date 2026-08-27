@@ -1,0 +1,13 @@
+{
+  "core_conclusion": "RPG separates between-role and within-role species uncertainty before regret-supervised evidence routing.",
+  "theory_identity": "H(S) = H(R) + H(S|R)",
+  "archetype": "schematic-led composite",
+  "backend": "Python/matplotlib",
+  "evidence_scope": "Architecture and entropy-decomposition mechanism; no industrial sorting, grade, recovery, or OOD claim.",
+  "exports": {
+    "png": "outputs\\paper_figures\\rpg_hrgv_architecture.png",
+    "svg": "outputs\\paper_figures\\rpg_hrgv_architecture.svg",
+    "pdf": "outputs\\paper_figures\\rpg_hrgv_architecture.pdf",
+    "tiff": "outputs\\paper_figures\\rpg_hrgv_architecture.tiff"
+  }
+}
