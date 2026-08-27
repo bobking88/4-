@@ -1,0 +1,117 @@
+{
+  "classification": {
+    "accuracy": {
+      "label": "Accuracy",
+      "favorable_direction": 1,
+      "baseline_mean": 0.7645379023883697,
+      "comparison_mean": 0.7538940809968847,
+      "difference": -0.010643821391485009,
+      "oriented_improvement": -0.010643821391485009,
+      "ci_low": -0.02310488058151609,
+      "ci_high": 0.0023364485981308323,
+      "probability_favorable": 0.048,
+      "bootstrap_replicates": 2000
+    },
+    "macro_f1": {
+      "label": "Macro F1",
+      "favorable_direction": 1,
+      "baseline_mean": 0.747550888495354,
+      "comparison_mean": 0.7351875464475656,
+      "difference": -0.01236334204778844,
+      "oriented_improvement": -0.01236334204778844,
+      "ci_low": -0.025496078160551834,
+      "ci_high": 0.0010327519878308687,
+      "probability_favorable": 0.0365,
+      "bootstrap_replicates": 2000
+    },
+    "target_recall": {
+      "label": "Target recall",
+      "favorable_direction": 1,
+      "baseline_mean": 0.7290836653386454,
+      "comparison_mean": 0.7144754316069057,
+      "difference": -0.014608233731739695,
+      "oriented_improvement": -0.014608233731739695,
+      "ci_low": -0.06507304116865868,
+      "ci_high": 0.03987383798140752,
+      "probability_favorable": 0.2825,
+      "bootstrap_replicates": 2000
+    },
+    "target_miss_rate": {
+      "label": "Target miss rate",
+      "favorable_direction": -1,
+      "baseline_mean": 0.27091633466135456,
+      "comparison_mean": 0.2855245683930943,
+      "difference": 0.01460823373173975,
+      "oriented_improvement": -0.01460823373173975,
+      "ci_low": -0.0398738379814077,
+      "ci_high": 0.06507304116865868,
+      "probability_favorable": 0.2825,
+      "bootstrap_replicates": 2000
+    },
+    "ti_to_target_intrusion": {
+      "label": "Ti-bearing intrusion",
+      "favorable_direction": -1,
+      "baseline_mean": 0.08418194161575017,
+      "comparison_mean": 0.08961303462321792,
+      "difference": 0.005431093007467747,
+      "oriented_improvement": -0.005431093007467747,
+      "ci_low": -0.016293279022403257,
+      "ci_high": 0.027834351663272236,
+      "probability_favorable": 0.323,
+      "bootstrap_replicates": 2000
+    },
+    "metallic_to_target_intrusion": {
+      "label": "Metallic intrusion",
+      "favorable_direction": -1,
+      "baseline_mean": 0.11174242424242424,
+      "comparison_mean": 0.11553030303030302,
+      "difference": 0.0037878787878787845,
+      "oriented_improvement": -0.0037878787878787845,
+      "ci_low": -0.02840909090909091,
+      "ci_high": 0.03598484848484849,
+      "probability_favorable": 0.4115,
+      "bootstrap_replicates": 2000
+    }
+  },
+  "routing_regret": {
+    "difference": 0.006369534787123572,
+    "oriented_improvement": -0.006369534787123572,
+    "ci_low": 0.0010785904659916922,
+    "ci_high": 0.011421204134215992,
+    "probability_favorable": 0.011,
+    "per_seed_difference": {
+      "20260727": 0.003377229750778816,
+      "20260728": 0.007376972741433022,
+      "20260729": 0.008354401869158878
+    },
+    "bootstrap_replicates": 2000
+  },
+  "calibration": {
+    "brier_score": {
+      "difference": 0.02373598675161781,
+      "oriented_improvement": -0.02373598675161781,
+      "ci_low": 0.0024484595355395234,
+      "ci_high": 0.04361091640593118,
+      "probability_favorable": 0.0175,
+      "per_seed_difference": {
+        "20260727": 0.028449820873012788,
+        "20260728": 0.006964665006273518,
+        "20260729": 0.035793474375567125
+      },
+      "bootstrap_replicates": 2000
+    },
+    "expected_calibration_error": {
+      "difference": 0.025568823987538968,
+      "oriented_improvement": -0.025568823987538968,
+      "ci_low": 0.012114276336967827,
+      "ci_high": 0.03754365519210798,
+      "probability_favorable": 0.0,
+      "per_seed_difference": {
+        "20260727": 0.022117233644859846,
+        "20260728": 0.02482385981308416,
+        "20260729": 0.029765378504672896
+      },
+      "bootstrap_replicates": 2000
+    }
+  }
+}

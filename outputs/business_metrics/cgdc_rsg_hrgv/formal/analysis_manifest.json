@@ -1,0 +1,21 @@
+{
+  "training_roots": {
+    "rsg_complete": "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\training\\cgdc_formal",
+    "cgdc_complete": "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\training\\cgdc_formal",
+    "cgdc_shared_features": "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\training\\cgdc_formal",
+    "cgdc_unconditional": "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\training\\cgdc_formal",
+    "cgdc_no_decomposition_loss": "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\training\\cgdc_formal"
+  },
+  "reference": "rsg_complete",
+  "seeds": [
+    "20260727",
+    "20260728",
+    "20260729"
+  ],
+  "bootstrap_replicates": 2000,
+  "rng_seed": 20260826,
+  "calibration_metrics": [
+    "brier_score",
+    "expected_calibration_error"
+  ]
+}

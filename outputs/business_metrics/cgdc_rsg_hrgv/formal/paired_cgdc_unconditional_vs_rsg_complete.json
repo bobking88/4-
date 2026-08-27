@@ -1,0 +1,117 @@
+{
+  "classification": {
+    "accuracy": {
+      "label": "Accuracy",
+      "favorable_direction": 1,
+      "baseline_mean": 0.7645379023883697,
+      "comparison_mean": 0.7593457943925234,
+      "difference": -0.005192107995846351,
+      "oriented_improvement": -0.005192107995846351,
+      "ci_low": -0.030633437175493234,
+      "ci_high": 0.017653167185877467,
+      "probability_favorable": 0.3685,
+      "bootstrap_replicates": 2000
+    },
+    "macro_f1": {
+      "label": "Macro F1",
+      "favorable_direction": 1,
+      "baseline_mean": 0.747550888495354,
+      "comparison_mean": 0.7411285928315111,
+      "difference": -0.006422295663842892,
+      "oriented_improvement": -0.006422295663842892,
+      "ci_low": -0.034232375515019814,
+      "ci_high": 0.019361616652948836,
+      "probability_favorable": 0.3515,
+      "bootstrap_replicates": 2000
+    },
+    "target_recall": {
+      "label": "Target recall",
+      "favorable_direction": 1,
+      "baseline_mean": 0.7290836653386454,
+      "comparison_mean": 0.7569721115537849,
+      "difference": 0.027888446215139417,
+      "oriented_improvement": 0.027888446215139417,
+      "ci_low": -0.015936254980079705,
+      "ci_high": 0.06772908366533863,
+      "probability_favorable": 0.8925,
+      "bootstrap_replicates": 2000
+    },
+    "target_miss_rate": {
+      "label": "Target miss rate",
+      "favorable_direction": -1,
+      "baseline_mean": 0.27091633466135456,
+      "comparison_mean": 0.24302788844621515,
+      "difference": -0.027888446215139417,
+      "oriented_improvement": 0.027888446215139417,
+      "ci_low": -0.06772908366533863,
+      "ci_high": 0.015936254980079705,
+      "probability_favorable": 0.8925,
+      "bootstrap_replicates": 2000
+    },
+    "ti_to_target_intrusion": {
+      "label": "Ti-bearing intrusion",
+      "favorable_direction": -1,
+      "baseline_mean": 0.08418194161575017,
+      "comparison_mean": 0.10794297352342158,
+      "difference": 0.023761031907671412,
+      "oriented_improvement": -0.023761031907671412,
+      "ci_low": -0.015631364562118128,
+      "ci_high": 0.06042090970807875,
+      "probability_favorable": 0.127,
+      "bootstrap_replicates": 2000
+    },
+    "metallic_to_target_intrusion": {
+      "label": "Metallic intrusion",
+      "favorable_direction": -1,
+      "baseline_mean": 0.11174242424242424,
+      "comparison_mean": 0.1268939393939394,
+      "difference": 0.015151515151515152,
+      "oriented_improvement": -0.015151515151515152,
+      "ci_low": -0.032196969696969696,
+      "ci_high": 0.07007575757575757,
+      "probability_favorable": 0.3285,
+      "bootstrap_replicates": 2000
+    }
+  },
+  "routing_regret": {
+    "difference": -0.0016051422637590861,
+    "oriented_improvement": 0.0016051422637590861,
+    "ci_low": -0.007832355308930426,
+    "ci_high": 0.005146225863187952,
+    "probability_favorable": 0.692,
+    "per_seed_difference": {
+      "20260727": -0.0039336464174454825,
+      "20260728": 0.004530839563862928,
+      "20260729": -0.005412619937694704
+    },
+    "bootstrap_replicates": 2000
+  },
+  "calibration": {
+    "brier_score": {
+      "difference": 0.01682356707838654,
+      "oriented_improvement": -0.01682356707838654,
+      "ci_low": -0.007938315047437238,
+      "ci_high": 0.04087591200005838,
+      "probability_favorable": 0.1035,
+      "per_seed_difference": {
+        "20260727": 0.01607568804667725,
+        "20260728": -0.004140166000555279,
+        "20260729": 0.03853517918903765
+      },
+      "bootstrap_replicates": 2000
+    },
+    "expected_calibration_error": {
+      "difference": 0.014403230010384247,
+      "oriented_improvement": -0.014403230010384247,
+      "ci_low": -0.0006299041536863845,
+      "ci_high": 0.029002215589304273,
+      "probability_favorable": 0.029,
+      "per_seed_difference": {
+        "20260727": 0.023059785825545215,
+        "20260728": 0.016034823987538943,
+        "20260729": 0.004115080218068584
+      },
+      "bootstrap_replicates": 2000
+    }
+  }
+}
