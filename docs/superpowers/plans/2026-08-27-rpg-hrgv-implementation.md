@@ -85,8 +85,13 @@ def role_partitioned_uncertainty(species_probabilities, role_matrix, torch):
     mapped = mapped / mapped.sum(dim=1, keepdim=True).clamp_min(epsilon)
     total = -(species * species.log()).sum(dim=1, keepdim=True)
     between = -(mapped.clamp_min(epsilon) * mapped.clamp_min(epsilon).log()).sum(dim=1, keepdim=True)
-    conditional = species.unsqueeze(1) / mapped.unsqueeze(2).clamp_min(epsilon)
-    conditional_entropy = -(conditional * conditional.clamp_min(epsilon).log()).sum(dim=2)
+    conditional = (
+        species.unsqueeze(1) * role_matrix.unsqueeze(0)
+        / mapped.unsqueeze(2).clamp_min(epsilon)
+    )
+    conditional_entropy = -(
+        conditional * conditional.clamp_min(epsilon).log()
+    ).sum(dim=2)
     within = (mapped * conditional_entropy).sum(dim=1, keepdim=True)
     return {"mapped_role_probabilities": mapped, "total_species_entropy": total,
             "between_role_entropy": between, "within_role_entropy": within}
