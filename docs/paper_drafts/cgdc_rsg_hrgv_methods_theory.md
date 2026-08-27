@@ -1,14 +1,14 @@
-# CGDC-RSG-HRGV-Net: Methods and Theoretical Statements
+# RPG-HRGV-Net: Methods and Theoretical Statements
 
 ## Intended Paper Positioning
 
 This paper studies closed-set visual recognition of vanadium-titanium-magnetite-related minerals from publicly available mineral specimen images. It does not infer V, Ti, or Fe grade, recovery, industrial sorting performance, or mineral chemistry from RGB images.
 
-The central contribution is a cross-granularity evidence model for a fixed four-role task. The model is evaluated as an extension of RSG-HRGV, using the same data split, ImageNet-pretrained EfficientNet-B0 backbone, and three registered random seeds.
+The central contribution is a role-partitioned granularity gate for a fixed four-role task. It uses the fixed species-to-role mapping to separate species uncertainty into between-role and within-role components before regret-supervised evidence fusion. The model is evaluated as an extension of RSG-HRGV, using the same data split, ImageNet-pretrained EfficientNet-B0 backbone, and three registered random seeds.
 
 ### Related-work boundary
 
-CGDC must not be presented as a new generic disagreement-calibration mechanism. HiRoC (2026, doi:10.1007/s44443-026-01163-x) also uses Jensen-Shannon disagreement, a bounded gate, and residual decision-space correction, albeit for multimodal conversational emotion recognition rather than a deterministic mineral-species-to-role hierarchy. The CGDC experiment is therefore retained as a controlled reliability ablation only. The subsequent RPG-HRGV design shifts the proposed paper's methodological focus to the fixed species-to-role partition and the exact decomposition of species uncertainty into between-role and within-role components.
+CGDC must not be presented as a new generic disagreement-calibration mechanism. HiRoC (2026, doi:10.1007/s44443-026-01163-x) also uses Jensen-Shannon disagreement, a bounded gate, and residual decision-space correction, albeit for multimodal conversational emotion recognition rather than a deterministic mineral-species-to-role hierarchy. The CGDC experiment is therefore retained as a controlled reliability ablation only. RPG-HRGV shifts the proposed paper's methodological focus to the fixed species-to-role partition and the exact decomposition of species uncertainty into between-role and within-role components.
 
 ## 1. Problem and Label Granularity
 
@@ -38,7 +38,41 @@ p_f = g p_d + (1-g) p_m,     0 <= g <= 1.
 
 The gate is trained with a soft oracle target derived from the true-class evidence gap while its regret branch is locally detached from backbone and expert parameters. This preserves the previously established routing analysis on the pre-calibration posterior p_f.
 
-## 4. Disagreement-Triggered Posterior Calibration
+## 4. Role-Partitioned Granularity Gate (Primary Method)
+
+The fixed role mapping M partitions the species posterior into four disjoint role groups. Let R be the role random variable induced by the species posterior p_s. The mapped posterior is p_m=M p_s. Its Shannon uncertainty satisfies the exact chain rule
+
+H(S) = H(R) + H(S | R).
+
+We denote H(R) by U_between and H(S | R) by U_within. U_between measures uncertainty across the four beneficiation-role labels. U_within measures unresolved species variation after the role group has been fixed. They are not interchangeable: redistributing probability among species inside a fixed role leaves p_m and U_between unchanged but changes U_within.
+
+The RPG gate receives a shared visual feature and separated uncertainty signals:
+
+z_RPG = [h, H(p_d), U_between, U_within, |H(p_d)-U_between|],
+
+g = sigmoid(G(z_RPG)),
+
+p_f = g p_d + (1-g) p_m.
+
+The output remains a convex mixture of two four-role posteriors. RPG does not assume that a larger or smaller entropy is always preferable; it supplies the gate with the two granularities separately and tests their contribution with registered ablations.
+
+### Proposition R1: Exact role-partitioned entropy identity
+
+Because M defines a deterministic, disjoint mapping from every species to exactly one role, the implementation satisfies H(S)=U_between+U_within for every valid species posterior. This is an equality, not an empirical approximation.
+
+### Proposition R2: Role sufficiency under within-role ambiguity
+
+If two species posteriors have the same mapped role posterior p_m, they provide the same species-mapped role evidence to the four-role decision. Their U_within values may nevertheless differ. Thus a role decision can remain stable while fine-grained species uncertainty changes; the claimed result is about the fixed label mapping only, not mineral chemistry or visual identifiability in the field.
+
+### Proposition R3: Convex evidence envelope
+
+Since g is constrained to [0,1], every fused role probability is bounded coordinate-wise by the corresponding direct and mapped expert probabilities. The RPG gate changes evidence weighting but cannot create a posterior outside their convex envelope.
+
+### Registered RPG ablations
+
+The formal protocol compares RSG complete against: (i) RPG complete, (ii) RPG without U_within, (iii) RPG without U_between, and (iv) RPG with total species entropy only. All configurations use the same three frozen seeds, residual verifier policy, detached regret-gate branch, data split, and train/test procedures. The ablations test whether the partitioned terms contain evidence not captured by total species entropy alone. Performance conclusions are deferred until the registered formal matrix and paired cluster Bootstrap analysis are complete.
+
+## 5. Disagreement-Triggered Posterior Calibration (Controlled Ablation)
 
 The Jensen-Shannon disagreement is
 
@@ -58,7 +92,7 @@ L_CGDC = L_HRGV + lambda_dec L_dec + lambda_cal L_cal,
 
 where L_cal = -mean log p_c(y).
 
-## 5. Formula-Level Propositions
+## 6. CGDC Formula-Level Propositions
 
 ### Proposition P1: Agreement identity
 
@@ -80,12 +114,12 @@ The correction is therefore bounded by the expert disagreement. The bound does n
 
 For any two categorical posteriors, the Jensen-Shannon divergence with natural logarithms satisfies 0 <= D_JS <= ln 2. Therefore 0 <= rho = 1-exp[-D_JS] <= 1/2. Combining this with P3 yields a global log-odds adjustment strictly below one for every pair of roles. This prevents the calibration stage from overturning the RSG posterior through an unbounded correction, even under maximal expert disagreement.
 
-## 6. Registered Empirical Tests
+## 7. Registered CGDC Empirical Tests
 
 The following five configurations are compared with the same three seeds: RSG complete, CGDC complete, shared-feature CGDC, unconditional CGDC calibration, and CGDC without the decomposition loss.
 
 The registered report includes Accuracy, Macro F1, target recall, Ti-bearing-negative to target intrusion, metallic-hard-negative to target intrusion, Brier score, and expected calibration error. Each difference relative to RSG complete is assessed with paired two-stage Bootstrap: resample random seeds and then complete split_group_id clusters within seed.
 
-## 7. Claim Boundary
+## 8. Claim Boundary
 
-Formula-level propositions P1-P4 are exact properties of the implemented network. Any empirical advantage of decomposition or calibration is limited to the formal public-specimen four-role protocol and must be stated only when the corresponding paired confidence interval supports it. The stage-conditioned beneficiation decision graph and reject-to-test decision theory remain future work because the current project contains no operating-stage, grade, recovery, material-flow, or assay-cost data.
+Formula-level propositions R1-R3 and P1-P4 are exact properties of the implemented network. Any empirical advantage of RPG, decomposition, or calibration is limited to the formal public-specimen four-role protocol and must be stated only when the corresponding paired confidence interval supports it. The stage-conditioned beneficiation decision graph and reject-to-test decision theory remain future work because the current project contains no operating-stage, grade, recovery, material-flow, or assay-cost data.
