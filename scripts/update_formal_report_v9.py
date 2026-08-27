@@ -20,10 +20,20 @@ FORMAL_CONFIGURATIONS = (
 )
 FORMAL_SEEDS = ("20260727", "20260728", "20260729")
 APPENDIX_HEADING = "附录 D CGDC-RSG-HRGV 网络理论与实验"
+RPG_APPENDIX_HEADING = "附录 E RPG-HRGV 角色分区不确定性门控理论与实验"
 ROOT = Path(__file__).resolve().parents[1]
 FIGURE_PATH = ROOT / "outputs" / "paper_figures" / "cgdc_rsg_hrgv_architecture.png"
+RPG_FIGURE_PATH = ROOT / "outputs" / "paper_figures" / "rpg_hrgv_architecture.png"
 DEFAULT_ANALYSIS_DIR = ROOT / "outputs" / "business_metrics" / "cgdc_rsg_hrgv" / "formal"
+DEFAULT_RPG_ANALYSIS_DIR = ROOT / "outputs" / "business_metrics" / "rpg_hrgv" / "formal"
 FORMULA_DIR = ROOT / "outputs" / "report_assets_v9"
+RPG_FORMAL_CONFIGURATIONS = (
+    "rsg_complete",
+    "rpg_complete",
+    "rpg_without_within",
+    "rpg_without_between",
+    "rpg_total_entropy_only",
+)
 
 
 def load_formal_cgdc_evidence(analysis_dir: Path) -> dict[str, object]:
@@ -38,6 +48,21 @@ def load_formal_cgdc_evidence(analysis_dir: Path) -> dict[str, object]:
         values = summary[configuration].get("macro_f1", {}).get("values", [])
         if len(values) != len(FORMAL_SEEDS):
             raise ValueError("Formal CGDC evidence must contain three registered seeds.")
+    return summary
+
+
+def load_formal_rpg_evidence(analysis_dir: Path) -> dict[str, object]:
+    """Load the complete RPG ablation summary required for report appendix E."""
+    summary_path = analysis_dir / "rpg_three_seed_summary.json"
+    if not summary_path.is_file():
+        raise ValueError("Formal RPG evidence summary is missing.")
+    summary = json.loads(summary_path.read_text(encoding="utf-8"))
+    if set(summary) != set(RPG_FORMAL_CONFIGURATIONS):
+        raise ValueError("Formal RPG evidence must contain all five configurations.")
+    for configuration in RPG_FORMAL_CONFIGURATIONS:
+        values = summary[configuration].get("macro_f1", {}).get("values", [])
+        if len(values) != len(FORMAL_SEEDS):
+            raise ValueError("Formal RPG evidence must contain three registered seeds.")
     return summary
 
 
@@ -125,6 +150,38 @@ def render_formulas() -> dict[str, Path]:
         figure = plt.figure(figsize=(14, 1.05), dpi=220, facecolor="white")
         figure.text(0.5, 0.5, formula, ha="center", va="center", fontsize=16, color="#172033")
         path = FORMULA_DIR / f"cgdc_{name}.png"
+        figure.savefig(path, bbox_inches="tight", pad_inches=0.12, facecolor="white")
+        plt.close(figure)
+        paths[name] = path
+    return paths
+
+
+def render_rpg_formulas() -> dict[str, Path]:
+    """Render the RPG equations once as stable report assets."""
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    FORMULA_DIR.mkdir(parents=True, exist_ok=True)
+    formulas = {
+        "entropy": (
+            r"$\mathbf{p}_m=M\mathbf{p}_s,\qquad H(S)=H(R)+H(S\mid R),\qquad "
+            r"U_{between}=H(R),\quad U_{within}=H(S\mid R)$"
+        ),
+        "gate": (
+            r"$\mathbf{z}_{RPG}=[\mathbf{h},H(\mathbf{p}_d),U_{between},U_{within},"
+            r"\left|H(\mathbf{p}_d)-U_{between}\right|],\qquad g=\sigma(G(\mathbf{z}_{RPG}))$"
+        ),
+        "fusion": (
+            r"$\mathbf{p}_f=g\mathbf{p}_d+(1-g)\mathbf{p}_m,\qquad 0\leq g\leq1$"
+        ),
+    }
+    paths: dict[str, Path] = {}
+    for name, formula in formulas.items():
+        figure = plt.figure(figsize=(14, 1.05), dpi=220, facecolor="white")
+        figure.text(0.5, 0.5, formula, ha="center", va="center", fontsize=16, color="#172033")
+        path = FORMULA_DIR / f"rpg_{name}.png"
         figure.savefig(path, bbox_inches="tight", pad_inches=0.12, facecolor="white")
         plt.close(figure)
         paths[name] = path
@@ -224,16 +281,122 @@ def _add_paired_evidence(document: Document, analysis_dir: Path) -> None:
     )
 
 
-def update_report(input_path: Path, output_path: Path, analysis_dir: Path = DEFAULT_ANALYSIS_DIR) -> Path:
+def _add_rpg_architecture_figure(document: Document) -> None:
+    if not RPG_FIGURE_PATH.is_file():
+        raise ValueError(f"RPG architecture figure is missing: {RPG_FIGURE_PATH}")
+    picture = document.add_paragraph()
+    picture.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    picture.add_run().add_picture(str(RPG_FIGURE_PATH), width=Cm(15.4))
+    caption = document.add_paragraph(style="Caption")
+    caption.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    _set_run_font(
+        caption.add_run("图 20 RPG-HRGV-Net 的角色分区不确定性门控结构"),
+        size=9.5,
+    )
+
+
+def _add_rpg_theory_statement(document: Document) -> None:
+    formulas = render_rpg_formulas()
+    document.add_heading("E.1 问题设定、网络结构与可检验命题", level=2)
+    _add_body(
+        document,
+        "RPG-HRGV-Net 保持原有 EfficientNet-B0 共享主干、直接角色专家和矿物种类专家。种类专家输出的 17 类矿物后验 p_s 通过固定的种类-角色映射矩阵 M 聚合为四角色后验 p_m=Mp_s；该映射仅编码本研究的公开图像四角色任务，不推断元素含量、品位或工业流程动作。",
+    )
+    _add_formula(document, formulas["entropy"], "式（E-1） 固定角色分区下的熵链式分解")
+    _add_body(
+        document,
+        "设角色变量为 R、细粒度种类变量为 S，则 H(S)=H(R)+H(S|R)。其中 U_between=H(R) 为角色间不确定性，U_within=H(S|R) 为角色内不确定性，后者刻画同一角色内部矿物种类的歧义。RPG 门控以这两个互补量及直接专家熵作为证据，而不将单一总熵误作所有不确定性的来源。",
+    )
+    _add_formula(document, formulas["gate"], "式（E-2） 角色分区不确定性门控")
+    _add_formula(document, formulas["fusion"], "式（E-3） 门控凸融合后验")
+    _add_body(
+        document,
+        "命题 P-R1（精确分解）：在固定映射 M 下，式（E-1）为离散熵的链式法则，因此 U_between+U_within 与种类总熵严格一致。命题 P-R2（角色稳定性）：当种类候选仅在同一角色内变化时，角色后验 p_m 不变，U_between 不因该类内歧义而上升；因此角色决策所需的可辨识信息弱于精确矿物种类识别所需的信息。命题 P-R3（凸融合包络）：因 g 属于 [0,1]，每一角色概率 p_f(r) 位于 p_d(r) 与 p_m(r) 的闭区间内，RPG 门控不能产生超出两路专家证据范围的单角色概率。P-R1 与 P-R3 为计算图的确定性性质；P-R2 的实际收益以及分区熵是否优于消融变量，由下列三随机种子实验检验。",
+    )
+    _add_rpg_architecture_figure(document)
+
+
+def _add_rpg_three_seed_summary(document: Document, evidence: dict[str, object]) -> None:
+    document.add_heading("E.2 三随机种子分区不确定性消融", level=2)
+    labels = {
+        "rsg_complete": "RSG 完整模型",
+        "rpg_complete": "RPG 完整模型",
+        "rpg_without_within": "去除角色内不确定性",
+        "rpg_without_between": "去除角色间不确定性",
+        "rpg_total_entropy_only": "仅使用总熵",
+    }
+    rows: list[list[str]] = []
+    for configuration in RPG_FORMAL_CONFIGURATIONS:
+        summary = evidence[configuration]
+        rows.append(
+            [
+                labels[configuration],
+                _format_percent(summary["accuracy"]["mean"]),
+                _format_percent(summary["macro_f1"]["mean"]),
+                _format_percent(summary["target_recall"]["mean"]),
+                _format_percent(summary["brier_score"]["mean"]),
+                _format_percent(summary["expected_calibration_error"]["mean"]),
+            ]
+        )
+    _add_table(document, ["配置", "Accuracy", "Macro F1", "目标类召回", "Brier", "ECE"], rows)
+    _add_body(
+        document,
+        "完整 RPG、两个分区熵移除消融和仅总熵消融在固定数据划分、主干、训练预算、图像增强和随机种子下进行对比。若 RPG 完整模型相对 RSG 的成对区间未显示稳定优势，本附录仅将其报告为理论驱动的受控探索，而不作性能优越性结论。",
+    )
+
+
+def _add_rpg_paired_evidence(document: Document, analysis_dir: Path) -> None:
+    document.add_heading("E.3 成对统计与结论边界", level=2)
+    rows: list[list[str]] = []
+    for configuration, label in (
+        ("rpg_complete", "RPG 完整模型"),
+        ("rpg_without_within", "去除角色内不确定性"),
+        ("rpg_without_between", "去除角色间不确定性"),
+        ("rpg_total_entropy_only", "仅使用总熵"),
+    ):
+        paired = _load_paired_comparison(analysis_dir, configuration)
+        macro = paired["classification"]["macro_f1"]
+        routing = paired["routing_regret"]
+        brier = paired["calibration"]["brier_score"]
+        rows.append(
+            [
+                label,
+                f"{_format_percent(macro['difference'])} [{_format_percent(macro['ci_low'])}, {_format_percent(macro['ci_high'])}]",
+                f"{_format_percent(routing['difference'])} [{_format_percent(routing['ci_low'])}, {_format_percent(routing['ci_high'])}]",
+                f"{_format_percent(brier['difference'])} [{_format_percent(brier['ci_low'])}, {_format_percent(brier['ci_high'])}]",
+            ]
+        )
+    _add_table(document, ["相对 RSG", "Macro F1 差值 [95% CI]", "门控遗憾差值 [95% CI]", "Brier 差值 [95% CI]"], rows)
+    _add_body(
+        document,
+        "差值均为配置减去 RSG；门控遗憾以融合后验相对于两路专家中概率更优者的负对数似然损失定义，越低越好。区间通过图片 split_group_id 聚类、随机种子与组两阶段重采样的 2,000 次 Bootstrap 得到。理论命题中的信息分解恒等式不依赖实验，实验只检验所构造的门控特征是否在本数据与本协议下带来稳定的经验收益。",
+    )
+    _add_body(
+        document,
+        "结论边界：RPG-HRGV 验证的是公开矿物标本图像上的四角色闭集识别、门控行为和后验质量，不等同于工业分选、精矿品位预测、回收率提升、钒钛元素含量检测、真实工况泛化或未知矿物拒识性能。阶段条件化选矿决策图及送检风险最小化作为后续研究方向，不在本附录中声称已完成验证。",
+    )
+
+
+def update_report(
+    input_path: Path,
+    output_path: Path,
+    analysis_dir: Path = DEFAULT_ANALYSIS_DIR,
+    rpg_analysis_dir: Path | None = None,
+) -> Path:
     document = Document(input_path)
-    if any(paragraph.text.strip() == APPENDIX_HEADING for paragraph in document.paragraphs):
-        document.save(output_path)
-        return output_path
-    evidence = load_formal_cgdc_evidence(analysis_dir)
-    document.add_heading(APPENDIX_HEADING, level=1)
-    _add_theory_statement(document)
-    _add_three_seed_summary(document, evidence)
-    _add_paired_evidence(document, analysis_dir)
+    headings = {paragraph.text.strip() for paragraph in document.paragraphs}
+    if APPENDIX_HEADING not in headings:
+        evidence = load_formal_cgdc_evidence(analysis_dir)
+        document.add_heading(APPENDIX_HEADING, level=1)
+        _add_theory_statement(document)
+        _add_three_seed_summary(document, evidence)
+        _add_paired_evidence(document, analysis_dir)
+    if rpg_analysis_dir is not None and RPG_APPENDIX_HEADING not in headings:
+        rpg_evidence = load_formal_rpg_evidence(rpg_analysis_dir)
+        document.add_heading(RPG_APPENDIX_HEADING, level=1)
+        _add_rpg_theory_statement(document)
+        _add_rpg_three_seed_summary(document, rpg_evidence)
+        _add_rpg_paired_evidence(document, rpg_analysis_dir)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     document.save(output_path)
     return output_path
@@ -244,8 +407,16 @@ def main() -> None:
     parser.add_argument("--input", type=Path, default=FORMAL_REPORT)
     parser.add_argument("--output", type=Path, default=FORMAL_REPORT)
     parser.add_argument("--analysis-dir", type=Path, default=DEFAULT_ANALYSIS_DIR)
+    parser.add_argument("--rpg-analysis-dir", type=Path)
     args = parser.parse_args()
-    print(update_report(args.input.resolve(), args.output.resolve(), args.analysis_dir.resolve()))
+    print(
+        update_report(
+            args.input.resolve(),
+            args.output.resolve(),
+            args.analysis_dir.resolve(),
+            args.rpg_analysis_dir.resolve() if args.rpg_analysis_dir else None,
+        )
+    )
 
 
 if __name__ == "__main__":
