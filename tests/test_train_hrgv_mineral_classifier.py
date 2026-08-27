@@ -62,6 +62,8 @@ class HRGVTrainingConfigurationTests(unittest.TestCase):
         self.assertFalse(args.enable_cgdc)
         self.assertFalse(args.cgdc_shared_features)
         self.assertFalse(args.cgdc_unconditional)
+        self.assertFalse(args.enable_rpg)
+        self.assertEqual(args.rpg_entropy_mode, "partitioned")
         self.assertEqual(args.adapter_bottleneck_dim, 128)
         self.assertEqual(args.calibration_hidden_dim, 256)
         self.assertEqual(args.lambda_decomposition, 0.02)
@@ -84,6 +86,21 @@ class HRGVTrainingConfigurationTests(unittest.TestCase):
         self.assertTrue(args.cgdc_unconditional)
         self.assertEqual(args.adapter_bottleneck_dim, 32)
         self.assertEqual(args.calibration_hidden_dim, 64)
+
+    def test_cli_exposes_rpg_switch_and_rejects_cgdc_combination(self) -> None:
+        from train_hrgv_mineral_classifier import parse_args, validate_args
+
+        common = [
+            "--manifest", "split.csv", "--dataset-root", "dataset", "--output-dir", "output",
+        ]
+        rpg = parse_args([*common, "--enable-rpg", "--rpg-entropy-mode", "without_within"])
+        validate_args(rpg)
+        self.assertTrue(rpg.enable_rpg)
+        self.assertEqual(rpg.rpg_entropy_mode, "without_within")
+
+        incompatible = parse_args([*common, "--enable-cgdc", "--enable-rpg"])
+        with self.assertRaisesRegex(ValueError, "CGDC and RPG"):
+            validate_args(incompatible)
 
     def test_cli_can_restore_coupled_verifier_gradients_for_ablation(self) -> None:
         from train_hrgv_mineral_classifier import parse_args, validate_args
@@ -225,6 +242,9 @@ class HRGVArtifactTests(unittest.TestCase):
             final_role_probabilities=[[0.81, 0.10, 0.05, 0.04]],
             calibrated_role_probabilities=[[0.80, 0.11, 0.05, 0.04]],
             disagreement_gains=[0.07],
+            total_species_entropies=[1.20],
+            between_role_entropies=[0.80],
+            within_role_entropies=[0.40],
         )
 
         self.assertEqual(len(rows), 1)
@@ -239,6 +259,9 @@ class HRGVArtifactTests(unittest.TestCase):
         self.assertEqual(rows[0]["ti_target_probability"], "0.900000")
         self.assertEqual(rows[0]["metallic_target_probability"], "0.800000")
         self.assertEqual(rows[0]["expert_js_divergence"], "0.120000")
+        self.assertEqual(rows[0]["total_species_entropy"], "1.200000")
+        self.assertEqual(rows[0]["between_role_entropy"], "0.800000")
+        self.assertEqual(rows[0]["within_role_entropy"], "0.400000")
         self.assertEqual(rows[0]["direct_true_probability"], "0.220000")
         self.assertEqual(rows[0]["mapped_true_probability"], "0.610000")
         self.assertEqual(rows[0]["fused_true_probability"], "0.473500")

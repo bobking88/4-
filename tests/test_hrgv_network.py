@@ -578,6 +578,44 @@ class HRGVModelTests(unittest.TestCase):
             )
         )
 
+    def test_rpg_model_exposes_role_partitioned_uncertainty(self) -> None:
+        from hrgv_network import HierarchicalRiskGatedVerificationNet
+
+        mapping = self.build_mapping()
+        model = HierarchicalRiskGatedVerificationNet(
+            self.dependencies["models"],
+            self.build_role_matrix(mapping),
+            pretrained=False,
+            embedding_dim=8,
+            gate_hidden_dim=16,
+            enable_rpg=True,
+            rpg_entropy_mode="partitioned",
+        )
+        outputs = model(self.torch.randn(2, 3, 64, 64))
+
+        for key in (
+            "total_species_entropy",
+            "between_role_entropy",
+            "within_role_entropy",
+        ):
+            self.assertIn(key, outputs)
+            self.assertEqual(tuple(outputs[key].shape), (2, 1))
+            self.assertTrue(self.torch.isfinite(outputs[key]).all(), key)
+        self.assertTrue(
+            self.torch.allclose(
+                outputs["total_species_entropy"],
+                outputs["between_role_entropy"] + outputs["within_role_entropy"],
+                atol=1e-6,
+            )
+        )
+        self.assertTrue(
+            self.torch.allclose(
+                outputs["mapped_role_probabilities"].sum(dim=1),
+                self.torch.ones(2),
+                atol=1e-6,
+            )
+        )
+
     def test_cgdc_loss_trains_adapters_and_calibration_head(self) -> None:
         from hrgv_network import (
             HRGVLossWeights,

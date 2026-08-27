@@ -399,6 +399,8 @@ class HierarchicalRiskGatedVerificationNet(nn.Module):
         cgdc_unconditional: bool = False,
         adapter_bottleneck_dim: int = 128,
         calibration_hidden_dim: int = 256,
+        enable_rpg: bool = False,
+        rpg_entropy_mode: str = "partitioned",
     ) -> None:
         super().__init__()
         if verifier_mode not in {"residual", "multiplicative", "disabled"}:
@@ -422,6 +424,10 @@ class HierarchicalRiskGatedVerificationNet(nn.Module):
             raise ValueError("Verifier thresholds must lie in (0, 1].")
         if ti_verifier_strength < 0 or metallic_verifier_strength < 0:
             raise ValueError("Verifier strengths must be non-negative.")
+        if enable_cgdc and enable_rpg:
+            raise ValueError("CGDC and RPG cannot be enabled together.")
+        if rpg_entropy_mode not in RPG_ENTROPY_MODES:
+            raise ValueError(f"Unknown RPG entropy mode: {rpg_entropy_mode}")
 
         weights = models.EfficientNet_B0_Weights.IMAGENET1K_V1 if pretrained else None
         base_model = models.efficientnet_b0(weights=weights)
@@ -433,6 +439,8 @@ class HierarchicalRiskGatedVerificationNet(nn.Module):
         self.role_head = nn.Linear(feature_dim, num_roles)
         self.species_head = nn.Linear(feature_dim, num_species)
         self.enable_cgdc = enable_cgdc
+        self.enable_rpg = enable_rpg
+        self.rpg_entropy_mode = rpg_entropy_mode
         self.cgdc_shared_features = cgdc_shared_features
         self.cgdc_unconditional = cgdc_unconditional
         if enable_cgdc and not cgdc_shared_features:
@@ -459,8 +467,9 @@ class HierarchicalRiskGatedVerificationNet(nn.Module):
             if enable_cgdc
             else None
         )
+        gate_input_dim = feature_dim + (4 if enable_rpg else 3)
         self.gate_network = nn.Sequential(
-            nn.Linear(feature_dim + 3, gate_hidden_dim),
+            nn.Linear(gate_input_dim, gate_hidden_dim),
             nn.ReLU(inplace=True),
             nn.Dropout(p=0.10),
             nn.Linear(gate_hidden_dim, 1),
@@ -502,19 +511,38 @@ class HierarchicalRiskGatedVerificationNet(nn.Module):
         species_logits = self.species_head(species_features)
         direct_role_probabilities = torch.softmax(role_logits, dim=1)
         species_probabilities = torch.softmax(species_logits, dim=1)
-        mapped_role_probabilities = species_probabilities @ self.role_matrix.T
-        mapped_role_probabilities = mapped_role_probabilities / mapped_role_probabilities.sum(
-            dim=1, keepdim=True
-        ).clamp_min(torch.finfo(mapped_role_probabilities.dtype).eps)
+        if self.enable_rpg:
+            partition = role_partitioned_uncertainty(
+                species_probabilities, self.role_matrix, torch
+            )
+            mapped_role_probabilities = partition["mapped_role_probabilities"]
+        else:
+            partition = None
+            mapped_role_probabilities = species_probabilities @ self.role_matrix.T
+            mapped_role_probabilities = mapped_role_probabilities / mapped_role_probabilities.sum(
+                dim=1, keepdim=True
+            ).clamp_min(torch.finfo(mapped_role_probabilities.dtype).eps)
         direct_entropy = normalized_entropy(direct_role_probabilities, torch)
         mapped_entropy = normalized_entropy(mapped_role_probabilities, torch)
         expert_js_divergence = jensen_shannon_divergence(
             direct_role_probabilities, mapped_role_probabilities, torch
         )
         if self.fixed_gate is None:
-            gate_inputs = torch.cat(
-                [features, direct_entropy, mapped_entropy, expert_js_divergence], dim=1
-            )
+            if self.enable_rpg:
+                gate_inputs = torch.cat(
+                    [
+                        features,
+                        direct_entropy,
+                        role_partitioned_gate_features(
+                            direct_entropy, partition, self.rpg_entropy_mode, torch
+                        ),
+                    ],
+                    dim=1,
+                )
+            else:
+                gate_inputs = torch.cat(
+                    [features, direct_entropy, mapped_entropy, expert_js_divergence], dim=1
+                )
             if self.detach_gate_features:
                 gate_inputs = gate_inputs.detach()
             gate = torch.sigmoid(self.gate_network(gate_inputs))
@@ -609,6 +637,14 @@ class HierarchicalRiskGatedVerificationNet(nn.Module):
                     "calibration_residual": torch.tanh(calibration_residual),
                     "disagreement_gain": disagreement_gain,
                     "calibrated_role_probabilities": calibrated_role_probabilities,
+                }
+            )
+        if self.enable_rpg:
+            outputs.update(
+                {
+                    "total_species_entropy": partition["total_species_entropy"],
+                    "between_role_entropy": partition["between_role_entropy"],
+                    "within_role_entropy": partition["within_role_entropy"],
                 }
             )
         return outputs

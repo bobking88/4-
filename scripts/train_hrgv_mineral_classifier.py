@@ -52,6 +52,9 @@ HRGV_PREDICTION_FIELDS = [
     "metallic_target_probability",
     "expert_js_divergence",
     "disagreement_gain",
+    "total_species_entropy",
+    "between_role_entropy",
+    "within_role_entropy",
     *ROLE_PROBABILITY_FIELDS,
     "direct_true_probability",
     "mapped_true_probability",
@@ -97,6 +100,12 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--enable-cgdc", action="store_true")
     parser.add_argument("--cgdc-shared-features", action="store_true")
     parser.add_argument("--cgdc-unconditional", action="store_true")
+    parser.add_argument("--enable-rpg", action="store_true")
+    parser.add_argument(
+        "--rpg-entropy-mode",
+        choices=("partitioned", "without_within", "without_between", "total_only"),
+        default="partitioned",
+    )
     parser.add_argument("--adapter-bottleneck-dim", type=int, default=128)
     parser.add_argument("--calibration-hidden-dim", type=int, default=256)
     parser.add_argument("--lambda-decomposition", type=float, default=0.02)
@@ -165,6 +174,8 @@ def validate_args(args: argparse.Namespace) -> None:
         raise ValueError("Gate temperatures must be positive.")
     if args.detach_gate_features and args.couple_gate_features:
         raise ValueError("Gate features cannot be both detached and coupled.")
+    if args.enable_cgdc and args.enable_rpg:
+        raise ValueError("CGDC and RPG cannot be enabled together.")
 
 
 def build_role_matrix(mapping: SpeciesRoleMapping, torch) -> torch.Tensor:
@@ -315,6 +326,9 @@ def build_hrgv_prediction_rows(
     final_role_probabilities: Sequence[Sequence[float]],
     calibrated_role_probabilities: Sequence[Sequence[float]],
     disagreement_gains: Sequence[float],
+    total_species_entropies: Sequence[float],
+    between_role_entropies: Sequence[float],
+    within_role_entropies: Sequence[float],
 ) -> list[dict[str, str]]:
     sequences = (
         records,
@@ -338,6 +352,9 @@ def build_hrgv_prediction_rows(
         final_role_probabilities,
         calibrated_role_probabilities,
         disagreement_gains,
+        total_species_entropies,
+        between_role_entropies,
+        within_role_entropies,
     )
     if len({len(sequence) for sequence in sequences}) != 1:
         raise ValueError("All HRGV prediction fields must have matching lengths.")
@@ -360,6 +377,9 @@ def build_hrgv_prediction_rows(
                 "metallic_target_probability": f"{metallic_target_probabilities[index]:.6f}",
                 "expert_js_divergence": f"{expert_js_divergences[index]:.6f}",
                 "disagreement_gain": f"{disagreement_gains[index]:.6f}",
+                "total_species_entropy": f"{total_species_entropies[index]:.6f}",
+                "between_role_entropy": f"{between_role_entropies[index]:.6f}",
+                "within_role_entropy": f"{within_role_entropies[index]:.6f}",
                 "direct_true_probability": f"{direct_true_probabilities[index]:.6f}",
                 "mapped_true_probability": f"{mapped_true_probabilities[index]:.6f}",
                 "fused_true_probability": f"{fused_true_probabilities[index]:.6f}",
@@ -434,6 +454,9 @@ def run_epoch(
         "metallic_target_probabilities": [],
         "expert_js_divergences": [],
         "disagreement_gains": [],
+        "total_species_entropies": [],
+        "between_role_entropies": [],
+        "within_role_entropies": [],
         "final_role_probabilities": [],
         "calibrated_role_probabilities": [],
         "direct_true_probabilities": [],
@@ -512,6 +535,18 @@ def run_epoch(
                 .cpu()
                 .tolist()
             )
+            for result_key, output_key in (
+                ("total_species_entropies", "total_species_entropy"),
+                ("between_role_entropies", "between_role_entropy"),
+                ("within_role_entropies", "within_role_entropy"),
+            ):
+                result[result_key].extend(
+                    outputs.get(output_key, torch.zeros_like(outputs["gate"]))
+                    .squeeze(1)
+                    .detach()
+                    .cpu()
+                    .tolist()
+                )
             result["final_role_probabilities"].extend(
                 outputs["final_role_probabilities"].detach().cpu().tolist()
             )
@@ -573,6 +608,9 @@ def run_epoch(
     result["losses"] = {name: value / total_count for name, value in totals.items()}
     result["mean_gate"] = sum(result["gates"]) / total_count
     result["mean_expert_js_divergence"] = sum(result["expert_js_divergences"]) / total_count
+    result["mean_total_species_entropy"] = sum(result["total_species_entropies"]) / total_count
+    result["mean_between_role_entropy"] = sum(result["between_role_entropies"]) / total_count
+    result["mean_within_role_entropy"] = sum(result["within_role_entropies"]) / total_count
     result.update(
         summarize_gate_routing(
             result["gate_selection_correct"],
@@ -637,6 +675,8 @@ def main(argv: Sequence[str] | None = None) -> None:
         cgdc_unconditional=args.cgdc_unconditional,
         adapter_bottleneck_dim=args.adapter_bottleneck_dim,
         calibration_hidden_dim=args.calibration_hidden_dim,
+        enable_rpg=args.enable_rpg,
+        rpg_entropy_mode=args.rpg_entropy_mode,
     ).to(device)
     role_weight_tensor = torch.tensor(
         compute_class_weights(role_counts), dtype=torch.float32, device=device
@@ -679,6 +719,8 @@ def main(argv: Sequence[str] | None = None) -> None:
             model_name += "_shared_features"
         if args.cgdc_unconditional:
             model_name += "_unconditional"
+    if args.enable_rpg:
+        model_name = f"rpg_{model_name}_{args.rpg_entropy_mode}"
     if args.disable_verifiers:
         model_name += "_no_verifiers"
     if args.fixed_gate is not None:
@@ -727,6 +769,8 @@ def main(argv: Sequence[str] | None = None) -> None:
             "enable_cgdc": args.enable_cgdc,
             "cgdc_shared_features": args.cgdc_shared_features,
             "cgdc_unconditional": args.cgdc_unconditional,
+            "enable_rpg": args.enable_rpg,
+            "rpg_entropy_mode": args.rpg_entropy_mode,
             "adapter_bottleneck_dim": args.adapter_bottleneck_dim,
             "calibration_hidden_dim": args.calibration_hidden_dim,
             "fixed_gate": args.fixed_gate,
@@ -916,6 +960,9 @@ def main(argv: Sequence[str] | None = None) -> None:
             ),
             "mean_gate": test_result["mean_gate"],
             "mean_expert_js_divergence": test_result["mean_expert_js_divergence"],
+            "mean_total_species_entropy": test_result["mean_total_species_entropy"],
+            "mean_between_role_entropy": test_result["mean_between_role_entropy"],
+            "mean_within_role_entropy": test_result["mean_within_role_entropy"],
             "gate_selection_accuracy": test_result["gate_selection_accuracy"],
             "one_right_gate_selection_accuracy": test_result[
                 "one_right_gate_selection_accuracy"
@@ -958,6 +1005,9 @@ def main(argv: Sequence[str] | None = None) -> None:
         final_role_probabilities=test_result["final_role_probabilities"],
         calibrated_role_probabilities=test_result["calibrated_role_probabilities"],
         disagreement_gains=test_result["disagreement_gains"],
+        total_species_entropies=test_result["total_species_entropies"],
+        between_role_entropies=test_result["between_role_entropies"],
+        within_role_entropies=test_result["within_role_entropies"],
     )
     write_csv(
         args.output_dir / "test_predictions.csv", prediction_rows, HRGV_PREDICTION_FIELDS
