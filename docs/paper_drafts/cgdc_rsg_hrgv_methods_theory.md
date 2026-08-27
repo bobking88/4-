@@ -84,4 +84,4 @@ The registered report includes Accuracy, Macro F1, target recall, Ti-bearing-neg
 
 ## 7. Claim Boundary
 
-Formula-level propositions P1-P3 are exact properties of the implemented network. Any empirical advantage of decomposition or calibration is limited to the formal public-specimen four-role protocol and must be stated only when the corresponding paired confidence interval supports it. The stage-conditioned beneficiation decision graph and reject-to-test decision theory remain future work because the current project contains no operating-stage, grade, recovery, material-flow, or assay-cost data.
+Formula-level propositions P1-P4 are exact properties of the implemented network. Any empirical advantage of decomposition or calibration is limited to the formal public-specimen four-role protocol and must be stated only when the corresponding paired confidence interval supports it. The stage-conditioned beneficiation decision graph and reject-to-test decision theory remain future work because the current project contains no operating-stage, grade, recovery, material-flow, or assay-cost data.
