@@ -1,0 +1,18 @@
+{
+  "core_conclusion": "Capacity-normalized role ambiguity can only increase the direct role expert allocation under the monotone gate.",
+  "theory_properties": [
+    "M-R1: H(S|x)=H(R|x)+H(S|R,x).",
+    "M-R2: normalize role ambiguity by log|R| and within-role ambiguity by candidate capacity.",
+    "M-R3: partial g / partial u_between = g(1-g) softplus(beta) >= 0.",
+    "M-R4: convex fusion remains in the coordinatewise envelope of the two experts."
+  ],
+  "archetype": "schematic-led composite",
+  "backend": "Python/matplotlib",
+  "evidence_scope": "Architecture and formula-level properties for closed-set public mineral specimen recognition; no industrial sorting, grade, recovery, or OOD claim.",
+  "exports": {
+    "png": "结题\\图_MRPG-HRGV-Net_网络结构与理论性质.png",
+    "svg": "结题\\图_MRPG-HRGV-Net_网络结构与理论性质.svg",
+    "pdf": "结题\\图_MRPG-HRGV-Net_网络结构与理论性质.pdf",
+    "tiff": "结题\\图_MRPG-HRGV-Net_网络结构与理论性质.tiff"
+  }
+}

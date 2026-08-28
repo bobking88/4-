@@ -91,6 +91,27 @@ class HRGVArchitectureFigureTests(unittest.TestCase):
             source_text = outputs["source_description"].read_text(encoding="utf-8")
             self.assertIn("H(S) = H(R) + H(S|R)", source_text)
 
+    def test_mrpg_figure_contains_capacity_normalization_and_monotonicity(self) -> None:
+        from generate_hrgv_architecture_figure import generate_mrpg_architecture_figure
+
+        with tempfile.TemporaryDirectory() as temporary:
+            outputs = generate_mrpg_architecture_figure(
+                Path(temporary) / "fig_mrpg_hrgv_architecture"
+            )
+
+            for key in ("png", "svg", "pdf", "tiff", "source_description"):
+                self.assertTrue(outputs[key].exists(), key)
+            svg = outputs["svg"].read_text(encoding="utf-8")
+            for label in (
+                "Frozen role partition M",
+                "Capacity normalization",
+                "Monotone M-RPG gate",
+                "softplus(beta)",
+                "RSG fusion",
+            ):
+                self.assertIn(label, svg)
+            self.assertIn("partial g", outputs["source_text"])
+
 
 if __name__ == "__main__":
     unittest.main()

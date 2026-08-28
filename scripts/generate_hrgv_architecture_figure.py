@@ -495,6 +495,138 @@ def generate_rpg_architecture_figure(prefix: Path) -> dict[str, Path]:
     return outputs
 
 
+def generate_mrpg_architecture_figure(prefix: Path) -> dict[str, Path | str]:
+    """Draw the capacity-normalized, between-role-monotone M-RPG architecture."""
+    mpl.rcParams.update(
+        {
+            "font.family": "sans-serif",
+            "font.sans-serif": ["Microsoft YaHei", "Arial", "DejaVu Sans", "sans-serif"],
+            "svg.fonttype": "none",
+            "pdf.fonttype": 42,
+            "font.size": 7,
+        }
+    )
+    figure, axis = plt.subplots(figsize=(13.4, 7.45), constrained_layout=True)
+    axis.set_xlim(0, 1)
+    axis.set_ylim(0, 1)
+    axis.axis("off")
+    figure.patch.set_facecolor("white")
+
+    axis.text(
+        0.02, 0.965,
+        "M-RPG-HRGV-Net: capacity-normalized uncertainty with monotone role-ambiguity routing",
+        ha="left", va="top", fontsize=11.2, fontweight="bold", color=COLORS["ink"],
+    )
+    axis.text(
+        0.02, 0.928,
+        "The frozen 17-to-4 mineral-role partition separates raw uncertainty, normalizes its available support, and constrains the role-ambiguity gate contribution.",
+        ha="left", va="top", fontsize=6.9, color=COLORS["muted"],
+    )
+
+    _box(axis, (0.02, 0.61), 0.08, 0.12, "Input image", "RGB mineral\nspecimen", COLORS["formula"])
+    _box(axis, (0.125, 0.58), 0.12, 0.18, "EfficientNet-B0", "shared backbone\nh in R^1280", COLORS["backbone"], 8.2)
+    _box(axis, (0.29, 0.75), 0.11, 0.12, "Direct role expert", "p_d(y|x)\n4 roles", COLORS["expert"])
+    _box(axis, (0.29, 0.50), 0.11, 0.12, "Species expert", "p_s(k|x)\n17 minerals", COLORS["expert"])
+    _box(axis, (0.43, 0.50), 0.12, 0.12, "Frozen role partition M", "p_m=M p_s\n17 species -> 4 roles", COLORS["expert"], 6.9)
+    _box(axis, (0.58, 0.63), 0.12, 0.15, "Raw chain identity", "H(S)=U_between\n+ U_within", COLORS["training"], 7.4)
+    _box(axis, (0.58, 0.43), 0.12, 0.13, "Capacity normalization", "u_b=U_between/log|R|\nu_w=U_within/C_within", COLORS["training"], 6.8)
+    _box(axis, (0.735, 0.68), 0.12, 0.145, "Monotone M-RPG gate", "b=Q(h,H(p_d),u_w)\ng=sigmoid[b+softplus(beta)u_b]", COLORS["gate"], 6.6)
+    _box(axis, (0.875, 0.70), 0.10, 0.115, "RSG fusion", "p_f=g p_d\n+ (1-g)p_m", COLORS["gate"], 7.4)
+    _box(axis, (0.75, 0.32), 0.17, 0.14, "Residual hard-negative verifiers", "Ti-bearing and metallic\ncontradiction penalties", COLORS["verify"], 6.8)
+    _box(axis, (0.90, 0.12), 0.08, 0.10, "Final posterior", "q(y|x)", COLORS["output"], 7.0)
+    _box(axis, (0.26, 0.25), 0.18, 0.12, "Training supervision", "role/species/KL + contrast\n+ regret routing", COLORS["training"], 6.6)
+
+    _arrow(axis, (0.10, 0.67), (0.125, 0.67))
+    _arrow(axis, (0.245, 0.70), (0.29, 0.81), connectionstyle="arc3,rad=0.08")
+    _arrow(axis, (0.245, 0.64), (0.29, 0.56), connectionstyle="arc3,rad=-0.07")
+    _arrow(axis, (0.40, 0.56), (0.43, 0.56))
+    _arrow(axis, (0.40, 0.81), (0.735, 0.77), label="p_d", connectionstyle="arc3,rad=-0.03")
+    _arrow(axis, (0.55, 0.56), (0.875, 0.745), label="p_m", connectionstyle="arc3,rad=-0.13")
+    _arrow(axis, (0.55, 0.59), (0.58, 0.71), label="M p_s")
+    _arrow(axis, (0.64, 0.63), (0.64, 0.56), label="U_b,U_w")
+    _arrow(axis, (0.70, 0.705), (0.735, 0.76), label="u_b")
+    _arrow(axis, (0.70, 0.495), (0.735, 0.72), label="u_w", connectionstyle="arc3,rad=-0.16")
+    _arrow(axis, (0.855, 0.76), (0.875, 0.76), label="g")
+    _arrow(axis, (0.25, 0.60), (0.75, 0.43), dashed=True, label="shared h", connectionstyle="arc3,rad=0.10")
+    _arrow(axis, (0.925, 0.70), (0.83, 0.46), label="p_f", connectionstyle="arc3,rad=0.13")
+    _arrow(axis, (0.87, 0.32), (0.94, 0.22), label="q")
+    _arrow(axis, (0.36, 0.50), (0.35, 0.37), dashed=True, label="losses")
+
+    formula_box = FancyBboxPatch(
+        (0.02, 0.035), 0.84, 0.155,
+        boxstyle="round,pad=0.008,rounding_size=0.010",
+        facecolor=COLORS["formula"], edgecolor="#C8D1D7", linewidth=0.8,
+    )
+    axis.add_patch(formula_box)
+    axis.text(
+        0.44, 0.145,
+        r"$H(S\mid x)=H(R\mid x)+H(S\mid R,x)=U_{between}+U_{within}$  (M-R1)",
+        ha="center", va="center", fontsize=8.7, color=COLORS["ink"],
+    )
+    axis.text(
+        0.44, 0.105,
+        r"$u_b=U_{between}/\log |\mathcal{R}|,\quad u_w=U_{within}/\sum_r p_m(r\mid x)\log n_r$  (M-R2)",
+        ha="center", va="center", fontsize=7.7, color=COLORS["ink"],
+    )
+    axis.text(
+        0.44, 0.066,
+        r"$g=\sigma[b+\mathrm{softplus}(\beta)u_b],\quad \partial g/\partial u_b=g(1-g)\mathrm{softplus}(\beta)\geq0$  (M-R3)",
+        ha="center", va="center", fontsize=7.7, color=COLORS["ink"],
+    )
+    axis.text(
+        0.92, 0.265,
+        "M-R4: convex fusion\nremains inside the\nexpert envelope.",
+        ha="center", va="center", fontsize=6.3, color=COLORS["muted"],
+    )
+
+    prefix = Path(prefix)
+    prefix.parent.mkdir(parents=True, exist_ok=True)
+    outputs: dict[str, Path | str] = {
+        "png": prefix.with_suffix(".png"),
+        "svg": prefix.with_suffix(".svg"),
+        "pdf": prefix.with_suffix(".pdf"),
+        "tiff": prefix.with_suffix(".tiff"),
+        "source_description": prefix.with_name(prefix.name + "_source.json"),
+    }
+    figure.savefig(outputs["png"], dpi=300, bbox_inches="tight", facecolor="white")
+    figure.savefig(outputs["svg"], bbox_inches="tight", facecolor="white")
+    figure.savefig(outputs["pdf"], bbox_inches="tight", facecolor="white")
+    figure.savefig(
+        outputs["tiff"], dpi=600, bbox_inches="tight", facecolor="white",
+        pil_kwargs={"compression": "tiff_lzw"},
+    )
+    plt.close(figure)
+    source_text = (
+        "M-R1: H(S|x)=H(R|x)+H(S|R,x).\n"
+        "M-R2: normalize role ambiguity by log|R| and within-role ambiguity by candidate capacity.\n"
+        "M-R3: partial g / partial u_between = g(1-g) softplus(beta) >= 0.\n"
+        "M-R4: convex fusion remains in the coordinatewise envelope of the two experts."
+    )
+    source_description = outputs["source_description"]
+    assert isinstance(source_description, Path)
+    source_description.write_text(
+        json.dumps(
+            {
+                "core_conclusion": "Capacity-normalized role ambiguity can only increase the direct role expert allocation under the monotone gate.",
+                "theory_properties": source_text.splitlines(),
+                "archetype": "schematic-led composite",
+                "backend": "Python/matplotlib",
+                "evidence_scope": "Architecture and formula-level properties for closed-set public mineral specimen recognition; no industrial sorting, grade, recovery, or OOD claim.",
+                "exports": {
+                    name: str(path)
+                    for name, path in outputs.items()
+                    if name != "source_description" and isinstance(path, Path)
+                },
+            },
+            ensure_ascii=False,
+            indent=2,
+        ) + "\n",
+        encoding="utf-8",
+    )
+    outputs["source_text"] = source_text
+    return outputs
+
+
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Generate the HRGV-Net architecture figure.")
     parser.add_argument("--output-prefix", type=Path, required=True)
