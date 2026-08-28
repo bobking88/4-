@@ -55,6 +55,10 @@ HRGV_PREDICTION_FIELDS = [
     "total_species_entropy",
     "between_role_entropy",
     "within_role_entropy",
+    "within_capacity",
+    "normalized_between_role_entropy",
+    "normalized_within_role_entropy",
+    "mrpg_between_coefficient",
     *ROLE_PROBABILITY_FIELDS,
     "direct_true_probability",
     "mapped_true_probability",
@@ -105,6 +109,12 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
         "--rpg-entropy-mode",
         choices=("partitioned", "without_within", "without_between", "total_only"),
         default="partitioned",
+    )
+    parser.add_argument("--enable-mrpg", action="store_true")
+    parser.add_argument(
+        "--mrpg-between-mode",
+        choices=("monotone", "unconstrained", "disabled"),
+        default="monotone",
     )
     parser.add_argument("--adapter-bottleneck-dim", type=int, default=128)
     parser.add_argument("--calibration-hidden-dim", type=int, default=256)
@@ -176,6 +186,8 @@ def validate_args(args: argparse.Namespace) -> None:
         raise ValueError("Gate features cannot be both detached and coupled.")
     if args.enable_cgdc and args.enable_rpg:
         raise ValueError("CGDC and RPG cannot be enabled together.")
+    if args.enable_mrpg and (args.enable_cgdc or args.enable_rpg):
+        raise ValueError("M-RPG is mutually exclusive with CGDC and RPG.")
 
 
 def build_role_matrix(mapping: SpeciesRoleMapping, torch) -> torch.Tensor:
@@ -329,6 +341,10 @@ def build_hrgv_prediction_rows(
     total_species_entropies: Sequence[float],
     between_role_entropies: Sequence[float],
     within_role_entropies: Sequence[float],
+    within_capacities: Sequence[float],
+    normalized_between_role_entropies: Sequence[float],
+    normalized_within_role_entropies: Sequence[float],
+    mrpg_between_coefficients: Sequence[float],
 ) -> list[dict[str, str]]:
     sequences = (
         records,
@@ -355,6 +371,10 @@ def build_hrgv_prediction_rows(
         total_species_entropies,
         between_role_entropies,
         within_role_entropies,
+        within_capacities,
+        normalized_between_role_entropies,
+        normalized_within_role_entropies,
+        mrpg_between_coefficients,
     )
     if len({len(sequence) for sequence in sequences}) != 1:
         raise ValueError("All HRGV prediction fields must have matching lengths.")
@@ -380,6 +400,10 @@ def build_hrgv_prediction_rows(
                 "total_species_entropy": f"{total_species_entropies[index]:.6f}",
                 "between_role_entropy": f"{between_role_entropies[index]:.6f}",
                 "within_role_entropy": f"{within_role_entropies[index]:.6f}",
+                "within_capacity": f"{within_capacities[index]:.6f}",
+                "normalized_between_role_entropy": f"{normalized_between_role_entropies[index]:.6f}",
+                "normalized_within_role_entropy": f"{normalized_within_role_entropies[index]:.6f}",
+                "mrpg_between_coefficient": f"{mrpg_between_coefficients[index]:.6f}",
                 "direct_true_probability": f"{direct_true_probabilities[index]:.6f}",
                 "mapped_true_probability": f"{mapped_true_probabilities[index]:.6f}",
                 "fused_true_probability": f"{fused_true_probabilities[index]:.6f}",
@@ -457,6 +481,10 @@ def run_epoch(
         "total_species_entropies": [],
         "between_role_entropies": [],
         "within_role_entropies": [],
+        "within_capacities": [],
+        "normalized_between_role_entropies": [],
+        "normalized_within_role_entropies": [],
+        "mrpg_between_coefficients": [],
         "final_role_probabilities": [],
         "calibrated_role_probabilities": [],
         "direct_true_probabilities": [],
@@ -539,6 +567,16 @@ def run_epoch(
                 ("total_species_entropies", "total_species_entropy"),
                 ("between_role_entropies", "between_role_entropy"),
                 ("within_role_entropies", "within_role_entropy"),
+                ("within_capacities", "within_capacity"),
+                (
+                    "normalized_between_role_entropies",
+                    "normalized_between_role_entropy",
+                ),
+                (
+                    "normalized_within_role_entropies",
+                    "normalized_within_role_entropy",
+                ),
+                ("mrpg_between_coefficients", "mrpg_between_coefficient"),
             ):
                 result[result_key].extend(
                     outputs.get(output_key, torch.zeros_like(outputs["gate"]))
@@ -611,6 +649,16 @@ def run_epoch(
     result["mean_total_species_entropy"] = sum(result["total_species_entropies"]) / total_count
     result["mean_between_role_entropy"] = sum(result["between_role_entropies"]) / total_count
     result["mean_within_role_entropy"] = sum(result["within_role_entropies"]) / total_count
+    result["mean_within_capacity"] = sum(result["within_capacities"]) / total_count
+    result["mean_normalized_between_role_entropy"] = (
+        sum(result["normalized_between_role_entropies"]) / total_count
+    )
+    result["mean_normalized_within_role_entropy"] = (
+        sum(result["normalized_within_role_entropies"]) / total_count
+    )
+    result["mean_mrpg_between_coefficient"] = (
+        sum(result["mrpg_between_coefficients"]) / total_count
+    )
     result.update(
         summarize_gate_routing(
             result["gate_selection_correct"],
@@ -677,6 +725,8 @@ def main(argv: Sequence[str] | None = None) -> None:
         calibration_hidden_dim=args.calibration_hidden_dim,
         enable_rpg=args.enable_rpg,
         rpg_entropy_mode=args.rpg_entropy_mode,
+        enable_mrpg=args.enable_mrpg,
+        mrpg_between_mode=args.mrpg_between_mode,
     ).to(device)
     role_weight_tensor = torch.tensor(
         compute_class_weights(role_counts), dtype=torch.float32, device=device
@@ -721,6 +771,8 @@ def main(argv: Sequence[str] | None = None) -> None:
             model_name += "_unconditional"
     if args.enable_rpg:
         model_name = f"rpg_{model_name}_{args.rpg_entropy_mode}"
+    if args.enable_mrpg:
+        model_name = f"mrpg_{model_name}_{args.mrpg_between_mode}"
     if args.disable_verifiers:
         model_name += "_no_verifiers"
     if args.fixed_gate is not None:
@@ -771,6 +823,8 @@ def main(argv: Sequence[str] | None = None) -> None:
             "cgdc_unconditional": args.cgdc_unconditional,
             "enable_rpg": args.enable_rpg,
             "rpg_entropy_mode": args.rpg_entropy_mode,
+            "enable_mrpg": args.enable_mrpg,
+            "mrpg_between_mode": args.mrpg_between_mode,
             "adapter_bottleneck_dim": args.adapter_bottleneck_dim,
             "calibration_hidden_dim": args.calibration_hidden_dim,
             "fixed_gate": args.fixed_gate,
@@ -963,6 +1017,16 @@ def main(argv: Sequence[str] | None = None) -> None:
             "mean_total_species_entropy": test_result["mean_total_species_entropy"],
             "mean_between_role_entropy": test_result["mean_between_role_entropy"],
             "mean_within_role_entropy": test_result["mean_within_role_entropy"],
+            "mean_within_capacity": test_result["mean_within_capacity"],
+            "mean_normalized_between_role_entropy": test_result[
+                "mean_normalized_between_role_entropy"
+            ],
+            "mean_normalized_within_role_entropy": test_result[
+                "mean_normalized_within_role_entropy"
+            ],
+            "mean_mrpg_between_coefficient": test_result[
+                "mean_mrpg_between_coefficient"
+            ],
             "gate_selection_accuracy": test_result["gate_selection_accuracy"],
             "one_right_gate_selection_accuracy": test_result[
                 "one_right_gate_selection_accuracy"
@@ -1008,6 +1072,14 @@ def main(argv: Sequence[str] | None = None) -> None:
         total_species_entropies=test_result["total_species_entropies"],
         between_role_entropies=test_result["between_role_entropies"],
         within_role_entropies=test_result["within_role_entropies"],
+        within_capacities=test_result["within_capacities"],
+        normalized_between_role_entropies=test_result[
+            "normalized_between_role_entropies"
+        ],
+        normalized_within_role_entropies=test_result[
+            "normalized_within_role_entropies"
+        ],
+        mrpg_between_coefficients=test_result["mrpg_between_coefficients"],
     )
     write_csv(
         args.output_dir / "test_predictions.csv", prediction_rows, HRGV_PREDICTION_FIELDS

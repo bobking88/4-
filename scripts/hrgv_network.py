@@ -429,6 +429,8 @@ class HierarchicalRiskGatedVerificationNet(nn.Module):
         calibration_hidden_dim: int = 256,
         enable_rpg: bool = False,
         rpg_entropy_mode: str = "partitioned",
+        enable_mrpg: bool = False,
+        mrpg_between_mode: str = "monotone",
     ) -> None:
         super().__init__()
         if verifier_mode not in {"residual", "multiplicative", "disabled"}:
@@ -454,8 +456,12 @@ class HierarchicalRiskGatedVerificationNet(nn.Module):
             raise ValueError("Verifier strengths must be non-negative.")
         if enable_cgdc and enable_rpg:
             raise ValueError("CGDC and RPG cannot be enabled together.")
+        if enable_mrpg and (enable_cgdc or enable_rpg):
+            raise ValueError("M-RPG is mutually exclusive with CGDC and RPG.")
         if rpg_entropy_mode not in RPG_ENTROPY_MODES:
             raise ValueError(f"Unknown RPG entropy mode: {rpg_entropy_mode}")
+        if mrpg_between_mode not in {"monotone", "unconstrained", "disabled"}:
+            raise ValueError(f"Unknown M-RPG between mode: {mrpg_between_mode}")
 
         weights = models.EfficientNet_B0_Weights.IMAGENET1K_V1 if pretrained else None
         base_model = models.efficientnet_b0(weights=weights)
@@ -468,7 +474,9 @@ class HierarchicalRiskGatedVerificationNet(nn.Module):
         self.species_head = nn.Linear(feature_dim, num_species)
         self.enable_cgdc = enable_cgdc
         self.enable_rpg = enable_rpg
+        self.enable_mrpg = enable_mrpg
         self.rpg_entropy_mode = rpg_entropy_mode
+        self.mrpg_between_mode = mrpg_between_mode
         self.cgdc_shared_features = cgdc_shared_features
         self.cgdc_unconditional = cgdc_unconditional
         if enable_cgdc and not cgdc_shared_features:
@@ -495,13 +503,25 @@ class HierarchicalRiskGatedVerificationNet(nn.Module):
             if enable_cgdc
             else None
         )
-        gate_input_dim = feature_dim + (4 if enable_rpg else 3)
-        self.gate_network = nn.Sequential(
-            nn.Linear(gate_input_dim, gate_hidden_dim),
-            nn.ReLU(inplace=True),
-            nn.Dropout(p=0.10),
-            nn.Linear(gate_hidden_dim, 1),
-        )
+        self.gate_network = None
+        self.mrpg_base_gate_network = None
+        self.mrpg_between_coefficient = None
+        if enable_mrpg:
+            self.mrpg_base_gate_network = nn.Sequential(
+                nn.Linear(feature_dim + 2, gate_hidden_dim),
+                nn.ReLU(inplace=True),
+                nn.Dropout(p=0.10),
+                nn.Linear(gate_hidden_dim, 1),
+            )
+            self.mrpg_between_coefficient = nn.Parameter(torch.zeros(1))
+        else:
+            gate_input_dim = feature_dim + (4 if enable_rpg else 3)
+            self.gate_network = nn.Sequential(
+                nn.Linear(gate_input_dim, gate_hidden_dim),
+                nn.ReLU(inplace=True),
+                nn.Dropout(p=0.10),
+                nn.Linear(gate_hidden_dim, 1),
+            )
         self.ti_verifier_head = nn.Linear(feature_dim, 2)
         self.metallic_verifier_head = nn.Linear(feature_dim, 2)
         self.projection_head = nn.Sequential(
@@ -539,7 +559,7 @@ class HierarchicalRiskGatedVerificationNet(nn.Module):
         species_logits = self.species_head(species_features)
         direct_role_probabilities = torch.softmax(role_logits, dim=1)
         species_probabilities = torch.softmax(species_logits, dim=1)
-        if self.enable_rpg:
+        if self.enable_rpg or self.enable_mrpg:
             partition = role_partitioned_uncertainty(
                 species_probabilities, self.role_matrix, torch
             )
@@ -556,7 +576,43 @@ class HierarchicalRiskGatedVerificationNet(nn.Module):
             direct_role_probabilities, mapped_role_probabilities, torch
         )
         if self.fixed_gate is None:
-            if self.enable_rpg:
+            if self.enable_mrpg:
+                if self.mrpg_base_gate_network is None or self.mrpg_between_coefficient is None:
+                    raise RuntimeError("M-RPG gate components are not initialized.")
+                base_gate_inputs = torch.cat(
+                    [
+                        features,
+                        direct_entropy,
+                        partition["normalized_within_role_entropy"],
+                    ],
+                    dim=1,
+                )
+                normalized_between = partition["normalized_between_role_entropy"]
+                if self.detach_gate_features:
+                    base_gate_inputs = base_gate_inputs.detach()
+                    normalized_between = normalized_between.detach()
+                base_logit = self.mrpg_base_gate_network(base_gate_inputs)
+                if self.mrpg_between_mode == "monotone":
+                    gate = monotone_role_gate(
+                        base_logit,
+                        normalized_between,
+                        self.mrpg_between_coefficient,
+                        torch,
+                    )
+                    mrpg_between_coefficient = functional.softplus(
+                        self.mrpg_between_coefficient
+                    ).reshape(1, 1).expand_as(gate)
+                elif self.mrpg_between_mode == "unconstrained":
+                    mrpg_between_coefficient = self.mrpg_between_coefficient.reshape(
+                        1, 1
+                    ).expand_as(base_logit)
+                    gate = torch.sigmoid(
+                        base_logit + mrpg_between_coefficient * normalized_between
+                    )
+                else:
+                    mrpg_between_coefficient = torch.zeros_like(base_logit)
+                    gate = torch.sigmoid(base_logit)
+            elif self.enable_rpg:
                 gate_inputs = torch.cat(
                     [
                         features,
@@ -571,11 +627,23 @@ class HierarchicalRiskGatedVerificationNet(nn.Module):
                 gate_inputs = torch.cat(
                     [features, direct_entropy, mapped_entropy, expert_js_divergence], dim=1
                 )
-            if self.detach_gate_features:
-                gate_inputs = gate_inputs.detach()
-            gate = torch.sigmoid(self.gate_network(gate_inputs))
+            if not self.enable_mrpg:
+                if self.detach_gate_features:
+                    gate_inputs = gate_inputs.detach()
+                if self.gate_network is None:
+                    raise RuntimeError("Base gate network is not initialized.")
+                gate = torch.sigmoid(self.gate_network(gate_inputs))
         else:
             gate = features.new_full((features.shape[0], 1), self.fixed_gate)
+            mrpg_between_coefficient = (
+                functional.softplus(self.mrpg_between_coefficient).reshape(1, 1).expand_as(gate)
+                if self.enable_mrpg and self.mrpg_between_mode == "monotone"
+                else (
+                    self.mrpg_between_coefficient.reshape(1, 1).expand_as(gate)
+                    if self.enable_mrpg and self.mrpg_between_mode == "unconstrained"
+                    else torch.zeros_like(gate)
+                )
+            )
         fused_role_probabilities = mix_role_experts(
             direct_role_probabilities, mapped_role_probabilities, gate
         )
@@ -667,12 +735,25 @@ class HierarchicalRiskGatedVerificationNet(nn.Module):
                     "calibrated_role_probabilities": calibrated_role_probabilities,
                 }
             )
-        if self.enable_rpg:
+        if self.enable_rpg or self.enable_mrpg:
             outputs.update(
                 {
                     "total_species_entropy": partition["total_species_entropy"],
                     "between_role_entropy": partition["between_role_entropy"],
                     "within_role_entropy": partition["within_role_entropy"],
+                }
+            )
+        if self.enable_mrpg:
+            outputs.update(
+                {
+                    "within_capacity": partition["within_capacity"],
+                    "normalized_between_role_entropy": partition[
+                        "normalized_between_role_entropy"
+                    ],
+                    "normalized_within_role_entropy": partition[
+                        "normalized_within_role_entropy"
+                    ],
+                    "mrpg_between_coefficient": mrpg_between_coefficient,
                 }
             )
         return outputs

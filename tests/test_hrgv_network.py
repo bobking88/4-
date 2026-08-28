@@ -674,6 +674,48 @@ class HRGVModelTests(unittest.TestCase):
             )
         )
 
+    def test_mrpg_model_exports_capacity_normalized_diagnostics(self) -> None:
+        from hrgv_network import HierarchicalRiskGatedVerificationNet
+
+        mapping = self.build_mapping()
+        model = HierarchicalRiskGatedVerificationNet(
+            self.dependencies["models"],
+            self.build_role_matrix(mapping),
+            pretrained=False,
+            embedding_dim=8,
+            gate_hidden_dim=16,
+            enable_mrpg=True,
+        )
+        outputs = model(self.torch.randn(2, 3, 64, 64))
+
+        for key in (
+            "within_capacity",
+            "normalized_between_role_entropy",
+            "normalized_within_role_entropy",
+            "mrpg_between_coefficient",
+        ):
+            self.assertIn(key, outputs)
+            self.assertEqual(tuple(outputs[key].shape), (2, 1))
+            self.assertTrue(self.torch.isfinite(outputs[key]).all(), key)
+        self.assertTrue((outputs["normalized_between_role_entropy"] >= 0).all())
+        self.assertTrue((outputs["normalized_between_role_entropy"] <= 1).all())
+        self.assertTrue((outputs["normalized_within_role_entropy"] >= 0).all())
+        self.assertTrue((outputs["normalized_within_role_entropy"] <= 1).all())
+        self.assertTrue((outputs["mrpg_between_coefficient"] >= 0).all())
+
+    def test_mrpg_rejects_combination_with_rpg(self) -> None:
+        from hrgv_network import HierarchicalRiskGatedVerificationNet
+
+        mapping = self.build_mapping()
+        with self.assertRaisesRegex(ValueError, "M-RPG"):
+            HierarchicalRiskGatedVerificationNet(
+                self.dependencies["models"],
+                self.build_role_matrix(mapping),
+                pretrained=False,
+                enable_rpg=True,
+                enable_mrpg=True,
+            )
+
     def test_cgdc_loss_trains_adapters_and_calibration_head(self) -> None:
         from hrgv_network import (
             HRGVLossWeights,
