@@ -169,6 +169,64 @@ class RPGProbabilityPrimitiveTests(unittest.TestCase):
             without_between, self.torch.tensor([[0.0, 0.3, 0.0]])
         ))
 
+    def test_capacity_normalized_partitioned_uncertainties_are_bounded(self) -> None:
+        from hrgv_network import role_partitioned_uncertainty
+
+        species = self.torch.tensor(
+            [[0.25, 0.25, 0.50], [0.50, 0.50, 0.00]], dtype=self.torch.float32
+        )
+        role_matrix = self.torch.tensor(
+            [[1.0, 1.0, 0.0], [0.0, 0.0, 1.0]], dtype=self.torch.float32
+        )
+
+        values = role_partitioned_uncertainty(species, role_matrix, self.torch)
+
+        self.assertTrue((values["normalized_between_role_entropy"] >= 0).all())
+        self.assertTrue((values["normalized_between_role_entropy"] <= 1).all())
+        self.assertTrue((values["normalized_within_role_entropy"] >= 0).all())
+        self.assertTrue((values["normalized_within_role_entropy"] <= 1).all())
+        self.assertAlmostEqual(float(values["normalized_between_role_entropy"][0, 0]), 1.0, places=6)
+        self.assertAlmostEqual(float(values["normalized_within_role_entropy"][1, 0]), 1.0, places=6)
+
+    def test_monotone_role_gate_never_decreases_with_between_role_uncertainty(self) -> None:
+        from hrgv_network import monotone_role_gate
+
+        base_logit = self.torch.tensor([[0.20]], dtype=self.torch.float32)
+        coefficient = self.torch.tensor([0.30], dtype=self.torch.float32)
+        lower = monotone_role_gate(
+            base_logit, self.torch.tensor([[0.10]], dtype=self.torch.float32), coefficient, self.torch
+        )
+        higher = monotone_role_gate(
+            base_logit, self.torch.tensor([[0.90]], dtype=self.torch.float32), coefficient, self.torch
+        )
+
+        self.assertGreaterEqual(float(higher[0, 0]), float(lower[0, 0]))
+
+    def test_monotone_role_gate_has_nonnegative_finite_difference(self) -> None:
+        from hrgv_network import monotone_role_gate
+
+        base_logit = self.torch.tensor([[-0.40]], dtype=self.torch.float32)
+        coefficient = self.torch.tensor([-1.25], dtype=self.torch.float32)
+        uncertainty = self.torch.tensor([[0.45]], dtype=self.torch.float32)
+        step = 1e-4
+        baseline = monotone_role_gate(base_logit, uncertainty, coefficient, self.torch)
+        perturbed = monotone_role_gate(
+            base_logit, uncertainty + step, coefficient, self.torch
+        )
+
+        self.assertGreaterEqual(float((perturbed - baseline)[0, 0] / step), 0.0)
+
+    def test_role_fusion_stays_inside_coordinatewise_expert_envelope(self) -> None:
+        from hrgv_network import mix_role_experts
+
+        direct = self.torch.tensor([[0.70, 0.10, 0.10, 0.10]], dtype=self.torch.float32)
+        mapped = self.torch.tensor([[0.20, 0.40, 0.30, 0.10]], dtype=self.torch.float32)
+        fused = mix_role_experts(direct, mapped, self.torch.tensor([[0.35]]))
+
+        tolerance = 1e-6
+        self.assertTrue(self.torch.all(fused >= self.torch.minimum(direct, mapped) - tolerance))
+        self.assertTrue(self.torch.all(fused <= self.torch.maximum(direct, mapped) + tolerance))
+
 
 class CGDCProbabilityPrimitiveTests(unittest.TestCase):
     @classmethod

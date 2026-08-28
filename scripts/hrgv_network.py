@@ -63,11 +63,27 @@ def role_partitioned_uncertainty(species_probabilities, role_matrix, torch):
         conditional * conditional.clamp_min(epsilon).log()
     ).sum(dim=2)
     within = (mapped * conditional_entropy).sum(dim=1, keepdim=True)
+    role_cardinalities = matrix.sum(dim=1)
+    role_log_capacities = torch.where(
+        role_cardinalities > 1,
+        role_cardinalities.log(),
+        torch.zeros_like(role_cardinalities),
+    )
+    within_capacity = (mapped * role_log_capacities.unsqueeze(0)).sum(dim=1, keepdim=True)
+    normalized_between = between / math.log(mapped.shape[1])
+    normalized_within = torch.where(
+        within_capacity > epsilon,
+        within / within_capacity.clamp_min(epsilon),
+        torch.zeros_like(within),
+    )
     return {
         "mapped_role_probabilities": mapped,
         "total_species_entropy": total,
         "between_role_entropy": between,
         "within_role_entropy": within,
+        "within_capacity": within_capacity,
+        "normalized_between_role_entropy": normalized_between,
+        "normalized_within_role_entropy": normalized_within,
     }
 
 
@@ -95,6 +111,18 @@ def role_partitioned_gate_features(direct_entropy, partition, mode: str, torch):
     if mode == "without_between":
         return torch.cat([zeros, within, zeros], dim=1)
     return torch.cat([total, zeros, zeros], dim=1)
+
+
+def monotone_role_gate(base_logit, normalized_between, raw_coefficient, torch):
+    """Allocate direct-role evidence monotonically in normalized role ambiguity."""
+    if base_logit.ndim != 2 or base_logit.shape[1] != 1:
+        raise ValueError("base_logit must have shape [batch, 1].")
+    if normalized_between.shape != base_logit.shape:
+        raise ValueError("normalized_between must match base_logit shape.")
+    if raw_coefficient.numel() != 1:
+        raise ValueError("raw_coefficient must contain exactly one scalar.")
+    coefficient = functional.softplus(raw_coefficient).reshape(1, 1)
+    return torch.sigmoid(base_logit + coefficient * normalized_between)
 
 
 def jensen_shannon_divergence(first, second, torch):
