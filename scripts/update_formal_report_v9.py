@@ -525,9 +525,31 @@ def _add_mrpg_paired_evidence(document: Document, analysis_dir: Path) -> None:
             ]
         )
     _add_table(document, ["相对 RSG", "Macro F1 差值 [95% CI]", "目标类召回差值 [95% CI]", "Brier 差值 [95% CI]"], rows)
+    direct_rows: list[list[str]] = []
+    for configuration, label in (
+        ("mrpg_unconstrained_between", "去除单调约束"),
+        ("mrpg_without_between", "去除角色间不确定性"),
+    ):
+        direct_path = analysis_dir / f"paired_{configuration}_vs_mrpg_complete.json"
+        if not direct_path.is_file():
+            raise ValueError(f"Formal paired comparison is missing: {direct_path.name}")
+        paired = json.loads(direct_path.read_text(encoding="utf-8"))
+        macro = paired["classification"]["macro_f1"]
+        target = paired["classification"]["target_recall"]
+        brier = paired["calibration"]["brier_score"]
+        direct_rows.append(
+            [
+                label,
+                f"{_format_percent(macro['difference'])} [{_format_percent(macro['ci_low'])}, {_format_percent(macro['ci_high'])}]",
+                f"{_format_percent(target['difference'])} [{_format_percent(target['ci_low'])}, {_format_percent(target['ci_high'])}]",
+                f"{_format_percent(brier['difference'])} [{_format_percent(brier['ci_low'])}, {_format_percent(brier['ci_high'])}]",
+            ]
+        )
+    _add_body(document, "相对完整 M-RPG 的直接消融：差值定义为消融配置减去完整 M-RPG。")
+    _add_table(document, ["消融配置", "Macro F1 差值 [95% CI]", "目标类召回差值 [95% CI]", "Brier 差值 [95% CI]"], direct_rows)
     _add_body(
         document,
-        "每个区间以图片 split_group_id 聚类、随机种子与组两阶段重采样的 2,000 次 Bootstrap 得到。理论命题 M-R1 至 M-R4 不依赖实验；经验结论只以受控三随机种子均值与成对区间为准。若任何关键区间跨零，则仅报告未观察到稳定经验增益，不能以单种子、单指标或理论性质替代经验性能结论。",
+        "每个区间以图片 split_group_id 聚类、随机种子与组两阶段重采样的 2,000 次 Bootstrap 得到。理论命题 M-R1 至 M-R4 不依赖实验；经验结论只以受控三随机种子均值与成对区间为准。若完整模型与直接消融的关键区间跨零，则不能将目标类表现差异归因于单调项或角色间不确定性项。若任何关键区间跨零，则仅报告未观察到稳定经验增益，不能以单种子、单指标或理论性质替代经验性能结论。",
     )
     _add_body(
         document,

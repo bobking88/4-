@@ -140,6 +140,23 @@ class FormalReportV9EvidenceTests(unittest.TestCase):
                 ),
                 encoding="utf-8",
             )
+        for configuration in configurations[3:]:
+            (analysis_dir / f"paired_{configuration}_vs_mrpg_complete.json").write_text(
+                json.dumps(
+                    {
+                        "classification": {
+                            "macro_f1": {"difference": 0.01, "ci_low": -0.01, "ci_high": 0.02},
+                            "target_recall": {"difference": 0.02, "ci_low": -0.01, "ci_high": 0.04},
+                        },
+                        "routing_regret": {"difference": -0.01, "ci_low": -0.02, "ci_high": 0.00},
+                        "calibration": {
+                            "brier_score": {"difference": -0.01, "ci_low": -0.02, "ci_high": 0.00},
+                            "expected_calibration_error": {"difference": -0.01, "ci_low": -0.02, "ci_high": 0.00},
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
 
     def test_requires_all_formal_configurations_and_three_seeds(self) -> None:
         import sys
@@ -283,6 +300,7 @@ class FormalReportV9EvidenceTests(unittest.TestCase):
             self.assertIn("容量归一化", text)
             self.assertIn("单调直接专家分配", text)
             self.assertIn("命题 M-R3", text)
+            self.assertIn("相对完整 M-RPG", text)
             self.assertIn("不等同于工业分选", text)
 
 

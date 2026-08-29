@@ -1,0 +1,41 @@
+{
+  "training_roots": {
+    "rsg_complete": "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\training\\cgdc_formal",
+    "rpg_complete": "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\training\\rpg_formal",
+    "mrpg_complete": "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\training\\mrpg_formal",
+    "mrpg_unconstrained_between": "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\training\\mrpg_formal",
+    "mrpg_without_between": "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\training\\mrpg_formal"
+  },
+  "references": [
+    "rsg_complete",
+    "rpg_complete"
+  ],
+  "direct_mrpg_ablations": [
+    [
+      "mrpg_complete",
+      "mrpg_unconstrained_between"
+    ],
+    [
+      "mrpg_complete",
+      "mrpg_without_between"
+    ]
+  ],
+  "seeds": [
+    "20260727",
+    "20260728",
+    "20260729"
+  ],
+  "bootstrap_replicates": 2000,
+  "rng_seed": 20260828,
+  "required_configurations": [
+    "rsg_complete",
+    "rpg_complete",
+    "mrpg_complete",
+    "mrpg_unconstrained_between",
+    "mrpg_without_between"
+  ],
+  "calibration_metrics": [
+    "brier_score",
+    "expected_calibration_error"
+  ]
+}

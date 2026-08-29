@@ -1,0 +1,117 @@
+{
+  "classification": {
+    "accuracy": {
+      "label": "Accuracy",
+      "favorable_direction": 1,
+      "baseline_mean": 0.7645379023883697,
+      "comparison_mean": 0.7622014537902388,
+      "difference": -0.002336448598130869,
+      "oriented_improvement": -0.002336448598130869,
+      "ci_low": -0.01947040498442365,
+      "ci_high": 0.01636163032191067,
+      "probability_favorable": 0.375,
+      "bootstrap_replicates": 2000
+    },
+    "macro_f1": {
+      "label": "Macro F1",
+      "favorable_direction": 1,
+      "baseline_mean": 0.747550888495354,
+      "comparison_mean": 0.7439651332870693,
+      "difference": -0.0035857552082847466,
+      "oriented_improvement": -0.0035857552082847466,
+      "ci_low": -0.02136825399052883,
+      "ci_high": 0.016239209419448074,
+      "probability_favorable": 0.3445,
+      "bootstrap_replicates": 2000
+    },
+    "target_recall": {
+      "label": "Target recall",
+      "favorable_direction": 1,
+      "baseline_mean": 0.7290836653386454,
+      "comparison_mean": 0.7622841965471447,
+      "difference": 0.033200531208499307,
+      "oriented_improvement": 0.033200531208499307,
+      "ci_low": -0.014608233731739731,
+      "ci_high": 0.0796812749003984,
+      "probability_favorable": 0.9045,
+      "bootstrap_replicates": 2000
+    },
+    "target_miss_rate": {
+      "label": "Target miss rate",
+      "favorable_direction": -1,
+      "baseline_mean": 0.27091633466135456,
+      "comparison_mean": 0.23771580345285526,
+      "difference": -0.033200531208499307,
+      "oriented_improvement": 0.033200531208499307,
+      "ci_low": -0.0796812749003984,
+      "ci_high": 0.014608233731739731,
+      "probability_favorable": 0.9045,
+      "bootstrap_replicates": 2000
+    },
+    "ti_to_target_intrusion": {
+      "label": "Ti-bearing intrusion",
+      "favorable_direction": -1,
+      "baseline_mean": 0.08418194161575017,
+      "comparison_mean": 0.08825526137135098,
+      "difference": 0.00407331975560081,
+      "oriented_improvement": -0.00407331975560081,
+      "ci_low": -0.016293279022403257,
+      "ci_high": 0.02308214528173795,
+      "probability_favorable": 0.315,
+      "bootstrap_replicates": 2000
+    },
+    "metallic_to_target_intrusion": {
+      "label": "Metallic intrusion",
+      "favorable_direction": -1,
+      "baseline_mean": 0.11174242424242424,
+      "comparison_mean": 0.13825757575757575,
+      "difference": 0.026515151515151505,
+      "oriented_improvement": -0.026515151515151505,
+      "ci_low": -0.005681818181818186,
+      "ci_high": 0.060606060606060615,
+      "probability_favorable": 0.0505,
+      "bootstrap_replicates": 2000
+    }
+  },
+  "routing_regret": {
+    "difference": 0.0012805438733125645,
+    "oriented_improvement": -0.0012805438733125645,
+    "ci_low": -0.006364634001817238,
+    "ci_high": 0.008173507450674973,
+    "probability_favorable": 0.368,
+    "per_seed_difference": {
+      "20260727": 0.002710005451713396,
+      "20260728": -0.0058800809968847356,
+      "20260729": 0.007011707165109033
+    },
+    "bootstrap_replicates": 2000
+  },
+  "calibration": {
+    "brier_score": {
+      "difference": 0.004556343486058341,
+      "oriented_improvement": -0.004556343486058341,
+      "ci_low": -0.014572866978791222,
+      "ci_high": 0.02272590822231425,
+      "probability_favorable": 0.327,
+      "per_seed_difference": {
+        "20260727": -0.0076420773524549235,
+        "20260728": 0.005973989880674213,
+        "20260729": 0.015337117929955735
+      },
+      "bootstrap_replicates": 2000
+    },
+    "expected_calibration_error": {
+      "difference": 0.0017246217549325056,
+      "oriented_improvement": -0.0017246217549325056,
+      "ci_low": -0.019754216257788167,
+      "ci_high": 0.024078657100207672,
+      "probability_favorable": 0.4565,
+      "per_seed_difference": {
+        "20260727": -0.00468822274143299,
+        "20260728": -0.01558177336448599,
+        "20260729": 0.025443861370716497
+      },
+      "bootstrap_replicates": 2000
+    }
+  }
+}

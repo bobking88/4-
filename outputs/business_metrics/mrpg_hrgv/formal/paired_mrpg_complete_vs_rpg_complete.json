@@ -1,0 +1,117 @@
+{
+  "classification": {
+    "accuracy": {
+      "label": "Accuracy",
+      "favorable_direction": 1,
+      "baseline_mean": 0.7632398753894081,
+      "comparison_mean": 0.7577881619937694,
+      "difference": -0.005451713395638658,
+      "oriented_improvement": -0.005451713395638658,
+      "ci_low": -0.01895768431983388,
+      "ci_high": 0.00804776739356176,
+      "probability_favorable": 0.2025,
+      "bootstrap_replicates": 2000
+    },
+    "macro_f1": {
+      "label": "Macro F1",
+      "favorable_direction": 1,
+      "baseline_mean": 0.7452187994261055,
+      "comparison_mean": 0.7434486531302279,
+      "difference": -0.0017701462958775727,
+      "oriented_improvement": -0.0017701462958775727,
+      "ci_low": -0.016598441810998146,
+      "ci_high": 0.013324992142604962,
+      "probability_favorable": 0.4045,
+      "bootstrap_replicates": 2000
+    },
+    "target_recall": {
+      "label": "Target recall",
+      "favorable_direction": 1,
+      "baseline_mean": 0.749003984063745,
+      "comparison_mean": 0.7583001328021248,
+      "difference": 0.009296148738379806,
+      "oriented_improvement": 0.009296148738379806,
+      "ci_low": -0.019920318725099584,
+      "ci_high": 0.03718459495351922,
+      "probability_favorable": 0.7285,
+      "bootstrap_replicates": 2000
+    },
+    "target_miss_rate": {
+      "label": "Target miss rate",
+      "favorable_direction": -1,
+      "baseline_mean": 0.250996015936255,
+      "comparison_mean": 0.24169986719787517,
+      "difference": -0.009296148738379806,
+      "oriented_improvement": 0.009296148738379806,
+      "ci_low": -0.03718459495351922,
+      "ci_high": 0.019920318725099584,
+      "probability_favorable": 0.7285,
+      "bootstrap_replicates": 2000
+    },
+    "ti_to_target_intrusion": {
+      "label": "Ti-bearing intrusion",
+      "favorable_direction": -1,
+      "baseline_mean": 0.09300746775288526,
+      "comparison_mean": 0.10047522063815342,
+      "difference": 0.0074677528852681585,
+      "oriented_improvement": -0.0074677528852681585,
+      "ci_low": -0.01291581805838425,
+      "ci_high": 0.027834351663272233,
+      "probability_favorable": 0.2185,
+      "bootstrap_replicates": 2000
+    },
+    "metallic_to_target_intrusion": {
+      "label": "Metallic intrusion",
+      "favorable_direction": -1,
+      "baseline_mean": 0.11553030303030302,
+      "comparison_mean": 0.10795454545454546,
+      "difference": -0.007575757575757569,
+      "oriented_improvement": 0.007575757575757569,
+      "ci_low": -0.04356060606060606,
+      "ci_high": 0.026515151515151516,
+      "probability_favorable": 0.6425,
+      "bootstrap_replicates": 2000
+    }
+  },
+  "routing_regret": {
+    "difference": -0.0011266765316718583,
+    "oriented_improvement": 0.0011266765316718583,
+    "ci_low": -0.014677177433800623,
+    "ci_high": 0.011960652557113182,
+    "probability_favorable": 0.5655,
+    "per_seed_difference": {
+      "20260727": -0.01528261214953271,
+      "20260728": 0.01208621495327103,
+      "20260729": -0.00018363239875389395
+    },
+    "bootstrap_replicates": 2000
+  },
+  "calibration": {
+    "brier_score": {
+      "difference": 0.0007076401057494001,
+      "oriented_improvement": -0.0007076401057494001,
+      "ci_low": -0.025709942961508393,
+      "ci_high": 0.02779454921463351,
+      "probability_favorable": 0.493,
+      "per_seed_difference": {
+        "20260727": -0.019622897804295658,
+        "20260728": 0.02769956512949001,
+        "20260729": -0.005953747007946153
+      },
+      "bootstrap_replicates": 2000
+    },
+    "expected_calibration_error": {
+      "difference": 0.015944323208722754,
+      "oriented_improvement": -0.015944323208722754,
+      "ci_low": -0.018096253699376993,
+      "ci_high": 0.04830925596443407,
+      "probability_favorable": 0.2055,
+      "per_seed_difference": {
+        "20260727": -0.017427988317756993,
+        "20260728": 0.05127419003115269,
+        "20260729": 0.013986767912772563
+      },
+      "bootstrap_replicates": 2000
+    }
+  }
+}

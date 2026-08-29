@@ -25,6 +25,17 @@ class MRPGAnalysisTests(unittest.TestCase):
             },
         )
 
+    def test_mrpg_analysis_registers_direct_component_ablations(self) -> None:
+        from analyze_mrpg_hrgv_experiments import DIRECT_MRPG_ABLATIONS
+
+        self.assertEqual(
+            DIRECT_MRPG_ABLATIONS,
+            (
+                ("mrpg_complete", "mrpg_unconstrained_between"),
+                ("mrpg_complete", "mrpg_without_between"),
+            ),
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

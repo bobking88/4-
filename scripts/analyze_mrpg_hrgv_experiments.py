@@ -32,6 +32,10 @@ REQUIRED_CONFIGURATIONS = (
 )
 MRPG_CONFIGURATIONS = REQUIRED_CONFIGURATIONS[2:]
 REFERENCE_CONFIGURATIONS = REQUIRED_CONFIGURATIONS[:2]
+DIRECT_MRPG_ABLATIONS = (
+    ("mrpg_complete", "mrpg_unconstrained_between"),
+    ("mrpg_complete", "mrpg_without_between"),
+)
 
 
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
@@ -140,12 +144,45 @@ def main(argv: Sequence[str] | None = None) -> None:
                 args.bootstrap_replicates,
                 args.rng_seed,
             )
+    for reference_name, comparison_name in DIRECT_MRPG_ABLATIONS:
+        reference = loaded[reference_name]
+        comparison = loaded[comparison_name]
+        for metric in metric_names:
+            baseline = reference["summary"][metric]
+            candidate = comparison["summary"][metric]
+            if baseline["mean"] is None or candidate["mean"] is None:
+                continue
+            difference = float(candidate["mean"]) - float(baseline["mean"])
+            direction = FAVORABLE_DIRECTIONS.get(metric, -1)
+            delta_rows.append(
+                {
+                    "reference": reference_name,
+                    "comparison": comparison_name,
+                    "metric": metric,
+                    "reference_mean": baseline["mean"],
+                    "comparison_mean": candidate["mean"],
+                    "difference": difference,
+                    "favorable_direction": direction,
+                    "oriented_improvement": difference * direction,
+                }
+            )
+        _write_pairwise_analysis(
+            args.output_dir,
+            reference_name,
+            comparison_name,
+            reference,
+            comparison,
+            seeds,
+            args.bootstrap_replicates,
+            args.rng_seed,
+        )
     write_csv(args.output_dir / "mrpg_ablation_deltas.csv", delta_rows)
     write_json(
         args.output_dir / "analysis_manifest.json",
         {
             "training_roots": {name: str(path.resolve()) for name, path in roots.items()},
             "references": list(REFERENCE_CONFIGURATIONS),
+            "direct_mrpg_ablations": [list(pair) for pair in DIRECT_MRPG_ABLATIONS],
             "seeds": list(seeds),
             "bootstrap_replicates": args.bootstrap_replicates,
             "rng_seed": args.rng_seed,
