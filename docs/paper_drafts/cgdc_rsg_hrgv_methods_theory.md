@@ -1,14 +1,14 @@
-# M-RPG-HRGV-Net: Methods and Theoretical Statements
+# RSG-HRGV-Net with M-RPG Extension: Methods and Theoretical Statements
 
 ## Intended Paper Positioning
 
 This paper studies closed-set visual recognition of vanadium-titanium-magnetite-related minerals from publicly available mineral specimen images. It does not infer V, Ti, or Fe grade, recovery, industrial sorting performance, or mineral chemistry from RGB images.
 
-The central contribution is a capacity-normalized monotone role-partitioned granularity gate for a fixed four-role task. It uses the fixed species-to-role mapping to separate species uncertainty into between-role and within-role components, normalizes each term by its available support, and constrains the direct-role evidence allocation to be nondecreasing in role-relevant uncertainty. The model is evaluated as an extension of RSG-HRGV, using the same data split, ImageNet-pretrained EfficientNet-B0 backbone, and three registered random seeds.
+The primary network is RSG-HRGV: a cross-granularity direct-role/species-mapped-role fusion network with risk-supervised gating and residual verifiers. M-RPG is a theory-driven extension for a fixed four-role task. It separates species uncertainty into between-role and within-role components, normalizes each term by its available support, and constrains direct-role evidence allocation to be nondecreasing in role-relevant uncertainty. Both are evaluated using the same data split, ImageNet-pretrained EfficientNet-B0 backbone, and three registered random seeds.
 
 ### Related-work boundary
 
-CGDC must not be presented as a new generic disagreement-calibration mechanism. HiRoC (2026, doi:10.1007/s44443-026-01163-x) also uses Jensen-Shannon disagreement, a bounded gate, and residual decision-space correction, albeit for multimodal conversational emotion recognition rather than a deterministic mineral-species-to-role hierarchy. The CGDC experiment is therefore retained as a controlled reliability ablation only. Original RPG-HRGV is retained as the decomposition baseline. M-RPG-HRGV shifts the paper's primary methodological focus to capacity-normalized uncertainty and the monotone role-ambiguity constraint under the frozen mineral species-to-role partition.
+CGDC must not be presented as a new generic disagreement-calibration mechanism. HiRoC (2026, doi:10.1007/s44443-026-01163-x) also uses Jensen-Shannon disagreement, a bounded gate, and residual decision-space correction, albeit for multimodal conversational emotion recognition rather than a deterministic mineral-species-to-role hierarchy. The CGDC experiment is therefore retained as a controlled reliability ablation only. Original RPG-HRGV is retained as the decomposition baseline. M-RPG-HRGV is reported as a theory-driven target-recall extension, not as a replacement primary network: its overall Macro F1 and direct-ablation intervals do not establish a stable general gain under the present protocol.
 
 ## 1. Problem and Label Granularity
 
@@ -124,9 +124,13 @@ Thus M-RPG cannot reduce direct-role allocation as between-role uncertainty rise
 
 Because `g_M` is in `[0,1]`, each coordinate of `p_f` lies between the corresponding coordinates of `p_d` and `p_m`; the fused posterior stays on the four-role simplex. The M-RPG gate changes only relative evidence allocation and cannot synthesize a posterior outside both experts' coordinatewise envelope.
 
-### Registered M-RPG experiments
+### Formal M-RPG evidence and interpretation
 
-The M-RPG protocol uses the same frozen split, augmentations, backbone, optimizer, residual verifiers, RSG regret supervision, and seeds as the RPG protocol. It registers three configurations: (i) `mrpg_complete`, (ii) `mrpg_unconstrained_between`, which replaces `softplus(beta)` with a signed scalar, and (iii) `mrpg_without_between`, which removes only the between-role term. Each configuration is compared with both RSG complete and RPG complete using seed-and-`split_group_id` paired Bootstrap intervals. No M-RPG performance conclusion is stated until all nine runs and the registered analysis are complete.
+The M-RPG protocol uses the same frozen split, augmentations, backbone, optimizer, residual verifiers, RSG regret supervision, and seeds as the RPG protocol. It compares (i) `mrpg_complete`, (ii) `mrpg_unconstrained_between`, which replaces `softplus(beta)` with a signed scalar, and (iii) `mrpg_without_between`, which removes only the between-role term.
+
+Across three seeds, M-RPG obtains 74.34% Macro F1 and 75.83% target-class recall, versus 74.76% and 72.91% for RSG. The paired cluster Bootstrap difference in target recall is +2.92 percentage points with 95% CI [0.13, 5.84], while Macro F1 is -0.41 points with CI [-2.16, 1.30] and Brier difference is inconclusive. Thus the current evidence supports a target-recall-oriented observation, not a general classification or calibration superiority claim.
+
+The direct ablations are also inconclusive: compared with M-RPG, removing monotonicity changes target recall by -0.27 points [ -2.92, 2.52 ], and removing the between-role input changes it by +0.40 points [ -3.45, 5.18 ]. Therefore M-R3 remains a formal guarantee of the parameterization, but the present data do not isolate a stable empirical benefit of its monotone term. This limitation is carried into the paper rather than hidden.
 
 ## 6. Disagreement-Triggered Posterior Calibration (Controlled Ablation)
 
@@ -178,4 +182,4 @@ The registered report includes Accuracy, Macro F1, target recall, Ti-bearing-neg
 
 ## 9. Claim Boundary
 
-Formula-level propositions R1-R3, M-R1-M-R4, and P1-P4 are exact properties of the implemented network. Any empirical advantage of RPG, M-RPG, decomposition, or calibration is limited to the formal public-specimen four-role protocol and must be stated only when the corresponding paired confidence interval supports it. The stage-conditioned beneficiation decision graph and reject-to-test decision theory remain future work because the current project contains no operating-stage, grade, recovery, material-flow, or assay-cost data.
+Formula-level propositions R1-R3, M-R1-M-R4, and P1-P4 are exact properties of the implemented network. The formal M-RPG target-recall interval is limited to the public-specimen four-role protocol; it does not establish isolated component causality or a general Macro F1/calibration gain. Any empirical advantage of RPG, M-RPG, decomposition, or calibration must be stated only when the corresponding paired confidence interval supports it. The stage-conditioned beneficiation decision graph and reject-to-test decision theory remain future work because the current project contains no operating-stage, grade, recovery, material-flow, or assay-cost data.
