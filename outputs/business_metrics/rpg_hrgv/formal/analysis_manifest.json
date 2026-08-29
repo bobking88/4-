@@ -1,0 +1,28 @@
+{
+  "training_roots": {
+    "rsg_complete": "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\training\\cgdc_formal",
+    "rpg_complete": "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\training\\rpg_formal",
+    "rpg_without_within": "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\training\\rpg_formal",
+    "rpg_without_between": "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\training\\rpg_formal",
+    "rpg_total_entropy_only": "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\training\\rpg_formal"
+  },
+  "reference": "rsg_complete",
+  "seeds": [
+    "20260727",
+    "20260728",
+    "20260729"
+  ],
+  "bootstrap_replicates": 2000,
+  "rng_seed": 20260827,
+  "required_configurations": [
+    "rsg_complete",
+    "rpg_complete",
+    "rpg_without_within",
+    "rpg_without_between",
+    "rpg_total_entropy_only"
+  ],
+  "calibration_metrics": [
+    "brier_score",
+    "expected_calibration_error"
+  ]
+}
