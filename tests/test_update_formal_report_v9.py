@@ -97,6 +97,50 @@ class FormalReportV9EvidenceTests(unittest.TestCase):
                 encoding="utf-8",
             )
 
+    @staticmethod
+    def _write_complete_mrpg_evidence(analysis_dir: Path) -> None:
+        configurations = (
+            "rsg_complete",
+            "rpg_complete",
+            "mrpg_complete",
+            "mrpg_unconstrained_between",
+            "mrpg_without_between",
+        )
+        metrics = (
+            "accuracy",
+            "macro_f1",
+            "target_recall",
+            "brier_score",
+            "expected_calibration_error",
+        )
+        summary = {
+            configuration: {
+                metric: {"mean": 0.70, "sample_std": 0.01, "values": [0.69, 0.70, 0.71]}
+                for metric in metrics
+            }
+            for configuration in configurations
+        }
+        (analysis_dir / "mrpg_three_seed_summary.json").write_text(
+            json.dumps(summary), encoding="utf-8"
+        )
+        for configuration in configurations[2:]:
+            (analysis_dir / f"paired_{configuration}_vs_rsg_complete.json").write_text(
+                json.dumps(
+                    {
+                        "classification": {
+                            "macro_f1": {"difference": 0.01, "ci_low": -0.01, "ci_high": 0.02},
+                            "target_recall": {"difference": 0.02, "ci_low": -0.01, "ci_high": 0.04},
+                        },
+                        "routing_regret": {"difference": -0.01, "ci_low": -0.02, "ci_high": 0.00},
+                        "calibration": {
+                            "brier_score": {"difference": -0.01, "ci_low": -0.02, "ci_high": 0.00},
+                            "expected_calibration_error": {"difference": -0.01, "ci_low": -0.02, "ci_high": 0.00},
+                        },
+                    }
+                ),
+                encoding="utf-8",
+            )
+
     def test_requires_all_formal_configurations_and_three_seeds(self) -> None:
         import sys
 
@@ -210,6 +254,35 @@ class FormalReportV9EvidenceTests(unittest.TestCase):
             self.assertIn("H(S)=H(R)+H(S|R)", text)
             self.assertIn("角色间不确定性", text)
             self.assertIn("角色内不确定性", text)
+            self.assertIn("不等同于工业分选", text)
+
+    def test_appends_mrpg_appendix_with_normalization_and_monotonicity(self) -> None:
+        import sys
+
+        sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
+        from update_formal_report_v9 import update_report
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_root = Path(temp_dir)
+            source = temp_root / "source.docx"
+            output = temp_root / "output.docx"
+            cgdc_dir = temp_root / "cgdc"
+            mrpg_dir = temp_root / "mrpg"
+            cgdc_dir.mkdir()
+            mrpg_dir.mkdir()
+            self._write_complete_evidence(cgdc_dir)
+            self._write_complete_mrpg_evidence(mrpg_dir)
+            Document().save(source)
+
+            update_report(source, output, cgdc_dir, mrpg_analysis_dir=mrpg_dir)
+            update_report(output, output, cgdc_dir, mrpg_analysis_dir=mrpg_dir)
+
+            rendered = Document(output)
+            text = "\n".join(paragraph.text for paragraph in rendered.paragraphs)
+            self.assertEqual(text.count("附录 F M-RPG-HRGV 容量归一化单调门控理论与实验"), 1)
+            self.assertIn("容量归一化", text)
+            self.assertIn("单调直接专家分配", text)
+            self.assertIn("命题 M-R3", text)
             self.assertIn("不等同于工业分选", text)
 
 
