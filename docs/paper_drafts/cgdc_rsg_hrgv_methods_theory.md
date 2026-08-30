@@ -132,6 +132,12 @@ Across three seeds, M-RPG obtains 74.34% Macro F1 and 75.83% target-class recall
 
 The direct ablations are also inconclusive: compared with M-RPG, removing monotonicity changes target recall by -0.27 points [ -2.92, 2.52 ], and removing the between-role input changes it by +0.40 points [ -3.45, 5.18 ]. Therefore M-R3 remains a formal guarantee of the parameterization, but the present data do not isolate a stable empirical benefit of its monotone term. This limitation is carried into the paper rather than hidden.
 
+### Registered five-seed extension
+
+Two additional pre-registered seeds (20260730 and 20260731) were run without changing the frozen split, backbone, augmentation, optimizer, RSG residual verifier, or M-RPG formulas. Combining them with the original three seeds, M-RPG obtains 74.03% Macro F1 and 73.47% target-class recall, versus 74.01% and 72.35% for RSG. The paired split-group clustered Bootstrap target-recall difference is +1.12 percentage points with 95% CI [-1.83, 3.90]; Macro F1 is +0.02 points with CI [-1.44, 1.49]. The Ti-bearing-to-target intrusion difference is +0.41 points with CI [-1.79, 2.81], the metallic-to-target intrusion difference is -1.48 points with CI [-5.34, 2.16], and Brier/ECE intervals also cross zero.
+
+Accordingly, the three-seed target-recall observation does not persist as a stable five-seed empirical advantage. The paper may retain M-RPG as a theory-constrained extension with exact propositions M-R1--M-R4 and fully reported negative evidence, but it must not claim target-recall, overall classification, intrusion-control, or calibration superiority over RSG under the current public-specimen protocol.
+
 ## 6. Disagreement-Triggered Posterior Calibration (Controlled Ablation)
 
 The Jensen-Shannon disagreement is
@@ -182,4 +188,4 @@ The registered report includes Accuracy, Macro F1, target recall, Ti-bearing-neg
 
 ## 9. Claim Boundary
 
-Formula-level propositions R1-R3, M-R1-M-R4, and P1-P4 are exact properties of the implemented network. The formal M-RPG target-recall interval is limited to the public-specimen four-role protocol; it does not establish isolated component causality or a general Macro F1/calibration gain. Any empirical advantage of RPG, M-RPG, decomposition, or calibration must be stated only when the corresponding paired confidence interval supports it. The stage-conditioned beneficiation decision graph and reject-to-test decision theory remain future work because the current project contains no operating-stage, grade, recovery, material-flow, or assay-cost data.
+Formula-level propositions R1-R3, M-R1-M-R4, and P1-P4 are exact properties of the implemented network. The registered five-seed extension does not establish stable M-RPG gains in target recall, Macro F1, target intrusion, or calibration, and the direct ablations do not establish isolated component causality. Any empirical advantage of RPG, M-RPG, decomposition, or calibration must be stated only when the corresponding paired confidence interval supports it. The stage-conditioned beneficiation decision graph and reject-to-test decision theory remain future work because the current project contains no operating-stage, grade, recovery, material-flow, or assay-cost data.

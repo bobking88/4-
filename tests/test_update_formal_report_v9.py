@@ -158,6 +158,48 @@ class FormalReportV9EvidenceTests(unittest.TestCase):
                 encoding="utf-8",
             )
 
+    @staticmethod
+    def _write_complete_five_seed_evidence(analysis_dir: Path) -> None:
+        metrics = (
+            "accuracy",
+            "macro_f1",
+            "target_recall",
+            "ti_to_target_intrusion_rate",
+            "metallic_to_target_intrusion_rate",
+            "brier_score",
+            "expected_calibration_error",
+        )
+        summary = {
+            configuration: {
+                metric: {
+                    "mean": 0.70,
+                    "sample_std": 0.01,
+                    "values": [0.68, 0.69, 0.70, 0.71, 0.72],
+                }
+                for metric in metrics
+            }
+            for configuration in ("rsg_complete", "mrpg_complete")
+        }
+        (analysis_dir / "five_seed_summary.json").write_text(
+            json.dumps(summary), encoding="utf-8"
+        )
+        (analysis_dir / "paired_mrpg_complete_vs_rsg_complete.json").write_text(
+            json.dumps(
+                {
+                    "classification": {
+                        "macro_f1": {"difference": 0.01, "ci_low": -0.01, "ci_high": 0.02},
+                        "target_recall": {"difference": 0.02, "ci_low": -0.01, "ci_high": 0.04},
+                        "ti_to_target_intrusion": {"difference": 0.01, "ci_low": -0.02, "ci_high": 0.03},
+                        "metallic_to_target_intrusion": {"difference": -0.01, "ci_low": -0.04, "ci_high": 0.02},
+                    },
+                    "calibration": {
+                        "brier_score": {"difference": -0.01, "ci_low": -0.02, "ci_high": 0.00},
+                        "expected_calibration_error": {"difference": -0.01, "ci_low": -0.02, "ci_high": 0.00},
+                    },
+                }
+            ),
+            encoding="utf-8",
+        )
     def test_requires_all_formal_configurations_and_three_seeds(self) -> None:
         import sys
 
@@ -302,6 +344,34 @@ class FormalReportV9EvidenceTests(unittest.TestCase):
             self.assertIn("命题 M-R3", text)
             self.assertIn("相对完整 M-RPG", text)
             self.assertIn("不等同于工业分选", text)
+
+    def test_appends_five_seed_extension_appendix_once(self) -> None:
+        import sys
+
+        sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
+        from update_formal_report_v9 import update_report
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_root = Path(temp_dir)
+            source = temp_root / "source.docx"
+            output = temp_root / "output.docx"
+            cgdc_dir = temp_root / "cgdc"
+            extension_dir = temp_root / "extension"
+            cgdc_dir.mkdir()
+            extension_dir.mkdir()
+            self._write_complete_evidence(cgdc_dir)
+            self._write_complete_five_seed_evidence(extension_dir)
+            Document().save(source)
+
+            update_report(source, output, cgdc_dir, five_seed_analysis_dir=extension_dir)
+            update_report(output, output, cgdc_dir, five_seed_analysis_dir=extension_dir)
+
+            rendered = Document(output)
+            text = "\n".join(paragraph.text for paragraph in rendered.paragraphs)
+            self.assertEqual(text.count("附录 G M-RPG-HRGV 五随机种子扩展验证"), 1)
+            self.assertIn("预注册的两随机种子扩展", text)
+            self.assertIn("未观察到 M-RPG 相对 RSG 的稳定经验优势", text)
+            self.assertIn("目标类召回", text)
 
 
 if __name__ == "__main__":

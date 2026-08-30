@@ -1,0 +1,43 @@
+{
+  "protocol": "registered_two_seed_extension_combined_with_original_three_seed_formal_runs",
+  "configurations": [
+    "rsg_complete",
+    "mrpg_complete"
+  ],
+  "reference": "rsg_complete",
+  "seeds": [
+    "20260727",
+    "20260728",
+    "20260729",
+    "20260730",
+    "20260731"
+  ],
+  "rsg_original_training_root": "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\training\\cgdc_formal",
+  "mrpg_original_training_root": "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\training\\mrpg_formal",
+  "extension_training_root": "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\training\\target_recall_extension",
+  "bootstrap_replicates": 5000,
+  "rng_seed": 20260830,
+  "classification_metrics": [
+    "accuracy",
+    "macro_f1",
+    "target_recall",
+    "target_miss_rate",
+    "ti_to_target_intrusion_rate",
+    "metallic_to_target_intrusion_rate"
+  ],
+  "routing_metrics": [
+    "direct_accuracy",
+    "mapped_accuracy",
+    "fused_accuracy",
+    "oracle_accuracy",
+    "expert_prediction_disagreement_rate",
+    "one_right_one_wrong_rate",
+    "one_right_gate_selection_accuracy",
+    "mean_routing_regret_nll",
+    "complementarity_recovery"
+  ],
+  "calibration_metrics": [
+    "brier_score",
+    "expected_calibration_error"
+  ]
+}

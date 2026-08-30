@@ -2,7 +2,7 @@
 
 ## 1. One-Sentence Argument
 
-In closed-set four-role recognition of vanadium-titanium-magnetite-related minerals from public specimen images, we study an auditable cross-granularity risk-gated network and show that a capacity-normalized monotone role-partitioned extension improves target-class recall under the registered protocol, while reporting the limits of its overall and component-level evidence.
+In closed-set four-role recognition of vanadium-titanium-magnetite-related minerals from public specimen images, we study an auditable cross-granularity risk-gated network and a capacity-normalized monotone role-partitioned extension, then use registered multi-seed experiments to distinguish its exact theoretical constraints from empirical effects not yet shown to be stable.
 
 ## 2. Terminology Ledger
 
@@ -25,12 +25,12 @@ In closed-set four-role recognition of vanadium-titanium-magnetite-related miner
 - HRGV-Net retains both a direct-role posterior and a species-mapped-role posterior, then fuses them with a constrained gate.
 - RPG preserves the raw entropy identity `H(S|x)=H(R|x)+H(S|R,x)` under the frozen mapping.
 - M-RPG preserves the raw identity, bounds the normalized uncertainty inputs in `[0,1]`, gives a nonnegative derivative of direct-expert allocation with respect to between-role uncertainty, and keeps the fused posterior in the expert envelope.
-- In the registered three-seed comparison, M-RPG target recall was 75.83% versus 72.91% for RSG. The paired clustered Bootstrap difference was +2.92 percentage points with 95% CI [0.13, 5.84].
+- In the registered five-seed extension, M-RPG target recall was 73.47% versus 72.35% for RSG; the paired clustered Bootstrap difference was +1.12 percentage points with 95% CI [-1.83, 3.90].
 
 ### Evidence that must be stated as inconclusive
 
-- M-RPG Macro F1 was 74.34% versus 74.76% for RSG; the difference was -0.41 percentage points with 95% CI [-2.16, 1.30].
-- The M-RPG versus RSG Brier-score interval crossed zero.
+- In the five-seed extension, M-RPG Macro F1 was 74.03% versus 74.01% for RSG; the difference was +0.02 percentage points with 95% CI [-1.44, 1.49].
+- Five-seed target recall, Ti-bearing and metallic target-intrusion, Brier-score, and ECE intervals all crossed zero.
 - Direct M-RPG ablations did not isolate a stable empirical contribution of the monotone coefficient or between-role uncertainty input.
 - RSG versus the no-regret-gate HRGV reference did not show a stable Macro F1 or target-recall advantage in the current three-seed Bootstrap analysis.
 
@@ -51,7 +51,7 @@ In closed-set four-role recognition of vanadium-titanium-magnetite-related miner
 1. State the narrow problem: visual role recognition from public specimen images, not grade or industrial sorting.
 2. Identify the data problem: mixed specimens, fine-grained labels mapped to coarse roles, duplicate and source leakage risks.
 3. Identify the modeling problem: direct role prediction and species-derived role evidence may disagree; a single entropy conflates role-relevant and within-role ambiguity.
-4. State three bounded contributions: auditable dataset protocol; HRGV/RSG architecture; M-RPG theory and target-recall observation with direct-ablation limits.
+4. State three bounded contributions: auditable dataset protocol; HRGV/RSG architecture; M-RPG theory with exact constraints and registered multi-seed falsification of an unqualified performance claim.
 
 ### Methods
 
@@ -65,22 +65,22 @@ In closed-set four-role recognition of vanadium-titanium-magnetite-related miner
 1. Dataset composition and leakage-control evidence.
 2. Baseline and role-risk metrics, with confusion patterns.
 3. RSG formal comparison: retain confidence intervals that cross zero.
-4. RPG and M-RPG formal comparisons: show target-recall observation and all inconclusive overall/component effects together.
+4. RPG and M-RPG formal comparisons: show the three-seed trend, five-seed extension, and all inconclusive overall/component effects together.
 5. Failure modes: mixed specimens, proxy minerals, class-internal visual variability, and public-image source bias.
 
 ### Discussion
 
-1. Interpret target-recall observation as a risk-oriented effect under this fixed protocol, not a broad classification win.
+1. Explain that the preliminary target-recall trend was not stable after the five-seed extension, while the theory still gives interpretable constraints on the network.
 2. Explain why formula-level monotonicity does not imply isolated empirical superiority.
 3. Contrast a public-specimen image task with actual mineral processing data needs.
 4. State the required next evidence: source-held-out and controlled real-image tests, expert visual audit, and a pre-registered stronger baseline comparison.
 
 ## 5. Pre-Submission Gate
 
-The current report can retain the full M-RPG appendix. A paper claiming algorithmic advantage should not be submitted until at least one of the following is complete:
+The current report can retain the full M-RPG appendix as a theory-and-evidence record. A paper claiming algorithmic advantage should not be submitted until at least one of the following is complete:
 
-1. A pre-registered five-seed comparison of RSG/M-RPG against the matched HRGV reference, with target-recall and target-intrusion outcomes reported together.
-2. A source-held-out evaluation that uses a defensible source or photographer grouping and reports the resulting confidence intervals.
-3. A small, independently curated real-specimen external set with expert labels, used only as an external test and not mixed into the public-image split.
+1. A source-held-out evaluation that uses a defensible source or photographer grouping and reports the resulting confidence intervals.
+2. A small, independently curated real-specimen external set with expert labels, used only as an external test and not mixed into the public-image split.
+3. A reformulated method whose direct ablations identify a stable contribution beyond the current deterministic M-RPG constraints.
 
-The most practical next experiment is item 1: it reuses the current split and code, has no new image-collection burden, and can determine whether the target-recall observation persists beyond the registered three seeds. Item 2 should follow if provenance fields are sufficiently complete.
+The five-seed extension is complete and did not confirm a stable M-RPG advantage. The most practical next experiment is item 1: it tests whether the public-image result survives a provenance shift without collecting new images. Item 2 should follow if an independently curated set can be obtained; otherwise, the first paper should be positioned as a rigorous technical-report-derived methods and reproducibility study rather than an algorithm-superiority paper.

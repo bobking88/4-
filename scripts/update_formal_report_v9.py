@@ -22,12 +22,16 @@ FORMAL_SEEDS = ("20260727", "20260728", "20260729")
 APPENDIX_HEADING = "附录 D CGDC-RSG-HRGV 网络理论与实验"
 RPG_APPENDIX_HEADING = "附录 E RPG-HRGV 角色分区不确定性门控理论与实验"
 MRPG_APPENDIX_HEADING = "附录 F M-RPG-HRGV 容量归一化单调门控理论与实验"
+FIVE_SEED_APPENDIX_HEADING = "附录 G M-RPG-HRGV 五随机种子扩展验证"
 ROOT = Path(__file__).resolve().parents[1]
 FIGURE_PATH = ROOT / "outputs" / "paper_figures" / "cgdc_rsg_hrgv_architecture.png"
 RPG_FIGURE_PATH = ROOT / "outputs" / "paper_figures" / "rpg_hrgv_architecture.png"
 MRPG_FIGURE_PATH = ROOT / "结题" / "图_MRPG-HRGV-Net_网络结构与理论性质.png"
 DEFAULT_ANALYSIS_DIR = ROOT / "outputs" / "business_metrics" / "cgdc_rsg_hrgv" / "formal"
 DEFAULT_RPG_ANALYSIS_DIR = ROOT / "outputs" / "business_metrics" / "rpg_hrgv" / "formal"
+DEFAULT_FIVE_SEED_ANALYSIS_DIR = (
+    ROOT / "outputs" / "business_metrics" / "target_recall_extension" / "five_seed"
+)
 FORMULA_DIR = ROOT / "outputs" / "report_assets_v9"
 RPG_FORMAL_CONFIGURATIONS = (
     "rsg_complete",
@@ -43,6 +47,8 @@ MRPG_FORMAL_CONFIGURATIONS = (
     "mrpg_unconstrained_between",
     "mrpg_without_between",
 )
+FIVE_SEED_CONFIGURATIONS = ("rsg_complete", "mrpg_complete")
+FIVE_SEEDS = ("20260727", "20260728", "20260729", "20260730", "20260731")
 
 
 def load_formal_cgdc_evidence(analysis_dir: Path) -> dict[str, object]:
@@ -88,6 +94,35 @@ def load_formal_mrpg_evidence(analysis_dir: Path) -> dict[str, object]:
         if len(values) != len(FORMAL_SEEDS):
             raise ValueError("Formal M-RPG evidence must contain three registered seeds.")
     return summary
+
+
+def load_five_seed_extension_evidence(analysis_dir: Path) -> tuple[dict[str, object], dict[str, object]]:
+    """Load the registered five-seed extension summary and paired comparison."""
+    summary_path = analysis_dir / "five_seed_summary.json"
+    paired_path = analysis_dir / "paired_mrpg_complete_vs_rsg_complete.json"
+    if not summary_path.is_file() or not paired_path.is_file():
+        raise ValueError("Five-seed extension evidence is incomplete.")
+    summary = json.loads(summary_path.read_text(encoding="utf-8"))
+    if set(summary) != set(FIVE_SEED_CONFIGURATIONS):
+        raise ValueError("Five-seed extension must contain RSG and M-RPG only.")
+    for configuration in FIVE_SEED_CONFIGURATIONS:
+        values = summary[configuration].get("macro_f1", {}).get("values", [])
+        if len(values) != len(FIVE_SEEDS):
+            raise ValueError("Five-seed extension evidence must contain five registered seeds.")
+    paired = json.loads(paired_path.read_text(encoding="utf-8"))
+    required = {
+        "classification": {
+            "macro_f1",
+            "target_recall",
+            "ti_to_target_intrusion",
+            "metallic_to_target_intrusion",
+        },
+        "calibration": {"brier_score", "expected_calibration_error"},
+    }
+    for section, keys in required.items():
+        if not keys <= set(paired.get(section, {})):
+            raise ValueError(f"Five-seed paired evidence lacks required {section} metrics.")
+    return summary, paired
 
 
 def _add_body(document: Document, text: str) -> None:
@@ -557,12 +592,73 @@ def _add_mrpg_paired_evidence(document: Document, analysis_dir: Path) -> None:
     )
 
 
+def _add_five_seed_extension(document: Document, evidence: tuple[dict[str, object], dict[str, object]]) -> None:
+    summary, paired = evidence
+    document.add_heading("G.1 预注册的两随机种子扩展", level=2)
+    _add_body(
+        document,
+        "为检验三随机种子观察到的目标类召回趋势是否稳健，在不改变固定数据划分、ImageNet 预训练 EfficientNet-B0 主干、RSG 残差验证器、优化器、图像增强、训练预算和 M-RPG 公式的前提下，预先登记新增随机种子 20260730 与 20260731。该附录将新增两次训练与原三次正式训练合并为五随机种子比较；它是扩展验证，不替代附录 F 的直接组件消融。",
+    )
+    labels = {
+        "rsg_complete": "RSG 完整模型",
+        "mrpg_complete": "M-RPG 完整模型",
+    }
+    rows: list[list[str]] = []
+    for configuration in FIVE_SEED_CONFIGURATIONS:
+        values = summary[configuration]
+        rows.append(
+            [
+                labels[configuration],
+                _format_percent(values["macro_f1"]["mean"]),
+                _format_percent(values["target_recall"]["mean"]),
+                _format_percent(values["ti_to_target_intrusion_rate"]["mean"]),
+                _format_percent(values["metallic_to_target_intrusion_rate"]["mean"]),
+                _format_percent(values["brier_score"]["mean"]),
+                _format_percent(values["expected_calibration_error"]["mean"]),
+            ]
+        )
+    _add_table(
+        document,
+        ["配置", "Macro F1", "目标类召回", "含钛类误入目标", "金属光泽类误入目标", "Brier", "ECE"],
+        rows,
+    )
+
+    document.add_heading("G.2 成对区间与证据边界", level=2)
+    classification = paired["classification"]
+    calibration = paired["calibration"]
+    rows = []
+    for label, values in (
+        ("Macro F1", classification["macro_f1"]),
+        ("目标类召回", classification["target_recall"]),
+        ("含钛类误入目标", classification["ti_to_target_intrusion"]),
+        ("金属光泽类误入目标", classification["metallic_to_target_intrusion"]),
+        ("Brier", calibration["brier_score"]),
+        ("ECE", calibration["expected_calibration_error"]),
+    ):
+        rows.append(
+            [
+                label,
+                f"{_format_percent(values['difference'])} [{_format_percent(values['ci_low'])}, {_format_percent(values['ci_high'])}]",
+            ]
+        )
+    _add_table(document, ["M-RPG 减 RSG", "差值 [95% CI]"], rows)
+    _add_body(
+        document,
+        "差值以 M-RPG 减 RSG 定义；目标类召回的正差值有利，误入目标比例、Brier 和 ECE 的负差值有利。所有区间均以图片 split_group_id 聚类，并在五个随机种子与图片组上进行两阶段重采样的 5,000 次 Bootstrap 得到。扩展后，Macro F1、目标类召回、两类误入目标比例及校准指标的区间均跨零。因此，本研究未观察到 M-RPG 相对 RSG 的稳定经验优势；附录 F 的 M-R1 至 M-R4 仍是公式和计算图的确定性性质，但不能据此替代经验优越性证明。",
+    )
+    _add_body(
+        document,
+        "这一扩展验证保留为可复核的反证性结果：理论结构提供了可解释的容量归一化、单调门控和凸融合约束，但在当前公开矿物标本四角色闭集协议下，尚不足以支持总体性能、目标类召回、误入控制或校准性能优于 RSG 的结论。后续需在来源留出或真实外部图像上，结合更多独立重复进一步检验其泛化价值。",
+    )
+
+
 def update_report(
     input_path: Path,
     output_path: Path,
     analysis_dir: Path = DEFAULT_ANALYSIS_DIR,
     rpg_analysis_dir: Path | None = None,
     mrpg_analysis_dir: Path | None = None,
+    five_seed_analysis_dir: Path | None = None,
 ) -> Path:
     document = Document(input_path)
     headings = {paragraph.text.strip() for paragraph in document.paragraphs}
@@ -584,6 +680,10 @@ def update_report(
         _add_mrpg_theory_statement(document)
         _add_mrpg_three_seed_summary(document, mrpg_evidence)
         _add_mrpg_paired_evidence(document, mrpg_analysis_dir)
+    if five_seed_analysis_dir is not None and FIVE_SEED_APPENDIX_HEADING not in headings:
+        five_seed_evidence = load_five_seed_extension_evidence(five_seed_analysis_dir)
+        document.add_heading(FIVE_SEED_APPENDIX_HEADING, level=1)
+        _add_five_seed_extension(document, five_seed_evidence)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     document.save(output_path)
     return output_path
@@ -596,6 +696,7 @@ def main() -> None:
     parser.add_argument("--analysis-dir", type=Path, default=DEFAULT_ANALYSIS_DIR)
     parser.add_argument("--rpg-analysis-dir", type=Path)
     parser.add_argument("--mrpg-analysis-dir", type=Path)
+    parser.add_argument("--five-seed-analysis-dir", type=Path)
     args = parser.parse_args()
     print(
         update_report(
@@ -604,6 +705,7 @@ def main() -> None:
             args.analysis_dir.resolve(),
             args.rpg_analysis_dir.resolve() if args.rpg_analysis_dir else None,
             args.mrpg_analysis_dir.resolve() if args.mrpg_analysis_dir else None,
+            args.five_seed_analysis_dir.resolve() if args.five_seed_analysis_dir else None,
         )
     )
 

@@ -1,0 +1,123 @@
+{
+  "classification": {
+    "accuracy": {
+      "label": "Accuracy",
+      "favorable_direction": 1,
+      "baseline_mean": 0.7570093457943925,
+      "comparison_mean": 0.7566978193146418,
+      "difference": -0.00031152647975074554,
+      "oriented_improvement": -0.00031152647975074554,
+      "ci_low": -0.015887850467289733,
+      "ci_high": 0.014645638629283466,
+      "probability_favorable": 0.4882,
+      "bootstrap_replicates": 5000
+    },
+    "macro_f1": {
+      "label": "Macro F1",
+      "favorable_direction": 1,
+      "baseline_mean": 0.7401006546629978,
+      "comparison_mean": 0.7403411171188633,
+      "difference": 0.00024046245586550885,
+      "oriented_improvement": 0.00024046245586550885,
+      "ci_low": -0.01441638924281372,
+      "ci_high": 0.014879886720727337,
+      "probability_favorable": 0.5194,
+      "bootstrap_replicates": 5000
+    },
+    "target_recall": {
+      "label": "Target recall",
+      "favorable_direction": 1,
+      "baseline_mean": 0.7235059760956175,
+      "comparison_mean": 0.7346613545816734,
+      "difference": 0.011155378486055856,
+      "oriented_improvement": 0.011155378486055856,
+      "ci_low": -0.018346613545816775,
+      "ci_high": 0.039043824701195204,
+      "probability_favorable": 0.7618,
+      "bootstrap_replicates": 5000
+    },
+    "target_miss_rate": {
+      "label": "Target miss rate",
+      "favorable_direction": -1,
+      "baseline_mean": 0.27649402390438244,
+      "comparison_mean": 0.2653386454183267,
+      "difference": -0.011155378486055745,
+      "oriented_improvement": 0.011155378486055745,
+      "ci_low": -0.039043824701195204,
+      "ci_high": 0.01834661354581649,
+      "probability_favorable": 0.7618,
+      "bootstrap_replicates": 5000
+    },
+    "ti_to_target_intrusion": {
+      "label": "Ti-bearing intrusion",
+      "favorable_direction": -1,
+      "baseline_mean": 0.09042769857433808,
+      "comparison_mean": 0.0945010183299389,
+      "difference": 0.004073319755600824,
+      "oriented_improvement": -0.004073319755600824,
+      "ci_low": -0.017922606924643585,
+      "ci_high": 0.028105906313645623,
+      "probability_favorable": 0.3804,
+      "bootstrap_replicates": 5000
+    },
+    "metallic_to_target_intrusion": {
+      "label": "Metallic intrusion",
+      "favorable_direction": -1,
+      "baseline_mean": 0.11818181818181818,
+      "comparison_mean": 0.10340909090909091,
+      "difference": -0.01477272727272727,
+      "oriented_improvement": 0.01477272727272727,
+      "ci_low": -0.053409090909090906,
+      "ci_high": 0.021590909090909084,
+      "probability_favorable": 0.756,
+      "bootstrap_replicates": 5000
+    }
+  },
+  "routing_regret": {
+    "difference": 0.00013593598130841105,
+    "oriented_improvement": -0.00013593598130841105,
+    "ci_low": -0.007916079408099689,
+    "ci_high": 0.007480889949376947,
+    "probability_favorable": 0.4712,
+    "per_seed_difference": {
+      "20260727": -0.004346532710280374,
+      "20260728": 0.0015370124610591903,
+      "20260729": 0.008230154205607475,
+      "20260730": 0.008159943146417445,
+      "20260731": -0.012900897196261682
+    },
+    "bootstrap_replicates": 5000
+  },
+  "calibration": {
+    "brier_score": {
+      "difference": 0.00043220258834605343,
+      "oriented_improvement": -0.00043220258834605343,
+      "ci_low": -0.01944785328999416,
+      "ci_high": 0.019445270406783316,
+      "probability_favorable": 0.4758,
+      "per_seed_difference": {
+        "20260727": -0.02057806446068322,
+        "20260728": 0.015380680456666018,
+        "20260729": 0.019560733434516364,
+        "20260730": 0.00937527300467561,
+        "20260731": -0.021577609493444505
+      },
+      "bootstrap_replicates": 5000
+    },
+    "expected_calibration_error": {
+      "difference": -0.0007844570093457793,
+      "oriented_improvement": 0.0007844570093457793,
+      "ci_low": -0.02320919155763239,
+      "ci_high": 0.02080416810358255,
+      "probability_favorable": 0.5592,
+      "per_seed_difference": {
+        "20260727": -0.018365043613707166,
+        "20260728": 0.01832591510903428,
+        "20260729": 0.03514688473520253,
+        "20260730": -0.00749981931464172,
+        "20260731": -0.03153022196261682
+      },
+      "bootstrap_replicates": 5000
+    }
+  }
+}
