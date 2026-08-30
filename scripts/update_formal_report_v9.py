@@ -23,10 +23,12 @@ APPENDIX_HEADING = "附录 D CGDC-RSG-HRGV 网络理论与实验"
 RPG_APPENDIX_HEADING = "附录 E RPG-HRGV 角色分区不确定性门控理论与实验"
 MRPG_APPENDIX_HEADING = "附录 F M-RPG-HRGV 容量归一化单调门控理论与实验"
 FIVE_SEED_APPENDIX_HEADING = "附录 G M-RPG-HRGV 五随机种子扩展验证"
+RSG_THEORY_EVIDENCE_APPENDIX_HEADING = "附录 H RSG-HRGV 理论性质与证据对应图"
 ROOT = Path(__file__).resolve().parents[1]
 FIGURE_PATH = ROOT / "outputs" / "paper_figures" / "cgdc_rsg_hrgv_architecture.png"
 RPG_FIGURE_PATH = ROOT / "outputs" / "paper_figures" / "rpg_hrgv_architecture.png"
 MRPG_FIGURE_PATH = ROOT / "结题" / "图_MRPG-HRGV-Net_网络结构与理论性质.png"
+RSG_THEORY_EVIDENCE_FIGURE_PATH = ROOT / "outputs" / "paper_figures_v3" / "fig_rsg_theory_evidence.png"
 DEFAULT_ANALYSIS_DIR = ROOT / "outputs" / "business_metrics" / "cgdc_rsg_hrgv" / "formal"
 DEFAULT_RPG_ANALYSIS_DIR = ROOT / "outputs" / "business_metrics" / "rpg_hrgv" / "formal"
 DEFAULT_FIVE_SEED_ANALYSIS_DIR = (
@@ -679,6 +681,36 @@ def _add_five_seed_extension(document: Document, evidence: tuple[dict[str, objec
     )
 
 
+def _add_rsg_theory_evidence_figure(document: Document) -> None:
+    if not RSG_THEORY_EVIDENCE_FIGURE_PATH.is_file():
+        raise ValueError(
+            "RSG theory-evidence figure is missing: "
+            f"{RSG_THEORY_EVIDENCE_FIGURE_PATH}"
+        )
+    document.add_heading("H.1 定理、计算图与实验证据的对应关系", level=2)
+    _add_body(
+        document,
+        "图 22 将 RSG-HRGV 的三条可证明性质与其直接对应的经验指标并列呈现。定理 B.1 约束门控偏离真实类概率更优专家时的路由后悔；定理 B.2 描述损失差驱动的软门控对硬最优选择的指数逼近；定理 B.3 限定 stop-gradient 后悔分支的局部梯度范围。它们均为当前公式与计算图的性质，而非总体分类精度的先验保证。",
+    )
+    picture = document.add_paragraph()
+    picture.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    picture.add_run().add_picture(str(RSG_THEORY_EVIDENCE_FIGURE_PATH), width=Cm(15.8))
+    caption = document.add_paragraph(style="Caption")
+    caption.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    _set_run_font(
+        caption.add_run("图 22 RSG-HRGV 的理论性质与平均路由后悔证据对应关系"),
+        size=9.5,
+    )
+    _add_body(
+        document,
+        "固定测试的 RSG-HRGV 相对 HRGV 平均路由后悔差为 -1.77 个百分点，95% Bootstrap 区间为 [-2.86, -0.69] 个百分点；摄影者留出确认集对应差值为 -3.53 个百分点，区间为 [-4.75, -2.17] 个百分点。两个预定义区间均低于零，支持在本协议下平均路由后悔下降。该结论不主张总体分类性能优越：Accuracy、Macro F1、目标类召回及两类误入目标比例的成对区间仍存在跨零情况。",
+    )
+    _add_body(
+        document,
+        "证据边界：图中的摄影者留出仍来自公开 Mindat 标本图像，不能等同于真实矿石颗粒、现场传送带、工业分选、精矿品位、回收率、元素含量检测、跨矿区泛化或未知矿物拒识。",
+    )
+
+
 def update_report(
     input_path: Path,
     output_path: Path,
@@ -712,6 +744,9 @@ def update_report(
         five_seed_evidence = load_five_seed_extension_evidence(five_seed_analysis_dir)
         document.add_heading(FIVE_SEED_APPENDIX_HEADING, level=1)
         _add_five_seed_extension(document, five_seed_evidence)
+    if RSG_THEORY_EVIDENCE_APPENDIX_HEADING not in headings:
+        document.add_heading(RSG_THEORY_EVIDENCE_APPENDIX_HEADING, level=1)
+        _add_rsg_theory_evidence_figure(document)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     document.save(output_path)
     return output_path

@@ -1,0 +1,44 @@
+{
+  "figure_type": "theory-properties-and-evidence",
+  "properties": [
+    "Theorem B.1",
+    "Theorem B.2",
+    "Theorem B.3"
+  ],
+  "effect_metric": "mean routing regret, RSG-HRGV minus HRGV; lower is better",
+  "fixed_test": {
+    "difference": -0.017693172377985462,
+    "ci_low": -0.028595908242471442,
+    "ci_high": -0.0069069499350986625,
+    "probability_favorable": 1.0,
+    "bootstrap_replicates": 2000
+  },
+  "photographer_holdout": {
+    "difference": -0.03530936327817179,
+    "ci_low": -0.04749656986800631,
+    "ci_high": -0.02171447164105599,
+    "probability_favorable": 1.0,
+    "bootstrap_replicates": 5000
+  },
+  "display_effects": {
+    "fixed_test": {
+      "difference": "-1.77 pp",
+      "ci": [
+        "-2.86 pp",
+        "-0.69 pp"
+      ]
+    },
+    "photographer_holdout": {
+      "difference": "-3.53 pp",
+      "ci": [
+        "-4.75 pp",
+        "-2.17 pp"
+      ]
+    }
+  },
+  "claim_boundary": "The paired intervals support reduced predefined routing regret only; classification superiority is not claimed.",
+  "data_sources": [
+    "outputs\\business_metrics\\rsg_hrgv\\formal\\paired_rsg_complete_vs_hrgv_reference.json",
+    "outputs\\business_metrics\\rsg_hrgv\\source_holdout\\paired_rsg_complete_vs_hrgv_reference.json"
+  ]
+}

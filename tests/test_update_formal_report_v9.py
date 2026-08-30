@@ -373,6 +373,31 @@ class FormalReportV9EvidenceTests(unittest.TestCase):
             self.assertIn("未观察到 M-RPG 相对 RSG 的稳定经验优势", text)
             self.assertIn("目标类召回", text)
 
+    def test_appends_rsg_theory_evidence_figure_once_with_claim_boundary(self) -> None:
+        import sys
+
+        sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
+        from update_formal_report_v9 import update_report
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_root = Path(temp_dir)
+            source = temp_root / "source.docx"
+            output = temp_root / "output.docx"
+            cgdc_dir = temp_root / "cgdc"
+            cgdc_dir.mkdir()
+            self._write_complete_evidence(cgdc_dir)
+            Document().save(source)
+
+            update_report(source, output, cgdc_dir)
+            update_report(output, output, cgdc_dir)
+
+            rendered = Document(output)
+            text = "\n".join(paragraph.text for paragraph in rendered.paragraphs)
+            self.assertEqual(text.count("附录 H RSG-HRGV 理论性质与证据对应图"), 1)
+            self.assertIn("平均路由后悔", text)
+            self.assertIn("不主张总体分类性能优越", text)
+            self.assertGreaterEqual(len(rendered.inline_shapes), 1)
+
     def test_updates_main_contribution_with_rsg_theory_and_mrpg_boundary(self) -> None:
         import sys
 
