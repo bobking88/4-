@@ -49,6 +49,20 @@ MRPG_FORMAL_CONFIGURATIONS = (
 )
 FIVE_SEED_CONFIGURATIONS = ("rsg_complete", "mrpg_complete")
 FIVE_SEEDS = ("20260727", "20260728", "20260729", "20260730", "20260731")
+PRIMARY_CONTRIBUTION_OLD = (
+    "本次修订把理论贡献限定为可验证的三层结构：其一，固定种类—角色映射诱导逐样本风险支配和经验风险收缩；"
+    "其二，KL 一致性通过 Pinsker 不等式控制双头分布差异，并由消融验证其分布效果；"
+    "其三，温度校准结合多阈值修正的 Clopper–Pearson 上界，实现验证集上的选择性风险认证。"
+    "来源留出和代理消融进一步限定这些结论的适用边界。"
+)
+PRIMARY_CONTRIBUTION_NEW = (
+    "本次修订把方法贡献限定为相互衔接且可证伪的四层结构：其一，固定种类--角色映射把 17 类矿物种类后验聚合为四角色后验，"
+    "并限定其只服务于公开标本图像的视觉角色识别；其二，KL 一致性通过 Pinsker 不等式控制直接角色头与种类映射头的分布差异；"
+    "其三，RSG-HRGV 以直接角色专家和种类映射专家的真实类对数损失差构造软最优门控目标，并以差距权重训练门控。"
+    "定理 B.1--B.3 分别给出门控误差的路由后悔上界、软目标对硬最优门控的指数逼近和后悔分支的局部梯度隔离。"
+    "固定测试与摄影者留出确认均支持所定义平均路由后悔下降，但不构成总体分类性能优势；其四，M-RPG 的容量归一化、单调门控和凸融合性质作为理论扩展保留，"
+    "五随机种子扩展未确认稳定经验增益。来源留出、代理消融及上述负结果共同限定这些结论的适用边界。"
+)
 
 
 def load_formal_cgdc_evidence(analysis_dir: Path) -> dict[str, object]:
@@ -130,6 +144,19 @@ def _add_body(document: Document, text: str) -> None:
     paragraph.paragraph_format.line_spacing = 1.5
     run = paragraph.add_run(text)
     _set_run_font(run)
+
+
+def update_primary_contribution_statement(document: Document) -> bool:
+    """Replace the earlier generic contribution summary with the evidence-aligned one."""
+    for paragraph in document.paragraphs:
+        if paragraph.text.strip() != PRIMARY_CONTRIBUTION_OLD:
+            continue
+        paragraph.clear()
+        paragraph.paragraph_format.line_spacing = 1.5
+        run = paragraph.add_run(PRIMARY_CONTRIBUTION_NEW)
+        _set_run_font(run)
+        return True
+    return False
 
 
 def _add_table(document: Document, headers: list[str], rows: list[list[str]]) -> None:
@@ -661,6 +688,7 @@ def update_report(
     five_seed_analysis_dir: Path | None = None,
 ) -> Path:
     document = Document(input_path)
+    update_primary_contribution_statement(document)
     headings = {paragraph.text.strip() for paragraph in document.paragraphs}
     if APPENDIX_HEADING not in headings:
         evidence = load_formal_cgdc_evidence(analysis_dir)
