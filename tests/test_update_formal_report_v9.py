@@ -424,6 +424,7 @@ class FormalReportV9EvidenceTests(unittest.TestCase):
             self.assertNotIn(PRIMARY_CONTRIBUTION_OLD, text)
             self.assertIn("RSG-HRGV", text)
             self.assertIn("定理 B.1--B.3", text)
+            self.assertIn("主干替换不变性", text)
             self.assertIn("不构成总体分类性能优势", text)
 
 
