@@ -34,6 +34,9 @@ DEFAULT_RPG_ANALYSIS_DIR = ROOT / "outputs" / "business_metrics" / "rpg_hrgv" / 
 DEFAULT_FIVE_SEED_ANALYSIS_DIR = (
     ROOT / "outputs" / "business_metrics" / "target_recall_extension" / "five_seed"
 )
+DEFAULT_THEORY_REPLAY_ANALYSIS_DIR = (
+    ROOT / "outputs" / "business_metrics" / "rsg_hrgv" / "theory_replay"
+)
 FORMULA_DIR = ROOT / "outputs" / "report_assets_v9"
 RPG_FORMAL_CONFIGURATIONS = (
     "rsg_complete",
@@ -139,6 +142,26 @@ def load_five_seed_extension_evidence(analysis_dir: Path) -> tuple[dict[str, obj
         if not keys <= set(paired.get(section, {})):
             raise ValueError(f"Five-seed paired evidence lacks required {section} metrics.")
     return summary, paired
+
+
+def load_rsg_theory_replay_evidence(analysis_dir: Path) -> dict[str, object]:
+    """Load the high-precision checkpoint replay used only for theorem consistency."""
+    summary_path = analysis_dir / "theory_replay_summary.json"
+    if not summary_path.is_file():
+        raise ValueError("RSG theory replay evidence summary is missing.")
+    summary = json.loads(summary_path.read_text(encoding="utf-8"))
+    overall = summary.get("overall", {})
+    required = {
+        "run_count",
+        "sample_count",
+        "b1_max_residual",
+        "b1_violation_count",
+        "b2_max_residual",
+        "b2_violation_count",
+    }
+    if not required <= set(overall) or len(summary.get("runs", [])) != 6:
+        raise ValueError("RSG theory replay evidence is incomplete.")
+    return summary
 
 
 def _add_body(document: Document, text: str) -> None:
@@ -681,7 +704,43 @@ def _add_five_seed_extension(document: Document, evidence: tuple[dict[str, objec
     )
 
 
-def _add_rsg_theory_evidence_figure(document: Document) -> None:
+def _add_rsg_theory_replay_consistency(
+    document: Document, replay_evidence: dict[str, object]
+) -> None:
+    document.add_heading("H.2 高精度检查点重放的数值一致性验证", level=2)
+    runs = replay_evidence["runs"]
+    rows: list[list[str]] = []
+    for run in runs:
+        rows.append(
+            [
+                "固定测试" if run["protocol"] == "fixed" else "摄影者留出",
+                str(run["seed"]).replace("seed", ""),
+                str(run["sample_count"]),
+                f"{float(run['minimum_true_probability']):.2e}",
+                f"{float(run['b1_max_residual']):.2e}",
+                str(run["b1_violation_count"]),
+                f"{float(run['b2_max_residual']):.2e}",
+                str(run["b2_violation_count"]),
+            ]
+        )
+    _add_table(
+        document,
+        ["协议", "随机种子", "样本数", "最小真值概率", "B.1 最大残差", "B.1 违反数", "B.2 最大残差", "B.2 违反数"],
+        rows,
+    )
+    overall = replay_evidence["overall"]
+    numeric = replay_evidence["numeric_settings"]
+    _add_body(
+        document,
+        f"为避免原始逐图 CSV 六位小数导出把极小概率写为零，使用保存的最佳检查点对固定测试三种子和摄影者留出三种子重新执行只读推理，以 15 位小数导出门控及两路真值概率。共 {overall['run_count']} 次、{overall['sample_count']} 张图像；采用 float32 概率下界 {float(numeric['float32_epsilon']):.2e}、数值容差 {float(numeric['tolerance']):.2e}。定理 B.1 最大残差为 {float(overall['b1_max_residual']):.2e}、违反数为 {overall['b1_violation_count']}；定理 B.2 最大残差为 {float(overall['b2_max_residual']):.2e}、违反数为 {overall['b2_violation_count']}。因此，高精度检查点重放支持当前 RSG-HRGV 公式在已训练模型输出上的数值一致性验证。",
+    )
+    _add_body(
+        document,
+        "该验证仅检查定理 B.1 与 B.2 所用概率、门控和软目标在实现中的数值关系；不构成新的分类性能实验，也不支持工业分选、品位、回收率、元素含量、外部泛化或未知矿物拒识结论。",
+    )
+
+
+def _add_rsg_theory_evidence_figure(document: Document, replay_evidence: dict[str, object]) -> None:
     if not RSG_THEORY_EVIDENCE_FIGURE_PATH.is_file():
         raise ValueError(
             "RSG theory-evidence figure is missing: "
@@ -705,6 +764,7 @@ def _add_rsg_theory_evidence_figure(document: Document) -> None:
         document,
         "固定测试的 RSG-HRGV 相对 HRGV 平均路由后悔差为 -1.77 个百分点，95% Bootstrap 区间为 [-2.86, -0.69] 个百分点；摄影者留出确认集对应差值为 -3.53 个百分点，区间为 [-4.75, -2.17] 个百分点。两个预定义区间均低于零，支持在本协议下平均路由后悔下降。该结论不主张总体分类性能优越：Accuracy、Macro F1、目标类召回及两类误入目标比例的成对区间仍存在跨零情况。",
     )
+    _add_rsg_theory_replay_consistency(document, replay_evidence)
     _add_body(
         document,
         "证据边界：图中的摄影者留出仍来自公开 Mindat 标本图像，不能等同于真实矿石颗粒、现场传送带、工业分选、精矿品位、回收率、元素含量检测、跨矿区泛化或未知矿物拒识。",
@@ -718,6 +778,7 @@ def update_report(
     rpg_analysis_dir: Path | None = None,
     mrpg_analysis_dir: Path | None = None,
     five_seed_analysis_dir: Path | None = None,
+    theory_replay_analysis_dir: Path | None = DEFAULT_THEORY_REPLAY_ANALYSIS_DIR,
 ) -> Path:
     document = Document(input_path)
     update_primary_contribution_statement(document)
@@ -745,8 +806,17 @@ def update_report(
         document.add_heading(FIVE_SEED_APPENDIX_HEADING, level=1)
         _add_five_seed_extension(document, five_seed_evidence)
     if RSG_THEORY_EVIDENCE_APPENDIX_HEADING not in headings:
+        if theory_replay_analysis_dir is None:
+            raise ValueError("RSG theory replay analysis directory is required for appendix H.")
+        replay_evidence = load_rsg_theory_replay_evidence(theory_replay_analysis_dir)
         document.add_heading(RSG_THEORY_EVIDENCE_APPENDIX_HEADING, level=1)
-        _add_rsg_theory_evidence_figure(document)
+        _add_rsg_theory_evidence_figure(document, replay_evidence)
+    elif "H.2 高精度检查点重放的数值一致性验证" not in headings:
+        if theory_replay_analysis_dir is None:
+            raise ValueError("RSG theory replay analysis directory is required for appendix H.")
+        _add_rsg_theory_replay_consistency(
+            document, load_rsg_theory_replay_evidence(theory_replay_analysis_dir)
+        )
     output_path.parent.mkdir(parents=True, exist_ok=True)
     document.save(output_path)
     return output_path
@@ -760,6 +830,7 @@ def main() -> None:
     parser.add_argument("--rpg-analysis-dir", type=Path)
     parser.add_argument("--mrpg-analysis-dir", type=Path)
     parser.add_argument("--five-seed-analysis-dir", type=Path)
+    parser.add_argument("--theory-replay-analysis-dir", type=Path, default=DEFAULT_THEORY_REPLAY_ANALYSIS_DIR)
     args = parser.parse_args()
     print(
         update_report(
@@ -769,6 +840,7 @@ def main() -> None:
             args.rpg_analysis_dir.resolve() if args.rpg_analysis_dir else None,
             args.mrpg_analysis_dir.resolve() if args.mrpg_analysis_dir else None,
             args.five_seed_analysis_dir.resolve() if args.five_seed_analysis_dir else None,
+            args.theory_replay_analysis_dir.resolve() if args.theory_replay_analysis_dir else None,
         )
     )
 

@@ -1,0 +1,8 @@
+{
+  "environment": "outputs\\training\\rsg_source_holdout\\formal_rsg_complete_seed20260730\\environment.json",
+  "checkpoint": "outputs\\training\\rsg_source_holdout\\formal_rsg_complete_seed20260730\\best_model.pt",
+  "output_csv": "outputs\\paper_experiments_v3\\rsg_theory_replay\\photographer_holdout\\seed20260730.csv",
+  "device": "cuda",
+  "count": 846,
+  "mean_routing_regret_nll": 0.08540327474496025
+}

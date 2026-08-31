@@ -396,6 +396,8 @@ class FormalReportV9EvidenceTests(unittest.TestCase):
             self.assertEqual(text.count("附录 H RSG-HRGV 理论性质与证据对应图"), 1)
             self.assertIn("平均路由后悔", text)
             self.assertIn("不主张总体分类性能优越", text)
+            self.assertIn("高精度检查点重放", text)
+            self.assertIn("数值一致性验证", text)
             self.assertGreaterEqual(len(rendered.inline_shapes), 1)
 
     def test_updates_main_contribution_with_rsg_theory_and_mrpg_boundary(self) -> None:

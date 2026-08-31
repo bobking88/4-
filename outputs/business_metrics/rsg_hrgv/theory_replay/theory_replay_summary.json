@@ -1,0 +1,99 @@
+{
+  "runs": [
+    {
+      "sample_count": 1284,
+      "minimum_true_probability": 3.110446414e-06,
+      "mean_routing_regret_nll": 0.08076799069677648,
+      "mean_b1_upper_bound": 189666.0325010344,
+      "b1_max_residual": -0.608913423899238,
+      "b1_violation_count": 0,
+      "b2_max_residual": 5.892966521028325e-08,
+      "b2_violation_count": 0,
+      "protocol": "fixed",
+      "seed": "seed20260727",
+      "csv": "outputs\\paper_experiments_v3\\rsg_theory_replay\\fixed\\seed20260727.csv"
+    },
+    {
+      "sample_count": 1284,
+      "minimum_true_probability": 3.97250403e-07,
+      "mean_routing_regret_nll": 0.08257282999508135,
+      "mean_b1_upper_bound": 187527.3562333201,
+      "b1_max_residual": -0.33538580065736845,
+      "b1_violation_count": 0,
+      "b2_max_residual": 5.942525751546809e-08,
+      "b2_violation_count": 0,
+      "protocol": "fixed",
+      "seed": "seed20260728",
+      "csv": "outputs\\paper_experiments_v3\\rsg_theory_replay\\fixed\\seed20260728.csv"
+    },
+    {
+      "sample_count": 1284,
+      "minimum_true_probability": 6.79545622e-07,
+      "mean_routing_regret_nll": 0.07927235041148702,
+      "mean_b1_upper_bound": 191432.6196331566,
+      "b1_max_residual": -5.9604872e-08,
+      "b1_violation_count": 0,
+      "b2_max_residual": 4.3523696925456626e-08,
+      "b2_violation_count": 0,
+      "protocol": "fixed",
+      "seed": "seed20260729",
+      "csv": "outputs\\paper_experiments_v3\\rsg_theory_replay\\fixed\\seed20260729.csv"
+    },
+    {
+      "sample_count": 846,
+      "minimum_true_probability": 7.29783267e-07,
+      "mean_routing_regret_nll": 0.08846658817980789,
+      "mean_b1_upper_bound": 197935.74098787652,
+      "b1_max_residual": -0.4898417166302036,
+      "b1_violation_count": 0,
+      "b2_max_residual": 3.9537171234323674e-08,
+      "b2_violation_count": 0,
+      "protocol": "photographer_holdout",
+      "seed": "seed20260727",
+      "csv": "outputs\\paper_experiments_v3\\rsg_theory_replay\\photographer_holdout\\seed20260727.csv"
+    },
+    {
+      "sample_count": 846,
+      "minimum_true_probability": 3.1047326047e-05,
+      "mean_routing_regret_nll": 0.07342098125776245,
+      "mean_b1_upper_bound": 195788.42043737863,
+      "b1_max_residual": -26.49891884519952,
+      "b1_violation_count": 0,
+      "b2_max_residual": -8.691554615809132e-09,
+      "b2_violation_count": 0,
+      "protocol": "photographer_holdout",
+      "seed": "seed20260729",
+      "csv": "outputs\\paper_experiments_v3\\rsg_theory_replay\\photographer_holdout\\seed20260729.csv"
+    },
+    {
+      "sample_count": 846,
+      "minimum_true_probability": 1.1324758816e-05,
+      "mean_routing_regret_nll": 0.08540327474496025,
+      "mean_b1_upper_bound": 214709.519282649,
+      "b1_max_residual": -1.3093203300100562,
+      "b1_violation_count": 0,
+      "b2_max_residual": 3.4954070179062896e-08,
+      "b2_violation_count": 0,
+      "protocol": "photographer_holdout",
+      "seed": "seed20260730",
+      "csv": "outputs\\paper_experiments_v3\\rsg_theory_replay\\photographer_holdout\\seed20260730.csv"
+    }
+  ],
+  "overall": {
+    "run_count": 6,
+    "sample_count": 6390,
+    "minimum_true_probability": 3.97250403e-07,
+    "mean_routing_regret_nll": 0.0814903545970447,
+    "mean_b1_upper_bound": 194812.31433846185,
+    "b1_max_residual": -5.9604872e-08,
+    "b1_violation_count": 0,
+    "b2_max_residual": 5.942525751546809e-08,
+    "b2_violation_count": 0
+  },
+  "numeric_settings": {
+    "float32_epsilon": 1.1920928955078125e-07,
+    "tolerance": 2e-06,
+    "soft_target_temperature": 0.2
+  },
+  "claim_boundary": "Theorem B.1 and B.2 are checked for numerical consistency on high-precision checkpoint replay. This validates the implemented routing formulas, not a new classification, industrial-sorting, grade, recovery, external-generalization, or OOD claim."
+}
