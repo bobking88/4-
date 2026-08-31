@@ -24,11 +24,15 @@ RPG_APPENDIX_HEADING = "附录 E RPG-HRGV 角色分区不确定性门控理论�
 MRPG_APPENDIX_HEADING = "附录 F M-RPG-HRGV 容量归一化单调门控理论与实验"
 FIVE_SEED_APPENDIX_HEADING = "附录 G M-RPG-HRGV 五随机种子扩展验证"
 RSG_THEORY_EVIDENCE_APPENDIX_HEADING = "附录 H RSG-HRGV 理论性质与证据对应图"
+BACKBONE_PORTABILITY_HEADING = "H.3 主干替换不变性与 ResNet50 跨主干确认"
 ROOT = Path(__file__).resolve().parents[1]
 FIGURE_PATH = ROOT / "outputs" / "paper_figures" / "cgdc_rsg_hrgv_architecture.png"
 RPG_FIGURE_PATH = ROOT / "outputs" / "paper_figures" / "rpg_hrgv_architecture.png"
 MRPG_FIGURE_PATH = ROOT / "结题" / "图_MRPG-HRGV-Net_网络结构与理论性质.png"
 RSG_THEORY_EVIDENCE_FIGURE_PATH = ROOT / "outputs" / "paper_figures_v3" / "fig_rsg_theory_evidence.png"
+BACKBONE_PORTABILITY_FIGURE_PATH = (
+    ROOT / "outputs" / "paper_figures_v3" / "fig_rsg_theory_evidence_portability.png"
+)
 DEFAULT_ANALYSIS_DIR = ROOT / "outputs" / "business_metrics" / "cgdc_rsg_hrgv" / "formal"
 DEFAULT_RPG_ANALYSIS_DIR = ROOT / "outputs" / "business_metrics" / "rpg_hrgv" / "formal"
 DEFAULT_FIVE_SEED_ANALYSIS_DIR = (
@@ -36,6 +40,9 @@ DEFAULT_FIVE_SEED_ANALYSIS_DIR = (
 )
 DEFAULT_THEORY_REPLAY_ANALYSIS_DIR = (
     ROOT / "outputs" / "business_metrics" / "rsg_hrgv" / "theory_replay"
+)
+DEFAULT_BACKBONE_PORTABILITY_ANALYSIS_DIR = (
+    ROOT / "outputs" / "business_metrics" / "rsg_hrgv" / "resnet50_portability"
 )
 FORMULA_DIR = ROOT / "outputs" / "report_assets_v9"
 RPG_FORMAL_CONFIGURATIONS = (
@@ -163,6 +170,31 @@ def load_rsg_theory_replay_evidence(analysis_dir: Path) -> dict[str, object]:
     if not required <= set(overall) or len(summary.get("runs", [])) != 6:
         raise ValueError("RSG theory replay evidence is incomplete.")
     return summary
+
+
+def load_rsg_backbone_portability_evidence(
+    analysis_dir: Path,
+) -> tuple[dict[str, object], dict[str, object]]:
+    """Load the matched ResNet50 check for the backbone-invariance boundary."""
+    summary_path = analysis_dir / "rsg_three_seed_summary.json"
+    paired_path = analysis_dir / "paired_rsg_complete_vs_hrgv_reference.json"
+    if not summary_path.is_file() or not paired_path.is_file():
+        raise ValueError("RSG backbone portability evidence is incomplete.")
+    summary = json.loads(summary_path.read_text(encoding="utf-8"))
+    expected_configurations = {"hrgv_reference", "rsg_complete"}
+    if set(summary) != expected_configurations:
+        raise ValueError("RSG backbone portability evidence must compare HRGV and RSG only.")
+    for configuration in expected_configurations:
+        for metric in ("accuracy", "macro_f1", "mean_routing_regret_nll"):
+            values = summary[configuration].get(metric, {}).get("values", [])
+            if len(values) != len(FORMAL_SEEDS):
+                raise ValueError("RSG backbone portability evidence must contain three registered seeds.")
+    paired = json.loads(paired_path.read_text(encoding="utf-8"))
+    if not {"accuracy", "macro_f1"} <= set(paired.get("classification", {})):
+        raise ValueError("RSG backbone portability evidence lacks classification metrics.")
+    if not {"difference", "ci_low", "ci_high"} <= set(paired.get("routing_regret", {})):
+        raise ValueError("RSG backbone portability evidence lacks routing regret metrics.")
+    return summary, paired
 
 
 def _add_body(document: Document, text: str) -> None:
@@ -772,6 +804,72 @@ def _add_rsg_theory_evidence_figure(document: Document, replay_evidence: dict[st
     )
 
 
+def _add_rsg_backbone_portability_evidence(
+    document: Document,
+    summary: dict[str, object],
+    paired: dict[str, object],
+    figure_path: Path,
+) -> None:
+    """Append the architecture-portability check without claiming backbone superiority."""
+    if not figure_path.is_file():
+        raise ValueError(f"RSG backbone portability figure is missing: {figure_path}")
+    document.add_heading(BACKBONE_PORTABILITY_HEADING, level=2)
+    _add_body(
+        document,
+        "主干替换不变性命题是融合层的条件性结论：只要不同视觉主干经两位专家输出合法概率分布，并保持同一凸门控、软后悔目标和 stop-gradient 计算图，定理 B.1--B.3 的推导不依赖卷积或残差模块的具体形式。该命题不等同于任意主干具有相同或更高的分类性能，因此以 ImageNet 预训练 ResNet50 在完全匹配的数据划分、训练预算、随机种子和比较配置下进行三随机种子确认。",
+    )
+    rows: list[list[str]] = []
+    for configuration, label in (
+        ("hrgv_reference", "HRGV 参考模型"),
+        ("rsg_complete", "RSG-HRGV"),
+    ):
+        values = summary[configuration]
+        rows.append(
+            [
+                label,
+                _format_percent(float(values["accuracy"]["mean"])),
+                _format_percent(float(values["macro_f1"]["mean"])),
+                _format_percent(float(values["mean_routing_regret_nll"]["mean"])),
+            ]
+        )
+    _add_table(document, ["ResNet50 配置", "Accuracy", "Macro F1", "平均路由后悔"], rows)
+    regret = paired["routing_regret"]
+    macro_f1 = paired["classification"]["macro_f1"]
+    accuracy = paired["classification"]["accuracy"]
+    _add_body(
+        document,
+        "RSG-HRGV 减 HRGV 的平均路由后悔差为 "
+        f"{_format_percent(float(regret['difference']))}，95% Bootstrap 区间为 "
+        f"[{_format_percent(float(regret['ci_low']))}, {_format_percent(float(regret['ci_high']))}]。"
+        "若该区间低于零，则支持在 ResNet50 协议下复现所定义的路由后悔下降；否则只记录为未复现的边界结果。"
+    )
+    classification_boundary = (
+        "Macro F1 和 Accuracy 的成对区间均未显示稳定差异，故本节不主张分类性能优越。"
+        if float(macro_f1["ci_low"]) <= 0 <= float(macro_f1["ci_high"])
+        and float(accuracy["ci_low"]) <= 0 <= float(accuracy["ci_high"])
+        else "分类指标的区间应与表中结果一并解读；本节仅用于检验融合层理论的经验边界，不用于主张主干性能优越。"
+    )
+    _add_body(
+        document,
+        "图 23 将固定 EfficientNet-B0 证据、摄影者留出证据和 ResNet50 跨主干确认并列。"
+        f"{classification_boundary}"
+    )
+    picture = document.add_paragraph()
+    picture.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    picture.add_run().add_picture(str(figure_path), width=Cm(15.8))
+    caption = document.add_paragraph(style="Caption")
+    caption.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    _set_run_font(
+        caption.add_run("图 23 RSG-HRGV 理论证据与 ResNet50 跨主干确认"),
+        size=9.5,
+    )
+    _add_body(
+        document,
+        "证据边界：该跨主干检查验证的是 RSG 融合层公式在 ResNet50 输出契约下的经验一致性，"
+        "不等同于主干性能优越，也不构成工业分选、品位、回收率、元素含量、真实外部泛化或未知矿物拒识结论。",
+    )
+
+
 def update_report(
     input_path: Path,
     output_path: Path,
@@ -780,6 +878,8 @@ def update_report(
     mrpg_analysis_dir: Path | None = None,
     five_seed_analysis_dir: Path | None = None,
     theory_replay_analysis_dir: Path | None = DEFAULT_THEORY_REPLAY_ANALYSIS_DIR,
+    backbone_portability_analysis_dir: Path | None = None,
+    backbone_portability_figure_path: Path = BACKBONE_PORTABILITY_FIGURE_PATH,
 ) -> Path:
     document = Document(input_path)
     update_primary_contribution_statement(document)
@@ -818,6 +918,16 @@ def update_report(
         _add_rsg_theory_replay_consistency(
             document, load_rsg_theory_replay_evidence(theory_replay_analysis_dir)
         )
+    if backbone_portability_analysis_dir is not None and BACKBONE_PORTABILITY_HEADING not in headings:
+        portability_summary, portability_paired = load_rsg_backbone_portability_evidence(
+            backbone_portability_analysis_dir
+        )
+        _add_rsg_backbone_portability_evidence(
+            document,
+            portability_summary,
+            portability_paired,
+            backbone_portability_figure_path,
+        )
     output_path.parent.mkdir(parents=True, exist_ok=True)
     document.save(output_path)
     return output_path
@@ -832,6 +942,8 @@ def main() -> None:
     parser.add_argument("--mrpg-analysis-dir", type=Path)
     parser.add_argument("--five-seed-analysis-dir", type=Path)
     parser.add_argument("--theory-replay-analysis-dir", type=Path, default=DEFAULT_THEORY_REPLAY_ANALYSIS_DIR)
+    parser.add_argument("--backbone-portability-analysis-dir", type=Path)
+    parser.add_argument("--backbone-portability-figure-path", type=Path, default=BACKBONE_PORTABILITY_FIGURE_PATH)
     args = parser.parse_args()
     print(
         update_report(
@@ -842,6 +954,10 @@ def main() -> None:
             args.mrpg_analysis_dir.resolve() if args.mrpg_analysis_dir else None,
             args.five_seed_analysis_dir.resolve() if args.five_seed_analysis_dir else None,
             args.theory_replay_analysis_dir.resolve() if args.theory_replay_analysis_dir else None,
+            args.backbone_portability_analysis_dir.resolve()
+            if args.backbone_portability_analysis_dir
+            else None,
+            args.backbone_portability_figure_path.resolve(),
         )
     )
 

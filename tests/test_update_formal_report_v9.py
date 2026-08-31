@@ -159,6 +159,36 @@ class FormalReportV9EvidenceTests(unittest.TestCase):
             )
 
     @staticmethod
+    def _write_complete_backbone_portability_evidence(analysis_dir: Path) -> None:
+        metrics = (
+            "accuracy",
+            "macro_f1",
+            "mean_routing_regret_nll",
+        )
+        summary = {
+            configuration: {
+                metric: {"mean": 0.70 if metric != "mean_routing_regret_nll" else 0.08,
+                         "sample_std": 0.01,
+                         "values": [0.69, 0.70, 0.71]}
+                for metric in metrics
+            }
+            for configuration in ("hrgv_reference", "rsg_complete")
+        }
+        (analysis_dir / "rsg_three_seed_summary.json").write_text(
+            json.dumps(summary), encoding="utf-8"
+        )
+        paired = {
+            "classification": {
+                "accuracy": {"difference": 0.00, "ci_low": -0.01, "ci_high": 0.01},
+                "macro_f1": {"difference": 0.01, "ci_low": -0.01, "ci_high": 0.02},
+            },
+            "routing_regret": {"difference": -0.02, "ci_low": -0.03, "ci_high": -0.01},
+        }
+        (analysis_dir / "paired_rsg_complete_vs_hrgv_reference.json").write_text(
+            json.dumps(paired), encoding="utf-8"
+        )
+
+    @staticmethod
     def _write_complete_five_seed_evidence(analysis_dir: Path) -> None:
         metrics = (
             "accuracy",
@@ -426,6 +456,46 @@ class FormalReportV9EvidenceTests(unittest.TestCase):
             self.assertIn("定理 B.1--B.3", text)
             self.assertIn("主干替换不变性", text)
             self.assertIn("不构成总体分类性能优势", text)
+
+    def test_appends_backbone_portability_evidence_with_claim_boundary(self) -> None:
+        import sys
+
+        sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
+        from update_formal_report_v9 import RSG_THEORY_EVIDENCE_FIGURE_PATH, update_report
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_root = Path(temp_dir)
+            source = temp_root / "source.docx"
+            output = temp_root / "output.docx"
+            cgdc_dir = temp_root / "cgdc"
+            portability_dir = temp_root / "portability"
+            cgdc_dir.mkdir()
+            portability_dir.mkdir()
+            self._write_complete_evidence(cgdc_dir)
+            self._write_complete_backbone_portability_evidence(portability_dir)
+            Document().save(source)
+
+            update_report(
+                source,
+                output,
+                cgdc_dir,
+                backbone_portability_analysis_dir=portability_dir,
+                backbone_portability_figure_path=RSG_THEORY_EVIDENCE_FIGURE_PATH,
+            )
+            update_report(
+                output,
+                output,
+                cgdc_dir,
+                backbone_portability_analysis_dir=portability_dir,
+                backbone_portability_figure_path=RSG_THEORY_EVIDENCE_FIGURE_PATH,
+            )
+
+            rendered = Document(output)
+            text = "\n".join(paragraph.text for paragraph in rendered.paragraphs)
+            self.assertEqual(text.count("H.3 主干替换不变性与 ResNet50 跨主干确认"), 1)
+            self.assertIn("\u878d\u5408\u5c42", text)
+            self.assertIn("不等同于主干性能优越", text)
+            self.assertIn("平均路由后悔", text)
 
 
 if __name__ == "__main__":
