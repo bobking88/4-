@@ -50,6 +50,7 @@ def build_experiment_commands(
     device: str,
     torch_home: Path,
     stage: str,
+    backbone: str = "efficientnet_b0",
 ) -> list[ExperimentCommand]:
     if stage not in {"pilot", "formal"}:
         raise ValueError("stage must be pilot or formal.")
@@ -58,7 +59,7 @@ def build_experiment_commands(
     commands: list[ExperimentCommand] = []
     for configuration, extra_flags in CONFIGURATION_FLAGS.items():
         for seed in seeds:
-            output_dir = output_root / f"{stage}_{configuration}_seed{seed}"
+            output_dir = output_root / backbone / f"{stage}_{configuration}_seed{seed}"
             arguments = (
                 str(python_executable),
                 str(training_script),
@@ -68,6 +69,8 @@ def build_experiment_commands(
                 str(dataset_root),
                 "--output-dir",
                 str(output_dir),
+                "--backbone",
+                backbone,
                 "--seed",
                 str(seed),
                 "--device",
@@ -104,6 +107,12 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     )
     parser.add_argument("--stage", choices=("pilot", "formal"), default="pilot")
     parser.add_argument(
+        "--backbone",
+        choices=("efficientnet_b0", "resnet50"),
+        default="efficientnet_b0",
+        help="Run a registered RSG configuration on the selected visual backbone.",
+    )
+    parser.add_argument(
         "--config",
         action="append",
         choices=tuple(CONFIGURATION_FLAGS),
@@ -128,6 +137,7 @@ def main(argv: Sequence[str] | None = None) -> None:
         device=args.device,
         torch_home=args.torch_home,
         stage=args.stage,
+        backbone=args.backbone,
     )
     selected = set(args.config or CONFIGURATION_FLAGS)
     commands = [command for command in commands if command.configuration in selected]

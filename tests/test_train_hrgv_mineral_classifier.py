@@ -37,6 +37,7 @@ class HRGVTrainingConfigurationTests(unittest.TestCase):
         )
         validate_args(args)
 
+        self.assertEqual(args.backbone, "efficientnet_b0")
         self.assertEqual(args.lambda_direct, 0.25)
         self.assertEqual(args.lambda_species, 0.50)
         self.assertEqual(args.lambda_consistency, 0.10)
@@ -70,6 +71,19 @@ class HRGVTrainingConfigurationTests(unittest.TestCase):
         self.assertEqual(args.calibration_hidden_dim, 256)
         self.assertEqual(args.lambda_decomposition, 0.02)
         self.assertEqual(args.lambda_calibration, 0.25)
+
+    def test_cli_accepts_the_resnet50_portability_backbone(self) -> None:
+        from train_hrgv_mineral_classifier import parse_args, validate_args
+
+        args = parse_args(
+            [
+                "--manifest", "split.csv", "--dataset-root", "dataset", "--output-dir", "output",
+                "--backbone", "resnet50",
+            ]
+        )
+        validate_args(args)
+
+        self.assertEqual(args.backbone, "resnet50")
 
     def test_cli_exposes_cgdc_ablation_switches(self) -> None:
         from train_hrgv_mineral_classifier import parse_args, validate_args

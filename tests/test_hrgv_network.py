@@ -587,6 +587,44 @@ class HRGVModelTests(unittest.TestCase):
         self.assertEqual(model.verifier_mode, "residual")
         self.assertTrue(model.detach_verifier_features)
 
+    def test_resnet50_backbone_preserves_the_hrgv_output_contract(self) -> None:
+        from hrgv_network import HierarchicalRiskGatedVerificationNet
+
+        mapping = self.build_mapping()
+        model = HierarchicalRiskGatedVerificationNet(
+            self.dependencies["models"],
+            self.build_role_matrix(mapping),
+            pretrained=False,
+            embedding_dim=8,
+            gate_hidden_dim=16,
+            backbone_name="resnet50",
+        )
+        outputs = model(self.torch.randn(2, 3, 64, 64))
+
+        self.assertEqual(model.backbone_name, "resnet50")
+        self.assertEqual(tuple(outputs["role_logits"].shape), (2, 4))
+        self.assertEqual(tuple(outputs["species_logits"].shape), (2, 17))
+        self.assertEqual(tuple(outputs["gate"].shape), (2, 1))
+        self.assertTrue(
+            self.torch.allclose(
+                outputs["final_role_probabilities"].sum(dim=1),
+                self.torch.ones(2),
+                atol=1e-6,
+            )
+        )
+
+    def test_model_rejects_unknown_backbone(self) -> None:
+        from hrgv_network import HierarchicalRiskGatedVerificationNet
+
+        mapping = self.build_mapping()
+        with self.assertRaisesRegex(ValueError, "backbone_name"):
+            HierarchicalRiskGatedVerificationNet(
+                self.dependencies["models"],
+                self.build_role_matrix(mapping),
+                pretrained=False,
+                backbone_name="unknown",
+            )
+
     def test_model_rejects_unknown_verifier_mode(self) -> None:
         from hrgv_network import HierarchicalRiskGatedVerificationNet
 

@@ -34,6 +34,34 @@ RPG_ENTROPY_MODES = (
     "total_only",
 )
 
+SUPPORTED_BACKBONES = ("efficientnet_b0", "resnet50")
+
+
+def build_visual_backbone(models, backbone_name: str, pretrained: bool):
+    """Build a supported torchvision feature extractor with a common output contract."""
+    if backbone_name == "efficientnet_b0":
+        weights = models.EfficientNet_B0_Weights.IMAGENET1K_V1 if pretrained else None
+        base_model = models.efficientnet_b0(weights=weights)
+        return (
+            base_model.features,
+            base_model.avgpool,
+            nn.Dropout(p=base_model.classifier[0].p, inplace=False),
+            base_model.classifier[1].in_features,
+        )
+    if backbone_name == "resnet50":
+        weights = models.ResNet50_Weights.IMAGENET1K_V2 if pretrained else None
+        base_model = models.resnet50(weights=weights)
+        return (
+            nn.Sequential(*list(base_model.children())[:-2]),
+            base_model.avgpool,
+            nn.Identity(),
+            base_model.fc.in_features,
+        )
+    raise ValueError(
+        f"Unsupported backbone_name: {backbone_name}. "
+        f"Expected one of {SUPPORTED_BACKBONES}."
+    )
+
 
 def role_partitioned_uncertainty(species_probabilities, role_matrix, torch):
     """Separate species uncertainty into mapped-role and within-role terms."""
@@ -404,13 +432,14 @@ class HRGVLossWeights:
 
 
 class HierarchicalRiskGatedVerificationNet(nn.Module):
-    """EfficientNet-B0 with hierarchical expert fusion and asymmetric verification."""
+    """Configurable visual backbone with hierarchical fusion and asymmetric verification."""
 
     def __init__(
         self,
         models,
         role_matrix: torch.Tensor,
         pretrained: bool,
+        backbone_name: str = "efficientnet_b0",
         embedding_dim: int = 128,
         gate_hidden_dim: int = 128,
         fixed_gate: float | None = None,
@@ -463,12 +492,10 @@ class HierarchicalRiskGatedVerificationNet(nn.Module):
         if mrpg_between_mode not in {"monotone", "unconstrained", "disabled"}:
             raise ValueError(f"Unknown M-RPG between mode: {mrpg_between_mode}")
 
-        weights = models.EfficientNet_B0_Weights.IMAGENET1K_V1 if pretrained else None
-        base_model = models.efficientnet_b0(weights=weights)
-        self.features = base_model.features
-        self.avgpool = base_model.avgpool
-        self.dropout = nn.Dropout(p=base_model.classifier[0].p, inplace=False)
-        feature_dim = base_model.classifier[1].in_features
+        self.features, self.avgpool, self.dropout, feature_dim = build_visual_backbone(
+            models, backbone_name, pretrained
+        )
+        self.backbone_name = backbone_name
         num_roles, num_species = role_matrix.shape
         self.role_head = nn.Linear(feature_dim, num_roles)
         self.species_head = nn.Linear(feature_dim, num_species)

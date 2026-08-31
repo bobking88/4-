@@ -14,6 +14,7 @@ from analyze_misclassifications import PREDICTION_FIELDS, build_prediction_rows,
 from hrgv_network import (
     HRGVLossWeights,
     HierarchicalRiskGatedVerificationNet,
+    SUPPORTED_BACKBONES,
     compute_hrgv_losses,
     gate_routing_diagnostics,
     regret_gate_targets,
@@ -79,6 +80,12 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--manifest", type=Path, required=True)
     parser.add_argument("--dataset-root", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
+    parser.add_argument(
+        "--backbone",
+        choices=SUPPORTED_BACKBONES,
+        default="efficientnet_b0",
+        help="Visual backbone. ResNet50 is reserved for the RSG portability confirmation.",
+    )
     parser.add_argument("--epochs", type=int, default=30)
     parser.add_argument("--batch-size", type=int, default=16)
     parser.add_argument("--learning-rate", type=float, default=1e-4)
@@ -707,6 +714,7 @@ def main(argv: Sequence[str] | None = None) -> None:
         dependencies["models"],
         role_matrix=role_matrix,
         pretrained=not args.no_pretrained,
+        backbone_name=args.backbone,
         embedding_dim=args.embedding_dim,
         gate_hidden_dim=args.gate_hidden_dim,
         fixed_gate=args.fixed_gate,
@@ -762,7 +770,7 @@ def main(argv: Sequence[str] | None = None) -> None:
     )
     args.output_dir.mkdir(parents=True, exist_ok=True)
     effective_verifier_mode = "disabled" if args.disable_verifiers else args.verifier_mode
-    model_name = f"hrgv_efficientnet_b0_{effective_verifier_mode}"
+    model_name = f"hrgv_{args.backbone}_{effective_verifier_mode}"
     if args.enable_cgdc:
         model_name = f"cgdc_{model_name}"
         if args.cgdc_shared_features:
@@ -794,6 +802,7 @@ def main(argv: Sequence[str] | None = None) -> None:
             "torch_version": torch.__version__,
             "device": str(device),
             "model": model_name,
+            "backbone": args.backbone,
             "manifest": str(args.manifest),
             "dataset_root": str(args.dataset_root),
             "seed": args.seed,

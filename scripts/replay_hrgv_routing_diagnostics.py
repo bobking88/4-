@@ -155,6 +155,7 @@ def replay_routing_diagnostics(
         dependencies["models"],
         role_matrix=role_matrix,
         pretrained=False,
+        backbone_name=str(environment.get("backbone", "efficientnet_b0")),
         embedding_dim=int(environment.get("embedding_dim", 128)),
         gate_hidden_dim=int(environment.get("gate_hidden_dim", 128)),
         fixed_gate=environment.get("fixed_gate"),

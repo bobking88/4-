@@ -10,7 +10,7 @@ sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
 
 
 class RSGHRGVExperimentMatrixTests(unittest.TestCase):
-    def build(self, stage: str):
+    def build(self, stage: str, backbone: str = "efficientnet_b0"):
         from run_rsg_hrgv_experiments import build_experiment_commands
 
         return build_experiment_commands(
@@ -22,6 +22,7 @@ class RSGHRGVExperimentMatrixTests(unittest.TestCase):
             device="cuda",
             torch_home=Path("shared-torch-cache"),
             stage=stage,
+            backbone=backbone,
         )
 
     def test_pilot_matrix_uses_one_seed_and_five_unique_configurations(self) -> None:
@@ -70,6 +71,16 @@ class RSGHRGVExperimentMatrixTests(unittest.TestCase):
         self.assertIn("--lambda-gate-regret 0.1", arguments["rsg_coupled_gate"])
         self.assertIn("--couple-gate-features", arguments["rsg_coupled_gate"])
         self.assertNotIn("--detach-gate-features", arguments["rsg_coupled_gate"])
+
+    def test_resnet50_portability_matrix_registers_the_backbone_in_every_command(self) -> None:
+        commands = self.build("formal", backbone="resnet50")
+
+        self.assertEqual(len(commands), 15)
+        for command in commands:
+            arguments = list(map(str, command.arguments))
+            self.assertIn("--backbone", arguments)
+            self.assertEqual(arguments[arguments.index("--backbone") + 1], "resnet50")
+            self.assertIn("resnet50", str(command.output_dir))
 
 
 if __name__ == "__main__":
