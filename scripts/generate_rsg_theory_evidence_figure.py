@@ -78,10 +78,12 @@ def generate_rsg_theory_evidence_figure(
     fixed_test_json: Path,
     photographer_holdout_json: Path,
     prefix: Path,
+    portability_json: Path | None = None,
 ) -> dict[str, Path]:
     """Render formula-level RSG properties with the evidence they directly support."""
     fixed = _load_routing_effect(fixed_test_json)
     holdout = _load_routing_effect(photographer_holdout_json)
+    portability = _load_routing_effect(portability_json) if portability_json else None
     mpl.rcParams.update(
         {
             "font.family": "sans-serif",
@@ -170,7 +172,9 @@ def generate_rsg_theory_evidence_figure(
         pad=11,
     )
     rows = [("Fixed test", fixed), ("Photographer holdout", holdout)]
-    y_values = [1, 0]
+    if portability is not None:
+        rows.append(("ResNet50 portability", portability))
+    y_values = list(reversed(range(len(rows))))
     max_abs = max(abs(effect["ci_low"]) for _, effect in rows) * 100
     max_abs = max(max_abs, max(abs(effect["ci_high"]) for _, effect in rows) * 100, 1.0)
     bound = max_abs * 1.24
@@ -201,18 +205,25 @@ def generate_rsg_theory_evidence_figure(
             color=COLORS["ink"],
         )
     effect_axis.set_xlim(-bound, bound)
-    effect_axis.set_ylim(-0.80, 1.82)
+    effect_axis.set_ylim(-0.80, len(rows) - 0.18)
     effect_axis.set_yticks(y_values, [label for label, _ in rows])
     effect_axis.set_xlabel("Difference in mean routing regret (percentage points; lower is better)", fontsize=7.2)
     effect_axis.grid(axis="x", color="#D8E0E4", linewidth=0.7)
     effect_axis.spines[["top", "right", "left"]].set_visible(False)
     effect_axis.tick_params(axis="y", length=0, labelsize=8)
     effect_axis.tick_params(axis="x", labelsize=7)
+    all_intervals_below_zero = all(effect["ci_high"] < 0 for _, effect in rows)
+    evidence_note = (
+        "All displayed 95% bootstrap intervals remain below zero.\n"
+        "This confirms reduced predefined routing regret, not classification superiority."
+        if all_intervals_below_zero
+        else "The displayed intervals define the evidence boundary for routing regret.\n"
+        "Classification superiority is not claimed."
+    )
     effect_axis.text(
         0.50,
         0.12,
-        "Both 95% bootstrap intervals remain below zero.\n"
-        "This confirms reduced predefined routing regret, not classification superiority.",
+        evidence_note,
         transform=effect_axis.transAxes,
         ha="center",
         va="center",
@@ -261,6 +272,7 @@ def generate_rsg_theory_evidence_figure(
                 "effect_metric": "mean routing regret, RSG-HRGV minus HRGV; lower is better",
                 "fixed_test": fixed,
                 "photographer_holdout": holdout,
+                "resnet50_portability": portability,
                 "display_effects": {
                     "fixed_test": {
                         "difference": _percent(fixed["difference"]),
@@ -270,9 +282,26 @@ def generate_rsg_theory_evidence_figure(
                         "difference": _percent(holdout["difference"]),
                         "ci": [_percent(holdout["ci_low"]), _percent(holdout["ci_high"])],
                     },
+                    **(
+                        {
+                            "resnet50_portability": {
+                                "difference": _percent(portability["difference"]),
+                                "ci": [
+                                    _percent(portability["ci_low"]),
+                                    _percent(portability["ci_high"]),
+                                ],
+                            }
+                        }
+                        if portability is not None
+                        else {}
+                    ),
                 },
                 "claim_boundary": "The paired intervals support reduced predefined routing regret only; classification superiority is not claimed.",
-                "data_sources": [str(fixed_test_json), str(photographer_holdout_json)],
+                "data_sources": [
+                    str(fixed_test_json),
+                    str(photographer_holdout_json),
+                    *([str(portability_json)] if portability_json else []),
+                ],
             },
             ensure_ascii=False,
             indent=2,
@@ -287,6 +316,7 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Generate the RSG theory-evidence figure.")
     parser.add_argument("--fixed-test-json", required=True, type=Path)
     parser.add_argument("--photographer-holdout-json", required=True, type=Path)
+    parser.add_argument("--portability-json", type=Path)
     parser.add_argument("--output-prefix", required=True, type=Path)
     return parser.parse_args(argv)
 
@@ -297,6 +327,7 @@ def main(argv: Sequence[str] | None = None) -> None:
         args.fixed_test_json,
         args.photographer_holdout_json,
         args.output_prefix,
+        portability_json=args.portability_json,
     )
     print(json.dumps({name: str(path) for name, path in outputs.items()}, ensure_ascii=False, indent=2))
 

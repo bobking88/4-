@@ -3,6 +3,7 @@ from __future__ import annotations
 import sys
 import tempfile
 import unittest
+import json
 from pathlib import Path
 
 from PIL import Image
@@ -49,6 +50,37 @@ class RSGTheoryEvidenceFigureTests(unittest.TestCase):
             source = outputs["source_description"].read_text(encoding="utf-8")
             self.assertIn("-1.77 pp", source)
             self.assertIn("-3.53 pp", source)
+
+    def test_figure_can_include_a_preregistered_backbone_portability_effect(self) -> None:
+        from generate_rsg_theory_evidence_figure import generate_rsg_theory_evidence_figure
+
+        with tempfile.TemporaryDirectory() as temporary:
+            portability = Path(temporary) / "resnet50_effect.json"
+            portability.write_text(
+                json.dumps(
+                    {
+                        "routing_regret": {
+                            "difference": -0.0125,
+                            "ci_low": -0.0200,
+                            "ci_high": -0.0050,
+                            "probability_favorable": 0.99,
+                            "bootstrap_replicates": 2000,
+                        }
+                    }
+                ),
+                encoding="utf-8",
+            )
+            outputs = generate_rsg_theory_evidence_figure(
+                PROJECT_ROOT / "outputs" / "business_metrics" / "rsg_hrgv" / "formal" / "paired_rsg_complete_vs_hrgv_reference.json",
+                PROJECT_ROOT / "outputs" / "business_metrics" / "rsg_hrgv" / "source_holdout" / "paired_rsg_complete_vs_hrgv_reference.json",
+                Path(temporary) / "fig_rsg_theory_evidence_portability",
+                portability_json=portability,
+            )
+
+            svg = outputs["svg"].read_text(encoding="utf-8")
+            source = outputs["source_description"].read_text(encoding="utf-8")
+            self.assertIn("ResNet50 portability", svg)
+            self.assertIn("resnet50_portability", source)
 
 
 if __name__ == "__main__":
