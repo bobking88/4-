@@ -2,11 +2,11 @@
 
 ## 1. 论文逻辑主线
 
-公开矿物标本图像具有类内差异大、伴生矿物混杂、背景异构和细粒度标签不完全可靠等特点。现有四分类基线的主要错误并非均匀分布，而集中在目标矿物与含钛干扰、目标矿物与金属光泽干扰之间。HRGV-Net 因而不以继续堆叠通用网络为目标，而以“层级证据是否可靠”和“目标类是否通过困难负样本验证”为两个核心问题。
+公开矿物标本图像具有类内差异大、伴生矿物混杂、背景异构和细粒度标签不完全可靠等特点。现有四分类基线的主要错误并非均匀分布，而集中在目标矿物与含钛干扰、目标矿物与金属光泽干扰之间。HRGV-Net 建立了层级证据与困难负样本验证基础；RSG-HRGV-Net 进一步聚焦“在两路既有证据分歧时如何学习路由，并量化选择错误的后悔”。
 
 论文叙事顺序为：
 
-> 数据治理与失效分析 → 层级双专家 → 可靠性门控 → 双验证器残差校正 → 可证明性质 → 三随机种子与成对统计 → 风险取舍与适用边界
+> 数据治理与失效分析 → 层级双专家 → 后悔监督可靠性门控 → 双验证器残差校正 → 可证明路由性质 → 跨划分/跨主干复核 → 风险取舍与适用边界
 
 ## 2. 详细大纲
 
@@ -72,7 +72,7 @@
 
 除 Accuracy、Macro F1 外，报告目标召回、目标漏选、含钛误入目标和金属光泽误入目标。
 
-### 4 HRGV-Net 方法
+### 4 RSG-HRGV-Net 方法
 
 #### 4.1 共享主干与层级双专家
 
@@ -94,13 +94,17 @@
 
 给出总损失及所有系数，说明其与一般 Focal Loss 的区别。
 
-#### 4.6 五项理论性质
+#### 4.6 八项理论性质与路由诊断
 
 1. 凸融合对数损失上界。
 2. 中性区残差恒等性与目标赔率单调性。
 3. 严格验证式目标接纳误收上界。
 4. 带拒识的贝叶斯最优选择性决策。
 5. `stopgrad` 条件下的验证器梯度隔离。
+
+6. 真值类更优专家相对融合概率的路由后悔上界（B.1）。
+7. 软后悔目标对硬最优门控的指数逼近（B.2）。
+8. 后悔监督分支的局部梯度隔离（B.3）及其逐图局部上界推论。
 
 每项均按“命题—假设—证明—实验对应—不能推出什么”组织。
 
@@ -117,7 +121,8 @@
 - EfficientNet-B0 + Focal Loss
 - 角色感知多任务模型
 - 分层 EfficientNet-B0
-- HRGV-Net
+- HRGV-Net（RSG 的严格匹配基线）
+- RSG-HRGV-Net（主模型）
 
 不再无目的增加大量普通网络。
 
@@ -134,12 +139,13 @@
 
 三随机种子报告均值与样本标准差。固定测试集上的模型比较使用成对簇 Bootstrap；簇以去重/来源分组为单位。可补充 exact McNemar，但不能把三随机种子均值差直接写成显著差异。
 
-#### 5.5 增强实验
+#### 5.5 RSG 机制确认与增强实验
 
-- 普通磁铁矿代理消融
-- 摄影者来源留出测试
-- 风险—覆盖率与温度校准
-- 独立未知矿物 OOD 协议（下一阶段补齐）
+- 软目标、硬目标、无差距加权与取消局部梯度隔离的门控消融。
+- 摄影者来源留出测试和严格匹配的 ResNet50 主干替换确认。
+- B.1 局部上界、B.2 软硬偏差的分层诊断和高精度数值重放。
+- 普通磁铁矿代理消融、风险—覆盖率与温度校准。
+- 独立未知矿物 OOD 协议（下一阶段补齐，不作为当前核心结论）。
 
 ### 6 结果
 
@@ -147,13 +153,13 @@
 
 报告 ResNet50、EfficientNet-B0 和 Focal Loss 三随机种子结果。
 
-#### 6.2 HRGV 主结果
+#### 6.2 HRGV 基础结果与风险取舍
 
 主表报告 6 个 HRGV 设置的五项核心指标。
 
-#### 6.3 组件贡献
+#### 6.3 RSG 路由机制与组件贡献
 
-重点报告完整 HRGV 相对无对比约束的区间不跨 0；其余组件用“趋势”“取舍”“结构合理性”表述。
+首先报告完整 HRGV 相对无对比约束的区间不跨 0；随后报告 RSG 相对严格匹配 HRGV 的路由后悔、总体分类指标和软/硬目标、差距权重、局部梯度隔离消融。对于区间跨 0 的指标只用“趋势”“取舍”“结构合理性”表述。
 
 #### 6.4 与分层模型的比较
 
@@ -188,26 +194,27 @@
 
 | 论文主张 | 数学/算法证据 | 实验证据 | 图表 | 可复现文件 | 表述强度 |
 |---|---|---|---|---|---|
-| 双专家融合具有凸对数损失上界 | 命题 1，Jensen 不等式 | 学习门控 vs 等权融合 | HRGV 结构图、消融表 | `docs/hrgv_theory_and_method.md`；`outputs/business_metrics/hrgv_network/` | 确定性上界；性能仅趋势 |
-| 残差校正具有中性恒等性和单调性 | 命题 2，后验赔率推导 | 残差 vs 旧乘法 | HRGV 结构图、消融表 | `outputs/business_metrics/hrgv_network/paired_complete_vs_residual_complete.json` | 数学性质确定；性能区间跨 0 |
-| 严格验证式接纳不会超过基础误收率和验证器放行率 | 命题 3，交事件上界 | 验证器 AUC；gate-only vs 完整 HRGV | AUC 表、风险取舍图 | `outputs/business_metrics/hrgv_network/hrgv_verifier_auc.csv` | 条件规则结论；非软校正普遍保证 |
-| 带拒识规则在给定后验和代价下为贝叶斯最优 | 命题 4，逐点条件风险最小化 | 温度校准、风险—覆盖率 | 风险—覆盖率图 | `outputs/theory_validation/calibrated_selective_recognition/` | 标准理论在本任务中的应用 |
-| 验证器输入停止梯度时不会更新共享主干 | 命题 5，链式法则 | 耦合 vs 隔离消融 | 消融表 | `outputs/training/formal_hrgv_decoupled_residual_seed*/` | 计算图性质确定；性能是经验取舍 |
-| 角色感知对比约束改善性能 | 监督对比损失 | Accuracy +1.09 pp [0.08, 2.15]；Macro F1 +1.08 pp [0.12, 2.06] | 组件效应图 | `outputs/business_metrics/hrgv_network/paired_no_contrast_vs_residual_complete.json` | 当前最强组件证据 |
-| HRGV 改善总体性能并降低两类误入，但牺牲目标召回 | 完整网络 | 相对分层基线五项指标 | `fig_hrgv_vs_hierarchical_effects` | `outputs/paper_experiments_v4/statistical_inference/hrgv_vs_hierarchical/` | 均值差；主要区间跨 0，不称显著 |
+| RSG 凸融合的真值类路由后悔受上界控制 | B.1，Lipschitz 上界 | 9 次高精度重放的最大残差为 0；固定测试路由后悔 -1.77 pp [−2.86, −0.69] | `fig_rsg_theory_evidence*` | `docs/paper_v1/theoretical_appendix.md`；`outputs/business_metrics/rsg_hrgv/theory_replay*` | 数学界确定；经验结论限于预定义路由后悔 |
+| 软目标按专家差距逼近硬最优门控 | B.2，指数界 | 9 次高精度重放最大残差 $5.94\times10^{-8}$；硬目标使后悔上升 1.94 pp [1.30, 2.60] | `fig_rsg_gate_reliability*` | `outputs/business_metrics/rsg_hrgv/theory_ablation/`；`outputs/business_metrics/rsg_hrgv/gate_reliability/` | 公式和本数据消融支持；不推及所有任务 |
+| 后悔分支只更新门控 | B.3，stop-gradient 链式法则 | 取消局部隔离降低后悔但 Macro F1 呈下降趋势 | 路由组件消融表 | `scripts/hrgv_network.py`；`outputs/business_metrics/rsg_hrgv/theory_ablation/` | 计算图性质确定；性能为经验取舍 |
+| RSG 路由机制在摄影者变化下保持预定义收益 | RSG 损失与两阶段 Bootstrap | 摄影者留出路由后悔 -3.53 pp [−4.75, −2.17] | `fig_rsg_theory_evidence_portability*` | `outputs/business_metrics/rsg_hrgv/source_holdout/` | 仅摄影风格变化下的机制确认 |
+| RSG 融合层机制在第二 CNN 主干上重现 | 仅依赖概率凸融合与 stop-gradient 的条件性质 | ResNet50 路由后悔 -3.33 pp [−4.86, −1.98] | `fig_rsg_theory_evidence_portability*` | `outputs/business_metrics/rsg_hrgv/resnet50_portability/` | 经验可迁移，不是任意主干性能保证 |
+| 角色感知对比约束改善 HRGV 基础性能 | 监督对比损失 | Accuracy +1.09 pp [0.08, 2.15]；Macro F1 +1.08 pp [0.12, 2.06] | 组件效应图 | `outputs/business_metrics/hrgv_network/paired_no_contrast_vs_residual_complete.json` | 当前总体分类最强组件证据 |
+| 残差验证器调节困难负样本风险 | 中性区残差校正与目标赔率单调性 | gate-only 与完整 HRGV 的误入/召回取舍 | HRGV 网络图、风险取舍表 | `outputs/business_metrics/hrgv_network/` | 风险控制组件，不称总体性能保证 |
 
 ## 4. 图表清单
 
 1. 数据构建与防泄漏流程图。
 2. 四类选矿角色与十七类矿物映射图。
-3. HRGV-Net 网络结构图：`outputs/paper_figures_v2/fig_hrgv_architecture.*`。
+3. RSG-HRGV-Net 网络结构图：`outputs/paper_figures_v2/fig_hrgv_architecture.*`，并在图注中区分训练期软后悔监督和推理期无标签路由。
 4. 数据类别和划分统计表。
 5. 基线三随机种子结果表。
-6. HRGV 主结果与组件消融表。
+6. HRGV 基础结果、RSG 主结果与后悔门控组件消融表。
 7. HRGV 相对分层模型的成对效应图：`outputs/paper_figures_v2/fig_hrgv_vs_hierarchical_effects.*`。
 8. 混淆矩阵与主要失效模式图。
 9. 风险—覆盖率与校准图。
-10. 来源留出和代理样本消融图。
+10. 摄影者留出和 ResNet50 主干替换下的路由后悔效应图：`outputs/paper_figures_v3/fig_rsg_theory_evidence_portability.*`。
+11. B.1 局部上界和 B.2 软硬偏差分层图：`outputs/paper_figures_v3/fig_rsg_gate_reliability.*`。
 
 ## 5. 下一阶段实验门槛
 

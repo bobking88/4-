@@ -10,7 +10,7 @@
 
 钒钛磁铁矿资源的综合利用涉及铁、钒和钛等组分的分阶段回收。矿物的颜色、光泽、形态和基质特征能够为预选和人工辅助识别提供视觉线索，但宏观 RGB 图像不能直接揭示元素含量、矿物嵌布状态或微观赋存关系。因此，视觉模型在本研究中被定位为相关矿物外观与选矿角色识别工具，而非 XRD、SEM-EDS、XRF 或化学分析的替代方法。[待核验引用：钛磁铁矿选矿综述]
 
-现有矿物图像研究已经覆盖闭集分类、关联矿物多标签识别和未知类别拒识等方向。Ji 等[1]在 36 类 Mindat 已知矿物和 15 类独立未知矿物上，将 ResNet 特征与 OCSVM 结合，以避免闭集分类器将未知矿物强行归入已知类别。Zhang 等[2]则面向真实场景的赤铁矿、磁铁矿、钛铁矿、褐铁矿、黄铁矿和岩石六分类，利用多个预训练网络及进化搜索完成多视角特征融合。上述研究说明数据驱动视觉特征、拒识和异构特征融合均已有明确路线，同时也表明，受控工业成像、公开标本图片和跨来源真实样本之间存在明显任务差异。对于公开标本图片，页面主题矿物并不必然是画面中的唯一矿物，背景、基质和伴生矿物还可能形成非目标线索。
+现有矿物图像研究已经覆盖闭集分类、关联矿物多标签识别和未知类别拒识等方向。Wu 等[1]以 Mindat 图片构建 36 类多标签任务，指出同一图像可包含多个矿物，并以 Transformer 多标签模型获得 85.26% 的 mAP。这说明页面主题矿物不能被简单等同为画面中唯一可见的矿物。Ji 等[2]在 36 类 Mindat 已知矿物和 15 类独立未知矿物上，将 ResNet 特征与 OCSVM 结合，以避免闭集分类器将未知矿物强行归入已知类别。Nesteruk 等[3]进一步构建原始矿物标本的零样本视觉基准，表明原始标本的细粒度识别与受控图片分类具有不同难度。Zhang 等[4]则面向真实场景的赤铁矿、磁铁矿、钛铁矿、褐铁矿、黄铁矿和岩石六分类，利用多个预训练网络及进化搜索完成多视角特征融合。上述研究说明多标签建模、拒识、原始标本基准和异构特征融合均已有明确路线，同时也表明，受控工业成像、公开标本图片和跨来源真实样本之间存在明显任务差异。对于公开标本图片，背景、基质和伴生矿物还可能形成非目标线索。
 
 本项目的基线实验进一步显示，四类选矿角色的错误具有结构性。含钛干扰矿物和金属光泽干扰矿物较容易被误判为目标矿物，而简单采用类别加权或 Focal Loss 不能同时改善所有类别。这意味着性能瓶颈不只来自类别数量不平衡，还来自层级证据可靠性和特定困难负样本关系。基于这一观察，本文提出 RSG-HRGV-Net，将直接角色分类、矿物种类分类、样本级证据门控和困难负样本验证统一到同一网络中，并以真实类别下的专家相对损失差直接监督门控路由。
 
@@ -327,9 +327,13 @@ RSG 的理论价值不在于为每一个分类指标承诺正增益，而在于�
 
 ## 参考文献（已核验核心条目）
 
-[1] Ji, X., Liang, K., Yang, Y., Yang, M., He, M., Zhang, Z., Zeng, S., & Wang, Y. (2024). Identifying Minerals from Image Using Out-of-Distribution Artificial Intelligence-Based Model. *Minerals, 14*(6), 627. https://doi.org/10.3390/min14060627
+[1] Wu, B., Ji, X., He, M., Yang, M., Zhang, Z., Chen, Y., Wang, Y., & Zheng, X. (2022). Mineral Identification Based on Multi-Label Image Classification. *Minerals, 12*(11), 1338. https://doi.org/10.3390/min12111338
 
-[2] Zhang, D., Qian, X., Shi, C., Zhang, Y., Qian, Y., & Zhou, S. (2025). Iron Ore Image Recognition Through Multi-View Evolutionary Deep Fusion Method. *Future Internet, 17*(12), 553. https://doi.org/10.3390/fi17120553
+[2] Ji, X., Liang, K., Yang, Y., Yang, M., He, M., Zhang, Z., Zeng, S., & Wang, Y. (2024). Identifying Minerals from Image Using Out-of-Distribution Artificial Intelligence-Based Model. *Minerals, 14*(6), 627. https://doi.org/10.3390/min14060627
+
+[3] Nesteruk, S., Agafonova, J., Pavlov, I., Gerasimov, M., Latyshev, N., Dimitrov, D., Kuznetsov, A. V., Kadurin, A., & Plechov, P. (2023). MineralImage5k: A Benchmark for Zero-Shot Raw Mineral Visual Recognition and Description. *Computers & Geosciences, 178*, 105414. https://doi.org/10.1016/j.cageo.2023.105414
+
+[4] Zhang, D., Qian, X., Shi, C., Zhang, Y., Qian, Y., & Zhou, S. (2025). Iron Ore Image Recognition Through Multi-View Evolutionary Deep Fusion Method. *Future Internet, 17*(12), 553. https://doi.org/10.3390/fi17120553
 
 ## 待补内容
 
