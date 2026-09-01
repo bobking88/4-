@@ -1,0 +1,8 @@
+{
+  "environment": "outputs\\training\\rsg_resnet50_portability\\resnet50\\formal_rsg_complete_seed20260728\\environment.json",
+  "checkpoint": "outputs\\training\\rsg_resnet50_portability\\resnet50\\formal_rsg_complete_seed20260728\\best_model.pt",
+  "output_csv": "outputs\\paper_experiments_v3\\rsg_theory_replay\\resnet50_portability\\seed20260728.csv",
+  "device": "cuda",
+  "count": 1284,
+  "mean_routing_regret_nll": 0.08143816359976136
+}

@@ -44,6 +44,7 @@ DEFAULT_THEORY_REPLAY_ANALYSIS_DIR = (
 DEFAULT_BACKBONE_PORTABILITY_ANALYSIS_DIR = (
     ROOT / "outputs" / "business_metrics" / "rsg_hrgv" / "resnet50_portability"
 )
+BACKBONE_REPLAY_HEADING = "H.4 ResNet50 跨主干高精度重放"
 FORMULA_DIR = ROOT / "outputs" / "report_assets_v9"
 RPG_FORMAL_CONFIGURATIONS = (
     "rsg_complete",
@@ -195,6 +196,51 @@ def load_rsg_backbone_portability_evidence(
     if not {"difference", "ci_low", "ci_high"} <= set(paired.get("routing_regret", {})):
         raise ValueError("RSG backbone portability evidence lacks routing regret metrics.")
     return summary, paired
+
+
+def load_rsg_backbone_replay_evidence(analysis_dir: Path) -> dict[str, object]:
+    """Select the high-precision ResNet50 replay rows from a combined replay summary."""
+    summary_path = analysis_dir / "theory_replay_summary.json"
+    if not summary_path.is_file():
+        raise ValueError("RSG backbone replay evidence summary is missing.")
+    summary = json.loads(summary_path.read_text(encoding="utf-8"))
+    numeric = summary.get("numeric_settings", {})
+    if not {"float32_epsilon", "tolerance"} <= set(numeric):
+        raise ValueError("RSG backbone replay numeric settings are incomplete.")
+    required = {
+        "protocol",
+        "seed",
+        "sample_count",
+        "minimum_true_probability",
+        "b1_max_residual",
+        "b1_violation_count",
+        "b2_max_residual",
+        "b2_violation_count",
+    }
+    runs = [
+        run
+        for run in summary.get("runs", [])
+        if run.get("protocol") == "resnet50_portability"
+    ]
+    if len(runs) != 3 or any(not required <= set(run) for run in runs):
+        raise ValueError("RSG backbone replay evidence must contain three complete ResNet50 runs.")
+    if len({str(run["seed"]) for run in runs}) != 3:
+        raise ValueError("RSG backbone replay seeds must be unique.")
+    return {
+        "runs": sorted(runs, key=lambda run: str(run["seed"])),
+        "overall": {
+            "run_count": len(runs),
+            "sample_count": sum(int(run["sample_count"]) for run in runs),
+            "minimum_true_probability": min(
+                float(run["minimum_true_probability"]) for run in runs
+            ),
+            "b1_max_residual": max(float(run["b1_max_residual"]) for run in runs),
+            "b1_violation_count": sum(int(run["b1_violation_count"]) for run in runs),
+            "b2_max_residual": max(float(run["b2_max_residual"]) for run in runs),
+            "b2_violation_count": sum(int(run["b2_violation_count"]) for run in runs),
+        },
+        "numeric_settings": numeric,
+    }
 
 
 def _add_body(document: Document, text: str) -> None:
@@ -870,6 +916,45 @@ def _add_rsg_backbone_portability_evidence(
     )
 
 
+def _add_rsg_backbone_replay_consistency(
+    document: Document, replay_evidence: dict[str, object]
+) -> None:
+    """Append formula-level numerical evidence for the ResNet50 portability check."""
+    document.add_heading(BACKBONE_REPLAY_HEADING, level=2)
+    _add_body(
+        document,
+        "为排除常规逐图 CSV 概率舍入对跨主干公式检查的影响，使用 ResNet50 三个正式 RSG-HRGV 最佳检查点重新执行只读测试推理，并以 15 位小数导出门控和两路真值概率。该重放不更新任何权重，也不改变主干替换实验的分类结果。",
+    )
+    rows: list[list[str]] = []
+    for run in replay_evidence["runs"]:
+        rows.append(
+            [
+                str(run["seed"]).replace("seed", ""),
+                str(run["sample_count"]),
+                f"{float(run['minimum_true_probability']):.2e}",
+                f"{float(run['b1_max_residual']):.2e}",
+                str(run["b1_violation_count"]),
+                f"{float(run['b2_max_residual']):.2e}",
+                str(run["b2_violation_count"]),
+            ]
+        )
+    _add_table(
+        document,
+        ["ResNet50 种子", "样本数", "最小真值概率", "B.1 最大残差", "B.1 违反数", "B.2 最大残差", "B.2 违反数"],
+        rows,
+    )
+    overall = replay_evidence["overall"]
+    numeric = replay_evidence["numeric_settings"]
+    _add_body(
+        document,
+        f"共 {overall['run_count']} 次、{overall['sample_count']} 张图像；采用 float32 概率下界 {float(numeric['float32_epsilon']):.2e} 和数值容差 {float(numeric['tolerance']):.2e}。B.1 最大残差为 {float(overall['b1_max_residual']):.2e}、B.1 违反数为 {overall['b1_violation_count']}；B.2 最大残差为 {float(overall['b2_max_residual']):.2e}、B.2 违反数为 {overall['b2_violation_count']}。这说明 B.1 与 B.2 的数值关系也在 ResNet50 的高精度输出上成立。",
+    )
+    _add_body(
+        document,
+        "该结果补强的是主干替换不变性命题的公式实现证据，不构成新的分类性能实验，不推出任意视觉主干上的性能提升，也不构成工业分选、品位、回收率、元素含量、外部泛化或未知矿物拒识结论。",
+    )
+
+
 def update_report(
     input_path: Path,
     output_path: Path,
@@ -880,6 +965,7 @@ def update_report(
     theory_replay_analysis_dir: Path | None = DEFAULT_THEORY_REPLAY_ANALYSIS_DIR,
     backbone_portability_analysis_dir: Path | None = None,
     backbone_portability_figure_path: Path = BACKBONE_PORTABILITY_FIGURE_PATH,
+    backbone_replay_analysis_dir: Path | None = None,
 ) -> Path:
     document = Document(input_path)
     update_primary_contribution_statement(document)
@@ -928,6 +1014,10 @@ def update_report(
             portability_paired,
             backbone_portability_figure_path,
         )
+    if backbone_replay_analysis_dir is not None and BACKBONE_REPLAY_HEADING not in headings:
+        _add_rsg_backbone_replay_consistency(
+            document, load_rsg_backbone_replay_evidence(backbone_replay_analysis_dir)
+        )
     output_path.parent.mkdir(parents=True, exist_ok=True)
     document.save(output_path)
     return output_path
@@ -944,6 +1034,7 @@ def main() -> None:
     parser.add_argument("--theory-replay-analysis-dir", type=Path, default=DEFAULT_THEORY_REPLAY_ANALYSIS_DIR)
     parser.add_argument("--backbone-portability-analysis-dir", type=Path)
     parser.add_argument("--backbone-portability-figure-path", type=Path, default=BACKBONE_PORTABILITY_FIGURE_PATH)
+    parser.add_argument("--backbone-replay-analysis-dir", type=Path)
     args = parser.parse_args()
     print(
         update_report(
@@ -958,6 +1049,9 @@ def main() -> None:
             if args.backbone_portability_analysis_dir
             else None,
             args.backbone_portability_figure_path.resolve(),
+            args.backbone_replay_analysis_dir.resolve()
+            if args.backbone_replay_analysis_dir
+            else None,
         )
     )
 

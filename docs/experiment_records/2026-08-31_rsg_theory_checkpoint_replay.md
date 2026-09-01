@@ -10,6 +10,7 @@
 
 - 固定测试：`rsg_controlled/formal_rsg_complete` 的种子 20260727、20260728、20260729。
 - 摄影者留出：`rsg_source_holdout/formal_rsg_complete` 的种子 20260727、20260729、20260730。
+- ResNet50 主干替换确认：`rsg_resnet50_portability/resnet50/formal_rsg_complete` 的种子 20260727、20260728、20260729。
 - 每次重放均读取对应 `environment.json`、`best_model.pt`、冻结清单和数据根目录；不更新权重、不进行反向传播、不覆盖原始训练输出。
 - 输出位置：`outputs/paper_experiments_v3/rsg_theory_replay/`。
 
@@ -32,15 +33,15 @@
 
 | 项目 | 结果 |
 | --- | ---: |
-| 重放次数 | 6 |
-| 覆盖测试图像 | 6,390 |
-| 最小导出真值概率 | \(3.97\times10^{-7}\) |
-| B.1 最大残差 | \(-5.96\times10^{-8}\) |
+| 重放次数 | 9 |
+| 覆盖测试图像 | 10,242 |
+| 最小导出真值概率 | \(1.19\times10^{-7}\) |
+| B.1 最大残差 | \(0\) |
 | B.1 违反数 | 0 |
 | B.2 最大残差 | \(5.94\times10^{-8}\) |
 | B.2 违反数 | 0 |
 
-结果表明，定理 B.1 与 B.2 所采用的概率、软目标、门控和路由后悔关系，与 6 个已训练 RSG-HRGV 检查点的高精度测试输出数值一致。
+结果表明，定理 B.1 与 B.2 所采用的概率、软目标、门控和路由后悔关系，与 9 个已训练 RSG-HRGV 检查点的高精度测试输出数值一致。其中 ResNet50 三检查点覆盖 3,852 张图像，B.1 与 B.2 的违反数也均为 0；这补强了主干替换不变性命题的实现证据，但不把该命题写成任意主干的分类性能保证。
 
 ## 解释边界
 
@@ -63,5 +64,5 @@
 ```powershell
 .\.venv-training\Scripts\python.exe scripts\analyze_rsg_theory_replay.py `
   --replay-root outputs\paper_experiments_v3\rsg_theory_replay `
-  --output-dir outputs\business_metrics\rsg_hrgv\theory_replay
+  --output-dir outputs\business_metrics\rsg_hrgv\theory_replay_portability
 ```

@@ -189,6 +189,46 @@ class FormalReportV9EvidenceTests(unittest.TestCase):
         )
 
     @staticmethod
+    def _write_complete_backbone_replay_evidence(analysis_dir: Path) -> None:
+        runs = []
+        for seed in ("20260727", "20260728", "20260729"):
+            runs.append(
+                {
+                    "protocol": "resnet50_portability",
+                    "seed": f"seed{seed}",
+                    "sample_count": 1284,
+                    "minimum_true_probability": 1.2e-7,
+                    "mean_routing_regret_nll": 0.08,
+                    "mean_b1_upper_bound": 170000.0,
+                    "b1_max_residual": 0.0,
+                    "b1_violation_count": 0,
+                    "b2_max_residual": 5.0e-8,
+                    "b2_violation_count": 0,
+                }
+            )
+        (analysis_dir / "theory_replay_summary.json").write_text(
+            json.dumps(
+                {
+                    "runs": runs,
+                    "overall": {
+                        "run_count": 3,
+                        "sample_count": 3852,
+                        "minimum_true_probability": 1.2e-7,
+                        "b1_max_residual": 0.0,
+                        "b1_violation_count": 0,
+                        "b2_max_residual": 5.0e-8,
+                        "b2_violation_count": 0,
+                    },
+                    "numeric_settings": {
+                        "float32_epsilon": 1.1920928955078125e-7,
+                        "tolerance": 2e-6,
+                    },
+                }
+            ),
+            encoding="utf-8",
+        )
+
+    @staticmethod
     def _write_complete_five_seed_evidence(analysis_dir: Path) -> None:
         metrics = (
             "accuracy",
@@ -496,6 +536,33 @@ class FormalReportV9EvidenceTests(unittest.TestCase):
             self.assertIn("\u878d\u5408\u5c42", text)
             self.assertIn("不等同于主干性能优越", text)
             self.assertIn("平均路由后悔", text)
+
+    def test_appends_backbone_replay_consistency_once(self) -> None:
+        import sys
+
+        sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
+        from update_formal_report_v9 import update_report
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_root = Path(temp_dir)
+            source = temp_root / "source.docx"
+            output = temp_root / "output.docx"
+            cgdc_dir = temp_root / "cgdc"
+            replay_dir = temp_root / "replay"
+            cgdc_dir.mkdir()
+            replay_dir.mkdir()
+            self._write_complete_evidence(cgdc_dir)
+            self._write_complete_backbone_replay_evidence(replay_dir)
+            Document().save(source)
+
+            update_report(source, output, cgdc_dir, backbone_replay_analysis_dir=replay_dir)
+            update_report(output, output, cgdc_dir, backbone_replay_analysis_dir=replay_dir)
+
+            text = "\n".join(paragraph.text for paragraph in Document(output).paragraphs)
+            self.assertEqual(text.count("H.4 ResNet50 跨主干高精度重放"), 1)
+            self.assertIn("3 次、3852 张图像", text)
+            self.assertIn("B.1 违反数为 0", text)
+            self.assertIn("不构成新的分类性能实验", text)
 
 
 if __name__ == "__main__":
