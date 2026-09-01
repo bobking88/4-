@@ -240,6 +240,9 @@ class FormalReportV9EvidenceTests(unittest.TestCase):
                 "mean_oracle_margin": 0.22,
                 "mean_soft_hard_deviation": 0.36,
                 "mean_b2_bound": 0.68,
+                "mean_exact_decomposition_abs_residual": 4e-8,
+                "exact_decomposition_max_abs_residual": 8e-7,
+                "exact_decomposition_violation_count": 0,
                 "b1_local_max_residual": 0.0,
                 "b1_local_violation_count": 0,
                 "b2_max_residual": 5e-8,
@@ -252,12 +255,19 @@ class FormalReportV9EvidenceTests(unittest.TestCase):
                     "overall": {
                         "run_count": 9,
                         "sample_count": 10242,
+                        "mean_exact_decomposition_abs_residual": 4e-8,
+                        "exact_decomposition_max_abs_residual": 8e-7,
+                        "exact_decomposition_violation_count": 0,
                         "b1_local_max_residual": 0.0,
                         "b1_local_violation_count": 0,
                         "b2_max_residual": 5e-8,
                         "b2_violation_count": 0,
                     },
-                    "numeric_settings": {"strata_count": 3},
+                    "numeric_settings": {
+                        "float32_epsilon": 1.1920928955078125e-7,
+                        "tolerance": 2e-6,
+                        "strata_count": 3,
+                    },
                     "claim_boundary": "mechanism diagnosis only",
                 }
             ),
@@ -635,9 +645,11 @@ class FormalReportV9EvidenceTests(unittest.TestCase):
 
             text = "\n".join(paragraph.text for paragraph in Document(output).paragraphs)
             self.assertEqual(text.count("H.5 门控可靠性分层诊断"), 1)
+            self.assertEqual(text.count("H.6 凸融合路由后悔精确分解的数值验证"), 1)
             self.assertIn("epsilon_i=min", text)
             self.assertIn("10,242", text)
             self.assertIn("机制诊断", text)
+            self.assertIn("8.00e-07", text)
 
 
 if __name__ == "__main__":

@@ -37,6 +37,16 @@ def _summarize_rows(rows: Sequence[dict[str, Any]]) -> dict[str, float | int]:
         "mean_oracle_margin": _mean(rows, "oracle_margin"),
         "mean_soft_hard_deviation": _mean(rows, "soft_hard_deviation"),
         "mean_b2_bound": _mean(rows, "b2_bound"),
+        "mean_exact_decomposition_abs_residual": _mean(
+            rows, "exact_decomposition_abs_residual"
+        ),
+        "exact_decomposition_max_abs_residual": max(
+            float(row["exact_decomposition_abs_residual"]) for row in rows
+        ),
+        "exact_decomposition_violation_count": sum(
+            float(row["exact_decomposition_abs_residual"]) > NUMERICAL_TOLERANCE
+            for row in rows
+        ),
         "b1_local_max_residual": max(float(row["b1_local_residual"]) for row in rows),
         "b1_local_violation_count": sum(
             float(row["b1_local_residual"]) > NUMERICAL_TOLERANCE for row in rows
@@ -105,6 +115,7 @@ def _build_row(
     direct = float(raw["direct_true_probability"])
     mapped = float(raw["mapped_true_probability"])
     gate = float(raw["gate"])
+    fused = float(raw["fused_true_probability"])
     hard_oracle = float(raw["hard_oracle_gate"])
     soft_oracle = float(raw["soft_oracle_gate"])
     regret = float(raw["routing_regret_nll"])
@@ -113,6 +124,11 @@ def _build_row(
     local_epsilon = min(direct, mapped)
     probability_gap = abs(direct - mapped)
     gate_error = abs(gate - hard_oracle)
+    best_expert_probability = max(direct, mapped)
+    exact_fused_probability = best_expert_probability - gate_error * probability_gap
+    exact_regret_nll = math.log(best_expert_probability / exact_fused_probability)
+    exact_fusion_abs_residual = abs(fused - exact_fused_probability)
+    exact_regret_abs_residual = abs(regret - exact_regret_nll)
     margin = abs(math.log(direct) - math.log(mapped))
     b1_local_bound = gate_error * probability_gap / local_epsilon
     b2_bound = math.exp(-margin / SOFT_TARGET_TEMPERATURE)
@@ -122,6 +138,13 @@ def _build_row(
         "seed": seed,
         "image_id": raw["image_id"],
         "routing_regret_nll": regret,
+        "exact_fused_probability": exact_fused_probability,
+        "exact_regret_nll": exact_regret_nll,
+        "exact_fusion_abs_residual": exact_fusion_abs_residual,
+        "exact_regret_abs_residual": exact_regret_abs_residual,
+        "exact_decomposition_abs_residual": max(
+            exact_fusion_abs_residual, exact_regret_abs_residual
+        ),
         "gate_error": gate_error,
         "probability_gap": probability_gap,
         "oracle_margin": margin,
@@ -192,8 +215,9 @@ def analyze_rsg_gate_reliability(
             "strata_count": strata_count,
         },
         "claim_boundary": (
-            "This is a descriptive mechanism diagnosis of the pointwise B.1 local bound "
-            "and B.2 exponential soft-target bound on fixed high-precision checkpoint "
+            "This is a descriptive mechanism diagnosis of the exact convex-fusion "
+            "decomposition, the pointwise B.1 local bound, and B.2 exponential "
+            "soft-target bound on fixed high-precision checkpoint "
             "replays. It is not a new classification-performance comparison, industrial "
             "sorting, grade, recovery, external-generalization, or OOD claim."
         ),

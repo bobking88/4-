@@ -46,6 +46,7 @@ DEFAULT_BACKBONE_PORTABILITY_ANALYSIS_DIR = (
 )
 BACKBONE_REPLAY_HEADING = "H.4 ResNet50 跨主干高精度重放"
 GATE_RELIABILITY_HEADING = "H.5 门控可靠性分层诊断"
+EXACT_DECOMPOSITION_HEADING = "H.6 凸融合路由后悔精确分解的数值验证"
 GATE_RELIABILITY_FIGURE_PATH = ROOT / "outputs" / "paper_figures_v3" / "fig_rsg_gate_reliability.png"
 FORMULA_DIR = ROOT / "outputs" / "report_assets_v9"
 RPG_FORMAL_CONFIGURATIONS = (
@@ -261,15 +262,29 @@ def load_rsg_gate_reliability_evidence(analysis_dir: Path) -> dict[str, object]:
         "mean_b1_local_bound",
         "mean_soft_hard_deviation",
         "mean_b2_bound",
+        "mean_exact_decomposition_abs_residual",
+        "exact_decomposition_max_abs_residual",
+        "exact_decomposition_violation_count",
         "b1_local_violation_count",
         "b2_violation_count",
     }
     if any(not required <= set(protocols[name]) for name in expected_protocols):
         raise ValueError("RSG gate-reliability protocol metrics are incomplete.")
     overall = evidence.get("overall", {})
-    if not {"run_count", "sample_count", "b1_local_violation_count", "b2_violation_count"} <= set(overall):
+    if not {
+        "run_count",
+        "sample_count",
+        "exact_decomposition_max_abs_residual",
+        "exact_decomposition_violation_count",
+        "b1_local_violation_count",
+        "b2_violation_count",
+    } <= set(overall):
         raise ValueError("RSG gate-reliability overall metrics are incomplete.")
-    if int(overall["b1_local_violation_count"]) != 0 or int(overall["b2_violation_count"]) != 0:
+    if (
+        int(overall["exact_decomposition_violation_count"]) != 0
+        or int(overall["b1_local_violation_count"]) != 0
+        or int(overall["b2_violation_count"]) != 0
+    ):
         raise ValueError("RSG gate-reliability evidence contains theorem violations.")
     return evidence
 
@@ -1041,6 +1056,47 @@ def _add_rsg_gate_reliability_diagnosis(
     )
 
 
+def _add_rsg_exact_decomposition_evidence(document: Document, evidence: dict[str, object]) -> None:
+    """Append the pointwise convex-fusion identity check as a separate report section."""
+    document.add_heading(EXACT_DECOMPOSITION_HEADING, level=2)
+    _add_body(
+        document,
+        "令 a、b 分别为直接角色专家和种类映射专家在真实角色上的概率，M=max(a,b)，d=|a-b|，delta=|g-g_o|。在两专家凸融合下，融合真值类概率与路由后悔满足 p_g=M-delta d 和 r=-log(1-delta d/M)。这是一条针对当前计算图的精确恒等式：门控偏离和专家概率差距的乘积给出相对更优专家的概率损失，随后经对数变换得到路由后悔。",
+    )
+    labels = {
+        "fixed": "固定测试",
+        "photographer_holdout": "摄影者留出",
+        "resnet50_portability": "ResNet50 跨主干",
+    }
+    rows: list[list[str]] = []
+    for protocol in ("fixed", "photographer_holdout", "resnet50_portability"):
+        values = evidence["protocols"][protocol]
+        rows.append(
+            [
+                labels[protocol],
+                str(values["sample_count"]),
+                f"{float(values['mean_exact_decomposition_abs_residual']):.2e}",
+                f"{float(values['exact_decomposition_max_abs_residual']):.2e}",
+                str(values["exact_decomposition_violation_count"]),
+            ]
+        )
+    _add_table(
+        document,
+        ["协议", "图像数", "平均绝对残差", "最大绝对残差", "违反数"],
+        rows,
+    )
+    overall = evidence["overall"]
+    numeric = evidence["numeric_settings"]
+    _add_body(
+        document,
+        f"三种协议共覆盖 {overall['run_count']} 次、{int(overall['sample_count']):,} 张图像。以 {float(numeric['tolerance']):.2e} 为预设容差，精确分解的最大绝对残差为 {float(overall['exact_decomposition_max_abs_residual']):.2e}，违反数为 {overall['exact_decomposition_violation_count']}。非零残差来自 float32 概率和后悔值保存、再以十进制导出的有限精度，故这里的结论是容差内数值一致，而非数学意义上的零误差。",
+    )
+    _add_body(
+        document,
+        "该章节验证的是现有 RSG-HRGV 两专家凸融合的公式实现，不改变既有分类结果，也不构成 Accuracy、Macro F1、工业分选、品位、回收率、元素含量、真实外部泛化或未知矿物拒识能力的新增结论。",
+    )
+
+
 def update_report(
     input_path: Path,
     output_path: Path,
@@ -1111,6 +1167,10 @@ def update_report(
             document,
             load_rsg_gate_reliability_evidence(gate_reliability_analysis_dir),
             gate_reliability_figure_path,
+        )
+    if gate_reliability_analysis_dir is not None and EXACT_DECOMPOSITION_HEADING not in headings:
+        _add_rsg_exact_decomposition_evidence(
+            document, load_rsg_gate_reliability_evidence(gate_reliability_analysis_dir)
         )
     output_path.parent.mkdir(parents=True, exist_ok=True)
     document.save(output_path)

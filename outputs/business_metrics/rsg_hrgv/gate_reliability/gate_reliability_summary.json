@@ -8,6 +8,9 @@
       "mean_oracle_margin": 0.21483672211053187,
       "mean_soft_hard_deviation": 0.36622739187348013,
       "mean_b2_bound": 0.6810728823112608,
+      "mean_exact_decomposition_abs_residual": 4.587686031196274e-08,
+      "exact_decomposition_max_abs_residual": 7.79418790786135e-07,
+      "exact_decomposition_violation_count": 0,
       "b1_local_max_residual": 8.977622951825926e-08,
       "b1_local_violation_count": 0,
       "b2_max_residual": 5.942525751546809e-08,
@@ -21,6 +24,9 @@
       "mean_oracle_margin": 0.20872945369736784,
       "mean_soft_hard_deviation": 0.35475115567832943,
       "mean_b2_bound": 0.6452018120386802,
+      "mean_exact_decomposition_abs_residual": 4.607739397511766e-08,
+      "exact_decomposition_max_abs_residual": 7.667773231634367e-07,
+      "exact_decomposition_violation_count": 0,
       "b1_local_max_residual": 8.154771370528341e-08,
       "b1_local_violation_count": 0,
       "b2_max_residual": 3.9537171234323674e-08,
@@ -34,6 +40,9 @@
       "mean_oracle_margin": 0.2393428998403933,
       "mean_soft_hard_deviation": 0.3731498628879367,
       "mean_b2_bound": 0.7063605198510613,
+      "mean_exact_decomposition_abs_residual": 4.962649045368161e-08,
+      "exact_decomposition_max_abs_residual": 8.442901215932608e-07,
+      "exact_decomposition_violation_count": 0,
       "b1_local_max_residual": 9.409676244607083e-08,
       "b1_local_violation_count": 0,
       "b2_max_residual": 5.672486154826759e-08,
@@ -48,6 +57,9 @@
     "mean_oracle_margin": 0.2225400563599769,
     "mean_soft_hard_deviation": 0.36598707463899416,
     "mean_b2_bound": 0.6816945581022686,
+    "mean_exact_decomposition_abs_residual": 4.7336783153496455e-08,
+    "exact_decomposition_max_abs_residual": 8.442901215932608e-07,
+    "exact_decomposition_violation_count": 0,
     "b1_local_max_residual": 9.409676244607083e-08,
     "b1_local_violation_count": 0,
     "b2_max_residual": 5.942525751546809e-08,
@@ -59,5 +71,5 @@
     "soft_target_temperature": 0.2,
     "strata_count": 3
   },
-  "claim_boundary": "This is a descriptive mechanism diagnosis of the pointwise B.1 local bound and B.2 exponential soft-target bound on fixed high-precision checkpoint replays. It is not a new classification-performance comparison, industrial sorting, grade, recovery, external-generalization, or OOD claim."
+  "claim_boundary": "This is a descriptive mechanism diagnosis of the exact convex-fusion decomposition, the pointwise B.1 local bound, and B.2 exponential soft-target bound on fixed high-precision checkpoint replays. It is not a new classification-performance comparison, industrial sorting, grade, recovery, external-generalization, or OOD claim."
 }

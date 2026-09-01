@@ -194,7 +194,7 @@
 
 | 论文主张 | 数学/算法证据 | 实验证据 | 图表 | 可复现文件 | 表述强度 |
 |---|---|---|---|---|---|
-| RSG 凸融合的真值类路由后悔受上界控制 | B.1，Lipschitz 上界 | 9 次高精度重放的最大残差为 0；固定测试路由后悔 -1.77 pp [−2.86, −0.69] | `fig_rsg_theory_evidence*` | `docs/paper_v1/theoretical_appendix.md`；`outputs/business_metrics/rsg_hrgv/theory_replay*` | 数学界确定；经验结论限于预定义路由后悔 |
+| RSG 凸融合的真值类路由后悔具有精确分解并受上界控制 | 引理 A.0 与 B.1，凸融合恒等式和 Lipschitz 上界 | 9 次高精度重放的精确分解最大绝对残差为 8.44e-7、B.1 最大残差为 9.41e-8，均为 0 次违反；固定测试路由后悔 -1.77 pp [−2.86, −0.69] | `fig_rsg_theory_evidence*` | `docs/paper_v1/theoretical_appendix.md`；`outputs/business_metrics/rsg_hrgv/gate_reliability/` | 数学恒等式与界确定；经验结论限于预定义路由后悔 |
 | 软目标按专家差距逼近硬最优门控 | B.2，指数界 | 9 次高精度重放最大残差 $5.94\times10^{-8}$；硬目标使后悔上升 1.94 pp [1.30, 2.60] | `fig_rsg_gate_reliability*` | `outputs/business_metrics/rsg_hrgv/theory_ablation/`；`outputs/business_metrics/rsg_hrgv/gate_reliability/` | 公式和本数据消融支持；不推及所有任务 |
 | 后悔分支只更新门控 | B.3，stop-gradient 链式法则 | 取消局部隔离降低后悔但 Macro F1 呈下降趋势 | 路由组件消融表 | `scripts/hrgv_network.py`；`outputs/business_metrics/rsg_hrgv/theory_ablation/` | 计算图性质确定；性能为经验取舍 |
 | RSG 路由机制在摄影者变化下保持预定义收益 | RSG 损失与两阶段 Bootstrap | 摄影者留出路由后悔 -3.53 pp [−4.75, −2.17] | `fig_rsg_theory_evidence_portability*` | `outputs/business_metrics/rsg_hrgv/source_holdout/` | 仅摄影风格变化下的机制确认 |

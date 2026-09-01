@@ -39,6 +39,7 @@ class RSGGateReliabilityAnalysisTests(unittest.TestCase):
             writer = csv.DictWriter(handle, fieldnames=fields)
             writer.writeheader()
             for image_id, direct, mapped, gate, hard, soft, regret in rows:
+                fused = float(gate) * float(direct) + (1.0 - float(gate)) * float(mapped)
                 writer.writerow(
                     {
                         "image_id": image_id,
@@ -47,7 +48,7 @@ class RSGGateReliabilityAnalysisTests(unittest.TestCase):
                         "gate": gate,
                         "direct_true_probability": direct,
                         "mapped_true_probability": mapped,
-                        "fused_true_probability": "0.5",
+                        "fused_true_probability": f"{fused:.15f}",
                         "hard_oracle_gate": hard,
                         "soft_oracle_gate": soft,
                         "routing_regret_nll": regret,
@@ -69,6 +70,8 @@ class RSGGateReliabilityAnalysisTests(unittest.TestCase):
             summary = analyze_rsg_gate_reliability(replay_root, output_dir, strata_count=3)
 
             self.assertEqual(summary["overall"]["sample_count"], 12)
+            self.assertLess(summary["overall"]["exact_decomposition_max_abs_residual"], 1e-10)
+            self.assertEqual(summary["overall"]["exact_decomposition_violation_count"], 0)
             self.assertEqual(summary["overall"]["b1_local_violation_count"], 0)
             self.assertEqual(summary["overall"]["b2_violation_count"], 0)
             self.assertEqual(set(summary["protocols"]), {"fixed", "resnet50_portability"})
@@ -80,6 +83,9 @@ class RSGGateReliabilityAnalysisTests(unittest.TestCase):
                 b1_rows = list(csv.DictReader(handle))
             self.assertEqual(len(b1_rows), 6)
             self.assertTrue(all(int(row["b1_local_violation_count"]) == 0 for row in b1_rows))
+            self.assertTrue(
+                all(float(row["exact_decomposition_max_abs_residual"]) < 1e-10 for row in b1_rows)
+            )
 
 
 if __name__ == "__main__":
