@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="891.202832pt" height="469.435914pt" viewBox="0 0 891.202832 469.435914" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-09-01T12:17:56.621739</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.1, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 469.435914 
+L 891.202832 469.435914 
+L 891.202832 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 26.124931 168.672914 
+L 440.627069 168.672914 
+Q 448.935576 168.672914 448.935576 161.301266 
+L 448.935576 84.308498 
+Q 448.935576 76.93685 440.627069 76.93685 
+L 26.124931 76.93685 
+Q 17.816424 76.93685 17.816424 84.308498 
+L 17.816424 161.301266 
+Q 17.816424 168.672914 26.124931 168.672914 
+z
+" clip-path="url(#p40655967d6)" style="fill: #dce9f4; stroke: #516775; stroke-width: 0.9; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 26.124931 273.104594 
+L 440.627069 273.104594 
+Q 448.935576 273.104594 448.935576 265.732946 
+L 448.935576 188.740178 
+Q 448.935576 181.36853 440.627069 181.36853 
+L 26.124931 181.36853 
+Q 17.816424 181.36853 17.816424 188.740178 
+L 17.816424 265.732946 
+Q 17.816424 273.104594 26.124931 273.104594 
+z
+" clip-path="url(#p40655967d6)" style="fill: #dce9f4; stroke: #516775; stroke-width: 0.9; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 26.124931 377.536274 
+L 440.627069 377.536274 
+Q 448.935576 377.536274 448.935576 370.164626 
+L 448.935576 293.171858 
+Q 448.935576 285.80021 440.627069 285.80021 
+L 26.124931 285.80021 
+Q 17.816424 285.80021 17.816424 293.171858 
+L 17.816424 370.164626 
+Q 17.816424 377.536274 26.124931 377.536274 
+z
+" clip-path="url(#p40655967d6)" style="fill: #dce9f4; stroke: #516775; stroke-width: 0.9; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 25.201763 429.956882 
+L 441.550237 429.956882 
+Q 448.012408 429.956882 448.012408 424.223378 
+L 448.012408 391.870034 
+Q 448.012408 386.13653 441.550237 386.13653 
+L 25.201763 386.13653 
+Q 18.739592 386.13653 18.739592 391.870034 
+L 18.739592 424.223378 
+Q 18.739592 429.956882 25.201763 429.956882 
+z
+" clip-path="url(#p40655967d6)" style="fill: #f4f6f7; stroke: #c8d1d7; stroke-width: 0.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 13px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #20303c" x="16.431673" y="47.358474" transform="rotate(-0 16.431673 47.358474)">RSG-HRGV: theory properties and directly matched evidence</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 7.3px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #647681" x="16.431673" y="63.206807" transform="rotate(-0 16.431673 63.206807)">The statements below characterize expert routing; they do not assert a universal classification gain.</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 9px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #20303c" x="37.202939" y="104.43213" transform="rotate(-0 37.202939 104.43213)">Theorem B.1  Routing regret upper bound</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 7.1px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; fill: #20303c" transform="translate(37.202939 127.914139)">For a=p_d(y|x), b=p_m(y|x), g_o=I[a&gt;=b], and a,b&gt;=epsilon:</text>
+    <text style="font-size: 7.1px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; fill: #20303c" transform="translate(37.202939 138.126283)">-log p_g(y|x) + log max(a,b) &lt;= |g-g_o| |a-b| / epsilon.</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 9px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #20303c" x="37.202939" y="208.863986" transform="rotate(-0 37.202939 208.863986)">Theorem B.2  Soft-oracle approximation</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 7.1px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; fill: #20303c" transform="translate(37.202939 232.294234)">Delta=l_m-l_d,  g*=sigmoid(Delta/T_r).  The deviation from hard optimal routing</text>
+    <text style="font-size: 7.1px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; fill: #20303c" transform="translate(37.202939 242.557963)">is bounded by exp(-|Delta|/T_r); small gaps retain uncertainty instead of forcing a switch.</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 9px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #20303c" x="37.202939" y="313.29549" transform="rotate(-0 37.202939 313.29549)">Theorem B.3  Local gradient isolation</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 7.1px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; fill: #20303c" transform="translate(37.202939 336.777499)">L_reg=w BCE(g,g*),  w=tanh(|Delta|/T_w).  Applying stop-gradient to the regret branch</text>
+    <text style="font-size: 7.1px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; fill: #20303c" transform="translate(37.202939 346.938057)">gives dL_reg/dtheta_e=0 for backbone and expert parameters through this branch.</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 7.5px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #20303c" x="233.376" y="409.161538" transform="rotate(-0 233.376 409.161538)">p_g=g p_d+(1-g)p_m,   g*=sigmoid((l_m-l_d)/T_r),   w=tanh(|l_m-l_d|/T_w)</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_6">
+    <path d="M 510.475102 436.099922 
+L 882.72 436.099922 
+L 882.72 26.563922 
+L 510.475102 26.563922 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="line2d_1">
+    <path d="M 696.597551 436.099922 
+L 696.597551 26.563922 
+" clip-path="url(#p9794406d78)" style="fill: none; stroke: #516775; stroke-width: 0.9; stroke-linecap: square"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_2">
+      <path d="M 511.244691 436.099922 
+L 511.244691 26.563922 
+" clip-path="url(#p9794406d78)" style="fill: none; stroke: #d8e0e4; stroke-width: 0.7; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_3">
+      <defs>
+       <path id="mcf680f3640" d="M 0 0 
+L 0 3.5 
+" style="stroke: #000000; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#mcf680f3640" x="511.244691" y="436.099922" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <text style="font-size: 7px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="511.244691" y="448.784004" transform="rotate(-0 511.244691 448.784004)">−6</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_4">
+      <path d="M 573.028978 436.099922 
+L 573.028978 26.563922 
+" clip-path="url(#p9794406d78)" style="fill: none; stroke: #d8e0e4; stroke-width: 0.7; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_5">
+      <g>
+       <use xlink:href="#mcf680f3640" x="573.028978" y="436.099922" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <text style="font-size: 7px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="573.028978" y="448.784004" transform="rotate(-0 573.028978 448.784004)">−4</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_6">
+      <path d="M 634.813264 436.099922 
+L 634.813264 26.563922 
+" clip-path="url(#p9794406d78)" style="fill: none; stroke: #d8e0e4; stroke-width: 0.7; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_7">
+      <g>
+       <use xlink:href="#mcf680f3640" x="634.813264" y="436.099922" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_12">
+      <text style="font-size: 7px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="634.813264" y="448.784004" transform="rotate(-0 634.813264 448.784004)">−2</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_8">
+      <path d="M 696.597551 436.099922 
+L 696.597551 26.563922 
+" clip-path="url(#p9794406d78)" style="fill: none; stroke: #d8e0e4; stroke-width: 0.7; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_9">
+      <g>
+       <use xlink:href="#mcf680f3640" x="696.597551" y="436.099922" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_13">
+      <text style="font-size: 7px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="696.597551" y="448.784004" transform="rotate(-0 696.597551 448.784004)">0</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_10">
+      <path d="M 758.381838 436.099922 
+L 758.381838 26.563922 
+" clip-path="url(#p9794406d78)" style="fill: none; stroke: #d8e0e4; stroke-width: 0.7; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_11">
+      <g>
+       <use xlink:href="#mcf680f3640" x="758.381838" y="436.099922" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_14">
+      <text style="font-size: 7px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="758.381838" y="448.784004" transform="rotate(-0 758.381838 448.784004)">2</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_12">
+      <path d="M 820.166124 436.099922 
+L 820.166124 26.563922 
+" clip-path="url(#p9794406d78)" style="fill: none; stroke: #d8e0e4; stroke-width: 0.7; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_13">
+      <g>
+       <use xlink:href="#mcf680f3640" x="820.166124" y="436.099922" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_15">
+      <text style="font-size: 7px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="820.166124" y="448.784004" transform="rotate(-0 820.166124 448.784004)">4</text>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_14">
+      <path d="M 881.950411 436.099922 
+L 881.950411 26.563922 
+" clip-path="url(#p9794406d78)" style="fill: none; stroke: #d8e0e4; stroke-width: 0.7; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_15">
+      <g>
+       <use xlink:href="#mcf680f3640" x="881.950411" y="436.099922" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_16">
+      <text style="font-size: 7px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="881.950411" y="448.784004" transform="rotate(-0 881.950411 448.784004)">6</text>
+     </g>
+    </g>
+    <g id="text_17">
+     <text style="font-size: 7.2px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="696.597551" y="460.404414" transform="rotate(-0 696.597551 460.404414)">Difference in mean routing regret (percentage points; lower is better)</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_16"/>
+     <g id="text_18">
+      <text style="font-size: 8px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end" x="506.975102" y="122.579792" transform="rotate(-0 506.975102 122.579792)">Fixed test</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_17"/>
+     <g id="text_19">
+      <text style="font-size: 8px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end" x="506.975102" y="235.711284" transform="rotate(-0 506.975102 235.711284)">Photographer holdout</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_18"/>
+     <g id="text_20">
+      <text style="font-size: 8px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end" x="506.975102" y="348.842775" transform="rotate(-0 506.975102 348.842775)">ResNet50 portability</text>
+     </g>
+    </g>
+   </g>
+   <g id="patch_7">
+    <path d="M 510.475102 436.099922 
+L 882.72 436.099922 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="LineCollection_1">
+    <path d="M 608.258662 119.331745 
+L 675.260502 119.331745 
+" clip-path="url(#p9794406d78)" style="fill: none; stroke: #2f7d72; stroke-width: 2"/>
+   </g>
+   <g id="line2d_19">
+    <defs>
+     <path id="md3ab75ea49" d="M 0 4 
+L 0 -4 
+" style="stroke: #2f7d72"/>
+    </defs>
+    <g clip-path="url(#p9794406d78)">
+     <use xlink:href="#md3ab75ea49" x="608.258662" y="119.331745" style="fill: #2f7d72; stroke: #2f7d72"/>
+    </g>
+   </g>
+   <g id="line2d_20">
+    <g clip-path="url(#p9794406d78)">
+     <use xlink:href="#md3ab75ea49" x="675.260502" y="119.331745" style="fill: #2f7d72; stroke: #2f7d72"/>
+    </g>
+   </g>
+   <g id="text_21">
+    <text style="font-size: 7px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #20303c" x="641.939549" y="98.325466" transform="rotate(-0 641.939549 98.325466)">-1.77 pp  [-2.86 pp, -0.69 pp]</text>
+   </g>
+   <g id="LineCollection_2">
+    <path d="M 549.870467 232.463237 
+L 629.516894 232.463237 
+" clip-path="url(#p9794406d78)" style="fill: none; stroke: #2f7d72; stroke-width: 2"/>
+   </g>
+   <g id="line2d_21">
+    <g clip-path="url(#p9794406d78)">
+     <use xlink:href="#md3ab75ea49" x="549.870467" y="232.463237" style="fill: #2f7d72; stroke: #2f7d72"/>
+    </g>
+   </g>
+   <g id="line2d_22">
+    <g clip-path="url(#p9794406d78)">
+     <use xlink:href="#md3ab75ea49" x="629.516894" y="232.463237" style="fill: #2f7d72; stroke: #2f7d72"/>
+    </g>
+   </g>
+   <g id="text_22">
+    <text style="font-size: 7px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #20303c" x="587.51936" y="211.456957" transform="rotate(-0 587.51936 211.456957)">-3.53 pp  [-4.75 pp, -2.17 pp]</text>
+   </g>
+   <g id="LineCollection_3">
+    <path d="M 546.498802 345.594729 
+L 635.429961 345.594729 
+" clip-path="url(#p9794406d78)" style="fill: none; stroke: #2f7d72; stroke-width: 2"/>
+   </g>
+   <g id="line2d_23">
+    <g clip-path="url(#p9794406d78)">
+     <use xlink:href="#md3ab75ea49" x="546.498802" y="345.594729" style="fill: #2f7d72; stroke: #2f7d72"/>
+    </g>
+   </g>
+   <g id="line2d_24">
+    <g clip-path="url(#p9794406d78)">
+     <use xlink:href="#md3ab75ea49" x="635.429961" y="345.594729" style="fill: #2f7d72; stroke: #2f7d72"/>
+    </g>
+   </g>
+   <g id="text_23">
+    <text style="font-size: 7px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #20303c" x="593.697453" y="324.588449" transform="rotate(-0 593.697453 324.588449)">-3.33 pp  [-4.86 pp, -1.98 pp]</text>
+   </g>
+   <g id="text_24">
+    <g id="patch_8">
+     <path d="M 559.058723 398.209383 
+L 834.136379 398.209383 
+Q 837.466379 398.209383 837.466379 394.879383 
+L 837.466379 379.031821 
+Q 837.466379 375.701821 834.136379 375.701821 
+L 559.058723 375.701821 
+Q 555.728723 375.701821 555.728723 379.031821 
+L 555.728723 394.879383 
+Q 555.728723 398.209383 559.058723 398.209383 
+z
+" style="fill: #f6e7b8; stroke: #c7a965; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-size: 7.4px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; fill: #20303c" transform="translate(596.129832 385.056967)">All displayed 95% bootstrap intervals remain below zero.</text>
+    <text style="font-size: 7.4px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; fill: #20303c" transform="translate(559.058723 392.980748)">This confirms reduced predefined routing regret, not classification superiority.</text>
+   </g>
+   <g id="text_25">
+    <text style="font-weight: 700; font-size: 7.1px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #647681" x="696.597551" y="423.74917" transform="rotate(-0 696.597551 423.74917)">classification superiority is not claimed</text>
+   </g>
+   <g id="text_26">
+    <text style="font-weight: 700; font-size: 10.3px; font-family: 'Microsoft YaHei', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #20303c" x="696.597551" y="15.563922" transform="rotate(-0 696.597551 15.563922)">Predefined routing-regret effect (RSG-HRGV minus HRGV)</text>
+   </g>
+   <g id="line2d_25">
+    <defs>
+     <path id="md67e578184" d="M 0 3.5 
+C 0.928211 3.5 1.81853 3.131218 2.474874 2.474874 
+C 3.131218 1.81853 3.5 0.928211 3.5 0 
+C 3.5 -0.928211 3.131218 -1.81853 2.474874 -2.474874 
+C 1.81853 -3.131218 0.928211 -3.5 0 -3.5 
+C -0.928211 -3.5 -1.81853 -3.131218 -2.474874 -2.474874 
+C -3.131218 -1.81853 -3.5 -0.928211 -3.5 0 
+C -3.5 0.928211 -3.131218 1.81853 -2.474874 2.474874 
+C -1.81853 3.131218 -0.928211 3.5 0 3.5 
+z
+" style="stroke: #2f7d72"/>
+    </defs>
+    <g clip-path="url(#p9794406d78)">
+     <use xlink:href="#md67e578184" x="641.939549" y="119.331745" style="fill: #2f7d72; stroke: #2f7d72"/>
+    </g>
+   </g>
+   <g id="line2d_26">
+    <g clip-path="url(#p9794406d78)">
+     <use xlink:href="#md67e578184" x="587.51936" y="232.463237" style="fill: #2f7d72; stroke: #2f7d72"/>
+    </g>
+   </g>
+   <g id="line2d_27">
+    <g clip-path="url(#p9794406d78)">
+     <use xlink:href="#md67e578184" x="593.697453" y="345.594729" style="fill: #2f7d72; stroke: #2f7d72"/>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p40655967d6">
+   <rect x="7.2" y="26.563922" width="461.583673" height="409.536"/>
+  </clipPath>
+  <clipPath id="p9794406d78">
+   <rect x="510.475102" y="26.563922" width="372.244898" height="409.536"/>
+  </clipPath>
+ </defs>
+</svg>
