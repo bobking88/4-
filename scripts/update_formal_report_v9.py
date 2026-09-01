@@ -45,6 +45,8 @@ DEFAULT_BACKBONE_PORTABILITY_ANALYSIS_DIR = (
     ROOT / "outputs" / "business_metrics" / "rsg_hrgv" / "resnet50_portability"
 )
 BACKBONE_REPLAY_HEADING = "H.4 ResNet50 跨主干高精度重放"
+GATE_RELIABILITY_HEADING = "H.5 门控可靠性分层诊断"
+GATE_RELIABILITY_FIGURE_PATH = ROOT / "outputs" / "paper_figures_v3" / "fig_rsg_gate_reliability.png"
 FORMULA_DIR = ROOT / "outputs" / "report_assets_v9"
 RPG_FORMAL_CONFIGURATIONS = (
     "rsg_complete",
@@ -241,6 +243,35 @@ def load_rsg_backbone_replay_evidence(analysis_dir: Path) -> dict[str, object]:
         },
         "numeric_settings": numeric,
     }
+
+
+def load_rsg_gate_reliability_evidence(analysis_dir: Path) -> dict[str, object]:
+    """Load the descriptive B.1/B.2 strata evidence used in appendix H.5."""
+    summary_path = analysis_dir / "gate_reliability_summary.json"
+    if not summary_path.is_file():
+        raise ValueError("RSG gate-reliability summary is missing.")
+    evidence = json.loads(summary_path.read_text(encoding="utf-8"))
+    protocols = evidence.get("protocols", {})
+    expected_protocols = {"fixed", "photographer_holdout", "resnet50_portability"}
+    if set(protocols) != expected_protocols:
+        raise ValueError("RSG gate-reliability evidence must include the three registered protocols.")
+    required = {
+        "sample_count",
+        "mean_routing_regret_nll",
+        "mean_b1_local_bound",
+        "mean_soft_hard_deviation",
+        "mean_b2_bound",
+        "b1_local_violation_count",
+        "b2_violation_count",
+    }
+    if any(not required <= set(protocols[name]) for name in expected_protocols):
+        raise ValueError("RSG gate-reliability protocol metrics are incomplete.")
+    overall = evidence.get("overall", {})
+    if not {"run_count", "sample_count", "b1_local_violation_count", "b2_violation_count"} <= set(overall):
+        raise ValueError("RSG gate-reliability overall metrics are incomplete.")
+    if int(overall["b1_local_violation_count"]) != 0 or int(overall["b2_violation_count"]) != 0:
+        raise ValueError("RSG gate-reliability evidence contains theorem violations.")
+    return evidence
 
 
 def _add_body(document: Document, text: str) -> None:
@@ -955,6 +986,61 @@ def _add_rsg_backbone_replay_consistency(
     )
 
 
+def _add_rsg_gate_reliability_diagnosis(
+    document: Document, evidence: dict[str, object], figure_path: Path
+) -> None:
+    """Append a descriptive figure that connects B.1/B.2 to observed replay strata."""
+    if not figure_path.is_file():
+        raise ValueError(f"RSG gate-reliability figure is missing: {figure_path}")
+    document.add_heading(GATE_RELIABILITY_HEADING, level=2)
+    _add_body(
+        document,
+        "在定理 B.1 中，对每张图像取局部下界 epsilon_i=min(a_i,b_i)，即可得到不弱于统一 float32 下界的逐图推论：路由后悔不超过 |g_i-g_{o,i}| |a_i-b_i| / epsilon_i。为避免把这一推论仅作为符号公式，本节按该局部上界的排序三分位数汇总实际路由后悔；同时按专家真值概率对数差 |log a_i-log b_i| 的排序三分位数汇总 B.2 的软目标偏差及其指数界。",
+    )
+    labels = {
+        "fixed": "固定测试",
+        "photographer_holdout": "摄影者留出",
+        "resnet50_portability": "ResNet50 跨主干",
+    }
+    rows: list[list[str]] = []
+    for protocol in ("fixed", "photographer_holdout", "resnet50_portability"):
+        values = evidence["protocols"][protocol]
+        rows.append(
+            [
+                labels[protocol],
+                str(values["sample_count"]),
+                _format_percent(float(values["mean_routing_regret_nll"])),
+                _format_percent(float(values["mean_b1_local_bound"])),
+                f"{float(values['mean_soft_hard_deviation']):.3f}",
+                f"{float(values['mean_b2_bound']):.3f}",
+                f"{values['b1_local_violation_count']} / {values['b2_violation_count']}",
+            ]
+        )
+    _add_table(
+        document,
+        ["协议", "图像数", "平均路由后悔", "平均局部 B.1 上界", "平均软硬偏差", "平均 B.2 指数界", "B.1 / B.2 违反数"],
+        rows,
+    )
+    picture = document.add_paragraph()
+    picture.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    picture.add_run().add_picture(str(figure_path), width=Cm(15.8))
+    caption = document.add_paragraph(style="Caption")
+    caption.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    _set_run_font(
+        caption.add_run("图 24 RSG-HRGV 门控可靠性分层诊断：局部 B.1 上界与 B.2 指数界"),
+        size=9.5,
+    )
+    overall = evidence["overall"]
+    _add_body(
+        document,
+        f"高精度重放共覆盖 {overall['run_count']} 次、{int(overall['sample_count']):,} 张图像。三种协议中，按局部 B.1 上界从低到高分层后，平均路由后悔同步升高；按专家证据差距从低到高分层后，软目标对硬最优门控的平均偏差下降，且各层 B.1 与 B.2 的违反数均为 0。这些现象与定理的条件性方向一致，但本节只是机制诊断，不替代 Accuracy、Macro F1 或工业指标的比较。",
+    )
+    _add_body(
+        document,
+        "证据边界：局部 epsilon_i 推论和分层曲线用于解释已训练模型的门控行为，不构成新增训练或新的分类性能实验；不得据此宣称工业分选、品位、回收率、元素含量、真实外部泛化或未知矿物拒识能力。",
+    )
+
+
 def update_report(
     input_path: Path,
     output_path: Path,
@@ -966,6 +1052,8 @@ def update_report(
     backbone_portability_analysis_dir: Path | None = None,
     backbone_portability_figure_path: Path = BACKBONE_PORTABILITY_FIGURE_PATH,
     backbone_replay_analysis_dir: Path | None = None,
+    gate_reliability_analysis_dir: Path | None = None,
+    gate_reliability_figure_path: Path = GATE_RELIABILITY_FIGURE_PATH,
 ) -> Path:
     document = Document(input_path)
     update_primary_contribution_statement(document)
@@ -1018,6 +1106,12 @@ def update_report(
         _add_rsg_backbone_replay_consistency(
             document, load_rsg_backbone_replay_evidence(backbone_replay_analysis_dir)
         )
+    if gate_reliability_analysis_dir is not None and GATE_RELIABILITY_HEADING not in headings:
+        _add_rsg_gate_reliability_diagnosis(
+            document,
+            load_rsg_gate_reliability_evidence(gate_reliability_analysis_dir),
+            gate_reliability_figure_path,
+        )
     output_path.parent.mkdir(parents=True, exist_ok=True)
     document.save(output_path)
     return output_path
@@ -1035,6 +1129,8 @@ def main() -> None:
     parser.add_argument("--backbone-portability-analysis-dir", type=Path)
     parser.add_argument("--backbone-portability-figure-path", type=Path, default=BACKBONE_PORTABILITY_FIGURE_PATH)
     parser.add_argument("--backbone-replay-analysis-dir", type=Path)
+    parser.add_argument("--gate-reliability-analysis-dir", type=Path)
+    parser.add_argument("--gate-reliability-figure-path", type=Path, default=GATE_RELIABILITY_FIGURE_PATH)
     args = parser.parse_args()
     print(
         update_report(
@@ -1052,6 +1148,10 @@ def main() -> None:
             args.backbone_replay_analysis_dir.resolve()
             if args.backbone_replay_analysis_dir
             else None,
+            args.gate_reliability_analysis_dir.resolve()
+            if args.gate_reliability_analysis_dir
+            else None,
+            args.gate_reliability_figure_path.resolve(),
         )
     )
 

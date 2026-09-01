@@ -229,6 +229,42 @@ class FormalReportV9EvidenceTests(unittest.TestCase):
         )
 
     @staticmethod
+    def _write_complete_gate_reliability_evidence(analysis_dir: Path) -> None:
+        protocols = {}
+        for name, count in (("fixed", 3852), ("photographer_holdout", 2538), ("resnet50_portability", 3852)):
+            protocols[name] = {
+                "run_count": 3,
+                "sample_count": count,
+                "mean_routing_regret_nll": 0.08,
+                "mean_b1_local_bound": 0.25,
+                "mean_oracle_margin": 0.22,
+                "mean_soft_hard_deviation": 0.36,
+                "mean_b2_bound": 0.68,
+                "b1_local_max_residual": 0.0,
+                "b1_local_violation_count": 0,
+                "b2_max_residual": 5e-8,
+                "b2_violation_count": 0,
+            }
+        (analysis_dir / "gate_reliability_summary.json").write_text(
+            json.dumps(
+                {
+                    "protocols": protocols,
+                    "overall": {
+                        "run_count": 9,
+                        "sample_count": 10242,
+                        "b1_local_max_residual": 0.0,
+                        "b1_local_violation_count": 0,
+                        "b2_max_residual": 5e-8,
+                        "b2_violation_count": 0,
+                    },
+                    "numeric_settings": {"strata_count": 3},
+                    "claim_boundary": "mechanism diagnosis only",
+                }
+            ),
+            encoding="utf-8",
+        )
+
+    @staticmethod
     def _write_complete_five_seed_evidence(analysis_dir: Path) -> None:
         metrics = (
             "accuracy",
@@ -563,6 +599,45 @@ class FormalReportV9EvidenceTests(unittest.TestCase):
             self.assertIn("3 次、3852 张图像", text)
             self.assertIn("B.1 违反数为 0", text)
             self.assertIn("不构成新的分类性能实验", text)
+
+    def test_appends_gate_reliability_diagnosis_once(self) -> None:
+        import sys
+
+        sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
+        from update_formal_report_v9 import RSG_THEORY_EVIDENCE_FIGURE_PATH, update_report
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_root = Path(temp_dir)
+            source = temp_root / "source.docx"
+            output = temp_root / "output.docx"
+            cgdc_dir = temp_root / "cgdc"
+            reliability_dir = temp_root / "reliability"
+            cgdc_dir.mkdir()
+            reliability_dir.mkdir()
+            self._write_complete_evidence(cgdc_dir)
+            self._write_complete_gate_reliability_evidence(reliability_dir)
+            Document().save(source)
+
+            update_report(
+                source,
+                output,
+                cgdc_dir,
+                gate_reliability_analysis_dir=reliability_dir,
+                gate_reliability_figure_path=RSG_THEORY_EVIDENCE_FIGURE_PATH,
+            )
+            update_report(
+                output,
+                output,
+                cgdc_dir,
+                gate_reliability_analysis_dir=reliability_dir,
+                gate_reliability_figure_path=RSG_THEORY_EVIDENCE_FIGURE_PATH,
+            )
+
+            text = "\n".join(paragraph.text for paragraph in Document(output).paragraphs)
+            self.assertEqual(text.count("H.5 门控可靠性分层诊断"), 1)
+            self.assertIn("epsilon_i=min", text)
+            self.assertIn("10,242", text)
+            self.assertIn("机制诊断", text)
 
 
 if __name__ == "__main__":

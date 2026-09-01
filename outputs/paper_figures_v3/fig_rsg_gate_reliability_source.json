@@ -1,0 +1,28 @@
+{
+  "figure_type": "rsg-gate-reliability-mechanism-diagnosis",
+  "theorems": [
+    "Theorem B.1",
+    "Theorem B.2"
+  ],
+  "b1_metric": "pointwise local B.1 bound with epsilon_i=min(a_i,b_i)",
+  "b2_metric": "soft-target deviation and exp(-|log a-log b|/T_r)",
+  "overall": {
+    "run_count": 9,
+    "sample_count": 10242,
+    "mean_routing_regret_nll": 0.08283950902236484,
+    "mean_b1_local_bound": 0.2746667965980931,
+    "mean_oracle_margin": 0.2225400563599769,
+    "mean_soft_hard_deviation": 0.36598707463899416,
+    "mean_b2_bound": 0.6816945581022686,
+    "b1_local_max_residual": 9.409676244607083e-08,
+    "b1_local_violation_count": 0,
+    "b2_max_residual": 5.942525751546809e-08,
+    "b2_violation_count": 0
+  },
+  "claim_boundary": "This is a descriptive mechanism diagnosis of the pointwise B.1 local bound and B.2 exponential soft-target bound on fixed high-precision checkpoint replays. It is not a new classification-performance comparison, industrial sorting, grade, recovery, external-generalization, or OOD claim.",
+  "data_sources": [
+    "outputs\\business_metrics\\rsg_hrgv\\gate_reliability\\b1_local_bound_strata.csv",
+    "outputs\\business_metrics\\rsg_hrgv\\gate_reliability\\b2_margin_strata.csv",
+    "outputs\\business_metrics\\rsg_hrgv\\gate_reliability\\gate_reliability_summary.json"
+  ]
+}
