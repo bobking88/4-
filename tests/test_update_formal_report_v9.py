@@ -692,6 +692,45 @@ class FormalReportV9EvidenceTests(unittest.TestCase):
             self.assertIn("不构成新的分类性能实验", text)
             self.assertGreaterEqual(len(rendered.inline_shapes), 2)
 
+    def test_appends_expert_complementarity_diagnostic_once(self) -> None:
+        import sys
+
+        sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
+        from update_formal_report_v9 import (
+            EXPERT_COMPLEMENTARITY_FIGURE_PATH,
+            update_report,
+        )
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_root = Path(temp_dir)
+            source = temp_root / "source.docx"
+            output = temp_root / "output.docx"
+            cgdc_dir = temp_root / "cgdc"
+            cgdc_dir.mkdir()
+            self._write_complete_evidence(cgdc_dir)
+            Document().save(source)
+
+            update_report(
+                source,
+                output,
+                cgdc_dir,
+                expert_complementarity_figure_path=EXPERT_COMPLEMENTARITY_FIGURE_PATH,
+            )
+            update_report(
+                output,
+                output,
+                cgdc_dir,
+                expert_complementarity_figure_path=EXPERT_COMPLEMENTARITY_FIGURE_PATH,
+            )
+
+            rendered = Document(output)
+            text = "\n".join(paragraph.text for paragraph in rendered.paragraphs)
+            self.assertEqual(text.count("H.8 跨粒度双专家互补性诊断"), 1)
+            self.assertIn("一对一错", text)
+            self.assertIn("实际部署不可获得", text)
+            self.assertIn("不构成总体分类性能优越", text)
+            self.assertGreaterEqual(len(rendered.inline_shapes), 1)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -48,9 +48,22 @@ BACKBONE_REPLAY_HEADING = "H.4 ResNet50 跨主干高精度重放"
 GATE_RELIABILITY_HEADING = "H.5 门控可靠性分层诊断"
 EXACT_DECOMPOSITION_HEADING = "H.6 凸融合路由后悔精确分解的数值验证"
 EXACT_DECOMPOSITION_CURVE_HEADING = "H.7 凸融合路由后悔的理论曲线"
+EXPERT_COMPLEMENTARITY_HEADING = "H.8 跨粒度双专家互补性诊断"
 GATE_RELIABILITY_FIGURE_PATH = ROOT / "outputs" / "paper_figures_v3" / "fig_rsg_gate_reliability.png"
 EXACT_DECOMPOSITION_FIGURE_PATH = (
     ROOT / "outputs" / "paper_figures_v3" / "fig_rsg_exact_regret_decomposition.png"
+)
+EXPERT_COMPLEMENTARITY_FIGURE_PATH = (
+    ROOT / "outputs" / "paper_figures_v3" / "fig_rsg_expert_complementarity.png"
+)
+DEFAULT_RSG_FIXED_SUMMARY_PATH = (
+    ROOT / "outputs" / "business_metrics" / "rsg_hrgv" / "formal" / "rsg_three_seed_summary.json"
+)
+DEFAULT_RSG_HOLDOUT_SUMMARY_PATH = (
+    ROOT / "outputs" / "business_metrics" / "rsg_hrgv" / "source_holdout" / "rsg_three_seed_summary.json"
+)
+DEFAULT_RSG_PORTABILITY_SUMMARY_PATH = (
+    ROOT / "outputs" / "business_metrics" / "rsg_hrgv" / "resnet50_portability" / "rsg_three_seed_summary.json"
 )
 FORMULA_DIR = ROOT / "outputs" / "report_assets_v9"
 RPG_FORMAL_CONFIGURATIONS = (
@@ -1133,6 +1146,91 @@ def _add_rsg_exact_decomposition_curve(
     )
 
 
+def _load_rsg_complete_summary(path: Path) -> dict[str, float]:
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    values = payload["rsg_complete"]
+    required = (
+        "direct_accuracy",
+        "mapped_accuracy",
+        "fused_accuracy",
+        "oracle_accuracy",
+        "expert_prediction_disagreement_rate",
+        "one_right_one_wrong_rate",
+        "one_right_gate_selection_accuracy",
+    )
+    missing = [name for name in required if name not in values]
+    if missing:
+        raise ValueError(f"RSG expert-complementarity summary is missing: {missing}")
+    return {name: float(values[name]["mean"]) for name in required}
+
+
+def _add_rsg_expert_complementarity_diagnosis(
+    document: Document,
+    fixed_summary_path: Path,
+    holdout_summary_path: Path,
+    portability_summary_path: Path,
+    figure_path: Path,
+) -> None:
+    """Append the frozen two-expert evidence-structure diagnosis."""
+    if not figure_path.is_file():
+        raise ValueError(f"RSG expert-complementarity figure is missing: {figure_path}")
+    summaries = (
+        ("固定测试", _load_rsg_complete_summary(fixed_summary_path)),
+        ("摄影者留出", _load_rsg_complete_summary(holdout_summary_path)),
+        ("ResNet50 跨主干", _load_rsg_complete_summary(portability_summary_path)),
+    )
+    document.add_heading(EXPERT_COMPLEMENTARITY_HEADING, level=2)
+    _add_body(
+        document,
+        "门控只有在直接角色专家与种类映射专家提供不同证据时才可能发挥作用。为避免仅从平均路由后悔反推这一前提，本节从冻结的完整 RSG-HRGV 三随机种子汇总中直接报告双专家准确率、预测分歧、一对一错样本比例和条件门控选对率。逐图 oracle 按真实角色选择更优专家，仅用于诊断当前双专家互补性的理论上限，实际部署不可获得。",
+    )
+    rows: list[list[str]] = []
+    for label, values in summaries:
+        rows.append(
+            [
+                label,
+                _format_percent(values["direct_accuracy"]),
+                _format_percent(values["mapped_accuracy"]),
+                _format_percent(values["fused_accuracy"]),
+                _format_percent(values["oracle_accuracy"]),
+                _format_percent(values["expert_prediction_disagreement_rate"]),
+                _format_percent(values["one_right_one_wrong_rate"]),
+                _format_percent(values["one_right_gate_selection_accuracy"]),
+            ]
+        )
+    _add_table(
+        document,
+        [
+            "协议",
+            "直接角色",
+            "种类映射",
+            "融合",
+            "真值 oracle",
+            "预测分歧",
+            "一对一错",
+            "门控选对",
+        ],
+        rows,
+    )
+    picture = document.add_paragraph()
+    picture.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    picture.add_run().add_picture(str(figure_path), width=Cm(15.8))
+    caption = document.add_paragraph(style="Caption")
+    caption.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    _set_run_font(
+        caption.add_run("图 26 RSG-HRGV 跨粒度双专家的互补性与可路由子集诊断"),
+        size=9.5,
+    )
+    _add_body(
+        document,
+        "三个协议中，两位专家均存在约 4%--6% 的预测分歧和约 4%--5% 的一对一错子集，说明直接角色证据与种类映射证据并非完全冗余。完整 RSG 门控在该条件子集上的选对率为 51.98%--58.01%，与前述平均路由后悔下降共同支持存在有限的可路由空间；融合 Accuracy 仍低于依赖真值的 oracle 诊断上限，因而不应把 oracle 差距解释为可直接部署的性能潜力。",
+    )
+    _add_body(
+        document,
+        "证据边界：本节仅量化现有冻结模型中两路证据的互补结构，不构成总体分类性能优越、一般化 MoE 优势、未知矿物拒识、工业分选、品位、回收率或元素含量的结论。",
+    )
+
+
 def update_report(
     input_path: Path,
     output_path: Path,
@@ -1147,6 +1245,10 @@ def update_report(
     gate_reliability_analysis_dir: Path | None = None,
     gate_reliability_figure_path: Path = GATE_RELIABILITY_FIGURE_PATH,
     exact_decomposition_figure_path: Path = EXACT_DECOMPOSITION_FIGURE_PATH,
+    expert_complementarity_fixed_summary_path: Path = DEFAULT_RSG_FIXED_SUMMARY_PATH,
+    expert_complementarity_holdout_summary_path: Path = DEFAULT_RSG_HOLDOUT_SUMMARY_PATH,
+    expert_complementarity_portability_summary_path: Path = DEFAULT_RSG_PORTABILITY_SUMMARY_PATH,
+    expert_complementarity_figure_path: Path = EXPERT_COMPLEMENTARITY_FIGURE_PATH,
 ) -> Path:
     document = Document(input_path)
     update_primary_contribution_statement(document)
@@ -1214,6 +1316,14 @@ def update_report(
             document,
             load_rsg_gate_reliability_evidence(gate_reliability_analysis_dir),
             exact_decomposition_figure_path,
+        )
+    if EXPERT_COMPLEMENTARITY_HEADING not in headings:
+        _add_rsg_expert_complementarity_diagnosis(
+            document,
+            expert_complementarity_fixed_summary_path,
+            expert_complementarity_holdout_summary_path,
+            expert_complementarity_portability_summary_path,
+            expert_complementarity_figure_path,
         )
     output_path.parent.mkdir(parents=True, exist_ok=True)
     document.save(output_path)
