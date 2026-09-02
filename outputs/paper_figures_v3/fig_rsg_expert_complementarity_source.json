@@ -1,0 +1,41 @@
+{
+  "purpose": "Diagnostic only: quantify two-expert complementarity and gate selection using frozen three-seed summaries. Oracle accuracy uses the true label and is not deployable.",
+  "protocols": {
+    "fixed_test": {
+      "direct_accuracy": 0.7596053997923157,
+      "mapped_accuracy": 0.7663551401869159,
+      "fused_accuracy": 0.7645379023883697,
+      "oracle_accuracy": 0.7871235721703012,
+      "expert_prediction_disagreement_rate": 0.056074766355140186,
+      "one_right_one_wrong_rate": 0.048286604361370715,
+      "one_right_gate_selection_accuracy": 0.5801457194899817
+    },
+    "photographer_holdout": {
+      "direct_accuracy": 0.7115839243498818,
+      "mapped_accuracy": 0.7155240346729709,
+      "fused_accuracy": 0.7147360126083531,
+      "oracle_accuracy": 0.7375886524822696,
+      "expert_prediction_disagreement_rate": 0.06107171000788022,
+      "one_right_one_wrong_rate": 0.04806934594168637,
+      "one_right_gate_selection_accuracy": 0.5368933234786893
+    },
+    "resnet50_portability": {
+      "direct_accuracy": 0.7629802699896158,
+      "mapped_accuracy": 0.7642782969885774,
+      "fused_accuracy": 0.7663551401869159,
+      "oracle_accuracy": 0.7834890965732088,
+      "expert_prediction_disagreement_rate": 0.04880581516095535,
+      "one_right_one_wrong_rate": 0.0397196261682243,
+      "one_right_gate_selection_accuracy": 0.5197548782454443
+    }
+  },
+  "metric_definitions": {
+    "direct_accuracy": "Accuracy of the direct four-role expert.",
+    "mapped_accuracy": "Accuracy after mapping the 17-species posterior into four roles.",
+    "fused_accuracy": "Accuracy of the learned convex fusion after the complete RSG model.",
+    "oracle_accuracy": "Per-image correctness if the better of two experts were selected using the true label; diagnostic upper bound only.",
+    "expert_prediction_disagreement_rate": "Rate at which the direct and mapped role argmax predictions differ.",
+    "one_right_one_wrong_rate": "Rate at which exactly one expert predicts the true role.",
+    "one_right_gate_selection_accuracy": "Gate correctness conditional on the one-right / one-wrong subset."
+  }
+}
