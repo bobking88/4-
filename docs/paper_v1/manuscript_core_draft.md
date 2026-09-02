@@ -37,9 +37,9 @@
 
 ### 2.3 本文的网络问题与贡献边界
 
-已有多模型融合通常利用不同网络主干的表示互补，现有 OOD 方法则为未知类别设置独立的拒识机制。RSG-HRGV 的问题不同：在同一共享主干中，直接角色专家和由 17 类矿物种类后验映射而来的角色专家处于同一四角色概率空间，但可能对单张图片给出分歧证据。本文不增加额外主干或把拒识写入核心结论，而是学习何时应更相信哪条语义粒度的既有证据。
+已有多模型融合通常利用不同网络主干的表示互补，现有 OOD 方法则为未知类别设置独立的拒识机制。近期层级 MoE 已在程序粒度聚合和任务引导路由中使用多级专家 [7,8]，模型路由理论也已讨论未知源域混合下从独立模型池选择模型及其后悔界 [9]。因此，本文不把层级专家、上下文门控或路由后悔作为一般性首创。RSG-HRGV 的问题更具体：在同一共享主干中，直接角色专家和由 17 类矿物种类后验映射而来的角色专家处于同一四角色概率空间，但可能对单张图片给出分歧证据。本文不增加额外主干或把拒识写入核心结论，而是学习何时应更相信哪条语义粒度的既有证据。
 
-具体地，RSG 使用真实角色下的专家损失差构造连续软门控目标，将门控误差转化为相对真值类概率更优专家的路由后悔。两专家凸融合下，这一后悔具有精确分解和可验证上界；停止梯度进一步把专家学习和路由学习局部解耦。后续实验只检验这些预定义机制在固定测试、摄影者留出和第二卷积主干上的证据，不将其扩大为总体分类精度、工业分选或开集识别的普适优势。
+具体地，RSG 使用真实角色下的专家损失差构造连续软门控目标，将门控误差转化为相对真值类概率更优专家的路由后悔。这里的后悔是当前样本的负对数似然差，不是未知源域混合下的策略价值或准确率后悔。两专家凸融合下，这一后悔具有精确分解和可验证上界；停止梯度进一步把专家学习和路由学习局部解耦。后续实验只检验这些预定义机制在固定测试、摄影者留出和第二卷积主干上的证据，不将其扩大为总体分类精度、工业分选、开集识别或一般化路由理论的普适优势。
 
 ## 3 数据与任务定义
 
@@ -369,6 +369,12 @@ RSG 的理论价值不在于为每一个分类指标承诺正增益，而在于�
 [5] 陈超, 张裕书, 李潇雨, 刘能云. (2021). 钛磁铁矿选矿技术研究进展. *矿产综合利用*, (3), 99--105. https://doi.org/10.3969/j.issn.1000-6532.2021.03.016
 
 [6] 宁金. (2021). *基于深度学习的钒钛矿智能分选技术研究*（硕士学位论文）. 电子科技大学.
+
+[7] Li, W., Wang, D., Ding, Z., Sohrabizadeh, A., Qin, Z., Cong, J., & Sun, Y. (2025). Hierarchical Mixture of Experts: Generalizable Learning for High-Level Synthesis. *Proceedings of the AAAI Conference on Artificial Intelligence, 39*(17), 18476--18484. https://doi.org/10.1609/aaai.v39i17.34033
+
+[8] Liang, Y., Meng, F., & Zhou, J. (2025). THOR-MoE: Hierarchical Task-Guided and Context-Responsive Routing for Neural Machine Translation. In *Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics*, 21433--21445. https://doi.org/10.18653/v1/2025.acl-long.1040
+
+[9] Dann, C., Mansour, Y., Marinov, T. V., & Mohri, M. (2025). Principled Model Routing for Unknown Mixtures of Source Domains. In *Advances in Neural Information Processing Systems 38*. https://doi.org/10.52202/085713-1356
 
 ## 待补内容
 
