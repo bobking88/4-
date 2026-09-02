@@ -47,7 +47,11 @@ DEFAULT_BACKBONE_PORTABILITY_ANALYSIS_DIR = (
 BACKBONE_REPLAY_HEADING = "H.4 ResNet50 跨主干高精度重放"
 GATE_RELIABILITY_HEADING = "H.5 门控可靠性分层诊断"
 EXACT_DECOMPOSITION_HEADING = "H.6 凸融合路由后悔精确分解的数值验证"
+EXACT_DECOMPOSITION_CURVE_HEADING = "H.7 凸融合路由后悔的理论曲线"
 GATE_RELIABILITY_FIGURE_PATH = ROOT / "outputs" / "paper_figures_v3" / "fig_rsg_gate_reliability.png"
+EXACT_DECOMPOSITION_FIGURE_PATH = (
+    ROOT / "outputs" / "paper_figures_v3" / "fig_rsg_exact_regret_decomposition.png"
+)
 FORMULA_DIR = ROOT / "outputs" / "report_assets_v9"
 RPG_FORMAL_CONFIGURATIONS = (
     "rsg_complete",
@@ -1097,6 +1101,38 @@ def _add_rsg_exact_decomposition_evidence(document: Document, evidence: dict[str
     )
 
 
+def _add_rsg_exact_decomposition_curve(
+    document: Document, evidence: dict[str, object], figure_path: Path
+) -> None:
+    """Append the analytic exact-regret curve with the frozen replay note."""
+    if not figure_path.is_file():
+        raise ValueError(f"RSG exact-decomposition figure is missing: {figure_path}")
+    document.add_heading(EXACT_DECOMPOSITION_CURVE_HEADING, level=2)
+    _add_body(
+        document,
+        "为将 H.6 的逐图残差验证与公式机制对应起来，图 25 直接绘制两专家凸融合的解析理论曲线。令 u=delta d/M，其中 M=max(a,b)、d=|a-b|、delta=|g-g_o|，则路由后悔严格满足 r=-log(1-delta d/M)= -log(1-u)。因此，在当前两专家概率凸融合下，门控相对硬最优的偏离和专家真值类概率差距以乘积方式共同决定后悔；当 u 接近 0 时，r 与 u 近似线性，当 u 增大时对数变换使后悔加速上升。",
+    )
+    picture = document.add_paragraph()
+    picture.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    picture.add_run().add_picture(str(figure_path), width=Cm(15.8))
+    caption = document.add_paragraph(style="Caption")
+    caption.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    _set_run_font(
+        caption.add_run("图 25 两专家凸融合路由后悔的解析理论曲线与数值一致性注记"),
+        size=9.5,
+    )
+    overall = evidence["overall"]
+    numeric = evidence["numeric_settings"]
+    _add_body(
+        document,
+        f"图中的曲线为解析理论曲线，不是由分类指标拟合得到。脚注对应冻结检查点的高精度回放：{overall['run_count']} 次、{int(overall['sample_count']):,} 张图像的精确分解最大绝对残差为 {float(overall['exact_decomposition_max_abs_residual']):.2e}，低于预设容差 {float(numeric['tolerance']):.1e}，违反数为 {overall['exact_decomposition_violation_count']}。因此，这张图与 H.6 共同构成“公式推导--数值实现--可视化解释”的证据链。",
+    )
+    _add_body(
+        document,
+        "证据边界：该图仅解释 RSG-HRGV 预定义路由后悔的解析结构和有限精度下的容差内一致性，不构成新的分类性能实验，不能据此推出 Accuracy、Macro F1、工业分选、品位、回收率、元素含量、真实外部泛化或未知矿物拒识能力的提升。",
+    )
+
+
 def update_report(
     input_path: Path,
     output_path: Path,
@@ -1110,6 +1146,7 @@ def update_report(
     backbone_replay_analysis_dir: Path | None = None,
     gate_reliability_analysis_dir: Path | None = None,
     gate_reliability_figure_path: Path = GATE_RELIABILITY_FIGURE_PATH,
+    exact_decomposition_figure_path: Path = EXACT_DECOMPOSITION_FIGURE_PATH,
 ) -> Path:
     document = Document(input_path)
     update_primary_contribution_statement(document)
@@ -1172,6 +1209,12 @@ def update_report(
         _add_rsg_exact_decomposition_evidence(
             document, load_rsg_gate_reliability_evidence(gate_reliability_analysis_dir)
         )
+    if gate_reliability_analysis_dir is not None and EXACT_DECOMPOSITION_CURVE_HEADING not in headings:
+        _add_rsg_exact_decomposition_curve(
+            document,
+            load_rsg_gate_reliability_evidence(gate_reliability_analysis_dir),
+            exact_decomposition_figure_path,
+        )
     output_path.parent.mkdir(parents=True, exist_ok=True)
     document.save(output_path)
     return output_path
@@ -1191,6 +1234,7 @@ def main() -> None:
     parser.add_argument("--backbone-replay-analysis-dir", type=Path)
     parser.add_argument("--gate-reliability-analysis-dir", type=Path)
     parser.add_argument("--gate-reliability-figure-path", type=Path, default=GATE_RELIABILITY_FIGURE_PATH)
+    parser.add_argument("--exact-decomposition-figure-path", type=Path, default=EXACT_DECOMPOSITION_FIGURE_PATH)
     args = parser.parse_args()
     print(
         update_report(
@@ -1212,6 +1256,7 @@ def main() -> None:
             if args.gate_reliability_analysis_dir
             else None,
             args.gate_reliability_figure_path.resolve(),
+            args.exact_decomposition_figure_path.resolve(),
         )
     )
 

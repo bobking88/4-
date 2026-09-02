@@ -1,0 +1,15 @@
+{
+  "figure_type": "rsg-exact-convex-fusion-regret-decomposition",
+  "core_conclusion": "The convex-fusion routing regret is exactly -log(1-u), where u equals the product of gate deviation and normalized expert probability gap.",
+  "formula": {
+    "u": "delta d / M",
+    "r": "-log(1-u)"
+  },
+  "sample_count": 10242,
+  "run_count": 9,
+  "exact_decomposition_max_abs_residual": 8.442901215932608e-07,
+  "exact_decomposition_violation_count": 0,
+  "tolerance": 2e-06,
+  "claim_boundary": "This is a descriptive mechanism diagnosis of the exact convex-fusion decomposition, the pointwise B.1 local bound, and B.2 exponential soft-target bound on fixed high-precision checkpoint replays. It is not a new classification-performance comparison, industrial sorting, grade, recovery, external-generalization, or OOD claim.",
+  "source_summary": "outputs\\business_metrics\\rsg_hrgv\\gate_reliability\\gate_reliability_summary.json"
+}

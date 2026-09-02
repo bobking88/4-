@@ -651,6 +651,47 @@ class FormalReportV9EvidenceTests(unittest.TestCase):
             self.assertIn("机制诊断", text)
             self.assertIn("8.00e-07", text)
 
+    def test_appends_exact_regret_curve_once_with_formula_boundary(self) -> None:
+        import sys
+
+        sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
+        from update_formal_report_v9 import RSG_THEORY_EVIDENCE_FIGURE_PATH, update_report
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp_root = Path(temp_dir)
+            source = temp_root / "source.docx"
+            output = temp_root / "output.docx"
+            cgdc_dir = temp_root / "cgdc"
+            reliability_dir = temp_root / "reliability"
+            cgdc_dir.mkdir()
+            reliability_dir.mkdir()
+            self._write_complete_evidence(cgdc_dir)
+            self._write_complete_gate_reliability_evidence(reliability_dir)
+            Document().save(source)
+
+            update_report(
+                source,
+                output,
+                cgdc_dir,
+                gate_reliability_analysis_dir=reliability_dir,
+                exact_decomposition_figure_path=RSG_THEORY_EVIDENCE_FIGURE_PATH,
+            )
+            update_report(
+                output,
+                output,
+                cgdc_dir,
+                gate_reliability_analysis_dir=reliability_dir,
+                exact_decomposition_figure_path=RSG_THEORY_EVIDENCE_FIGURE_PATH,
+            )
+
+            rendered = Document(output)
+            text = "\n".join(paragraph.text for paragraph in rendered.paragraphs)
+            self.assertEqual(text.count("H.7 凸融合路由后悔的理论曲线"), 1)
+            self.assertIn("r=-log(1-delta d/M)", text)
+            self.assertIn("解析理论曲线", text)
+            self.assertIn("不构成新的分类性能实验", text)
+            self.assertGreaterEqual(len(rendered.inline_shapes), 2)
+
 
 if __name__ == "__main__":
     unittest.main()
