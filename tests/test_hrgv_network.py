@@ -715,6 +715,154 @@ class HRGVModelTests(unittest.TestCase):
         self.assertEqual(model.verifier_mode, "residual")
         self.assertTrue(model.detach_verifier_features)
 
+    def test_phr_model_exposes_pairwise_outputs_and_exact_final_margins(self) -> None:
+        from hrgv_network import HierarchicalRiskGatedVerificationNet
+
+        mapping = self.build_mapping()
+        model = HierarchicalRiskGatedVerificationNet(
+            self.dependencies["models"],
+            self.build_role_matrix(mapping),
+            pretrained=False,
+            embedding_dim=8,
+            gate_hidden_dim=16,
+            enable_phr=True,
+            phr_gate_hidden_dim=16,
+            detach_phr_gate_features=True,
+        )
+        outputs = model(self.torch.randn(2, 3, 64, 64))
+        final_logits = outputs["final_role_probabilities"].log()
+
+        for key in (
+            "phr_pair_gates",
+            "phr_direct_margins",
+            "phr_mapped_margins",
+            "phr_fused_margins",
+            "phr_base_margins",
+            "phr_margin_deltas",
+            "phr_logit_adjustments",
+        ):
+            self.assertIn(key, outputs)
+            self.assertEqual(tuple(outputs[key].shape), (2, 2) if key != "phr_logit_adjustments" else (2, 4))
+            self.assertTrue(self.torch.isfinite(outputs[key]).all(), key)
+        self.assertTrue(
+            self.torch.allclose(
+                outputs["final_role_probabilities"].sum(dim=1),
+                self.torch.ones(2),
+                atol=1e-6,
+            )
+        )
+        self.assertTrue(((outputs["phr_pair_gates"] >= 0) & (outputs["phr_pair_gates"] <= 1)).all())
+        self.assertTrue(
+            self.torch.allclose(
+                final_logits[:, 0] - final_logits[:, 1],
+                outputs["phr_fused_margins"][:, 0],
+                atol=1e-5,
+            )
+        )
+        self.assertTrue(
+            self.torch.allclose(
+                final_logits[:, 0] - final_logits[:, 3],
+                outputs["phr_fused_margins"][:, 1],
+                atol=1e-5,
+            )
+        )
+
+    def test_detached_phr_gate_supervision_only_updates_pair_gate_parameters(self) -> None:
+        from hrgv_network import (
+            HierarchicalRiskGatedVerificationNet,
+            pairwise_routing_targets,
+            weighted_soft_gate_loss,
+        )
+
+        mapping = self.build_mapping()
+        model = HierarchicalRiskGatedVerificationNet(
+            self.dependencies["models"],
+            self.build_role_matrix(mapping),
+            pretrained=False,
+            embedding_dim=8,
+            gate_hidden_dim=16,
+            enable_phr=True,
+            phr_gate_hidden_dim=16,
+            detach_phr_gate_features=True,
+        )
+        labels = self.torch.tensor([0, 1, 3], dtype=self.torch.long)
+        outputs = model(self.torch.randn(3, 3, 64, 64))
+        targets = pairwise_routing_targets(
+            outputs["phr_direct_margins"],
+            outputs["phr_mapped_margins"],
+            labels,
+            target_index=0,
+            negative_indices=(1, 3),
+            target_temperature=0.20,
+            gap_temperature=0.50,
+            torch=self.torch,
+        )
+        loss = sum(
+            weighted_soft_gate_loss(
+                outputs["phr_pair_gates"][:, index : index + 1],
+                targets["soft_oracle_gates"][:, index : index + 1],
+                targets["gap_weights"][:, index : index + 1],
+                self.torch,
+            )
+            for index in range(2)
+        )
+        loss.backward()
+
+        self.assertTrue(
+            any(parameter.grad is not None for parameter in model.phr_gate_networks.parameters())
+        )
+        for module in (
+            model.features,
+            model.role_head,
+            model.species_head,
+            model.ti_verifier_head,
+            model.metallic_verifier_head,
+        ):
+            self.assertTrue(all(parameter.grad is None for parameter in module.parameters()))
+
+    def test_coupled_phr_gate_supervision_reaches_shared_visual_features(self) -> None:
+        from hrgv_network import (
+            HierarchicalRiskGatedVerificationNet,
+            pairwise_routing_targets,
+            weighted_soft_gate_loss,
+        )
+
+        mapping = self.build_mapping()
+        model = HierarchicalRiskGatedVerificationNet(
+            self.dependencies["models"],
+            self.build_role_matrix(mapping),
+            pretrained=False,
+            embedding_dim=8,
+            gate_hidden_dim=16,
+            enable_phr=True,
+            phr_gate_hidden_dim=16,
+            detach_phr_gate_features=False,
+        )
+        labels = self.torch.tensor([0, 1, 3], dtype=self.torch.long)
+        outputs = model(self.torch.randn(3, 3, 64, 64))
+        targets = pairwise_routing_targets(
+            outputs["phr_direct_margins"],
+            outputs["phr_mapped_margins"],
+            labels,
+            target_index=0,
+            negative_indices=(1, 3),
+            target_temperature=0.20,
+            gap_temperature=0.50,
+            torch=self.torch,
+        )
+        loss = sum(
+            weighted_soft_gate_loss(
+                outputs["phr_pair_gates"][:, index : index + 1],
+                targets["soft_oracle_gates"][:, index : index + 1],
+                targets["gap_weights"][:, index : index + 1],
+                self.torch,
+            )
+            for index in range(2)
+        )
+        loss.backward()
+
+        self.assertTrue(any(parameter.grad is not None for parameter in model.features.parameters()))
+
     def test_resnet50_backbone_preserves_the_hrgv_output_contract(self) -> None:
         from hrgv_network import HierarchicalRiskGatedVerificationNet
 

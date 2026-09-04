@@ -295,6 +295,27 @@ def pairwise_log_odds(probabilities, target_index: int, negative_indices: tuple[
     return target_log_probability - negative_log_probabilities
 
 
+def pairwise_binary_entropies(
+    probabilities, target_index: int, negative_indices: tuple[int, int], torch
+):
+    """Return normalized binary uncertainty for each registered hard-negative edge."""
+    _validate_probability_matrix(probabilities, "probabilities")
+    if len(negative_indices) != 2 or len(set(negative_indices)) != 2:
+        raise ValueError("Exactly two distinct negative role indices are required.")
+    if target_index in negative_indices or min((target_index, *negative_indices)) < 0:
+        raise ValueError("Target and negative role indices must be distinct non-negative values.")
+    if max((target_index, *negative_indices)) >= probabilities.shape[1]:
+        raise ValueError("A pairwise role index is outside the role dimension.")
+
+    epsilon = torch.finfo(probabilities.dtype).eps
+    entropies = []
+    for negative_index in negative_indices:
+        pair = probabilities[:, [target_index, negative_index]].clamp_min(epsilon)
+        pair = pair / pair.sum(dim=1, keepdim=True).clamp_min(epsilon)
+        entropies.append(normalized_entropy(pair, torch))
+    return torch.cat(entropies, dim=1)
+
+
 def _pairwise_label_directed_utilities(
     direct_margins,
     mapped_margins,
@@ -657,6 +678,9 @@ class HierarchicalRiskGatedVerificationNet(nn.Module):
         rpg_entropy_mode: str = "partitioned",
         enable_mrpg: bool = False,
         mrpg_between_mode: str = "monotone",
+        enable_phr: bool = False,
+        phr_gate_hidden_dim: int = 128,
+        detach_phr_gate_features: bool = True,
     ) -> None:
         super().__init__()
         if verifier_mode not in {"residual", "multiplicative", "disabled"}:
@@ -672,7 +696,13 @@ class HierarchicalRiskGatedVerificationNet(nn.Module):
             raise ValueError("Every species must map to exactly one role.")
         if bool((role_matrix < 0).any()):
             raise ValueError("role_matrix must be non-negative.")
-        if min(embedding_dim, gate_hidden_dim, adapter_bottleneck_dim, calibration_hidden_dim) <= 0:
+        if min(
+            embedding_dim,
+            gate_hidden_dim,
+            adapter_bottleneck_dim,
+            calibration_hidden_dim,
+            phr_gate_hidden_dim,
+        ) <= 0:
             raise ValueError("Network hidden dimensions must be positive.")
         if fixed_gate is not None and not 0.0 <= fixed_gate <= 1.0:
             raise ValueError("fixed_gate must lie in [0, 1].")
@@ -684,6 +714,8 @@ class HierarchicalRiskGatedVerificationNet(nn.Module):
             raise ValueError("CGDC and RPG cannot be enabled together.")
         if enable_mrpg and (enable_cgdc or enable_rpg):
             raise ValueError("M-RPG is mutually exclusive with CGDC and RPG.")
+        if enable_phr and (enable_cgdc or enable_rpg or enable_mrpg):
+            raise ValueError("PHR cannot be combined with CGDC, RPG, or M-RPG.")
         if rpg_entropy_mode not in RPG_ENTROPY_MODES:
             raise ValueError(f"Unknown RPG entropy mode: {rpg_entropy_mode}")
         if mrpg_between_mode not in {"monotone", "unconstrained", "disabled"}:
@@ -699,8 +731,10 @@ class HierarchicalRiskGatedVerificationNet(nn.Module):
         self.enable_cgdc = enable_cgdc
         self.enable_rpg = enable_rpg
         self.enable_mrpg = enable_mrpg
+        self.enable_phr = enable_phr
         self.rpg_entropy_mode = rpg_entropy_mode
         self.mrpg_between_mode = mrpg_between_mode
+        self.detach_phr_gate_features = detach_phr_gate_features
         self.cgdc_shared_features = cgdc_shared_features
         self.cgdc_unconditional = cgdc_unconditional
         if enable_cgdc and not cgdc_shared_features:
@@ -748,6 +782,26 @@ class HierarchicalRiskGatedVerificationNet(nn.Module):
             )
         self.ti_verifier_head = nn.Linear(feature_dim, 2)
         self.metallic_verifier_head = nn.Linear(feature_dim, 2)
+        self.phr_gate_networks = (
+            nn.ModuleDict(
+                {
+                    "ti": nn.Sequential(
+                        nn.Linear(feature_dim + 6, phr_gate_hidden_dim),
+                        nn.ReLU(inplace=True),
+                        nn.Dropout(p=0.10),
+                        nn.Linear(phr_gate_hidden_dim, 1),
+                    ),
+                    "metallic": nn.Sequential(
+                        nn.Linear(feature_dim + 6, phr_gate_hidden_dim),
+                        nn.ReLU(inplace=True),
+                        nn.Dropout(p=0.10),
+                        nn.Linear(phr_gate_hidden_dim, 1),
+                    ),
+                }
+            )
+            if enable_phr
+            else None
+        )
         self.projection_head = nn.Sequential(
             nn.Linear(feature_dim, feature_dim),
             nn.ReLU(inplace=True),
@@ -915,7 +969,62 @@ class HierarchicalRiskGatedVerificationNet(nn.Module):
         metallic_verifier_logits = self.metallic_verifier_head(verifier_features)
         ti_target_probability = torch.softmax(ti_verifier_logits, dim=1)[:, 1:2]
         metallic_target_probability = torch.softmax(metallic_verifier_logits, dim=1)[:, 1:2]
-        if self.verifier_mode == "disabled":
+        if self.enable_phr:
+            if self.phr_gate_networks is None:
+                raise RuntimeError("PHR pair-gate networks are not initialized.")
+            negative_indices = (1, 3)
+            phr_direct_margins = pairwise_log_odds(
+                direct_role_probabilities, 0, negative_indices, torch
+            )
+            phr_mapped_margins = pairwise_log_odds(
+                mapped_role_probabilities, 0, negative_indices, torch
+            )
+            phr_direct_entropies = pairwise_binary_entropies(
+                direct_role_probabilities, 0, negative_indices, torch
+            )
+            phr_mapped_entropies = pairwise_binary_entropies(
+                mapped_role_probabilities, 0, negative_indices, torch
+            )
+            verifier_probabilities = (ti_target_probability, metallic_target_probability)
+            pair_gate_columns = []
+            for column_index, (name, verifier_probability) in enumerate(
+                zip(("ti", "metallic"), verifier_probabilities, strict=True)
+            ):
+                pair_gate_inputs = torch.cat(
+                    [
+                        features,
+                        phr_direct_margins[:, column_index : column_index + 1],
+                        phr_mapped_margins[:, column_index : column_index + 1],
+                        (
+                            phr_direct_margins[:, column_index : column_index + 1]
+                            - phr_mapped_margins[:, column_index : column_index + 1]
+                        ).abs(),
+                        phr_direct_entropies[:, column_index : column_index + 1],
+                        phr_mapped_entropies[:, column_index : column_index + 1],
+                        verifier_probability,
+                    ],
+                    dim=1,
+                )
+                if self.detach_phr_gate_features:
+                    pair_gate_inputs = pair_gate_inputs.detach()
+                pair_gate_columns.append(
+                    torch.sigmoid(self.phr_gate_networks[name](pair_gate_inputs))
+                )
+            phr_pair_gates = torch.cat(pair_gate_columns, dim=1)
+            phr_fused_margins = (
+                phr_pair_gates * phr_direct_margins
+                + (1.0 - phr_pair_gates) * phr_mapped_margins
+            )
+            phr_correction = apply_pairwise_log_odds_correction(
+                fused_role_probabilities,
+                phr_fused_margins,
+                target_index=0,
+                ti_index=1,
+                metallic_index=3,
+                torch=torch,
+            )
+            final_role_probabilities = phr_correction["corrected_role_probabilities"]
+        elif self.verifier_mode == "disabled":
             final_role_probabilities = calibrated_role_probabilities
         elif self.verifier_mode == "multiplicative":
             final_role_probabilities = apply_multiplicative_target_verifiers(
@@ -978,6 +1087,18 @@ class HierarchicalRiskGatedVerificationNet(nn.Module):
                         "normalized_within_role_entropy"
                     ],
                     "mrpg_between_coefficient": mrpg_between_coefficient,
+                }
+            )
+        if self.enable_phr:
+            outputs.update(
+                {
+                    "phr_pair_gates": phr_pair_gates,
+                    "phr_direct_margins": phr_direct_margins,
+                    "phr_mapped_margins": phr_mapped_margins,
+                    "phr_fused_margins": phr_fused_margins,
+                    "phr_base_margins": phr_correction["base_margins"],
+                    "phr_margin_deltas": phr_correction["margin_deltas"],
+                    "phr_logit_adjustments": phr_correction["logit_adjustments"],
                 }
             )
         return outputs
