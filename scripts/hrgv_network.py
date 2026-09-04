@@ -259,6 +259,203 @@ def regret_gate_targets(
     }
 
 
+def _validate_pairwise_role_inputs(
+    direct_margins,
+    mapped_margins,
+    role_labels,
+    target_index: int,
+    negative_indices: tuple[int, int],
+) -> None:
+    if direct_margins.ndim != 2 or direct_margins.shape[1] != 2:
+        raise ValueError("Direct pairwise margins must have shape [batch, 2].")
+    if mapped_margins.shape != direct_margins.shape:
+        raise ValueError("Mapped pairwise margins must match direct pairwise margins.")
+    if role_labels.ndim != 1 or role_labels.shape[0] != direct_margins.shape[0]:
+        raise ValueError("Role labels must have shape [batch].")
+    if len(negative_indices) != 2 or len(set(negative_indices)) != 2:
+        raise ValueError("Exactly two distinct negative role indices are required.")
+    if target_index in negative_indices or min((target_index, *negative_indices)) < 0:
+        raise ValueError("Target and negative role indices must be distinct non-negative values.")
+
+
+def pairwise_log_odds(probabilities, target_index: int, negative_indices: tuple[int, int], torch):
+    """Return target-versus-hard-negative log odds for the registered two edges."""
+    _validate_probability_matrix(probabilities, "probabilities")
+    if len(negative_indices) != 2 or len(set(negative_indices)) != 2:
+        raise ValueError("Exactly two distinct negative role indices are required.")
+    if target_index in negative_indices or min((target_index, *negative_indices)) < 0:
+        raise ValueError("Target and negative role indices must be distinct non-negative values.")
+    if max((target_index, *negative_indices)) >= probabilities.shape[1]:
+        raise ValueError("A pairwise role index is outside the role dimension.")
+
+    epsilon = torch.finfo(probabilities.dtype).eps
+    safe = probabilities.clamp_min(epsilon)
+    target_log_probability = safe[:, target_index : target_index + 1].log()
+    negative_log_probabilities = safe[:, list(negative_indices)].log()
+    return target_log_probability - negative_log_probabilities
+
+
+def _pairwise_label_directed_utilities(
+    direct_margins,
+    mapped_margins,
+    role_labels,
+    target_index: int,
+    negative_indices: tuple[int, int],
+    torch,
+):
+    _validate_pairwise_role_inputs(
+        direct_margins, mapped_margins, role_labels, target_index, negative_indices
+    )
+    eligible_columns = []
+    direction_columns = []
+    for negative_index in negative_indices:
+        is_target = role_labels == target_index
+        is_negative = role_labels == negative_index
+        eligible_columns.append(is_target | is_negative)
+        direction_columns.append(is_target.to(direct_margins.dtype) - is_negative.to(direct_margins.dtype))
+    eligible_mask = torch.stack(eligible_columns, dim=1)
+    directions = torch.stack(direction_columns, dim=1)
+    return {
+        "eligible_mask": eligible_mask,
+        "directions": directions,
+        "direct_utilities": direct_margins * directions,
+        "mapped_utilities": mapped_margins * directions,
+    }
+
+
+def pairwise_routing_targets(
+    direct_margins,
+    mapped_margins,
+    role_labels,
+    target_index: int,
+    negative_indices: tuple[int, int],
+    target_temperature: float,
+    gap_temperature: float,
+    torch,
+    hard_target: bool = False,
+    unweighted: bool = False,
+):
+    """Build detached, label-directed pair-gate targets for two hard-negative edges."""
+    if target_temperature <= 0 or gap_temperature <= 0:
+        raise ValueError("Pairwise gate temperatures must be positive.")
+    utilities = _pairwise_label_directed_utilities(
+        direct_margins,
+        mapped_margins,
+        role_labels,
+        target_index,
+        negative_indices,
+        torch,
+    )
+    expert_utility_gap = utilities["direct_utilities"] - utilities["mapped_utilities"]
+    hard_oracle_gates = (expert_utility_gap >= 0).to(direct_margins.dtype)
+    soft_oracle_gates = torch.sigmoid(expert_utility_gap / target_temperature)
+    gap_weights = torch.ones_like(expert_utility_gap)
+    if not unweighted:
+        gap_weights = torch.tanh(expert_utility_gap.abs() / gap_temperature)
+    if hard_target:
+        soft_oracle_gates = hard_oracle_gates
+
+    eligible = utilities["eligible_mask"]
+    zero = torch.zeros_like(expert_utility_gap)
+    return {
+        **{key: value.detach() for key, value in utilities.items()},
+        "expert_utility_gap": expert_utility_gap.detach(),
+        "hard_oracle_gates": torch.where(eligible, hard_oracle_gates, zero).detach(),
+        "soft_oracle_gates": torch.where(eligible, soft_oracle_gates, zero).detach(),
+        "gap_weights": torch.where(eligible, gap_weights, zero).detach(),
+    }
+
+
+def pairwise_margin_routing_diagnostics(
+    pair_gates,
+    direct_margins,
+    mapped_margins,
+    role_labels,
+    target_index: int,
+    negative_indices: tuple[int, int],
+    torch,
+):
+    """Return exact label-directed margin regret diagnostics for both hard-negative edges."""
+    if pair_gates.shape != direct_margins.shape:
+        raise ValueError("Pair gates must have shape [batch, 2] matching pairwise margins.")
+    if bool(((pair_gates < 0) | (pair_gates > 1)).any()):
+        raise ValueError("Pair gate values must lie in [0, 1].")
+    utilities = _pairwise_label_directed_utilities(
+        direct_margins,
+        mapped_margins,
+        role_labels,
+        target_index,
+        negative_indices,
+        torch,
+    )
+    direct_utilities = utilities["direct_utilities"]
+    mapped_utilities = utilities["mapped_utilities"]
+    fused_utilities = pair_gates * direct_utilities + (1.0 - pair_gates) * mapped_utilities
+    oracle_utilities = torch.maximum(direct_utilities, mapped_utilities)
+    hard_oracle_gates = (direct_utilities >= mapped_utilities).to(pair_gates.dtype)
+    margin_regrets = oracle_utilities - fused_utilities
+    eligible = utilities["eligible_mask"]
+    zero = torch.zeros_like(margin_regrets)
+    return {
+        **utilities,
+        "fused_utilities": fused_utilities,
+        "oracle_utilities": oracle_utilities,
+        "hard_oracle_gates": torch.where(eligible, hard_oracle_gates, zero),
+        "hard_gate_selection_correct": (pair_gates >= 0.5) == hard_oracle_gates,
+        "margin_regrets": torch.where(eligible, margin_regrets, zero),
+        "weighted_gate_errors": torch.where(
+            eligible,
+            (pair_gates - hard_oracle_gates).abs() * (direct_utilities - mapped_utilities).abs(),
+            zero,
+        ),
+    }
+
+
+def apply_pairwise_log_odds_correction(
+    base_probabilities,
+    fused_margins,
+    target_index: int,
+    ti_index: int,
+    metallic_index: int,
+    torch,
+):
+    """Embed two pairwise fused margins through the minimum-norm three-node logit shift."""
+    _validate_probability_matrix(base_probabilities, "base_probabilities")
+    if fused_margins.ndim != 2 or fused_margins.shape != (base_probabilities.shape[0], 2):
+        raise ValueError("Fused margins must have shape [batch, 2].")
+    indices = (target_index, ti_index, metallic_index)
+    if len(set(indices)) != 3 or min(indices) < 0 or max(indices) >= base_probabilities.shape[1]:
+        raise ValueError("Target, Ti, and metallic indices must be distinct valid role indices.")
+
+    epsilon = torch.finfo(base_probabilities.dtype).eps
+    base_logits = base_probabilities.clamp_min(epsilon).log()
+    base_margins = torch.cat(
+        [
+            base_logits[:, target_index : target_index + 1] - base_logits[:, ti_index : ti_index + 1],
+            base_logits[:, target_index : target_index + 1]
+            - base_logits[:, metallic_index : metallic_index + 1],
+        ],
+        dim=1,
+    )
+    margin_deltas = fused_margins - base_margins
+    delta_ti = margin_deltas[:, 0:1]
+    delta_metallic = margin_deltas[:, 1:2]
+    target_adjustment = (delta_ti + delta_metallic) / 3.0
+    ti_adjustment = (delta_metallic - 2.0 * delta_ti) / 3.0
+    metallic_adjustment = (delta_ti - 2.0 * delta_metallic) / 3.0
+    logit_adjustments = torch.zeros_like(base_logits)
+    logit_adjustments[:, target_index : target_index + 1] = target_adjustment
+    logit_adjustments[:, ti_index : ti_index + 1] = ti_adjustment
+    logit_adjustments[:, metallic_index : metallic_index + 1] = metallic_adjustment
+    corrected_logits = base_logits + logit_adjustments
+    return {
+        "corrected_role_probabilities": torch.softmax(corrected_logits, dim=1),
+        "base_margins": base_margins,
+        "margin_deltas": margin_deltas,
+        "logit_adjustments": logit_adjustments,
+    }
+
+
 def weighted_soft_gate_loss(gate, target, weight, torch):
     """Return gap-weighted binary cross entropy for a soft oracle gate target."""
     if gate.ndim != 2 or gate.shape[1] != 1:

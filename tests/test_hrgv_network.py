@@ -513,6 +513,134 @@ class RegretGatePrimitiveTests(unittest.TestCase):
         self.assertEqual(tuple(diagnostics["fused_true_probability"].shape), (2, 1))
 
 
+class PairwiseHardNegativePrimitiveTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        from train_mineral_classifier import require_training_dependencies
+
+        cls.torch = require_training_dependencies()["torch"]
+
+    def test_pairwise_targets_reverse_direct_expert_preference_for_negative_label(self) -> None:
+        from hrgv_network import pairwise_log_odds, pairwise_routing_targets
+
+        direct = self.torch.tensor(
+            [
+                [0.70, 0.10, 0.10, 0.10],
+                [0.70, 0.10, 0.10, 0.10],
+                [0.25, 0.25, 0.25, 0.25],
+            ],
+            dtype=self.torch.float32,
+        )
+        mapped = self.torch.tensor(
+            [
+                [0.40, 0.45, 0.10, 0.05],
+                [0.40, 0.45, 0.10, 0.05],
+                [0.25, 0.25, 0.25, 0.25],
+            ],
+            dtype=self.torch.float32,
+        )
+        labels = self.torch.tensor([0, 1, 2], dtype=self.torch.long)
+
+        direct_margins = pairwise_log_odds(direct, 0, (1, 3), self.torch)
+        mapped_margins = pairwise_log_odds(mapped, 0, (1, 3), self.torch)
+        targets = pairwise_routing_targets(
+            direct_margins,
+            mapped_margins,
+            labels,
+            target_index=0,
+            negative_indices=(1, 3),
+            target_temperature=0.20,
+            gap_temperature=0.50,
+            torch=self.torch,
+        )
+
+        self.assertGreater(float(targets["soft_oracle_gates"][0, 0]), 0.5)
+        self.assertLess(float(targets["soft_oracle_gates"][1, 0]), 0.5)
+        self.assertTrue(bool(targets["eligible_mask"][0, 1]))
+        self.assertFalse(bool(targets["eligible_mask"][1, 1]))
+        self.assertFalse(bool(targets["eligible_mask"][2].any()))
+
+    def test_pairwise_margin_regret_is_exact_and_bounds_logistic_regret(self) -> None:
+        from hrgv_network import (
+            pairwise_log_odds,
+            pairwise_margin_routing_diagnostics,
+        )
+
+        direct = self.torch.tensor(
+            [
+                [0.70, 0.10, 0.10, 0.10],
+                [0.20, 0.60, 0.10, 0.10],
+                [0.25, 0.10, 0.10, 0.55],
+            ],
+            dtype=self.torch.float32,
+        )
+        mapped = self.torch.tensor(
+            [
+                [0.40, 0.45, 0.10, 0.05],
+                [0.45, 0.40, 0.10, 0.05],
+                [0.40, 0.05, 0.10, 0.45],
+            ],
+            dtype=self.torch.float32,
+        )
+        pair_gates = self.torch.tensor(
+            [[0.20, 0.70], [0.80, 0.30], [0.40, 0.60]],
+            dtype=self.torch.float32,
+        )
+        labels = self.torch.tensor([0, 1, 3], dtype=self.torch.long)
+
+        diagnostics = pairwise_margin_routing_diagnostics(
+            pair_gates,
+            pairwise_log_odds(direct, 0, (1, 3), self.torch),
+            pairwise_log_odds(mapped, 0, (1, 3), self.torch),
+            labels,
+            target_index=0,
+            negative_indices=(1, 3),
+            torch=self.torch,
+        )
+        expected = (
+            (pair_gates - diagnostics["hard_oracle_gates"]).abs()
+            * (diagnostics["direct_utilities"] - diagnostics["mapped_utilities"]).abs()
+        )
+        eligible = diagnostics["eligible_mask"]
+        logistic = self.torch.nn.functional.softplus(-diagnostics["fused_utilities"])
+        oracle_logistic = self.torch.nn.functional.softplus(-diagnostics["oracle_utilities"])
+
+        self.assertTrue(
+            self.torch.allclose(
+                diagnostics["margin_regrets"][eligible], expected[eligible], atol=1e-6
+            )
+        )
+        self.assertTrue(
+            ((logistic - oracle_logistic)[eligible] >= -1e-6).all()
+        )
+        self.assertTrue(
+            ((logistic - oracle_logistic)[eligible]
+             <= diagnostics["margin_regrets"][eligible] + 1e-6).all()
+        )
+
+    def test_pairwise_log_odds_correction_satisfies_both_edges_with_minimum_norm_shift(self) -> None:
+        from hrgv_network import apply_pairwise_log_odds_correction
+
+        base = self.torch.tensor([[0.55, 0.20, 0.15, 0.10]], dtype=self.torch.float32)
+        fused_margins = self.torch.tensor([[1.10, 0.30]], dtype=self.torch.float32)
+
+        corrected = apply_pairwise_log_odds_correction(
+            base,
+            fused_margins,
+            target_index=0,
+            ti_index=1,
+            metallic_index=3,
+            torch=self.torch,
+        )
+        logits = corrected["corrected_role_probabilities"].log()
+        adjustments = corrected["logit_adjustments"]
+
+        self.assertAlmostEqual(float(logits[0, 0] - logits[0, 1]), 1.10, places=6)
+        self.assertAlmostEqual(float(logits[0, 0] - logits[0, 3]), 0.30, places=6)
+        self.assertAlmostEqual(float(adjustments[0, [0, 1, 3]].sum()), 0.0, places=6)
+        self.assertAlmostEqual(float(adjustments[0, 2]), 0.0, places=6)
+
+
 class HRGVModelTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
