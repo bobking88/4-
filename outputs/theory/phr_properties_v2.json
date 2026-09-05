@@ -1,0 +1,53 @@
+{
+  "evidence_type": "synthetic_numerical_verification",
+  "seed": 20260905,
+  "random_samples": 10000,
+  "added_tie_cases": 2,
+  "dtype": "float64",
+  "temperature": 0.2,
+  "weight_temperature": 0.5,
+  "checks": {
+    "regret_identity": true,
+    "binary_logistic_excess": true,
+    "soft_oracle_bound": true,
+    "gate_kl_regret_bound": true,
+    "weighted_mean_regret_bound": true,
+    "same_sign_preservation": true,
+    "minimum_norm_pseudoinverse": true,
+    "margin_constraints": true,
+    "norm_identity": true,
+    "four_class_nll_bound": true
+  },
+  "all_checks_passed": true,
+  "max_identity_error": 3.552713678800501e-15,
+  "max_projection_error": 5.329070518200751e-15,
+  "mean_regret": 2.7785564364939783,
+  "weighted_kl_mean_bound": 5.776797663697058,
+  "counterexample": {
+    "true_class": "gangue_negative",
+    "base_probabilities": [
+      0.25,
+      0.25,
+      0.25,
+      0.25
+    ],
+    "requested_target_pair_margins": [
+      3.0,
+      3.0
+    ],
+    "corrected_probabilities": [
+      0.8097759915236521,
+      0.04031637265264288,
+      0.10959126317106234,
+      0.04031637265264288
+    ],
+    "gangue_logit_change": 0.0,
+    "gangue_nll_change": 0.824703262118285
+  },
+  "claim_boundary": "Numerical checks supplement analytic proofs; no accuracy, generalization, or novelty claim.",
+  "source_sha256": {
+    "verify_phr_theory.py": "36984ccdbe73d2aaa32a74ab1d78bfe54e8096dd68b83fb771ca48c4a4511432",
+    "hrgv_network.py": "f4c2889b9a129d9f52fd999b189c0888407f9887e1f739cd5e1b55b4d361a0da"
+  },
+  "torch_version": "2.12.1+cu130"
+}

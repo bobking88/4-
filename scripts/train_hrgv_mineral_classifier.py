@@ -18,6 +18,9 @@ from hrgv_network import (
     compute_hrgv_losses,
     gate_routing_diagnostics,
     pairwise_margin_routing_diagnostics,
+    pairwise_log_odds,
+    effective_pairwise_gates,
+    restrict_pairwise_diagnostics,
     pairwise_routing_targets,
     regret_gate_targets,
 )
@@ -165,6 +168,8 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--phr-unweighted", action="store_true")
     parser.add_argument("--phr-edges", choices=("both", "ti", "metallic"), default="both")
     parser.add_argument("--phr-gate-hidden-dim", type=int, default=128)
+    parser.add_argument("--phr-fixed-gate", type=float)
+    parser.add_argument("--validation-only", action="store_true")
     parser.add_argument(
         "--couple-phr-gate-features",
         action="store_true",
@@ -212,6 +217,10 @@ def validate_args(args: argparse.Namespace) -> None:
         pairwise_regret=args.lambda_phr,
     )
     loss_weights.validate()
+    if args.phr_fixed_gate is not None and not 0.0 <= args.phr_fixed_gate <= 1.0:
+        raise ValueError("PHR fixed gate must lie in [0, 1].")
+    if args.phr_fixed_gate is not None and args.lambda_phr != 0:
+        raise ValueError("Fixed PHR gates require zero PHR supervision weight.")
     if args.fixed_gate is not None and not 0.0 <= args.fixed_gate <= 1.0:
         raise ValueError("The fixed gate must lie in [0, 1].")
     thresholds = (args.ti_verifier_threshold, args.metallic_verifier_threshold)
@@ -244,6 +253,13 @@ def validate_args(args: argparse.Namespace) -> None:
         raise ValueError("M-RPG is mutually exclusive with CGDC and RPG.")
     if args.enable_phr and (args.enable_cgdc or args.enable_rpg or args.enable_mrpg):
         raise ValueError("PHR cannot be combined with CGDC, RPG, or M-RPG.")
+
+
+def prefix_evaluation_losses(evaluation_split: str, losses: dict[str, float]) -> dict[str, float]:
+    """Label held-out loss values by the actual split rather than a legacy test name."""
+    if evaluation_split not in {"val", "test"}:
+        raise ValueError("evaluation_split must be val or test.")
+    return {f"{evaluation_split}_{key}": value for key, value in losses.items()}
 
 
 def build_role_matrix(mapping: SpeciesRoleMapping, torch) -> torch.Tensor:
@@ -647,12 +663,12 @@ def run_epoch(
     gate_gap_temperature,
     hard_gate_target,
     unweighted_gate_regret,
-    phr_target_temperature,
-    phr_gap_temperature,
-    phr_hard_gate_target,
-    phr_unweighted,
-    phr_edges,
     max_batches: int | None,
+    phr_target_temperature=0.20,
+    phr_gap_temperature=0.50,
+    phr_hard_gate_target=False,
+    phr_unweighted=False,
+    phr_edges="both",
 ):
     training = optimizer is not None
     model.train(training)
@@ -869,8 +885,16 @@ def run_epoch(
                 routing["one_right_one_wrong"].squeeze(1).detach().cpu().tolist()
             )
             if "phr_pair_gates" in outputs:
+                diagnostic_gates = outputs["phr_pair_gates"]
+                if phr_edges != "both":
+                    effective = effective_pairwise_gates(
+                        outputs["phr_direct_margins"], outputs["phr_mapped_margins"],
+                        outputs["phr_fused_margins"], torch,
+                    )
+                    active = torch.tensor([[phr_edges == "ti", phr_edges == "metallic"]], device=roles.device)
+                    diagnostic_gates = torch.where(active, diagnostic_gates, effective)
                 phr_routing = pairwise_margin_routing_diagnostics(
-                    outputs["phr_pair_gates"],
+                    diagnostic_gates,
                     outputs["phr_direct_margins"],
                     outputs["phr_mapped_margins"],
                     roles,
@@ -878,8 +902,9 @@ def run_epoch(
                     negative_indices=(1, 3),
                     torch=torch,
                 )
+                phr_routing = restrict_pairwise_diagnostics(phr_routing, phr_edges, torch)
                 phr_values = {
-                    "phr_pair_gates": outputs["phr_pair_gates"],
+                    "phr_pair_gates": diagnostic_gates,
                     "phr_direct_margins": outputs["phr_direct_margins"],
                     "phr_mapped_margins": outputs["phr_mapped_margins"],
                     "phr_fused_margins": outputs["phr_fused_margins"],
@@ -896,25 +921,28 @@ def run_epoch(
                     "phr_sign_preserved": phr_routing["fused_sign_preserved"],
                 }
             else:
-                pair_zeros = torch.zeros(
-                    (batch_size, 2), dtype=outputs["gate"].dtype, device=outputs["gate"].device
-                )
+                direct = pairwise_log_odds(outputs["direct_role_probabilities"], 0, (1, 3), torch)
+                mapped = pairwise_log_odds(outputs["mapped_role_probabilities"], 0, (1, 3), torch)
+                base = pairwise_log_odds(outputs["fused_role_probabilities"], 0, (1, 3), torch)
+                effective = effective_pairwise_gates(direct, mapped, base, torch)
+                baseline_routing = pairwise_margin_routing_diagnostics(effective, direct, mapped, roles, 0, (1, 3), torch)
+                pair_zeros = torch.zeros_like(direct)
                 phr_values = {
-                    "phr_pair_gates": pair_zeros,
-                    "phr_direct_margins": pair_zeros,
-                    "phr_mapped_margins": pair_zeros,
-                    "phr_fused_margins": pair_zeros,
-                    "phr_base_margins": pair_zeros,
+                    "phr_pair_gates": effective,
+                    "phr_direct_margins": direct,
+                    "phr_mapped_margins": mapped,
+                    "phr_fused_margins": base,
+                    "phr_base_margins": base,
                     "phr_margin_deltas": pair_zeros,
                     "phr_logit_adjustments": torch.zeros_like(
                         outputs["final_role_probabilities"]
                     ),
-                    "phr_margin_regrets": pair_zeros,
-                    "phr_weighted_gate_errors": pair_zeros,
-                    "phr_eligible_masks": pair_zeros.bool(),
-                    "phr_gate_selection_correct": pair_zeros.bool(),
-                    "phr_expert_sign_agreements": pair_zeros.bool(),
-                    "phr_sign_preserved": pair_zeros.bool(),
+                    "phr_margin_regrets": baseline_routing["margin_regrets"],
+                    "phr_weighted_gate_errors": baseline_routing["weighted_gate_errors"],
+                    "phr_eligible_masks": baseline_routing["eligible_mask"],
+                    "phr_gate_selection_correct": baseline_routing["hard_gate_selection_correct"],
+                    "phr_expert_sign_agreements": baseline_routing["expert_sign_agreement"],
+                    "phr_sign_preserved": baseline_routing["fused_sign_preserved"],
                 }
             for result_key, values in phr_values.items():
                 result[result_key].extend(values.detach().cpu().tolist())
@@ -1016,6 +1044,8 @@ def main(argv: Sequence[str] | None = None) -> None:
         enable_phr=args.enable_phr,
         phr_gate_hidden_dim=args.phr_gate_hidden_dim,
         detach_phr_gate_features=not args.couple_phr_gate_features,
+        phr_fixed_gate=args.phr_fixed_gate,
+        phr_edges=args.phr_edges,
     ).to(device)
     role_weight_tensor = torch.tensor(
         compute_class_weights(role_counts), dtype=torch.float32, device=device
@@ -1131,6 +1161,9 @@ def main(argv: Sequence[str] | None = None) -> None:
             "adapter_bottleneck_dim": args.adapter_bottleneck_dim,
             "calibration_hidden_dim": args.calibration_hidden_dim,
             "enable_phr": args.enable_phr,
+            "phr_fixed_gate": args.phr_fixed_gate,
+            "validation_only": args.validation_only,
+            "pair_diagnostic_scope": "pre_verifier_fusion" if not args.enable_phr else "active_pair_routing",
             "phr_replaces_verifier_postprocessor": args.enable_phr,
             "phr_target_temperature": args.phr_target_temperature,
             "phr_gap_temperature": args.phr_gap_temperature,
@@ -1171,12 +1204,12 @@ def main(argv: Sequence[str] | None = None) -> None:
             args.gate_gap_temperature,
             args.hard_gate_target,
             args.unweighted_gate_regret,
+            max_batches,
             args.phr_target_temperature,
             args.phr_gap_temperature,
             args.phr_hard_gate_target,
             args.phr_unweighted,
             args.phr_edges,
-            max_batches,
         )
         val_result = run_epoch(
             model,
@@ -1194,16 +1227,17 @@ def main(argv: Sequence[str] | None = None) -> None:
             args.gate_gap_temperature,
             args.hard_gate_target,
             args.unweighted_gate_regret,
+            max_batches,
             args.phr_target_temperature,
             args.phr_gap_temperature,
             args.phr_hard_gate_target,
             args.phr_unweighted,
             args.phr_edges,
-            max_batches,
         )
         val_metrics = calculate_metrics(
             val_result["role_targets"], val_result["final_predictions"], dependencies
         )
+        val_metrics.update(calculate_hrgv_risk_metrics(val_result["role_targets"], val_result["final_predictions"]))
         scheduler.step(val_metrics["macro_f1"])
         history.append(
             {
@@ -1268,8 +1302,13 @@ def main(argv: Sequence[str] | None = None) -> None:
             f"val_gate={val_result['mean_gate']:.4f}",
             flush=True,
         )
+        write_history(args.output_dir / "metrics_history.csv", history)
         if val_metrics["macro_f1"] > best_f1:
             best_f1, without_improvement = val_metrics["macro_f1"], 0
+            write_json(args.output_dir / "best_validation_metrics.json", {
+                **val_metrics, **val_result["phr_summary"], "epoch": epoch,
+                "seed": args.seed, "selection_split": "val", "smoke_run": args.smoke_run,
+            })
             torch.save(
                 {
                     "model_state_dict": model.state_dict(),
@@ -1291,9 +1330,10 @@ def main(argv: Sequence[str] | None = None) -> None:
         args.output_dir / "best_model.pt", map_location=device, weights_only=False
     )
     model.load_state_dict(checkpoint["model_state_dict"])
+    evaluation_split = "val" if args.validation_only else "test"
     test_result = run_epoch(
         model,
-        loaders["test"],
+        loaders[evaluation_split],
         mapping,
         final_role_criterion,
         direct_role_criterion,
@@ -1307,12 +1347,12 @@ def main(argv: Sequence[str] | None = None) -> None:
         args.gate_gap_temperature,
         args.hard_gate_target,
         args.unweighted_gate_regret,
+        max_batches,
         args.phr_target_temperature,
         args.phr_gap_temperature,
         args.phr_hard_gate_target,
         args.phr_unweighted,
         args.phr_edges,
-        max_batches,
     )
     test_metrics = calculate_metrics(
         test_result["role_targets"], test_result["final_predictions"], dependencies
@@ -1329,7 +1369,7 @@ def main(argv: Sequence[str] | None = None) -> None:
     )
     test_metrics.update(
         {
-            **{f"test_{key}": value for key, value in test_result["losses"].items()},
+            **prefix_evaluation_losses(evaluation_split, test_result["losses"]),
             "species_accuracy": sum(
                 actual == predicted
                 for actual, predicted in zip(
@@ -1372,7 +1412,7 @@ def main(argv: Sequence[str] | None = None) -> None:
             "best_val_macro_f1": best_f1,
         }
     )
-    write_json(args.output_dir / "test_metrics.json", test_metrics)
+    write_json(args.output_dir / f"{evaluation_split}_metrics.json", test_metrics)
     with (args.output_dir / "confusion_matrix.csv").open(
         "w", newline="", encoding="utf-8-sig"
     ) as handle:
@@ -1381,7 +1421,7 @@ def main(argv: Sequence[str] | None = None) -> None:
         for label, values in zip(CLASS_LABELS, test_metrics["confusion_matrix"]):
             writer.writerow([label, *values])
     prediction_records = select_prediction_records(
-        records_by_split["test"], len(test_result["final_predictions"])
+        records_by_split[evaluation_split], len(test_result["final_predictions"])
     )
     prediction_rows = build_hrgv_prediction_rows(
         records=prediction_records,
@@ -1431,7 +1471,7 @@ def main(argv: Sequence[str] | None = None) -> None:
         phr_sign_preserved=test_result["phr_sign_preserved"],
     )
     write_csv(
-        args.output_dir / "test_predictions.csv", prediction_rows, HRGV_PREDICTION_FIELDS
+        args.output_dir / f"{evaluation_split}_predictions.csv", prediction_rows, HRGV_PREDICTION_FIELDS
     )
     print(
         json.dumps(

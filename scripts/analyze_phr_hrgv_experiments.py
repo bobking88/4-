@@ -1,13 +1,18 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import csv
 import json
 import math
-import random
 from pathlib import Path
 from statistics import mean, stdev
 from typing import Sequence
+
+from analyze_paired_cluster_statistics import (
+    align_prediction_rows, calculate_metrics, paired_two_stage_bootstrap,
+)
+from generate_phr_screen_decision import verify_screen_decision
 
 
 FORMAL_SEEDS = ("20260727", "20260728", "20260729")
@@ -36,6 +41,58 @@ def _write_json(path: Path, value: object) -> None:
     path.write_text(json.dumps(value, ensure_ascii=False, indent=2, allow_nan=False) + "\n", encoding="utf-8")
 
 
+def _sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def validate_formal_evidence(
+    experiment_root: Path, manifest: Path, screen_decision_path: Path,
+) -> dict[str, object]:
+    """Validate that formal PHR comparison artifacts descend from a promoted screen."""
+    experiment_root, manifest, screen_decision_path = (
+        experiment_root.resolve(), manifest.resolve(), screen_decision_path.resolve(),
+    )
+    if not screen_decision_path.exists():
+        raise FileNotFoundError(f"Missing promoted screen decision: {screen_decision_path}")
+    decision = json.loads(screen_decision_path.read_text(encoding="utf-8"))
+    verify_screen_decision(decision, manifest)
+    if not decision.get("promote_to_formal") or decision.get("selected_configuration") != "phr_complete":
+        raise ValueError("Formal analysis requires a promoted phr_complete screen decision.")
+
+    registration_path = experiment_root / "registered_configurations.json"
+    if not registration_path.exists():
+        raise FileNotFoundError(f"Missing formal registration: {registration_path}")
+    registration = json.loads(registration_path.read_text(encoding="utf-8"))
+    if registration.get("protocol_version") != "phr-v2" or registration.get("mode") != "formal":
+        raise ValueError("Formal registration must use phr-v2 in formal mode.")
+    if registration.get("manifest_sha256") != _sha256(manifest):
+        raise ValueError("Formal registration manifest hash mismatch.")
+    screened_sources = decision["evidence"].get("registration_source_sha256")
+    if registration.get("source_sha256") != screened_sources:
+        raise ValueError("Formal registration source hashes differ from the promoted validation screen.")
+
+    for config in ("rsg_reference", "phr_complete"):
+        for seed in FORMAL_SEEDS:
+            run = experiment_root / config / f"seed{seed}"
+            status_path, environment_path = run / "run_status.json", run / "environment.json"
+            if not status_path.exists() or not environment_path.exists():
+                raise FileNotFoundError(f"Incomplete formal provenance: {run}")
+            status = json.loads(status_path.read_text(encoding="utf-8"))
+            environment = json.loads(environment_path.read_text(encoding="utf-8"))
+            if status.get("status") != "complete":
+                raise ValueError(f"Formal run is not complete: {run}")
+            if environment.get("validation_only") is not False or environment.get("smoke_run") is not False:
+                raise ValueError(f"Formal evidence must be non-smoke test evaluation: {run}")
+    return {
+        "registration_path": str(registration_path),
+        "registration_sha256": _sha256(registration_path),
+        "screen_decision_path": str(screen_decision_path),
+        "screen_decision_sha256": _sha256(screen_decision_path),
+        "screen_criterion_ids": decision["criterion_ids"],
+        "source_sha256": registration["source_sha256"],
+    }
+
+
 def summarize_pairwise_rows(rows: Sequence[dict[str, str]]) -> dict[str, float | int | None]:
     if not rows:
         raise ValueError("Prediction rows must not be empty.")
@@ -59,67 +116,32 @@ def summarize_pairwise_rows(rows: Sequence[dict[str, str]]) -> dict[str, float |
 
 
 def _risk_metrics(rows: Sequence[dict[str, str]]) -> dict[str, float | None]:
-    count = len(rows)
-    correct = mean(row["true_label"] == row["predicted_label"] for row in rows)
-    labels = sorted({row["true_label"] for row in rows})
-    recalls = [
-        mean(row["predicted_label"] == label for row in rows if row["true_label"] == label)
-        for label in labels
-    ]
-    def rate(source: str) -> float | None:
-        subset = [row for row in rows if row["true_label"] == source]
-        return mean(row["predicted_label"] == "target_mineral" for row in subset) if subset else None
-    target = [row for row in rows if row["true_label"] == "target_mineral"]
-    return {
-        "accuracy": correct, "macro_f1_proxy": mean(recalls),
-        "target_recall": mean(row["predicted_label"] == "target_mineral" for row in target) if target else None,
-        "ti_to_target_intrusion_rate": rate("ti_bearing_negative"),
-        "metallic_to_target_intrusion_rate": rate("metallic_hard_negative"),
-        "count": count,
-    }
+    raw = calculate_metrics([{**row, "prediction": row["predicted_label"]} for row in rows])
+    return {_metric_name(key): value for key, value in raw.items()}
 
 
-def _quantile(values: list[float], fraction: float) -> float:
-    ordered = sorted(values)
-    return ordered[min(len(ordered) - 1, max(0, round((len(ordered) - 1) * fraction)))]
+def _metric_name(key: str) -> str:
+    return key + "_rate" if key.endswith("_intrusion") else key
 
 
 def _paired_group_bootstrap(references: Sequence[Sequence[dict[str, str]]], comparisons: Sequence[Sequence[dict[str, str]]], replicates: int, seed: int) -> list[dict[str, object]]:
     if len(references) != len(comparisons) or not references:
         raise ValueError("Aligned formal reference and comparison seed sets are required.")
-    grouped_seeds = []
-    for reference, comparison in zip(references, comparisons):
-        by_id = {row["image_id"]: row for row in comparison}
-        if set(by_id) != {row["image_id"] for row in reference}:
-            raise ValueError("Prediction image IDs do not match.")
-        groups: dict[str, list[tuple[dict[str, str], dict[str, str]]]] = {}
-        for row in reference:
-            other = by_id[row["image_id"]]
-            if row["true_label"] != other["true_label"]:
-                raise ValueError("Prediction true labels do not match.")
-            groups.setdefault(row["split_group_id"], []).append((row, other))
-        grouped_seeds.append(groups)
-    rng, samples = random.Random(seed), []
-    for _ in range(replicates):
-        selected_seeds = rng.choices(grouped_seeds, k=len(grouped_seeds))
-        pairs = []
-        for groups in selected_seeds:
-            group_ids = list(groups)
-            pairs.extend(pair for group in rng.choices(group_ids, k=len(group_ids)) for pair in groups[group])
-        ref, comp = zip(*pairs)
-        ref_metrics, comp_metrics = _risk_metrics(ref), _risk_metrics(comp)
-        samples.append({key: (comp_metrics[key] - ref_metrics[key]) if ref_metrics[key] is not None and comp_metrics[key] is not None else None for key in ("accuracy", "target_recall", "ti_to_target_intrusion_rate", "metallic_to_target_intrusion_rate")})
-    rows = []
-    favorable = {"accuracy": 1, "target_recall": 1, "ti_to_target_intrusion_rate": -1, "metallic_to_target_intrusion_rate": -1}
-    for metric, direction in favorable.items():
-        values = [sample[metric] for sample in samples if sample[metric] is not None]
-        rows.append({"metric": metric, "difference": mean(values), "ci_low": _quantile(values, .025), "ci_high": _quantile(values, .975), "probability_favorable": mean(value * direction > 0 for value in values), "bootstrap_replicates": replicates})
-    return rows
+    aligned = {str(index): align_prediction_rows(list(first), list(second))
+               for index, (first, second) in enumerate(zip(references, comparisons))}
+    identity = {(row["image_id"], row["true_label"], row["split_group_id"]) for row in aligned["0"]}
+    for rows in aligned.values():
+        if {(row["image_id"], row["true_label"], row["split_group_id"]) for row in rows} != identity:
+            raise ValueError("Seeds must evaluate the same frozen images and groups.")
+    result = paired_two_stage_bootstrap(aligned, replicates, seed)
+    return [{"metric": _metric_name(metric), **summary} for metric, summary in result["summary"].items()]
 
 
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Analyze registered PHR-HRGV experiments.")
     parser.add_argument("--experiment-root", type=Path, required=True)
+    parser.add_argument("--manifest", type=Path, required=True)
+    parser.add_argument("--screen-decision", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--bootstrap-replicates", type=int, default=2000)
     parser.add_argument("--rng-seed", type=int, default=20260905)
@@ -130,6 +152,9 @@ def main(argv: Sequence[str] | None = None) -> None:
     args = parse_args(argv)
     if args.bootstrap_replicates < 1:
         raise ValueError("bootstrap_replicates must be positive.")
+    provenance = validate_formal_evidence(
+        args.experiment_root, args.manifest, args.screen_decision,
+    )
     artifacts: dict[str, dict[str, list[object]]] = {name: {"metrics": [], "predictions": []} for name in ("rsg_reference", "phr_complete")}
     for config in artifacts:
         for seed in FORMAL_SEEDS:
@@ -142,7 +167,9 @@ def main(argv: Sequence[str] | None = None) -> None:
     summary_rows, pair_rows = [], []
     for config, artifact in artifacts.items():
         for metric in CLASSIFICATION_METRICS:
-            values = [float(item[metric]) for item in artifact["metrics"] if not math.isnan(float(item[metric]))]
+            values = [float(item[metric]) for item in artifact["metrics"]]
+            if len(values) != 3 or not all(math.isfinite(value) for value in values):
+                raise ValueError(f"Missing/non-finite formal seed metric: {config}/{metric}")
             summary_rows.append({"configuration": config, "metric": metric, "mean": mean(values), "sample_std": stdev(values), **{f"seed_{seed}": value for seed, value in zip(FORMAL_SEEDS, values)}})
         for seed, rows in zip(FORMAL_SEEDS, artifact["predictions"]):
             pair_rows.append({"configuration": config, "seed": seed, **summarize_pairwise_rows(rows)})
@@ -151,8 +178,15 @@ def main(argv: Sequence[str] | None = None) -> None:
     bootstrap_rows = _paired_group_bootstrap(artifacts["rsg_reference"]["predictions"], artifacts["phr_complete"]["predictions"], args.bootstrap_replicates, args.rng_seed)
     _write_csv(args.output_dir / "paired_cluster_bootstrap.csv", bootstrap_rows)
     summary = {(row["configuration"], row["metric"]): row["mean"] for row in summary_rows}
-    favorable = summary[("phr_complete", "macro_f1")] >= summary[("rsg_reference", "macro_f1")]
-    _write_json(args.output_dir / "analysis.json", {"formal_evidence_supports_claim": favorable, "criterion": "PHR mean Macro F1 is not lower than RSG reference over the registered seeds.", "claim_boundary": None if favorable else "Registered formal comparison did not support an overall Macro F1 improvement; report PHR as a negative or boundary result.", "formal_seeds": list(FORMAL_SEEDS), "bootstrap_replicates": args.bootstrap_replicates})
+    macro = next(row for row in bootstrap_rows if row["metric"] == "macro_f1")
+    _write_json(args.output_dir / "analysis.json", {
+        "formal_evidence_supports_claim": False,
+        "fixed_split_macro_f1_delta": macro["difference"],
+        "fixed_split_macro_f1_ci_excludes_zero": macro["ci_low"] > 0,
+        "claim_boundary": "Fixed-split results alone do not establish the registered broad claim. Mechanism, source-holdout and backbone portability evidence must be audited separately. Bootstrap intervals describe sampling and seed uncertainty under this protocol, not probability that the theory is true.",
+        "formal_seeds": list(FORMAL_SEEDS), "bootstrap_replicates": args.bootstrap_replicates,
+        "provenance": provenance,
+    })
 
 
 if __name__ == "__main__":

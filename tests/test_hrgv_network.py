@@ -767,6 +767,24 @@ class HRGVModelTests(unittest.TestCase):
             )
         )
 
+    def test_phr_fixed_gate_and_inactive_edge_match_the_ablation(self) -> None:
+        from hrgv_network import HierarchicalRiskGatedVerificationNet
+
+        model = HierarchicalRiskGatedVerificationNet(
+            self.dependencies["models"], self.build_role_matrix(self.build_mapping()),
+            pretrained=False, enable_phr=True, phr_fixed_gate=0.5, phr_edges="ti",
+        ).eval()
+        outputs = model(self.torch.randn(2, 3, 64, 64))
+        self.assertTrue(self.torch.equal(outputs["phr_pair_gates"], self.torch.full((2, 2), 0.5)))
+        expected = (outputs["phr_direct_margins"] + outputs["phr_mapped_margins"]) / 2
+        self.assertTrue(self.torch.allclose(outputs["phr_fused_margins"][:, 0], expected[:, 0]))
+        self.assertTrue(self.torch.allclose(outputs["phr_fused_margins"][:, 1], outputs["phr_base_margins"][:, 1]))
+        self.assertTrue(self.torch.equal(outputs["phr_margin_deltas"][:, 1], self.torch.zeros(2)))
+        model.train()
+        outputs = model(self.torch.randn(2, 3, 64, 64))
+        (-outputs["final_role_probabilities"][:, 0].log().mean()).backward()
+        self.assertTrue(all(p.grad is None for p in model.phr_gate_networks.parameters()))
+
     def test_detached_phr_gate_supervision_only_updates_pair_gate_parameters(self) -> None:
         from hrgv_network import (
             HierarchicalRiskGatedVerificationNet,

@@ -34,5 +34,9 @@ __pycache__/
 /outputs/paper_experiments_v2/smoke/
 /outputs/report_assets_v4/
 
+# High-resolution TIFFs are retained locally for report printing; PNG/PDF and
+# the figure-generating source are versioned for GitHub reproduction.
+/outputs/paper_figures_v3/*.tiff
+
 # Office temporary files
 ~$*

@@ -1,0 +1,18 @@
+{
+  "evidence_type": "network_contract_schematic",
+  "figure_archetype": "schematic-led composite",
+  "core_conclusion": "PHR separately routes the two registered target-versus-hard-negative margins and embeds them through a constrained correction.",
+  "claim_boundary": "candidate architecture; no empirical performance claim; oracle paths are training-only",
+  "formulae": [
+    "m_{f,I}=g_I m_{d,I}+(1-g_I)m_{m,I}",
+    "m_{f,M}=g_M m_{d,M}+(1-g_M)m_{m,M}",
+    "a=A^\\top(AA^\\top)^{-1}\\delta",
+    "p_{\\mathrm{PHR}}=\\mathrm{softmax}(\\log p_0+a)"
+  ],
+  "exports": {
+    ".png": "outputs\\paper_figures_v3\\fig_phr_routing_architecture.png",
+    ".pdf": "outputs\\paper_figures_v3\\fig_phr_routing_architecture.pdf",
+    ".svg": "outputs\\paper_figures_v3\\fig_phr_routing_architecture.svg",
+    ".tiff": "outputs\\paper_figures_v3\\fig_phr_routing_architecture.tiff"
+  }
+}

@@ -31,7 +31,14 @@ class PHRExperimentMatrixTests(unittest.TestCase):
         )
         flags = {command.configuration: " ".join(command.arguments) for command in commands}
         self.assertIn("--enable-phr", flags["phr_complete"])
-        self.assertIn("--fixed-gate 0.5", flags["phr_fixed_half"])
+        for command in commands:
+            args = list(command.arguments)
+            self.assertEqual(args[args.index("--lambda-gate-regret") + 1], "0.1")
+            self.assertNotIn("--disable-gate-regret", args)
+            self.assertIn("--validation-only", args)
+        self.assertIn("--phr-fixed-gate 0.5", flags["phr_fixed_half"])
+        self.assertNotIn("--fixed-gate", flags["phr_fixed_half"])
+        self.assertIn("--lambda-phr 0.0", flags["phr_fixed_half"])
         self.assertIn("--phr-edges ti", flags["phr_ti_only"])
         self.assertIn("--phr-edges metallic", flags["phr_metallic_only"])
 

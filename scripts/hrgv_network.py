@@ -295,6 +295,38 @@ def pairwise_log_odds(probabilities, target_index: int, negative_indices: tuple[
     return target_log_probability - negative_log_probabilities
 
 
+def effective_pairwise_gates(direct_margins, mapped_margins, fused_margins, torch):
+    """Express a within-expert-hull margin as a gate for offline diagnostics."""
+    if direct_margins.shape != mapped_margins.shape or fused_margins.shape != direct_margins.shape:
+        raise ValueError("All margin tensors must have matching shapes.")
+    gap = direct_margins - mapped_margins
+    informative = gap.abs() > torch.finfo(gap.dtype).eps
+    denominator = torch.where(informative, gap, torch.ones_like(gap))
+    return torch.where(informative, (fused_margins - mapped_margins) / denominator, 0.5).clamp(0, 1)
+
+
+def restrict_pairwise_diagnostics(diagnostics, phr_edges: str, torch):
+    """Zero diagnostic values for an edge intentionally held at its base margin."""
+    if phr_edges not in {"both", "ti", "metallic"}:
+        raise ValueError("phr_edges must be both, ti, or metallic.")
+    if phr_edges == "both":
+        return diagnostics
+    active = torch.tensor(
+        [phr_edges == "ti", phr_edges == "metallic"],
+        device=next(iter(diagnostics.values())).device,
+        dtype=torch.bool,
+    ).unsqueeze(0)
+    result = {}
+    for name, value in diagnostics.items():
+        if not hasattr(value, "shape") or value.ndim != 2 or value.shape[1] != 2:
+            result[name] = value
+        elif value.dtype == torch.bool:
+            result[name] = value & active
+        else:
+            result[name] = torch.where(active, value, torch.zeros_like(value))
+    return result
+
+
 def pairwise_binary_entropies(
     probabilities, target_index: int, negative_indices: tuple[int, int], torch
 ):
@@ -689,6 +721,8 @@ class HierarchicalRiskGatedVerificationNet(nn.Module):
         enable_phr: bool = False,
         phr_gate_hidden_dim: int = 128,
         detach_phr_gate_features: bool = True,
+        phr_fixed_gate: float | None = None,
+        phr_edges: str = "both",
     ) -> None:
         super().__init__()
         if verifier_mode not in {"residual", "multiplicative", "disabled"}:
@@ -724,6 +758,10 @@ class HierarchicalRiskGatedVerificationNet(nn.Module):
             raise ValueError("M-RPG is mutually exclusive with CGDC and RPG.")
         if enable_phr and (enable_cgdc or enable_rpg or enable_mrpg):
             raise ValueError("PHR cannot be combined with CGDC, RPG, or M-RPG.")
+        if phr_edges not in {"both", "ti", "metallic"}:
+            raise ValueError("Invalid PHR edge selection.")
+        if phr_fixed_gate is not None and not 0.0 <= phr_fixed_gate <= 1.0:
+            raise ValueError("PHR fixed gate must lie in [0, 1].")
         if rpg_entropy_mode not in RPG_ENTROPY_MODES:
             raise ValueError(f"Unknown RPG entropy mode: {rpg_entropy_mode}")
         if mrpg_between_mode not in {"monotone", "unconstrained", "disabled"}:
@@ -743,6 +781,8 @@ class HierarchicalRiskGatedVerificationNet(nn.Module):
         self.rpg_entropy_mode = rpg_entropy_mode
         self.mrpg_between_mode = mrpg_between_mode
         self.detach_phr_gate_features = detach_phr_gate_features
+        self.phr_fixed_gate = phr_fixed_gate
+        self.phr_edges = phr_edges
         self.cgdc_shared_features = cgdc_shared_features
         self.cgdc_unconditional = cgdc_unconditional
         if enable_cgdc and not cgdc_shared_features:
@@ -1015,14 +1055,19 @@ class HierarchicalRiskGatedVerificationNet(nn.Module):
                 )
                 if self.detach_phr_gate_features:
                     pair_gate_inputs = pair_gate_inputs.detach()
-                pair_gate_columns.append(
-                    torch.sigmoid(self.phr_gate_networks[name](pair_gate_inputs))
-                )
+                if self.phr_fixed_gate is not None:
+                    pair_gate_columns.append(features.new_full((features.shape[0], 1), self.phr_fixed_gate))
+                else:
+                    pair_gate_columns.append(torch.sigmoid(self.phr_gate_networks[name](pair_gate_inputs)))
             phr_pair_gates = torch.cat(pair_gate_columns, dim=1)
             phr_fused_margins = (
                 phr_pair_gates * phr_direct_margins
                 + (1.0 - phr_pair_gates) * phr_mapped_margins
             )
+            if self.phr_edges != "both":
+                base_margins = pairwise_log_odds(fused_role_probabilities, 0, negative_indices, torch)
+                active = features.new_tensor([self.phr_edges == "ti", self.phr_edges == "metallic"]).bool()
+                phr_fused_margins = torch.where(active.unsqueeze(0), phr_fused_margins, base_margins)
             phr_correction = apply_pairwise_log_odds_correction(
                 fused_role_probabilities,
                 phr_fused_margins,

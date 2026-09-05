@@ -22,6 +22,21 @@ class FakeRecord:
 
 
 class HRGVTrainingConfigurationTests(unittest.TestCase):
+    def test_evaluation_loss_fields_follow_the_evaluated_split(self) -> None:
+        from train_hrgv_mineral_classifier import prefix_evaluation_losses
+
+        losses = {"loss": 1.2, "final_role_loss": 0.7}
+        self.assertEqual(
+            prefix_evaluation_losses("val", losses),
+            {"val_loss": 1.2, "val_final_role_loss": 0.7},
+        )
+        self.assertEqual(
+            prefix_evaluation_losses("test", losses),
+            {"test_loss": 1.2, "test_final_role_loss": 0.7},
+        )
+        with self.assertRaisesRegex(ValueError, "val or test"):
+            prefix_evaluation_losses("train", losses)
+
     def test_cli_defaults_match_the_network_specification(self) -> None:
         from train_hrgv_mineral_classifier import parse_args, validate_args
 
