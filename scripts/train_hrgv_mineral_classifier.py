@@ -163,6 +163,7 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--phr-gap-temperature", type=float, default=0.50)
     parser.add_argument("--phr-hard-gate-target", action="store_true")
     parser.add_argument("--phr-unweighted", action="store_true")
+    parser.add_argument("--phr-edges", choices=("both", "ti", "metallic"), default="both")
     parser.add_argument("--phr-gate-hidden-dim", type=int, default=128)
     parser.add_argument(
         "--couple-phr-gate-features",
@@ -650,6 +651,7 @@ def run_epoch(
     phr_gap_temperature,
     phr_hard_gate_target,
     phr_unweighted,
+    phr_edges,
     max_batches: int | None,
 ):
     training = optimizer is not None
@@ -745,6 +747,7 @@ def run_epoch(
                 phr_gap_temperature=phr_gap_temperature,
                 phr_hard_gate_target=phr_hard_gate_target,
                 phr_unweighted=phr_unweighted,
+                phr_edges=phr_edges,
             )
             if training:
                 optimizer.zero_grad(set_to_none=True)
@@ -1133,6 +1136,7 @@ def main(argv: Sequence[str] | None = None) -> None:
             "phr_gap_temperature": args.phr_gap_temperature,
             "phr_hard_gate_target": args.phr_hard_gate_target,
             "phr_unweighted": args.phr_unweighted,
+            "phr_edges": args.phr_edges,
             "phr_gate_hidden_dim": args.phr_gate_hidden_dim,
             "detach_phr_gate_features": not args.couple_phr_gate_features,
             "fixed_gate": args.fixed_gate,
@@ -1171,6 +1175,7 @@ def main(argv: Sequence[str] | None = None) -> None:
             args.phr_gap_temperature,
             args.phr_hard_gate_target,
             args.phr_unweighted,
+            args.phr_edges,
             max_batches,
         )
         val_result = run_epoch(
@@ -1193,6 +1198,7 @@ def main(argv: Sequence[str] | None = None) -> None:
             args.phr_gap_temperature,
             args.phr_hard_gate_target,
             args.phr_unweighted,
+            args.phr_edges,
             max_batches,
         )
         val_metrics = calculate_metrics(
@@ -1305,6 +1311,7 @@ def main(argv: Sequence[str] | None = None) -> None:
         args.phr_gap_temperature,
         args.phr_hard_gate_target,
         args.phr_unweighted,
+        args.phr_edges,
         max_batches,
     )
     test_metrics = calculate_metrics(

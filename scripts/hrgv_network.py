@@ -1132,9 +1132,12 @@ def compute_hrgv_losses(
     phr_gap_temperature: float = 0.50,
     phr_hard_gate_target: bool = False,
     phr_unweighted: bool = False,
+    phr_edges: str = "both",
 ):
     """Return the complete HRGV objective and its auditable loss terms."""
     weights.validate()
+    if phr_edges not in {"both", "ti", "metallic"}:
+        raise ValueError("phr_edges must be both, ti, or metallic.")
     if outputs["species_logits"].shape[1] != len(mapping.species_labels):
         raise ValueError("Species logits do not match the frozen mapping.")
     epsilon = torch.finfo(outputs["final_role_probabilities"].dtype).eps
@@ -1205,6 +1208,10 @@ def compute_hrgv_losses(
             phr_targets["gap_weights"][:, 1:2],
             torch,
         )
+        if phr_edges == "ti":
+            phr_metallic_gate_loss = phr_metallic_gate_loss * 0.0
+        elif phr_edges == "metallic":
+            phr_ti_gate_loss = phr_ti_gate_loss * 0.0
         phr_pairwise_regret_loss = phr_ti_gate_loss + phr_metallic_gate_loss
     else:
         zero = outputs["final_role_probabilities"].sum() * 0.0

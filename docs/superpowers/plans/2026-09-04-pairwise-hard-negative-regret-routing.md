@@ -213,7 +213,7 @@ D:\成信工科研\人工智能选矿\.venv-training\Scripts\python.exe -m unitt
 
 Run existing synthetic smoke fixtures with `--enable-phr --lambda-phr 0.10 --smoke-run --no-pretrained`; verify checkpoint, metrics, environment, and PHR prediction fields exist.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```powershell
 git add scripts/hrgv_network.py scripts/train_hrgv_mineral_classifier.py tests/test_hrgv_network.py tests/test_train_hrgv_mineral_classifier.py
@@ -233,13 +233,13 @@ git commit -m "feat: train and audit pairwise routing"
 - Screen uses seed `20260728`; formal runs only baseline and complete PHR for seeds `20260727`, `20260728`, `20260729`.
 - Analysis writes `summary.csv`, `paired_cluster_bootstrap.csv`, `pairwise_routing_summary.csv`, and `analysis.json`.
 
-- [ ] **Step 1: Write failing runner and analysis tests**
+- [x] **Step 1: Write failing runner and analysis tests**
 
 Mock trainer invocation and assert screen has exactly these configurations: `rsg_reference`, `phr_complete`, `phr_fixed_half`, `phr_hard_target`, `phr_unweighted`, `phr_coupled_features`, `phr_ti_only`, and `phr_metallic_only`. Assert formal has six runs and no ablation flags.
 
 Use synthetic aligned prediction CSVs with shared `split_group_id`; assert grouped bootstrap reports paired Macro F1, target recall, two intrusion-rate deltas, and pair metrics remain separate.
 
-- [ ] **Step 2: Verify expected failure**
+- [x] **Step 2: Verify expected failure**
 
 Run:
 
@@ -249,11 +249,11 @@ D:\成信工科研\人工智能选矿\.venv-training\Scripts\python.exe -m unitt
 
 Expected: FAIL because runner and analysis scripts do not exist.
 
-- [ ] **Step 3: Implement registered screening**
+- [x] **Step 3: Implement registered screening**
 
 Build commands as explicit lists given to `subprocess.run(check=True)`. Write `registered_configurations.json` before launching. Formal mode must require a validation-only `screen_decision.json` containing selected configuration, criterion identifier, seed, timestamp, and explanation.
 
-- [ ] **Step 4: Implement evidence analysis**
+- [x] **Step 4: Implement evidence analysis**
 
 Load each seed's metrics and aligned prediction CSVs. Report mean, sample standard deviation, and per-seed values for Accuracy, Macro F1, target recall, both intrusions, both pair regrets, and sign-preservation rates. Bootstrap split groups, not images. Set `formal_evidence_supports_claim` in `analysis.json` only when the registered three-seed criterion is met; otherwise populate `claim_boundary` with required negative-result wording.
 
