@@ -17,6 +17,8 @@ from hrgv_network import (
     SUPPORTED_BACKBONES,
     compute_hrgv_losses,
     gate_routing_diagnostics,
+    pairwise_margin_routing_diagnostics,
+    pairwise_routing_targets,
     regret_gate_targets,
 )
 from mineral_hierarchy import SpeciesRoleMapping, validate_species_role_mapping
@@ -70,6 +72,34 @@ HRGV_PREDICTION_FIELDS = [
     "gate_selection_correct",
     "routing_regret_nll",
     "weighted_gate_error",
+    "phr_ti_pair_gate",
+    "phr_metallic_pair_gate",
+    "phr_ti_direct_margin",
+    "phr_metallic_direct_margin",
+    "phr_ti_mapped_margin",
+    "phr_metallic_mapped_margin",
+    "phr_ti_fused_margin",
+    "phr_metallic_fused_margin",
+    "phr_ti_base_margin",
+    "phr_metallic_base_margin",
+    "phr_ti_margin_delta",
+    "phr_metallic_margin_delta",
+    "phr_ti_margin_regret",
+    "phr_metallic_margin_regret",
+    "phr_ti_weighted_gate_error",
+    "phr_metallic_weighted_gate_error",
+    "phr_ti_eligible",
+    "phr_metallic_eligible",
+    "phr_ti_gate_selection_correct",
+    "phr_metallic_gate_selection_correct",
+    "phr_ti_expert_sign_agreement",
+    "phr_metallic_expert_sign_agreement",
+    "phr_ti_sign_preserved",
+    "phr_metallic_sign_preserved",
+    "phr_target_logit_adjustment",
+    "phr_ti_logit_adjustment",
+    "phr_gangue_logit_adjustment",
+    "phr_metallic_logit_adjustment",
 ]
 
 
@@ -127,6 +157,18 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--calibration-hidden-dim", type=int, default=256)
     parser.add_argument("--lambda-decomposition", type=float, default=0.02)
     parser.add_argument("--lambda-calibration", type=float, default=0.25)
+    parser.add_argument("--enable-phr", action="store_true")
+    parser.add_argument("--lambda-phr", type=float, default=0.0)
+    parser.add_argument("--phr-target-temperature", type=float, default=0.20)
+    parser.add_argument("--phr-gap-temperature", type=float, default=0.50)
+    parser.add_argument("--phr-hard-gate-target", action="store_true")
+    parser.add_argument("--phr-unweighted", action="store_true")
+    parser.add_argument("--phr-gate-hidden-dim", type=int, default=128)
+    parser.add_argument(
+        "--couple-phr-gate-features",
+        action="store_true",
+        help="Allow PHR routing supervision to update shared visual features.",
+    )
     parser.add_argument("--contrast-temperature", type=float, default=0.10)
     parser.add_argument("--embedding-dim", type=int, default=128)
     parser.add_argument("--gate-hidden-dim", type=int, default=128)
@@ -166,6 +208,7 @@ def validate_args(args: argparse.Namespace) -> None:
         gate_regret=args.lambda_gate_regret,
         decomposition=args.lambda_decomposition,
         calibration=args.lambda_calibration,
+        pairwise_regret=args.lambda_phr,
     )
     loss_weights.validate()
     if args.fixed_gate is not None and not 0.0 <= args.fixed_gate <= 1.0:
@@ -183,18 +226,23 @@ def validate_args(args: argparse.Namespace) -> None:
         args.gate_hidden_dim,
         args.adapter_bottleneck_dim,
         args.calibration_hidden_dim,
+        args.phr_gate_hidden_dim,
     ) <= 0:
         raise ValueError("Network hidden dimensions must be positive.")
     if args.contrast_temperature <= 0:
         raise ValueError("Contrast temperature must be positive.")
     if args.gate_regret_temperature <= 0 or args.gate_gap_temperature <= 0:
         raise ValueError("Gate temperatures must be positive.")
+    if args.phr_target_temperature <= 0 or args.phr_gap_temperature <= 0:
+        raise ValueError("PHR gate temperatures must be positive.")
     if args.detach_gate_features and args.couple_gate_features:
         raise ValueError("Gate features cannot be both detached and coupled.")
     if args.enable_cgdc and args.enable_rpg:
         raise ValueError("CGDC and RPG cannot be enabled together.")
     if args.enable_mrpg and (args.enable_cgdc or args.enable_rpg):
         raise ValueError("M-RPG is mutually exclusive with CGDC and RPG.")
+    if args.enable_phr and (args.enable_cgdc or args.enable_rpg or args.enable_mrpg):
+        raise ValueError("PHR cannot be combined with CGDC, RPG, or M-RPG.")
 
 
 def build_role_matrix(mapping: SpeciesRoleMapping, torch) -> torch.Tensor:
@@ -323,6 +371,63 @@ def summarize_gate_routing(
     }
 
 
+def summarize_pairwise_routing(
+    eligible_masks: Sequence[Sequence[bool]],
+    gate_selection_correct: Sequence[Sequence[bool]],
+    margin_regrets: Sequence[Sequence[float]],
+    weighted_gate_errors: Sequence[Sequence[float]],
+    expert_sign_agreements: Sequence[Sequence[bool]],
+    sign_preserved: Sequence[Sequence[bool]],
+) -> dict[str, float]:
+    """Summarize the two PHR edges without pooling their distinct error modes."""
+    sequences = (
+        eligible_masks,
+        gate_selection_correct,
+        margin_regrets,
+        weighted_gate_errors,
+        expert_sign_agreements,
+        sign_preserved,
+    )
+    if len({len(sequence) for sequence in sequences}) != 1:
+        raise ValueError("All pairwise routing diagnostic fields must have matching lengths.")
+    if not eligible_masks:
+        raise ValueError("Pairwise routing diagnostics cannot be empty.")
+    summary: dict[str, float] = {}
+    for edge_index, edge_name in enumerate(("ti", "metallic")):
+        eligible_indices = [
+            index for index, mask in enumerate(eligible_masks) if bool(mask[edge_index])
+        ]
+        sign_agreement_indices = [
+            index
+            for index in eligible_indices
+            if bool(expert_sign_agreements[index][edge_index])
+        ]
+        prefix = f"phr_{edge_name}"
+        summary[f"{prefix}_eligible_count"] = len(eligible_indices)
+        if not eligible_indices:
+            summary[f"{prefix}_gate_selection_accuracy"] = float("nan")
+            summary[f"{prefix}_mean_margin_regret"] = float("nan")
+            summary[f"{prefix}_mean_weighted_gate_error"] = float("nan")
+        else:
+            summary[f"{prefix}_gate_selection_accuracy"] = sum(
+                bool(gate_selection_correct[index][edge_index]) for index in eligible_indices
+            ) / len(eligible_indices)
+            summary[f"{prefix}_mean_margin_regret"] = sum(
+                float(margin_regrets[index][edge_index]) for index in eligible_indices
+            ) / len(eligible_indices)
+            summary[f"{prefix}_mean_weighted_gate_error"] = sum(
+                float(weighted_gate_errors[index][edge_index]) for index in eligible_indices
+            ) / len(eligible_indices)
+        summary[f"{prefix}_sign_agreement_count"] = len(sign_agreement_indices)
+        summary[f"{prefix}_sign_preservation_rate"] = (
+            sum(bool(sign_preserved[index][edge_index]) for index in sign_agreement_indices)
+            / len(sign_agreement_indices)
+            if sign_agreement_indices
+            else float("nan")
+        )
+    return summary
+
+
 def build_hrgv_prediction_rows(
     records,
     final_prediction_ids: Sequence[int],
@@ -352,7 +457,34 @@ def build_hrgv_prediction_rows(
     normalized_between_role_entropies: Sequence[float],
     normalized_within_role_entropies: Sequence[float],
     mrpg_between_coefficients: Sequence[float],
+    phr_pair_gates: Sequence[Sequence[float]] | None = None,
+    phr_direct_margins: Sequence[Sequence[float]] | None = None,
+    phr_mapped_margins: Sequence[Sequence[float]] | None = None,
+    phr_fused_margins: Sequence[Sequence[float]] | None = None,
+    phr_base_margins: Sequence[Sequence[float]] | None = None,
+    phr_margin_deltas: Sequence[Sequence[float]] | None = None,
+    phr_logit_adjustments: Sequence[Sequence[float]] | None = None,
+    phr_margin_regrets: Sequence[Sequence[float]] | None = None,
+    phr_weighted_gate_errors: Sequence[Sequence[float]] | None = None,
+    phr_eligible_masks: Sequence[Sequence[bool]] | None = None,
+    phr_gate_selection_correct: Sequence[Sequence[bool]] | None = None,
+    phr_expert_sign_agreements: Sequence[Sequence[bool]] | None = None,
+    phr_sign_preserved: Sequence[Sequence[bool]] | None = None,
 ) -> list[dict[str, str]]:
+    count = len(records)
+    phr_pair_gates = phr_pair_gates or [(0.0, 0.0)] * count
+    phr_direct_margins = phr_direct_margins or [(0.0, 0.0)] * count
+    phr_mapped_margins = phr_mapped_margins or [(0.0, 0.0)] * count
+    phr_fused_margins = phr_fused_margins or [(0.0, 0.0)] * count
+    phr_base_margins = phr_base_margins or [(0.0, 0.0)] * count
+    phr_margin_deltas = phr_margin_deltas or [(0.0, 0.0)] * count
+    phr_logit_adjustments = phr_logit_adjustments or [(0.0, 0.0, 0.0, 0.0)] * count
+    phr_margin_regrets = phr_margin_regrets or [(0.0, 0.0)] * count
+    phr_weighted_gate_errors = phr_weighted_gate_errors or [(0.0, 0.0)] * count
+    phr_eligible_masks = phr_eligible_masks or [(False, False)] * count
+    phr_gate_selection_correct = phr_gate_selection_correct or [(False, False)] * count
+    phr_expert_sign_agreements = phr_expert_sign_agreements or [(False, False)] * count
+    phr_sign_preserved = phr_sign_preserved or [(False, False)] * count
     sequences = (
         records,
         final_prediction_ids,
@@ -382,6 +514,19 @@ def build_hrgv_prediction_rows(
         normalized_between_role_entropies,
         normalized_within_role_entropies,
         mrpg_between_coefficients,
+        phr_pair_gates,
+        phr_direct_margins,
+        phr_mapped_margins,
+        phr_fused_margins,
+        phr_base_margins,
+        phr_margin_deltas,
+        phr_logit_adjustments,
+        phr_margin_regrets,
+        phr_weighted_gate_errors,
+        phr_eligible_masks,
+        phr_gate_selection_correct,
+        phr_expert_sign_agreements,
+        phr_sign_preserved,
     )
     if len({len(sequence) for sequence in sequences}) != 1:
         raise ValueError("All HRGV prediction fields must have matching lengths.")
@@ -434,6 +579,54 @@ def build_hrgv_prediction_rows(
                 for role_id, label in enumerate(CLASS_LABELS)
             }
         )
+        pair_values = {
+            "ti": {
+                "pair_gate": phr_pair_gates[index][0],
+                "direct_margin": phr_direct_margins[index][0],
+                "mapped_margin": phr_mapped_margins[index][0],
+                "fused_margin": phr_fused_margins[index][0],
+                "base_margin": phr_base_margins[index][0],
+                "margin_delta": phr_margin_deltas[index][0],
+                "margin_regret": phr_margin_regrets[index][0],
+                "weighted_gate_error": phr_weighted_gate_errors[index][0],
+                "eligible": phr_eligible_masks[index][0],
+                "gate_selection_correct": phr_gate_selection_correct[index][0],
+                "expert_sign_agreement": phr_expert_sign_agreements[index][0],
+                "sign_preserved": phr_sign_preserved[index][0],
+            },
+            "metallic": {
+                "pair_gate": phr_pair_gates[index][1],
+                "direct_margin": phr_direct_margins[index][1],
+                "mapped_margin": phr_mapped_margins[index][1],
+                "fused_margin": phr_fused_margins[index][1],
+                "base_margin": phr_base_margins[index][1],
+                "margin_delta": phr_margin_deltas[index][1],
+                "margin_regret": phr_margin_regrets[index][1],
+                "weighted_gate_error": phr_weighted_gate_errors[index][1],
+                "eligible": phr_eligible_masks[index][1],
+                "gate_selection_correct": phr_gate_selection_correct[index][1],
+                "expert_sign_agreement": phr_expert_sign_agreements[index][1],
+                "sign_preserved": phr_sign_preserved[index][1],
+            },
+        }
+        for edge_name, values in pair_values.items():
+            for key in (
+                "pair_gate",
+                "direct_margin",
+                "mapped_margin",
+                "fused_margin",
+                "base_margin",
+                "margin_delta",
+                "margin_regret",
+                "weighted_gate_error",
+            ):
+                row[f"phr_{edge_name}_{key}"] = f"{values[key]:.6f}"
+            for key in ("eligible", "gate_selection_correct", "expert_sign_agreement", "sign_preserved"):
+                row[f"phr_{edge_name}_{key}"] = "1" if values[key] else "0"
+        for role_index, role_name in enumerate(("target", "ti", "gangue", "metallic")):
+            row[f"phr_{role_name}_logit_adjustment"] = (
+                f"{phr_logit_adjustments[index][role_index]:.6f}"
+            )
     return rows
 
 
@@ -453,6 +646,10 @@ def run_epoch(
     gate_gap_temperature,
     hard_gate_target,
     unweighted_gate_regret,
+    phr_target_temperature,
+    phr_gap_temperature,
+    phr_hard_gate_target,
+    phr_unweighted,
     max_batches: int | None,
 ):
     training = optimizer is not None
@@ -470,6 +667,9 @@ def run_epoch(
         "gate_regret_loss",
         "decomposition_loss",
         "calibration_loss",
+        "phr_ti_gate_loss",
+        "phr_metallic_gate_loss",
+        "phr_pairwise_regret_loss",
     )
     totals = {name: 0.0 for name in loss_names}
     result = {
@@ -504,6 +704,19 @@ def run_epoch(
         "routing_regrets_nll": [],
         "weighted_gate_errors": [],
         "one_right_one_wrong": [],
+        "phr_pair_gates": [],
+        "phr_direct_margins": [],
+        "phr_mapped_margins": [],
+        "phr_fused_margins": [],
+        "phr_base_margins": [],
+        "phr_margin_deltas": [],
+        "phr_logit_adjustments": [],
+        "phr_margin_regrets": [],
+        "phr_weighted_gate_errors": [],
+        "phr_eligible_masks": [],
+        "phr_gate_selection_correct": [],
+        "phr_expert_sign_agreements": [],
+        "phr_sign_preserved": [],
     }
     total_count = 0
     with torch.set_grad_enabled(training):
@@ -528,6 +741,10 @@ def run_epoch(
                 gate_gap_temperature=gate_gap_temperature,
                 hard_gate_target=hard_gate_target,
                 unweighted_gate_regret=unweighted_gate_regret,
+                phr_target_temperature=phr_target_temperature,
+                phr_gap_temperature=phr_gap_temperature,
+                phr_hard_gate_target=phr_hard_gate_target,
+                phr_unweighted=phr_unweighted,
             )
             if training:
                 optimizer.zero_grad(set_to_none=True)
@@ -648,6 +865,56 @@ def run_epoch(
             result["one_right_one_wrong"].extend(
                 routing["one_right_one_wrong"].squeeze(1).detach().cpu().tolist()
             )
+            if "phr_pair_gates" in outputs:
+                phr_routing = pairwise_margin_routing_diagnostics(
+                    outputs["phr_pair_gates"],
+                    outputs["phr_direct_margins"],
+                    outputs["phr_mapped_margins"],
+                    roles,
+                    target_index=0,
+                    negative_indices=(1, 3),
+                    torch=torch,
+                )
+                phr_values = {
+                    "phr_pair_gates": outputs["phr_pair_gates"],
+                    "phr_direct_margins": outputs["phr_direct_margins"],
+                    "phr_mapped_margins": outputs["phr_mapped_margins"],
+                    "phr_fused_margins": outputs["phr_fused_margins"],
+                    "phr_base_margins": outputs["phr_base_margins"],
+                    "phr_margin_deltas": outputs["phr_margin_deltas"],
+                    "phr_logit_adjustments": outputs["phr_logit_adjustments"],
+                    "phr_margin_regrets": phr_routing["margin_regrets"],
+                    "phr_weighted_gate_errors": phr_routing["weighted_gate_errors"],
+                    "phr_eligible_masks": phr_routing["eligible_mask"],
+                    "phr_gate_selection_correct": phr_routing[
+                        "hard_gate_selection_correct"
+                    ],
+                    "phr_expert_sign_agreements": phr_routing["expert_sign_agreement"],
+                    "phr_sign_preserved": phr_routing["fused_sign_preserved"],
+                }
+            else:
+                pair_zeros = torch.zeros(
+                    (batch_size, 2), dtype=outputs["gate"].dtype, device=outputs["gate"].device
+                )
+                phr_values = {
+                    "phr_pair_gates": pair_zeros,
+                    "phr_direct_margins": pair_zeros,
+                    "phr_mapped_margins": pair_zeros,
+                    "phr_fused_margins": pair_zeros,
+                    "phr_base_margins": pair_zeros,
+                    "phr_margin_deltas": pair_zeros,
+                    "phr_logit_adjustments": torch.zeros_like(
+                        outputs["final_role_probabilities"]
+                    ),
+                    "phr_margin_regrets": pair_zeros,
+                    "phr_weighted_gate_errors": pair_zeros,
+                    "phr_eligible_masks": pair_zeros.bool(),
+                    "phr_gate_selection_correct": pair_zeros.bool(),
+                    "phr_expert_sign_agreements": pair_zeros.bool(),
+                    "phr_sign_preserved": pair_zeros.bool(),
+                }
+            for result_key, values in phr_values.items():
+                result[result_key].extend(values.detach().cpu().tolist())
     if total_count == 0:
         raise RuntimeError("No batches were evaluated.")
     result["losses"] = {name: value / total_count for name, value in totals.items()}
@@ -673,6 +940,14 @@ def run_epoch(
             result["weighted_gate_errors"],
             result["one_right_one_wrong"],
         )
+    )
+    result["phr_summary"] = summarize_pairwise_routing(
+        result["phr_eligible_masks"],
+        result["phr_gate_selection_correct"],
+        result["phr_margin_regrets"],
+        result["phr_weighted_gate_errors"],
+        result["phr_expert_sign_agreements"],
+        result["phr_sign_preserved"],
     )
     return result
 
@@ -735,6 +1010,9 @@ def main(argv: Sequence[str] | None = None) -> None:
         rpg_entropy_mode=args.rpg_entropy_mode,
         enable_mrpg=args.enable_mrpg,
         mrpg_between_mode=args.mrpg_between_mode,
+        enable_phr=args.enable_phr,
+        phr_gate_hidden_dim=args.phr_gate_hidden_dim,
+        detach_phr_gate_features=not args.couple_phr_gate_features,
     ).to(device)
     role_weight_tensor = torch.tensor(
         compute_class_weights(role_counts), dtype=torch.float32, device=device
@@ -752,6 +1030,7 @@ def main(argv: Sequence[str] | None = None) -> None:
     effective_gate_regret = 0.0 if args.disable_gate_regret else args.lambda_gate_regret
     effective_decomposition = args.lambda_decomposition if args.enable_cgdc else 0.0
     effective_calibration = args.lambda_calibration if args.enable_cgdc else 0.0
+    effective_phr = args.lambda_phr if args.enable_phr else 0.0
     loss_weights = HRGVLossWeights(
         direct=args.lambda_direct,
         species=args.lambda_species,
@@ -761,6 +1040,7 @@ def main(argv: Sequence[str] | None = None) -> None:
         gate_regret=effective_gate_regret,
         decomposition=effective_decomposition,
         calibration=effective_calibration,
+        pairwise_regret=effective_phr,
     )
     optimizer = torch.optim.AdamW(
         model.parameters(), lr=args.learning_rate, weight_decay=args.weight_decay
@@ -781,6 +1061,8 @@ def main(argv: Sequence[str] | None = None) -> None:
         model_name = f"rpg_{model_name}_{args.rpg_entropy_mode}"
     if args.enable_mrpg:
         model_name = f"mrpg_{model_name}_{args.mrpg_between_mode}"
+    if args.enable_phr:
+        model_name = f"phr_{model_name}"
     if args.disable_verifiers:
         model_name += "_no_verifiers"
     if args.fixed_gate is not None:
@@ -795,6 +1077,14 @@ def main(argv: Sequence[str] | None = None) -> None:
         model_name += "_unweighted_gate_regret"
     if args.couple_gate_features:
         model_name += "_coupled_gate_features"
+    if effective_phr > 0:
+        model_name += "_pairwise_regret"
+    if args.phr_hard_gate_target:
+        model_name += "_phr_hard_gate_target"
+    if args.phr_unweighted:
+        model_name += "_phr_unweighted"
+    if args.couple_phr_gate_features:
+        model_name += "_phr_coupled_features"
     write_json(
         args.output_dir / "environment.json",
         {
@@ -820,6 +1110,7 @@ def main(argv: Sequence[str] | None = None) -> None:
             "lambda_gate_regret": loss_weights.gate_regret,
             "lambda_decomposition": loss_weights.decomposition,
             "lambda_calibration": loss_weights.calibration,
+            "lambda_phr": loss_weights.pairwise_regret,
             "gate_regret_temperature": args.gate_regret_temperature,
             "gate_gap_temperature": args.gate_gap_temperature,
             "hard_gate_target": args.hard_gate_target,
@@ -836,6 +1127,14 @@ def main(argv: Sequence[str] | None = None) -> None:
             "mrpg_between_mode": args.mrpg_between_mode,
             "adapter_bottleneck_dim": args.adapter_bottleneck_dim,
             "calibration_hidden_dim": args.calibration_hidden_dim,
+            "enable_phr": args.enable_phr,
+            "phr_replaces_verifier_postprocessor": args.enable_phr,
+            "phr_target_temperature": args.phr_target_temperature,
+            "phr_gap_temperature": args.phr_gap_temperature,
+            "phr_hard_gate_target": args.phr_hard_gate_target,
+            "phr_unweighted": args.phr_unweighted,
+            "phr_gate_hidden_dim": args.phr_gate_hidden_dim,
+            "detach_phr_gate_features": not args.couple_phr_gate_features,
             "fixed_gate": args.fixed_gate,
             "disable_verifiers": args.disable_verifiers,
             "verifier_mode": effective_verifier_mode,
@@ -868,6 +1167,10 @@ def main(argv: Sequence[str] | None = None) -> None:
             args.gate_gap_temperature,
             args.hard_gate_target,
             args.unweighted_gate_regret,
+            args.phr_target_temperature,
+            args.phr_gap_temperature,
+            args.phr_hard_gate_target,
+            args.phr_unweighted,
             max_batches,
         )
         val_result = run_epoch(
@@ -886,6 +1189,10 @@ def main(argv: Sequence[str] | None = None) -> None:
             args.gate_gap_temperature,
             args.hard_gate_target,
             args.unweighted_gate_regret,
+            args.phr_target_temperature,
+            args.phr_gap_temperature,
+            args.phr_hard_gate_target,
+            args.phr_unweighted,
             max_batches,
         )
         val_metrics = calculate_metrics(
@@ -915,6 +1222,10 @@ def main(argv: Sequence[str] | None = None) -> None:
                 "train_mean_weighted_gate_error": train_result[
                     "mean_weighted_gate_error"
                 ],
+                **{
+                    f"train_{key}": value
+                    for key, value in train_result["phr_summary"].items()
+                },
                 **{f"val_{key}": value for key, value in val_result["losses"].items()},
                 "val_mean_gate": val_result["mean_gate"],
                 "val_mean_expert_js_divergence": val_result[
@@ -932,6 +1243,10 @@ def main(argv: Sequence[str] | None = None) -> None:
                 "val_mean_weighted_gate_error": val_result[
                     "mean_weighted_gate_error"
                 ],
+                **{
+                    f"val_{key}": value
+                    for key, value in val_result["phr_summary"].items()
+                },
                 **{
                     key: value
                     for key, value in val_metrics.items()
@@ -986,6 +1301,10 @@ def main(argv: Sequence[str] | None = None) -> None:
         args.gate_gap_temperature,
         args.hard_gate_target,
         args.unweighted_gate_regret,
+        args.phr_target_temperature,
+        args.phr_gap_temperature,
+        args.phr_hard_gate_target,
+        args.phr_unweighted,
         max_batches,
     )
     test_metrics = calculate_metrics(
@@ -1042,6 +1361,7 @@ def main(argv: Sequence[str] | None = None) -> None:
             ],
             "mean_routing_regret_nll": test_result["mean_routing_regret_nll"],
             "mean_weighted_gate_error": test_result["mean_weighted_gate_error"],
+            **test_result["phr_summary"],
             "best_val_macro_f1": best_f1,
         }
     )
@@ -1089,6 +1409,19 @@ def main(argv: Sequence[str] | None = None) -> None:
             "normalized_within_role_entropies"
         ],
         mrpg_between_coefficients=test_result["mrpg_between_coefficients"],
+        phr_pair_gates=test_result["phr_pair_gates"],
+        phr_direct_margins=test_result["phr_direct_margins"],
+        phr_mapped_margins=test_result["phr_mapped_margins"],
+        phr_fused_margins=test_result["phr_fused_margins"],
+        phr_base_margins=test_result["phr_base_margins"],
+        phr_margin_deltas=test_result["phr_margin_deltas"],
+        phr_logit_adjustments=test_result["phr_logit_adjustments"],
+        phr_margin_regrets=test_result["phr_margin_regrets"],
+        phr_weighted_gate_errors=test_result["phr_weighted_gate_errors"],
+        phr_eligible_masks=test_result["phr_eligible_masks"],
+        phr_gate_selection_correct=test_result["phr_gate_selection_correct"],
+        phr_expert_sign_agreements=test_result["phr_expert_sign_agreements"],
+        phr_sign_preserved=test_result["phr_sign_preserved"],
     )
     write_csv(
         args.output_dir / "test_predictions.csv", prediction_rows, HRGV_PREDICTION_FIELDS

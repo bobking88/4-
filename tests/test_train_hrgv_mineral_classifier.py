@@ -71,6 +71,14 @@ class HRGVTrainingConfigurationTests(unittest.TestCase):
         self.assertEqual(args.calibration_hidden_dim, 256)
         self.assertEqual(args.lambda_decomposition, 0.02)
         self.assertEqual(args.lambda_calibration, 0.25)
+        self.assertFalse(args.enable_phr)
+        self.assertEqual(args.lambda_phr, 0.0)
+        self.assertEqual(args.phr_target_temperature, 0.20)
+        self.assertEqual(args.phr_gap_temperature, 0.50)
+        self.assertFalse(args.phr_hard_gate_target)
+        self.assertFalse(args.phr_unweighted)
+        self.assertEqual(args.phr_gate_hidden_dim, 128)
+        self.assertFalse(args.couple_phr_gate_features)
 
     def test_cli_accepts_the_resnet50_portability_backbone(self) -> None:
         from train_hrgv_mineral_classifier import parse_args, validate_args
@@ -152,6 +160,40 @@ class HRGVTrainingConfigurationTests(unittest.TestCase):
         validate_args(args)
 
         self.assertTrue(args.couple_verifier_features)
+
+    def test_cli_exposes_phr_switches_and_rejects_incompatible_modules(self) -> None:
+        from train_hrgv_mineral_classifier import parse_args, validate_args
+
+        common = [
+            "--manifest", "split.csv", "--dataset-root", "dataset", "--output-dir", "output",
+        ]
+        args = parse_args(
+            [
+                *common,
+                "--enable-phr",
+                "--lambda-phr",
+                "0.10",
+                "--phr-target-temperature",
+                "0.20",
+                "--phr-gap-temperature",
+                "0.50",
+                "--phr-gate-hidden-dim",
+                "32",
+                "--couple-phr-gate-features",
+            ]
+        )
+        validate_args(args)
+
+        self.assertTrue(args.enable_phr)
+        self.assertAlmostEqual(args.lambda_phr, 0.10)
+        self.assertEqual(args.phr_target_temperature, 0.20)
+        self.assertEqual(args.phr_gap_temperature, 0.50)
+        self.assertEqual(args.phr_gate_hidden_dim, 32)
+        self.assertTrue(args.couple_phr_gate_features)
+
+        incompatible = parse_args([*common, "--enable-phr", "--enable-rpg"])
+        with self.assertRaisesRegex(ValueError, "PHR"):
+            validate_args(incompatible)
 
     def test_validation_rejects_negative_weights_and_invalid_fixed_gate(self) -> None:
         from train_hrgv_mineral_classifier import parse_args, validate_args
@@ -282,6 +324,18 @@ class HRGVArtifactTests(unittest.TestCase):
             normalized_between_role_entropies=[0.58],
             normalized_within_role_entropies=[0.26],
             mrpg_between_coefficients=[0.69],
+            phr_pair_gates=[[0.41, 0.72]],
+            phr_direct_margins=[[0.60, 0.40]],
+            phr_mapped_margins=[[0.20, 0.80]],
+            phr_fused_margins=[[0.36, 0.51]],
+            phr_base_margins=[[0.10, 0.11]],
+            phr_margin_deltas=[[0.26, 0.40]],
+            phr_logit_adjustments=[[0.22, -0.04, 0.00, -0.18]],
+            phr_margin_regrets=[[0.02, 0.05]],
+            phr_weighted_gate_errors=[[0.02, 0.05]],
+            phr_eligible_masks=[[True, True]],
+            phr_gate_selection_correct=[[True, False]],
+            phr_sign_preserved=[[True, True]],
         )
 
         self.assertEqual(len(rows), 1)
@@ -312,6 +366,13 @@ class HRGVArtifactTests(unittest.TestCase):
         self.assertEqual(rows[0]["gate_selection_correct"], "1")
         self.assertEqual(rows[0]["routing_regret_nll"], "0.254000")
         self.assertEqual(rows[0]["weighted_gate_error"], "0.136500")
+        self.assertEqual(rows[0]["phr_ti_pair_gate"], "0.410000")
+        self.assertEqual(rows[0]["phr_metallic_pair_gate"], "0.720000")
+        self.assertEqual(rows[0]["phr_ti_direct_margin"], "0.600000")
+        self.assertEqual(rows[0]["phr_metallic_fused_margin"], "0.510000")
+        self.assertEqual(rows[0]["phr_ti_margin_regret"], "0.020000")
+        self.assertEqual(rows[0]["phr_metallic_gate_selection_correct"], "0")
+        self.assertEqual(rows[0]["phr_target_logit_adjustment"], "0.220000")
 
 
 if __name__ == "__main__":

@@ -417,6 +417,10 @@ def pairwise_margin_routing_diagnostics(
     margin_regrets = oracle_utilities - fused_utilities
     eligible = utilities["eligible_mask"]
     zero = torch.zeros_like(margin_regrets)
+    expert_sign_agreement = direct_utilities * mapped_utilities >= 0.0
+    fused_sign_preserved = (fused_utilities * direct_utilities >= 0.0) & (
+        fused_utilities * mapped_utilities >= 0.0
+    )
     return {
         **utilities,
         "fused_utilities": fused_utilities,
@@ -429,6 +433,8 @@ def pairwise_margin_routing_diagnostics(
             (pair_gates - hard_oracle_gates).abs() * (direct_utilities - mapped_utilities).abs(),
             zero,
         ),
+        "expert_sign_agreement": eligible & expert_sign_agreement,
+        "fused_sign_preserved": eligible & expert_sign_agreement & fused_sign_preserved,
     }
 
 
@@ -633,6 +639,7 @@ class HRGVLossWeights:
     gate_regret: float = 0.0
     decomposition: float = 0.0
     calibration: float = 0.0
+    pairwise_regret: float = 0.0
 
     def validate(self) -> None:
         values = (
@@ -644,6 +651,7 @@ class HRGVLossWeights:
             self.gate_regret,
             self.decomposition,
             self.calibration,
+            self.pairwise_regret,
         )
         if any(value < 0 for value in values):
             raise ValueError("HRGV loss weights must be non-negative.")
@@ -1120,6 +1128,10 @@ def compute_hrgv_losses(
     gate_gap_temperature: float = 0.50,
     hard_gate_target: bool = False,
     unweighted_gate_regret: bool = False,
+    phr_target_temperature: float = 0.20,
+    phr_gap_temperature: float = 0.50,
+    phr_hard_gate_target: bool = False,
+    phr_unweighted: bool = False,
 ):
     """Return the complete HRGV objective and its auditable loss terms."""
     weights.validate()
@@ -1168,6 +1180,37 @@ def compute_hrgv_losses(
         gate_targets["gate_gap_weight"],
         torch,
     )
+    if "phr_pair_gates" in outputs:
+        phr_targets = pairwise_routing_targets(
+            outputs["phr_direct_margins"],
+            outputs["phr_mapped_margins"],
+            role_labels,
+            target_index=0,
+            negative_indices=(1, 3),
+            target_temperature=phr_target_temperature,
+            gap_temperature=phr_gap_temperature,
+            torch=torch,
+            hard_target=phr_hard_gate_target,
+            unweighted=phr_unweighted,
+        )
+        phr_ti_gate_loss = weighted_soft_gate_loss(
+            outputs["phr_pair_gates"][:, 0:1],
+            phr_targets["soft_oracle_gates"][:, 0:1],
+            phr_targets["gap_weights"][:, 0:1],
+            torch,
+        )
+        phr_metallic_gate_loss = weighted_soft_gate_loss(
+            outputs["phr_pair_gates"][:, 1:2],
+            phr_targets["soft_oracle_gates"][:, 1:2],
+            phr_targets["gap_weights"][:, 1:2],
+            torch,
+        )
+        phr_pairwise_regret_loss = phr_ti_gate_loss + phr_metallic_gate_loss
+    else:
+        zero = outputs["final_role_probabilities"].sum() * 0.0
+        phr_ti_gate_loss = zero
+        phr_metallic_gate_loss = zero
+        phr_pairwise_regret_loss = zero
     calibrated_role_probabilities = outputs.get(
         "calibrated_role_probabilities", outputs["fused_role_probabilities"]
     )
@@ -1190,6 +1233,7 @@ def compute_hrgv_losses(
         + weights.gate_regret * gate_regret_loss
         + weights.decomposition * decomposition_loss
         + weights.calibration * calibration_loss
+        + weights.pairwise_regret * phr_pairwise_regret_loss
     )
     return total_loss, {
         "final_role_loss": final_role_loss,
@@ -1203,4 +1247,7 @@ def compute_hrgv_losses(
         "gate_regret_loss": gate_regret_loss,
         "decomposition_loss": decomposition_loss,
         "calibration_loss": calibration_loss,
+        "phr_ti_gate_loss": phr_ti_gate_loss,
+        "phr_metallic_gate_loss": phr_metallic_gate_loss,
+        "phr_pairwise_regret_loss": phr_pairwise_regret_loss,
     }

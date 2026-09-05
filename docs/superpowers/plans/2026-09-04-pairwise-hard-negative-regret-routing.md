@@ -152,7 +152,7 @@ D:\成信工科研\人工智能选矿\.venv-training\Scripts\python.exe -m unitt
 
 Expected: PASS.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```powershell
 git add scripts/hrgv_network.py tests/test_hrgv_network.py
@@ -172,7 +172,7 @@ git commit -m "feat: integrate pairwise hard-negative routing model"
 - Extend `compute_hrgv_losses` with PHR temperatures and target/weight ablation arguments; return `phr_pairwise_regret_loss`, `phr_ti_gate_loss`, and `phr_metallic_gate_loss`.
 - Add flags `--enable-phr`, `--lambda-phr`, `--phr-target-temperature`, `--phr-gap-temperature`, `--phr-hard-gate-target`, `--phr-unweighted`, `--phr-gate-hidden-dim`, and `--couple-phr-gate-features`.
 
-- [ ] **Step 1: Write failing loss and CLI tests**
+- [x] **Step 1: Write failing loss and CLI tests**
 
 Test that zero PHR weight preserves the old total loss; that Ti loss only uses target/Ti rows and metallic loss only target/metallic rows; and that parsing accepts:
 
@@ -187,7 +187,7 @@ self.assertAlmostEqual(args.lambda_phr, 0.10)
 
 Test prediction fields for both pair gates, three margin variants, two pair regrets, and correction values.
 
-- [ ] **Step 2: Run targeted test and verify failure**
+- [x] **Step 2: Run targeted test and verify failure**
 
 Run:
 
@@ -197,13 +197,13 @@ D:\成信工科研\人工智能选矿\.venv-training\Scripts\python.exe -m unitt
 
 Expected: FAIL because parser lacks PHR flags.
 
-- [ ] **Step 3: Implement trainer plumbing**
+- [x] **Step 3: Implement trainer plumbing**
 
 Compute PHR target dictionaries only when PHR outputs exist; otherwise use differentiable zero losses. Thread flags into model construction, `HRGVLossWeights`, epoch JSONL, `environment.json`, `metrics.json`, and CSV rows. In PHR mode write `phr_replaces_verifier_postprocessor: true` in environment metadata while preserving the binary verifier loss.
 
 Add `summarize_pairwise_routing` that reports eligible count, hard selection accuracy, mean margin regret, weighted routing error, and sign-preservation rate independently for the Ti and metallic edges.
 
-- [ ] **Step 4: Verify trainer path**
+- [x] **Step 4: Verify trainer path**
 
 Run:
 

@@ -1157,6 +1157,50 @@ class HRGVModelTests(unittest.TestCase):
         self.assertTrue(self.torch.allclose(total_loss, original_formula, atol=1e-7))
         self.assertIn("gate_regret_loss", terms)
 
+    def test_pairwise_regret_loss_only_uses_its_eligible_hard_negative_edge(self) -> None:
+        from hrgv_network import (
+            HRGVLossWeights,
+            HierarchicalRiskGatedVerificationNet,
+            compute_hrgv_losses,
+        )
+
+        mapping = self.build_mapping()
+        model = HierarchicalRiskGatedVerificationNet(
+            self.dependencies["models"],
+            self.build_role_matrix(mapping),
+            pretrained=False,
+            embedding_dim=8,
+            gate_hidden_dim=16,
+            enable_phr=True,
+            phr_gate_hidden_dim=16,
+        )
+        species_labels = self.torch.tensor([0, 1], dtype=self.torch.long)
+        common = {
+            "outputs": model(self.torch.randn(2, 3, 64, 64)),
+            "species_labels": species_labels,
+            "mapping": mapping,
+            "final_role_criterion": self.torch.nn.NLLLoss(),
+            "direct_role_criterion": self.torch.nn.CrossEntropyLoss(),
+            "species_criterion": self.torch.nn.CrossEntropyLoss(),
+            "verifier_criterion": self.torch.nn.CrossEntropyLoss(),
+            "weights": HRGVLossWeights(pairwise_regret=0.10),
+            "temperature": 0.10,
+            "torch": self.torch,
+        }
+
+        _, ti_terms = compute_hrgv_losses(
+            role_labels=self.torch.tensor([1, 2], dtype=self.torch.long), **common
+        )
+        _, metallic_terms = compute_hrgv_losses(
+            role_labels=self.torch.tensor([3, 2], dtype=self.torch.long), **common
+        )
+
+        self.assertGreater(float(ti_terms["phr_ti_gate_loss"].detach()), 0.0)
+        self.assertEqual(float(ti_terms["phr_metallic_gate_loss"].detach()), 0.0)
+        self.assertEqual(float(metallic_terms["phr_ti_gate_loss"].detach()), 0.0)
+        self.assertGreater(float(metallic_terms["phr_metallic_gate_loss"].detach()), 0.0)
+        self.assertIn("phr_pairwise_regret_loss", ti_terms)
+
     def test_complete_loss_backpropagates_through_every_hrgv_module(self) -> None:
         from hrgv_network import (
             HRGVLossWeights,
@@ -1207,6 +1251,9 @@ class HRGVModelTests(unittest.TestCase):
                 "gate_regret_loss",
                 "decomposition_loss",
                 "calibration_loss",
+                "phr_ti_gate_loss",
+                "phr_metallic_gate_loss",
+                "phr_pairwise_regret_loss",
             },
         )
         gradient_parameters = {
