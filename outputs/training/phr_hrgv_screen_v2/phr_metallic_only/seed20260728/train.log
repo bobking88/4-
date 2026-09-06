@@ -1,0 +1,112 @@
+epoch=1 train_loss=3.4051 val_loss=2.4406 val_macro_f1=0.6189 val_gate=0.5523
+epoch=2 train_loss=2.6647 val_loss=2.1856 val_macro_f1=0.6734 val_gate=0.4942
+epoch=3 train_loss=2.2652 val_loss=1.9909 val_macro_f1=0.6928 val_gate=0.4765
+epoch=4 train_loss=1.9709 val_loss=2.0063 val_macro_f1=0.6955 val_gate=0.4510
+epoch=5 train_loss=1.7158 val_loss=2.0968 val_macro_f1=0.6851 val_gate=0.4566
+epoch=6 train_loss=1.5016 val_loss=1.9917 val_macro_f1=0.7068 val_gate=0.4468
+epoch=7 train_loss=1.3301 val_loss=2.0313 val_macro_f1=0.7170 val_gate=0.4671
+epoch=8 train_loss=1.1945 val_loss=2.1068 val_macro_f1=0.7256 val_gate=0.4269
+epoch=9 train_loss=1.0920 val_loss=2.1312 val_macro_f1=0.7243 val_gate=0.4469
+epoch=10 train_loss=0.9885 val_loss=2.0975 val_macro_f1=0.7228 val_gate=0.4351
+epoch=11 train_loss=0.9067 val_loss=2.2096 val_macro_f1=0.7116 val_gate=0.4125
+epoch=12 train_loss=0.8047 val_loss=2.1497 val_macro_f1=0.7369 val_gate=0.4143
+epoch=13 train_loss=0.7791 val_loss=2.3377 val_macro_f1=0.7224 val_gate=0.4503
+epoch=14 train_loss=0.7084 val_loss=2.1938 val_macro_f1=0.7380 val_gate=0.4509
+epoch=15 train_loss=0.6720 val_loss=2.2460 val_macro_f1=0.7060 val_gate=0.4171
+epoch=16 train_loss=0.6123 val_loss=2.4329 val_macro_f1=0.7233 val_gate=0.4517
+epoch=17 train_loss=0.6212 val_loss=2.2420 val_macro_f1=0.7286 val_gate=0.4529
+epoch=18 train_loss=0.5478 val_loss=2.5022 val_macro_f1=0.7202 val_gate=0.4203
+epoch=19 train_loss=0.4863 val_loss=2.3867 val_macro_f1=0.7372 val_gate=0.4361
+epoch=20 train_loss=0.4571 val_loss=2.2991 val_macro_f1=0.7333 val_gate=0.4382
+epoch=21 train_loss=0.4306 val_loss=2.4860 val_macro_f1=0.7300 val_gate=0.4309
+epoch=22 train_loss=0.4242 val_loss=2.5165 val_macro_f1=0.7332 val_gate=0.4285
+Early stopping at epoch 22.
+{
+  "output_dir": "outputs\\training\\phr_hrgv_screen_v2\\phr_metallic_only\\seed20260728",
+  "accuracy": 0.7523364485981309,
+  "macro_precision": 0.7365770806060505,
+  "macro_recall": 0.7399808136435195,
+  "macro_f1": 0.7379958932345843,
+  "class_recall": {
+    "target_mineral": 0.68,
+    "ti_bearing_negative": 0.7510204081632653,
+    "gangue_negative": 0.8283378746594006,
+    "metallic_hard_negative": 0.7005649717514124
+  },
+  "confusion_matrix": [
+    [
+      170,
+      42,
+      18,
+      20
+    ],
+    [
+      50,
+      368,
+      55,
+      17
+    ],
+    [
+      19,
+      30,
+      304,
+      14
+    ],
+    [
+      20,
+      26,
+      7,
+      124
+    ]
+  ],
+  "target_recall": 0.68,
+  "target_miss_rate": 0.31999999999999995,
+  "ti_to_target_intrusion_rate": 0.10204081632653061,
+  "metallic_to_target_intrusion_rate": 0.11299435028248588,
+  "brier_score": 0.3773594905989379,
+  "expected_calibration_error": 0.12391962791064817,
+  "val_loss": 2.1937854886054993,
+  "val_final_role_loss": 0.8437623709637521,
+  "val_direct_role_loss": 0.8814245616187374,
+  "val_species_loss": 1.605541795213646,
+  "val_consistency_loss": 0.04484788761285607,
+  "val_ti_verifier_loss": 0.2774750306477735,
+  "val_metallic_verifier_loss": 0.19235957858393496,
+  "val_verifier_loss": 0.4698346088665053,
+  "val_contrast_loss": 0.0,
+  "val_gate_regret_loss": 0.7050649878391967,
+  "val_decomposition_loss": 0.0,
+  "val_calibration_loss": 0.8274966455601458,
+  "val_phr_ti_gate_loss": 0.0,
+  "val_phr_metallic_gate_loss": 0.16987504923826438,
+  "val_phr_pairwise_regret_loss": 0.16987504923826438,
+  "species_accuracy": 0.5669781931464174,
+  "ti_verifier_subset_accuracy": 0.8391891891891892,
+  "metallic_verifier_subset_accuracy": 0.8243559718969555,
+  "mean_gate": 0.450877275085802,
+  "mean_expert_js_divergence": 0.010528960901979212,
+  "mean_total_species_entropy": 0.0,
+  "mean_between_role_entropy": 0.0,
+  "mean_within_role_entropy": 0.0,
+  "mean_within_capacity": 0.0,
+  "mean_normalized_between_role_entropy": 0.0,
+  "mean_normalized_within_role_entropy": 0.0,
+  "mean_mrpg_between_coefficient": 0.0,
+  "gate_selection_accuracy": 0.5794392523364486,
+  "one_right_gate_selection_accuracy": 0.5285714285714286,
+  "mean_routing_regret_nll": 0.0852380702215888,
+  "mean_weighted_gate_error": 0.025434483899796183,
+  "phr_ti_eligible_count": 0,
+  "phr_ti_gate_selection_accuracy": NaN,
+  "phr_ti_mean_margin_regret": NaN,
+  "phr_ti_mean_weighted_gate_error": NaN,
+  "phr_ti_sign_agreement_count": 0,
+  "phr_ti_sign_preservation_rate": NaN,
+  "phr_metallic_eligible_count": 427,
+  "phr_metallic_gate_selection_accuracy": 0.7564402810304449,
+  "phr_metallic_mean_margin_regret": 0.21850471987238534,
+  "phr_metallic_mean_weighted_gate_error": 0.2185047176848887,
+  "phr_metallic_sign_agreement_count": 415,
+  "phr_metallic_sign_preservation_rate": 1.0,
+  "best_val_macro_f1": 0.7379958932345843
+}

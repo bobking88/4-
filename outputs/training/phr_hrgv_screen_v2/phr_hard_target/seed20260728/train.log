@@ -1,0 +1,119 @@
+epoch=1 train_loss=3.4686 val_loss=2.4771 val_macro_f1=0.6233 val_gate=0.5337
+epoch=2 train_loss=2.7205 val_loss=2.2098 val_macro_f1=0.6684 val_gate=0.4719
+epoch=3 train_loss=2.3102 val_loss=2.0221 val_macro_f1=0.6937 val_gate=0.4775
+epoch=4 train_loss=2.0124 val_loss=2.0297 val_macro_f1=0.6938 val_gate=0.4567
+epoch=5 train_loss=1.7589 val_loss=2.1237 val_macro_f1=0.6805 val_gate=0.4466
+epoch=6 train_loss=1.5354 val_loss=2.0193 val_macro_f1=0.7112 val_gate=0.4537
+epoch=7 train_loss=1.3593 val_loss=2.0727 val_macro_f1=0.7172 val_gate=0.4539
+epoch=8 train_loss=1.2283 val_loss=2.1526 val_macro_f1=0.7245 val_gate=0.4271
+epoch=9 train_loss=1.1286 val_loss=2.1569 val_macro_f1=0.7180 val_gate=0.4545
+epoch=10 train_loss=1.0227 val_loss=2.1092 val_macro_f1=0.7291 val_gate=0.4360
+epoch=11 train_loss=0.9268 val_loss=2.2299 val_macro_f1=0.7139 val_gate=0.4206
+epoch=12 train_loss=0.8310 val_loss=2.1771 val_macro_f1=0.7309 val_gate=0.4328
+epoch=13 train_loss=0.8087 val_loss=2.3506 val_macro_f1=0.7288 val_gate=0.4619
+epoch=14 train_loss=0.7267 val_loss=2.2302 val_macro_f1=0.7384 val_gate=0.4491
+epoch=15 train_loss=0.6923 val_loss=2.2453 val_macro_f1=0.7161 val_gate=0.4264
+epoch=16 train_loss=0.6385 val_loss=2.4603 val_macro_f1=0.7166 val_gate=0.4777
+epoch=17 train_loss=0.6377 val_loss=2.2562 val_macro_f1=0.7375 val_gate=0.4530
+epoch=18 train_loss=0.5490 val_loss=2.5170 val_macro_f1=0.7178 val_gate=0.4469
+epoch=19 train_loss=0.5013 val_loss=2.3479 val_macro_f1=0.7313 val_gate=0.4362
+epoch=20 train_loss=0.4732 val_loss=2.3351 val_macro_f1=0.7398 val_gate=0.4214
+epoch=21 train_loss=0.4507 val_loss=2.4642 val_macro_f1=0.7339 val_gate=0.4221
+epoch=22 train_loss=0.4312 val_loss=2.4998 val_macro_f1=0.7378 val_gate=0.4453
+epoch=23 train_loss=0.3943 val_loss=2.4501 val_macro_f1=0.7381 val_gate=0.4514
+epoch=24 train_loss=0.3999 val_loss=2.5306 val_macro_f1=0.7392 val_gate=0.4391
+epoch=25 train_loss=0.3721 val_loss=2.4596 val_macro_f1=0.7455 val_gate=0.4489
+epoch=26 train_loss=0.3585 val_loss=2.5128 val_macro_f1=0.7399 val_gate=0.4523
+epoch=27 train_loss=0.3576 val_loss=2.4667 val_macro_f1=0.7363 val_gate=0.4581
+epoch=28 train_loss=0.3326 val_loss=2.4849 val_macro_f1=0.7380 val_gate=0.4582
+epoch=29 train_loss=0.3215 val_loss=2.5285 val_macro_f1=0.7286 val_gate=0.4567
+epoch=30 train_loss=0.3079 val_loss=2.4581 val_macro_f1=0.7346 val_gate=0.4567
+{
+  "output_dir": "outputs\\training\\phr_hrgv_screen_v2\\phr_hard_target\\seed20260728",
+  "accuracy": 0.7593457943925234,
+  "macro_precision": 0.7391653375443603,
+  "macro_recall": 0.7555378252718905,
+  "macro_f1": 0.7455353070443318,
+  "class_recall": {
+    "target_mineral": 0.712,
+    "ti_bearing_negative": 0.7387755102040816,
+    "gangue_negative": 0.8256130790190735,
+    "metallic_hard_negative": 0.7457627118644068
+  },
+  "confusion_matrix": [
+    [
+      178,
+      26,
+      19,
+      27
+    ],
+    [
+      61,
+      362,
+      45,
+      22
+    ],
+    [
+      24,
+      28,
+      303,
+      12
+    ],
+    [
+      21,
+      16,
+      8,
+      132
+    ]
+  ],
+  "target_recall": 0.712,
+  "target_miss_rate": 0.28800000000000003,
+  "ti_to_target_intrusion_rate": 0.12448979591836734,
+  "metallic_to_target_intrusion_rate": 0.11864406779661017,
+  "brier_score": 0.3837062683687104,
+  "expected_calibration_error": 0.14596092861110918,
+  "val_loss": 2.45956306758328,
+  "val_final_role_loss": 0.9381171139740498,
+  "val_direct_role_loss": 0.9739984013720465,
+  "val_species_loss": 1.7529796198521077,
+  "val_consistency_loss": 0.06000954832452294,
+  "val_ti_verifier_loss": 0.3429406896041165,
+  "val_metallic_verifier_loss": 0.22140478832513744,
+  "val_verifier_loss": 0.5643454801835768,
+  "val_contrast_loss": 0.0,
+  "val_gate_regret_loss": 0.7001222882686746,
+  "val_decomposition_loss": 0.0,
+  "val_calibration_loss": 0.8953166282344087,
+  "val_phr_ti_gate_loss": 0.2613389414511737,
+  "val_phr_metallic_gate_loss": 0.1713672287506849,
+  "val_phr_pairwise_regret_loss": 0.43270616866996353,
+  "species_accuracy": 0.5747663551401869,
+  "ti_verifier_subset_accuracy": 0.8351351351351352,
+  "metallic_verifier_subset_accuracy": 0.8430913348946136,
+  "mean_gate": 0.448899700123573,
+  "mean_expert_js_divergence": 0.01360320165453568,
+  "mean_total_species_entropy": 0.0,
+  "mean_between_role_entropy": 0.0,
+  "mean_within_role_entropy": 0.0,
+  "mean_within_capacity": 0.0,
+  "mean_normalized_between_role_entropy": 0.0,
+  "mean_normalized_within_role_entropy": 0.0,
+  "mean_mrpg_between_coefficient": 0.0,
+  "gate_selection_accuracy": 0.6105919003115264,
+  "one_right_gate_selection_accuracy": 0.5571428571428572,
+  "mean_routing_regret_nll": 0.09417486424866693,
+  "mean_weighted_gate_error": 0.0271771126498739,
+  "phr_ti_eligible_count": 740,
+  "phr_ti_gate_selection_accuracy": 0.7702702702702703,
+  "phr_ti_mean_margin_regret": 0.2013332538105346,
+  "phr_ti_mean_weighted_gate_error": 0.20133325037602237,
+  "phr_ti_sign_agreement_count": 720,
+  "phr_ti_sign_preservation_rate": 1.0,
+  "phr_metallic_eligible_count": 427,
+  "phr_metallic_gate_selection_accuracy": 0.7517564402810304,
+  "phr_metallic_mean_margin_regret": 0.2477201037806845,
+  "phr_metallic_mean_weighted_gate_error": 0.24772008368067722,
+  "phr_metallic_sign_agreement_count": 418,
+  "phr_metallic_sign_preservation_rate": 1.0,
+  "best_val_macro_f1": 0.7455353070443318
+}

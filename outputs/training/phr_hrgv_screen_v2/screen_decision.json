@@ -1,0 +1,235 @@
+{
+  "protocol_version": "phr-v2",
+  "selection_split": "val",
+  "manifest": "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\数据集\\dataset_final_v1\\dataset_split_manifest_v1_0.csv",
+  "manifest_sha256": "67ae8eed6c8083db290195050457c7904641524581d0d7b739f227ad65976b59",
+  "screen_root": "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\training\\phr_hrgv_screen_v2",
+  "screen_seed": 20260728,
+  "comparison": {
+    "reference": "rsg_reference",
+    "candidate": "phr_complete"
+  },
+  "criterion_ids": [],
+  "promote_to_formal": false,
+  "selected_configuration": null,
+  "evidence": {
+    "registration_path": "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\training\\phr_hrgv_screen_v2\\registered_configurations.json",
+    "registration_sha256": "3bfb0dbbe99d6e28a743483b64a393cd89610e24fd3561e0c52c8c1951f4d122",
+    "registration_source_sha256": {
+      "scripts\\analyze_cgdc_rsg_experiments.py": "f5ae11b8fab455ba18a4ba6a4dc53ee0fd98fc4dafc7d749c783dfc780862e42",
+      "scripts\\analyze_hierarchical_experiment.py": "dea7bdaecbbb7e65d5c98ae0c69862804decd4b4d2e4c5348173cb8eb6711d5b",
+      "scripts\\analyze_hierarchy_consistency.py": "28d3b7bb39acffb7c9cf01801eddc36579b9d20326101f1e2d275b884a4ed02d",
+      "scripts\\analyze_hrgv_experiment.py": "55c4cd7e09e0dc12876cd95d3c717971728429d0a39073bafa8e22dd415c0ce3",
+      "scripts\\analyze_misclassifications.py": "3d2c7f463fe1257ec5a7e2c3571db4ae3cb65ef04bf3dd7b1942464c8ded707c",
+      "scripts\\analyze_mrpg_hrgv_experiments.py": "51d5c8abb3d8ca5243b668aeb407a58ab1fbea4539d3f4f48a87d9418fd7ed93",
+      "scripts\\analyze_paired_cluster_statistics.py": "b3f31407ae49afa476902935eefa330cf6a33de59ce920ea472f0a683b5b57fb",
+      "scripts\\analyze_phr_hrgv_experiments.py": "abe0fefa614a5630ac1469bcedc9fec29849705fd2a4dde1f0d11f00e9b560cd",
+      "scripts\\analyze_role_identifiability.py": "5613904db441edfee0cd0a59a0236b5c57f837edab5a91378236aeb204e4625f",
+      "scripts\\analyze_rpg_hrgv_experiments.py": "c25983ae1b64079a31bd87b373d56d34e8557160cd77a2d9221d11dd5b408422",
+      "scripts\\analyze_rsg_gate_reliability.py": "f0bcaa3910ca08282e95534ad6b31442920ea68a6fe3d925e17336b98bbc449a",
+      "scripts\\analyze_rsg_hrgv_experiment.py": "0ef9f539911c6fd7581fdc476a7e5f94205bdb81682fdefe2a22fa3891c35956",
+      "scripts\\analyze_rsg_theory_ablation.py": "40ac7ec01889fc87bfcdf02c114e4d879cb16eb511bb558f9156c23cd34b2315",
+      "scripts\\analyze_rsg_theory_replay.py": "b99b3ec0d700f6d0c728252ec0601577517ac439a2b7adac24e785ece8abb8c4",
+      "scripts\\analyze_selective_recognition.py": "da03e0d3ff7cf5a081b9ce43a6ff30605f9ab4c4204a37d678edf0bb1bc4ae88",
+      "scripts\\analyze_target_proxy_metrics.py": "ef5ba53c48c1e6c40d13ca896fc9b387b022c73f7ec1fd5e172864dde3c148d4",
+      "scripts\\analyze_target_recall_extension.py": "e5ae21e0fdec3f0fade2eb686974886e8776d4e8f943a18019e6ea3dd55dc429",
+      "scripts\\apply_review_decisions.py": "fdbc869ea470479938726e7ef969d0bf6baf7c2f827af294bfb300b118df53fd",
+      "scripts\\build_dataset_audit.py": "d3ada6353e5d77ab758730bf253645bf6f37bbf7a03899716d2990fe322d41ff",
+      "scripts\\build_mineral_dataset.py": "222ae807e21a6302e8fb100e7d9f379395a6d02a23d017bf94782de2b49b1307",
+      "scripts\\build_proxy_ablation_manifest.py": "66436b46aedbe905de34d582a36d60c292ce65932c2951ac8b2d02f8d961e67d",
+      "scripts\\build_source_holdout_manifest.py": "342ea51cbe43a305532ad2da5d6d8a6d473c6b83ca01c9714fd9c41dd8497b58",
+      "scripts\\build_technical_report.py": "fcef5c9468ccc7443007ebf5fef54b43dd47c487de304726a0815d1e7a15242a",
+      "scripts\\calibrate_selective_recognition.py": "cc3523a7b65f2121effa3e51c10fbac35d5b6ce5012a41fd09c1b0501b64f90b",
+      "scripts\\create_review_package.py": "f64b6567a11dde90fe8ad817dc7eaad0425c167c5eb7424da949558f53e6704c",
+      "scripts\\csv_to_xlsx_stdlib.py": "e16cf7ecb61a0f171dabc3b4163db56540a4c41eea588a0a71dd0815d89df945",
+      "scripts\\download_open_sources.py": "bd803921387a5edae6b9c60b4dbfcd38bc7bb41245a4dbe17f6315d8047a23ac",
+      "scripts\\evaluate_open_set_protocol.py": "ca0c07e4f53bf0fade3bb2a949a5f3429e94786b5f71f7bc1291d779b689186f",
+      "scripts\\export_hierarchical_probabilities.py": "98eee8bb6d18dd25157205fba1d3f5b3678702accfcde3d847c995cf31f52911",
+      "scripts\\extract_local_paper_summaries.py": "69224507c7186939c868bdfe01a5c7593fdd0b30916980ada232694c3a4d698f",
+      "scripts\\generate_hrgv_architecture_figure.py": "3c6bb989c8708d2213fe289280d314708142022e029472a844f7f4ca0102cebf",
+      "scripts\\generate_paper_figures.py": "b7cd7c22681aca2f6eb13b0ee8bb2395cd27bcc4348c04759419e81ba725bcba",
+      "scripts\\generate_phr_routing_figure.py": "bd1f38231468bb191b2719f1a5f3ab688d0f09c01085bf468ae95412b8f455c5",
+      "scripts\\generate_phr_screen_decision.py": "b09ca4903b86a8e52b84316c0dcf8e27c9688874f1676049d961ec0c0b3f4294",
+      "scripts\\generate_rsg_exact_regret_figure.py": "47fc070a5f37772b67507e2d591fb7bf1206f828d55ab4442d3e6093fb379f8c",
+      "scripts\\generate_rsg_expert_complementarity_figure.py": "40768055b69c3d159528cd7277146d926617ef7f9e69ba49c8190983dbf42791",
+      "scripts\\generate_rsg_gate_reliability_figure.py": "f22b21acc27ba33ee061a4cb312551df218be4a00eafc8b58a2dc60c1f4ba37f",
+      "scripts\\generate_rsg_theory_evidence_figure.py": "8de1f3a8a01ca4229cb7dfa51cf789a970baf38b5704f1086cd9100e40e7fc92",
+      "scripts\\hrgv_network.py": "f4c2889b9a129d9f52fd999b189c0888407f9887e1f739cd5e1b55b4d361a0da",
+      "scripts\\mindat_manual_helper.py": "1f829bde5fb135c113fef91b1adc30315c880218d2c4cafe7098a4c67dbd2973",
+      "scripts\\mindat_review_workflow.py": "b38d851902f714a11ef76b93a3eec3008409f58240d24c45bc88995bade4e501",
+      "scripts\\mineral_hierarchy.py": "21c485b70d838a9acf1626762b0a643b0e8297e060e8cd7eb3348f807d191384",
+      "scripts\\plot_rsg_source_holdout.py": "55e458903090dbf3cb312d6f40e2fa428d2fabf564ae86ca637079ad0a686f59",
+      "scripts\\replay_hrgv_routing_diagnostics.py": "c3a4b3c0814be847e1b48c3cec217c1bba5d397b8bd862af9c8d03ac30d927c9",
+      "scripts\\run_cgdc_rsg_experiments.py": "bba1ccf9eded292de24995a0988447737e699a3b295279a2fa5bc2b551f14970",
+      "scripts\\run_hrgv_experiments.py": "1d7b7316be8b5bdf124c6587c8852e51d9fa433f1d8207689922d64c9d50fe38",
+      "scripts\\run_mrpg_hrgv_experiments.py": "617eea0c0e761656667dded903746faf961914c7b7acdcbef9569c83bd3bef64",
+      "scripts\\run_phr_hrgv_experiments.py": "cb4bceb95459c5f5b33c431247d856953ce30439cfc3bf09e26a4f333ed36717",
+      "scripts\\run_rpg_hrgv_experiments.py": "468d813e81c838e05db2d9b83baa5dee8e4feda6ea225a3dade6770fdc95011c",
+      "scripts\\run_rsg_hrgv_experiments.py": "336729eb9b87b06575f0304eb6dcf33bae7220617eb38dd0db26be8f12866063",
+      "scripts\\run_target_recall_extension.py": "f523b8b64322b3f55260cfbb7385f7a489b8aae6d64d3250d377f796788bda6f",
+      "scripts\\summarize_hierarchical_ablations.py": "24899abd8e428c3f67866805017b75c72ef388720f2b19ea4219fbfe41e83dfa",
+      "scripts\\summarize_paper_experiments.py": "42cfc5c464276017e01af79e54699f59e7e763bc0e7cade11716fb8e8ba0261b",
+      "scripts\\train_hierarchical_mineral_classifier.py": "020b47ce3d6d2094669838d86df0d17bacae283231ad098c0575834a88044c0e",
+      "scripts\\train_hrgv_mineral_classifier.py": "d92dd373efc6a14d152e58db5dfda13a6abdba8b7ea6cd71a6022a002a133f8b",
+      "scripts\\train_mineral_classifier.py": "2f3e71f206a0bc468fca9c9b3204579151082134bc19cb2d820397693ca1146a",
+      "scripts\\train_role_aware_mineral_classifier.py": "63380cc3806d5676312292d6345f7ea6173061a681d3430e59e54063988c0927",
+      "scripts\\update_formal_report_v2.py": "bea495822af8646fcab57ef96fbc57bdab53ed686ec454660b2ceabbe95d9d86",
+      "scripts\\update_formal_report_v3.py": "096914ac3df66d7094537b56897dacbb70c3ddb93535c96d0826a24559fbe735",
+      "scripts\\update_formal_report_v4.py": "8e2cda895afa37c878aa96446c83c4b393d57a9f0c288ae6ba04f137dd5d3c2b",
+      "scripts\\update_formal_report_v5.py": "14d4b4175eaf50add847a1d405f7642d523cf0f04e216d3812996c4e4ffaaf25",
+      "scripts\\update_formal_report_v6.py": "184a12e84135b1252583067ef5da91d3d042b85b4572d5b7fabb82bcb7db9343",
+      "scripts\\update_formal_report_v7.py": "ce8c572d2a5f696663b69938b875f9eb95ccbf4b19a2d94b5803029232b70af6",
+      "scripts\\update_formal_report_v8.py": "76575fdb46a01ebc315331648219445477a6c02122f94b0547c33cbba9a7de92",
+      "scripts\\update_formal_report_v9.py": "7ad1cdc1e30a8d025875e75986c7427f2583942be294e51286580b3957d06712",
+      "scripts\\validate_dataset_split.py": "8a5b221fec591acbc1fcab3472a1baabbb3adb30dadc6bd487b4c0673c715aa8",
+      "scripts\\verify_phr_theory.py": "36984ccdbe73d2aaa32a74ab1d78bfe54e8096dd68b83fb771ca48c4a4511432"
+    },
+    "runs": {
+      "rsg_reference/seed20260728": {
+        "metrics": {
+          "macro_f1": 0.7484640352746785,
+          "accuracy": 0.7663551401869159,
+          "target_recall": 0.736,
+          "ti_to_target_intrusion_rate": 0.09183673469387756,
+          "metallic_to_target_intrusion_rate": 0.11299435028248588,
+          "phr_ti_mean_margin_regret": 0.4187289921013085,
+          "phr_metallic_mean_margin_regret": 0.6373872688559236
+        },
+        "artifacts": {
+          "run_status": "a90014f140e7ab7e2c0f66ab5e8412dfc393abbe469c41c1bc594cd1e76f6693",
+          "environment": "7a4a347eec12314c9db4dd42885956e0e9b29cf08ccac78d7afe760fdf8b4941",
+          "val_metrics": "7cf1e8e0b16624839950f564d9aae3bac0bd234be652936b12dd4f4b1bb65a5a",
+          "best_validation_metrics": "207b0fb7f9a9a6dda31d74a3661e3a86ad9221ba92217b9d130dca8bde760314",
+          "val_predictions": "2baee5a67082b93a9b666612f072f8272c82d0a76a25b56f8accc8388fe0fed8"
+        }
+      },
+      "phr_complete/seed20260728": {
+        "metrics": {
+          "macro_f1": 0.7414359947013487,
+          "accuracy": 0.7570093457943925,
+          "target_recall": 0.688,
+          "ti_to_target_intrusion_rate": 0.09591836734693877,
+          "metallic_to_target_intrusion_rate": 0.12429378531073447,
+          "phr_ti_mean_margin_regret": 0.18132731883308373,
+          "phr_metallic_mean_margin_regret": 0.23497510375127859
+        },
+        "artifacts": {
+          "run_status": "65ecad6c0bd06f8b979d997f572a3dce5c161cb44b29230e15ba7922f23787cd",
+          "environment": "8f1038a77910b22491d5944c73f367f8b48cc77636e3df5738a88d62cec8e74c",
+          "val_metrics": "f01f2e2a833500d9ebe4eb1c952f0296dfee234de6e89ba9937b0285dd6b3953",
+          "best_validation_metrics": "e7668f9d10a0a8643e767d659f7028153a1830d2cba9e32ddc1246605594a22c",
+          "val_predictions": "f1d86d28b84c855841a24ccedce26d45dd9df909f712b1fd473dabcd58420de1"
+        }
+      },
+      "phr_fixed_half/seed20260728": {
+        "metrics": {
+          "macro_f1": 0.7399044779287068,
+          "accuracy": 0.7577881619937694,
+          "target_recall": 0.688,
+          "ti_to_target_intrusion_rate": 0.08979591836734693,
+          "metallic_to_target_intrusion_rate": 0.11864406779661017,
+          "phr_ti_mean_margin_regret": 0.4357801527590365,
+          "phr_metallic_mean_margin_regret": 0.5440006141640263
+        },
+        "artifacts": {
+          "run_status": "780d7701fda72b4750e19c292c7b238abbafd38588518f7d7c35600d552b5815",
+          "environment": "72fa89bae8cd3feefd3152dd90f2e4e829222bbcf59235078fb24fdc4f4ed9e3",
+          "val_metrics": "020142984df54568b867e72181bf6b8a95b85e39139cf4cbcf92a6dba75da12b",
+          "best_validation_metrics": "040093111e6364265e98c6dd3299faad62aa8cae9963e79c141faae382c7f657",
+          "val_predictions": "955d102be0fd9fc5adc3934d80a38597d7934e066507677066666a4b31bce2e0"
+        }
+      },
+      "phr_hard_target/seed20260728": {
+        "metrics": {
+          "macro_f1": 0.7455353070443318,
+          "accuracy": 0.7593457943925234,
+          "target_recall": 0.712,
+          "ti_to_target_intrusion_rate": 0.12448979591836734,
+          "metallic_to_target_intrusion_rate": 0.11864406779661017,
+          "phr_ti_mean_margin_regret": 0.2013332538105346,
+          "phr_metallic_mean_margin_regret": 0.2477201037806845
+        },
+        "artifacts": {
+          "run_status": "f55e0df46f3c5817f3a12277e218990ca9f4c6bffaed17bc97f7212435992a37",
+          "environment": "1bf2e3383a45135159c5200bf8246a7c685ad68f0a7df45c4eaf8ee9d9715baf",
+          "val_metrics": "4291d102c4957ec7134139d717cb0b8d0f73b6952669ff1937eb8f351e166e64",
+          "best_validation_metrics": "fd10df27b4af0dfece37eb21835338a65e106151b8ba1f07b59b48afc4fbd6c9",
+          "val_predictions": "9a0000972fbbbdae814e5fca489c1c3a9d5a5fe409e3c9279e34fa4bbf3a6859"
+        }
+      },
+      "phr_unweighted/seed20260728": {
+        "metrics": {
+          "macro_f1": 0.7462102246813935,
+          "accuracy": 0.7554517133956387,
+          "target_recall": 0.716,
+          "ti_to_target_intrusion_rate": 0.1510204081632653,
+          "metallic_to_target_intrusion_rate": 0.12994350282485875,
+          "phr_ti_mean_margin_regret": 0.22815142002057384,
+          "phr_metallic_mean_margin_regret": 0.26273754061105936
+        },
+        "artifacts": {
+          "run_status": "657ab7049b868a04280ef8b2994a30e7ae950bbc4e67e7fd3b19879682dffb4f",
+          "environment": "aa0b5390572d724418406b08a8d5e3af25e3922e20cec203a37bbabcc8a9d41f",
+          "val_metrics": "a419fa4142883b7953ca8c5ba6bd9ce1fb7b2c5ca35f99ed302944465c664dc2",
+          "best_validation_metrics": "072dece5878bd2bc67acc51b138319511a2bf5eeda576f8ecc26ac91a66e3b85",
+          "val_predictions": "31ca7c6ca8c4841f86db68ff8e166b151b0a7b075debbf4730cb6d1f4ab9c7f7"
+        }
+      },
+      "phr_coupled_features/seed20260728": {
+        "metrics": {
+          "macro_f1": 0.7418783161284941,
+          "accuracy": 0.7585669781931464,
+          "target_recall": 0.724,
+          "ti_to_target_intrusion_rate": 0.11224489795918367,
+          "metallic_to_target_intrusion_rate": 0.14689265536723164,
+          "phr_ti_mean_margin_regret": 0.18139132643873626,
+          "phr_metallic_mean_margin_regret": 0.2525211021269233
+        },
+        "artifacts": {
+          "run_status": "cd20358a534c51ba41e3d2c4f02e1739bfead68714786a095da59273b5a502c7",
+          "environment": "782afdb67374b2a1e0ac88e9c3e9124d1afaa9b25394bf9d2fed1ab9ddf5959b",
+          "val_metrics": "be065a2d4c9a8bda61eac107279e37a1687fc4836c82f6959a9189c2de48cb56",
+          "best_validation_metrics": "55e8c4648405232f5f02b7e204d3c1ef7343b6400dfa914fa50b6afe7a90a2a0",
+          "val_predictions": "b0825da7018cf4fbbdf9215254d62ae1b6a4fb3e7da9a47e83bf12bc89a7a1f3"
+        }
+      },
+      "phr_ti_only/seed20260728": {
+        "metrics": {
+          "macro_f1": 0.7431869777595159,
+          "accuracy": 0.7601246105919003,
+          "target_recall": 0.696,
+          "ti_to_target_intrusion_rate": 0.1,
+          "metallic_to_target_intrusion_rate": 0.12429378531073447,
+          "phr_ti_mean_margin_regret": 0.17955055145697818
+        },
+        "artifacts": {
+          "run_status": "1763f7c923edffe3e628cb85233f1f00e695788a205d546e0d2ffb370899bf06",
+          "environment": "9c9b849ee898900259a809056f410cb94cbd5435d46c0dec1517b797d134b2ad",
+          "val_metrics": "2d4ad6d64633f1d410adfa920b0b9e712d6b358e824fcd824fbf62b4f695d31d",
+          "best_validation_metrics": "435d7e9ea2b0dcaff80e2400c02acc5a038184aa9770f78e5fa90006d492b930",
+          "val_predictions": "5487958297a177706f1c3274c0a1b76511e9332594558da79f6ae9fb5af1be55"
+        }
+      },
+      "phr_metallic_only/seed20260728": {
+        "metrics": {
+          "macro_f1": 0.7379958932345843,
+          "accuracy": 0.7523364485981309,
+          "target_recall": 0.68,
+          "ti_to_target_intrusion_rate": 0.10204081632653061,
+          "metallic_to_target_intrusion_rate": 0.11299435028248588,
+          "phr_metallic_mean_margin_regret": 0.21850471987238534
+        },
+        "artifacts": {
+          "run_status": "e4fbd78ad007a6aaa2a5c3638f350a41446012e73372fce31ab9d0ab31e114ef",
+          "environment": "6f19dd245b113bcefac09f8763a88a8d1aae9248fd79c1d031e1810335d86872",
+          "val_metrics": "06b5fbdc35349080a154e7520d9b918dae169de0d20241fd0fc39cce9094f17a",
+          "best_validation_metrics": "752dfa0a0af07d497bdf6d4a5be6cc9f71177f8c579fb58a08216ab2fdf4d212",
+          "val_predictions": "a23007d9322e87cb5bb4557f5bbbe25e7f048386e64cfd8b984f1131a2ba73b5"
+        }
+      }
+    }
+  },
+  "evidence_sha256": "ecdcf58d56306e46326598e2cadad7d39b2e1088241ea3b21323a0622e1441da",
+  "claim_boundary": "This is a validation-only promotion decision, not evidence of final test performance or a general theoretical advantage.",
+  "created_at": "2026-09-06T23:07:34.047287"
+}

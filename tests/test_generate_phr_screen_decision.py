@@ -69,6 +69,27 @@ class PHRScreenDecisionTests(unittest.TestCase):
             self.assertIsNone(decision["selected_configuration"])
             self.assertEqual(decision["criterion_ids"], [])
 
+    def test_accepts_inactive_single_edge_diagnostics_as_not_applicable(self) -> None:
+        from generate_phr_screen_decision import build_screen_decision
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            manifest = self.make_screen(root, improved=False)
+            ti_metrics_path = root / "phr_ti_only" / "seed20260728" / "val_metrics.json"
+            metallic_metrics_path = root / "phr_metallic_only" / "seed20260728" / "val_metrics.json"
+            ti_metrics = json.loads(ti_metrics_path.read_text(encoding="utf-8"))
+            metallic_metrics = json.loads(metallic_metrics_path.read_text(encoding="utf-8"))
+            ti_metrics["phr_metallic_mean_margin_regret"] = float("nan")
+            metallic_metrics["phr_ti_mean_margin_regret"] = float("nan")
+            ti_metrics_path.write_text(json.dumps(ti_metrics), encoding="utf-8")
+            metallic_metrics_path.write_text(json.dumps(metallic_metrics), encoding="utf-8")
+
+            decision = build_screen_decision(root, manifest)
+
+            self.assertFalse(decision["promote_to_formal"])
+            self.assertNotIn("phr_metallic_mean_margin_regret", decision["evidence"]["runs"]["phr_ti_only/seed20260728"]["metrics"])
+            self.assertNotIn("phr_ti_mean_margin_regret", decision["evidence"]["runs"]["phr_metallic_only/seed20260728"]["metrics"])
+
     def test_formal_runner_rejects_decision_after_validation_evidence_changes(self) -> None:
         from generate_phr_screen_decision import build_screen_decision
         from run_phr_hrgv_experiments import _require_promotion_decision

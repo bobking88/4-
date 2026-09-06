@@ -12,11 +12,20 @@ from typing import Any, Sequence
 from run_phr_hrgv_experiments import SCREEN_CONFIGURATION_FLAGS, SCREEN_SEEDS
 
 
-REQUIRED_METRICS = (
+BASE_REQUIRED_METRICS = (
     "macro_f1", "accuracy", "target_recall", "ti_to_target_intrusion_rate",
-    "metallic_to_target_intrusion_rate", "phr_ti_mean_margin_regret",
-    "phr_metallic_mean_margin_regret",
+    "metallic_to_target_intrusion_rate",
 )
+
+PAIR_REGRET_METRICS = {
+    "ti": "phr_ti_mean_margin_regret",
+    "metallic": "phr_metallic_mean_margin_regret",
+}
+
+CONFIGURATION_ACTIVE_EDGES = {
+    "phr_ti_only": ("ti",),
+    "phr_metallic_only": ("metallic",),
+}
 
 
 def _sha256(path: Path) -> str:
@@ -35,9 +44,14 @@ def _read_json(path: Path) -> dict[str, Any]:
     return value
 
 
-def _finite_metrics(metrics: dict[str, Any], path: Path) -> dict[str, float]:
+def _required_metrics(configuration: str) -> tuple[str, ...]:
+    active_edges = CONFIGURATION_ACTIVE_EDGES.get(configuration, tuple(PAIR_REGRET_METRICS))
+    return (*BASE_REQUIRED_METRICS, *(PAIR_REGRET_METRICS[edge] for edge in active_edges))
+
+
+def _finite_metrics(metrics: dict[str, Any], path: Path, required_metrics: tuple[str, ...]) -> dict[str, float]:
     result = {}
-    for name in REQUIRED_METRICS:
+    for name in required_metrics:
         if name not in metrics or not math.isfinite(float(metrics[name])):
             raise ValueError(f"Missing/non-finite validation metric {name}: {path}")
         result[name] = float(metrics[name])
@@ -72,7 +86,7 @@ def _collect_evidence(screen_root: Path, manifest: Path) -> dict[str, Any]:
             status = _read_json(status_path)
             environment = _read_json(environment_path)
             best_metrics = _read_json(best_metrics_path)
-            metrics = _finite_metrics(_read_json(metrics_path), metrics_path)
+            metrics = _finite_metrics(_read_json(metrics_path), metrics_path, _required_metrics(configuration))
             if status.get("status") != "complete":
                 raise ValueError(f"Screen run is not complete: {run}")
             if environment.get("validation_only") is not True or environment.get("smoke_run") is not False:

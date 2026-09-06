@@ -1,0 +1,58 @@
+{
+  "accuracy": 0.7577881619937694,
+  "macro_precision": 0.739462441563648,
+  "macro_recall": 0.7421198966632327,
+  "macro_f1": 0.7399044779287068,
+  "class_recall": {
+    "target_mineral": 0.688,
+    "ti_bearing_negative": 0.7551020408163265,
+    "gangue_negative": 0.8474114441416893,
+    "metallic_hard_negative": 0.6779661016949152
+  },
+  "confusion_matrix": [
+    [
+      172,
+      36,
+      20,
+      22
+    ],
+    [
+      44,
+      370,
+      57,
+      19
+    ],
+    [
+      19,
+      26,
+      311,
+      11
+    ],
+    [
+      21,
+      19,
+      17,
+      120
+    ]
+  ],
+  "target_recall": 0.688,
+  "target_miss_rate": 0.31200000000000006,
+  "ti_to_target_intrusion_rate": 0.08979591836734693,
+  "metallic_to_target_intrusion_rate": 0.11864406779661017,
+  "phr_ti_eligible_count": 740,
+  "phr_ti_gate_selection_accuracy": 0.518918918918919,
+  "phr_ti_mean_margin_regret": 0.4357801527590365,
+  "phr_ti_mean_weighted_gate_error": 0.43578015577954216,
+  "phr_ti_sign_agreement_count": 709,
+  "phr_ti_sign_preservation_rate": 1.0,
+  "phr_metallic_eligible_count": 427,
+  "phr_metallic_gate_selection_accuracy": 0.6463700234192038,
+  "phr_metallic_mean_margin_regret": 0.5440006141640263,
+  "phr_metallic_mean_weighted_gate_error": 0.5440006200965729,
+  "phr_metallic_sign_agreement_count": 412,
+  "phr_metallic_sign_preservation_rate": 1.0,
+  "epoch": 20,
+  "seed": 20260728,
+  "selection_split": "val",
+  "smoke_run": false
+}
