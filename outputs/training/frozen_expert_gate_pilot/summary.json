@@ -1,0 +1,47 @@
+{
+  "equal": {
+    "fusion_nll_nats": 0.7982008457183838,
+    "routing_regret_nats": 0.08509454131126404,
+    "accuracy": 0.7671339511871338
+  },
+  "runs": {
+    "fusion_nll_seed20260912": {
+      "epoch": 1,
+      "fusion_nll_nats": 0.8177676200866699,
+      "routing_regret_nats": 0.10466141998767853,
+      "accuracy": 0.7710280418395996
+    },
+    "regret_bce_seed20260912": {
+      "epoch": 2,
+      "fusion_nll_nats": 0.7975370287895203,
+      "routing_regret_nats": 0.08443085849285126,
+      "accuracy": 0.7663550972938538
+    },
+    "fusion_nll_seed20260913": {
+      "epoch": 1,
+      "fusion_nll_nats": 0.8182464838027954,
+      "routing_regret_nats": 0.1051403284072876,
+      "accuracy": 0.7725856304168701
+    },
+    "regret_bce_seed20260913": {
+      "epoch": 1,
+      "fusion_nll_nats": 0.7966983318328857,
+      "routing_regret_nats": 0.08359213918447495,
+      "accuracy": 0.7647975087165833
+    },
+    "fusion_nll_seed20260914": {
+      "epoch": 1,
+      "fusion_nll_nats": 0.8165077567100525,
+      "routing_regret_nats": 0.10340158641338348,
+      "accuracy": 0.7741432785987854
+    },
+    "regret_bce_seed20260914": {
+      "epoch": 1,
+      "fusion_nll_nats": 0.7962228655815125,
+      "routing_regret_nats": 0.08311670273542404,
+      "accuracy": 0.7647975087165833
+    }
+  },
+  "frozen_expert_parameters_and_buffers_unchanged": true,
+  "test_access": false
+}

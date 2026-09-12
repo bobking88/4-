@@ -1,0 +1,33 @@
+{
+  "scope": "exploratory validation-only; pre-verifier fusion; one fixed expert checkpoint",
+  "expert_seed": 20260728,
+  "gate_seeds": [
+    20260912,
+    20260913,
+    20260914
+  ],
+  "objectives": [
+    "equal",
+    "fusion_nll",
+    "regret_bce"
+  ],
+  "epochs": 30,
+  "batch_size": 256,
+  "optimizer": "AdamW",
+  "lr": 0.001,
+  "weight_decay": 0.0001,
+  "selection": "lowest validation fusion NLL; earliest tie",
+  "transforms": "existing deterministic evaluation transform for both train and val",
+  "target_temperature": 0.2,
+  "gap_temperature": 0.5,
+  "test_access": false,
+  "fresh_gate_initialization": true,
+  "limitations": "experts trained on training samples and selected using this validation set; no independent confirmation",
+  "hashes": {
+    "D:\\\u6210\u4fe1\u5de5\u79d1\u7814\\\u4eba\u5de5\u667a\u80fd\u9009\u77ff\\\u6570\u636e\u96c6\\dataset_final_v1\\dataset_split_manifest_v1_0.csv": "67ae8eed6c8083db290195050457c7904641524581d0d7b739f227ad65976b59",
+    "D:\\\u6210\u4fe1\u5de5\u79d1\u7814\\\u4eba\u5de5\u667a\u80fd\u9009\u77ff\\.worktrees\\theory-aware-report\\outputs\\training\\formal_hrgv_residual_complete_seed20260728\\environment.json": "e9a91ec507c4b7fa34247053b82ba834c0a643362c589cf2c9f1c5e8851aca72",
+    "D:\\\u6210\u4fe1\u5de5\u79d1\u7814\\\u4eba\u5de5\u667a\u80fd\u9009\u77ff\\.worktrees\\theory-aware-report\\outputs\\training\\formal_hrgv_residual_complete_seed20260728\\best_model.pt": "84f2db7207dfaf790c85bc7795294fe8ac3220664f6de2bdd3334842a2875bfe",
+    "D:\\\u6210\u4fe1\u5de5\u79d1\u7814\\\u4eba\u5de5\u667a\u80fd\u9009\u77ff\\.worktrees\\theory-aware-report\\scripts\\run_frozen_expert_gate_pilot.py": "22f4fa14141248000e2b7811733ac66d930c97ac4581dea51e947c61e4309a9e",
+    "D:\\\u6210\u4fe1\u5de5\u79d1\u7814\\\u4eba\u5de5\u667a\u80fd\u9009\u77ff\\.worktrees\\theory-aware-report\\scripts\\hrgv_network.py": "f4c2889b9a129d9f52fd999b189c0888407f9887e1f739cd5e1b55b4d361a0da"
+  }
+}

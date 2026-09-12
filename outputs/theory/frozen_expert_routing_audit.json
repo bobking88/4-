@@ -1,0 +1,106 @@
+{
+  "evidence_type": "posthoc_frozen_checkpoint_descriptive_diagnostic",
+  "unit": "nats, not percentage points",
+  "scope": "pre-verifier fusion; identical experts within each comparison; no causal training inference",
+  "runs": {
+    "fixed\\seed20260727.csv": {
+      "samples": 1284,
+      "input_sha256": "ac328af3d4af1a622431eeb12e56659ebf955caa803261ede34fab0ecde1de89",
+      "oracle_nll_nats": 0.8096439213914431,
+      "learned_fusion_nll_nats": 0.8904119140917172,
+      "equal_fusion_nll_nats": 0.8929489242768596,
+      "learned_routing_regret_nats": 0.08076799270027402,
+      "equal_routing_regret_nats": 0.0833050028854165,
+      "learned_minus_equal_nll_nats": -0.002537010185142475,
+      "max_decomposition_error": 1.1102230246251565e-16
+    },
+    "fixed\\seed20260728.csv": {
+      "samples": 1284,
+      "input_sha256": "c2119ed5d00492b9a558598820be90d81c48869f406ff04a43cadcbb3861f5aa",
+      "oracle_nll_nats": 0.7599791026210856,
+      "learned_fusion_nll_nats": 0.8425519359631473,
+      "equal_fusion_nll_nats": 0.8421807801982761,
+      "learned_routing_regret_nats": 0.08257283334206167,
+      "equal_routing_regret_nats": 0.08220167757719057,
+      "learned_minus_equal_nll_nats": 0.0003711557648710923,
+      "max_decomposition_error": 5.551115123125783e-17
+    },
+    "fixed\\seed20260729.csv": {
+      "samples": 1284,
+      "input_sha256": "dba3a5821173094c9cfdeb2bb0197130128e9389b5e3dc2b00f5bea1bf3df46e",
+      "oracle_nll_nats": 0.7317585273765145,
+      "learned_fusion_nll_nats": 0.8110308768360361,
+      "equal_fusion_nll_nats": 0.8114249119201091,
+      "learned_routing_regret_nats": 0.07927234945952162,
+      "equal_routing_regret_nats": 0.07966638454359459,
+      "learned_minus_equal_nll_nats": -0.00039403508407297454,
+      "max_decomposition_error": 5.551115123125783e-17
+    },
+    "photographer_holdout\\seed20260727.csv": {
+      "samples": 846,
+      "input_sha256": "2dbf9fa2b727a3ed4a1b0c22d0eacbe6636eb6d57c447988f63929b2939ce118",
+      "oracle_nll_nats": 0.8572581161178267,
+      "learned_fusion_nll_nats": 0.9457247060223742,
+      "equal_fusion_nll_nats": 0.9474806024645095,
+      "learned_routing_regret_nats": 0.08846658990454759,
+      "equal_routing_regret_nats": 0.09022248634668281,
+      "learned_minus_equal_nll_nats": -0.0017558964421352347,
+      "max_decomposition_error": 2.7755575615628914e-17
+    },
+    "photographer_holdout\\seed20260729.csv": {
+      "samples": 846,
+      "input_sha256": "f7b8c310d864fb79e715d74d0bec11e79909216858bff24e0cc8db275a098f3f",
+      "oracle_nll_nats": 0.7441134023952528,
+      "learned_fusion_nll_nats": 0.8175343811116181,
+      "equal_fusion_nll_nats": 0.8163346417308291,
+      "learned_routing_regret_nats": 0.07342097871636533,
+      "equal_routing_regret_nats": 0.07222123933557639,
+      "learned_minus_equal_nll_nats": 0.001199739380788942,
+      "max_decomposition_error": 5.551115123125783e-17
+    },
+    "photographer_holdout\\seed20260730.csv": {
+      "samples": 846,
+      "input_sha256": "9e6cefe35ea21b9d651f235cf1a4122e5a6d64db2fe9571bc2003824825b7f09",
+      "oracle_nll_nats": 0.8058432932216026,
+      "learned_fusion_nll_nats": 0.8912465593218946,
+      "equal_fusion_nll_nats": 0.8916986663230299,
+      "learned_routing_regret_nats": 0.08540326610029197,
+      "equal_routing_regret_nats": 0.0858553731014273,
+      "learned_minus_equal_nll_nats": -0.0004521070011353098,
+      "max_decomposition_error": 5.551115123125783e-17
+    },
+    "resnet50_portability\\seed20260727.csv": {
+      "samples": 1284,
+      "input_sha256": "ddb22485ce45ff03f0d95e0d5c799c0d40dc7563052ada184014e59a1077063b",
+      "oracle_nll_nats": 0.9073372219426288,
+      "learned_fusion_nll_nats": 0.9907888400466532,
+      "equal_fusion_nll_nats": 0.9906626207873892,
+      "learned_routing_regret_nats": 0.08345161810402447,
+      "equal_routing_regret_nats": 0.0833253988447604,
+      "learned_minus_equal_nll_nats": 0.00012621925926407655,
+      "max_decomposition_error": 2.7755575615628914e-17
+    },
+    "resnet50_portability\\seed20260728.csv": {
+      "samples": 1284,
+      "input_sha256": "4b462a03da3290c1c0ecddecd2b025590df04658577ea26341966292107862d2",
+      "oracle_nll_nats": 0.8745771739895413,
+      "learned_fusion_nll_nats": 0.9560153368797274,
+      "equal_fusion_nll_nats": 0.9559915280218597,
+      "learned_routing_regret_nats": 0.0814381628901861,
+      "equal_routing_regret_nats": 0.08141435403231839,
+      "learned_minus_equal_nll_nats": 2.3808857867707914e-05,
+      "max_decomposition_error": 2.7755575615628914e-17
+    },
+    "resnet50_portability\\seed20260729.csv": {
+      "samples": 1284,
+      "input_sha256": "99e87eaeb2e4e236565300941a972a14da211a411d1d5512e2f24b8b18d1f681",
+      "oracle_nll_nats": 0.9193092428756623,
+      "learned_fusion_nll_nats": 1.009652235725104,
+      "equal_fusion_nll_nats": 1.0099455606395453,
+      "learned_routing_regret_nats": 0.0903429928494418,
+      "equal_routing_regret_nats": 0.0906363177638831,
+      "learned_minus_equal_nll_nats": -0.00029332491444129105,
+      "max_decomposition_error": 1.3877787807814457e-17
+    }
+  }
+}

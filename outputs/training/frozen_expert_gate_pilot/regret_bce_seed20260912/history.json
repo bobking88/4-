@@ -1,0 +1,182 @@
+[
+  {
+    "epoch": 1,
+    "fusion_nll_nats": 0.8006677031517029,
+    "routing_regret_nats": 0.08756152540445328,
+    "accuracy": 0.7655763030052185
+  },
+  {
+    "epoch": 2,
+    "fusion_nll_nats": 0.7975370287895203,
+    "routing_regret_nats": 0.08443085849285126,
+    "accuracy": 0.7663550972938538
+  },
+  {
+    "epoch": 3,
+    "fusion_nll_nats": 0.7996907830238342,
+    "routing_regret_nats": 0.08658456057310104,
+    "accuracy": 0.7663550972938538
+  },
+  {
+    "epoch": 4,
+    "fusion_nll_nats": 0.7982500791549683,
+    "routing_regret_nats": 0.08514389395713806,
+    "accuracy": 0.7647975087165833
+  },
+  {
+    "epoch": 5,
+    "fusion_nll_nats": 0.7995063066482544,
+    "routing_regret_nats": 0.08640013635158539,
+    "accuracy": 0.7647975087165833
+  },
+  {
+    "epoch": 6,
+    "fusion_nll_nats": 0.7996171712875366,
+    "routing_regret_nats": 0.08651091903448105,
+    "accuracy": 0.7655763030052185
+  },
+  {
+    "epoch": 7,
+    "fusion_nll_nats": 0.8010613918304443,
+    "routing_regret_nats": 0.08795521408319473,
+    "accuracy": 0.7647975087165833
+  },
+  {
+    "epoch": 8,
+    "fusion_nll_nats": 0.7998179793357849,
+    "routing_regret_nats": 0.08671176433563232,
+    "accuracy": 0.7655763030052185
+  },
+  {
+    "epoch": 9,
+    "fusion_nll_nats": 0.8001583218574524,
+    "routing_regret_nats": 0.08705206215381622,
+    "accuracy": 0.7655763030052185
+  },
+  {
+    "epoch": 10,
+    "fusion_nll_nats": 0.7996867895126343,
+    "routing_regret_nats": 0.08658062666654587,
+    "accuracy": 0.7647975087165833
+  },
+  {
+    "epoch": 11,
+    "fusion_nll_nats": 0.8001013994216919,
+    "routing_regret_nats": 0.08699515461921692,
+    "accuracy": 0.7655763030052185
+  },
+  {
+    "epoch": 12,
+    "fusion_nll_nats": 0.8000481128692627,
+    "routing_regret_nats": 0.0869419127702713,
+    "accuracy": 0.7655763030052185
+  },
+  {
+    "epoch": 13,
+    "fusion_nll_nats": 0.7995432019233704,
+    "routing_regret_nats": 0.08643700182437897,
+    "accuracy": 0.7655763030052185
+  },
+  {
+    "epoch": 14,
+    "fusion_nll_nats": 0.8000723719596863,
+    "routing_regret_nats": 0.0869661271572113,
+    "accuracy": 0.7655763030052185
+  },
+  {
+    "epoch": 15,
+    "fusion_nll_nats": 0.7995802760124207,
+    "routing_regret_nats": 0.08647413551807404,
+    "accuracy": 0.7663550972938538
+  },
+  {
+    "epoch": 16,
+    "fusion_nll_nats": 0.8003666400909424,
+    "routing_regret_nats": 0.08726038038730621,
+    "accuracy": 0.7647975087165833
+  },
+  {
+    "epoch": 17,
+    "fusion_nll_nats": 0.7994692325592041,
+    "routing_regret_nats": 0.08636298775672913,
+    "accuracy": 0.7663550972938538
+  },
+  {
+    "epoch": 18,
+    "fusion_nll_nats": 0.799582302570343,
+    "routing_regret_nats": 0.08647609502077103,
+    "accuracy": 0.7647975087165833
+  },
+  {
+    "epoch": 19,
+    "fusion_nll_nats": 0.799336850643158,
+    "routing_regret_nats": 0.08623064309358597,
+    "accuracy": 0.7655763030052185
+  },
+  {
+    "epoch": 20,
+    "fusion_nll_nats": 0.7999071478843689,
+    "routing_regret_nats": 0.0868009477853775,
+    "accuracy": 0.7655763030052185
+  },
+  {
+    "epoch": 21,
+    "fusion_nll_nats": 0.7996516823768616,
+    "routing_regret_nats": 0.08654551953077316,
+    "accuracy": 0.7655763030052185
+  },
+  {
+    "epoch": 22,
+    "fusion_nll_nats": 0.8010605573654175,
+    "routing_regret_nats": 0.08795429766178131,
+    "accuracy": 0.7655763030052185
+  },
+  {
+    "epoch": 23,
+    "fusion_nll_nats": 0.7984206080436707,
+    "routing_regret_nats": 0.08531433343887329,
+    "accuracy": 0.7655763030052185
+  },
+  {
+    "epoch": 24,
+    "fusion_nll_nats": 0.7991553544998169,
+    "routing_regret_nats": 0.08604912459850311,
+    "accuracy": 0.7647975087165833
+  },
+  {
+    "epoch": 25,
+    "fusion_nll_nats": 0.7995551824569702,
+    "routing_regret_nats": 0.086449034512043,
+    "accuracy": 0.7655763030052185
+  },
+  {
+    "epoch": 26,
+    "fusion_nll_nats": 0.799414873123169,
+    "routing_regret_nats": 0.08630867302417755,
+    "accuracy": 0.7647975087165833
+  },
+  {
+    "epoch": 27,
+    "fusion_nll_nats": 0.7989737391471863,
+    "routing_regret_nats": 0.08586753904819489,
+    "accuracy": 0.7647975087165833
+  },
+  {
+    "epoch": 28,
+    "fusion_nll_nats": 0.7993884682655334,
+    "routing_regret_nats": 0.08628232032060623,
+    "accuracy": 0.7655763030052185
+  },
+  {
+    "epoch": 29,
+    "fusion_nll_nats": 0.7995536923408508,
+    "routing_regret_nats": 0.08644743263721466,
+    "accuracy": 0.7647975087165833
+  },
+  {
+    "epoch": 30,
+    "fusion_nll_nats": 0.7992546558380127,
+    "routing_regret_nats": 0.0861484557390213,
+    "accuracy": 0.7655763030052185
+  }
+]
