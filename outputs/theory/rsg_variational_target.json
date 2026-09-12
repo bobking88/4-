@@ -1,0 +1,82 @@
+{
+  "evidence_type": "synthetic_numerical_verification_not_performance",
+  "seed": 20260912,
+  "samples_per_temperature": 3000,
+  "dtype": "float64",
+  "scope": "bounded positive probabilities; includes an exact expert tie; no dataset access",
+  "records": [
+    {
+      "temperature": 0.2,
+      "max_absolute_errors": {
+        "stationarity": 3.659295089164516e-13,
+        "objective_kl_identity": 2.0028423364237824e-13,
+        "bce_reverse_kl_identity": 8.881784197001252e-16,
+        "optimal_value": 4.440892098500626e-16
+      },
+      "checks": {
+        "identities": true,
+        "sampled_gate_not_better": true,
+        "endpoints_not_better": true,
+        "strict_convexity": true,
+        "tie_has_zero_supervision_weight": true,
+        "kl_directions_not_equal": true
+      }
+    },
+    {
+      "temperature": 0.5,
+      "max_absolute_errors": {
+        "stationarity": 2.6645352591003757e-15,
+        "objective_kl_identity": 1.3322676295501878e-15,
+        "bce_reverse_kl_identity": 4.440892098500626e-16,
+        "optimal_value": 8.881784197001252e-16
+      },
+      "checks": {
+        "identities": true,
+        "sampled_gate_not_better": true,
+        "endpoints_not_better": true,
+        "strict_convexity": true,
+        "tie_has_zero_supervision_weight": true,
+        "kl_directions_not_equal": true
+      }
+    },
+    {
+      "temperature": 1.0,
+      "max_absolute_errors": {
+        "stationarity": 1.1102230246251565e-15,
+        "objective_kl_identity": 1.1102230246251565e-15,
+        "bce_reverse_kl_identity": 4.440892098500626e-16,
+        "optimal_value": 6.661338147750939e-16
+      },
+      "checks": {
+        "identities": true,
+        "sampled_gate_not_better": true,
+        "endpoints_not_better": true,
+        "strict_convexity": true,
+        "tie_has_zero_supervision_weight": true,
+        "kl_directions_not_equal": true
+      }
+    },
+    {
+      "temperature": 2.0,
+      "max_absolute_errors": {
+        "stationarity": 1.1102230246251565e-15,
+        "objective_kl_identity": 7.771561172376096e-16,
+        "bce_reverse_kl_identity": 4.440892098500626e-16,
+        "optimal_value": 6.661338147750939e-16
+      },
+      "checks": {
+        "identities": true,
+        "sampled_gate_not_better": true,
+        "endpoints_not_better": true,
+        "strict_convexity": true,
+        "tie_has_zero_supervision_weight": true,
+        "kl_directions_not_equal": true
+      }
+    }
+  ],
+  "source_sha256": {
+    "scripts\\verify_rsg_variational_target.py": "21e759cb5a6e66fabc9f2adb8bcf2e902595bbbc2b6c588ae35aa573f8059f12",
+    "scripts\\hrgv_network.py": "f4c2889b9a129d9f52fd999b189c0888407f9887e1f739cd5e1b55b4d361a0da"
+  },
+  "all_checks_passed": true
+}

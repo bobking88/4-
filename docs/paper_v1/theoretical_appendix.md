@@ -120,6 +120,50 @@ $$
 
 **含义。** 软目标在专家优劣明确时接近硬选择，在专家接近时保留不确定性。它避免把近似等价的两条证据强行编码成不连续的 0/1 监督。
 
+## A.4a 软目标的熵正则化解释
+
+固定单张图像及真实角色，记两专家对数损失为 l_d、l_m，温度 T>0。
+考虑训练期 oracle 的一维优化问题：
+
+\[
+J_T(t)=t l_d+(1-t)l_m+T[t\log t+(1-t)\log(1-t)],\quad t\in[0,1].
+\]
+
+约定 0 log 0=0。区间内部有
+
+\[
+J_T'(t)=l_d-l_m+T\log\frac{t}{1-t},\qquad
+J_T''(t)=\frac{T}{t(1-t)}>0.
+\]
+
+由严格凸性和端点导数极限，唯一最优解为
+
+\[
+t^*=\sigma((l_m-l_d)/T).
+\]
+
+这正是已实现的软门控目标。温度衡量专家损失与路由熵之间的权衡。
+这是经典熵正则化选择原理在两条跨粒度专家上的实例化，不作为独立首创定理。
+相关原理参见 [A Regularized Framework for Sparse and Structured Neural Attention (2017)](https://proceedings.neurips.cc/paper_files/paper/2017/file/2d1b2a5ff364606ff041650887723470-Paper.pdf)。
+
+还须区分两种 KL 方向：
+
+\[
+J_T(t)-J_T(t^*)=T\,D_{KL}(\operatorname{Ber}(t)\Vert\operatorname{Ber}(t^*)),
+\]
+
+而实现中的软目标 BCE 满足
+
+\[
+\operatorname{BCE}(g,t^*)-H(t^*)=
+D_{KL}(\operatorname{Ber}(t^*)\Vert\operatorname{Ber}(g)).
+\]
+
+两者逐样本最优点相同，但目标函数和梯度不相同。BCE 是对 oracle 目标的摹仿，不能写作直接优化 J_T 的等价实现。
+此外，线性专家损失 t l_d+(1-t)l_m 与概率融合损失 -log(t p_d(y)+(1-t)p_m(y)) 也不相同。
+有限容量门控在多个样本之间共享参数，通常无法达到每个样本的 oracle 最优值。
+差距权重为零时，该样本没有后悔监督，因而也不能声称其门控被唯一约束为 1/2。
+
 ## A.5 定理 A.3：后悔分支的局部梯度隔离
 
 令 $z=[h,\bar H(p_d),\bar H(p_m),D_{JS}(p_d\Vert p_m)]$，门控实现为

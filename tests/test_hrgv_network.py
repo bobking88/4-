@@ -1130,6 +1130,58 @@ class HRGVModelTests(unittest.TestCase):
         self.assertIsNone(model.role_head.weight.grad)
         self.assertIsNone(model.species_head.weight.grad)
 
+    def test_detached_targets_alone_do_not_isolate_regret_gradient(self) -> None:
+        from hrgv_network import (
+            HierarchicalRiskGatedVerificationNet,
+            regret_gate_targets,
+            weighted_soft_gate_loss,
+        )
+
+        self.torch.manual_seed(903)
+        mapping = self.build_mapping()
+        model = HierarchicalRiskGatedVerificationNet(
+            self.dependencies["models"],
+            self.build_role_matrix(mapping),
+            pretrained=False,
+            embedding_dim=8,
+            gate_hidden_dim=16,
+            detach_gate_features=False,
+        )
+        model.eval()
+        inputs = self.torch.randn(4, 3, 64, 64)
+        labels = self.torch.tensor([0, 1, 2, 3], dtype=self.torch.long)
+        for detached in (False, True):
+            with self.subTest(detach_gate_features=detached):
+                model.detach_gate_features = detached
+                model.zero_grad(set_to_none=True)
+                outputs = model(inputs)
+                targets = regret_gate_targets(
+                    outputs["direct_role_probabilities"],
+                    outputs["mapped_role_probabilities"],
+                    labels,
+                    target_temperature=0.20,
+                    gap_temperature=0.50,
+                    torch=self.torch,
+                )
+                self.assertFalse(targets["soft_oracle_gate"].requires_grad)
+                self.assertFalse(targets["gate_gap_weight"].requires_grad)
+                loss = weighted_soft_gate_loss(
+                    outputs["gate"], targets["soft_oracle_gate"],
+                    targets["gate_gap_weight"], self.torch,
+                )
+                loss.backward()
+                for module in (model.features, model.role_head, model.species_head):
+                    gradients = [p.grad for p in module.parameters() if p.grad is not None]
+                    if detached:
+                        self.assertEqual(gradients, [])
+                    else:
+                        self.assertGreater(sum(float(g.abs().sum()) for g in gradients), 0.0)
+                gate_norm = sum(
+                    float(p.grad.abs().sum()) for p in model.gate_network.parameters()
+                    if p.grad is not None
+                )
+                self.assertGreater(gate_norm, 0.0)
+
     def test_zero_regret_weight_preserves_original_hrgv_total_loss(self) -> None:
         from hrgv_network import (
             HRGVLossWeights,
