@@ -1,0 +1,39 @@
+{
+  "evidence_type": "finite_support_mathematical_counterexample_not_dataset_experiment",
+  "truth": [
+    0.4,
+    0.4,
+    0.1,
+    0.1
+  ],
+  "direct": [
+    0.72,
+    0.08,
+    0.1,
+    0.1
+  ],
+  "mapped": [
+    0.48,
+    0.32,
+    0.1,
+    0.1
+  ],
+  "temperature": 0.2,
+  "gap_temperature": 0.5,
+  "weighted_bce_optimal_gate": 0.3567875762997713,
+  "fusion_nll_optimal_gate": 0.0,
+  "nll_at_bce_optimum_nats": 1.2687837736217433,
+  "nll_at_fusion_optimum_nats": 1.2098784019062352,
+  "excess_nll_nats": 0.05890537171550814,
+  "bce_gradient": 1.1102230246251565e-16,
+  "nll_gradient": 0.23988447146602843,
+  "checks": {
+    "bce_stationarity": true,
+    "bce_optimum_interior": true,
+    "nll_derivative_positive_at_bce_optimum": true,
+    "nll_grid_minimum_at_zero": true,
+    "strict_positive_excess_nll": true
+  },
+  "all_checks_passed": true,
+  "source_sha256": "4df0b12939c482e8a19025f1f0a98b6ceab9afaf737760be6aa6ef6d08b11b48"
+}
