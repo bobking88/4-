@@ -1,0 +1,167 @@
+{
+  "scope": "posthoc validation diagnostic; no retraining, test access, or configuration selection",
+  "samples": 1284,
+  "expert_seed": 20260728,
+  "hashes": {
+    "expert": "84f2db7207dfaf790c85bc7795294fe8ac3220664f6de2bdd3334842a2875bfe",
+    "script": "78b49c5af28d27b8c3971c1891db99f997896d81b83b8873c1849ad916f88bc5",
+    "network": "f4c2889b9a129d9f52fd999b189c0888407f9887e1f739cd5e1b55b4d361a0da",
+    "fusion_nll_seed20260912": "344b9ac8732e29fbe849695753f54bc72eeba6c5884f8e89946b1e86e072e19b",
+    "regret_bce_seed20260912": "dddefdfe67142a7838625fb0a15a5ecf3fc0c665192b157840404c3b096d2c5d",
+    "fusion_nll_seed20260913": "59e32534c3539b33f6c96803360988f17cf2cdd440bc4bacd8ae3827cdd450a6",
+    "regret_bce_seed20260913": "5fc8cc137a9d8eb37d8c89b2f15fbc15cc394138b2eafb2a84d91803fe9eeaae",
+    "fusion_nll_seed20260914": "e55686516c9bfff95952072703b7aae43f05c614fafebc2d48bf5b8b344a5c40",
+    "regret_bce_seed20260914": "5539f0c74f415994543c866fb2dcc70c0c31c35c0108679c97c600e94695f78d"
+  },
+  "runs": {
+    "equal": {
+      "pre_verifier": {
+        "nll_nats": 0.7982007748630429,
+        "accuracy": 0.7671339563862928,
+        "macro_f1": 0.7446444086035537,
+        "target_recall": 0.724,
+        "ti_intrusion": 0.09183673469387756,
+        "metal_intrusion": 0.13559322033898305
+      },
+      "final": {
+        "nll_nats": 0.8354050113195799,
+        "accuracy": 0.7663551401869159,
+        "macro_f1": 0.7436557317762631,
+        "target_recall": 0.72,
+        "ti_intrusion": 0.08979591836734693,
+        "metal_intrusion": 0.13559322033898305
+      },
+      "pre_final_gradient_sign_conflicts": 14,
+      "aux_final_gradient_sign_conflicts": 11,
+      "max_effective_gate_shift": 0.06910798746074676
+    },
+    "fusion_nll_seed20260912": {
+      "pre_verifier": {
+        "nll_nats": 0.8177676601705636,
+        "accuracy": 0.7710280373831776,
+        "macro_f1": 0.7496413381683613,
+        "target_recall": 0.72,
+        "ti_intrusion": 0.09183673469387756,
+        "metal_intrusion": 0.13559322033898305
+      },
+      "final": {
+        "nll_nats": 0.8560179041015918,
+        "accuracy": 0.7718068535825545,
+        "macro_f1": 0.7500805996861821,
+        "target_recall": 0.716,
+        "ti_intrusion": 0.08775510204081632,
+        "metal_intrusion": 0.13559322033898305
+      },
+      "pre_final_gradient_sign_conflicts": 10,
+      "aux_final_gradient_sign_conflicts": 670,
+      "max_effective_gate_shift": 0.039213315877542176
+    },
+    "regret_bce_seed20260912": {
+      "pre_verifier": {
+        "nll_nats": 0.7975370934998395,
+        "accuracy": 0.7663551401869159,
+        "macro_f1": 0.7446303577628384,
+        "target_recall": 0.724,
+        "ti_intrusion": 0.09183673469387756,
+        "metal_intrusion": 0.12429378531073447
+      },
+      "final": {
+        "nll_nats": 0.8350082439405063,
+        "accuracy": 0.7655763239875389,
+        "macro_f1": 0.7436451071236939,
+        "target_recall": 0.72,
+        "ti_intrusion": 0.08979591836734693,
+        "metal_intrusion": 0.12429378531073447
+      },
+      "pre_final_gradient_sign_conflicts": 14,
+      "aux_final_gradient_sign_conflicts": 403,
+      "max_effective_gate_shift": 0.056847046667064804
+    },
+    "fusion_nll_seed20260913": {
+      "pre_verifier": {
+        "nll_nats": 0.8182465655511959,
+        "accuracy": 0.7725856697819314,
+        "macro_f1": 0.7513862242562499,
+        "target_recall": 0.728,
+        "ti_intrusion": 0.09183673469387756,
+        "metal_intrusion": 0.13559322033898305
+      },
+      "final": {
+        "nll_nats": 0.8561486584824065,
+        "accuracy": 0.7710280373831776,
+        "macro_f1": 0.7497234725934981,
+        "target_recall": 0.72,
+        "ti_intrusion": 0.09183673469387756,
+        "metal_intrusion": 0.13559322033898305
+      },
+      "pre_final_gradient_sign_conflicts": 12,
+      "aux_final_gradient_sign_conflicts": 662,
+      "max_effective_gate_shift": 0.05169412104388149
+    },
+    "regret_bce_seed20260913": {
+      "pre_verifier": {
+        "nll_nats": 0.7966983753551002,
+        "accuracy": 0.764797507788162,
+        "macro_f1": 0.7435108340011014,
+        "target_recall": 0.724,
+        "ti_intrusion": 0.09591836734693877,
+        "metal_intrusion": 0.12994350282485875
+      },
+      "final": {
+        "nll_nats": 0.8340918756383127,
+        "accuracy": 0.764797507788162,
+        "macro_f1": 0.7431597151017348,
+        "target_recall": 0.72,
+        "ti_intrusion": 0.09183673469387756,
+        "metal_intrusion": 0.12994350282485875
+      },
+      "pre_final_gradient_sign_conflicts": 14,
+      "aux_final_gradient_sign_conflicts": 423,
+      "max_effective_gate_shift": 0.06219776171885055
+    },
+    "fusion_nll_seed20260914": {
+      "pre_verifier": {
+        "nll_nats": 0.8165078213593817,
+        "accuracy": 0.7741433021806854,
+        "macro_f1": 0.7526904653266596,
+        "target_recall": 0.728,
+        "ti_intrusion": 0.08979591836734693,
+        "metal_intrusion": 0.13559322033898305
+      },
+      "final": {
+        "nll_nats": 0.8546453356196807,
+        "accuracy": 0.7718068535825545,
+        "macro_f1": 0.7501883947445205,
+        "target_recall": 0.716,
+        "ti_intrusion": 0.08979591836734693,
+        "metal_intrusion": 0.13559322033898305
+      },
+      "pre_final_gradient_sign_conflicts": 11,
+      "aux_final_gradient_sign_conflicts": 665,
+      "max_effective_gate_shift": 0.0539107817759385
+    },
+    "regret_bce_seed20260914": {
+      "pre_verifier": {
+        "nll_nats": 0.7962229377786567,
+        "accuracy": 0.764797507788162,
+        "macro_f1": 0.7428114659040908,
+        "target_recall": 0.724,
+        "ti_intrusion": 0.09387755102040816,
+        "metal_intrusion": 0.13559322033898305
+      },
+      "final": {
+        "nll_nats": 0.833662727842347,
+        "accuracy": 0.764797507788162,
+        "macro_f1": 0.7424611507353844,
+        "target_recall": 0.72,
+        "ti_intrusion": 0.08979591836734693,
+        "metal_intrusion": 0.13559322033898305
+      },
+      "pre_final_gradient_sign_conflicts": 14,
+      "aux_final_gradient_sign_conflicts": 350,
+      "max_effective_gate_shift": 0.06760647602512204
+    }
+  },
+  "frozen_state_unchanged": true,
+  "gradient_scope": "per-sample partial derivative wrt gate logit, unweighted NLL; auxiliary before batch normalization; not shared-parameter gradient conflict"
+}
