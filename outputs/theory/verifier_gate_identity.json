@@ -1,0 +1,19 @@
+{
+  "scope": "synthetic algebra and autograd check; not classification improvement",
+  "seed": 20260916,
+  "samples": 4096,
+  "dtype": "float64",
+  "assumptions": "fixed experts and verifier outputs with respect to gate logit; no extra calibration; inactive probability clamps",
+  "max_absolute_residuals": {
+    "posterior_identity": 2.220446049250313e-16,
+    "logit_shift_identity": 3.3306690738754696e-16,
+    "final_gradient_identity": 2.220446049250313e-16,
+    "pre_gradient_identity": 2.220446049250313e-16,
+    "gradient_difference_identity": 2.220446049250313e-16
+  },
+  "neutral_verifier_identity_error": 2.220446049250313e-16,
+  "max_pre_post_gradient_difference": 0.21333725220936417,
+  "strict_gradient_sign_reversals": 86,
+  "tolerance": 1e-12,
+  "all_checks_passed": true
+}
