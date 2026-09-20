@@ -219,12 +219,15 @@ def build_model(model_name: str, num_classes: int, pretrained: bool, models, nn)
     return model
 
 
-def split_records(records: list[ManifestRecord]) -> dict[str, list[ManifestRecord]]:
+def split_records(records: list[ManifestRecord], required_splits=None) -> dict[str, list[ManifestRecord]]:
+    required_splits = VALID_SPLITS if required_splits is None else set(required_splits)
+    if not required_splits or not required_splits.issubset(VALID_SPLITS):
+        raise ValueError('Required splits must be a nonempty subset of valid splits.')
     result = {split: [] for split in sorted(VALID_SPLITS)}
     for record in records:
         result[record.split].append(record)
     for split, split_records_list in result.items():
-        if not split_records_list:
+        if split in required_splits and not split_records_list:
             raise ValueError(f"No records found for required split: {split}")
         split_records_list.sort(key=lambda record: record.image_id)
     return result

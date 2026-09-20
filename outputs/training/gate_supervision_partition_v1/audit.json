@@ -1,0 +1,102 @@
+{
+  "seed": 20260919,
+  "source_sha256": "67ae8eed6c8083db290195050457c7904641524581d0d7b739f227ad65976b59",
+  "script_sha256": "28bd60ee04e24b470d69e5d28663f6635b5b0a1b54f2ea55f3d004869b6a0eb8",
+  "scope": "training metadata only; no image access or new model training",
+  "allocation": "species-role strata; duplicate groups ranked by seeded SHA256; 15% groups each stop/gate, remainder fit; rounded with minimum one",
+  "counts": {
+    "gate_fit": 892,
+    "expert_fit": 4176,
+    "expert_stop": 893
+  },
+  "by_species": {
+    "ilmenite": {
+      "gate_fit": 33,
+      "expert_fit": 157,
+      "expert_stop": 33
+    },
+    "magnetite": {
+      "expert_fit": 646,
+      "gate_fit": 138,
+      "expert_stop": 138
+    },
+    "titanomagnetite": {
+      "expert_fit": 11,
+      "gate_fit": 2,
+      "expert_stop": 2
+    },
+    "calcite": {
+      "expert_fit": 165,
+      "expert_stop": 36,
+      "gate_fit": 36
+    },
+    "feldspar": {
+      "gate_fit": 32,
+      "expert_fit": 146,
+      "expert_stop": 32
+    },
+    "fluorapatite": {
+      "expert_fit": 262,
+      "gate_fit": 56,
+      "expert_stop": 56
+    },
+    "pyroxene": {
+      "expert_fit": 241,
+      "gate_fit": 51,
+      "expert_stop": 51
+    },
+    "quartz": {
+      "expert_fit": 126,
+      "expert_stop": 27,
+      "gate_fit": 27
+    },
+    "vesuvianite": {
+      "gate_fit": 52,
+      "expert_fit": 246,
+      "expert_stop": 52
+    },
+    "chalcopyrite": {
+      "expert_fit": 148,
+      "expert_stop": 32,
+      "gate_fit": 32
+    },
+    "goethite": {
+      "expert_fit": 132,
+      "expert_stop": 28,
+      "gate_fit": 28
+    },
+    "hematite": {
+      "expert_fit": 147,
+      "gate_fit": 32,
+      "expert_stop": 32
+    },
+    "pyrite": {
+      "expert_fit": 147,
+      "gate_fit": 31,
+      "expert_stop": 31
+    },
+    "anatase": {
+      "expert_fit": 582,
+      "expert_stop": 126,
+      "gate_fit": 125
+    },
+    "perovskite": {
+      "gate_fit": 39,
+      "expert_fit": 184,
+      "expert_stop": 39
+    },
+    "rutile": {
+      "expert_fit": 667,
+      "gate_fit": 142,
+      "expert_stop": 142
+    },
+    "titanite": {
+      "expert_fit": 169,
+      "expert_stop": 36,
+      "gate_fit": 36
+    }
+  },
+  "original_split_column_preserved": true,
+  "original_manifest_unchanged": true,
+  "warning": "assignment metadata, not directly a trainer manifest; gate_fit must be absent from expert fitting and checkpoint selection"
+}

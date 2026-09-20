@@ -94,8 +94,9 @@ def create_hierarchical_dataloaders(args, records_by_split, mapping, dependencie
     datasets = {
         "train": HierarchicalMineralImageDataset(records_by_split["train"], mapping, train_transform),
         "val": HierarchicalMineralImageDataset(records_by_split["val"], mapping, evaluation_transform),
-        "test": HierarchicalMineralImageDataset(records_by_split["test"], mapping, evaluation_transform),
     }
+    if not getattr(args, 'validation_only', False):
+        datasets['test'] = HierarchicalMineralImageDataset(records_by_split['test'], mapping, evaluation_transform)
     loader_options = {
         "batch_size": args.batch_size,
         "num_workers": args.num_workers,
@@ -103,11 +104,8 @@ def create_hierarchical_dataloaders(args, records_by_split, mapping, dependencie
     }
     if args.num_workers > 0:
         loader_options["persistent_workers"] = True
-    return {
-        "train": DataLoader(datasets["train"], shuffle=True, **loader_options),
-        "val": DataLoader(datasets["val"], shuffle=False, **loader_options),
-        "test": DataLoader(datasets["test"], shuffle=False, **loader_options),
-    }
+    return {split: DataLoader(dataset, shuffle=(split == 'train'), **loader_options)
+            for split, dataset in datasets.items()}
 
 
 class HierarchicalRoleAwareEfficientNet(nn.Module):

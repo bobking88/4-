@@ -1,0 +1,16 @@
+{
+  "expert_fit": 4176,
+  "expert_stop": 893,
+  "gate_seen": 892,
+  "gate_unseen": 892,
+  "exact_species_role_count_match": true,
+  "unseen_absent_from_expert_manifest": true,
+  "duplicate_group_overlap": false,
+  "original_val_test_used": false,
+  "source_sha256": "7db3319300e32f5e2238ee622038ca1efc3648c29d6989460982b11d24d9d432",
+  "output_sha256": {
+    "expert": "7d787fe6f55fcaefbc3a402ffbed7d82e1442adeb5b7010a13327c10556d1442",
+    "gate_seen": "0785e401c7678a6c3f58953927bd223ac35e900cc47859a61bf6932329573b13",
+    "gate_unseen": "2218ebedd480f461767b9ed201e90a4273ab84a6c3561c9ca7d4e96d8008bd26"
+  }
+}

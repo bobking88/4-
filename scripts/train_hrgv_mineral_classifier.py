@@ -1003,7 +1003,7 @@ def main(argv: Sequence[str] | None = None) -> None:
     set_seed(args.seed, torch)
     records = load_manifest_records(args.manifest, args.dataset_root)
     mapping = validate_species_role_mapping(records)
-    records_by_split = split_records(records)
+    records_by_split = split_records(records, required_splits=('train', 'val') if args.validation_only else None)
     role_counts = [
         sum(record.class_id == class_id for record in records_by_split["train"])
         for class_id in range(len(CLASS_LABELS))
