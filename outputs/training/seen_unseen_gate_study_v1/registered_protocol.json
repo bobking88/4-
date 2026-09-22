@@ -1,0 +1,62 @@
+{
+  "scope": "validation-only paired expert-seen versus expert-unseen gate supervision",
+  "supervision_audit": {
+    "seen_count": 892,
+    "unseen_count": 892,
+    "exact_species_role_count_match": true,
+    "seen_subset_of_expert": true,
+    "unseen_absent_from_expert": true,
+    "unseen_group_overlap_with_expert": 0,
+    "seen_unseen_group_overlap": 0,
+    "strata": {
+      "anatase|ti_bearing_negative": 125,
+      "calcite|gangue_negative": 36,
+      "chalcopyrite|metallic_hard_negative": 32,
+      "feldspar|gangue_negative": 32,
+      "fluorapatite|gangue_negative": 56,
+      "goethite|metallic_hard_negative": 28,
+      "hematite|metallic_hard_negative": 32,
+      "ilmenite|target_mineral": 33,
+      "magnetite|target_mineral": 138,
+      "perovskite|ti_bearing_negative": 39,
+      "pyrite|metallic_hard_negative": 31,
+      "pyroxene|gangue_negative": 51,
+      "quartz|gangue_negative": 27,
+      "rutile|ti_bearing_negative": 142,
+      "titanite|ti_bearing_negative": 36,
+      "titanomagnetite|target_mineral": 2,
+      "vesuvianite|gangue_negative": 52
+    }
+  },
+  "expert_stop_count": 893,
+  "gate_seeds": [
+    20260912,
+    20260913,
+    20260914
+  ],
+  "objectives": [
+    "final_nll",
+    "final_nll_plus_regret"
+  ],
+  "epochs": 30,
+  "batch_size": 256,
+  "optimizer": "AdamW",
+  "learning_rate": 0.001,
+  "weight_decay": 0.0001,
+  "selection": "lowest final validation NLL; earliest tie",
+  "auxiliary_regret_weight": 0.1,
+  "target_temperature": 0.2,
+  "gap_temperature": 0.5,
+  "test_access": false,
+  "smoke_run": false,
+  "hashes": {
+    "expert_manifest": "7d787fe6f55fcaefbc3a402ffbed7d82e1442adeb5b7010a13327c10556d1442",
+    "seen_manifest": "0785e401c7678a6c3f58953927bd223ac35e900cc47859a61bf6932329573b13",
+    "unseen_manifest": "2218ebedd480f461767b9ed201e90a4273ab84a6c3561c9ca7d4e96d8008bd26",
+    "expert_environment": "a206acb29dddbc8936cefa3943f7ae1e856028d4b1d4e108d5be837501048081",
+    "expert_checkpoint": "615b35fc897e1c5b6cc7b1a65caba76b03b87b24009cf5eaefa2362eed900e9c",
+    "script": "b03b1c63aba4a1559e6a1e26797989d2cdac30c0d3bca618b76986613a1cd6bc",
+    "hrgv_network": "f4c2889b9a129d9f52fd999b189c0888407f9887e1f739cd5e1b55b4d361a0da"
+  },
+  "limitations": "one expert checkpoint; stop set reused for gate selection; mechanism diagnostic, not independent confirmation"
+}

@@ -1,0 +1,39 @@
+{
+  "epoch": 3,
+  "mean_training_batch_loss": 0.9762961715459824,
+  "pre_verifier_nll_nats": 0.9186269640922546,
+  "final_nll_nats": 0.956943929195404,
+  "routing_regret_nats": 0.09273825585842133,
+  "final_accuracy": 0.7402015677491601,
+  "final_macro_f1": 0.7204821686227149,
+  "final_target_recall": 0.6763005780346821,
+  "final_ti_intrusion": 0.10495626822157435,
+  "final_metal_intrusion": 0.11382113821138211,
+  "mean_gate": 0.37891703844070435,
+  "confusion_matrix": [
+    [
+      117,
+      24,
+      9,
+      23
+    ],
+    [
+      36,
+      245,
+      42,
+      20
+    ],
+    [
+      6,
+      21,
+      216,
+      11
+    ],
+    [
+      14,
+      12,
+      14,
+      83
+    ]
+  ]
+}

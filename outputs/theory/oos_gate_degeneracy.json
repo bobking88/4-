@@ -1,0 +1,17 @@
+{
+  "equal_experts": {
+    "gate": 0.549833997312478,
+    "final_nll": 0.4943019213253206,
+    "final_nll_gradient": 0.0,
+    "expert_true_class_loss_gap": 0.0,
+    "gap_weight": 0.0
+  },
+  "distinct_experts": {
+    "gate": 0.549833997312478,
+    "final_nll": 0.9743361336146156,
+    "final_nll_gradient": -0.3089639754567928,
+    "expert_true_class_loss_gap": 1.2527629684953678,
+    "gap_weight": 0.9867604468349193
+  },
+  "interpretation": "Equal expert posteriors make the fused and verified posterior independent of the gate; distinct posteriors restore a non-zero risk and regret signal."
+}

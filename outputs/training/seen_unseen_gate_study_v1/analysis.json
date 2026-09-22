@@ -1,0 +1,279 @@
+{
+  "references": {
+    "equal": {
+      "pre_verifier_nll_nats": 0.920831024646759,
+      "final_nll_nats": 0.9584760069847107,
+      "routing_regret_nats": 0.09494233131408691,
+      "final_accuracy": 0.7379619260918253,
+      "final_macro_f1": 0.718493155399025,
+      "final_target_recall": 0.6878612716763006,
+      "final_ti_intrusion": 0.11078717201166181,
+      "final_metal_intrusion": 0.12195121951219512,
+      "mean_gate": 0.5,
+      "confusion_matrix": [
+        [
+          119,
+          22,
+          9,
+          23
+        ],
+        [
+          38,
+          241,
+          44,
+          20
+        ],
+        [
+          7,
+          20,
+          217,
+          10
+        ],
+        [
+          15,
+          12,
+          14,
+          82
+        ]
+      ]
+    },
+    "original_joint_gate": {
+      "pre_verifier_nll_nats": 0.9572842717170715,
+      "final_nll_nats": 0.9960317611694336,
+      "routing_regret_nats": 0.13139553368091583,
+      "final_accuracy": 0.7424412094064949,
+      "final_macro_f1": 0.7216837810162915,
+      "final_target_recall": 0.6936416184971098,
+      "final_ti_intrusion": 0.11078717201166181,
+      "final_metal_intrusion": 0.11382113821138211,
+      "mean_gate": 0.21627941727638245,
+      "confusion_matrix": [
+        [
+          120,
+          20,
+          11,
+          22
+        ],
+        [
+          38,
+          245,
+          40,
+          20
+        ],
+        [
+          6,
+          20,
+          217,
+          11
+        ],
+        [
+          14,
+          13,
+          15,
+          81
+        ]
+      ]
+    }
+  },
+  "aggregates": [
+    {
+      "source": "seen",
+      "objective": "final_nll",
+      "count": 3,
+      "mean_final_nll_nats": 0.9722547928492228,
+      "sample_sd_final_nll_nats": 0.001206218914058748,
+      "mean_final_macro_f1": 0.7182145272651101,
+      "sample_sd_final_macro_f1": 0.0009280049398946688,
+      "mean_final_target_recall": 0.6705202312138728,
+      "sample_sd_final_target_recall": 0.0,
+      "mean_final_ti_intrusion": 0.10495626822157435,
+      "sample_sd_final_ti_intrusion": 0.0,
+      "mean_final_metal_intrusion": 0.11382113821138211,
+      "sample_sd_final_metal_intrusion": 0.0,
+      "mean_mean_gate": 0.1976583351691564,
+      "sample_sd_mean_gate": 0.007024703859361216,
+      "selected_epochs": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "source": "seen",
+      "objective": "final_nll_plus_regret",
+      "count": 3,
+      "mean_final_nll_nats": 0.9566070437431335,
+      "sample_sd_final_nll_nats": 0.0005408988148382421,
+      "mean_final_macro_f1": 0.7173804576215723,
+      "sample_sd_final_macro_f1": 0.002021454686094243,
+      "mean_final_target_recall": 0.6763005780346821,
+      "sample_sd_final_target_recall": 0.0,
+      "mean_final_ti_intrusion": 0.10689990281827016,
+      "sample_sd_final_ti_intrusion": 0.0016832369364129039,
+      "mean_final_metal_intrusion": 0.11924119241192412,
+      "sample_sd_final_metal_intrusion": 0.004693904627557935,
+      "mean_mean_gate": 0.48458927869796753,
+      "sample_sd_mean_gate": 0.0011991405250819443,
+      "selected_epochs": [
+        3,
+        2,
+        3
+      ]
+    },
+    {
+      "source": "unseen",
+      "objective": "final_nll",
+      "count": 3,
+      "mean_final_nll_nats": 0.9601159493128458,
+      "sample_sd_final_nll_nats": 0.0019369059199855333,
+      "mean_final_macro_f1": 0.7229856524196417,
+      "sample_sd_final_macro_f1": 0.0020250556495811298,
+      "mean_final_target_recall": 0.6840077071290944,
+      "sample_sd_final_target_recall": 0.0033372847930036474,
+      "mean_final_ti_intrusion": 0.10495626822157435,
+      "sample_sd_final_ti_intrusion": 0.0,
+      "mean_final_metal_intrusion": 0.11924119241192412,
+      "sample_sd_final_metal_intrusion": 0.004693904627557935,
+      "mean_mean_gate": 0.298637717962265,
+      "sample_sd_mean_gate": 0.016864414316530036,
+      "selected_epochs": [
+        4,
+        3,
+        4
+      ]
+    },
+    {
+      "source": "unseen",
+      "objective": "final_nll_plus_regret",
+      "count": 3,
+      "mean_final_nll_nats": 0.9567603270212809,
+      "sample_sd_final_nll_nats": 0.0007470072291761433,
+      "mean_final_macro_f1": 0.7203471624488955,
+      "sample_sd_final_macro_f1": 0.0004448213677571631,
+      "mean_final_target_recall": 0.6763005780346821,
+      "sample_sd_final_target_recall": 0.0,
+      "mean_final_ti_intrusion": 0.10495626822157435,
+      "sample_sd_final_ti_intrusion": 0.0,
+      "mean_final_metal_intrusion": 0.11924119241192412,
+      "sample_sd_final_metal_intrusion": 0.004693904627557935,
+      "mean_mean_gate": 0.3800527850786845,
+      "sample_sd_mean_gate": 0.016750092615590607,
+      "selected_epochs": [
+        3,
+        3,
+        4
+      ]
+    }
+  ],
+  "paired_differences": [
+    {
+      "objective": "final_nll",
+      "seed": 20260912,
+      "unseen_minus_seen_final_nll_nats": -0.012602925300598145,
+      "unseen_minus_seen_final_macro_f1": 0.0025946283067412867,
+      "unseen_minus_seen_final_target_recall": 0.011560693641618491,
+      "unseen_minus_seen_final_ti_intrusion": 0.0,
+      "unseen_minus_seen_final_metal_intrusion": 0.00813008130081301,
+      "unseen_minus_seen_mean_gate": 0.11449718475341797
+    },
+    {
+      "objective": "final_nll",
+      "seed": 20260913,
+      "unseen_minus_seen_final_nll_nats": -0.00892949104309082,
+      "unseen_minus_seen_final_macro_f1": 0.00649857545978394,
+      "unseen_minus_seen_final_target_recall": 0.017341040462427793,
+      "unseen_minus_seen_final_ti_intrusion": 0.0,
+      "unseen_minus_seen_final_metal_intrusion": 0.0,
+      "unseen_minus_seen_mean_gate": 0.0789465457201004
+    },
+    {
+      "objective": "final_nll",
+      "seed": 20260914,
+      "unseen_minus_seen_final_nll_nats": -0.014884114265441895,
+      "unseen_minus_seen_final_macro_f1": 0.005220171697069675,
+      "unseen_minus_seen_final_target_recall": 0.011560693641618491,
+      "unseen_minus_seen_final_ti_intrusion": 0.0,
+      "unseen_minus_seen_final_metal_intrusion": 0.00813008130081301,
+      "unseen_minus_seen_mean_gate": 0.1094944179058075
+    },
+    {
+      "objective": "final_nll_plus_regret",
+      "seed": 20260912,
+      "unseen_minus_seen_final_nll_nats": 1.8596649169921875e-05,
+      "unseen_minus_seen_final_macro_f1": 0.004801543516762763,
+      "unseen_minus_seen_final_target_recall": 0.0,
+      "unseen_minus_seen_final_ti_intrusion": -0.002915451895043733,
+      "unseen_minus_seen_final_metal_intrusion": -0.00813008130081301,
+      "unseen_minus_seen_mean_gate": -0.10439342260360718
+    },
+    {
+      "objective": "final_nll_plus_regret",
+      "seed": 20260913,
+      "unseen_minus_seen_final_nll_nats": 0.0014159083366394043,
+      "unseen_minus_seen_final_macro_f1": 0.00023475066407141476,
+      "unseen_minus_seen_final_target_recall": 0.0,
+      "unseen_minus_seen_final_ti_intrusion": 0.0,
+      "unseen_minus_seen_final_metal_intrusion": 0.00813008130081301,
+      "unseen_minus_seen_mean_gate": -0.08834663033485413
+    },
+    {
+      "objective": "final_nll_plus_regret",
+      "seed": 20260914,
+      "unseen_minus_seen_final_nll_nats": -0.0009746551513671875,
+      "unseen_minus_seen_final_macro_f1": 0.0038638203011356342,
+      "unseen_minus_seen_final_target_recall": 0.0,
+      "unseen_minus_seen_final_ti_intrusion": -0.002915451895043733,
+      "unseen_minus_seen_final_metal_intrusion": 0.0,
+      "unseen_minus_seen_mean_gate": -0.12086942791938782
+    }
+  ],
+  "paired_aggregates": [
+    {
+      "objective": "final_nll",
+      "count": 3,
+      "mean_unseen_minus_seen_final_nll_nats": -0.012138843536376953,
+      "sample_sd_unseen_minus_seen_final_nll_nats": 0.0030043157861570848,
+      "mean_unseen_minus_seen_final_macro_f1": 0.004771125154531634,
+      "sample_sd_unseen_minus_seen_final_macro_f1": 0.001990334881737615,
+      "mean_unseen_minus_seen_final_target_recall": 0.013487475915221592,
+      "sample_sd_unseen_minus_seen_final_target_recall": 0.0033372847930036474,
+      "mean_unseen_minus_seen_final_ti_intrusion": 0.0,
+      "sample_sd_unseen_minus_seen_final_ti_intrusion": 0.0,
+      "mean_unseen_minus_seen_final_metal_intrusion": 0.005420054200542007,
+      "sample_sd_unseen_minus_seen_final_metal_intrusion": 0.004693904627557935,
+      "mean_unseen_minus_seen_mean_gate": 0.10097938279310863,
+      "sample_sd_unseen_minus_seen_mean_gate": 0.019244255016684374
+    },
+    {
+      "objective": "final_nll_plus_regret",
+      "count": 3,
+      "mean_unseen_minus_seen_final_nll_nats": 0.00015328327814737955,
+      "sample_sd_unseen_minus_seen_final_nll_nats": 0.001200959538688354,
+      "mean_unseen_minus_seen_final_macro_f1": 0.002966704827323271,
+      "sample_sd_unseen_minus_seen_final_macro_f1": 0.0024119517760235964,
+      "mean_unseen_minus_seen_final_target_recall": 0.0,
+      "sample_sd_unseen_minus_seen_final_target_recall": 0.0,
+      "mean_unseen_minus_seen_final_ti_intrusion": -0.001943634596695822,
+      "sample_sd_unseen_minus_seen_final_ti_intrusion": 0.0016832369364129039,
+      "mean_unseen_minus_seen_final_metal_intrusion": 0.0,
+      "sample_sd_unseen_minus_seen_final_metal_intrusion": 0.00813008130081301,
+      "mean_unseen_minus_seen_mean_gate": -0.10453649361928304,
+      "sample_sd_unseen_minus_seen_mean_gate": 0.016261870823118186
+    }
+  ],
+  "direction_counts": {
+    "final_nll": {
+      "pairs": 3,
+      "nll_improved": 3,
+      "macro_f1_improved": 3,
+      "target_recall_improved": 3
+    },
+    "final_nll_plus_regret": {
+      "pairs": 3,
+      "nll_improved": 1,
+      "macro_f1_improved": 3,
+      "target_recall_improved": 0
+    }
+  },
+  "independence_warning": "The three gate initializations share one frozen expert and one stop set; they are paired optimization replicates, not independent expert replications."
+}

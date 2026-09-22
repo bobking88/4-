@@ -18,7 +18,7 @@ try {
     Write-Output "PDF exported: $outputPath"
 } finally {
     if ($null -ne $document) { $document.Close(0) }
-    if ($null -ne $word -and $initialCount -eq 0) { $word.Quit(0) }
+    if ($null -ne $word -and $initialCount -eq 0) { $word.Quit() }
 }
 $after = (Get-FileHash -LiteralPath $sourcePath -Algorithm SHA256).Hash
 if ($before -ne $after) { throw 'Source report changed during read-only export.' }

@@ -26,6 +26,7 @@ __pycache__/
 
 # Trained binary checkpoints are reproducible from tracked code and manifests.
 /outputs/training/**/best_model.pt
+/outputs/training/**/gate_state.pt
 /outputs/training/**/environment.json
 /outputs/training/smoke_*/
 /outputs/training/**/*.stdout.log
@@ -33,6 +34,7 @@ __pycache__/
 /outputs/paper_experiments_v2/**/best_model.pt
 /outputs/paper_experiments_v2/smoke/
 /outputs/report_assets_v4/
+/outputs/report_qa*/
 
 # High-resolution TIFFs are retained locally for report printing; PNG/PDF and
 # the figure-generating source are versioned for GitHub reproduction.

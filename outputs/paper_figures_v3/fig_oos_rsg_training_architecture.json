@@ -1,0 +1,17 @@
+{
+  "evidence_type": "training_architecture_and_theory_schematic",
+  "figure_archetype": "data-split and network-training graph",
+  "core_conclusion": "OOS-RSG-HRGV trains only the routing gate on a group-independent subset using the final verifier-aware risk while keeping the dual expert frozen.",
+  "claim_boundary": "candidate network innovation; one frozen expert; reused stop set; three paired gate initializations are not independent confirmation",
+  "formulae": [
+    "\\hat\\theta=\\mathcal{A}(D_E,D_S)",
+    "p_g=g_\\phi p_d+(1-g_\\phi)p_m",
+    "\\min_\\phi\\mathbb{E}_{D_G}[-\\log p_f(y\\mid x)]+\\lambda\\mathrm{BCE}(g_\\phi,t_{regret})",
+    "p_d=p_m\\Rightarrow\\nabla_\\phi\\ell_{final}=0"
+  ],
+  "exports": {
+    ".png": "outputs\\paper_figures_v3\\fig_oos_rsg_training_architecture.png",
+    ".pdf": "outputs\\paper_figures_v3\\fig_oos_rsg_training_architecture.pdf",
+    ".svg": "outputs\\paper_figures_v3\\fig_oos_rsg_training_architecture.svg"
+  }
+}
