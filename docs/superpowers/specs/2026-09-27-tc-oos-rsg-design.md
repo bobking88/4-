@@ -110,10 +110,14 @@ $$
 d_T(x)=[q_{0,T}(x)-q_{\phi,T}(x)]_+.
 $$
 
-给定目标后验预算 `epsilon_T` 和数值稳定常数 `eta`，定义可用上限：
+给定目标后验预算 `epsilon_T`，定义可用上限：
 
 $$
-c_T(x)=\min\left(1,\frac{\varepsilon_T}{d_T(x)+\eta}\right).
+c_T(x)=
+\begin{cases}
+1, & d_T(x)=0,\\
+\min\left(1,\dfrac{\varepsilon_T}{d_T(x)}\right), & d_T(x)>0.
+\end{cases}
 $$
 
 最终投影系数采用逐元素截断：
@@ -129,7 +133,7 @@ q_{\mathrm{TC}}(x)
 =[1-\rho_\psi(x)]q_0(x)+\rho_\psi(x)q_\phi(x).
 $$
 
-实现采用 `torch.minimum` 与 `clamp`，除分段边界外保持可微。`eta` 只用于避免除零，测试时必须验证实际目标后验下降不超过 `epsilon_T` 加数值容差。
+实现采用 `torch.where`、`torch.minimum` 与 `clamp`，除分段边界外保持可微。数值常数 `eta` 只用于判定浮点意义下的零下降并避免除零，不进入理论公式；测试时必须验证实际目标后验下降不超过 `epsilon_T + eta`。
 
 ## 7. 训练目标
 
