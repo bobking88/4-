@@ -1,0 +1,58 @@
+{
+  "counts": {
+    "expert": 3893,
+    "gate_seen": 597,
+    "gate_unseen": 597,
+    "gate_stop": 597,
+    "final_eval": 897
+  },
+  "partition_counts": {
+    "final_eval": 897,
+    "expert_stop": 599,
+    "expert_fit": 3294,
+    "gate_stop": 597,
+    "gate_fit": 597
+  },
+  "exact_seen_unseen_strata_match": true,
+  "gate_seen_subset_of_expert": true,
+  "cross_function_group_overlap": {},
+  "final_eval_locked": true,
+  "original_validation_and_test_omitted": true,
+  "selection_contract": {
+    "expert_stop": "select expert epoch only",
+    "gate_stop": "select gate epoch only",
+    "final_eval": "read only after expert and gate selections are locked"
+  },
+  "strata": {
+    "anatase|ti_bearing_negative": 83,
+    "calcite|gangue_negative": 24,
+    "chalcopyrite|metallic_hard_negative": 22,
+    "feldspar|gangue_negative": 21,
+    "fluorapatite|gangue_negative": 37,
+    "goethite|metallic_hard_negative": 19,
+    "hematite|metallic_hard_negative": 21,
+    "ilmenite|target_mineral": 23,
+    "magnetite|target_mineral": 92,
+    "perovskite|ti_bearing_negative": 26,
+    "pyrite|metallic_hard_negative": 21,
+    "pyroxene|gangue_negative": 34,
+    "quartz|gangue_negative": 18,
+    "rutile|ti_bearing_negative": 95,
+    "titanite|ti_bearing_negative": 24,
+    "titanomagnetite|target_mineral": 2,
+    "vesuvianite|gangue_negative": 35
+  },
+  "partition_seed": 20260922,
+  "seen_seed": 20260923,
+  "source_manifest": "数据集\\dataset_audit\\dataset_split_manifest.csv",
+  "source_manifest_sha256": "1dd2c98c16c425d5e1fef83627814945015a2b49b10a0cc2cfe680f5532a845e",
+  "script_sha256": "3ad98f869df29198fc47a9cde5b0abd852b6819ce8c4202f17a5b4bd5bc35872",
+  "output_sha256": {
+    "partition": "92f1f6ec617f0e8d400c256e03c7c91cb07dd5abdf440fac7427841662041fd1",
+    "expert": "a279fe2f5583070eed0b9677286a0c71ec6be63affd5f9966e2262e6da6f2b50",
+    "gate_seen": "9c7a1e08462df73ac4ac4f3920427bb604eb1d6a19f95cd365f8c68eb17df548",
+    "gate_unseen": "4d51c50af21f4a8d815b65fbe1b026a1f71d68ca136ba91e6fda6717c0f59a45",
+    "gate_stop": "56a03d6f17e9f6f820e23008e892a1e49272f1183959a38a7b6457ddf453b89e",
+    "final_eval": "83c0981cc600ba0b9d1be8f3a75011d6fd65701b9c4bd3e35195a72a65a0f892"
+  }
+}

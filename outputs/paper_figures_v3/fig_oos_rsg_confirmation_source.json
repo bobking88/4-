@@ -1,0 +1,116 @@
+{
+  "figure_archetype": "quantitative grid",
+  "core_conclusion": "Independent out-of-sample routing improved final NLL and hard-negative intrusion control but failed the preregistered target-recall guardrail.",
+  "source_analysis": "outputs\\training\\oos_rsg_confirmation_v1\\analysis\\analysis.json",
+  "metric_direction": "All plotted values are direction-aligned benefits; intrusion-rate differences are sign-reversed.",
+  "interval": "95% paired two-stage bootstrap interval: expert seeds first, then split_group_id clusters within mineral-role strata.",
+  "figure_data": {
+    "nll_benefits": [
+      {
+        "comparison": "Seen gate",
+        "benefit": 0.03565563786233746,
+        "ci_low": 0.023217028670225646,
+        "ci_high": 0.05019629587613095,
+        "per_seed": [
+          0.0469452359870256,
+          0.03375959327505995,
+          0.026262084324926827
+        ]
+      },
+      {
+        "comparison": "Equal fusion",
+        "benefit": 0.014040491656287882,
+        "ci_low": 0.00872360074294073,
+        "ci_high": 0.01943069589016934,
+        "per_seed": [
+          0.014569491834439674,
+          0.015753987975802186,
+          0.011797995158621788
+        ]
+      },
+      {
+        "comparison": "Original joint gate",
+        "benefit": 0.06260607419879156,
+        "ci_low": 0.04895797019237821,
+        "ci_high": 0.07669045127075526,
+        "per_seed": [
+          0.05741001827035297,
+          0.06909099254292084,
+          0.0613172117831009
+        ]
+      }
+    ],
+    "tradeoff_vs_equal": [
+      {
+        "metric": "Macro F1",
+        "benefit_pp": -0.047231433046623916,
+        "ci_low_pp": -0.7861844233657662,
+        "ci_high_pp": 0.7489793896101781,
+        "per_seed_pp": [
+          -0.5405464535612969,
+          -0.014414560118714004,
+          0.4132667145401392
+        ]
+      },
+      {
+        "metric": "Target recall",
+        "benefit_pp": -2.4761904761904763,
+        "ci_low_pp": -4.380952380952382,
+        "ci_high_pp": -0.571428571428571,
+        "per_seed_pp": [
+          -3.4285714285714253,
+          -1.1428571428571455,
+          -2.857142857142858
+        ]
+      },
+      {
+        "metric": "Ti intrusion",
+        "benefit_pp": 1.1695906432748537,
+        "ci_low_pp": 0.29239766081871343,
+        "ci_high_pp": 2.241715399610136,
+        "per_seed_pp": [
+          2.046783625730994,
+          0.8771929824561403,
+          0.5847953216374269
+        ]
+      },
+      {
+        "metric": "Metallic intrusion",
+        "benefit_pp": 1.5999999999999996,
+        "ci_low_pp": -0.0,
+        "ci_high_pp": 3.733333333333334,
+        "per_seed_pp": [
+          -0.0,
+          1.5999999999999988,
+          3.2
+        ]
+      }
+    ],
+    "promotion": {
+      "criteria": {
+        "nll_ci_below_zero": true,
+        "nll_favorable_in_at_least_two_seeds": true,
+        "macro_f1_guardrail": true,
+        "target_recall_guardrail": false,
+        "ti_intrusion_guardrail": true,
+        "metal_intrusion_guardrail": true
+      },
+      "promote_to_main_method": false,
+      "rule": "all preregistered NLL and harm-guardrail criteria must pass"
+    },
+    "bootstrap_replicates": 10000,
+    "expert_seeds": [
+      20260924,
+      20260925,
+      20260926
+    ],
+    "scope": "locked final-eval analysis after expert and gate selection",
+    "evidence_boundary": "Public specimen images only; no grade, recovery, industrial belt, or external-site claim."
+  },
+  "exports": {
+    "png": "outputs\\paper_figures_v3\\fig_oos_rsg_confirmation.png",
+    "svg": "outputs\\paper_figures_v3\\fig_oos_rsg_confirmation.svg",
+    "pdf": "outputs\\paper_figures_v3\\fig_oos_rsg_confirmation.pdf",
+    "tiff": "outputs\\paper_figures_v3\\fig_oos_rsg_confirmation.tiff"
+  }
+}

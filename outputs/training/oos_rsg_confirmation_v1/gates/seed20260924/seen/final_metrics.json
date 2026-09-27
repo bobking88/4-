@@ -1,0 +1,37 @@
+{
+  "pre_verifier_nll_nats": 0.7914347052574158,
+  "final_nll_nats": 0.799140453338623,
+  "routing_regret_nats": 0.11927440762519836,
+  "final_accuracy": 0.7168338907469343,
+  "final_macro_f1": 0.6970215688949198,
+  "final_target_recall": 0.7257142857142858,
+  "final_ti_intrusion": 0.13450292397660818,
+  "final_metal_intrusion": 0.208,
+  "mean_gate": 0.8860999941825867,
+  "confusion_matrix": [
+    [
+      127,
+      27,
+      4,
+      17
+    ],
+    [
+      46,
+      248,
+      32,
+      16
+    ],
+    [
+      12,
+      31,
+      192,
+      20
+    ],
+    [
+      26,
+      18,
+      5,
+      76
+    ]
+  ]
+}
