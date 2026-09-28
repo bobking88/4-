@@ -1,0 +1,31 @@
+{
+  "arguments": [
+    "D:\\成信工科研\\人工智能选矿\\.venv-training\\Scripts\\python.exe",
+    "scripts\\train_mineral_classifier.py",
+    "--manifest",
+    "outputs\\training\\tc_oos_rsg_smoke\\fold_0\\manifests\\baseline_training.csv",
+    "--dataset-root",
+    ".superpowers\\sdd\\2026-09-27-tc-oos-rsg-implementation\\task4-smoke\\dataset",
+    "--output-dir",
+    "outputs\\training\\tc_oos_rsg_smoke\\fold_0\\baseline",
+    "--model",
+    "efficientnet_b0",
+    "--loss",
+    "cross_entropy",
+    "--device",
+    "cpu",
+    "--seed",
+    "20260927",
+    "--epochs",
+    "1",
+    "--patience",
+    "8",
+    "--batch-size",
+    "4",
+    "--num-workers",
+    "0",
+    "--torch-home",
+    ".torch-cache",
+    "--smoke-run"
+  ]
+}

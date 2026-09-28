@@ -1,0 +1,2 @@
+﻿epoch,train_loss,val_loss,accuracy,macro_precision,macro_recall,macro_f1,learning_rate
+1,1.4187434315681458,1.3864290714263916,0.25,0.0625,0.25,0.1,0.0001

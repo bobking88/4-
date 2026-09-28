@@ -1,0 +1,14 @@
+{
+  "seed": 20260927,
+  "pretrained": false,
+  "epochs": 1,
+  "batch_size": 4,
+  "num_workers": 0,
+  "selection_split": "expert_stop",
+  "outer_eval_used_for_selection": false,
+  "protocol_version": "tc_oos_rsg_v1",
+  "model": "efficientnet_b0",
+  "loss": "cross_entropy",
+  "validation_only": false,
+  "test_split_is_selection_duplicate": true
+}

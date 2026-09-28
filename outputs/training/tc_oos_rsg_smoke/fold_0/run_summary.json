@@ -1,0 +1,102 @@
+{
+  "fold": 0,
+  "protocol_version": "tc_oos_rsg_v1",
+  "audit": {
+    "protocol_version": "tc_oos_rsg_v1",
+    "row_counts": {
+      "expert_fit": 8,
+      "expert_stop": 4,
+      "outer_eval": 4
+    },
+    "group_counts": {
+      "expert_fit": 8,
+      "expert_stop": 4,
+      "outer_eval": 4
+    },
+    "species_count": 4,
+    "species_role_mapping": {
+      "ilmenite": {
+        "four_class_label": "target_mineral",
+        "four_class_id": "0"
+      },
+      "pyrite": {
+        "four_class_label": "metallic_hard_negative",
+        "four_class_id": "3"
+      },
+      "quartz": {
+        "four_class_label": "gangue_negative",
+        "four_class_id": "2"
+      },
+      "rutile": {
+        "four_class_label": "ti_bearing_negative",
+        "four_class_id": "1"
+      }
+    },
+    "image_overlap_count": 0,
+    "group_overlap_count": 0,
+    "outer_images_loaded": false
+  },
+  "outer_images_loaded": false,
+  "commands": {
+    "expert": [
+      "D:\\成信工科研\\人工智能选矿\\.venv-training\\Scripts\\python.exe",
+      "scripts\\train_hrgv_mineral_classifier.py",
+      "--manifest",
+      "outputs\\training\\tc_oos_rsg_smoke\\fold_0\\manifests\\expert_training.csv",
+      "--dataset-root",
+      ".superpowers\\sdd\\2026-09-27-tc-oos-rsg-implementation\\task4-smoke\\dataset",
+      "--output-dir",
+      "outputs\\training\\tc_oos_rsg_smoke\\fold_0\\expert",
+      "--backbone",
+      "efficientnet_b0",
+      "--device",
+      "cpu",
+      "--seed",
+      "20260927",
+      "--epochs",
+      "1",
+      "--patience",
+      "8",
+      "--batch-size",
+      "4",
+      "--num-workers",
+      "0",
+      "--lambda-gate-regret",
+      "0.0",
+      "--torch-home",
+      ".torch-cache",
+      "--validation-only",
+      "--smoke-run"
+    ],
+    "baseline": [
+      "D:\\成信工科研\\人工智能选矿\\.venv-training\\Scripts\\python.exe",
+      "scripts\\train_mineral_classifier.py",
+      "--manifest",
+      "outputs\\training\\tc_oos_rsg_smoke\\fold_0\\manifests\\baseline_training.csv",
+      "--dataset-root",
+      ".superpowers\\sdd\\2026-09-27-tc-oos-rsg-implementation\\task4-smoke\\dataset",
+      "--output-dir",
+      "outputs\\training\\tc_oos_rsg_smoke\\fold_0\\baseline",
+      "--model",
+      "efficientnet_b0",
+      "--loss",
+      "cross_entropy",
+      "--device",
+      "cpu",
+      "--seed",
+      "20260927",
+      "--epochs",
+      "1",
+      "--patience",
+      "8",
+      "--batch-size",
+      "4",
+      "--num-workers",
+      "0",
+      "--torch-home",
+      ".torch-cache",
+      "--smoke-run"
+    ]
+  },
+  "completed": true
+}

@@ -1,0 +1,40 @@
+{
+  "accuracy": 0.25,
+  "macro_precision": 0.0625,
+  "macro_recall": 0.25,
+  "macro_f1": 0.1,
+  "class_recall": {
+    "target_mineral": 0.0,
+    "ti_bearing_negative": 0.0,
+    "gangue_negative": 1.0,
+    "metallic_hard_negative": 0.0
+  },
+  "confusion_matrix": [
+    [
+      0,
+      0,
+      1,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      0
+    ]
+  ],
+  "test_loss": 1.3864290714263916,
+  "best_val_macro_f1": 0.1
+}
