@@ -1,0 +1,114 @@
+{
+  "protocol_version": "tc_oos_rsg_v1",
+  "status": "pre_registered_before_model_execution",
+  "source_partition": "outputs\\training\\oos_rsg_confirmation_manifests_v1\\partition.csv",
+  "source_partition_sha256": "92f1f6ec617f0e8d400c256e03c7c91cb07dd5abdf440fac7427841662041fd1",
+  "protocol_document": "docs\\experiment_records\\2026-09-27_tc_oos_rsg_protocol.md",
+  "protocol_document_sha256": "bdabff32fafbd3a7a8f0c6a58554d2e3248f7187752a7ad0ec31f3291d8a4a41",
+  "design_specification": "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\docs\\superpowers\\specs\\2026-09-27-tc-oos-rsg-design.md",
+  "design_specification_sha256": "f7d6855ad5d00b7e9f052a3cd59713f2b1ec96bfb45622b62c7e363e10614ad6",
+  "builder_script_sha256": "085712c11a8d0e4be9c1e5275e716b77e03466ee962fd3ed40a7d37817a88963",
+  "outer_seed": 20260927,
+  "inner_seeds": {
+    "fold_0": 20260927,
+    "fold_1": 20260928,
+    "fold_2": 20260929
+  },
+  "fold_count": 3,
+  "inner_subset_fractions": {
+    "expert_fit": 0.6,
+    "expert_stop": 0.1,
+    "gate_fit": 0.1,
+    "gate_stop_projector_fit": 0.1,
+    "projector_stop": 0.1
+  },
+  "epsilon_target_grid": [
+    0.0,
+    0.005,
+    0.01,
+    0.02,
+    0.04,
+    0.08
+  ],
+  "selection_rule": [
+    "target recall decrease versus q0 must be no more than 0.01",
+    "among feasible candidates choose minimum NLL",
+    "break NLL ties with smaller epsilon_target",
+    "if no candidate is feasible select explicit q0 fallback"
+  ],
+  "primary_metrics": [
+    "NLL",
+    "target_recall",
+    "ti_intrusion_to_target",
+    "metallic_intrusion_to_target"
+  ],
+  "secondary_metrics": [
+    "accuracy",
+    "macro_f1",
+    "ECE",
+    "complexity"
+  ],
+  "bootstrap": {
+    "iterations": 10000,
+    "unit": "split_group_id",
+    "paired": true,
+    "seed": 20260927
+  },
+  "promotion_criteria": [
+    "upper endpoint of paired NLL difference 95% CI is below zero",
+    "one-sided target-recall noninferiority lower bound is at least -0.01",
+    "zero deterministic target-posterior safety violations",
+    "at least one hard-negative intrusion improves and the other worsens by no more than 0.01",
+    "at least two folds have favorable NLL and no single fold drives the result"
+  ],
+  "titanomagnetite_count_definitions": {
+    "raw_collected": 35,
+    "formal_dataset_after_audit": 23,
+    "new_development_pool": 13
+  },
+  "spent_subset": "final_eval",
+  "development_row_count": 5087,
+  "spent_final_eval_row_count": 897,
+  "manifest_row_counts": {
+    "partition.csv": 5087,
+    "fold_0/outer_eval.csv": 1696,
+    "fold_0/expert_fit.csv": 2030,
+    "fold_0/expert_stop.csv": 341,
+    "fold_0/gate_fit.csv": 340,
+    "fold_0/gate_stop_projector_fit.csv": 340,
+    "fold_0/projector_stop.csv": 340,
+    "fold_1/outer_eval.csv": 1696,
+    "fold_1/expert_fit.csv": 2032,
+    "fold_1/expert_stop.csv": 340,
+    "fold_1/gate_fit.csv": 340,
+    "fold_1/gate_stop_projector_fit.csv": 340,
+    "fold_1/projector_stop.csv": 339,
+    "fold_2/outer_eval.csv": 1695,
+    "fold_2/expert_fit.csv": 2030,
+    "fold_2/expert_stop.csv": 341,
+    "fold_2/gate_fit.csv": 340,
+    "fold_2/gate_stop_projector_fit.csv": 341,
+    "fold_2/projector_stop.csv": 340
+  },
+  "manifest_sha256": {
+    "partition.csv": "cb4e4f219d26fad1bac70070594f12eb433b1063d79a3f097c9c787094b5afba",
+    "fold_0/outer_eval.csv": "e8fe0789d8450d93efc8e2c4fe8fd48cb1e2125101d63c88ed3a3757f3e81518",
+    "fold_0/expert_fit.csv": "e9bc6630ee8eb41041e0582f05e8e0affd2a2608e0e7a0300b3a9e6d33016e40",
+    "fold_0/expert_stop.csv": "d51d946361e04263aa4e2181d28a23a1facf6ebddcd53c2ba8812123be705afd",
+    "fold_0/gate_fit.csv": "d15f34c560e6108563e8e2af181753da3d6f369ebce7d04dad8fb912822eea7a",
+    "fold_0/gate_stop_projector_fit.csv": "eb79afac38f664b22a4a58cc2fb38f1d32e698395c6c1824b051c99d11240531",
+    "fold_0/projector_stop.csv": "1a63741360e5ae8bc97377a86d761bbdb289ddcee11b24e184fa49b47a95bd09",
+    "fold_1/outer_eval.csv": "932a07c54f28898b9ad53a410f08f30e9438b9891a8648d3ac512973d8b41810",
+    "fold_1/expert_fit.csv": "56abdedc1e603362d1a1d39946dc695f69240e8537b6fb29e1208b8b1fc0ee16",
+    "fold_1/expert_stop.csv": "a7d206f9db73a630929a6f04be9a7bf677062cb9540f9709cea865e49cc0b76f",
+    "fold_1/gate_fit.csv": "01463c1a505d224680826dd682fa3aac2e337f5a63ba924088b8e79b392ddf6f",
+    "fold_1/gate_stop_projector_fit.csv": "c9a520a9faae6a12c14aa959be3cbb3d39cd337a192cc93c63c292383988ac15",
+    "fold_1/projector_stop.csv": "3d44c2f91e2e786b85dd7695a031585805f53d572b3352888debef232ee4a804",
+    "fold_2/outer_eval.csv": "98f68d6ce5b27e22b7cf5abab714d2ccb5dda8d3b41179dc78ebc7c0dc122842",
+    "fold_2/expert_fit.csv": "2659d2753d179eade72bbf33ee28d0bb5c98df0832ddb75931ad6bc987077dbe",
+    "fold_2/expert_stop.csv": "05df6d1eac46c99c87b928f371e606a4487fc56d9423a8dcdb6f79cbf080e0b5",
+    "fold_2/gate_fit.csv": "1b030423ac56f20c2312964f260220fe48003da58319aaa1ecc660c4b54747ce",
+    "fold_2/gate_stop_projector_fit.csv": "628d2b87f1fbdf21cc223f492ad9d18dd94efac54cdb0fe1174bbef58f5902d7",
+    "fold_2/projector_stop.csv": "36e74caab8a5962f4f44f7d1e263f1437dac8beda06d424bf7e9e1cfaca4759d"
+  }
+}

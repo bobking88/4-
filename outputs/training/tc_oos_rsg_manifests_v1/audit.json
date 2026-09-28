@@ -1,0 +1,182 @@
+{
+  "protocol_version": "tc_oos_rsg_v1",
+  "root_partition": {
+    "row_count": 5087,
+    "group_count": 5084,
+    "outer_fold_counts": {
+      "0": 1696,
+      "1": 1696,
+      "2": 1695
+    },
+    "tc_subset_counts": {
+      "outer_eval": 5087
+    },
+    "role_counts": {
+      "gangue_negative": 1441,
+      "metallic_hard_negative": 706,
+      "target_mineral": 994,
+      "ti_bearing_negative": 1946
+    },
+    "mineral_counts": {
+      "anatase": 708,
+      "calcite": 201,
+      "chalcopyrite": 186,
+      "feldspar": 178,
+      "fluorapatite": 317,
+      "goethite": 161,
+      "hematite": 180,
+      "ilmenite": 196,
+      "magnetite": 785,
+      "perovskite": 223,
+      "pyrite": 179,
+      "pyroxene": 292,
+      "quartz": 155,
+      "rutile": 809,
+      "titanite": 206,
+      "titanomagnetite": 13,
+      "vesuvianite": 298
+    },
+    "cross_subset_group_overlap_count": 0,
+    "unique_image_ids": true,
+    "spent_final_eval_rows": 0,
+    "protocol_version": "tc_oos_rsg_v1"
+  },
+  "folds": {
+    "fold_0": {
+      "row_count": 5087,
+      "group_count": 5084,
+      "outer_fold_counts": {
+        "0": 5087
+      },
+      "tc_subset_counts": {
+        "expert_fit": 2030,
+        "expert_stop": 341,
+        "gate_fit": 340,
+        "gate_stop_projector_fit": 340,
+        "outer_eval": 1696,
+        "projector_stop": 340
+      },
+      "role_counts": {
+        "gangue_negative": 1441,
+        "metallic_hard_negative": 706,
+        "target_mineral": 994,
+        "ti_bearing_negative": 1946
+      },
+      "mineral_counts": {
+        "anatase": 708,
+        "calcite": 201,
+        "chalcopyrite": 186,
+        "feldspar": 178,
+        "fluorapatite": 317,
+        "goethite": 161,
+        "hematite": 180,
+        "ilmenite": 196,
+        "magnetite": 785,
+        "perovskite": 223,
+        "pyrite": 179,
+        "pyroxene": 292,
+        "quartz": 155,
+        "rutile": 809,
+        "titanite": 206,
+        "titanomagnetite": 13,
+        "vesuvianite": 298
+      },
+      "cross_subset_group_overlap_count": 0,
+      "unique_image_ids": true,
+      "spent_final_eval_rows": 0,
+      "protocol_version": "tc_oos_rsg_v1"
+    },
+    "fold_1": {
+      "row_count": 5087,
+      "group_count": 5084,
+      "outer_fold_counts": {
+        "1": 5087
+      },
+      "tc_subset_counts": {
+        "expert_fit": 2032,
+        "expert_stop": 340,
+        "gate_fit": 340,
+        "gate_stop_projector_fit": 340,
+        "outer_eval": 1696,
+        "projector_stop": 339
+      },
+      "role_counts": {
+        "gangue_negative": 1441,
+        "metallic_hard_negative": 706,
+        "target_mineral": 994,
+        "ti_bearing_negative": 1946
+      },
+      "mineral_counts": {
+        "anatase": 708,
+        "calcite": 201,
+        "chalcopyrite": 186,
+        "feldspar": 178,
+        "fluorapatite": 317,
+        "goethite": 161,
+        "hematite": 180,
+        "ilmenite": 196,
+        "magnetite": 785,
+        "perovskite": 223,
+        "pyrite": 179,
+        "pyroxene": 292,
+        "quartz": 155,
+        "rutile": 809,
+        "titanite": 206,
+        "titanomagnetite": 13,
+        "vesuvianite": 298
+      },
+      "cross_subset_group_overlap_count": 0,
+      "unique_image_ids": true,
+      "spent_final_eval_rows": 0,
+      "protocol_version": "tc_oos_rsg_v1"
+    },
+    "fold_2": {
+      "row_count": 5087,
+      "group_count": 5084,
+      "outer_fold_counts": {
+        "2": 5087
+      },
+      "tc_subset_counts": {
+        "expert_fit": 2030,
+        "expert_stop": 341,
+        "gate_fit": 340,
+        "gate_stop_projector_fit": 341,
+        "outer_eval": 1695,
+        "projector_stop": 340
+      },
+      "role_counts": {
+        "gangue_negative": 1441,
+        "metallic_hard_negative": 706,
+        "target_mineral": 994,
+        "ti_bearing_negative": 1946
+      },
+      "mineral_counts": {
+        "anatase": 708,
+        "calcite": 201,
+        "chalcopyrite": 186,
+        "feldspar": 178,
+        "fluorapatite": 317,
+        "goethite": 161,
+        "hematite": 180,
+        "ilmenite": 196,
+        "magnetite": 785,
+        "perovskite": 223,
+        "pyrite": 179,
+        "pyroxene": 292,
+        "quartz": 155,
+        "rutile": 809,
+        "titanite": 206,
+        "titanomagnetite": 13,
+        "vesuvianite": 298
+      },
+      "cross_subset_group_overlap_count": 0,
+      "unique_image_ids": true,
+      "spent_final_eval_rows": 0,
+      "protocol_version": "tc_oos_rsg_v1"
+    }
+  },
+  "development_row_count": 5087,
+  "spent_final_eval_row_count": 897,
+  "spent_final_eval_ids_absent": true,
+  "all_manifests_hashed": true
+}

@@ -1,7 +1,10 @@
 from __future__ import annotations
 
+import csv
+import json
 import random
 import sys
+import tempfile
 import unittest
 from collections import Counter, defaultdict
 from pathlib import Path
@@ -144,6 +147,84 @@ class TCOOSRSGManifestTests(unittest.TestCase):
 
         with self.assertRaisesRegex(ValueError, "multiple tc_subset"):
             audit_tc_manifests(rows)
+
+    def test_cli_writes_all_fold_manifests_and_hashes(self) -> None:
+        from build_tc_oos_rsg_manifests import main
+
+        rows = []
+        for index in range(30):
+            rows.append(_row(index + 1, f"target-{index:02d}"))
+            rows.append(_row(
+                index + 101,
+                f"gangue-{index:02d}",
+                mineral="quartz",
+                role="gangue_negative",
+            ))
+        spent = _row(999, "spent", confirmation_subset="final_eval")
+        rows.append(spent)
+
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            source = root / "source.csv"
+            output = root / "registered"
+            protocol = root / "protocol.md"
+            protocol.write_text("# Locked synthetic protocol\n", encoding="utf-8")
+            with source.open("w", encoding="utf-8", newline="") as handle:
+                writer = csv.DictWriter(handle, fieldnames=list(rows[0]))
+                writer.writeheader()
+                writer.writerows(rows)
+
+            main([
+                "--partition",
+                str(source),
+                "--output-dir",
+                str(output),
+                "--protocol-document",
+                str(protocol),
+            ])
+
+            expected_root = {"partition.csv", "audit.json", "registered_protocol.json"}
+            self.assertTrue(expected_root.issubset({path.name for path in output.iterdir()}))
+            expected_fold_files = {
+                "outer_eval.csv",
+                "expert_fit.csv",
+                "expert_stop.csv",
+                "gate_fit.csv",
+                "gate_stop_projector_fit.csv",
+                "projector_stop.csv",
+            }
+            all_rows = []
+            for fold in range(3):
+                fold_dir = output / f"fold_{fold}"
+                self.assertEqual({path.name for path in fold_dir.iterdir()}, expected_fold_files)
+                for path in fold_dir.glob("*.csv"):
+                    with path.open(encoding="utf-8", newline="") as handle:
+                        file_rows = list(csv.DictReader(handle))
+                    self.assertTrue(file_rows)
+                    self.assertTrue(all(row["outer_fold"] == str(fold) for row in file_rows))
+                    all_rows.extend(file_rows)
+
+            registration = json.loads(
+                (output / "registered_protocol.json").read_text(encoding="utf-8")
+            )
+            hashes = registration["manifest_sha256"]
+            self.assertEqual(len(hashes), 19)
+            self.assertEqual(set(hashes), {
+                "partition.csv",
+                *{
+                    f"fold_{fold}/{filename}"
+                    for fold in range(3)
+                    for filename in expected_fold_files
+                },
+            })
+            self.assertNotIn(spent["image_id"], {row["image_id"] for row in all_rows})
+            self.assertEqual(registration["development_row_count"], 60)
+            self.assertEqual(registration["spent_final_eval_row_count"], 1)
+            for relative_path, expected_hash in hashes.items():
+                import hashlib
+
+                actual_hash = hashlib.sha256((output / relative_path).read_bytes()).hexdigest()
+                self.assertEqual(actual_hash, expected_hash)
 
 
 if __name__ == "__main__":
