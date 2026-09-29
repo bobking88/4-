@@ -1,0 +1,19 @@
+{
+  "type": "learned",
+  "epoch": 2,
+  "epsilon_target": 0.02,
+  "stop_metrics": {
+    "nll": 1.3866444826126099,
+    "accuracy": 0.25,
+    "macro_f1": 0.1,
+    "target_recall": 0.0,
+    "ti_intrusion_to_target": 0.0,
+    "metallic_intrusion_to_target": 0.0,
+    "max_target_harm": 0.0,
+    "max_identity_residual": 1.9173967302776873e-08,
+    "mean_projected_route": 0.4853355586528778,
+    "cap_activation_rate": 0.0
+  },
+  "state_sha256": "f807f7b6aa4670e39fc90d8e19d29d5a2b3169b76e0ceaaf3890b91e9ecb6bb4",
+  "objective": "nll"
+}

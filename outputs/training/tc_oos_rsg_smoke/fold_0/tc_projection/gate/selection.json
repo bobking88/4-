@@ -1,0 +1,13 @@
+{
+  "epoch": 2,
+  "stop_metrics": {
+    "nll": 1.386643409729004,
+    "accuracy": 0.25,
+    "macro_f1": 0.1,
+    "target_recall": 0.0,
+    "ti_intrusion_to_target": 0.0,
+    "metallic_intrusion_to_target": 0.0,
+    "mean_gate": 0.5054300427436829
+  },
+  "state_sha256": "5dc680fa486569cc877fed5fc1d7d0fcc617023a33197541898c72a851525cef"
+}

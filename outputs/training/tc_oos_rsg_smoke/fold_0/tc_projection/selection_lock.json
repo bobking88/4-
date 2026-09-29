@@ -1,0 +1,441 @@
+{
+  "protocol_version": "tc_oos_rsg_v1",
+  "status": "locked_before_outer_tensor_loading",
+  "outer_tensors_loaded": false,
+  "selected_epsilon_target": 0.0,
+  "selection_reason": "minimum_safe_nll",
+  "gate_state_sha256": "5dc680fa486569cc877fed5fc1d7d0fcc617023a33197541898c72a851525cef",
+  "projector_state_sha256": "f807f7b6aa4670e39fc90d8e19d29d5a2b3169b76e0ceaaf3890b91e9ecb6bb4",
+  "manifest_sha256": {
+    "expert_fit": "ac99f087ed288dac4fed275cf706b943aee58e80ad56948977fedf6294f5e14c",
+    "expert_stop": "2a420c4422604a633bde133d8c766fbfadec9a72fa2654754d6e5324b523a710",
+    "gate_fit": "1c3c206a72af37df066726f1f95a4039197fa29723c4745c45fd15e0dcb9b310",
+    "gate_stop_projector_fit": "5a0b822f1e0f70442d14b2ef3f6d53a62e7679f2b96bd2d22d39b937f599a099",
+    "outer_eval": "a06051ff27885f6936a1746ca093de63af27d752ff7c5a1f9ca1f4cf09f15ae2",
+    "projector_stop": "31d77c6e8177b422e698a2e973f02d963ad30dfe6f620d918a29da7fba5dd161"
+  },
+  "model_file_sha256": {
+    "ablation_remove_abs_difference": "3fea0ef900c6728cb2d56cb0f26afcdf2e5f0385309866f3cd850b39188e702c",
+    "ablation_remove_uncertainty": "efdcc6060d91b18e6e780d488ca3ac51f8791a7600e76f756aee881837632575",
+    "ablation_remove_verifier_probabilities": "8a04eda0aa7a2aceac543999296fd7124832a898f1b85fef96754d1225eb68c3",
+    "baseline": "be22e6f44ef6486371c95b29dfc3257ec6b27c02c24ef5a44cec54066a8631f8",
+    "baseline_lock": "d58f9f12e3d0348dcf10b2e68c63a6f59997bd3c0db034265dc92fd16d4cb907",
+    "configuration": "4dfbd5a399ebcf23167dca3883caa952d0d235e15fe241c522c2a44d8d883146",
+    "expert": "602967083070d1fce0c0f914f678efdc006f04b8b6a7cbece3504cd4e12ce2c2",
+    "expert_lock": "de70d686dfcf28925bbf1e240859210846dd3af7354f8ce408997387f44b3b31",
+    "gate": "3c460999e665e78e83bb3b919df4e0349711c774beea6db20c808fd6d80b3c77",
+    "hard_negative_epsilon_0.000": "55a919744a6211c6cbbf945bb0940da4dc4b9f504a5babfc9856b35ac278e3d2",
+    "hard_negative_epsilon_0.005": "55a919744a6211c6cbbf945bb0940da4dc4b9f504a5babfc9856b35ac278e3d2",
+    "hard_negative_epsilon_0.010": "55a919744a6211c6cbbf945bb0940da4dc4b9f504a5babfc9856b35ac278e3d2",
+    "hard_negative_epsilon_0.020": "55a919744a6211c6cbbf945bb0940da4dc4b9f504a5babfc9856b35ac278e3d2",
+    "hard_negative_epsilon_0.040": "55a919744a6211c6cbbf945bb0940da4dc4b9f504a5babfc9856b35ac278e3d2",
+    "hard_negative_epsilon_0.080": "55a919744a6211c6cbbf945bb0940da4dc4b9f504a5babfc9856b35ac278e3d2",
+    "nll_epsilon_0.000": "56856071abcbe1a3cf576ddee561ccb75245f4d4bfb094b762d415b30ab24872",
+    "nll_epsilon_0.005": "56856071abcbe1a3cf576ddee561ccb75245f4d4bfb094b762d415b30ab24872",
+    "nll_epsilon_0.010": "56856071abcbe1a3cf576ddee561ccb75245f4d4bfb094b762d415b30ab24872",
+    "nll_epsilon_0.020": "56856071abcbe1a3cf576ddee561ccb75245f4d4bfb094b762d415b30ab24872",
+    "nll_epsilon_0.040": "56856071abcbe1a3cf576ddee561ccb75245f4d4bfb094b762d415b30ab24872",
+    "nll_epsilon_0.080": "56856071abcbe1a3cf576ddee561ccb75245f4d4bfb094b762d415b30ab24872",
+    "projector_hard_negative": "55a919744a6211c6cbbf945bb0940da4dc4b9f504a5babfc9856b35ac278e3d2",
+    "projector_main": "56856071abcbe1a3cf576ddee561ccb75245f4d4bfb094b762d415b30ab24872",
+    "projector_unbounded": "56856071abcbe1a3cf576ddee561ccb75245f4d4bfb094b762d415b30ab24872"
+  },
+  "gate_selection": {
+    "epoch": 2,
+    "stop_metrics": {
+      "nll": 1.386643409729004,
+      "accuracy": 0.25,
+      "macro_f1": 0.1,
+      "target_recall": 0.0,
+      "ti_intrusion_to_target": 0.0,
+      "metallic_intrusion_to_target": 0.0,
+      "mean_gate": 0.5054300427436829
+    }
+  },
+  "q0_selection_baseline": {
+    "nll": 1.3866456747055054,
+    "accuracy": 0.25,
+    "macro_f1": 0.1,
+    "target_recall": 0.0,
+    "ti_intrusion_to_target": 0.0,
+    "metallic_intrusion_to_target": 0.0
+  },
+  "main_selection": {
+    "type": "learned",
+    "epoch": 2,
+    "epsilon_target": 0.0,
+    "stop_metrics": {
+      "nll": 1.3866444826126099,
+      "accuracy": 0.25,
+      "macro_f1": 0.1,
+      "target_recall": 0.0,
+      "ti_intrusion_to_target": 0.0,
+      "metallic_intrusion_to_target": 0.0,
+      "max_target_harm": 0.0,
+      "max_identity_residual": 1.9173967302776873e-08,
+      "mean_projected_route": 0.4853355586528778,
+      "cap_activation_rate": 0.0
+    },
+    "state_sha256": "f807f7b6aa4670e39fc90d8e19d29d5a2b3169b76e0ceaaf3890b91e9ecb6bb4",
+    "objective": "nll"
+  },
+  "hard_negative_selection": {
+    "type": "learned",
+    "epoch": 1,
+    "epsilon_target": 0.0,
+    "stop_metrics": {
+      "nll": 1.3866446018218994,
+      "accuracy": 0.25,
+      "macro_f1": 0.1,
+      "target_recall": 0.0,
+      "ti_intrusion_to_target": 0.0,
+      "metallic_intrusion_to_target": 0.0,
+      "max_target_harm": 0.0,
+      "max_identity_residual": 1.3074895832687616e-08,
+      "mean_projected_route": 0.4786476194858551,
+      "cap_activation_rate": 0.0
+    },
+    "state_sha256": "043b2bb9a840ba97616b77c59c7af2918ad259e483b3cfb43be132f8e1b3107b",
+    "objective": "nll_plus_hard_negative"
+  },
+  "unbounded_selection": {
+    "type": "learned",
+    "epoch": 2,
+    "epsilon_target": 0.0,
+    "stop_metrics": {
+      "nll": 1.3866444826126099,
+      "accuracy": 0.25,
+      "macro_f1": 0.1,
+      "target_recall": 0.0,
+      "ti_intrusion_to_target": 0.0,
+      "metallic_intrusion_to_target": 0.0,
+      "max_target_harm": 0.0,
+      "max_identity_residual": 1.9173967302776873e-08,
+      "mean_projected_route": 0.4853355586528778,
+      "cap_activation_rate": 0.0
+    },
+    "state_sha256": "f807f7b6aa4670e39fc90d8e19d29d5a2b3169b76e0ceaaf3890b91e9ecb6bb4",
+    "objective": "unbounded_nll"
+  },
+  "epsilon_candidates": {
+    "nll": [
+      {
+        "type": "learned",
+        "epoch": 2,
+        "epsilon_target": 0.0,
+        "stop_metrics": {
+          "nll": 1.3866444826126099,
+          "accuracy": 0.25,
+          "macro_f1": 0.1,
+          "target_recall": 0.0,
+          "ti_intrusion_to_target": 0.0,
+          "metallic_intrusion_to_target": 0.0,
+          "max_target_harm": 0.0,
+          "max_identity_residual": 1.9173967302776873e-08,
+          "mean_projected_route": 0.4853355586528778,
+          "cap_activation_rate": 0.0
+        },
+        "state_sha256": "f807f7b6aa4670e39fc90d8e19d29d5a2b3169b76e0ceaaf3890b91e9ecb6bb4",
+        "objective": "nll"
+      },
+      {
+        "type": "learned",
+        "epoch": 2,
+        "epsilon_target": 0.005,
+        "stop_metrics": {
+          "nll": 1.3866444826126099,
+          "accuracy": 0.25,
+          "macro_f1": 0.1,
+          "target_recall": 0.0,
+          "ti_intrusion_to_target": 0.0,
+          "metallic_intrusion_to_target": 0.0,
+          "max_target_harm": 0.0,
+          "max_identity_residual": 1.9173967302776873e-08,
+          "mean_projected_route": 0.4853355586528778,
+          "cap_activation_rate": 0.0
+        },
+        "state_sha256": "f807f7b6aa4670e39fc90d8e19d29d5a2b3169b76e0ceaaf3890b91e9ecb6bb4",
+        "objective": "nll"
+      },
+      {
+        "type": "learned",
+        "epoch": 2,
+        "epsilon_target": 0.01,
+        "stop_metrics": {
+          "nll": 1.3866444826126099,
+          "accuracy": 0.25,
+          "macro_f1": 0.1,
+          "target_recall": 0.0,
+          "ti_intrusion_to_target": 0.0,
+          "metallic_intrusion_to_target": 0.0,
+          "max_target_harm": 0.0,
+          "max_identity_residual": 1.9173967302776873e-08,
+          "mean_projected_route": 0.4853355586528778,
+          "cap_activation_rate": 0.0
+        },
+        "state_sha256": "f807f7b6aa4670e39fc90d8e19d29d5a2b3169b76e0ceaaf3890b91e9ecb6bb4",
+        "objective": "nll"
+      },
+      {
+        "type": "learned",
+        "epoch": 2,
+        "epsilon_target": 0.02,
+        "stop_metrics": {
+          "nll": 1.3866444826126099,
+          "accuracy": 0.25,
+          "macro_f1": 0.1,
+          "target_recall": 0.0,
+          "ti_intrusion_to_target": 0.0,
+          "metallic_intrusion_to_target": 0.0,
+          "max_target_harm": 0.0,
+          "max_identity_residual": 1.9173967302776873e-08,
+          "mean_projected_route": 0.4853355586528778,
+          "cap_activation_rate": 0.0
+        },
+        "state_sha256": "f807f7b6aa4670e39fc90d8e19d29d5a2b3169b76e0ceaaf3890b91e9ecb6bb4",
+        "objective": "nll"
+      },
+      {
+        "type": "learned",
+        "epoch": 2,
+        "epsilon_target": 0.04,
+        "stop_metrics": {
+          "nll": 1.3866444826126099,
+          "accuracy": 0.25,
+          "macro_f1": 0.1,
+          "target_recall": 0.0,
+          "ti_intrusion_to_target": 0.0,
+          "metallic_intrusion_to_target": 0.0,
+          "max_target_harm": 0.0,
+          "max_identity_residual": 1.9173967302776873e-08,
+          "mean_projected_route": 0.4853355586528778,
+          "cap_activation_rate": 0.0
+        },
+        "state_sha256": "f807f7b6aa4670e39fc90d8e19d29d5a2b3169b76e0ceaaf3890b91e9ecb6bb4",
+        "objective": "nll"
+      },
+      {
+        "type": "learned",
+        "epoch": 2,
+        "epsilon_target": 0.08,
+        "stop_metrics": {
+          "nll": 1.3866444826126099,
+          "accuracy": 0.25,
+          "macro_f1": 0.1,
+          "target_recall": 0.0,
+          "ti_intrusion_to_target": 0.0,
+          "metallic_intrusion_to_target": 0.0,
+          "max_target_harm": 0.0,
+          "max_identity_residual": 1.9173967302776873e-08,
+          "mean_projected_route": 0.4853355586528778,
+          "cap_activation_rate": 0.0
+        },
+        "state_sha256": "f807f7b6aa4670e39fc90d8e19d29d5a2b3169b76e0ceaaf3890b91e9ecb6bb4",
+        "objective": "nll"
+      }
+    ],
+    "hard_negative": [
+      {
+        "type": "learned",
+        "epoch": 1,
+        "epsilon_target": 0.0,
+        "stop_metrics": {
+          "nll": 1.3866446018218994,
+          "accuracy": 0.25,
+          "macro_f1": 0.1,
+          "target_recall": 0.0,
+          "ti_intrusion_to_target": 0.0,
+          "metallic_intrusion_to_target": 0.0,
+          "max_target_harm": 0.0,
+          "max_identity_residual": 1.3074895832687616e-08,
+          "mean_projected_route": 0.4786476194858551,
+          "cap_activation_rate": 0.0
+        },
+        "state_sha256": "043b2bb9a840ba97616b77c59c7af2918ad259e483b3cfb43be132f8e1b3107b",
+        "objective": "nll_plus_hard_negative"
+      },
+      {
+        "type": "learned",
+        "epoch": 1,
+        "epsilon_target": 0.005,
+        "stop_metrics": {
+          "nll": 1.3866446018218994,
+          "accuracy": 0.25,
+          "macro_f1": 0.1,
+          "target_recall": 0.0,
+          "ti_intrusion_to_target": 0.0,
+          "metallic_intrusion_to_target": 0.0,
+          "max_target_harm": 0.0,
+          "max_identity_residual": 1.3074895832687616e-08,
+          "mean_projected_route": 0.4786476194858551,
+          "cap_activation_rate": 0.0
+        },
+        "state_sha256": "043b2bb9a840ba97616b77c59c7af2918ad259e483b3cfb43be132f8e1b3107b",
+        "objective": "nll_plus_hard_negative"
+      },
+      {
+        "type": "learned",
+        "epoch": 1,
+        "epsilon_target": 0.01,
+        "stop_metrics": {
+          "nll": 1.3866446018218994,
+          "accuracy": 0.25,
+          "macro_f1": 0.1,
+          "target_recall": 0.0,
+          "ti_intrusion_to_target": 0.0,
+          "metallic_intrusion_to_target": 0.0,
+          "max_target_harm": 0.0,
+          "max_identity_residual": 1.3074895832687616e-08,
+          "mean_projected_route": 0.4786476194858551,
+          "cap_activation_rate": 0.0
+        },
+        "state_sha256": "043b2bb9a840ba97616b77c59c7af2918ad259e483b3cfb43be132f8e1b3107b",
+        "objective": "nll_plus_hard_negative"
+      },
+      {
+        "type": "learned",
+        "epoch": 1,
+        "epsilon_target": 0.02,
+        "stop_metrics": {
+          "nll": 1.3866446018218994,
+          "accuracy": 0.25,
+          "macro_f1": 0.1,
+          "target_recall": 0.0,
+          "ti_intrusion_to_target": 0.0,
+          "metallic_intrusion_to_target": 0.0,
+          "max_target_harm": 0.0,
+          "max_identity_residual": 1.3074895832687616e-08,
+          "mean_projected_route": 0.4786476194858551,
+          "cap_activation_rate": 0.0
+        },
+        "state_sha256": "043b2bb9a840ba97616b77c59c7af2918ad259e483b3cfb43be132f8e1b3107b",
+        "objective": "nll_plus_hard_negative"
+      },
+      {
+        "type": "learned",
+        "epoch": 1,
+        "epsilon_target": 0.04,
+        "stop_metrics": {
+          "nll": 1.3866446018218994,
+          "accuracy": 0.25,
+          "macro_f1": 0.1,
+          "target_recall": 0.0,
+          "ti_intrusion_to_target": 0.0,
+          "metallic_intrusion_to_target": 0.0,
+          "max_target_harm": 0.0,
+          "max_identity_residual": 1.3074895832687616e-08,
+          "mean_projected_route": 0.4786476194858551,
+          "cap_activation_rate": 0.0
+        },
+        "state_sha256": "043b2bb9a840ba97616b77c59c7af2918ad259e483b3cfb43be132f8e1b3107b",
+        "objective": "nll_plus_hard_negative"
+      },
+      {
+        "type": "learned",
+        "epoch": 1,
+        "epsilon_target": 0.08,
+        "stop_metrics": {
+          "nll": 1.3866446018218994,
+          "accuracy": 0.25,
+          "macro_f1": 0.1,
+          "target_recall": 0.0,
+          "ti_intrusion_to_target": 0.0,
+          "metallic_intrusion_to_target": 0.0,
+          "max_target_harm": 0.0,
+          "max_identity_residual": 1.3074895832687616e-08,
+          "mean_projected_route": 0.4786476194858551,
+          "cap_activation_rate": 0.0
+        },
+        "state_sha256": "043b2bb9a840ba97616b77c59c7af2918ad259e483b3cfb43be132f8e1b3107b",
+        "objective": "nll_plus_hard_negative"
+      }
+    ]
+  },
+  "ablation_selections": {
+    "remove_verifier_probabilities": {
+      "type": "learned",
+      "epoch": 1,
+      "epsilon_target": 0.0,
+      "stop_metrics": {
+        "nll": 1.3866446018218994,
+        "accuracy": 0.25,
+        "macro_f1": 0.1,
+        "target_recall": 0.0,
+        "ti_intrusion_to_target": 0.0,
+        "metallic_intrusion_to_target": 0.0,
+        "max_target_harm": 0.0,
+        "max_identity_residual": 1.4588295016437769e-09,
+        "mean_projected_route": 0.473599374294281,
+        "cap_activation_rate": 0.0
+      },
+      "state_sha256": "68b01d31e668fde5161511f1ac9689f6690f2ce0fed4a1a1fa5f5faa89c8b093",
+      "objective": "nll"
+    },
+    "remove_abs_difference": {
+      "type": "learned",
+      "epoch": 2,
+      "epsilon_target": 0.0,
+      "stop_metrics": {
+        "nll": 1.3866444826126099,
+        "accuracy": 0.25,
+        "macro_f1": 0.1,
+        "target_recall": 0.0,
+        "ti_intrusion_to_target": 0.0,
+        "metallic_intrusion_to_target": 0.0,
+        "max_target_harm": 0.0,
+        "max_identity_residual": 1.917942427098751e-08,
+        "mean_projected_route": 0.48533567786216736,
+        "cap_activation_rate": 0.0
+      },
+      "state_sha256": "9d6afefedfe46afd6d2bcfad4dd1b355e92e6f3acfebac3d0ae727db21486726",
+      "objective": "nll"
+    },
+    "remove_uncertainty": {
+      "type": "learned",
+      "epoch": 2,
+      "epsilon_target": 0.0,
+      "stop_metrics": {
+        "nll": 1.3866444826126099,
+        "accuracy": 0.25,
+        "macro_f1": 0.1,
+        "target_recall": 0.0,
+        "ti_intrusion_to_target": 0.0,
+        "metallic_intrusion_to_target": 0.0,
+        "max_target_harm": 0.0,
+        "max_identity_residual": 6.059053703211248e-09,
+        "mean_projected_route": 0.49240246415138245,
+        "cap_activation_rate": 0.0
+      },
+      "state_sha256": "da5015ec7a7df06913166126a2acef97bfa2e61f5600f735c0fcebf01be06e4d",
+      "objective": "nll"
+    }
+  },
+  "update_set_audit": {
+    "row_counts": {
+      "expert_fit": 8,
+      "gate_fit": 4,
+      "gate_stop_projector_fit": 4,
+      "projector_stop": 4,
+      "outer_eval": 4
+    },
+    "group_counts": {
+      "expert_fit": 8,
+      "gate_fit": 4,
+      "gate_stop_projector_fit": 4,
+      "projector_stop": 4,
+      "outer_eval": 4
+    },
+    "cross_subset_image_overlap_count": 0,
+    "cross_subset_group_overlap_count": 0,
+    "parameter_update_subsets": {
+      "expert": "expert_fit",
+      "gate": "gate_fit",
+      "projector": "gate_stop_projector_fit"
+    },
+    "selection_subsets": {
+      "expert": "expert_stop",
+      "gate": "gate_stop_projector_fit",
+      "projector_and_epsilon": "projector_stop"
+    }
+  }
+}

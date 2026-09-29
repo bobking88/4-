@@ -1,0 +1,149 @@
+{
+  "fold": 0,
+  "event_trace": [
+    "lock_written",
+    "outer_tensor_loaded"
+  ],
+  "method_metrics": {
+    "M0": {
+      "nll": 1.3864290714263916,
+      "accuracy": 0.25,
+      "macro_f1": 0.1,
+      "target_recall": 0.0,
+      "ti_intrusion_to_target": 0.0,
+      "metallic_intrusion_to_target": 0.0,
+      "max_target_harm": 0.0
+    },
+    "M1": {
+      "nll": 1.3866456747055054,
+      "accuracy": 0.25,
+      "macro_f1": 0.1,
+      "target_recall": 0.0,
+      "ti_intrusion_to_target": 0.0,
+      "metallic_intrusion_to_target": 0.0,
+      "max_target_harm": 0.0
+    },
+    "M2": {
+      "nll": 1.386643409729004,
+      "accuracy": 0.25,
+      "macro_f1": 0.1,
+      "target_recall": 0.0,
+      "ti_intrusion_to_target": 0.0,
+      "metallic_intrusion_to_target": 0.0,
+      "max_target_harm": 0.0
+    },
+    "M3": {
+      "nll": 1.3866444826126099,
+      "accuracy": 0.25,
+      "macro_f1": 0.1,
+      "target_recall": 0.0,
+      "ti_intrusion_to_target": 0.0,
+      "metallic_intrusion_to_target": 0.0,
+      "max_target_harm": 0.0
+    },
+    "M4": {
+      "nll": 1.386643409729004,
+      "accuracy": 0.25,
+      "macro_f1": 0.1,
+      "target_recall": 0.0,
+      "ti_intrusion_to_target": 0.0,
+      "metallic_intrusion_to_target": 0.0,
+      "max_target_harm": 0.0
+    },
+    "M5": {
+      "nll": 1.3866444826126099,
+      "accuracy": 0.25,
+      "macro_f1": 0.1,
+      "target_recall": 0.0,
+      "ti_intrusion_to_target": 0.0,
+      "metallic_intrusion_to_target": 0.0,
+      "max_target_harm": 0.0
+    },
+    "M6": {
+      "nll": 1.3866446018218994,
+      "accuracy": 0.25,
+      "macro_f1": 0.1,
+      "target_recall": 0.0,
+      "ti_intrusion_to_target": 0.0,
+      "metallic_intrusion_to_target": 0.0,
+      "max_target_harm": 0.0
+    }
+  },
+  "ablation_metrics": {
+    "remove_verifier_probabilities": {
+      "nll": 1.3866446018218994,
+      "accuracy": 0.25,
+      "macro_f1": 0.1,
+      "target_recall": 0.0,
+      "ti_intrusion_to_target": 0.0,
+      "metallic_intrusion_to_target": 0.0
+    },
+    "remove_abs_difference": {
+      "nll": 1.3866444826126099,
+      "accuracy": 0.25,
+      "macro_f1": 0.1,
+      "target_recall": 0.0,
+      "ti_intrusion_to_target": 0.0,
+      "metallic_intrusion_to_target": 0.0
+    },
+    "remove_uncertainty": {
+      "nll": 1.3866444826126099,
+      "accuracy": 0.25,
+      "macro_f1": 0.1,
+      "target_recall": 0.0,
+      "ti_intrusion_to_target": 0.0,
+      "metallic_intrusion_to_target": 0.0
+    }
+  },
+  "epsilon_metrics": {
+    "epsilon_0.000": {
+      "nll": 1.3866444826126099,
+      "accuracy": 0.25,
+      "macro_f1": 0.1,
+      "target_recall": 0.0,
+      "ti_intrusion_to_target": 0.0,
+      "metallic_intrusion_to_target": 0.0
+    },
+    "epsilon_0.005": {
+      "nll": 1.3866444826126099,
+      "accuracy": 0.25,
+      "macro_f1": 0.1,
+      "target_recall": 0.0,
+      "ti_intrusion_to_target": 0.0,
+      "metallic_intrusion_to_target": 0.0
+    },
+    "epsilon_0.010": {
+      "nll": 1.3866444826126099,
+      "accuracy": 0.25,
+      "macro_f1": 0.1,
+      "target_recall": 0.0,
+      "ti_intrusion_to_target": 0.0,
+      "metallic_intrusion_to_target": 0.0
+    },
+    "epsilon_0.020": {
+      "nll": 1.3866444826126099,
+      "accuracy": 0.25,
+      "macro_f1": 0.1,
+      "target_recall": 0.0,
+      "ti_intrusion_to_target": 0.0,
+      "metallic_intrusion_to_target": 0.0
+    },
+    "epsilon_0.040": {
+      "nll": 1.3866444826126099,
+      "accuracy": 0.25,
+      "macro_f1": 0.1,
+      "target_recall": 0.0,
+      "ti_intrusion_to_target": 0.0,
+      "metallic_intrusion_to_target": 0.0
+    },
+    "epsilon_0.080": {
+      "nll": 1.3866444826126099,
+      "accuracy": 0.25,
+      "macro_f1": 0.1,
+      "target_recall": 0.0,
+      "ti_intrusion_to_target": 0.0,
+      "metallic_intrusion_to_target": 0.0
+    }
+  },
+  "selection_lock": "outputs\\training\\tc_oos_rsg_smoke\\fold_0\\tc_projection\\selection_lock.json"
+}
