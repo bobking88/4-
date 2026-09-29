@@ -1,0 +1,15 @@
+{
+  "row_count": 4,
+  "simplex_violation_count": 0,
+  "target_safety_violation_count": 0,
+  "decomposition_violation_count": 0,
+  "convex_nll_bound_violation_count": 0,
+  "nonfinite_or_negative_count": 0,
+  "cross_fold_group_overlap_count": 0,
+  "max_target_harm": -2.1785497665405273e-05,
+  "max_decomposition_residual": 1.9173463261523693e-08,
+  "tolerance": 1e-06,
+  "all_invariants_pass": true,
+  "scope": "one-fold CPU smoke",
+  "selected_epsilon_target": 0.0
+}
