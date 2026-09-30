@@ -28,7 +28,12 @@ from run_tc_oos_rsg_experiments import (
 
 
 ROOT = Path(__file__).resolve().parents[1]
-ANCHORS = ((.60, .05, .005), (.70, .10, .010), (.80, .15, .010))
+ANCHORS = ((.40, .05, .005), (.45, .05, .010), (.50, .10, .010))
+
+
+def validate_anchor_budget_config(config: dict) -> None:
+    if config["tau_p"] - config["epsilon_max"] > (1 + config["delta"]) / 2:
+        raise ValueError("Margin protection is redundant under this posterior budget and anchor threshold.")
 
 
 def development_grid() -> list[dict[str, float]]:
@@ -58,6 +63,7 @@ def train_policy(
 ) -> dict:
     if epochs < 1 or len(fit_cache["labels"]) == 0 or len(stop_cache["labels"]) == 0:
         raise ValueError("Training and stopping sets must be nonempty; epochs positive.")
+    validate_anchor_budget_config(config)
     torch.manual_seed(seed)
     model = AdaptiveBudgetPolicy().to(fit_cache["evidence"].device)
     initial_sha = state_dict_sha256(model.state_dict())
@@ -119,6 +125,9 @@ def evaluate_policy(cache: Mapping[str, torch.Tensor], trained: dict, *, lambda_
     anchors = projected["anchor_mask"]
     audit["posterior_conditional_activation_rate"] = float(projected["posterior_active"][harmful].double().mean()) if bool(harmful.any()) else 0.0
     audit["margin_conditional_activation_rate"] = float(projected["margin_active"][anchors].double().mean()) if bool(anchors.any()) else 0.0
+    margin_without_post = torch.minimum(projected["raw_route"], projected["posterior_cap"])
+    marginal_active = projected["projected_route"] < margin_without_post - 1e-7
+    audit["independent_margin_activation_count"] = int(marginal_active.sum())
     eps = output["epsilon"].flatten()
     for name, quantile in (("p05", .05), ("p50", .50), ("p95", .95)):
         audit[f"epsilon_{name}"] = float(torch.quantile(eps, quantile))
@@ -144,6 +153,8 @@ def select_development_candidate(candidates: list[dict], q0_metrics: dict) -> di
         if audit["anchor_count"] < 1 or audit["anchor_retention_rate"] != 1.0:
             continue
         if audit["epsilon_std"] <= 1e-6:
+            continue
+        if audit.get("independent_margin_activation_count", 0) < 1:
             continue
         if metrics["target_recall"] < q0_metrics["target_recall"] - .01 - 1e-12:
             continue
@@ -217,7 +228,7 @@ def main(argv=None):
     parser.add_argument("--dataset-root", type=Path, required=True)
     parser.add_argument("--protocol-dir", type=Path, default=ROOT / "outputs/training/tc_oos_rsg_manifests_v1")
     parser.add_argument("--source-dir", type=Path, default=ROOT / "outputs/training/tc_oos_rsg_v1")
-    parser.add_argument("--output-dir", type=Path, default=ROOT / "outputs/training/abmp_rsg_v2/development_fold_0")
+    parser.add_argument("--output-dir", type=Path, default=ROOT / "outputs/training/abmp_rsg_v2/development_fold_0_r2")
     parser.add_argument("--device", choices=("cpu", "cuda"), default="cuda")
     parser.add_argument("--epochs", type=int, default=30)
     args = parser.parse_args(argv)
@@ -227,7 +238,7 @@ def main(argv=None):
     caches, records, provenance = load_fold_zero_caches(args.protocol_dir, args.source_dir, args.dataset_root, torch.device(args.device))
     fit, stop, dev = (caches[name] for name in ("gate_stop_projector_fit", "projector_stop", "outer_eval"))
     q0_metrics = calculate_probability_metrics(dev["q0"], dev["labels"])
-    _write_json(args.output_dir / "run_config.json", {"protocol": "abmp_rsg_v2", "purpose": "development_only", "epochs": args.epochs, "grid": development_grid(), "source": provenance, "started": started})
+    _write_json(args.output_dir / "run_config.json", {"protocol": "abmp_rsg_v2_r2", "purpose": "development_only", "epochs": args.epochs, "grid": development_grid(), "source": provenance, "started": started})
     candidates, trained_models = [], {}
     for index, config in enumerate([c for c in development_grid() if c["lambda_cal"] == 0.]):
         name = f"policy_{index:02d}"
@@ -275,7 +286,7 @@ def main(argv=None):
     methods["A3"] = {"metrics": calculate_probability_metrics(result["final_probabilities"], dev["labels"]), "fixed_epsilon": old_lock["selected_epsilon_target"]}
     _write_prediction_csv(args.output_dir / "predictions/A3.csv", records["outer_eval"], result["final_probabilities"], result["projected_route"], 0)
     summary = {
-        "protocol": "abmp_rsg_v2", "fold": 0, "purpose": "development_only",
+        "protocol": "abmp_rsg_v2_r2", "fold": 0, "purpose": "development_only",
         "status": "DEVELOPMENT_GATE_PASSED" if selected else "DEVELOPMENT_GATE_FAILED",
         "selected": {**_serializable_result(selected), "policy_name": selected["policy_name"], "state_sha256": selected["state_sha256"]} if selected else None,
         "diagnostic_config": full_config, "candidate_count": len(candidates),
@@ -287,7 +298,7 @@ def main(argv=None):
     if selected:
         git_commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
         lock = {
-            "protocol": "abmp_rsg_v2", "status": "development_locked_before_confirmation",
+            "protocol": "abmp_rsg_v2_r2", "status": "development_locked_before_confirmation",
             "selected_config": selected["config"], "epochs": args.epochs,
             "policy_seed": 20260930, "alpha": .25, "beta": .10, "tau_r": .25,
             "confirmed_folds": [1, 2], "development_fold": 0, "code_commit": git_commit,

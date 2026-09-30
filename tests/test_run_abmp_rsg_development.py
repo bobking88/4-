@@ -8,7 +8,7 @@ import torch
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 from run_abmp_rsg_development import (
     development_grid, evaluate_policy, select_development_candidate,
-    train_policy, prepare_output_directory,
+    train_policy, prepare_output_directory, validate_anchor_budget_config,
 )
 
 
@@ -16,7 +16,7 @@ def candidate(nll=.8, recall=.6, activation=.1, eps=.04):
     return {
         "config": {"epsilon_max": eps, "tau_p": .7, "tau_m": .1, "delta": .01, "lambda_cal": 0.0},
         "metrics": {"nll": nll, "target_recall": recall},
-        "audit": {"posterior_violations": 0, "margin_violations": 0, "anchor_count": 12, "anchor_retention_rate": 1., "posterior_conditional_activation_rate": activation, "margin_conditional_activation_rate": 0., "max_difference_from_q0": .02, "max_difference_from_unbounded": .01, "epsilon_mean": .02, "anchor_coverage": .2, "epsilon_std": .003},
+        "audit": {"posterior_violations": 0, "margin_violations": 0, "anchor_count": 12, "anchor_retention_rate": 1., "posterior_conditional_activation_rate": activation, "margin_conditional_activation_rate": 0., "max_difference_from_q0": .02, "max_difference_from_unbounded": .01, "epsilon_mean": .02, "anchor_coverage": .2, "epsilon_std": .003, "independent_margin_activation_count": 1},
     }
 
 
@@ -29,6 +29,13 @@ class DevelopmentTests(unittest.TestCase):
         self.assertEqual(len(grid), 27)
         self.assertEqual(len({tuple(sorted(c.items())) for c in grid}), 27)
         self.assertEqual({c["epsilon_max"] for c in grid}, {.02, .04, .08})
+        for config in grid:
+            validate_anchor_budget_config(config)
+
+    def test_redundant_confidence_budget_configuration_is_rejected(self):
+        with self.assertRaisesRegex(ValueError, "redundant"):
+            validate_anchor_budget_config({"tau_p": .60, "tau_m": .05, "delta": .005, "epsilon_max": .08})
+        validate_anchor_budget_config({"tau_p": .40, "tau_m": .05, "delta": .005, "epsilon_max": .04})
 
     def test_selection_rejects_nonfinite_or_inactive_or_unsafe(self):
         for change in ({"nll": float("nan")}, {"activation": 0}, {"recall": .58}):
@@ -36,6 +43,9 @@ class DevelopmentTests(unittest.TestCase):
         broken = candidate()
         broken["audit"]["posterior_violations"] = 1
         self.assertIsNone(select_development_candidate([broken], {"target_recall": .6}))
+        redundant = candidate()
+        redundant["audit"]["independent_margin_activation_count"] = 0
+        self.assertIsNone(select_development_candidate([redundant], {"target_recall": .6}))
 
     def test_selection_minimizes_nll_then_budget(self):
         larger = candidate(nll=.8, eps=.08)

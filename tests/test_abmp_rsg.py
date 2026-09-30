@@ -79,6 +79,16 @@ class ABMPProjectionTests(unittest.TestCase):
         self.assertEqual(audit["anchor_false_positive_count"], 1)
         self.assertEqual(audit["anchor_retention_rate"], 1.0)
 
+    def test_margin_is_independent_on_boundary_target_anchor(self):
+        q0 = torch.tensor([[.42, .36, .11, .11]], dtype=torch.float64)
+        qp = torch.tensor([[.38, .42, .10, .10]], dtype=torch.float64)
+        args = (q0, qp, torch.tensor([[.9]], dtype=torch.float64), .04)
+        full = apply_abmp_projection(*args, tau_p=.4, tau_m=.05, delta=.005)
+        posterior = apply_abmp_projection(*args, tau_p=.4, tau_m=.05, delta=.005, mode="posterior")
+        self.assertEqual(int(full["final_probabilities"].argmax(1)), 0)
+        self.assertEqual(int(posterior["final_probabilities"].argmax(1)), 1)
+        self.assertLess(float(full["projected_route"]), float(posterior["projected_route"]))
+
     def test_random_simplexes_satisfy_all_invariants(self):
         count = 10000
         q0 = torch.rand(count, 4, dtype=torch.float64)

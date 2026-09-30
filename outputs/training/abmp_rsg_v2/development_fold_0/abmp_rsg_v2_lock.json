@@ -1,0 +1,66 @@
+{
+  "protocol": "abmp_rsg_v2",
+  "status": "development_locked_before_confirmation",
+  "selected_config": {
+    "epsilon_max": 0.04,
+    "tau_p": 0.6,
+    "tau_m": 0.05,
+    "delta": 0.005,
+    "lambda_cal": 0.0
+  },
+  "epochs": 30,
+  "policy_seed": 20260930,
+  "alpha": 0.25,
+  "beta": 0.1,
+  "tau_r": 0.25,
+  "confirmed_folds": [
+    1,
+    2
+  ],
+  "development_fold": 0,
+  "code_commit": "aa41e03f54c2f517ec60ea64a68b81db1848e06f",
+  "development_summary_sha256": "57a9e98f0917c69c64f4b19e8ce9bc0a7a74ba0ba2454852879d4bb661756c1e",
+  "spec_sha256": "a4eff696098a9bdc3271d5ee1834f770019f1d89868107dcd9e175c509543a6e",
+  "source": {
+    "manifest_sha256": {
+      "expert_fit": "e9bc6630ee8eb41041e0582f05e8e0affd2a2608e0e7a0300b3a9e6d33016e40",
+      "expert_stop": "d51d946361e04263aa4e2181d28a23a1facf6ebddcd53c2ba8812123be705afd",
+      "gate_fit": "d15f34c560e6108563e8e2af181753da3d6f369ebce7d04dad8fb912822eea7a",
+      "gate_stop_projector_fit": "eb79afac38f664b22a4a58cc2fb38f1d32e698395c6c1824b051c99d11240531",
+      "projector_stop": "1a63741360e5ae8bc97377a86d761bbdb289ddcee11b24e184fa49b47a95bd09",
+      "outer_eval": "e8fe0789d8450d93efc8e2c4fe8fd48cb1e2125101d63c88ed3a3757f3e81518"
+    },
+    "expert_sha256": "ea50dbee3c8f6860ec4c901d180ad50959f51e97e8b5cb7cdc2d7e11d799e8f2",
+    "gate_sha256": "a8ed899d2ec5b8ba306e2e4c1e8f3b7da19b1bdfe32a638d329584a5a4a4d6bb",
+    "group_audit": {
+      "row_counts": {
+        "expert_fit": 2030,
+        "gate_fit": 340,
+        "gate_stop_projector_fit": 340,
+        "projector_stop": 340,
+        "outer_eval": 1696
+      },
+      "group_counts": {
+        "expert_fit": 2028,
+        "gate_fit": 340,
+        "gate_stop_projector_fit": 340,
+        "projector_stop": 340,
+        "outer_eval": 1695
+      },
+      "cross_subset_image_overlap_count": 0,
+      "cross_subset_group_overlap_count": 0,
+      "parameter_update_subsets": {
+        "expert": "expert_fit",
+        "gate": "gate_fit",
+        "projector": "gate_stop_projector_fit"
+      },
+      "selection_subsets": {
+        "expert": "expert_stop",
+        "gate": "gate_stop_projector_fit",
+        "projector_and_epsilon": "projector_stop"
+      }
+    },
+    "source_protocol": "tc_oos_rsg_v1"
+  },
+  "locked_at": "2026-09-30T15:30:54.778284+00:00"
+}
