@@ -1,7 +1,7 @@
 # ABMP-RSG-Net v2 自适应预算与边际保护风险监督门控网络设计规格
 
 日期：2026-09-30  
-状态：待用户书面复核  
+状态：用户确认 ABMP-RSG-Net v2；按持续执行授权实施  
 适用范围：技术报告方法升级、第一篇论文的理论方法与补充实验  
 英文名称：Adaptive-Budget and Margin-Protected Risk-Supervised Gating Network  
 简称：ABMP-RSG-Net v2
