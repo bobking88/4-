@@ -1,0 +1,40 @@
+{
+  "accuracy": 0.7214076246334311,
+  "macro_precision": 0.7021035928644624,
+  "macro_recall": 0.6963115131953731,
+  "macro_f1": 0.6987552709460984,
+  "class_recall": {
+    "target_mineral": 0.7014925373134329,
+    "ti_bearing_negative": 0.7633587786259542,
+    "gangue_negative": 0.7578947368421053,
+    "metallic_hard_negative": 0.5625
+  },
+  "confusion_matrix": [
+    [
+      47,
+      12,
+      2,
+      6
+    ],
+    [
+      10,
+      100,
+      14,
+      7
+    ],
+    [
+      4,
+      15,
+      72,
+      4
+    ],
+    [
+      9,
+      8,
+      4,
+      27
+    ]
+  ],
+  "test_loss": 0.8301108229544855,
+  "best_val_macro_f1": 0.6987552709460984
+}

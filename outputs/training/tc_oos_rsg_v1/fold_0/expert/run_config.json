@@ -1,0 +1,15 @@
+{
+  "seed": 20260927,
+  "pretrained": true,
+  "epochs": 30,
+  "batch_size": 16,
+  "num_workers": 0,
+  "selection_split": "expert_stop",
+  "outer_eval_used_for_selection": false,
+  "protocol_version": "tc_oos_rsg_v1",
+  "model": "hrgv",
+  "backbone": "efficientnet_b0",
+  "verifier_mode": "residual",
+  "lambda_gate_regret": 0.0,
+  "validation_only": true
+}

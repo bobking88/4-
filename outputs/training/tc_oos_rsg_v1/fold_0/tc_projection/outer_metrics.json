@@ -1,0 +1,149 @@
+{
+  "fold": 0,
+  "event_trace": [
+    "lock_written",
+    "outer_tensor_loaded"
+  ],
+  "method_metrics": {
+    "M0": {
+      "nll": 0.9046300649642944,
+      "accuracy": 0.6509433962264151,
+      "macro_f1": 0.6262812100996324,
+      "target_recall": 0.6385542168674699,
+      "ti_intrusion_to_target": 0.13425925925925924,
+      "metallic_intrusion_to_target": 0.22033898305084745,
+      "max_target_harm": 0.7859823703765869
+    },
+    "M1": {
+      "nll": 0.8298115134239197,
+      "accuracy": 0.6704009433962264,
+      "macro_f1": 0.6329895060294832,
+      "target_recall": 0.5602409638554218,
+      "ti_intrusion_to_target": 0.10648148148148148,
+      "metallic_intrusion_to_target": 0.23728813559322035,
+      "max_target_harm": 0.0
+    },
+    "M2": {
+      "nll": 0.8249448537826538,
+      "accuracy": 0.6709905660377358,
+      "macro_f1": 0.6343671173531775,
+      "target_recall": 0.5481927710843374,
+      "ti_intrusion_to_target": 0.10493827160493827,
+      "metallic_intrusion_to_target": 0.21610169491525424,
+      "max_target_harm": 0.07734256982803345
+    },
+    "M3": {
+      "nll": 0.8258383870124817,
+      "accuracy": 0.6704009433962264,
+      "macro_f1": 0.6334492004051384,
+      "target_recall": 0.5481927710843374,
+      "ti_intrusion_to_target": 0.10493827160493827,
+      "metallic_intrusion_to_target": 0.22033898305084745,
+      "max_target_harm": 0.06974506378173828
+    },
+    "M4": {
+      "nll": 0.8249448537826538,
+      "accuracy": 0.6709905660377358,
+      "macro_f1": 0.6343671173531775,
+      "target_recall": 0.5481927710843374,
+      "ti_intrusion_to_target": 0.10493827160493827,
+      "metallic_intrusion_to_target": 0.21610169491525424,
+      "max_target_harm": 0.07734256982803345
+    },
+    "M5": {
+      "nll": 0.8258383870124817,
+      "accuracy": 0.6704009433962264,
+      "macro_f1": 0.6334492004051384,
+      "target_recall": 0.5481927710843374,
+      "ti_intrusion_to_target": 0.10493827160493827,
+      "metallic_intrusion_to_target": 0.22033898305084745,
+      "max_target_harm": 0.06974506378173828
+    },
+    "M6": {
+      "nll": 0.8257436752319336,
+      "accuracy": 0.6704009433962264,
+      "macro_f1": 0.6334492004051384,
+      "target_recall": 0.5481927710843374,
+      "ti_intrusion_to_target": 0.10493827160493827,
+      "metallic_intrusion_to_target": 0.22033898305084745,
+      "max_target_harm": 0.0721893310546875
+    }
+  },
+  "ablation_metrics": {
+    "remove_verifier_probabilities": {
+      "nll": 0.8258015513420105,
+      "accuracy": 0.6704009433962264,
+      "macro_f1": 0.6334492004051384,
+      "target_recall": 0.5481927710843374,
+      "ti_intrusion_to_target": 0.10493827160493827,
+      "metallic_intrusion_to_target": 0.22033898305084745
+    },
+    "remove_abs_difference": {
+      "nll": 0.8258426785469055,
+      "accuracy": 0.6704009433962264,
+      "macro_f1": 0.6334492004051384,
+      "target_recall": 0.5481927710843374,
+      "ti_intrusion_to_target": 0.10493827160493827,
+      "metallic_intrusion_to_target": 0.22033898305084745
+    },
+    "remove_uncertainty": {
+      "nll": 0.8258305788040161,
+      "accuracy": 0.6704009433962264,
+      "macro_f1": 0.6334492004051384,
+      "target_recall": 0.5481927710843374,
+      "ti_intrusion_to_target": 0.10493827160493827,
+      "metallic_intrusion_to_target": 0.22033898305084745
+    }
+  },
+  "epsilon_metrics": {
+    "epsilon_0.000": {
+      "nll": 0.8283284306526184,
+      "accuracy": 0.6704009433962264,
+      "macro_f1": 0.6329895060294832,
+      "target_recall": 0.5602409638554218,
+      "ti_intrusion_to_target": 0.10648148148148148,
+      "metallic_intrusion_to_target": 0.23728813559322035
+    },
+    "epsilon_0.005": {
+      "nll": 0.8280017971992493,
+      "accuracy": 0.6698113207547169,
+      "macro_f1": 0.632223859893945,
+      "target_recall": 0.5542168674698795,
+      "ti_intrusion_to_target": 0.10648148148148148,
+      "metallic_intrusion_to_target": 0.2330508474576271
+    },
+    "epsilon_0.010": {
+      "nll": 0.8273724317550659,
+      "accuracy": 0.6698113207547169,
+      "macro_f1": 0.632223859893945,
+      "target_recall": 0.5542168674698795,
+      "ti_intrusion_to_target": 0.10648148148148148,
+      "metallic_intrusion_to_target": 0.2330508474576271
+    },
+    "epsilon_0.020": {
+      "nll": 0.8265790939331055,
+      "accuracy": 0.6692216981132075,
+      "macro_f1": 0.6319300088941533,
+      "target_recall": 0.5481927710843374,
+      "ti_intrusion_to_target": 0.10648148148148148,
+      "metallic_intrusion_to_target": 0.2245762711864407
+    },
+    "epsilon_0.040": {
+      "nll": 0.8260591626167297,
+      "accuracy": 0.6704009433962264,
+      "macro_f1": 0.6334492004051384,
+      "target_recall": 0.5481927710843374,
+      "ti_intrusion_to_target": 0.10493827160493827,
+      "metallic_intrusion_to_target": 0.22033898305084745
+    },
+    "epsilon_0.080": {
+      "nll": 0.8258383870124817,
+      "accuracy": 0.6704009433962264,
+      "macro_f1": 0.6334492004051384,
+      "target_recall": 0.5481927710843374,
+      "ti_intrusion_to_target": 0.10493827160493827,
+      "metallic_intrusion_to_target": 0.22033898305084745
+    }
+  },
+  "selection_lock": "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\training\\tc_oos_rsg_v1\\fold_0\\tc_projection\\selection_lock.json"
+}

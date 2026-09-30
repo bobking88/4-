@@ -1,0 +1,22 @@
+{
+  "protocol_version": "tc_oos_rsg_v1",
+  "fold": 0,
+  "seed": 20260927,
+  "gate_epochs": 30,
+  "projector_epochs": 30,
+  "batch_size": 256,
+  "epsilon_target_grid": [
+    0.0,
+    0.005,
+    0.01,
+    0.02,
+    0.04,
+    0.08
+  ],
+  "gate_objective": "final_nll_plus_0.1_weighted_regret",
+  "projector_objective": "nll",
+  "hard_negative_weight": 0.1,
+  "projection_evidence_dim": 18,
+  "outer_tensors_loaded_during_selection": false,
+  "smoke_run": false
+}

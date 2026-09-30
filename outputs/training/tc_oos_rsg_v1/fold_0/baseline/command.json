@@ -1,0 +1,30 @@
+{
+  "arguments": [
+    "D:\\成信工科研\\人工智能选矿\\.venv-training\\Scripts\\python.exe",
+    "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\scripts\\train_mineral_classifier.py",
+    "--manifest",
+    "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\training\\tc_oos_rsg_v1\\fold_0\\manifests\\baseline_training.csv",
+    "--dataset-root",
+    "D:\\成信工科研\\人工智能选矿\\数据集\\mindat_manual_positive_v1",
+    "--output-dir",
+    "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\training\\tc_oos_rsg_v1\\fold_0\\baseline",
+    "--model",
+    "efficientnet_b0",
+    "--loss",
+    "cross_entropy",
+    "--device",
+    "cuda",
+    "--seed",
+    "20260927",
+    "--epochs",
+    "30",
+    "--patience",
+    "8",
+    "--batch-size",
+    "16",
+    "--num-workers",
+    "0",
+    "--torch-home",
+    "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\.torch-cache"
+  ]
+}

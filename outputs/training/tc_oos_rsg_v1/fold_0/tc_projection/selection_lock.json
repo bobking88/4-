@@ -1,0 +1,441 @@
+{
+  "protocol_version": "tc_oos_rsg_v1",
+  "status": "locked_before_outer_tensor_loading",
+  "outer_tensors_loaded": false,
+  "selected_epsilon_target": 0.08,
+  "selection_reason": "minimum_safe_nll",
+  "gate_state_sha256": "14a232b87ed87ceafae200134fc66c697146ef25331d28457d47d7a3d46cfa1c",
+  "projector_state_sha256": "146bf91d132bee521bed4ccdb0ec8711f7b56df325a155f0acdcd217bec1a7c8",
+  "manifest_sha256": {
+    "expert_fit": "e9bc6630ee8eb41041e0582f05e8e0affd2a2608e0e7a0300b3a9e6d33016e40",
+    "expert_stop": "d51d946361e04263aa4e2181d28a23a1facf6ebddcd53c2ba8812123be705afd",
+    "gate_fit": "d15f34c560e6108563e8e2af181753da3d6f369ebce7d04dad8fb912822eea7a",
+    "gate_stop_projector_fit": "eb79afac38f664b22a4a58cc2fb38f1d32e698395c6c1824b051c99d11240531",
+    "outer_eval": "e8fe0789d8450d93efc8e2c4fe8fd48cb1e2125101d63c88ed3a3757f3e81518",
+    "projector_stop": "1a63741360e5ae8bc97377a86d761bbdb289ddcee11b24e184fa49b47a95bd09"
+  },
+  "model_file_sha256": {
+    "ablation_remove_abs_difference": "16bf7c671ee0fcd8a6fc5822528573d9e772a2c09672835b78fed736e35fb100",
+    "ablation_remove_uncertainty": "9194ff36db06e421ca14c477fcb0e74bfdda7920c0ae29946fd41d9b4b5a9c55",
+    "ablation_remove_verifier_probabilities": "f4e8444baf057f570c51b05ca5e540180fa848e6785111b5e3333e1c6412eb93",
+    "baseline": "552a0e0566c8f3174d042843d1224b2e6dc896667946e00a5fbb65998433c345",
+    "baseline_lock": "cac5dc7a933a3cc980ac13fbbab8500b7409f0f4152bec67683db7e62d5d5276",
+    "configuration": "d3a52c67796778999c573e02b5b85dcd71ff58c46685028680f03e1ff1a98f57",
+    "expert": "ea50dbee3c8f6860ec4c901d180ad50959f51e97e8b5cb7cdc2d7e11d799e8f2",
+    "expert_lock": "c75a6933c448650a2b59a802e8fdec407842567a419cb739ff90d93248cebf37",
+    "gate": "a8ed899d2ec5b8ba306e2e4c1e8f3b7da19b1bdfe32a638d329584a5a4a4d6bb",
+    "hard_negative_epsilon_0.000": "11e824dae12fae37400b6bf752daec9ba81647a7f21a7bd7babe09273e8d5ff0",
+    "hard_negative_epsilon_0.005": "6b307219630edc00d1cd31ddba6fe777d318a5810f856eb5db84de5f7b63dc0e",
+    "hard_negative_epsilon_0.010": "84252eca57dfc42099a0bce465f7f91139338972f48a9dab22bb177125da7684",
+    "hard_negative_epsilon_0.020": "7ced9b0c2a94782c750d412fdcf81662814dc3ab040e5b13e532bd4722609904",
+    "hard_negative_epsilon_0.040": "630179a06902057baf73e645bc7bab472ab48941841451e7c8775a3aaa3d5625",
+    "hard_negative_epsilon_0.080": "3c2dd1d89657c9624a3cf7ba95e134ab7f42e2649139146da4965e684b8e0c41",
+    "nll_epsilon_0.000": "5a2589cc1f8b37b57216710a41f811e69f24ecd6ef9fbbc35b6aefe068356850",
+    "nll_epsilon_0.005": "08c7b50795291e33ff9d09db0ff6bcc442dea93464222e92f3be2e911ed33b93",
+    "nll_epsilon_0.010": "df83cf429880bf192b113811e59f3d1e6b2414d9b69cb298ec941b0f9097b531",
+    "nll_epsilon_0.020": "ef7aaf9be92771c6c211d3d110c309d23aebb0c483416e87b659dd9a4fe78b95",
+    "nll_epsilon_0.040": "3a7a4d90ec7d423f40ac81d0950b3d86e817bce7d44513ed51c8006df5aa4fdc",
+    "nll_epsilon_0.080": "4482d913226836f862f780703556a9fbb1df2d4742aef418db02978f7c357b4c",
+    "projector_hard_negative": "3c2dd1d89657c9624a3cf7ba95e134ab7f42e2649139146da4965e684b8e0c41",
+    "projector_main": "4482d913226836f862f780703556a9fbb1df2d4742aef418db02978f7c357b4c",
+    "projector_unbounded": "4482d913226836f862f780703556a9fbb1df2d4742aef418db02978f7c357b4c"
+  },
+  "gate_selection": {
+    "epoch": 1,
+    "stop_metrics": {
+      "nll": 0.8372731804847717,
+      "accuracy": 0.6764705882352942,
+      "macro_f1": 0.6552938999508178,
+      "target_recall": 0.5303030303030303,
+      "ti_intrusion_to_target": 0.13076923076923078,
+      "metallic_intrusion_to_target": 0.1702127659574468,
+      "mean_gate": 0.4305012822151184
+    }
+  },
+  "q0_selection_baseline": {
+    "nll": 0.8677427172660828,
+    "accuracy": 0.6882352941176471,
+    "macro_f1": 0.6500992960564549,
+    "target_recall": 0.6515151515151515,
+    "ti_intrusion_to_target": 0.08461538461538462,
+    "metallic_intrusion_to_target": 0.1702127659574468
+  },
+  "main_selection": {
+    "type": "learned",
+    "epoch": 21,
+    "epsilon_target": 0.08,
+    "stop_metrics": {
+      "nll": 0.8635271787643433,
+      "accuracy": 0.6970588235294117,
+      "macro_f1": 0.6639686859239986,
+      "target_recall": 0.6515151515151515,
+      "ti_intrusion_to_target": 0.07692307692307693,
+      "metallic_intrusion_to_target": 0.1276595744680851,
+      "max_target_harm": 0.046489417552948,
+      "max_identity_residual": 5.587935447692871e-08,
+      "mean_projected_route": 0.6940051317214966,
+      "cap_activation_rate": 0.0
+    },
+    "state_sha256": "146bf91d132bee521bed4ccdb0ec8711f7b56df325a155f0acdcd217bec1a7c8",
+    "objective": "nll"
+  },
+  "hard_negative_selection": {
+    "type": "learned",
+    "epoch": 24,
+    "epsilon_target": 0.08,
+    "stop_metrics": {
+      "nll": 0.8634331822395325,
+      "accuracy": 0.6970588235294117,
+      "macro_f1": 0.6639686859239986,
+      "target_recall": 0.6515151515151515,
+      "ti_intrusion_to_target": 0.07692307692307693,
+      "metallic_intrusion_to_target": 0.1276595744680851,
+      "max_target_harm": 0.04806196689605713,
+      "max_identity_residual": 5.122274160385132e-08,
+      "mean_projected_route": 0.702130138874054,
+      "cap_activation_rate": 0.0
+    },
+    "state_sha256": "5d803d143a6006b07ef32deb8625be2985788184e0b9e0a0d058567356f2b651",
+    "objective": "nll_plus_hard_negative"
+  },
+  "unbounded_selection": {
+    "type": "learned",
+    "epoch": 21,
+    "epsilon_target": 0.0,
+    "stop_metrics": {
+      "nll": 0.8635271787643433,
+      "accuracy": 0.6970588235294117,
+      "macro_f1": 0.6639686859239986,
+      "target_recall": 0.6515151515151515,
+      "ti_intrusion_to_target": 0.07692307692307693,
+      "metallic_intrusion_to_target": 0.1276595744680851,
+      "max_target_harm": 0.046489417552948,
+      "max_identity_residual": 5.587935447692871e-08,
+      "mean_projected_route": 0.6940051317214966,
+      "cap_activation_rate": 0.0
+    },
+    "state_sha256": "146bf91d132bee521bed4ccdb0ec8711f7b56df325a155f0acdcd217bec1a7c8",
+    "objective": "unbounded_nll"
+  },
+  "epsilon_candidates": {
+    "nll": [
+      {
+        "type": "learned",
+        "epoch": 30,
+        "epsilon_target": 0.0,
+        "stop_metrics": {
+          "nll": 0.8654783964157104,
+          "accuracy": 0.6882352941176471,
+          "macro_f1": 0.6500992960564549,
+          "target_recall": 0.6515151515151515,
+          "ti_intrusion_to_target": 0.08461538461538462,
+          "metallic_intrusion_to_target": 0.1702127659574468,
+          "max_target_harm": 0.0,
+          "max_identity_residual": 3.958120942115784e-08,
+          "mean_projected_route": 0.2418149709701538,
+          "cap_activation_rate": 0.6294117647058823
+        },
+        "state_sha256": "7db2d15c6b98fe3ae9d3aa67d1cc41a21c03b4d6accd3a4a5465b24d0689b2f2",
+        "objective": "nll"
+      },
+      {
+        "type": "learned",
+        "epoch": 1,
+        "epsilon_target": 0.005,
+        "stop_metrics": {
+          "nll": 0.8654520511627197,
+          "accuracy": 0.6882352941176471,
+          "macro_f1": 0.6500992960564549,
+          "target_recall": 0.6515151515151515,
+          "ti_intrusion_to_target": 0.08461538461538462,
+          "metallic_intrusion_to_target": 0.1702127659574468,
+          "max_target_harm": 0.005000054836273193,
+          "max_identity_residual": 7.916241884231567e-08,
+          "mean_projected_route": 0.45086392760276794,
+          "cap_activation_rate": 0.12941176470588234
+        },
+        "state_sha256": "d59784e25ccf45c1d84d8818f1e5f04d3f60e2024cb75136ee12157118541026",
+        "objective": "nll"
+      },
+      {
+        "type": "learned",
+        "epoch": 14,
+        "epsilon_target": 0.01,
+        "stop_metrics": {
+          "nll": 0.8646724820137024,
+          "accuracy": 0.6941176470588235,
+          "macro_f1": 0.6616036530996838,
+          "target_recall": 0.6515151515151515,
+          "ti_intrusion_to_target": 0.08461538461538462,
+          "metallic_intrusion_to_target": 0.1276595744680851,
+          "max_target_harm": 0.010000050067901611,
+          "max_identity_residual": 6.891787052154541e-08,
+          "mean_projected_route": 0.5508421063423157,
+          "cap_activation_rate": 0.08235294117647059
+        },
+        "state_sha256": "ee17ffd6fa947f76ffa19b0bdeea3294cfc97aa8a32095d1ca3af0ea0a25049f",
+        "objective": "nll"
+      },
+      {
+        "type": "learned",
+        "epoch": 18,
+        "epsilon_target": 0.02,
+        "stop_metrics": {
+          "nll": 0.8637771606445312,
+          "accuracy": 0.6970588235294117,
+          "macro_f1": 0.6639686859239986,
+          "target_recall": 0.6515151515151515,
+          "ti_intrusion_to_target": 0.07692307692307693,
+          "metallic_intrusion_to_target": 0.1276595744680851,
+          "max_target_harm": 0.020000040531158447,
+          "max_identity_residual": 5.21540641784668e-08,
+          "mean_projected_route": 0.6596819162368774,
+          "cap_activation_rate": 0.01764705882352941
+        },
+        "state_sha256": "1a118612a2d912d0094b24b825db48c06f7216ae50b19f8e37c40f3a6e141999",
+        "objective": "nll"
+      },
+      {
+        "type": "learned",
+        "epoch": 20,
+        "epsilon_target": 0.04,
+        "stop_metrics": {
+          "nll": 0.8635676503181458,
+          "accuracy": 0.6970588235294117,
+          "macro_f1": 0.6639686859239986,
+          "target_recall": 0.6515151515151515,
+          "ti_intrusion_to_target": 0.07692307692307693,
+          "metallic_intrusion_to_target": 0.1276595744680851,
+          "max_target_harm": 0.04000002145767212,
+          "max_identity_residual": 5.3085386753082275e-08,
+          "mean_projected_route": 0.6881663799285889,
+          "cap_activation_rate": 0.0058823529411764705
+        },
+        "state_sha256": "eb0363015f732bb43ef0c5d79f06ac813e3d503dacc45cdcfcc519358a38e491",
+        "objective": "nll"
+      },
+      {
+        "type": "learned",
+        "epoch": 21,
+        "epsilon_target": 0.08,
+        "stop_metrics": {
+          "nll": 0.8635271787643433,
+          "accuracy": 0.6970588235294117,
+          "macro_f1": 0.6639686859239986,
+          "target_recall": 0.6515151515151515,
+          "ti_intrusion_to_target": 0.07692307692307693,
+          "metallic_intrusion_to_target": 0.1276595744680851,
+          "max_target_harm": 0.046489417552948,
+          "max_identity_residual": 5.587935447692871e-08,
+          "mean_projected_route": 0.6940051317214966,
+          "cap_activation_rate": 0.0
+        },
+        "state_sha256": "146bf91d132bee521bed4ccdb0ec8711f7b56df325a155f0acdcd217bec1a7c8",
+        "objective": "nll"
+      }
+    ],
+    "hard_negative": [
+      {
+        "type": "learned",
+        "epoch": 30,
+        "epsilon_target": 0.0,
+        "stop_metrics": {
+          "nll": 0.8655539155006409,
+          "accuracy": 0.6882352941176471,
+          "macro_f1": 0.6500992960564549,
+          "target_recall": 0.6515151515151515,
+          "ti_intrusion_to_target": 0.08461538461538462,
+          "metallic_intrusion_to_target": 0.1702127659574468,
+          "max_target_harm": 0.0,
+          "max_identity_residual": 3.585591912269592e-08,
+          "mean_projected_route": 0.23245148360729218,
+          "cap_activation_rate": 0.6294117647058823
+        },
+        "state_sha256": "fe37276f2538d2c8464890c8574640c0f8e287b261f51153dcc761ee47063a6b",
+        "objective": "nll_plus_hard_negative"
+      },
+      {
+        "type": "learned",
+        "epoch": 1,
+        "epsilon_target": 0.005,
+        "stop_metrics": {
+          "nll": 0.8654517531394958,
+          "accuracy": 0.6882352941176471,
+          "macro_f1": 0.6500992960564549,
+          "target_recall": 0.6515151515151515,
+          "ti_intrusion_to_target": 0.08461538461538462,
+          "metallic_intrusion_to_target": 0.1702127659574468,
+          "max_target_harm": 0.005000054836273193,
+          "max_identity_residual": 6.426125764846802e-08,
+          "mean_projected_route": 0.45094698667526245,
+          "cap_activation_rate": 0.12941176470588234
+        },
+        "state_sha256": "0d021ce769e1caccf046622f605970f2d949d0d05287d6263ff47c3765bb37bc",
+        "objective": "nll_plus_hard_negative"
+      },
+      {
+        "type": "learned",
+        "epoch": 14,
+        "epsilon_target": 0.01,
+        "stop_metrics": {
+          "nll": 0.8646522164344788,
+          "accuracy": 0.6941176470588235,
+          "macro_f1": 0.6616036530996838,
+          "target_recall": 0.6515151515151515,
+          "ti_intrusion_to_target": 0.08461538461538462,
+          "metallic_intrusion_to_target": 0.1276595744680851,
+          "max_target_harm": 0.010000050067901611,
+          "max_identity_residual": 6.891787052154541e-08,
+          "mean_projected_route": 0.5563333630561829,
+          "cap_activation_rate": 0.08235294117647059
+        },
+        "state_sha256": "ad133e7adf47e8acfd452b234418702f41d05fe6366741f2fdba913d141795cf",
+        "objective": "nll_plus_hard_negative"
+      },
+      {
+        "type": "learned",
+        "epoch": 18,
+        "epsilon_target": 0.02,
+        "stop_metrics": {
+          "nll": 0.8637198209762573,
+          "accuracy": 0.6970588235294117,
+          "macro_f1": 0.6639686859239986,
+          "target_recall": 0.6515151515151515,
+          "ti_intrusion_to_target": 0.07692307692307693,
+          "metallic_intrusion_to_target": 0.1276595744680851,
+          "max_target_harm": 0.020000040531158447,
+          "max_identity_residual": 5.029141902923584e-08,
+          "mean_projected_route": 0.6725637912750244,
+          "cap_activation_rate": 0.020588235294117647
+        },
+        "state_sha256": "ce505fd84a06d4df33742578827df5b6bf0be72dca57606f17d4005ea5d2b5c5",
+        "objective": "nll_plus_hard_negative"
+      },
+      {
+        "type": "learned",
+        "epoch": 21,
+        "epsilon_target": 0.04,
+        "stop_metrics": {
+          "nll": 0.8634893298149109,
+          "accuracy": 0.6970588235294117,
+          "macro_f1": 0.6639686859239986,
+          "target_recall": 0.6515151515151515,
+          "ti_intrusion_to_target": 0.07692307692307693,
+          "metallic_intrusion_to_target": 0.1276595744680851,
+          "max_target_harm": 0.04000002145767212,
+          "max_identity_residual": 6.146728992462158e-08,
+          "mean_projected_route": 0.7009909152984619,
+          "cap_activation_rate": 0.0058823529411764705
+        },
+        "state_sha256": "0dee4a246e18da530c4d3291aeed16f6f2a5a0ca9b34ac4046a1b6f4b126d201",
+        "objective": "nll_plus_hard_negative"
+      },
+      {
+        "type": "learned",
+        "epoch": 24,
+        "epsilon_target": 0.08,
+        "stop_metrics": {
+          "nll": 0.8634331822395325,
+          "accuracy": 0.6970588235294117,
+          "macro_f1": 0.6639686859239986,
+          "target_recall": 0.6515151515151515,
+          "ti_intrusion_to_target": 0.07692307692307693,
+          "metallic_intrusion_to_target": 0.1276595744680851,
+          "max_target_harm": 0.04806196689605713,
+          "max_identity_residual": 5.122274160385132e-08,
+          "mean_projected_route": 0.702130138874054,
+          "cap_activation_rate": 0.0
+        },
+        "state_sha256": "5d803d143a6006b07ef32deb8625be2985788184e0b9e0a0d058567356f2b651",
+        "objective": "nll_plus_hard_negative"
+      }
+    ]
+  },
+  "ablation_selections": {
+    "remove_verifier_probabilities": {
+      "type": "learned",
+      "epoch": 25,
+      "epsilon_target": 0.08,
+      "stop_metrics": {
+        "nll": 0.8634584546089172,
+        "accuracy": 0.6970588235294117,
+        "macro_f1": 0.6639686859239986,
+        "target_recall": 0.6515151515151515,
+        "ti_intrusion_to_target": 0.07692307692307693,
+        "metallic_intrusion_to_target": 0.1276595744680851,
+        "max_target_harm": 0.048030853271484375,
+        "max_identity_residual": 5.587935447692871e-08,
+        "mean_projected_route": 0.6844127178192139,
+        "cap_activation_rate": 0.0
+      },
+      "state_sha256": "526cd4e8a53243b186885766267a068a61d59ddf11dd3ba6a3d025ccd3d4dfc7",
+      "objective": "nll"
+    },
+    "remove_abs_difference": {
+      "type": "learned",
+      "epoch": 21,
+      "epsilon_target": 0.08,
+      "stop_metrics": {
+        "nll": 0.8635334968566895,
+        "accuracy": 0.6970588235294117,
+        "macro_f1": 0.6639686859239986,
+        "target_recall": 0.6515151515151515,
+        "ti_intrusion_to_target": 0.07692307692307693,
+        "metallic_intrusion_to_target": 0.1276595744680851,
+        "max_target_harm": 0.046407461166381836,
+        "max_identity_residual": 5.8673322200775146e-08,
+        "mean_projected_route": 0.6932725310325623,
+        "cap_activation_rate": 0.0
+      },
+      "state_sha256": "0894475fb7eddc2170b113b279e8d81437d32f0ef13decb736ef6d0225275a3e",
+      "objective": "nll"
+    },
+    "remove_uncertainty": {
+      "type": "learned",
+      "epoch": 24,
+      "epsilon_target": 0.08,
+      "stop_metrics": {
+        "nll": 0.8635390400886536,
+        "accuracy": 0.6970588235294117,
+        "macro_f1": 0.6639686859239986,
+        "target_recall": 0.6515151515151515,
+        "ti_intrusion_to_target": 0.07692307692307693,
+        "metallic_intrusion_to_target": 0.1276595744680851,
+        "max_target_harm": 0.047841012477874756,
+        "max_identity_residual": 5.21540641784668e-08,
+        "mean_projected_route": 0.6836666464805603,
+        "cap_activation_rate": 0.0
+      },
+      "state_sha256": "58d41d8b74f36d591db59106a84393253b5763cd1428d2c0fe867d8eab24c4c0",
+      "objective": "nll"
+    }
+  },
+  "update_set_audit": {
+    "row_counts": {
+      "expert_fit": 2030,
+      "gate_fit": 340,
+      "gate_stop_projector_fit": 340,
+      "projector_stop": 340,
+      "outer_eval": 1696
+    },
+    "group_counts": {
+      "expert_fit": 2028,
+      "gate_fit": 340,
+      "gate_stop_projector_fit": 340,
+      "projector_stop": 340,
+      "outer_eval": 1695
+    },
+    "cross_subset_image_overlap_count": 0,
+    "cross_subset_group_overlap_count": 0,
+    "parameter_update_subsets": {
+      "expert": "expert_fit",
+      "gate": "gate_fit",
+      "projector": "gate_stop_projector_fit"
+    },
+    "selection_subsets": {
+      "expert": "expert_stop",
+      "gate": "gate_stop_projector_fit",
+      "projector_and_epsilon": "projector_stop"
+    }
+  }
+}

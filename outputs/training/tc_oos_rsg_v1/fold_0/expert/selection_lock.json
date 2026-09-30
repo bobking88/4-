@@ -1,0 +1,14 @@
+{
+  "protocol_version": "tc_oos_rsg_v1",
+  "selected_before_outer_evaluation": true,
+  "outer_images_loaded": false,
+  "manifest_sha256": {
+    "expert_fit": "e9bc6630ee8eb41041e0582f05e8e0affd2a2608e0e7a0300b3a9e6d33016e40",
+    "expert_stop": "d51d946361e04263aa4e2181d28a23a1facf6ebddcd53c2ba8812123be705afd",
+    "outer_eval": "e8fe0789d8450d93efc8e2c4fe8fd48cb1e2125101d63c88ed3a3757f3e81518",
+    "training_manifest": "5a789a8561456dc488a7c933e7c0497f213e7c7ab59a71c2135d6655456cc0a4"
+  },
+  "configuration_sha256": "521329e28c3d6956349f5454b1ffc664687b9beb2fd3e31fb7723b3f7f2d21c5",
+  "checkpoint_sha256": "ea50dbee3c8f6860ec4c901d180ad50959f51e97e8b5cb7cdc2d7e11d799e8f2",
+  "best_validation_metrics_sha256": "7bc8c8a5e78d8c12571effc09a161d37ea77fc17e0a07ff651db1d0a35c03eed"
+}

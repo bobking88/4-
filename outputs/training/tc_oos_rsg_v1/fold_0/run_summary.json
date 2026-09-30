@@ -1,0 +1,152 @@
+{
+  "fold": 0,
+  "protocol_version": "tc_oos_rsg_v1",
+  "audit": {
+    "protocol_version": "tc_oos_rsg_v1",
+    "row_counts": {
+      "expert_fit": 2030,
+      "expert_stop": 341,
+      "outer_eval": 1696
+    },
+    "group_counts": {
+      "expert_fit": 2028,
+      "expert_stop": 341,
+      "outer_eval": 1695
+    },
+    "species_count": 17,
+    "species_role_mapping": {
+      "anatase": {
+        "four_class_label": "ti_bearing_negative",
+        "four_class_id": "1"
+      },
+      "calcite": {
+        "four_class_label": "gangue_negative",
+        "four_class_id": "2"
+      },
+      "chalcopyrite": {
+        "four_class_label": "metallic_hard_negative",
+        "four_class_id": "3"
+      },
+      "feldspar": {
+        "four_class_label": "gangue_negative",
+        "four_class_id": "2"
+      },
+      "fluorapatite": {
+        "four_class_label": "gangue_negative",
+        "four_class_id": "2"
+      },
+      "goethite": {
+        "four_class_label": "metallic_hard_negative",
+        "four_class_id": "3"
+      },
+      "hematite": {
+        "four_class_label": "metallic_hard_negative",
+        "four_class_id": "3"
+      },
+      "ilmenite": {
+        "four_class_label": "target_mineral",
+        "four_class_id": "0"
+      },
+      "magnetite": {
+        "four_class_label": "target_mineral",
+        "four_class_id": "0"
+      },
+      "perovskite": {
+        "four_class_label": "ti_bearing_negative",
+        "four_class_id": "1"
+      },
+      "pyrite": {
+        "four_class_label": "metallic_hard_negative",
+        "four_class_id": "3"
+      },
+      "pyroxene": {
+        "four_class_label": "gangue_negative",
+        "four_class_id": "2"
+      },
+      "quartz": {
+        "four_class_label": "gangue_negative",
+        "four_class_id": "2"
+      },
+      "rutile": {
+        "four_class_label": "ti_bearing_negative",
+        "four_class_id": "1"
+      },
+      "titanite": {
+        "four_class_label": "ti_bearing_negative",
+        "four_class_id": "1"
+      },
+      "titanomagnetite": {
+        "four_class_label": "target_mineral",
+        "four_class_id": "0"
+      },
+      "vesuvianite": {
+        "four_class_label": "gangue_negative",
+        "four_class_id": "2"
+      }
+    },
+    "image_overlap_count": 0,
+    "group_overlap_count": 0,
+    "outer_images_loaded": false
+  },
+  "outer_images_loaded": false,
+  "commands": {
+    "expert": [
+      "D:\\成信工科研\\人工智能选矿\\.venv-training\\Scripts\\python.exe",
+      "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\scripts\\train_hrgv_mineral_classifier.py",
+      "--manifest",
+      "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\training\\tc_oos_rsg_v1\\fold_0\\manifests\\expert_training.csv",
+      "--dataset-root",
+      "D:\\成信工科研\\人工智能选矿\\数据集\\mindat_manual_positive_v1",
+      "--output-dir",
+      "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\training\\tc_oos_rsg_v1\\fold_0\\expert",
+      "--backbone",
+      "efficientnet_b0",
+      "--device",
+      "cuda",
+      "--seed",
+      "20260927",
+      "--epochs",
+      "30",
+      "--patience",
+      "8",
+      "--batch-size",
+      "16",
+      "--num-workers",
+      "0",
+      "--lambda-gate-regret",
+      "0.0",
+      "--torch-home",
+      "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\.torch-cache",
+      "--validation-only"
+    ],
+    "baseline": [
+      "D:\\成信工科研\\人工智能选矿\\.venv-training\\Scripts\\python.exe",
+      "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\scripts\\train_mineral_classifier.py",
+      "--manifest",
+      "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\training\\tc_oos_rsg_v1\\fold_0\\manifests\\baseline_training.csv",
+      "--dataset-root",
+      "D:\\成信工科研\\人工智能选矿\\数据集\\mindat_manual_positive_v1",
+      "--output-dir",
+      "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\training\\tc_oos_rsg_v1\\fold_0\\baseline",
+      "--model",
+      "efficientnet_b0",
+      "--loss",
+      "cross_entropy",
+      "--device",
+      "cuda",
+      "--seed",
+      "20260927",
+      "--epochs",
+      "30",
+      "--patience",
+      "8",
+      "--batch-size",
+      "16",
+      "--num-workers",
+      "0",
+      "--torch-home",
+      "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\.torch-cache"
+    ]
+  },
+  "completed": true
+}

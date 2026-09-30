@@ -1,0 +1,12 @@
+{
+  "train_loss": 0.30101446089486183,
+  "val_loss": 0.8301108229544855,
+  "accuracy": 0.7214076246334311,
+  "macro_precision": 0.7021035928644624,
+  "macro_recall": 0.6963115131953731,
+  "macro_f1": 0.6987552709460984,
+  "learning_rate": 5e-05,
+  "epoch": 8,
+  "selection_split": "val",
+  "source": "metrics_history.csv"
+}
