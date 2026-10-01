@@ -36,7 +36,7 @@
 - [x] 运行 `python -m unittest discover -s tests -p test_abmp_rsg.py -v`，确认缺少模块失败。
 - [x] 复用 `build_projection_evidence` 和现有输入验证；实现双头、软收益/预算目标、双上限和逐图审计。
 - [x] 运行上述测试及 TC 核心回归测试，确认通过。
-- [ ] 提交 `feat: add adaptive-budget margin-protected policy`。
+- [x] 提交 `feat: add adaptive-budget margin-protected policy`（9a6dc11）。
 
 ## Task 2: Fold 0 开发执行器
 
@@ -44,14 +44,16 @@
 
 **Interfaces:** 消费 Task 1；`train_policy(fit_cache, stop_cache, config, *, epochs=30, seed=20260930) -> dict`; `evaluate_policy(cache, trained, *, lambda_cal=0) -> dict`; `select_development_candidate(candidates, q0_metrics) -> dict | None`; CLI 输出 `development_summary.json` 和 `abmp_rsg_v2_lock.json`。
 
-- [ ] 写失败测试：27 个配置；无定义指标拒绝；投影未激活拒绝；确切安全/NLL选择顺序；合成训练参数更新；拒绝已有输出目录。
-- [ ] 运行测试并确认失败；实现仅打开 Fold 0 的缓存提取、训练、开发评估和审计。
-- [ ] 复用 v1 Fold 0 专家/候选门权重，9 组训练（3预算×3锚点），每组锁定检查点后评估3种偏移，共27个开发候选。
-- [ ] 对选中配置运行 A0-A8；记录逐图预测、权重/数据哈希和时间。
-- [ ] 测试通过后执行开发实验；若无候选通过，记录失败并停止确证。
-- [ ] 提交开发代码与可公开结果。
+- [x] 写失败测试：27 个配置；无定义指标拒绝；投影未激活拒绝；确切安全/NLL选择顺序；合成训练参数更新；拒绝已有输出目录。
+- [x] 运行测试并确认失败；实现仅打开 Fold 0 的缓存提取、训练、开发评估和审计。
+- [x] 复用 v1 Fold 0 专家/候选门权重，两轮各9组训练、27个候选；r2排除解析冗余区间。
+- [x] 对最低 NLL 诊断配置运行 A0-A8，记录逐图预测和哈希；r2没有晋级选中配置。
+- [x] 测试通过后执行开发实验；r2开发门失败，停止确证并废止r1旧锁。
+- [x] 提交开发执行器（aa41e03）和冗余条件修正（60fe32b）；r2结果随本次报告提交。
 
 ## Task 3: 确证执行器与统计
+
+**Status:** 暂不执行。r2没有通过开发门，Fold 1/2未用于v2评估；不能用开发最低NLL配置启动确证。
 
 **Files:** Create `scripts/run_abmp_rsg_confirmation.py`, `scripts/analyze_abmp_rsg.py`; corresponding tests.
 
@@ -66,18 +68,18 @@
 
 **Files:** Create `scripts/generate_abmp_rsg_figure.py`; test `tests/test_generate_abmp_rsg_figure.py`; outputs `outputs/paper_figures_v5/fig_abmp_rsg_architecture.*`, `outputs/theory/abmp_rsg_invariants.json`.
 
-- [ ] 验证图源覆盖冻结双分支、18维证据、双头、双上限、最终凸融合和两条核心公式。
-- [ ] 用有显式激活的构造样本及随机单纯形样本验证六项性质；保存可复现参数和审计计数。
-- [ ] 输出 SVG/PDF/300dpi PNG；查看实际图片，修正重叠和公式排版。
+- [x] 验证图源覆盖冻结双分支、18维证据、双头、双上限、最终凸融合和两条核心公式。
+- [x] 用构造样本和25000组随机单纯形验证不变量、冗余条件和同argmax凸融合性质；保存审计计数。
+- [x] 输出 SVG/PDF/300dpi PNG；查看实际图片，修正重叠和公式排版。
 - [ ] 提交脚本、图源与图表。
 
 ## Task 5: 报告与复现材料
 
 **Files:** New reproducible report updater and tests; update sole official DOCX; add experiment record and README entries.
 
-- [ ] 根据已完成证据补充方法、公式/证明、网络结构、先导失败原因、v2实验与限制。
-- [ ] 将结构性质与经验结果分开，报告锚点假阳性代价及开发/确证用途。
-- [ ] 生成报告并渲染验证相关页面，保持正式版唯一。
+- [x] 根据已完成证据补充方法、10个公式、结构推导、网络图、两轮开发结果与容量诊断。
+- [x] 将结构性质与经验结果分开，报告锚点假阳性代价及开发/确证用途。
+- [x] 更新研究分支唯一正式版，新增附录M；原有689个正文元素不变，新增第72至76页已逐页检查。
 - [ ] 运行相关回归与全套测试、自审代码；仅提交相关文件并重试GitHub同步。
 
 ## Execution

@@ -106,6 +106,27 @@ python .\scripts\analyze_paired_cluster_statistics.py `
 本仓库不分发原始矿物图片、模型权重、虚拟环境或下载缓存。原始图像来自公开矿物图像页面，仍须遵守各图片页面的署名、许可和使用条件。仓库保留来源元数据、质量控制记录和最终数据清单，以支持研究过程审计和合法复现。
 
 当前结果是基于公开矿物标本图像的“钒钛矿相关矿物识别”基线，不应直接解释为工业传送带场景下的实际分选性能。
+
+## ABMP-RSG-Net v2 开发证据
+
+双头自适应预算与目标间隔保护已实现，网络图、数学推导、两轮 Fold 0
+开发结果与几何诊断均可追溯。第二轮的 27 个候选未通过独立间隔作用判据，
+没有启动 Fold 1/2；初轮锁已废止，不能将旧通过状态当作确证依据。
+当前预算均值重放与完整模型完全相同，因此尚不支持自适应预算改善性能的结论。
+
+入口：[实验与理论诊断](docs/experiment_records/2026-10-01_abmp_rsg_v2_development.md)、
+[协议状态](outputs/training/abmp_rsg_v2/protocol_status.json)、
+[开发结果](outputs/training/abmp_rsg_v2/development_fold_0_r2/development_summary.json)、
+[结构图 SVG](outputs/paper_figures_v5/fig_abmp_rsg_architecture.svg)。
+唯一正式报告新增附录 M，保持现有正文结果和经验结论边界。
+
+~~~powershell
+python scripts/analyze_abmp_development.py
+python scripts/generate_abmp_rsg_figure.py
+python tools/append_abmp_to_official_report.py
+python -m unittest discover -s tests -p "*abmp*.py" -v
+~~~
+
 ## Theory-aware evidence reproduction
 
 Run these commands from the repository root with the fixed manifest and a locally

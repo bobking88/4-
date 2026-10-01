@@ -1,0 +1,35 @@
+{
+  "figure_contract": {
+    "conclusion": "A learned sample-wise budget and target-margin constraints define an auditable projection of the raw route.",
+    "archetype": "schematic-led composite",
+    "backend": "python",
+    "dimensions_inches": [
+      10.5,
+      9
+    ],
+    "exports": [
+      "editable SVG",
+      "PDF",
+      "300 dpi PNG"
+    ],
+    "claim_boundary": "No performance or population recall guarantee is implied by this schematic."
+  },
+  "evidence_dimension": 18,
+  "policy_parameter_count": 2418,
+  "components": [
+    "frozen EfficientNet-B0",
+    "direct role and species heads",
+    "species-role map",
+    "frozen out-of-sample candidate gate",
+    "Ti and metallic verifiers",
+    "complete q0/qphi",
+    "18D evidence",
+    "shared policy trunk",
+    "route head",
+    "budget head",
+    "posterior cap",
+    "anchor margin cap",
+    "minimum route",
+    "convex fusion"
+  ]
+}

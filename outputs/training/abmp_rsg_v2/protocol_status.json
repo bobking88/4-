@@ -1,0 +1,24 @@
+{
+  "protocol_family": "abmp_rsg_v2",
+  "purpose": "development_only",
+  "development_fold": 0,
+  "confirmation_authorized": false,
+  "confirmation_folds_evaluated": [],
+  "rounds": [
+    {
+      "directory": "development_fold_0",
+      "original_status": "DEVELOPMENT_GATE_PASSED",
+      "current_status": "SUPERSEDED_ANALYTICALLY_REDUNDANT",
+      "lock_usable_for_confirmation": false,
+      "reason": "All original anchor/budget settings satisfy tau_p - epsilon_max > (1 + delta)/2; the margin layer adds no independent restriction."
+    },
+    {
+      "directory": "development_fold_0_r2",
+      "original_status": "DEVELOPMENT_GATE_FAILED",
+      "current_status": "DEVELOPMENT_GATE_FAILED",
+      "lock_usable_for_confirmation": false,
+      "reason": "None of 27 candidates independently activates the margin restriction. The diagnostic adaptive-budget output equals the matched fixed-mean-budget replay."
+    }
+  ],
+  "next_gate": "Candidate-expert capacity and anchor reliability audit before another architecture is frozen."
+}

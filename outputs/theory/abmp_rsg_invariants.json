@@ -1,0 +1,64 @@
+{
+  "purpose": "formula_verification_not_classification_performance",
+  "seed": 20260930,
+  "random_samples": 25000,
+  "random_audit": {
+    "rows": 25000,
+    "nonfinite_violations": 0,
+    "simplex_violations": 0,
+    "budget_range_violations": 0,
+    "posterior_violations": 0,
+    "margin_violations": 0,
+    "decomposition_violations": 0,
+    "convex_nll_violations": 0,
+    "max_decomposition_residual": 0.0,
+    "max_target_identity_residual": 1.249000902703301e-16,
+    "anchor_count": 2841,
+    "anchor_true_target_count": 754,
+    "anchor_false_positive_count": 2087,
+    "anchor_retention_rate": 1.0,
+    "anchor_coverage": 0.11364,
+    "posterior_activation_rate": 0.3,
+    "margin_activation_rate": 0.03608,
+    "joint_activation_rate": 0.03536,
+    "epsilon_mean": 0.039836435882590615,
+    "epsilon_std": 0.023092178326089518,
+    "epsilon_min": 7.401093168217798e-06,
+    "epsilon_max_observed": 0.07999978352063347,
+    "max_difference_from_q0": 0.7297928400882799,
+    "max_difference_from_unbounded": 0.7194595138081659,
+    "exact_fallback_count": 0
+  },
+  "independent_margin_activation_count": 1,
+  "boundary_fixture": {
+    "q0": [
+      [
+        0.42,
+        0.36,
+        0.11,
+        0.11
+      ]
+    ],
+    "qphi": [
+      [
+        0.38,
+        0.42,
+        0.1,
+        0.1
+      ]
+    ],
+    "raw_route": 0.9,
+    "epsilon": 0.04,
+    "full_route": 0.5500000000000002,
+    "posterior_only_route": 0.9,
+    "full_prediction": 0,
+    "posterior_only_prediction": 1
+  },
+  "dominance_counterexamples": 0,
+  "dominance_condition": "tau_p - epsilon_max > (1 + delta) / 2",
+  "same_expert_argmax_convex_fusion": {
+    "rows": 6274,
+    "violations": 0,
+    "assumption": "Unique endpoint argmax; arbitrary sample-wise route in [0,1]."
+  }
+}
