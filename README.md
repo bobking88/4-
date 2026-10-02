@@ -120,6 +120,17 @@ python .\scripts\analyze_paired_cluster_statistics.py `
 [结构图 SVG](outputs/paper_figures_v5/fig_abmp_rsg_architecture.svg)。
 唯一正式报告新增附录 M，保持现有正文结果和经验结论边界。
 
+2026-10-02 新增 [候选容量与校验约束审计](docs/experiment_records/2026-10-02_abmp_candidate_capacity.md)。
+只提取两个 Fold 0 内层子集，共 680 张，不读取本轮 outer_eval 或 Fold 1/2。
+完整校验区间在停止集没有额外目标恢复容量，校验前完整区间有 2 张机会；
+这些是标签辅助的可达上界，不是新网络精度。正式报告附录 N 补充 6 个公式、
+数学证明、容量图及下一阶段强对照计划。v2 性能创新仍未成立。
+
+入口：[审计 JSON](outputs/theory/abmp_candidate_capacity_v1/audit_summary.json)、
+[公式检查](outputs/theory/abmp_candidate_capacity_v1/geometry_properties.json)、
+[容量图 SVG](outputs/paper_figures_v5/fig_abmp_candidate_capacity.svg)、
+[后续研究计划](docs/superpowers/plans/2026-10-02-abmp-verifier-trust-research.md)。
+
 ~~~powershell
 python scripts/analyze_abmp_development.py
 python scripts/generate_abmp_rsg_figure.py

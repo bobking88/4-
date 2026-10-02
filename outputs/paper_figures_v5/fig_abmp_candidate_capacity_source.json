@@ -1,0 +1,51 @@
+{
+  "source_sha256": "f42c7806a5542a00f9e28997ef185a9d375d504f9d1070c1fff2547051bb7890",
+  "source_data": {
+    "gate_stop_projector_fit": {
+      "target_count": 66,
+      "capacity_counts": [
+        35,
+        35,
+        38,
+        38
+      ],
+      "fixed_verifier_removals": [
+        2,
+        3
+      ]
+    },
+    "projector_stop": {
+      "target_count": 66,
+      "capacity_counts": [
+        43,
+        43,
+        43,
+        45
+      ],
+      "fixed_verifier_removals": [
+        0,
+        4
+      ]
+    }
+  },
+  "contract": {
+    "conclusion": "Wider verified routing has no additional target capacity on stopping data; verification removes two pre-verifier opportunities.",
+    "backend": "Python matplotlib",
+    "archetype": "quantitative grid",
+    "formats": [
+      "PNG 300 dpi",
+      "PDF",
+      "SVG editable labels"
+    ],
+    "error_bars": "None: finite deterministic counts, not replicate inference.",
+    "scope": "Fold 0 development only; attainable counts are label-aware upper bounds, not measured network gains."
+  },
+  "equations": {
+    "scale": "$V_s(p)=\\frac{D_sp}{Z(p)},\\quad D_s=\\mathrm{diag}(s,1,1,1),\\quad Z(p)=1-(1-s)p_T,\\quad 0<s\\leq1$",
+    "commutation": "$V_s(gd+(1-g)m)=g'V_s(d)+(1-g')V_s(m),\\quad g'=\\frac{gZ(d)}{gZ(d)+(1-g)Z(m)}$",
+    "monotonicity": "$\\{i:\\arg\\max V_{s_i}(p_i)=T\\}\\subseteq\\{i:\\arg\\max p_i=T\\},\\quad\\mathrm{Rec}_T(V_s(p))\\leq\\mathrm{Rec}_T(p)$",
+    "interval": "$\\mathcal{I}_{\\eta}(d,m)=\\{g\\in[0,1]:a_k+gb_k\\geq\\eta,\\ \\forall k\\ne T\\},\\quad a_k=m_T-m_k,\\quad b_k=(d_T-d_k)-a_k$",
+    "capacity": "$\\mathcal{C}_{\\eta}(q_0,q_\\phi)\\subseteq\\mathcal{C}_{\\eta}(V_s(d),V_s(m)),\\quad\\mathrm{Rec}_{T,\\eta}(q)\\leq\\frac{1}{N_T}\\sum_{i:y_i=T}\\mathbf{1}[\\mathcal{I}_{\\eta,i}\\ne\\varnothing]$",
+    "protected_scale": "$s_{\\min}(p,\\delta)=\\max_{k\\ne T}\\frac{p_k+\\delta(1-p_T)}{(1-\\delta)p_T},\\quad s\\in[s_{\\min},1]\\Rightarrow V_s(p)_T-V_s(p)_k\\geq\\delta$"
+  }
+}

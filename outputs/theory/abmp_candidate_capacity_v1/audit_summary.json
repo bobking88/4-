@@ -1,0 +1,395 @@
+{
+  "protocol": "abmp_candidate_capacity_v1",
+  "status": "diagnostic_complete_no_promotion",
+  "created_at_utc": "2026-10-02T03:08:02.569916+00:00",
+  "provenance": {
+    "manifest_sha256": {
+      "expert_fit": "e9bc6630ee8eb41041e0582f05e8e0affd2a2608e0e7a0300b3a9e6d33016e40",
+      "expert_stop": "d51d946361e04263aa4e2181d28a23a1facf6ebddcd53c2ba8812123be705afd",
+      "gate_fit": "d15f34c560e6108563e8e2af181753da3d6f369ebce7d04dad8fb912822eea7a",
+      "gate_stop_projector_fit": "eb79afac38f664b22a4a58cc2fb38f1d32e698395c6c1824b051c99d11240531",
+      "projector_stop": "1a63741360e5ae8bc97377a86d761bbdb289ddcee11b24e184fa49b47a95bd09"
+    },
+    "source_sha256": {
+      "expert": "ea50dbee3c8f6860ec4c901d180ad50959f51e97e8b5cb7cdc2d7e11d799e8f2",
+      "expert_lock": "c75a6933c448650a2b59a802e8fdec407842567a419cb739ff90d93248cebf37",
+      "gate": "a8ed899d2ec5b8ba306e2e4c1e8f3b7da19b1bdfe32a638d329584a5a4a4d6bb",
+      "configuration": "d3a52c67796778999c573e02b5b85dcd71ff58c46685028680f03e1ff1a98f57"
+    },
+    "source_lock_sha256": "dded4deba0f26a69d0322f70dbc2e518eb03fea8c0e5730af7bddb747edf9ae4",
+    "expert_training_manifest_sha256": "5a789a8561456dc488a7c933e7c0497f213e7c7ab59a71c2135d6655456cc0a4",
+    "expert_environment_sha256": "ea4023ed4f34fd0862f730be013a301d18855cf9f9a27daee7f719638f3d800d",
+    "expert_environment_hash_binding": "Recorded at audit time; environment was not hashed by the original selection lock.",
+    "verifier_config": {
+      "verifier_mode": "residual",
+      "ti_threshold": 0.5,
+      "metallic_threshold": 0.5,
+      "ti_strength": 1.0,
+      "metallic_strength": 1.0
+    },
+    "group_audit": {
+      "cross_subset_group_overlap_count": 0,
+      "cross_subset_image_overlap_count": 0,
+      "cross_subset_photo_overlap_count": 0
+    },
+    "outer_manifest_read": false,
+    "outer_images_loaded": false,
+    "inner_row_counts": {
+      "expert_fit": 2030,
+      "expert_stop": 341,
+      "gate_fit": 340,
+      "gate_stop_projector_fit": 340,
+      "projector_stop": 340
+    }
+  },
+  "subsets": {
+    "gate_stop_projector_fit": {
+      "sample_count": 340,
+      "class_counts": {
+        "0": 66,
+        "1": 130,
+        "2": 97,
+        "3": 47
+      },
+      "metrics": {
+        "direct_pre": {
+          "nll": 0.8737407077485562,
+          "accuracy": 0.65,
+          "macro_f1": 0.6284962501670086,
+          "target_recall": 0.5606060606060606,
+          "ti_intrusion_to_target": 0.16153846153846155,
+          "metallic_intrusion_to_target": 0.2553191489361702
+        },
+        "direct_verified": {
+          "nll": 0.897105543037814,
+          "accuracy": 0.6588235294117647,
+          "macro_f1": 0.6377068251432996,
+          "target_recall": 0.5606060606060606,
+          "ti_intrusion_to_target": 0.14615384615384616,
+          "metallic_intrusion_to_target": 0.23404255319148937
+        },
+        "mapped_pre": {
+          "nll": 0.8133517637870111,
+          "accuracy": 0.6588235294117647,
+          "macro_f1": 0.6373582887700534,
+          "target_recall": 0.48484848484848486,
+          "ti_intrusion_to_target": 0.1076923076923077,
+          "metallic_intrusion_to_target": 0.1702127659574468
+        },
+        "mapped_verified": {
+          "nll": 0.8411387968027302,
+          "accuracy": 0.6588235294117647,
+          "macro_f1": 0.6377317853062429,
+          "target_recall": 0.48484848484848486,
+          "ti_intrusion_to_target": 0.1076923076923077,
+          "metallic_intrusion_to_target": 0.1702127659574468
+        },
+        "fixed_pre": {
+          "nll": 0.8174623749371611,
+          "accuracy": 0.6764705882352942,
+          "macro_f1": 0.6531537682765722,
+          "target_recall": 0.5606060606060606,
+          "ti_intrusion_to_target": 0.13076923076923078,
+          "metallic_intrusion_to_target": 0.2127659574468085
+        },
+        "fixed_verified": {
+          "nll": 0.843076349254459,
+          "accuracy": 0.6764705882352942,
+          "macro_f1": 0.6558750405114173,
+          "target_recall": 0.5303030303030303,
+          "ti_intrusion_to_target": 0.13076923076923078,
+          "metallic_intrusion_to_target": 0.1702127659574468
+        },
+        "oos_pre": {
+          "nll": 0.8114115252792935,
+          "accuracy": 0.6823529411764706,
+          "macro_f1": 0.6623959632318858,
+          "target_recall": 0.5606060606060606,
+          "ti_intrusion_to_target": 0.13076923076923078,
+          "metallic_intrusion_to_target": 0.1702127659574468
+        },
+        "oos_verified": {
+          "nll": 0.8372731602078117,
+          "accuracy": 0.6764705882352942,
+          "macro_f1": 0.6552938999508178,
+          "target_recall": 0.5303030303030303,
+          "ti_intrusion_to_target": 0.13076923076923078,
+          "metallic_intrusion_to_target": 0.1702127659574468
+        },
+        "original_pre": {
+          "nll": 0.8725099830734445,
+          "accuracy": 0.65,
+          "macro_f1": 0.6289740070592391,
+          "target_recall": 0.5606060606060606,
+          "ti_intrusion_to_target": 0.16153846153846155,
+          "metallic_intrusion_to_target": 0.2553191489361702
+        },
+        "original_verified": {
+          "nll": 0.8960900852835201,
+          "accuracy": 0.6588235294117647,
+          "macro_f1": 0.6384494501960056,
+          "target_recall": 0.5606060606060606,
+          "ti_intrusion_to_target": 0.14615384615384616,
+          "metallic_intrusion_to_target": 0.2127659574468085
+        }
+      },
+      "verification_effects": {
+        "direct": {
+          "true_target_removed": 0,
+          "false_target_removed": 4,
+          "target_promotions": 0
+        },
+        "mapped": {
+          "true_target_removed": 0,
+          "false_target_removed": 1,
+          "target_promotions": 0
+        },
+        "fixed": {
+          "true_target_removed": 2,
+          "false_target_removed": 3,
+          "target_promotions": 0
+        },
+        "oos": {
+          "true_target_removed": 2,
+          "false_target_removed": 2,
+          "target_promotions": 0
+        },
+        "original": {
+          "true_target_removed": 0,
+          "false_target_removed": 5,
+          "target_promotions": 0
+        }
+      },
+      "segment_capacity": {
+        "full_pre": {
+          "feasible_count": 81,
+          "true_target_feasible": 38,
+          "true_target_feasible_rate": 0.5757575757575758,
+          "missed_fixed_target_feasible": 3,
+          "non_target_feasible": 43,
+          "target_feasible_with_both_expert_endpoints_non_target": 0
+        },
+        "full_verified": {
+          "feasible_count": 77,
+          "true_target_feasible": 38,
+          "true_target_feasible_rate": 0.5757575757575758,
+          "missed_fixed_target_feasible": 3,
+          "non_target_feasible": 39,
+          "target_feasible_with_both_expert_endpoints_non_target": 0
+        },
+        "restricted_pre": {
+          "feasible_count": 72,
+          "true_target_feasible": 37,
+          "true_target_feasible_rate": 0.5606060606060606,
+          "missed_fixed_target_feasible": 2,
+          "non_target_feasible": 35,
+          "target_feasible_with_both_expert_endpoints_non_target": 0
+        },
+        "restricted_verified": {
+          "feasible_count": 67,
+          "true_target_feasible": 35,
+          "true_target_feasible_rate": 0.5303030303030303,
+          "missed_fixed_target_feasible": 0,
+          "non_target_feasible": 32,
+          "target_feasible_with_both_expert_endpoints_non_target": 0
+        }
+      },
+      "nested_segment_violation_count": 0,
+      "verifier_commutation_max_abs_residual": 2.220446049250313e-16,
+      "full_segment_target_capacity_removed_by_verification": {
+        "true_target": 0,
+        "non_target": 4
+      },
+      "expert_argmax_disagreement": {
+        "pre": 37,
+        "verified": 34,
+        "true_target_pre": 7,
+        "true_target_verified": 7
+      },
+      "target_scale": {
+        "min": 0.13831745591263567,
+        "mean": 0.5633899296079743,
+        "max": 1.0
+      },
+      "undefined_metric_policy": "Undefined class rates are null; macro F1 uses the fixed four-role convention with zero for undefined per-class F1.",
+      "capacity_interpretation": "Label-aware attainable bounds, not a learned classifier or deployable performance.",
+      "numeric_policy": "Validate source simplex then renormalise in float64; target feasibility requires margin >= 1e-9."
+    },
+    "projector_stop": {
+      "sample_count": 340,
+      "class_counts": {
+        "0": 66,
+        "1": 130,
+        "2": 97,
+        "3": 47
+      },
+      "metrics": {
+        "direct_pre": {
+          "nll": 0.9044322394386927,
+          "accuracy": 0.6735294117647059,
+          "macro_f1": 0.6326885791117988,
+          "target_recall": 0.6818181818181818,
+          "ti_intrusion_to_target": 0.11538461538461539,
+          "metallic_intrusion_to_target": 0.2553191489361702
+        },
+        "direct_verified": {
+          "nll": 0.9171954987162823,
+          "accuracy": 0.6764705882352942,
+          "macro_f1": 0.6327677759683494,
+          "target_recall": 0.6515151515151515,
+          "ti_intrusion_to_target": 0.09230769230769231,
+          "metallic_intrusion_to_target": 0.2553191489361702
+        },
+        "mapped_pre": {
+          "nll": 0.8451987540652363,
+          "accuracy": 0.6764705882352942,
+          "macro_f1": 0.6379298121233605,
+          "target_recall": 0.5606060606060606,
+          "ti_intrusion_to_target": 0.07692307692307693,
+          "metallic_intrusion_to_target": 0.1276595744680851
+        },
+        "mapped_verified": {
+          "nll": 0.8634794991238424,
+          "accuracy": 0.6823529411764706,
+          "macro_f1": 0.6426533302762811,
+          "target_recall": 0.5606060606060606,
+          "ti_intrusion_to_target": 0.06153846153846154,
+          "metallic_intrusion_to_target": 0.1276595744680851
+        },
+        "fixed_pre": {
+          "nll": 0.8521835408583399,
+          "accuracy": 0.6823529411764706,
+          "macro_f1": 0.6445296634607839,
+          "target_recall": 0.6515151515151515,
+          "ti_intrusion_to_target": 0.1,
+          "metallic_intrusion_to_target": 0.19148936170212766
+        },
+        "fixed_verified": {
+          "nll": 0.8677426446288407,
+          "accuracy": 0.6882352941176471,
+          "macro_f1": 0.6500992960564548,
+          "target_recall": 0.6515151515151515,
+          "ti_intrusion_to_target": 0.08461538461538462,
+          "metallic_intrusion_to_target": 0.1702127659574468
+        },
+        "oos_pre": {
+          "nll": 0.8462730783329069,
+          "accuracy": 0.6852941176470588,
+          "macro_f1": 0.6542874384459548,
+          "target_recall": 0.6515151515151515,
+          "ti_intrusion_to_target": 0.1,
+          "metallic_intrusion_to_target": 0.1276595744680851
+        },
+        "oos_verified": {
+          "nll": 0.862187712831223,
+          "accuracy": 0.6941176470588235,
+          "macro_f1": 0.6618941069604402,
+          "target_recall": 0.6515151515151515,
+          "ti_intrusion_to_target": 0.07692307692307693,
+          "metallic_intrusion_to_target": 0.1276595744680851
+        },
+        "original_pre": {
+          "nll": 0.9024416246583705,
+          "accuracy": 0.6735294117647059,
+          "macro_f1": 0.632764821385511,
+          "target_recall": 0.6818181818181818,
+          "ti_intrusion_to_target": 0.11538461538461539,
+          "metallic_intrusion_to_target": 0.23404255319148937
+        },
+        "original_verified": {
+          "nll": 0.9153479664964866,
+          "accuracy": 0.6764705882352942,
+          "macro_f1": 0.6328860239114316,
+          "target_recall": 0.6515151515151515,
+          "ti_intrusion_to_target": 0.09230769230769231,
+          "metallic_intrusion_to_target": 0.23404255319148937
+        }
+      },
+      "verification_effects": {
+        "direct": {
+          "true_target_removed": 2,
+          "false_target_removed": 4,
+          "target_promotions": 0
+        },
+        "mapped": {
+          "true_target_removed": 0,
+          "false_target_removed": 2,
+          "target_promotions": 0
+        },
+        "fixed": {
+          "true_target_removed": 0,
+          "false_target_removed": 4,
+          "target_promotions": 0
+        },
+        "oos": {
+          "true_target_removed": 0,
+          "false_target_removed": 4,
+          "target_promotions": 0
+        },
+        "original": {
+          "true_target_removed": 2,
+          "false_target_removed": 4,
+          "target_promotions": 0
+        }
+      },
+      "segment_capacity": {
+        "full_pre": {
+          "feasible_count": 81,
+          "true_target_feasible": 45,
+          "true_target_feasible_rate": 0.6818181818181818,
+          "missed_fixed_target_feasible": 2,
+          "non_target_feasible": 36,
+          "target_feasible_with_both_expert_endpoints_non_target": 0
+        },
+        "full_verified": {
+          "feasible_count": 75,
+          "true_target_feasible": 43,
+          "true_target_feasible_rate": 0.6515151515151515,
+          "missed_fixed_target_feasible": 0,
+          "non_target_feasible": 32,
+          "target_feasible_with_both_expert_endpoints_non_target": 0
+        },
+        "restricted_pre": {
+          "feasible_count": 72,
+          "true_target_feasible": 43,
+          "true_target_feasible_rate": 0.6515151515151515,
+          "missed_fixed_target_feasible": 0,
+          "non_target_feasible": 29,
+          "target_feasible_with_both_expert_endpoints_non_target": 0
+        },
+        "restricted_verified": {
+          "feasible_count": 68,
+          "true_target_feasible": 43,
+          "true_target_feasible_rate": 0.6515151515151515,
+          "missed_fixed_target_feasible": 0,
+          "non_target_feasible": 25,
+          "target_feasible_with_both_expert_endpoints_non_target": 0
+        }
+      },
+      "nested_segment_violation_count": 0,
+      "verifier_commutation_max_abs_residual": 2.220446049250313e-16,
+      "full_segment_target_capacity_removed_by_verification": {
+        "true_target": 2,
+        "non_target": 4
+      },
+      "expert_argmax_disagreement": {
+        "pre": 37,
+        "verified": 33,
+        "true_target_pre": 8,
+        "true_target_verified": 6
+      },
+      "target_scale": {
+        "min": 0.15036491077760322,
+        "mean": 0.55418491144279,
+        "max": 1.0
+      },
+      "undefined_metric_policy": "Undefined class rates are null; macro F1 uses the fixed four-role convention with zero for undefined per-class F1.",
+      "capacity_interpretation": "Label-aware attainable bounds, not a learned classifier or deployable performance.",
+      "numeric_policy": "Validate source simplex then renormalise in float64; target feasibility requires margin >= 1e-9."
+    }
+  },
+  "outer_images_loaded": false,
+  "fold_1_2_accessed": false,
+  "weights_modified": false,
+  "selection_lock_created": false
+}

@@ -1,0 +1,36 @@
+{
+  "scope": "candidate_capacity_audit_and_report_appendix_n",
+  "verified_date": "2026-10-02",
+  "regression_suite": {
+    "command": "python -m unittest discover -s tests -v",
+    "tests": 354,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "exit_code": 0
+  },
+  "probability_table_replay": {
+    "subsets": ["gate_stop_projector_fit", "projector_stop"],
+    "max_metric_abs_difference": 2.220446049250313e-16,
+    "categorical_results_exact": true,
+    "outer_images_loaded": false
+  },
+  "report": {
+    "sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+    "previous_sha256": "ddc27f2b1448f3d2a8acc9c47048f3759a11aa79822ab63b6bb0983a00217a45",
+    "pages": 80,
+    "new_pages_visually_reviewed": [77, 78, 79, 80],
+    "previous_body_elements_unchanged": 742,
+    "previous_media_parts_unchanged": 75,
+    "new_equations": 6,
+    "main_and_worktree_versions_identical": true,
+    "previous_main_version_archived": true
+  },
+  "review": {
+    "mode": "inline_adversarial_review_and_regression_tests",
+    "independent_external_review_performed": false,
+    "fixes": ["finite_infeasible_certificate_for_subnormal_slopes", "reject_changed_observations_before_reusing_report_narrative"]
+  },
+  "research_claim": "Structural formula and finite-sample geometry validation; no new classifier efficacy or priority claim.",
+  "active_goal_complete": false
+}

@@ -1,0 +1,14 @@
+{
+  "purpose": "structural_formula_check_not_classifier_performance",
+  "dtype": "float64",
+  "sample_count": 25000,
+  "seed": 20261002,
+  "tolerance": 1e-12,
+  "commutation_max_abs_residual": 2.220446049250313e-16,
+  "nested_segment_violations": 0,
+  "target_set_promotions": 0,
+  "scale_margin_feasible_count": 6024,
+  "scale_margin_violations": 0,
+  "minimum_observed_protected_margin": 0.009999999999999898,
+  "interpretation": "Random checks supplement algebraic proofs; they do not prove population recall or novelty."
+}
