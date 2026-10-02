@@ -32,5 +32,11 @@
     "fixes": ["finite_infeasible_certificate_for_subnormal_slopes", "reject_changed_observations_before_reusing_report_narrative"]
   },
   "research_claim": "Structural formula and finite-sample geometry validation; no new classifier efficacy or priority claim.",
-  "active_goal_complete": false
+  "active_goal_complete": false,
+  "github": {
+    "branch": "codex/theory-aware-report",
+    "research_commit": "af4ff14",
+    "push_exit_code": 0,
+    "research_upload_confirmed": true
+  }
 }
