@@ -1,0 +1,81 @@
+{
+  "protocol": "abmp_verifier_scalar_diagnostic_v1",
+  "status": "read_only_diagnostic_complete_no_network_promotion",
+  "verified_date": "2026-10-02",
+  "primary_branch": "oos",
+  "parameter_fit_subset": "gate_stop_projector_fit",
+  "reporting_subset": "projector_stop",
+  "fit_objective": "unweighted four-class NLL, gamma in [0,1]",
+  "fit_method": "Convex endpoint derivative check; bisection with 80 iterations would apply only to an interior root.",
+  "outer_accessed": false,
+  "fold_1_2_accessed": false,
+  "weights_modified": false,
+  "new_head_trained": false,
+  "selection_lock_created": false,
+  "input_sha256": {
+    "outputs/theory/abmp_candidate_capacity_v1/gate_stop_projector_fit/component_predictions.csv": "020c42d91cfdda0c7df0529d68055450d5e4868c8607dfd0be22cf7d6152346c",
+    "outputs/theory/abmp_candidate_capacity_v1/gate_stop_projector_fit/routing_evidence.csv": "f4ea3c642487317219dda7af550f2ced585df6010aa8270d6f93bb14fe283b13",
+    "outputs/training/tc_oos_rsg_manifests_v1/fold_0/gate_stop_projector_fit.csv": "eb79afac38f664b22a4a58cc2fb38f1d32e698395c6c1824b051c99d11240531",
+    "outputs/theory/abmp_candidate_capacity_v1/projector_stop/component_predictions.csv": "faf7a42c04d440f2d5a380ed3ae985b66b8c8ad8ab675d88cffe4db8fd06d24c",
+    "outputs/theory/abmp_candidate_capacity_v1/projector_stop/routing_evidence.csv": "2299dae331ac7f012ec5cfac8a9533d84cdc8f4a0519546054d93dc92e2173c3",
+    "outputs/training/tc_oos_rsg_manifests_v1/fold_0/projector_stop.csv": "1a63741360e5ae8bc97377a86d761bbdb289ddcee11b24e184fa49b47a95bd09"
+  },
+  "source_validation": {
+    "before_and_after_equal_to_capacity_audit_provenance": true,
+    "images_per_subset": 340,
+    "class_counts_per_subset": [66, 130, 97, 47],
+    "branch_identity_order_matches_evidence_and_manifest": true,
+    "original_probability_replay_max_abs_error": 0.0
+  },
+  "scalar_fit_sensitivity": {
+    "oos": {"gamma": 0.0, "derivative_at_0": 0.017278821521879904, "derivative_at_1": 0.03262157889374045},
+    "fixed": {"gamma": 0.0, "derivative_at_0": 0.01701366821448435, "derivative_at_1": 0.032396582297613795},
+    "direct": {"gamma": 0.0, "derivative_at_0": 0.01444882652944888, "derivative_at_1": 0.03044924256539158},
+    "mapped": {"gamma": 0.0, "derivative_at_0": 0.01957850989951982, "derivative_at_1": 0.034220772888536234}
+  },
+  "oos_metrics": {
+    "gate_stop_projector_fit": {
+      "contradiction_positive_count": 270,
+      "no_verification": {"nll": 0.8114115252792935, "accuracy": 0.6823529411764706, "macro_f1": 0.6623959632318858, "target_recall": 0.5606060606060606, "ti_intrusion_to_target": 0.13076923076923078, "metallic_intrusion_to_target": 0.1702127659574468},
+      "original": {"nll": 0.8372731602078117, "accuracy": 0.6764705882352942, "macro_f1": 0.6552938999508178, "target_recall": 0.5303030303030303, "ti_intrusion_to_target": 0.13076923076923078, "metallic_intrusion_to_target": 0.1702127659574468},
+      "fit_scalar": {"nll": 0.8114115252792935, "accuracy": 0.6823529411764706, "macro_f1": 0.6623959632318858, "target_recall": 0.5606060606060606, "ti_intrusion_to_target": 0.13076923076923078, "metallic_intrusion_to_target": 0.1702127659574468},
+      "label_oracle_not_deployable": {"nll": 0.7919905614371683, "accuracy": 0.6823529411764706, "macro_f1": 0.6621526720140793, "target_recall": 0.5606060606060606, "ti_intrusion_to_target": 0.13076923076923078, "metallic_intrusion_to_target": 0.1702127659574468},
+      "oracle_nll_gap_from_no_verification": 0.019420963842125216
+    },
+    "projector_stop": {
+      "contradiction_positive_count": 271,
+      "no_verification": {"nll": 0.8462730783329069, "accuracy": 0.6852941176470588, "macro_f1": 0.6542874384459548, "target_recall": 0.6515151515151515, "ti_intrusion_to_target": 0.1, "metallic_intrusion_to_target": 0.1276595744680851},
+      "original": {"nll": 0.862187712831223, "accuracy": 0.6941176470588235, "macro_f1": 0.6618941069604402, "target_recall": 0.6515151515151515, "ti_intrusion_to_target": 0.07692307692307693, "metallic_intrusion_to_target": 0.1276595744680851},
+      "fit_scalar": {"nll": 0.8462730783329069, "accuracy": 0.6852941176470588, "macro_f1": 0.6542874384459548, "target_recall": 0.6515151515151515, "ti_intrusion_to_target": 0.1, "metallic_intrusion_to_target": 0.1276595744680851},
+      "label_oracle_not_deployable": {"nll": 0.8245755094190467, "accuracy": 0.6941176470588235, "macro_f1": 0.6618941069604402, "target_recall": 0.6515151515151515, "ti_intrusion_to_target": 0.07692307692307693, "metallic_intrusion_to_target": 0.1276595744680851},
+      "oracle_nll_gap_from_no_verification": 0.02169756891386021
+    }
+  },
+  "mathematical_checks": {
+    "dtype": "float64",
+    "seed": 20261002,
+    "random_count": 25000,
+    "closed_form_optimum_max_abs_residual": 1.1102230246251565e-16,
+    "conditional_ce_decomposition_max_abs_residual": 1.7763568394002505e-15,
+    "negative_regret_violations": 0,
+    "bce_excess_bound_violations": 0,
+    "true_posterior_boundary_checks": 3,
+    "convex_hessian_checks": 125000,
+    "interpretation": "Formula checks only; not learned network efficacy or generalization evidence."
+  },
+  "delivery_checks": {
+    "existing_abmp_regression_command": "python -m unittest discover -s tests -p '*abmp*.py' -v",
+    "existing_abmp_regression_tests": 53,
+    "existing_abmp_regression_failures": 0,
+    "existing_abmp_regression_errors": 0,
+    "existing_abmp_regression_exit_code": 0,
+    "record_replay_max_metric_error": 0.0,
+    "autograd_derivative_and_hessian_max_error": 1.3877787807814457e-17,
+    "convex_grid_evaluations": 202,
+    "both_grids_minimized_at_zero": true,
+    "oos_stop_target_removals_by_true_class": [0, 3, 1, 0],
+    "official_report_unchanged_sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+    "main_and_worktree_report_identical": true
+  },
+  "claim_boundary": "Exposed development diagnostic. No significance test, independent confirmation, network efficacy, or theoretical priority claim."
+}
