@@ -1,0 +1,23 @@
+# Preserve exact bytes for this hash-registered experiment and its frozen inputs.
+/scripts/verifier_risk.py -text whitespace=cr-at-eol
+/scripts/run_verifier_trust_development.py -text whitespace=cr-at-eol
+/scripts/tc_oos_rsg.py -text whitespace=cr-at-eol
+/scripts/audit_abmp_candidate_capacity.py -text whitespace=cr-at-eol
+/scripts/run_tc_oos_rsg_experiments.py -text whitespace=cr-at-eol
+/docs/experiment_protocols/abmp_verifier_trust_development_v1.json -text whitespace=cr-at-eol
+/outputs/theory/abmp_candidate_capacity_v1/audit_summary.json -text whitespace=cr-at-eol
+/outputs/theory/abmp_candidate_capacity_v1/gate_stop_projector_fit/component_predictions.csv -text whitespace=cr-at-eol
+/outputs/theory/abmp_candidate_capacity_v1/gate_stop_projector_fit/routing_evidence.csv -text whitespace=cr-at-eol
+/outputs/theory/abmp_candidate_capacity_v1/projector_stop/component_predictions.csv -text whitespace=cr-at-eol
+/outputs/theory/abmp_candidate_capacity_v1/projector_stop/routing_evidence.csv -text whitespace=cr-at-eol
+/outputs/training/tc_oos_rsg_manifests_v1/fold_0/expert_fit.csv -text whitespace=cr-at-eol
+/outputs/training/tc_oos_rsg_manifests_v1/fold_0/expert_stop.csv -text whitespace=cr-at-eol
+/outputs/training/tc_oos_rsg_manifests_v1/fold_0/gate_fit.csv -text whitespace=cr-at-eol
+/outputs/training/tc_oos_rsg_manifests_v1/fold_0/gate_stop_projector_fit.csv -text whitespace=cr-at-eol
+/outputs/training/tc_oos_rsg_manifests_v1/fold_0/projector_stop.csv -text whitespace=cr-at-eol
+/outputs/training/tc_oos_rsg_v1/fold_0/manifests/expert_training.csv -text whitespace=cr-at-eol
+/outputs/training/tc_oos_rsg_v1/fold_0/expert/selection_lock.json -text whitespace=cr-at-eol
+/outputs/training/tc_oos_rsg_v1/fold_0/expert/run_config.json -text whitespace=cr-at-eol
+/outputs/training/tc_oos_rsg_v1/fold_0/tc_projection/run_config.json -text whitespace=cr-at-eol
+/outputs/training/tc_oos_rsg_v1/fold_0/tc_projection/selection_lock.json -text whitespace=cr-at-eol
+/outputs/training/abmp_verifier_trust_v1/development_fold_0/** -text whitespace=cr-at-eol

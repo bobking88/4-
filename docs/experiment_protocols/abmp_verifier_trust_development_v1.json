@@ -1,0 +1,27 @@
+{
+  "protocol": "abmp_verifier_trust_development_v1",
+  "approval": "Human: 批准开发实验",
+  "scope": "Exposed Fold 0 inner development only; no report edit or outer access",
+  "seeds": [20261002, 20261003, 20261004],
+  "budget": {"epochs": 30, "batch_size": 256, "learning_rate": 0.001, "weight_decay": 0.0001, "dropout": 0.1},
+  "head": {"input_dim": 18, "hidden_dims": [64, 16]},
+  "dtype": "float64",
+  "device": "cpu",
+  "threads": 1,
+  "checkpoint_criterion": "minimum unweighted stopping four-class NLL; earliest epoch on ties",
+  "arms": {"A0": "gamma=0", "A1": "gamma=1", "A2": "fit-only exact convex NLL optimum", "A3": "free gamma head; final four-class NLL", "A4": "raw target-probability head; unweighted BCE; analytic interval projection"},
+  "mean_replay": "Fit-set mean gamma frozen for stopping inference",
+  "thresholds": {"nll_improvement": 0.001, "recall_tolerance": 0.01, "intrusion_tolerance": 0.01, "dynamic_tolerance": 0.000001},
+  "promotion_policy": "Every seed must pass all gates; even a pass is DEVELOPMENT_SIGNAL_ONLY and cannot open outer folds automatically",
+  "input_sha256": {
+    "gate_stop_projector_fit/component_predictions.csv": "020c42d91cfdda0c7df0529d68055450d5e4868c8607dfd0be22cf7d6152346c",
+    "gate_stop_projector_fit/routing_evidence.csv": "f4ea3c642487317219dda7af550f2ced585df6010aa8270d6f93bb14fe283b13",
+    "gate_stop_projector_fit/manifest.csv": "eb79afac38f664b22a4a58cc2fb38f1d32e698395c6c1824b051c99d11240531",
+    "projector_stop/component_predictions.csv": "faf7a42c04d440f2d5a380ed3ae985b66b8c8ad8ab675d88cffe4db8fd06d24c",
+    "projector_stop/routing_evidence.csv": "2299dae331ac7f012ec5cfac8a9533d84cdc8f4a0519546054d93dc92e2173c3",
+    "projector_stop/manifest.csv": "1a63741360e5ae8bc97377a86d761bbdb289ddcee11b24e184fa49b47a95bd09"
+  },
+  "source_audit_sha256": "f42c7806a5542a00f9e28997ef185a9d375d504f9d1070c1fff2547051bb7890",
+  "formal_report_sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+  "theory_boundary": "BCE excess-risk bound for the fixed verification family; not a new generic projection theorem or a finite-sample improvement guarantee"
+}

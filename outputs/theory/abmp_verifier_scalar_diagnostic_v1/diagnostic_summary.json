@@ -77,5 +77,17 @@
     "official_report_unchanged_sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
     "main_and_worktree_report_identical": true
   },
+  "github_sync": {
+    "branch": "codex/theory-aware-report",
+    "initial_local_commit": "0a4be6cd53ba7e5abec6f17ebdd98e1c185c8447",
+    "push_exit_code": 1,
+    "push_error": "Failed to connect to github.com port 443 after 21059 ms",
+    "last_known_remote_tracking_sha": "b941cb2a3074a0e810266f502937481151bb849e",
+    "upload_verified": false,
+    "followup_connectivity_check_executed": false,
+    "approval_review_failure": "Automatic approval review could not complete because the reviewer usage limit was reached; not an unsafe-action determination.",
+    "approval_bypassed": false,
+    "local_followup_changes_uncommitted": true
+  },
   "claim_boundary": "Exposed development diagnostic. No significance test, independent confirmation, network efficacy, or theoretical priority claim."
 }

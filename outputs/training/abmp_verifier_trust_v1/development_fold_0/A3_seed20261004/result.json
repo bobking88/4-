@@ -1,0 +1,59 @@
+{
+  "arm": "A3",
+  "seed": 20261004,
+  "best_epoch": 30,
+  "initial_sha256": "9b3543c0e4f4601501658e8b9a80cc7d67123d452e7aea64a50614a82315a649",
+  "state_sha256": "18c878386b901455da59f14e0e82ba9f2f5e8ef32a83d197338ad290e8de4b36",
+  "checkpoint_sha256": "cefd15d3d8089340b7d621224ea4707f393625a6dac9c834abade73d422f4170",
+  "parameter_count": 2401,
+  "initial_fit_objective": 0.8203339027032354,
+  "selected_fit_objective": 0.8120696524402988,
+  "metrics": {
+    "fit": {
+      "nll": 0.8120696524402988,
+      "accuracy": 0.6823529411764706,
+      "macro_f1": 0.6623959632318858,
+      "target_recall": 0.5606060606060606,
+      "ti_intrusion_to_target": 0.13076923076923078,
+      "metallic_intrusion_to_target": 0.1702127659574468
+    },
+    "stop": {
+      "nll": 0.8465241726179286,
+      "accuracy": 0.6852941176470588,
+      "macro_f1": 0.6542874384459548,
+      "target_recall": 0.6515151515151515,
+      "ti_intrusion_to_target": 0.1,
+      "metallic_intrusion_to_target": 0.1276595744680851
+    }
+  },
+  "diagnostics": {
+    "fit_mean_gamma": 0.049376191767642776,
+    "gamma_std_active": 0.026978349202444605,
+    "gamma_mean": 0.04759167895884025,
+    "minimum_fixed_output_distance": 0.004109166728599234,
+    "fit_mean_replay_output_distance": 0.002574360026954131,
+    "checkpoint_replay_max_abs_residual": 0.0,
+    "target_promotions_from_no_verification": 0
+  },
+  "fit_mean_replay_stop_metrics": {
+    "nll": 0.846623384434902,
+    "accuracy": 0.6852941176470588,
+    "macro_f1": 0.6542874384459548,
+    "target_recall": 0.6515151515151515,
+    "ti_intrusion_to_target": 0.1,
+    "metallic_intrusion_to_target": 0.1276595744680851
+  },
+  "development_gate": {
+    "passed": false,
+    "checks": {
+      "nll_beyond_best_control": false,
+      "macro_f1_not_below_best_control": false,
+      "target_recall_guard": true,
+      "ti_intrusion_to_target_guard": false,
+      "metallic_intrusion_to_target_guard": true,
+      "gamma_std_active": true,
+      "minimum_fixed_output_distance": true,
+      "fit_mean_replay_output_distance": true
+    }
+  }
+}

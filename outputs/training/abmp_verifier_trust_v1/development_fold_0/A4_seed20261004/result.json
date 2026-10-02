@@ -1,0 +1,61 @@
+{
+  "arm": "A4",
+  "seed": 20261004,
+  "best_epoch": 8,
+  "initial_sha256": "9b3543c0e4f4601501658e8b9a80cc7d67123d452e7aea64a50614a82315a649",
+  "state_sha256": "7b04d5751072d98ca92fb36ffa1b93a7d84dad8ee0e97e349d0e3f144e67b437",
+  "checkpoint_sha256": "acfb338913cbd3179a3aeb3bc4b49519ca4ed9abc06df9375da2c50d2e538b6b",
+  "parameter_count": 2401,
+  "initial_fit_objective": 0.6065902248398547,
+  "selected_fit_objective": 0.494664815416549,
+  "metrics": {
+    "fit": {
+      "nll": 0.8108621418603039,
+      "accuracy": 0.6764705882352942,
+      "macro_f1": 0.6552938999508178,
+      "target_recall": 0.5303030303030303,
+      "ti_intrusion_to_target": 0.13076923076923078,
+      "metallic_intrusion_to_target": 0.1702127659574468
+    },
+    "stop": {
+      "nll": 0.8450571499101541,
+      "accuracy": 0.6941176470588235,
+      "macro_f1": 0.6618941069604402,
+      "target_recall": 0.6515151515151515,
+      "ti_intrusion_to_target": 0.07692307692307693,
+      "metallic_intrusion_to_target": 0.1276595744680851
+    }
+  },
+  "diagnostics": {
+    "fit_mean_gamma": 0.05922077212279453,
+    "gamma_std_active": 0.2328375280753636,
+    "gamma_mean": 0.049554356301660656,
+    "minimum_fixed_output_distance": 0.10023223280530075,
+    "fit_mean_replay_output_distance": 0.09396489556523208,
+    "checkpoint_replay_max_abs_residual": 0.0,
+    "target_promotions_from_no_verification": 0,
+    "lower_saturated_count": 78,
+    "upper_saturated_count": 254
+  },
+  "fit_mean_replay_stop_metrics": {
+    "nll": 0.8467000963613636,
+    "accuracy": 0.6852941176470588,
+    "macro_f1": 0.6542874384459548,
+    "target_recall": 0.6515151515151515,
+    "ti_intrusion_to_target": 0.1,
+    "metallic_intrusion_to_target": 0.1276595744680851
+  },
+  "development_gate": {
+    "passed": true,
+    "checks": {
+      "nll_beyond_best_control": true,
+      "macro_f1_not_below_best_control": true,
+      "target_recall_guard": true,
+      "ti_intrusion_to_target_guard": true,
+      "metallic_intrusion_to_target_guard": true,
+      "gamma_std_active": true,
+      "minimum_fixed_output_distance": true,
+      "fit_mean_replay_output_distance": true
+    }
+  }
+}

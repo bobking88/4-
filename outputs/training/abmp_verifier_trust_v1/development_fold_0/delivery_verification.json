@@ -1,0 +1,55 @@
+{
+  "status": "VERIFIED",
+  "prediction_table_count": 24,
+  "max_abs_replay_residual": 0.0,
+  "runs": [
+    {
+      "arm": "A3",
+      "seed": 20261002,
+      "classification_difference_from_original_verification": 4,
+      "classification_difference_from_no_verification": 0,
+      "nll_improvement_over_fit_mean_replay": -0.00028019958988034777
+    },
+    {
+      "arm": "A4",
+      "seed": 20261002,
+      "classification_difference_from_original_verification": 0,
+      "classification_difference_from_no_verification": 4,
+      "nll_improvement_over_fit_mean_replay": 0.0014855109073823591
+    },
+    {
+      "arm": "A3",
+      "seed": 20261003,
+      "classification_difference_from_original_verification": 4,
+      "classification_difference_from_no_verification": 0,
+      "nll_improvement_over_fit_mean_replay": -0.00010474290860296165
+    },
+    {
+      "arm": "A4",
+      "seed": 20261003,
+      "classification_difference_from_original_verification": 0,
+      "classification_difference_from_no_verification": 4,
+      "nll_improvement_over_fit_mean_replay": 0.0015586908866164206
+    },
+    {
+      "arm": "A3",
+      "seed": 20261004,
+      "classification_difference_from_original_verification": 4,
+      "classification_difference_from_no_verification": 0,
+      "nll_improvement_over_fit_mean_replay": 9.921181697347681e-05
+    },
+    {
+      "arm": "A4",
+      "seed": 20261004,
+      "classification_difference_from_original_verification": 0,
+      "classification_difference_from_no_verification": 4,
+      "nll_improvement_over_fit_mean_replay": 0.0016429464512094372
+    }
+  ],
+  "fixed_oos_no_verification_true_target_capacity": 43,
+  "fit_count": 340,
+  "stop_count": 340,
+  "source_and_report_unchanged": true,
+  "outer_manifest_read": false,
+  "interpretation": "Delivery and implementation replay only; not an independent efficacy test."
+}
