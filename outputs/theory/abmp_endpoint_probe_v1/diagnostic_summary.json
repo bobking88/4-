@@ -1,0 +1,461 @@
+{
+  "status": "POSTHOC_DEVELOPMENT_DIAGNOSTIC",
+  "date": "2026-10-03",
+  "selection": "analytic estimated-risk endpoint threshold; no labels used for endpoint/raw inference",
+  "new_training": false,
+  "parameter_tuning": false,
+  "outer_access": false,
+  "source_unchanged": true,
+  "input_sha256": {
+    "docs/experiment_protocols/abmp_verifier_trust_development_v1.json": "728e7de348cf8ce651f5492639b9b9876153d9909936c96cae4ec72119466a34",
+    "scripts/verifier_risk.py": "a5bc85cccee192479bcf49bddcce4863eac66126636ba7d04b83898b9606dfff",
+    "outputs/training/abmp_verifier_trust_v1/development_fold_0/A4_seed20261002/stop_predictions.csv": "30fb0d074e1f55031e0cbfb7a36a0f2d66960befe6409a6cb66ba47c6d535b87",
+    "outputs/training/abmp_verifier_trust_v1/development_fold_0/A4_seed20261003/stop_predictions.csv": "d4459c492d933372ac5393fa7f3bdef174ead572bfc7a41d9a3319cdf8009208",
+    "outputs/training/abmp_verifier_trust_v1/development_fold_0/A4_seed20261004/stop_predictions.csv": "d798d626480a2c5347e35142083f19084a5d92434cedeafca56cbca5a6b2ab8a",
+    "outputs/training/abmp_verifier_trust_v1/development_fold_0/A4_seed20261002/fit_predictions.csv": "f51fc0b5de2975aeed9ce6af0fbc13f3eec7809273942bd480b90532dd4861da",
+    "outputs/training/abmp_verifier_trust_v1/development_fold_0/A4_seed20261003/fit_predictions.csv": "b9f67a6abf5bcdd7a863d0c91b0290740914cac9edb90c047cb02ef85243949d",
+    "outputs/training/abmp_verifier_trust_v1/development_fold_0/A4_seed20261004/fit_predictions.csv": "cd37adeb471c196fd177653067fab7e91e91671d42193c794b16553ac4bfb9fa",
+    "outputs/training/abmp_verifier_trust_v1/development_fold_0/A4_seed20261002/best_head.pt": "8bb9506037d7070de13f75dbc803b1a3c804f018ab6f7323bfa1807c8495374b",
+    "outputs/training/abmp_verifier_trust_v1/development_fold_0/A4_seed20261003/best_head.pt": "522ee92591f549342d7315df1e0ffd92f42299f529f8101c87294e77b928703a",
+    "outputs/training/abmp_verifier_trust_v1/development_fold_0/A4_seed20261004/best_head.pt": "acfb338913cbd3179a3aeb3bc4b49519ca4ed9abc06df9375da2c50d2e538b6b"
+  },
+  "rows": [
+    {
+      "subset": "fit",
+      "seed": 20261002,
+      "n": 340,
+      "interior_count": 7,
+      "lower_endpoint_count": 20,
+      "continuous_endpoint_nll_delta": 0.0002590113119418369,
+      "continuous_endpoint_class_difference": 0,
+      "raw_continuous_class_difference": 51,
+      "continuous_new_target_count": 0,
+      "raw_new_target_count": 3,
+      "non_target_ratio_max_residual": 1.1102230246251565e-16,
+      "estimated_endpoint_excess_mean": 0.000011789613201410522,
+      "estimated_endpoint_excess_min": -4.440892098500626e-16,
+      "estimated_endpoint_excess_violations": 0,
+      "metrics": {
+        "continuous": {
+          "nll": 0.8105707783544671,
+          "accuracy": 0.6764705882352942,
+          "macro_f1": 0.6552938999508178,
+          "target_recall": 0.5303030303030303,
+          "ti_intrusion_to_target": 0.13076923076923078,
+          "metallic_intrusion_to_target": 0.1702127659574468
+        },
+        "endpoint": {
+          "nll": 0.8103117670425253,
+          "accuracy": 0.6764705882352942,
+          "macro_f1": 0.6552938999508178,
+          "target_recall": 0.5303030303030303,
+          "ti_intrusion_to_target": 0.13076923076923078,
+          "metallic_intrusion_to_target": 0.1702127659574468
+        },
+        "raw": {
+          "nll": 0.9401713295472084,
+          "accuracy": 0.6323529411764706,
+          "macro_f1": 0.5549746210045255,
+          "target_recall": 0.12121212121212122,
+          "ti_intrusion_to_target": 0.03076923076923077,
+          "metallic_intrusion_to_target": 0.1276595744680851
+        }
+      }
+    },
+    {
+      "subset": "fit",
+      "seed": 20261003,
+      "n": 340,
+      "interior_count": 8,
+      "lower_endpoint_count": 21,
+      "continuous_endpoint_nll_delta": -0.0003799804618018765,
+      "continuous_endpoint_class_difference": 0,
+      "raw_continuous_class_difference": 50,
+      "continuous_new_target_count": 0,
+      "raw_new_target_count": 0,
+      "non_target_ratio_max_residual": 1.1102230246251565e-16,
+      "estimated_endpoint_excess_mean": 0.00002658980775888468,
+      "estimated_endpoint_excess_min": -6.661338147750939e-16,
+      "estimated_endpoint_excess_violations": 0,
+      "metrics": {
+        "continuous": {
+          "nll": 0.8104684582959859,
+          "accuracy": 0.6764705882352942,
+          "macro_f1": 0.6552938999508178,
+          "target_recall": 0.5303030303030303,
+          "ti_intrusion_to_target": 0.13076923076923078,
+          "metallic_intrusion_to_target": 0.1702127659574468
+        },
+        "endpoint": {
+          "nll": 0.8108484387577878,
+          "accuracy": 0.6764705882352942,
+          "macro_f1": 0.6552938999508178,
+          "target_recall": 0.5303030303030303,
+          "ti_intrusion_to_target": 0.13076923076923078,
+          "metallic_intrusion_to_target": 0.1702127659574468
+        },
+        "raw": {
+          "nll": 0.9144483512656951,
+          "accuracy": 0.6352941176470588,
+          "macro_f1": 0.5532565937317829,
+          "target_recall": 0.10606060606060606,
+          "ti_intrusion_to_target": 0.03076923076923077,
+          "metallic_intrusion_to_target": 0.10638297872340426
+        }
+      }
+    },
+    {
+      "subset": "fit",
+      "seed": 20261004,
+      "n": 340,
+      "interior_count": 9,
+      "lower_endpoint_count": 20,
+      "continuous_endpoint_nll_delta": 0.00008052377670397792,
+      "continuous_endpoint_class_difference": 0,
+      "raw_continuous_class_difference": 47,
+      "continuous_new_target_count": 0,
+      "raw_new_target_count": 2,
+      "non_target_ratio_max_residual": 1.1102230246251565e-16,
+      "estimated_endpoint_excess_mean": 0.000028163336638683273,
+      "estimated_endpoint_excess_min": -6.661338147750939e-16,
+      "estimated_endpoint_excess_violations": 0,
+      "metrics": {
+        "continuous": {
+          "nll": 0.8108621418603039,
+          "accuracy": 0.6764705882352942,
+          "macro_f1": 0.6552938999508178,
+          "target_recall": 0.5303030303030303,
+          "ti_intrusion_to_target": 0.13076923076923078,
+          "metallic_intrusion_to_target": 0.1702127659574468
+        },
+        "endpoint": {
+          "nll": 0.8107816180835999,
+          "accuracy": 0.6764705882352942,
+          "macro_f1": 0.6552938999508178,
+          "target_recall": 0.5303030303030303,
+          "ti_intrusion_to_target": 0.13076923076923078,
+          "metallic_intrusion_to_target": 0.1702127659574468
+        },
+        "raw": {
+          "nll": 0.9238262981589765,
+          "accuracy": 0.6323529411764706,
+          "macro_f1": 0.5590224978634213,
+          "target_recall": 0.13636363636363635,
+          "ti_intrusion_to_target": 0.038461538461538464,
+          "metallic_intrusion_to_target": 0.1276595744680851
+        }
+      }
+    },
+    {
+      "subset": "stop",
+      "seed": 20261002,
+      "n": 340,
+      "interior_count": 8,
+      "lower_endpoint_count": 15,
+      "continuous_endpoint_nll_delta": 0.0004137066657049493,
+      "continuous_endpoint_class_difference": 0,
+      "raw_continuous_class_difference": 53,
+      "continuous_new_target_count": 0,
+      "raw_new_target_count": 1,
+      "non_target_ratio_max_residual": 2.220446049250313e-16,
+      "estimated_endpoint_excess_mean": 0.000010330746616479976,
+      "estimated_endpoint_excess_min": -8.881784197001252e-16,
+      "estimated_endpoint_excess_violations": 0,
+      "metrics": {
+        "continuous": {
+          "nll": 0.845183927580557,
+          "accuracy": 0.6941176470588235,
+          "macro_f1": 0.6618941069604402,
+          "target_recall": 0.6515151515151515,
+          "ti_intrusion_to_target": 0.07692307692307693,
+          "metallic_intrusion_to_target": 0.1276595744680851
+        },
+        "endpoint": {
+          "nll": 0.8447702209148521,
+          "accuracy": 0.6941176470588235,
+          "macro_f1": 0.6618941069604402,
+          "target_recall": 0.6515151515151515,
+          "ti_intrusion_to_target": 0.07692307692307693,
+          "metallic_intrusion_to_target": 0.1276595744680851
+        },
+        "raw": {
+          "nll": 1.0271032724090405,
+          "accuracy": 0.6205882352941177,
+          "macro_f1": 0.5340255343919784,
+          "target_recall": 0.13636363636363635,
+          "ti_intrusion_to_target": 0.007692307692307693,
+          "metallic_intrusion_to_target": 0.0425531914893617
+        }
+      }
+    },
+    {
+      "subset": "stop",
+      "seed": 20261003,
+      "n": 340,
+      "interior_count": 8,
+      "lower_endpoint_count": 20,
+      "continuous_endpoint_nll_delta": -0.00031171661514062254,
+      "continuous_endpoint_class_difference": 0,
+      "raw_continuous_class_difference": 54,
+      "continuous_new_target_count": 0,
+      "raw_new_target_count": 0,
+      "non_target_ratio_max_residual": 2.220446049250313e-16,
+      "estimated_endpoint_excess_mean": 0.000015250145192846947,
+      "estimated_endpoint_excess_min": -6.661338147750939e-16,
+      "estimated_endpoint_excess_violations": 0,
+      "metrics": {
+        "continuous": {
+          "nll": 0.8451797560308126,
+          "accuracy": 0.6941176470588235,
+          "macro_f1": 0.6618941069604402,
+          "target_recall": 0.6515151515151515,
+          "ti_intrusion_to_target": 0.07692307692307693,
+          "metallic_intrusion_to_target": 0.1276595744680851
+        },
+        "endpoint": {
+          "nll": 0.8454914726459533,
+          "accuracy": 0.6941176470588235,
+          "macro_f1": 0.6618941069604402,
+          "target_recall": 0.6515151515151515,
+          "ti_intrusion_to_target": 0.07692307692307693,
+          "metallic_intrusion_to_target": 0.1276595744680851
+        },
+        "raw": {
+          "nll": 0.9961371377773994,
+          "accuracy": 0.6235294117647059,
+          "macro_f1": 0.5386465980757382,
+          "target_recall": 0.13636363636363635,
+          "ti_intrusion_to_target": 0.007692307692307693,
+          "metallic_intrusion_to_target": 0.02127659574468085
+        }
+      }
+    },
+    {
+      "subset": "stop",
+      "seed": 20261004,
+      "n": 340,
+      "interior_count": 8,
+      "lower_endpoint_count": 17,
+      "continuous_endpoint_nll_delta": 0.00007084494522524576,
+      "continuous_endpoint_class_difference": 0,
+      "raw_continuous_class_difference": 49,
+      "continuous_new_target_count": 0,
+      "raw_new_target_count": 0,
+      "non_target_ratio_max_residual": 2.220446049250313e-16,
+      "estimated_endpoint_excess_mean": 0.000013162179208881618,
+      "estimated_endpoint_excess_min": -8.881784197001252e-16,
+      "estimated_endpoint_excess_violations": 0,
+      "metrics": {
+        "continuous": {
+          "nll": 0.8450571499101541,
+          "accuracy": 0.6941176470588235,
+          "macro_f1": 0.6618941069604402,
+          "target_recall": 0.6515151515151515,
+          "ti_intrusion_to_target": 0.07692307692307693,
+          "metallic_intrusion_to_target": 0.1276595744680851
+        },
+        "endpoint": {
+          "nll": 0.8449863049649289,
+          "accuracy": 0.6941176470588235,
+          "macro_f1": 0.6618941069604402,
+          "target_recall": 0.6515151515151515,
+          "ti_intrusion_to_target": 0.07692307692307693,
+          "metallic_intrusion_to_target": 0.1276595744680851
+        },
+        "raw": {
+          "nll": 1.0070442041364371,
+          "accuracy": 0.6235294117647059,
+          "macro_f1": 0.5454939631485104,
+          "target_recall": 0.16666666666666666,
+          "ti_intrusion_to_target": 0.015384615384615385,
+          "metallic_intrusion_to_target": 0.0425531914893617
+        }
+      }
+    }
+  ],
+  "aggregates": {
+    "fit": {
+      "continuous": {
+        "nll": {
+          "mean": 0.8106337928369189,
+          "sample_std": 0.0002042665071727166
+        },
+        "accuracy": {
+          "mean": 0.6764705882352942,
+          "sample_std": 0
+        },
+        "macro_f1": {
+          "mean": 0.6552938999508178,
+          "sample_std": 0
+        },
+        "target_recall": {
+          "mean": 0.5303030303030303,
+          "sample_std": 0
+        },
+        "ti_intrusion_to_target": {
+          "mean": 0.13076923076923078,
+          "sample_std": 0
+        },
+        "metallic_intrusion_to_target": {
+          "mean": 0.1702127659574468,
+          "sample_std": 0
+        }
+      },
+      "endpoint": {
+        "nll": {
+          "mean": 0.810647274627971,
+          "sample_std": 0.00029247265777067734
+        },
+        "accuracy": {
+          "mean": 0.6764705882352942,
+          "sample_std": 0
+        },
+        "macro_f1": {
+          "mean": 0.6552938999508178,
+          "sample_std": 0
+        },
+        "target_recall": {
+          "mean": 0.5303030303030303,
+          "sample_std": 0
+        },
+        "ti_intrusion_to_target": {
+          "mean": 0.13076923076923078,
+          "sample_std": 0
+        },
+        "metallic_intrusion_to_target": {
+          "mean": 0.1702127659574468,
+          "sample_std": 0
+        }
+      },
+      "raw": {
+        "nll": {
+          "mean": 0.9261486596572933,
+          "sample_std": 0.013017792636021246
+        },
+        "accuracy": {
+          "mean": 0.6333333333333333,
+          "sample_std": 0.001698089027028305
+        },
+        "macro_f1": {
+          "mean": 0.5557512375332433,
+          "sample_std": 0.0029603652710973385
+        },
+        "target_recall": {
+          "mean": 0.12121212121212122,
+          "sample_std": 0.015151515151515145
+        },
+        "ti_intrusion_to_target": {
+          "mean": 0.03333333333333333,
+          "sample_std": 0.004441155916843275
+        },
+        "metallic_intrusion_to_target": {
+          "mean": 0.12056737588652482,
+          "sample_std": 0.012284048280630329
+        }
+      }
+    },
+    "stop": {
+      "continuous": {
+        "nll": {
+          "mean": 0.8451402778405079,
+          "sample_std": 0.00007202110843703021
+        },
+        "accuracy": {
+          "mean": 0.6941176470588235,
+          "sample_std": 0
+        },
+        "macro_f1": {
+          "mean": 0.6618941069604402,
+          "sample_std": 0
+        },
+        "target_recall": {
+          "mean": 0.6515151515151515,
+          "sample_std": 0
+        },
+        "ti_intrusion_to_target": {
+          "mean": 0.07692307692307693,
+          "sample_std": 0
+        },
+        "metallic_intrusion_to_target": {
+          "mean": 0.1276595744680851,
+          "sample_std": 0
+        }
+      },
+      "endpoint": {
+        "nll": {
+          "mean": 0.8450826661752447,
+          "sample_std": 0.0003701555443921623
+        },
+        "accuracy": {
+          "mean": 0.6941176470588235,
+          "sample_std": 0
+        },
+        "macro_f1": {
+          "mean": 0.6618941069604402,
+          "sample_std": 0
+        },
+        "target_recall": {
+          "mean": 0.6515151515151515,
+          "sample_std": 0
+        },
+        "ti_intrusion_to_target": {
+          "mean": 0.07692307692307693,
+          "sample_std": 0
+        },
+        "metallic_intrusion_to_target": {
+          "mean": 0.1276595744680851,
+          "sample_std": 0
+        }
+      },
+      "raw": {
+        "nll": {
+          "mean": 1.010094871440959,
+          "sample_std": 0.015706855247260346
+        },
+        "accuracy": {
+          "mean": 0.6225490196078431,
+          "sample_std": 0.001698089027028305
+        },
+        "macro_f1": {
+          "mean": 0.5393886985387424,
+          "sample_std": 0.005770116927654552
+        },
+        "target_recall": {
+          "mean": 0.14646464646464646,
+          "sample_std": 0.017495462702715934
+        },
+        "ti_intrusion_to_target": {
+          "mean": 0.010256410256410256,
+          "sample_std": 0.004441155916843275
+        },
+        "metallic_intrusion_to_target": {
+          "mean": 0.035460992907801414,
+          "sample_std": 0.012284048280630335
+        }
+      }
+    }
+  },
+  "synthetic": {
+    "seed": 20261003,
+    "evidence_states": 10000,
+    "image_states_per_evidence": 4,
+    "three_term_excess_risk": {
+      "full": 0.36541637365694535,
+      "evidence_information_loss": 0.12470931019398127,
+      "target_interval_gap": 0.060636968936016535,
+      "fixed_non_target_gap": 0.18007009452694753,
+      "max_per_evidence_chain_residual": 5.551115123125783e-16,
+      "aggregate_identity_residual": 2.7755575615628914e-17
+    },
+    "true_conditional_endpoint_gap_min": -2.7755575615628914e-17,
+    "true_conditional_endpoint_gap_violations": 0,
+    "true_conditional_interior_count": 3369,
+    "four_term_actual_risk": {
+      "full": 0.3887725999922606,
+      "estimation_gap": 0.023356226335315304,
+      "estimation_gap_min": 0,
+      "estimation_gap_violations": 0,
+      "aggregate_identity_residual": 4.85722573273506e-17
+    }
+  }
+}
