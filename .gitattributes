@@ -21,3 +21,9 @@
 /outputs/training/tc_oos_rsg_v1/fold_0/tc_projection/run_config.json -text whitespace=cr-at-eol
 /outputs/training/tc_oos_rsg_v1/fold_0/tc_projection/selection_lock.json -text whitespace=cr-at-eol
 /outputs/training/abmp_verifier_trust_v1/development_fold_0/** -text whitespace=cr-at-eol
+/scripts/verifier_strong_controls.py -text whitespace=cr-at-eol
+/scripts/run_verifier_strong_controls.py -text whitespace=cr-at-eol
+/scripts/verify_verifier_strong_controls.py -text whitespace=cr-at-eol
+/tests/test_verifier_strong_controls.py -text whitespace=cr-at-eol
+/docs/experiment_protocols/abmp_verifier_strong_controls_v1.json -text whitespace=cr-at-eol
+/outputs/training/abmp_verifier_strong_controls_v1/development_fold_0/** -text whitespace=cr-at-eol

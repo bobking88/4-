@@ -1,0 +1,41 @@
+{
+  "protocol": "abmp_verifier_strong_controls_v1",
+  "registered_date": "2026-10-04",
+  "approval": "Human: 批准强对照实验",
+  "fold": 0,
+  "scope": "Already exposed inner fit/stop only; no Fold 1/2, outer_eval, visual feature extraction or formal report edit",
+  "subsets": ["gate_stop_projector_fit", "projector_stop"],
+  "counts": {"fit": 340, "stop": 340},
+  "arms": ["T0", "D0", "M0", "P0", "P1"],
+  "arm_definitions": {
+    "T0": "Fit-only convex global temperature on frozen oos_pre probabilities",
+    "D0": "Fit-only regularized Dirichlet calibration softmax(W log(p)+b), 20 raw parameters; identity-centred L2, not ODIR",
+    "M0": "Same 18D evidence and 2401-parameter head; T=softplus(score+log(expm1(1-1e-6)))+1e-6; final four-class NLL; not a full AdaTS reproduction",
+    "P0": "Same target head and verification interval as A4; train final clipped four-class NLL",
+    "P1": "Same target head and interval as A4; train raw unweighted BCE; exact A4 training reproduction required"
+  },
+  "retained_arms": ["A0", "A1", "A2", "A3", "A4"],
+  "reference_output": "outputs/training/abmp_verifier_trust_v1/development_fold_0",
+  "reference_summary_sha256": "7c93200f2c50272ceab7daf3ff85a6df07819fb294f364a0706739ca9a723195",
+  "seeds": [20261002, 20261003, 20261004],
+  "budget": {"epochs": 30, "batch_size": 256, "learning_rate": 0.001, "weight_decay": 0.0001, "dropout": 0.1},
+  "head": {"input_dim": 18, "hidden_dims": [64, 16], "parameter_count": 2401, "initialization": "Identical trainable state for M0/P0/P1 and original A4 within each seed"},
+  "global_temperature": {"parameter": "beta=1/T", "beta_bounds": [0.000001, 100.0], "solver": "Convex endpoint derivative tests, then 80 bisection steps; any boundary optimum reported"},
+  "dirichlet": {"regularization": 0.001, "penalty": "lambda/2*(||W-I||_F^2+||b||_2^2)", "solver": "L-BFGS-B", "maxiter": 2000, "maxls": 50, "ftol": 1e-15, "gtol": 1e-9, "acceptance_gradient_max_abs": 0.000001, "selection": "Fixed regularization; no stop-set hyperparameter tuning"},
+  "checkpoint_criterion": "Minimum unweighted stopping four-class NLL; earliest epoch on ties; epoch 0 not eligible, matching original A4",
+  "training_diagnostics": "Per train-mode mini-batch counts, hard-interval saturation, target saturation, exact-zero score gradients, target zero gradients, parameter data-gradient norm; no STE or joint loss",
+  "dtype": "float64",
+  "device": "cpu",
+  "threads": 1,
+  "input_sha256": {
+    "gate_stop_projector_fit/component_predictions.csv": "020c42d91cfdda0c7df0529d68055450d5e4868c8607dfd0be22cf7d6152346c",
+    "gate_stop_projector_fit/routing_evidence.csv": "f4ea3c642487317219dda7af550f2ced585df6010aa8270d6f93bb14fe283b13",
+    "gate_stop_projector_fit/manifest.csv": "eb79afac38f664b22a4a58cc2fb38f1d32e698395c6c1824b051c99d11240531",
+    "projector_stop/component_predictions.csv": "faf7a42c04d440f2d5a380ed3ae985b66b8c8ad8ab675d88cffe4db8fd06d24c",
+    "projector_stop/routing_evidence.csv": "2299dae331ac7f012ec5cfac8a9533d84cdc8f4a0519546054d93dc92e2173c3",
+    "projector_stop/manifest.csv": "1a63741360e5ae8bc97377a86d761bbdb289ddcee11b24e184fa49b47a95bd09"
+  },
+  "formal_report_sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+  "promotion_policy": "No automatic promotion or outer access. Descriptive three-seed comparison only, with recall and both intrusion rates alongside NLL; preserve original gate results unchanged.",
+  "theory_boundary": "Tests whether conditional-risk projection evidence exceeds calibration and whether raw proper supervision avoids hard-clipping plateaus; no new visual network, generic theorem or finite-sample superiority claim"
+}
