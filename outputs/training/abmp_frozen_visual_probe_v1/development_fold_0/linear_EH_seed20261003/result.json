@@ -1,0 +1,154 @@
+{
+  "initial_sha256": "845a68d536cc3e475fbb24a7240218a28bef313e8cddd4b14e4da3e85c84d946",
+  "state_sha256": "3a18d3d5412a1a80ad2310d2770a23954c84d9e68954249147b0bbb1c637feed",
+  "best_epoch": 30,
+  "parameter_count": 332,
+  "architecture": "linear",
+  "arm": "EH",
+  "seed": 20261003,
+  "metrics": {
+    "fit": {
+      "raw": {
+        "nll": 0.9124592495664555,
+        "accuracy": 0.7235294117647059,
+        "macro_f1": 0.7132396767741189,
+        "target_recall": 0.7121212121212122,
+        "ti_intrusion_to_target": 0.15384615384615385,
+        "metallic_intrusion_to_target": 0.1276595744680851
+      },
+      "calibrated": {
+        "nll": 0.6456807058344819,
+        "accuracy": 0.7235294117647059,
+        "macro_f1": 0.7132396767741189,
+        "target_recall": 0.7121212121212122,
+        "ti_intrusion_to_target": 0.15384615384615385,
+        "metallic_intrusion_to_target": 0.1276595744680851
+      }
+    },
+    "stop": {
+      "raw": {
+        "nll": 1.0385979777634757,
+        "accuracy": 0.65,
+        "macro_f1": 0.6185881105334174,
+        "target_recall": 0.7121212121212122,
+        "ti_intrusion_to_target": 0.17692307692307693,
+        "metallic_intrusion_to_target": 0.2127659574468085
+      },
+      "calibrated": {
+        "nll": 0.9691334755683239,
+        "accuracy": 0.65,
+        "macro_f1": 0.6185881105334174,
+        "target_recall": 0.7121212121212122,
+        "ti_intrusion_to_target": 0.17692307692307693,
+        "metallic_intrusion_to_target": 0.2127659574468085
+      }
+    }
+  },
+  "transitions": {
+    "fit": {
+      "raw": {
+        "classification_changes": 56,
+        "new_correct_targets": 11,
+        "lost_correct_targets": 1,
+        "net_correct_targets": 10,
+        "correct_target_count": 47,
+        "target_count": 66,
+        "new_false_target_by_class": {
+          "1": 7,
+          "2": 5,
+          "3": 3
+        },
+        "removed_false_target_by_class": {
+          "1": 4,
+          "2": 1,
+          "3": 5
+        },
+        "false_target_count_by_class": {
+          "1": 20,
+          "2": 12,
+          "3": 6
+        }
+      },
+      "calibrated": {
+        "classification_changes": 56,
+        "new_correct_targets": 11,
+        "lost_correct_targets": 1,
+        "net_correct_targets": 10,
+        "correct_target_count": 47,
+        "target_count": 66,
+        "new_false_target_by_class": {
+          "1": 7,
+          "2": 5,
+          "3": 3
+        },
+        "removed_false_target_by_class": {
+          "1": 4,
+          "2": 1,
+          "3": 5
+        },
+        "false_target_count_by_class": {
+          "1": 20,
+          "2": 12,
+          "3": 6
+        }
+      }
+    },
+    "stop": {
+      "raw": {
+        "classification_changes": 37,
+        "new_correct_targets": 4,
+        "lost_correct_targets": 0,
+        "net_correct_targets": 4,
+        "correct_target_count": 47,
+        "target_count": 66,
+        "new_false_target_by_class": {
+          "1": 11,
+          "2": 4,
+          "3": 5
+        },
+        "removed_false_target_by_class": {
+          "1": 1,
+          "2": 1,
+          "3": 1
+        },
+        "false_target_count_by_class": {
+          "1": 23,
+          "2": 10,
+          "3": 10
+        }
+      },
+      "calibrated": {
+        "classification_changes": 37,
+        "new_correct_targets": 4,
+        "lost_correct_targets": 0,
+        "net_correct_targets": 4,
+        "correct_target_count": 47,
+        "target_count": 66,
+        "new_false_target_by_class": {
+          "1": 11,
+          "2": 4,
+          "3": 5
+        },
+        "removed_false_target_by_class": {
+          "1": 1,
+          "2": 1,
+          "3": 1
+        },
+        "false_target_count_by_class": {
+          "1": 23,
+          "2": 10,
+          "3": 10
+        }
+      }
+    }
+  },
+  "calibration": {
+    "beta": 3.1158670445493275,
+    "temperature": 0.32093795585704715,
+    "boundary": null,
+    "derivative_at_lower": -0.6169641028473564,
+    "derivative_at_upper": 0.10762020185714,
+    "derivative_at_optimum": 7.836868409118752e-18
+  },
+  "active_input_dimension": 82
+}

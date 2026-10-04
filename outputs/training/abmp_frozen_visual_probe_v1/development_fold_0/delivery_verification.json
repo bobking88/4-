@@ -1,0 +1,12 @@
+{
+  "status": "VERIFIED",
+  "head_training_replays": 24,
+  "prediction_tables": 96,
+  "prediction_rows": 32640,
+  "max_prediction_residual": 0.0,
+  "full_image_replay": true,
+  "feature_replay_max_abs_residual": 0.0,
+  "source_and_report_unchanged": true,
+  "outer_manifest_read": false,
+  "independent_confirmation": false
+}

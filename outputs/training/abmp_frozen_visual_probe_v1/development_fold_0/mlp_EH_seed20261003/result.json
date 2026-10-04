@@ -1,0 +1,154 @@
+{
+  "initial_sha256": "9717a31bb4f1244282ba8a0bf3045028643b8007f5534ee665b1bd3b7c902a3a",
+  "state_sha256": "3f287976f46085016cdc002bc71d5c94d853aaa9d346b768804766763febe865",
+  "best_epoch": 30,
+  "parameter_count": 5572,
+  "architecture": "mlp",
+  "arm": "EH",
+  "seed": 20261003,
+  "metrics": {
+    "fit": {
+      "raw": {
+        "nll": 0.7027523541061589,
+        "accuracy": 0.7352941176470589,
+        "macro_f1": 0.718691930780172,
+        "target_recall": 0.6212121212121212,
+        "ti_intrusion_to_target": 0.11538461538461539,
+        "metallic_intrusion_to_target": 0.14893617021276595
+      },
+      "calibrated": {
+        "nll": 0.6103623164641143,
+        "accuracy": 0.7352941176470589,
+        "macro_f1": 0.718691930780172,
+        "target_recall": 0.6212121212121212,
+        "ti_intrusion_to_target": 0.11538461538461539,
+        "metallic_intrusion_to_target": 0.14893617021276595
+      }
+    },
+    "stop": {
+      "raw": {
+        "nll": 0.8901385130129037,
+        "accuracy": 0.6882352941176471,
+        "macro_f1": 0.660351970006567,
+        "target_recall": 0.7121212121212122,
+        "ti_intrusion_to_target": 0.12307692307692308,
+        "metallic_intrusion_to_target": 0.1702127659574468
+      },
+      "calibrated": {
+        "nll": 0.9279712981076031,
+        "accuracy": 0.6882352941176471,
+        "macro_f1": 0.660351970006567,
+        "target_recall": 0.7121212121212122,
+        "ti_intrusion_to_target": 0.12307692307692308,
+        "metallic_intrusion_to_target": 0.1702127659574468
+      }
+    }
+  },
+  "transitions": {
+    "fit": {
+      "raw": {
+        "classification_changes": 40,
+        "new_correct_targets": 5,
+        "lost_correct_targets": 1,
+        "net_correct_targets": 4,
+        "correct_target_count": 41,
+        "target_count": 66,
+        "new_false_target_by_class": {
+          "1": 3,
+          "2": 2,
+          "3": 2
+        },
+        "removed_false_target_by_class": {
+          "1": 5,
+          "2": 2,
+          "3": 3
+        },
+        "false_target_count_by_class": {
+          "1": 15,
+          "2": 8,
+          "3": 7
+        }
+      },
+      "calibrated": {
+        "classification_changes": 40,
+        "new_correct_targets": 5,
+        "lost_correct_targets": 1,
+        "net_correct_targets": 4,
+        "correct_target_count": 41,
+        "target_count": 66,
+        "new_false_target_by_class": {
+          "1": 3,
+          "2": 2,
+          "3": 2
+        },
+        "removed_false_target_by_class": {
+          "1": 5,
+          "2": 2,
+          "3": 3
+        },
+        "false_target_count_by_class": {
+          "1": 15,
+          "2": 8,
+          "3": 7
+        }
+      }
+    },
+    "stop": {
+      "raw": {
+        "classification_changes": 26,
+        "new_correct_targets": 4,
+        "lost_correct_targets": 0,
+        "net_correct_targets": 4,
+        "correct_target_count": 47,
+        "target_count": 66,
+        "new_false_target_by_class": {
+          "1": 5,
+          "2": 2,
+          "3": 3
+        },
+        "removed_false_target_by_class": {
+          "1": 2,
+          "2": 1,
+          "3": 1
+        },
+        "false_target_count_by_class": {
+          "1": 16,
+          "2": 8,
+          "3": 8
+        }
+      },
+      "calibrated": {
+        "classification_changes": 26,
+        "new_correct_targets": 4,
+        "lost_correct_targets": 0,
+        "net_correct_targets": 4,
+        "correct_target_count": 47,
+        "target_count": 66,
+        "new_false_target_by_class": {
+          "1": 5,
+          "2": 2,
+          "3": 3
+        },
+        "removed_false_target_by_class": {
+          "1": 2,
+          "2": 1,
+          "3": 1
+        },
+        "false_target_count_by_class": {
+          "1": 16,
+          "2": 8,
+          "3": 8
+        }
+      }
+    }
+  },
+  "calibration": {
+    "beta": 1.8671493860243666,
+    "temperature": 0.535575786000312,
+    "boundary": null,
+    "derivative_at_lower": -1.175581805802207,
+    "derivative_at_upper": 0.15918935836580278,
+    "derivative_at_optimum": 3.134747363647501e-17
+  },
+  "active_input_dimension": 82
+}

@@ -1,0 +1,351 @@
+{
+  "status": "POST_HOC_DESCRIPTIVE_CAPACITY_AUDIT",
+  "summary_sha256": "b0a7a26c8a9277925fa1d5e9a704c594d6e7b7160e35c1873427b7583bd73c56",
+  "runs": [
+    {
+      "architecture": "linear",
+      "seed": 20261002,
+      "new_correct_targets": 4,
+      "new_correct_targets_base_below_quarter": 1,
+      "new_false_targets_base_below_quarter": 8,
+      "promotions_without_target_mass_increase": 4,
+      "target_mass_increased_rows": 256,
+      "relative_to_same_seed_E": {
+        "classification_changes": 28,
+        "new_correct_targets": 2,
+        "lost_correct_targets": 2,
+        "net_correct_targets": 0,
+        "correct_target_count": 46,
+        "target_count": 66,
+        "new_false_target_by_class": {
+          "1": 4,
+          "2": 4,
+          "3": 0
+        },
+        "removed_false_target_by_class": {
+          "1": 1,
+          "2": 3,
+          "3": 2
+        },
+        "false_target_count_by_class": {
+          "1": 20,
+          "2": 10,
+          "3": 9
+        }
+      },
+      "new_correct_target_details": [
+        {
+          "image_id": "VTM-000038",
+          "base_target_probability": 0.3824486841448973,
+          "probe_target_probability": 0.39578419091242467,
+          "base_below_quarter": false
+        },
+        {
+          "image_id": "VTM-000176",
+          "base_target_probability": 0.21458013388690494,
+          "probe_target_probability": 0.3893221316469599,
+          "base_below_quarter": true
+        },
+        {
+          "image_id": "VTM-000643",
+          "base_target_probability": 0.28969660555008536,
+          "probe_target_probability": 0.36759285036434985,
+          "base_below_quarter": false
+        },
+        {
+          "image_id": "VTM-001276",
+          "base_target_probability": 0.35599749744889864,
+          "probe_target_probability": 0.3789244212796206,
+          "base_below_quarter": false
+        }
+      ]
+    },
+    {
+      "architecture": "linear",
+      "seed": 20261003,
+      "new_correct_targets": 4,
+      "new_correct_targets_base_below_quarter": 1,
+      "new_false_targets_base_below_quarter": 11,
+      "promotions_without_target_mass_increase": 3,
+      "target_mass_increased_rows": 256,
+      "relative_to_same_seed_E": {
+        "classification_changes": 34,
+        "new_correct_targets": 2,
+        "lost_correct_targets": 1,
+        "net_correct_targets": 1,
+        "correct_target_count": 47,
+        "target_count": 66,
+        "new_false_target_by_class": {
+          "1": 7,
+          "2": 3,
+          "3": 1
+        },
+        "removed_false_target_by_class": {
+          "1": 1,
+          "2": 2,
+          "3": 2
+        },
+        "false_target_count_by_class": {
+          "1": 23,
+          "2": 10,
+          "3": 10
+        }
+      },
+      "new_correct_target_details": [
+        {
+          "image_id": "VTM-000038",
+          "base_target_probability": 0.3824486841448973,
+          "probe_target_probability": 0.3950883119119415,
+          "base_below_quarter": false
+        },
+        {
+          "image_id": "VTM-000176",
+          "base_target_probability": 0.21458013388690494,
+          "probe_target_probability": 0.3877501925062475,
+          "base_below_quarter": true
+        },
+        {
+          "image_id": "VTM-000643",
+          "base_target_probability": 0.28969660555008536,
+          "probe_target_probability": 0.37832859487354387,
+          "base_below_quarter": false
+        },
+        {
+          "image_id": "VTM-001276",
+          "base_target_probability": 0.35599749744889864,
+          "probe_target_probability": 0.3843089856910119,
+          "base_below_quarter": false
+        }
+      ]
+    },
+    {
+      "architecture": "linear",
+      "seed": 20261004,
+      "new_correct_targets": 4,
+      "new_correct_targets_base_below_quarter": 1,
+      "new_false_targets_base_below_quarter": 10,
+      "promotions_without_target_mass_increase": 2,
+      "target_mass_increased_rows": 252,
+      "relative_to_same_seed_E": {
+        "classification_changes": 32,
+        "new_correct_targets": 2,
+        "lost_correct_targets": 2,
+        "net_correct_targets": 0,
+        "correct_target_count": 45,
+        "target_count": 66,
+        "new_false_target_by_class": {
+          "1": 5,
+          "2": 3,
+          "3": 0
+        },
+        "removed_false_target_by_class": {
+          "1": 1,
+          "2": 3,
+          "3": 3
+        },
+        "false_target_count_by_class": {
+          "1": 22,
+          "2": 9,
+          "3": 8
+        }
+      },
+      "new_correct_target_details": [
+        {
+          "image_id": "VTM-000038",
+          "base_target_probability": 0.3824486841448973,
+          "probe_target_probability": 0.39313824372503897,
+          "base_below_quarter": false
+        },
+        {
+          "image_id": "VTM-000176",
+          "base_target_probability": 0.21458013388690494,
+          "probe_target_probability": 0.38456394301448377,
+          "base_below_quarter": true
+        },
+        {
+          "image_id": "VTM-000643",
+          "base_target_probability": 0.28969660555008536,
+          "probe_target_probability": 0.3770633991082519,
+          "base_below_quarter": false
+        },
+        {
+          "image_id": "VTM-001276",
+          "base_target_probability": 0.35599749744889864,
+          "probe_target_probability": 0.38029455133634,
+          "base_below_quarter": false
+        }
+      ]
+    },
+    {
+      "architecture": "mlp",
+      "seed": 20261002,
+      "new_correct_targets": 4,
+      "new_correct_targets_base_below_quarter": 1,
+      "new_false_targets_base_below_quarter": 5,
+      "promotions_without_target_mass_increase": 0,
+      "target_mass_increased_rows": 244,
+      "relative_to_same_seed_E": {
+        "classification_changes": 26,
+        "new_correct_targets": 2,
+        "lost_correct_targets": 0,
+        "net_correct_targets": 2,
+        "correct_target_count": 46,
+        "target_count": 66,
+        "new_false_target_by_class": {
+          "1": 3,
+          "2": 2,
+          "3": 2
+        },
+        "removed_false_target_by_class": {
+          "1": 4,
+          "2": 1,
+          "3": 1
+        },
+        "false_target_count_by_class": {
+          "1": 14,
+          "2": 9,
+          "3": 9
+        }
+      },
+      "new_correct_target_details": [
+        {
+          "image_id": "VTM-000038",
+          "base_target_probability": 0.3824486841448973,
+          "probe_target_probability": 0.4007693521340604,
+          "base_below_quarter": false
+        },
+        {
+          "image_id": "VTM-000176",
+          "base_target_probability": 0.21458013388690494,
+          "probe_target_probability": 0.33113769023695355,
+          "base_below_quarter": true
+        },
+        {
+          "image_id": "VTM-000643",
+          "base_target_probability": 0.28969660555008536,
+          "probe_target_probability": 0.3771181534488707,
+          "base_below_quarter": false
+        },
+        {
+          "image_id": "VTM-001276",
+          "base_target_probability": 0.35599749744889864,
+          "probe_target_probability": 0.4091266053810284,
+          "base_below_quarter": false
+        }
+      ]
+    },
+    {
+      "architecture": "mlp",
+      "seed": 20261003,
+      "new_correct_targets": 4,
+      "new_correct_targets_base_below_quarter": 1,
+      "new_false_targets_base_below_quarter": 3,
+      "promotions_without_target_mass_increase": 1,
+      "target_mass_increased_rows": 244,
+      "relative_to_same_seed_E": {
+        "classification_changes": 25,
+        "new_correct_targets": 2,
+        "lost_correct_targets": 0,
+        "net_correct_targets": 2,
+        "correct_target_count": 47,
+        "target_count": 66,
+        "new_false_target_by_class": {
+          "1": 2,
+          "2": 2,
+          "3": 1
+        },
+        "removed_false_target_by_class": {
+          "1": 2,
+          "2": 2,
+          "3": 3
+        },
+        "false_target_count_by_class": {
+          "1": 16,
+          "2": 8,
+          "3": 8
+        }
+      },
+      "new_correct_target_details": [
+        {
+          "image_id": "VTM-000038",
+          "base_target_probability": 0.3824486841448973,
+          "probe_target_probability": 0.4048931164876946,
+          "base_below_quarter": false
+        },
+        {
+          "image_id": "VTM-000176",
+          "base_target_probability": 0.21458013388690494,
+          "probe_target_probability": 0.344170264416945,
+          "base_below_quarter": true
+        },
+        {
+          "image_id": "VTM-000643",
+          "base_target_probability": 0.28969660555008536,
+          "probe_target_probability": 0.41013892084598064,
+          "base_below_quarter": false
+        },
+        {
+          "image_id": "VTM-001276",
+          "base_target_probability": 0.35599749744889864,
+          "probe_target_probability": 0.41153785145043176,
+          "base_below_quarter": false
+        }
+      ]
+    },
+    {
+      "architecture": "mlp",
+      "seed": 20261004,
+      "new_correct_targets": 3,
+      "new_correct_targets_base_below_quarter": 1,
+      "new_false_targets_base_below_quarter": 4,
+      "promotions_without_target_mass_increase": 1,
+      "target_mass_increased_rows": 245,
+      "relative_to_same_seed_E": {
+        "classification_changes": 22,
+        "new_correct_targets": 1,
+        "lost_correct_targets": 0,
+        "net_correct_targets": 1,
+        "correct_target_count": 45,
+        "target_count": 66,
+        "new_false_target_by_class": {
+          "1": 4,
+          "2": 1,
+          "3": 2
+        },
+        "removed_false_target_by_class": {
+          "1": 3,
+          "2": 2,
+          "3": 1
+        },
+        "false_target_count_by_class": {
+          "1": 16,
+          "2": 7,
+          "3": 9
+        }
+      },
+      "new_correct_target_details": [
+        {
+          "image_id": "VTM-000038",
+          "base_target_probability": 0.3824486841448973,
+          "probe_target_probability": 0.43012810304227606,
+          "base_below_quarter": false
+        },
+        {
+          "image_id": "VTM-000176",
+          "base_target_probability": 0.21458013388690494,
+          "probe_target_probability": 0.30444057424330456,
+          "base_below_quarter": true
+        },
+        {
+          "image_id": "VTM-000643",
+          "base_target_probability": 0.28969660555008536,
+          "probe_target_probability": 0.3830893436575441,
+          "base_below_quarter": false
+        }
+      ]
+    }
+  ],
+  "new_training": false,
+  "new_images_loaded": false,
+  "claim_boundary": "Observed unconstrained-head capacity changes do not establish a safe residual architecture, calibrated posterior, independent efficacy or a new general theorem."
+}
