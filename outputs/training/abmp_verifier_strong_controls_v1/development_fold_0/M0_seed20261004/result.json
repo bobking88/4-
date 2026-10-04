@@ -1,0 +1,43 @@
+{
+  "initial_sha256": "9b3543c0e4f4601501658e8b9a80cc7d67123d452e7aea64a50614a82315a649",
+  "state_sha256": "f1df9c3569b003eae0e2bc4d0c7985868e9a60f67dd217e921bd3ad3510d8fd6",
+  "parameter_count": 2401,
+  "best_epoch": 13,
+  "initial_fit_objective": 0.8407208265802584,
+  "selected_fit_objective": 0.795131439267499,
+  "arm": "M0",
+  "seed": 20261004,
+  "checkpoint_sha256": "a099ec6b299412cdb2cc1d3dba96a81c76e790f844b2e358a2ce680fb616bce3",
+  "metrics": {
+    "fit": {
+      "nll": 0.7951314392674987,
+      "accuracy": 0.6823529411764706,
+      "macro_f1": 0.6623959632318858,
+      "target_recall": 0.5606060606060606,
+      "ti_intrusion_to_target": 0.13076923076923078,
+      "metallic_intrusion_to_target": 0.1702127659574468
+    },
+    "stop": {
+      "nll": 0.8370272343834664,
+      "accuracy": 0.6852941176470588,
+      "macro_f1": 0.6542874384459548,
+      "target_recall": 0.6515151515151515,
+      "ti_intrusion_to_target": 0.1,
+      "metallic_intrusion_to_target": 0.1276595744680851
+    }
+  },
+  "diagnostics": {
+    "fit": {
+      "classification_changes_from_base": 0,
+      "target_promotions_from_base": 0,
+      "true_target_promotions_from_base": 0,
+      "checkpoint_replay_max_abs_residual": 0.0
+    },
+    "stop": {
+      "classification_changes_from_base": 0,
+      "target_promotions_from_base": 0,
+      "true_target_promotions_from_base": 0,
+      "checkpoint_replay_max_abs_residual": 0.0
+    }
+  }
+}

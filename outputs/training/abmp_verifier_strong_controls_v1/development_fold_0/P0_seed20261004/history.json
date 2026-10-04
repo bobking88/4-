@@ -1,0 +1,1082 @@
+[
+  {
+    "epoch": 1,
+    "fit_objective": 0.8114699055596856,
+    "stop_metrics": {
+      "nll": 0.8457447793657785,
+      "accuracy": 0.6911764705882353,
+      "macro_f1": 0.6589699480805264,
+      "target_recall": 0.6515151515151515,
+      "ti_intrusion_to_target": 0.08461538461538462,
+      "metallic_intrusion_to_target": 0.1276595744680851
+    },
+    "training_batches": [
+      {
+        "saturated_count": 254,
+        "target_saturated_count": 51,
+        "degenerate_count": 55,
+        "count": 256,
+        "loss": 0.7898060198915638,
+        "zero_score_gradient_count": 254,
+        "target_zero_score_gradient_count": 51,
+        "score_gradient_max_abs": 0.43536229148521227,
+        "parameter_gradient_norm": 0.006314819320130218
+      },
+      {
+        "saturated_count": 84,
+        "target_saturated_count": 15,
+        "degenerate_count": 15,
+        "count": 84,
+        "loss": 0.8783962604982352,
+        "zero_score_gradient_count": 84,
+        "target_zero_score_gradient_count": 15,
+        "score_gradient_max_abs": 0.0,
+        "parameter_gradient_norm": 0.0
+      }
+    ]
+  },
+  {
+    "epoch": 2,
+    "fit_objective": 0.8113893473601561,
+    "stop_metrics": {
+      "nll": 0.8456123688539022,
+      "accuracy": 0.6911764705882353,
+      "macro_f1": 0.6589699480805264,
+      "target_recall": 0.6515151515151515,
+      "ti_intrusion_to_target": 0.08461538461538462,
+      "metallic_intrusion_to_target": 0.1276595744680851
+    },
+    "training_batches": [
+      {
+        "saturated_count": 255,
+        "target_saturated_count": 47,
+        "degenerate_count": 48,
+        "count": 256,
+        "loss": 0.851674039102625,
+        "zero_score_gradient_count": 255,
+        "target_zero_score_gradient_count": 47,
+        "score_gradient_max_abs": 0.4056541199001541,
+        "parameter_gradient_norm": 0.003273677481611037
+      },
+      {
+        "saturated_count": 84,
+        "target_saturated_count": 19,
+        "degenerate_count": 22,
+        "count": 84,
+        "loss": 0.6889312187169143,
+        "zero_score_gradient_count": 84,
+        "target_zero_score_gradient_count": 19,
+        "score_gradient_max_abs": 0.0,
+        "parameter_gradient_norm": 0.0
+      }
+    ]
+  },
+  {
+    "epoch": 3,
+    "fit_objective": 0.8113288711134575,
+    "stop_metrics": {
+      "nll": 0.8454915146912523,
+      "accuracy": 0.6911764705882353,
+      "macro_f1": 0.6589699480805264,
+      "target_recall": 0.6515151515151515,
+      "ti_intrusion_to_target": 0.08461538461538462,
+      "metallic_intrusion_to_target": 0.1276595744680851
+    },
+    "training_batches": [
+      {
+        "saturated_count": 255,
+        "target_saturated_count": 52,
+        "degenerate_count": 53,
+        "count": 256,
+        "loss": 0.8262610781451593,
+        "zero_score_gradient_count": 255,
+        "target_zero_score_gradient_count": 52,
+        "score_gradient_max_abs": 0.38462833225567056,
+        "parameter_gradient_norm": 0.003223894384666748
+      },
+      {
+        "saturated_count": 84,
+        "target_saturated_count": 14,
+        "degenerate_count": 17,
+        "count": 84,
+        "loss": 0.7659663737368637,
+        "zero_score_gradient_count": 84,
+        "target_zero_score_gradient_count": 14,
+        "score_gradient_max_abs": 0.0,
+        "parameter_gradient_norm": 0.0
+      }
+    ]
+  },
+  {
+    "epoch": 4,
+    "fit_objective": 0.8113170470487452,
+    "stop_metrics": {
+      "nll": 0.845363444617685,
+      "accuracy": 0.6911764705882353,
+      "macro_f1": 0.6589699480805264,
+      "target_recall": 0.6515151515151515,
+      "ti_intrusion_to_target": 0.08461538461538462,
+      "metallic_intrusion_to_target": 0.1276595744680851
+    },
+    "training_batches": [
+      {
+        "saturated_count": 255,
+        "target_saturated_count": 49,
+        "degenerate_count": 55,
+        "count": 256,
+        "loss": 0.7832078244173523,
+        "zero_score_gradient_count": 255,
+        "target_zero_score_gradient_count": 49,
+        "score_gradient_max_abs": 0.3790168768854909,
+        "parameter_gradient_norm": 0.0032195546537460255
+      },
+      {
+        "saturated_count": 84,
+        "target_saturated_count": 17,
+        "degenerate_count": 15,
+        "count": 84,
+        "loss": 0.8970682246031411,
+        "zero_score_gradient_count": 84,
+        "target_zero_score_gradient_count": 17,
+        "score_gradient_max_abs": 0.0,
+        "parameter_gradient_norm": 0.0
+      }
+    ]
+  },
+  {
+    "epoch": 5,
+    "fit_objective": 0.8112794813678187,
+    "stop_metrics": {
+      "nll": 0.8453168981676173,
+      "accuracy": 0.6911764705882353,
+      "macro_f1": 0.6595209753397462,
+      "target_recall": 0.6515151515151515,
+      "ti_intrusion_to_target": 0.08461538461538462,
+      "metallic_intrusion_to_target": 0.1276595744680851
+    },
+    "training_batches": [
+      {
+        "saturated_count": 256,
+        "target_saturated_count": 50,
+        "degenerate_count": 52,
+        "count": 256,
+        "loss": 0.8286161679413518,
+        "zero_score_gradient_count": 256,
+        "target_zero_score_gradient_count": 50,
+        "score_gradient_max_abs": 0.0,
+        "parameter_gradient_norm": 0.0
+      },
+      {
+        "saturated_count": 84,
+        "target_saturated_count": 16,
+        "degenerate_count": 18,
+        "count": 84,
+        "loss": 0.7585959167093727,
+        "zero_score_gradient_count": 84,
+        "target_zero_score_gradient_count": 16,
+        "score_gradient_max_abs": 0.0,
+        "parameter_gradient_norm": 0.0
+      }
+    ]
+  },
+  {
+    "epoch": 6,
+    "fit_objective": 0.8112209556161654,
+    "stop_metrics": {
+      "nll": 0.8453141621068077,
+      "accuracy": 0.6911764705882353,
+      "macro_f1": 0.6595209753397462,
+      "target_recall": 0.6515151515151515,
+      "ti_intrusion_to_target": 0.08461538461538462,
+      "metallic_intrusion_to_target": 0.1276595744680851
+    },
+    "training_batches": [
+      {
+        "saturated_count": 255,
+        "target_saturated_count": 49,
+        "degenerate_count": 52,
+        "count": 256,
+        "loss": 0.7722603761703343,
+        "zero_score_gradient_count": 255,
+        "target_zero_score_gradient_count": 49,
+        "score_gradient_max_abs": 0.36017512115061817,
+        "parameter_gradient_norm": 0.003351201410314256
+      },
+      {
+        "saturated_count": 83,
+        "target_saturated_count": 17,
+        "degenerate_count": 18,
+        "count": 84,
+        "loss": 0.9301205824622036,
+        "zero_score_gradient_count": 83,
+        "target_zero_score_gradient_count": 17,
+        "score_gradient_max_abs": 0.34155443343020936,
+        "parameter_gradient_norm": 0.010343919501281692
+      }
+    ]
+  },
+  {
+    "epoch": 7,
+    "fit_objective": 0.8110291694619922,
+    "stop_metrics": {
+      "nll": 0.8453213737523416,
+      "accuracy": 0.6911764705882353,
+      "macro_f1": 0.6595209753397462,
+      "target_recall": 0.6515151515151515,
+      "ti_intrusion_to_target": 0.08461538461538462,
+      "metallic_intrusion_to_target": 0.1276595744680851
+    },
+    "training_batches": [
+      {
+        "saturated_count": 254,
+        "target_saturated_count": 51,
+        "degenerate_count": 55,
+        "count": 256,
+        "loss": 0.8070325260625821,
+        "zero_score_gradient_count": 254,
+        "target_zero_score_gradient_count": 51,
+        "score_gradient_max_abs": 0.34929124622831814,
+        "parameter_gradient_norm": 0.006639277453875363
+      },
+      {
+        "saturated_count": 83,
+        "target_saturated_count": 15,
+        "degenerate_count": 15,
+        "count": 84,
+        "loss": 0.8236260117320787,
+        "zero_score_gradient_count": 83,
+        "target_zero_score_gradient_count": 15,
+        "score_gradient_max_abs": 0.32770556032884457,
+        "parameter_gradient_norm": 0.010442262563824519
+      }
+    ]
+  },
+  {
+    "epoch": 8,
+    "fit_objective": 0.8109680516154711,
+    "stop_metrics": {
+      "nll": 0.8452763161339714,
+      "accuracy": 0.6941176470588235,
+      "macro_f1": 0.6618941069604402,
+      "target_recall": 0.6515151515151515,
+      "ti_intrusion_to_target": 0.07692307692307693,
+      "metallic_intrusion_to_target": 0.1276595744680851
+    },
+    "training_batches": [
+      {
+        "saturated_count": 253,
+        "target_saturated_count": 49,
+        "degenerate_count": 57,
+        "count": 256,
+        "loss": 0.8261223358785672,
+        "zero_score_gradient_count": 253,
+        "target_zero_score_gradient_count": 49,
+        "score_gradient_max_abs": 0.6950142197128877,
+        "parameter_gradient_norm": 0.011016465246818286
+      },
+      {
+        "saturated_count": 83,
+        "target_saturated_count": 15,
+        "degenerate_count": 13,
+        "count": 84,
+        "loss": 0.7654261421449036,
+        "zero_score_gradient_count": 83,
+        "target_zero_score_gradient_count": 15,
+        "score_gradient_max_abs": 0.3223092101568255,
+        "parameter_gradient_norm": 0.010189537769374663
+      }
+    ]
+  },
+  {
+    "epoch": 9,
+    "fit_objective": 0.8108355167513077,
+    "stop_metrics": {
+      "nll": 0.8451607972696895,
+      "accuracy": 0.6941176470588235,
+      "macro_f1": 0.6618941069604402,
+      "target_recall": 0.6515151515151515,
+      "ti_intrusion_to_target": 0.07692307692307693,
+      "metallic_intrusion_to_target": 0.1276595744680851
+    },
+    "training_batches": [
+      {
+        "saturated_count": 252,
+        "target_saturated_count": 50,
+        "degenerate_count": 50,
+        "count": 256,
+        "loss": 0.8396549362596545,
+        "zero_score_gradient_count": 252,
+        "target_zero_score_gradient_count": 50,
+        "score_gradient_max_abs": 0.6900369630706077,
+        "parameter_gradient_norm": 0.003312100686983867
+      },
+      {
+        "saturated_count": 80,
+        "target_saturated_count": 14,
+        "degenerate_count": 20,
+        "count": 84,
+        "loss": 0.7239550872086007,
+        "zero_score_gradient_count": 80,
+        "target_zero_score_gradient_count": 14,
+        "score_gradient_max_abs": 0.6893681608738762,
+        "parameter_gradient_norm": 0.008852759344465961
+      }
+    ]
+  },
+  {
+    "epoch": 10,
+    "fit_objective": 0.8107314428617438,
+    "stop_metrics": {
+      "nll": 0.8450735199403663,
+      "accuracy": 0.6941176470588235,
+      "macro_f1": 0.6618941069604402,
+      "target_recall": 0.6515151515151515,
+      "ti_intrusion_to_target": 0.07692307692307693,
+      "metallic_intrusion_to_target": 0.1276595744680851
+    },
+    "training_batches": [
+      {
+        "saturated_count": 251,
+        "target_saturated_count": 48,
+        "degenerate_count": 47,
+        "count": 256,
+        "loss": 0.7968261233885326,
+        "zero_score_gradient_count": 251,
+        "target_zero_score_gradient_count": 48,
+        "score_gradient_max_abs": 0.7011309266208537,
+        "parameter_gradient_norm": 0.007168820178974872
+      },
+      {
+        "saturated_count": 81,
+        "target_saturated_count": 15,
+        "degenerate_count": 23,
+        "count": 84,
+        "loss": 0.852675517284634,
+        "zero_score_gradient_count": 81,
+        "target_zero_score_gradient_count": 15,
+        "score_gradient_max_abs": 0.7145351442089014,
+        "parameter_gradient_norm": 0.036525946895559956
+      }
+    ]
+  },
+  {
+    "epoch": 11,
+    "fit_objective": 0.8106996755352033,
+    "stop_metrics": {
+      "nll": 0.8451053659284467,
+      "accuracy": 0.6941176470588235,
+      "macro_f1": 0.6618941069604402,
+      "target_recall": 0.6515151515151515,
+      "ti_intrusion_to_target": 0.07692307692307693,
+      "metallic_intrusion_to_target": 0.1276595744680851
+    },
+    "training_batches": [
+      {
+        "saturated_count": 249,
+        "target_saturated_count": 47,
+        "degenerate_count": 47,
+        "count": 256,
+        "loss": 0.8208342687152669,
+        "zero_score_gradient_count": 249,
+        "target_zero_score_gradient_count": 47,
+        "score_gradient_max_abs": 0.7113814287903413,
+        "parameter_gradient_norm": 0.011141633183628336
+      },
+      {
+        "saturated_count": 83,
+        "target_saturated_count": 17,
+        "degenerate_count": 23,
+        "count": 84,
+        "loss": 0.7801375085180828,
+        "zero_score_gradient_count": 83,
+        "target_zero_score_gradient_count": 17,
+        "score_gradient_max_abs": 0.7027644931152165,
+        "parameter_gradient_norm": 0.024402555992427695
+      }
+    ]
+  },
+  {
+    "epoch": 12,
+    "fit_objective": 0.8106770443126137,
+    "stop_metrics": {
+      "nll": 0.845162336664698,
+      "accuracy": 0.6941176470588235,
+      "macro_f1": 0.6618941069604402,
+      "target_recall": 0.6515151515151515,
+      "ti_intrusion_to_target": 0.07692307692307693,
+      "metallic_intrusion_to_target": 0.1276595744680851
+    },
+    "training_batches": [
+      {
+        "saturated_count": 248,
+        "target_saturated_count": 48,
+        "degenerate_count": 56,
+        "count": 256,
+        "loss": 0.7843483866539916,
+        "zero_score_gradient_count": 248,
+        "target_zero_score_gradient_count": 48,
+        "score_gradient_max_abs": 0.7147581758814634,
+        "parameter_gradient_norm": 0.0037288539322544605
+      },
+      {
+        "saturated_count": 83,
+        "target_saturated_count": 16,
+        "degenerate_count": 14,
+        "count": 84,
+        "loss": 0.8921157919642531,
+        "zero_score_gradient_count": 83,
+        "target_zero_score_gradient_count": 16,
+        "score_gradient_max_abs": 0.3336619007522555,
+        "parameter_gradient_norm": 0.010302559519539565
+      }
+    ]
+  },
+  {
+    "epoch": 13,
+    "fit_objective": 0.8106545945766067,
+    "stop_metrics": {
+      "nll": 0.845240729550527,
+      "accuracy": 0.6941176470588235,
+      "macro_f1": 0.6618941069604402,
+      "target_recall": 0.6515151515151515,
+      "ti_intrusion_to_target": 0.07692307692307693,
+      "metallic_intrusion_to_target": 0.1276595744680851
+    },
+    "training_batches": [
+      {
+        "saturated_count": 251,
+        "target_saturated_count": 52,
+        "degenerate_count": 56,
+        "count": 256,
+        "loss": 0.8116543171876135,
+        "zero_score_gradient_count": 251,
+        "target_zero_score_gradient_count": 52,
+        "score_gradient_max_abs": 0.7138013709622861,
+        "parameter_gradient_norm": 0.007309550410355878
+      },
+      {
+        "saturated_count": 81,
+        "target_saturated_count": 11,
+        "degenerate_count": 14,
+        "count": 84,
+        "loss": 0.8078216225844643,
+        "zero_score_gradient_count": 81,
+        "target_zero_score_gradient_count": 11,
+        "score_gradient_max_abs": 0.707020616897277,
+        "parameter_gradient_norm": 0.009029138180885184
+      }
+    ]
+  },
+  {
+    "epoch": 14,
+    "fit_objective": 0.8106242467484206,
+    "stop_metrics": {
+      "nll": 0.845315273967899,
+      "accuracy": 0.6941176470588235,
+      "macro_f1": 0.6618941069604402,
+      "target_recall": 0.6515151515151515,
+      "ti_intrusion_to_target": 0.07692307692307693,
+      "metallic_intrusion_to_target": 0.1276595744680851
+    },
+    "training_batches": [
+      {
+        "saturated_count": 252,
+        "target_saturated_count": 50,
+        "degenerate_count": 52,
+        "count": 256,
+        "loss": 0.7531659479054903,
+        "zero_score_gradient_count": 252,
+        "target_zero_score_gradient_count": 50,
+        "score_gradient_max_abs": 0.7032582625627724,
+        "parameter_gradient_norm": 0.009306097626394314
+      },
+      {
+        "saturated_count": 81,
+        "target_saturated_count": 14,
+        "degenerate_count": 18,
+        "count": 84,
+        "loss": 0.9861150133500141,
+        "zero_score_gradient_count": 81,
+        "target_zero_score_gradient_count": 14,
+        "score_gradient_max_abs": 0.32108483944915356,
+        "parameter_gradient_norm": 0.027865004255068923
+      }
+    ]
+  },
+  {
+    "epoch": 15,
+    "fit_objective": 0.8105785414595686,
+    "stop_metrics": {
+      "nll": 0.8453776965000613,
+      "accuracy": 0.6941176470588235,
+      "macro_f1": 0.6618941069604402,
+      "target_recall": 0.6515151515151515,
+      "ti_intrusion_to_target": 0.07692307692307693,
+      "metallic_intrusion_to_target": 0.1276595744680851
+    },
+    "training_batches": [
+      {
+        "saturated_count": 250,
+        "target_saturated_count": 45,
+        "degenerate_count": 54,
+        "count": 256,
+        "loss": 0.7930648922494614,
+        "zero_score_gradient_count": 250,
+        "target_zero_score_gradient_count": 45,
+        "score_gradient_max_abs": 0.6956220279044278,
+        "parameter_gradient_norm": 0.008904252607119089
+      },
+      {
+        "saturated_count": 84,
+        "target_saturated_count": 20,
+        "degenerate_count": 16,
+        "count": 84,
+        "loss": 0.8640558427830258,
+        "zero_score_gradient_count": 84,
+        "target_zero_score_gradient_count": 20,
+        "score_gradient_max_abs": 0.0,
+        "parameter_gradient_norm": 0.0
+      }
+    ]
+  },
+  {
+    "epoch": 16,
+    "fit_objective": 0.8105416148084928,
+    "stop_metrics": {
+      "nll": 0.8453684113017446,
+      "accuracy": 0.6941176470588235,
+      "macro_f1": 0.6618941069604402,
+      "target_recall": 0.6515151515151515,
+      "ti_intrusion_to_target": 0.07692307692307693,
+      "metallic_intrusion_to_target": 0.1276595744680851
+    },
+    "training_batches": [
+      {
+        "saturated_count": 252,
+        "target_saturated_count": 43,
+        "degenerate_count": 50,
+        "count": 256,
+        "loss": 0.8127831966779168,
+        "zero_score_gradient_count": 252,
+        "target_zero_score_gradient_count": 43,
+        "score_gradient_max_abs": 0.33829314401643146,
+        "parameter_gradient_norm": 0.01256817103266246
+      },
+      {
+        "saturated_count": 83,
+        "target_saturated_count": 23,
+        "degenerate_count": 20,
+        "count": 84,
+        "loss": 0.8032658791584595,
+        "zero_score_gradient_count": 83,
+        "target_zero_score_gradient_count": 23,
+        "score_gradient_max_abs": 0.2991300592756113,
+        "parameter_gradient_norm": 0.010204157617805569
+      }
+    ]
+  },
+  {
+    "epoch": 17,
+    "fit_objective": 0.8104964824433777,
+    "stop_metrics": {
+      "nll": 0.8452840946690638,
+      "accuracy": 0.6941176470588235,
+      "macro_f1": 0.6618941069604402,
+      "target_recall": 0.6515151515151515,
+      "ti_intrusion_to_target": 0.07692307692307693,
+      "metallic_intrusion_to_target": 0.1276595744680851
+    },
+    "training_batches": [
+      {
+        "saturated_count": 253,
+        "target_saturated_count": 52,
+        "degenerate_count": 56,
+        "count": 256,
+        "loss": 0.8044401112569353,
+        "zero_score_gradient_count": 253,
+        "target_zero_score_gradient_count": 52,
+        "score_gradient_max_abs": 0.30567970155909086,
+        "parameter_gradient_norm": 0.009697191300560648
+      },
+      {
+        "saturated_count": 84,
+        "target_saturated_count": 14,
+        "degenerate_count": 14,
+        "count": 84,
+        "loss": 0.8289246886379532,
+        "zero_score_gradient_count": 84,
+        "target_zero_score_gradient_count": 14,
+        "score_gradient_max_abs": 0.0,
+        "parameter_gradient_norm": 0.0
+      }
+    ]
+  },
+  {
+    "epoch": 18,
+    "fit_objective": 0.8104494043412993,
+    "stop_metrics": {
+      "nll": 0.8452336906299225,
+      "accuracy": 0.6941176470588235,
+      "macro_f1": 0.6618941069604402,
+      "target_recall": 0.6515151515151515,
+      "ti_intrusion_to_target": 0.07692307692307693,
+      "metallic_intrusion_to_target": 0.1276595744680851
+    },
+    "training_batches": [
+      {
+        "saturated_count": 251,
+        "target_saturated_count": 42,
+        "degenerate_count": 46,
+        "count": 256,
+        "loss": 0.823105885491624,
+        "zero_score_gradient_count": 251,
+        "target_zero_score_gradient_count": 42,
+        "score_gradient_max_abs": 0.3242912801202706,
+        "parameter_gradient_norm": 0.015350209950216884
+      },
+      {
+        "saturated_count": 81,
+        "target_saturated_count": 22,
+        "degenerate_count": 24,
+        "count": 84,
+        "loss": 0.7719994048030125,
+        "zero_score_gradient_count": 81,
+        "target_zero_score_gradient_count": 22,
+        "score_gradient_max_abs": 0.7130808379443397,
+        "parameter_gradient_norm": 0.033117949945843474
+      }
+    ]
+  },
+  {
+    "epoch": 19,
+    "fit_objective": 0.8104153200696975,
+    "stop_metrics": {
+      "nll": 0.8452145459354423,
+      "accuracy": 0.6941176470588235,
+      "macro_f1": 0.6618941069604402,
+      "target_recall": 0.6515151515151515,
+      "ti_intrusion_to_target": 0.07692307692307693,
+      "metallic_intrusion_to_target": 0.1276595744680851
+    },
+    "training_batches": [
+      {
+        "saturated_count": 252,
+        "target_saturated_count": 46,
+        "degenerate_count": 52,
+        "count": 256,
+        "loss": 0.781879713747604,
+        "zero_score_gradient_count": 252,
+        "target_zero_score_gradient_count": 46,
+        "score_gradient_max_abs": 0.7124345443834352,
+        "parameter_gradient_norm": 0.0094950883211735
+      },
+      {
+        "saturated_count": 83,
+        "target_saturated_count": 18,
+        "degenerate_count": 18,
+        "count": 84,
+        "loss": 0.8979850654341329,
+        "zero_score_gradient_count": 83,
+        "target_zero_score_gradient_count": 18,
+        "score_gradient_max_abs": 0.27756029046527186,
+        "parameter_gradient_norm": 0.009790674972609574
+      }
+    ]
+  },
+  {
+    "epoch": 20,
+    "fit_objective": 0.810386728981445,
+    "stop_metrics": {
+      "nll": 0.8451772338289073,
+      "accuracy": 0.6941176470588235,
+      "macro_f1": 0.6618941069604402,
+      "target_recall": 0.6515151515151515,
+      "ti_intrusion_to_target": 0.07692307692307693,
+      "metallic_intrusion_to_target": 0.1276595744680851
+    },
+    "training_batches": [
+      {
+        "saturated_count": 253,
+        "target_saturated_count": 56,
+        "degenerate_count": 59,
+        "count": 256,
+        "loss": 0.8140359636712715,
+        "zero_score_gradient_count": 253,
+        "target_zero_score_gradient_count": 56,
+        "score_gradient_max_abs": 0.7183112692480191,
+        "parameter_gradient_norm": 0.003474689719995178
+      },
+      {
+        "saturated_count": 82,
+        "target_saturated_count": 9,
+        "degenerate_count": 11,
+        "count": 84,
+        "loss": 0.7994371123151363,
+        "zero_score_gradient_count": 82,
+        "target_zero_score_gradient_count": 9,
+        "score_gradient_max_abs": 0.2719093174407848,
+        "parameter_gradient_norm": 0.019432525612330023
+      }
+    ]
+  },
+  {
+    "epoch": 21,
+    "fit_objective": 0.8103548574047352,
+    "stop_metrics": {
+      "nll": 0.8451399257095709,
+      "accuracy": 0.6941176470588235,
+      "macro_f1": 0.6618941069604402,
+      "target_recall": 0.6515151515151515,
+      "ti_intrusion_to_target": 0.07692307692307693,
+      "metallic_intrusion_to_target": 0.1276595744680851
+    },
+    "training_batches": [
+      {
+        "saturated_count": 250,
+        "target_saturated_count": 52,
+        "degenerate_count": 53,
+        "count": 256,
+        "loss": 0.8507579155742685,
+        "zero_score_gradient_count": 250,
+        "target_zero_score_gradient_count": 52,
+        "score_gradient_max_abs": 0.7109400568386232,
+        "parameter_gradient_norm": 0.009186800686281443
+      },
+      {
+        "saturated_count": 83,
+        "target_saturated_count": 12,
+        "degenerate_count": 17,
+        "count": 84,
+        "loss": 0.6864075120995248,
+        "zero_score_gradient_count": 83,
+        "target_zero_score_gradient_count": 12,
+        "score_gradient_max_abs": 0.6953298021374041,
+        "parameter_gradient_norm": 0.02159563884541175
+      }
+    ]
+  },
+  {
+    "epoch": 22,
+    "fit_objective": 0.8103147981364186,
+    "stop_metrics": {
+      "nll": 0.8451159713088364,
+      "accuracy": 0.6941176470588235,
+      "macro_f1": 0.6618941069604402,
+      "target_recall": 0.6515151515151515,
+      "ti_intrusion_to_target": 0.07692307692307693,
+      "metallic_intrusion_to_target": 0.1276595744680851
+    },
+    "training_batches": [
+      {
+        "saturated_count": 253,
+        "target_saturated_count": 51,
+        "degenerate_count": 54,
+        "count": 256,
+        "loss": 0.786681292119045,
+        "zero_score_gradient_count": 253,
+        "target_zero_score_gradient_count": 51,
+        "score_gradient_max_abs": 0.2832429553695997,
+        "parameter_gradient_norm": 0.009404640369980906
+      },
+      {
+        "saturated_count": 80,
+        "target_saturated_count": 13,
+        "degenerate_count": 16,
+        "count": 84,
+        "loss": 0.8825796379606149,
+        "zero_score_gradient_count": 80,
+        "target_zero_score_gradient_count": 13,
+        "score_gradient_max_abs": 0.741315281060744,
+        "parameter_gradient_norm": 0.03598514818689783
+      }
+    ]
+  },
+  {
+    "epoch": 23,
+    "fit_objective": 0.810267742923903,
+    "stop_metrics": {
+      "nll": 0.8450877282823119,
+      "accuracy": 0.6941176470588235,
+      "macro_f1": 0.6618941069604402,
+      "target_recall": 0.6515151515151515,
+      "ti_intrusion_to_target": 0.07692307692307693,
+      "metallic_intrusion_to_target": 0.1276595744680851
+    },
+    "training_batches": [
+      {
+        "saturated_count": 249,
+        "target_saturated_count": 43,
+        "degenerate_count": 56,
+        "count": 256,
+        "loss": 0.7808654935654089,
+        "zero_score_gradient_count": 249,
+        "target_zero_score_gradient_count": 43,
+        "score_gradient_max_abs": 0.7151765453208125,
+        "parameter_gradient_norm": 0.004923154398226114
+      },
+      {
+        "saturated_count": 83,
+        "target_saturated_count": 21,
+        "degenerate_count": 14,
+        "count": 84,
+        "loss": 0.9007508150864221,
+        "zero_score_gradient_count": 83,
+        "target_zero_score_gradient_count": 21,
+        "score_gradient_max_abs": 0.27843605202440674,
+        "parameter_gradient_norm": 0.010304485839586281
+      }
+    ]
+  },
+  {
+    "epoch": 24,
+    "fit_objective": 0.8102253497756481,
+    "stop_metrics": {
+      "nll": 0.8450628984595957,
+      "accuracy": 0.6941176470588235,
+      "macro_f1": 0.6618941069604402,
+      "target_recall": 0.6515151515151515,
+      "ti_intrusion_to_target": 0.07692307692307693,
+      "metallic_intrusion_to_target": 0.1276595744680851
+    },
+    "training_batches": [
+      {
+        "saturated_count": 251,
+        "target_saturated_count": 46,
+        "degenerate_count": 52,
+        "count": 256,
+        "loss": 0.7600345107212196,
+        "zero_score_gradient_count": 251,
+        "target_zero_score_gradient_count": 46,
+        "score_gradient_max_abs": 0.7138297308899516,
+        "parameter_gradient_norm": 0.005333770544243456
+      },
+      {
+        "saturated_count": 84,
+        "target_saturated_count": 19,
+        "degenerate_count": 18,
+        "count": 84,
+        "loss": 0.9636224682373966,
+        "zero_score_gradient_count": 84,
+        "target_zero_score_gradient_count": 19,
+        "score_gradient_max_abs": 0.0,
+        "parameter_gradient_norm": 0.0
+      }
+    ]
+  },
+  {
+    "epoch": 25,
+    "fit_objective": 0.8101844739970394,
+    "stop_metrics": {
+      "nll": 0.8450435071461502,
+      "accuracy": 0.6941176470588235,
+      "macro_f1": 0.6618941069604402,
+      "target_recall": 0.6515151515151515,
+      "ti_intrusion_to_target": 0.07692307692307693,
+      "metallic_intrusion_to_target": 0.1276595744680851
+    },
+    "training_batches": [
+      {
+        "saturated_count": 250,
+        "target_saturated_count": 48,
+        "degenerate_count": 57,
+        "count": 256,
+        "loss": 0.8594672271432198,
+        "zero_score_gradient_count": 250,
+        "target_zero_score_gradient_count": 48,
+        "score_gradient_max_abs": 0.7173366695643113,
+        "parameter_gradient_norm": 0.0073056738477038806
+      },
+      {
+        "saturated_count": 83,
+        "target_saturated_count": 16,
+        "degenerate_count": 13,
+        "count": 84,
+        "loss": 0.659658895824687,
+        "zero_score_gradient_count": 83,
+        "target_zero_score_gradient_count": 16,
+        "score_gradient_max_abs": 0.2709804998042603,
+        "parameter_gradient_norm": 0.010071167819860992
+      }
+    ]
+  },
+  {
+    "epoch": 26,
+    "fit_objective": 0.8101361262997523,
+    "stop_metrics": {
+      "nll": 0.8450159886329774,
+      "accuracy": 0.6941176470588235,
+      "macro_f1": 0.6618941069604402,
+      "target_recall": 0.6515151515151515,
+      "ti_intrusion_to_target": 0.07692307692307693,
+      "metallic_intrusion_to_target": 0.1276595744680851
+    },
+    "training_batches": [
+      {
+        "saturated_count": 251,
+        "target_saturated_count": 48,
+        "degenerate_count": 52,
+        "count": 256,
+        "loss": 0.8215203948979842,
+        "zero_score_gradient_count": 251,
+        "target_zero_score_gradient_count": 48,
+        "score_gradient_max_abs": 0.7200814298097564,
+        "parameter_gradient_norm": 0.008165373142143637
+      },
+      {
+        "saturated_count": 81,
+        "target_saturated_count": 16,
+        "degenerate_count": 18,
+        "count": 84,
+        "loss": 0.7760086729641823,
+        "zero_score_gradient_count": 81,
+        "target_zero_score_gradient_count": 16,
+        "score_gradient_max_abs": 0.28068251050078125,
+        "parameter_gradient_norm": 0.02929949066929186
+      }
+    ]
+  },
+  {
+    "epoch": 27,
+    "fit_objective": 0.810092691277284,
+    "stop_metrics": {
+      "nll": 0.8450073472267823,
+      "accuracy": 0.6941176470588235,
+      "macro_f1": 0.6618941069604402,
+      "target_recall": 0.6515151515151515,
+      "ti_intrusion_to_target": 0.07692307692307693,
+      "metallic_intrusion_to_target": 0.1276595744680851
+    },
+    "training_batches": [
+      {
+        "saturated_count": 251,
+        "target_saturated_count": 43,
+        "degenerate_count": 50,
+        "count": 256,
+        "loss": 0.7653094855737622,
+        "zero_score_gradient_count": 251,
+        "target_zero_score_gradient_count": 43,
+        "score_gradient_max_abs": 0.7212123171506852,
+        "parameter_gradient_norm": 0.005579554863700464
+      },
+      {
+        "saturated_count": 84,
+        "target_saturated_count": 22,
+        "degenerate_count": 20,
+        "count": 84,
+        "loss": 0.9470272457916243,
+        "zero_score_gradient_count": 84,
+        "target_zero_score_gradient_count": 22,
+        "score_gradient_max_abs": 0.0,
+        "parameter_gradient_norm": 0.0
+      }
+    ]
+  },
+  {
+    "epoch": 28,
+    "fit_objective": 0.8100534353079354,
+    "stop_metrics": {
+      "nll": 0.8450049852535374,
+      "accuracy": 0.6941176470588235,
+      "macro_f1": 0.6618941069604402,
+      "target_recall": 0.6515151515151515,
+      "ti_intrusion_to_target": 0.07692307692307693,
+      "metallic_intrusion_to_target": 0.1276595744680851
+    },
+    "training_batches": [
+      {
+        "saturated_count": 250,
+        "target_saturated_count": 49,
+        "degenerate_count": 51,
+        "count": 256,
+        "loss": 0.8018028008188228,
+        "zero_score_gradient_count": 250,
+        "target_zero_score_gradient_count": 49,
+        "score_gradient_max_abs": 0.7786345077724083,
+        "parameter_gradient_norm": 0.0076470292654726
+      },
+      {
+        "saturated_count": 82,
+        "target_saturated_count": 14,
+        "degenerate_count": 19,
+        "count": 84,
+        "loss": 0.835667261713404,
+        "zero_score_gradient_count": 82,
+        "target_zero_score_gradient_count": 14,
+        "score_gradient_max_abs": 0.6975004202400205,
+        "parameter_gradient_norm": 0.015389456750502484
+      }
+    ]
+  },
+  {
+    "epoch": 29,
+    "fit_objective": 0.8100116472545835,
+    "stop_metrics": {
+      "nll": 0.8449937886042479,
+      "accuracy": 0.6941176470588235,
+      "macro_f1": 0.6618941069604402,
+      "target_recall": 0.6515151515151515,
+      "ti_intrusion_to_target": 0.07692307692307693,
+      "metallic_intrusion_to_target": 0.1276595744680851
+    },
+    "training_batches": [
+      {
+        "saturated_count": 251,
+        "target_saturated_count": 54,
+        "degenerate_count": 51,
+        "count": 256,
+        "loss": 0.8519122086013996,
+        "zero_score_gradient_count": 251,
+        "target_zero_score_gradient_count": 54,
+        "score_gradient_max_abs": 0.6844214824943629,
+        "parameter_gradient_norm": 0.007328793486986801
+      },
+      {
+        "saturated_count": 83,
+        "target_saturated_count": 11,
+        "degenerate_count": 19,
+        "count": 84,
+        "loss": 0.6812747619289841,
+        "zero_score_gradient_count": 83,
+        "target_zero_score_gradient_count": 11,
+        "score_gradient_max_abs": 0.26565692325430085,
+        "parameter_gradient_norm": 0.010236467175441164
+      }
+    ]
+  },
+  {
+    "epoch": 30,
+    "fit_objective": 0.8099786467647844,
+    "stop_metrics": {
+      "nll": 0.8449615595117996,
+      "accuracy": 0.6941176470588235,
+      "macro_f1": 0.6618941069604402,
+      "target_recall": 0.6515151515151515,
+      "ti_intrusion_to_target": 0.07692307692307693,
+      "metallic_intrusion_to_target": 0.1276595744680851
+    },
+    "training_batches": [
+      {
+        "saturated_count": 248,
+        "target_saturated_count": 51,
+        "degenerate_count": 52,
+        "count": 256,
+        "loss": 0.8364496662057551,
+        "zero_score_gradient_count": 248,
+        "target_zero_score_gradient_count": 51,
+        "score_gradient_max_abs": 0.7884708354383108,
+        "parameter_gradient_norm": 0.013304348025068996
+      },
+      {
+        "saturated_count": 83,
+        "target_saturated_count": 12,
+        "degenerate_count": 18,
+        "count": 84,
+        "loss": 0.7311036626268995,
+        "zero_score_gradient_count": 83,
+        "target_zero_score_gradient_count": 12,
+        "score_gradient_max_abs": 0.2437834331858017,
+        "parameter_gradient_norm": 0.010011551198609818
+      }
+    ]
+  }
+]
