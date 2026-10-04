@@ -1,0 +1,67 @@
+{
+  "protocol": "abmp_frozen_visual_probe_v1",
+  "registered_date": "2026-10-04",
+  "approval": "Human: 批准冻结视觉特征探查",
+  "research_status": "FEASIBILITY_PROBE_NOT_NEW_ARCHITECTURE",
+  "fold": 0,
+  "subsets": ["gate_stop_projector_fit", "projector_stop"],
+  "counts": {"fit": 340, "stop": 340},
+  "arms": ["E", "H", "EH", "EH_permuted"],
+  "architectures": ["linear", "mlp"],
+  "seeds": [20261002, 20261003, 20261004],
+  "budget": {"epochs": 30, "batch_size": 256, "learning_rate": 0.001, "weight_decay": 0.0001, "dropout": 0.1, "hidden_dim": 64},
+  "scope": "Only 680 registered inner images. No backbone updates, outer manifest access, Fold 1/2, residual architecture, joint loss or formal report editing.",
+  "dataset_root": "D:/成信工科研/人工智能选矿/数据集/mindat_manual_positive_v1",
+  "feature_extractor": {
+    "checkpoint": "outputs/training/tc_oos_rsg_v1/fold_0/expert/best_model.pt",
+    "checkpoint_sha256": "ea50dbee3c8f6860ec4c901d180ad50959f51e97e8b5cb7cdc2d7e11d799e8f2",
+    "backbone": "efficientnet_b0",
+    "feature_state_prefix": "features.",
+    "layer": "features followed by existing adaptive average pooling and flatten; pre-dropout",
+    "raw_dimension": 1280,
+    "pretrained_download": false,
+    "device": "cuda",
+    "dtype": "float32",
+    "batch_size": 16,
+    "num_workers": 0,
+    "image_size": 224,
+    "transform": "Existing evaluation Resize(255), CenterCrop(224), RGB, ToTensor, ImageNet normalization; no augmentation",
+    "mode": "eval, requires_grad false, inference_mode, deterministic algorithms; BatchNorm running statistics unchanged"
+  },
+  "preprocessing": {
+    "fit_subset_only": "gate_stop_projector_fit",
+    "visual_pca_components": 64,
+    "pca": "Unlabelled centered full SVD, CPU float64; canonical loading signs; no whitening before per-column standardization",
+    "standardization": "Fit-only means and population standard deviations, floor 1e-8, no stop statistics",
+    "input_dimension": 82,
+    "padding": "E zeros the H block, H zeros the E block, EH uses both. Raw parameter count matched within architecture, active input capacity is NOT matched.",
+    "permutation": "EH_permuted keeps E and independently shuffles H rows within each subset; fit seed=seed+100000, stop seed=seed+200000; no class conditioning or label access"
+  },
+  "heads": {
+    "linear": "Linear(82,4), 332 raw parameters",
+    "mlp": "Linear(82,64), SiLU, Dropout(0.1), Linear(64,4), 5572 raw parameters",
+    "initialization": "PyTorch seeded hidden initialization, zero final layer; identical state and minibatch schedule within each architecture/seed across arms",
+    "loss": "Unweighted four-class cross entropy; no auxiliary, contrastive, risk or role-aware loss"
+  },
+  "checkpoint_criterion": "Earliest minimum raw stopping four-class NLL among epochs 1..30, matching previous development budget; no seed selection",
+  "calibration": "Additionally fit a positive global temperature on each selected head's fit probabilities only, beta in [1e-6,100], convex derivative and 80 bisection steps; retain both raw and calibrated results, never select a version based on stop",
+  "retained_controls": "Previous T0, D0, M0, P0 and P1 results, with registered strong-control summary hash; no retraining or method ranking across independent tasks",
+  "strong_control_summary": "outputs/training/abmp_verifier_strong_controls_v1/development_fold_0/development_summary.json",
+  "strong_control_summary_sha256": "87ed2385fe5bbcd6b28713e0fb949f996d8301fdb634d96253fd1070ff045fca",
+  "input_sha256": {
+    "gate_stop_projector_fit/component_predictions.csv": "020c42d91cfdda0c7df0529d68055450d5e4868c8607dfd0be22cf7d6152346c",
+    "gate_stop_projector_fit/routing_evidence.csv": "f4ea3c642487317219dda7af550f2ced585df6010aa8270d6f93bb14fe283b13",
+    "gate_stop_projector_fit/manifest.csv": "eb79afac38f664b22a4a58cc2fb38f1d32e698395c6c1824b051c99d11240531",
+    "projector_stop/component_predictions.csv": "faf7a42c04d440f2d5a380ed3ae985b66b8c8ad8ab675d88cffe4db8fd06d24c",
+    "projector_stop/routing_evidence.csv": "2299dae331ac7f012ec5cfac8a9533d84cdc8f4a0519546054d93dc92e2173c3",
+    "projector_stop/manifest.csv": "1a63741360e5ae8bc97377a86d761bbdb289ddcee11b24e184fa49b47a95bd09"
+  },
+  "formal_report_sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+  "screening_rules": {
+    "information_signal": "For a fixed architecture, raw EH NLL lower than same-seed E for all 3 seeds by at least 0.005, and mean raw EH NLL lower than mean EH_permuted by at least 0.005. Descriptive feasibility screen, not a mutual-information estimate or significance test.",
+    "role_usable_signal": "Information screen plus at least one new correct target in every seed, net correct targets >=0 and no more than one extra Ti false target and one extra metallic false target versus frozen p in every seed.",
+    "promotion": "No automatic promotion. Report both architectures, every seed, all metrics, failed screens and calibration tradeoffs. Any subsequent architecture needs its own design approval and preregistration."
+  },
+  "verification": "Pin protocol/code/input hashes before execution; image SHA256 and row feature digests; frozen state hash before/after; complete 680-image feature replay; fit-only preprocessing replay; 24 deterministic head-training replays; all prediction tables and fit-only temperature fits replayed",
+  "limitations": "Repeatedly exposed stopping set, small inner sample, 64D compression and simple learners limit inference. Negative signal cannot prove I(Y;H|E)=0; positive signal cannot prove a new architecture or independent generalization. No industrial recovery, grade or titanomagnetite-specific performance claim."
+}

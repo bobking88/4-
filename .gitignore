@@ -29,6 +29,7 @@ __pycache__/
 /outputs/training/**/gate_state.pt
 /outputs/training/abmp_verifier_trust_v1/**/best_head.pt
 /outputs/training/abmp_verifier_strong_controls_v1/**/best_head.pt
+/outputs/training/abmp_frozen_visual_probe_v1/**/*.pt
 /outputs/training/**/environment.json
 /outputs/training/smoke_*/
 /outputs/training/**/*.stdout.log
