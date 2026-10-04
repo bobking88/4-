@@ -1,0 +1,593 @@
+{
+  "status": "POSTHOC_READONLY_CLASSIFICATION_EQUIVALENCE_AUDIT",
+  "scope": "Only registered exposed Fold 0 fit/stop probability tables; no new calibrated arm or performance selection.",
+  "global_bias_family": "argmax(log(p) + delta*e_target); fixed non-target ratios",
+  "target_index": 0,
+  "tie_policy": "target index 0 wins ties",
+  "cross_seed_predictions_identical": true,
+  "criterion": "max(theta over existing target winners) < min(theta over existing non-target winners)",
+  "true_labels_used_in_constraint_or_witness_selection": false,
+  "images_loaded": false,
+  "optimizer_steps": 0,
+  "new_calibration_training": false,
+  "runs": [
+    {
+      "seed": 20261002,
+      "subsets": [
+        {
+          "count": 340,
+          "target_winner_count": 66,
+          "lower_inclusive": -0.01349308685631447,
+          "upper_exclusive": -0.26318144742316324,
+          "interval_nonempty": false,
+          "separation_width": -0.24968836056684876,
+          "infeasibility_witness": {
+            "retain_target": {
+              "image_id": "VTM-007993",
+              "required_delta_at_least": -0.01349308685631447,
+              "existing_predicted_class": 0
+            },
+            "exclude_target": {
+              "image_id": "VTM-002934",
+              "required_delta_strictly_below": -0.26318144742316324,
+              "existing_predicted_class": 1
+            }
+          },
+          "subset": "gate_stop_projector_fit",
+          "fixed_non_target_ratio_max_residual": 1.1102230246251565e-16,
+          "static_class_bias": {
+            "scope": "All static four-class log-probability offsets, also any positive global temperature plus those offsets",
+            "simple_cycles_checked": 20,
+            "tolerance": 1e-12,
+            "minimum_cycle_sum": -0.20496350548870756,
+            "status": "INFEASIBLE_NEGATIVE_CYCLE",
+            "cycle_witness": {
+              "classes": [
+                0,
+                2,
+                1
+              ],
+              "sum": -0.20496350548870756,
+              "strict_edge_count": 2,
+              "edges": [
+                {
+                  "from": 0,
+                  "to": 2,
+                  "cost": 0.013493086856314673,
+                  "strict": false,
+                  "image_id": "VTM-007993"
+                },
+                {
+                  "from": 2,
+                  "to": 1,
+                  "cost": 0.044724855078140946,
+                  "strict": true,
+                  "image_id": "VTM-003990"
+                },
+                {
+                  "from": 1,
+                  "to": 0,
+                  "cost": -0.2631814474231632,
+                  "strict": true,
+                  "image_id": "VTM-002934"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "count": 340,
+          "target_winner_count": 65,
+          "lower_inclusive": -0.046220317510725584,
+          "upper_exclusive": -0.08077705092645925,
+          "interval_nonempty": false,
+          "separation_width": -0.03455673341573366,
+          "infeasibility_witness": {
+            "retain_target": {
+              "image_id": "VTM-000559",
+              "required_delta_at_least": -0.046220317510725584,
+              "existing_predicted_class": 0
+            },
+            "exclude_target": {
+              "image_id": "VTM-006633",
+              "required_delta_strictly_below": -0.08077705092645925,
+              "existing_predicted_class": 1
+            }
+          },
+          "subset": "projector_stop",
+          "fixed_non_target_ratio_max_residual": 2.220446049250313e-16,
+          "static_class_bias": {
+            "scope": "All static four-class log-probability offsets, also any positive global temperature plus those offsets",
+            "simple_cycles_checked": 20,
+            "tolerance": 1e-12,
+            "minimum_cycle_sum": -0.0217521320776205,
+            "status": "INFEASIBLE_NEGATIVE_CYCLE",
+            "cycle_witness": {
+              "classes": [
+                0,
+                2,
+                1
+              ],
+              "sum": -0.0217521320776205,
+              "strict_edge_count": 2,
+              "edges": [
+                {
+                  "from": 0,
+                  "to": 2,
+                  "cost": 0.04622031751072564,
+                  "strict": false,
+                  "image_id": "VTM-000559"
+                },
+                {
+                  "from": 2,
+                  "to": 1,
+                  "cost": 0.01280460133811312,
+                  "strict": true,
+                  "image_id": "VTM-005913"
+                },
+                {
+                  "from": 1,
+                  "to": 0,
+                  "cost": -0.08077705092645926,
+                  "strict": true,
+                  "image_id": "VTM-006633"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "combined_fit_stop": {
+        "count": 680,
+        "target_winner_count": 131,
+        "lower_inclusive": -0.01349308685631447,
+        "upper_exclusive": -0.26318144742316324,
+        "interval_nonempty": false,
+        "separation_width": -0.24968836056684876,
+        "infeasibility_witness": {
+          "retain_target": {
+            "image_id": "VTM-007993",
+            "required_delta_at_least": -0.01349308685631447,
+            "existing_predicted_class": 0
+          },
+          "exclude_target": {
+            "image_id": "VTM-002934",
+            "required_delta_strictly_below": -0.26318144742316324,
+            "existing_predicted_class": 1
+          }
+        },
+        "static_class_bias": {
+          "scope": "All static four-class log-probability offsets, also any positive global temperature plus those offsets",
+          "simple_cycles_checked": 20,
+          "tolerance": 1e-12,
+          "minimum_cycle_sum": -0.2368837592287354,
+          "status": "INFEASIBLE_NEGATIVE_CYCLE",
+          "cycle_witness": {
+            "classes": [
+              0,
+              2,
+              1
+            ],
+            "sum": -0.2368837592287354,
+            "strict_edge_count": 2,
+            "edges": [
+              {
+                "from": 0,
+                "to": 2,
+                "cost": 0.013493086856314673,
+                "strict": false,
+                "image_id": "VTM-007993"
+              },
+              {
+                "from": 2,
+                "to": 1,
+                "cost": 0.01280460133811312,
+                "strict": true,
+                "image_id": "VTM-005913"
+              },
+              {
+                "from": 1,
+                "to": 0,
+                "cost": -0.2631814474231632,
+                "strict": true,
+                "image_id": "VTM-002934"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "seed": 20261003,
+      "subsets": [
+        {
+          "count": 340,
+          "target_winner_count": 66,
+          "lower_inclusive": -0.01349308685631447,
+          "upper_exclusive": -0.26318144742316324,
+          "interval_nonempty": false,
+          "separation_width": -0.24968836056684876,
+          "infeasibility_witness": {
+            "retain_target": {
+              "image_id": "VTM-007993",
+              "required_delta_at_least": -0.01349308685631447,
+              "existing_predicted_class": 0
+            },
+            "exclude_target": {
+              "image_id": "VTM-002934",
+              "required_delta_strictly_below": -0.26318144742316324,
+              "existing_predicted_class": 1
+            }
+          },
+          "subset": "gate_stop_projector_fit",
+          "fixed_non_target_ratio_max_residual": 1.1102230246251565e-16,
+          "static_class_bias": {
+            "scope": "All static four-class log-probability offsets, also any positive global temperature plus those offsets",
+            "simple_cycles_checked": 20,
+            "tolerance": 1e-12,
+            "minimum_cycle_sum": -0.20496350548870756,
+            "status": "INFEASIBLE_NEGATIVE_CYCLE",
+            "cycle_witness": {
+              "classes": [
+                0,
+                2,
+                1
+              ],
+              "sum": -0.20496350548870756,
+              "strict_edge_count": 2,
+              "edges": [
+                {
+                  "from": 0,
+                  "to": 2,
+                  "cost": 0.013493086856314673,
+                  "strict": false,
+                  "image_id": "VTM-007993"
+                },
+                {
+                  "from": 2,
+                  "to": 1,
+                  "cost": 0.044724855078140946,
+                  "strict": true,
+                  "image_id": "VTM-003990"
+                },
+                {
+                  "from": 1,
+                  "to": 0,
+                  "cost": -0.2631814474231632,
+                  "strict": true,
+                  "image_id": "VTM-002934"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "count": 340,
+          "target_winner_count": 65,
+          "lower_inclusive": -0.046220317510725584,
+          "upper_exclusive": -0.08077705092645925,
+          "interval_nonempty": false,
+          "separation_width": -0.03455673341573366,
+          "infeasibility_witness": {
+            "retain_target": {
+              "image_id": "VTM-000559",
+              "required_delta_at_least": -0.046220317510725584,
+              "existing_predicted_class": 0
+            },
+            "exclude_target": {
+              "image_id": "VTM-006633",
+              "required_delta_strictly_below": -0.08077705092645925,
+              "existing_predicted_class": 1
+            }
+          },
+          "subset": "projector_stop",
+          "fixed_non_target_ratio_max_residual": 2.220446049250313e-16,
+          "static_class_bias": {
+            "scope": "All static four-class log-probability offsets, also any positive global temperature plus those offsets",
+            "simple_cycles_checked": 20,
+            "tolerance": 1e-12,
+            "minimum_cycle_sum": -0.0217521320776205,
+            "status": "INFEASIBLE_NEGATIVE_CYCLE",
+            "cycle_witness": {
+              "classes": [
+                0,
+                2,
+                1
+              ],
+              "sum": -0.0217521320776205,
+              "strict_edge_count": 2,
+              "edges": [
+                {
+                  "from": 0,
+                  "to": 2,
+                  "cost": 0.04622031751072564,
+                  "strict": false,
+                  "image_id": "VTM-000559"
+                },
+                {
+                  "from": 2,
+                  "to": 1,
+                  "cost": 0.01280460133811312,
+                  "strict": true,
+                  "image_id": "VTM-005913"
+                },
+                {
+                  "from": 1,
+                  "to": 0,
+                  "cost": -0.08077705092645926,
+                  "strict": true,
+                  "image_id": "VTM-006633"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "combined_fit_stop": {
+        "count": 680,
+        "target_winner_count": 131,
+        "lower_inclusive": -0.01349308685631447,
+        "upper_exclusive": -0.26318144742316324,
+        "interval_nonempty": false,
+        "separation_width": -0.24968836056684876,
+        "infeasibility_witness": {
+          "retain_target": {
+            "image_id": "VTM-007993",
+            "required_delta_at_least": -0.01349308685631447,
+            "existing_predicted_class": 0
+          },
+          "exclude_target": {
+            "image_id": "VTM-002934",
+            "required_delta_strictly_below": -0.26318144742316324,
+            "existing_predicted_class": 1
+          }
+        },
+        "static_class_bias": {
+          "scope": "All static four-class log-probability offsets, also any positive global temperature plus those offsets",
+          "simple_cycles_checked": 20,
+          "tolerance": 1e-12,
+          "minimum_cycle_sum": -0.2368837592287354,
+          "status": "INFEASIBLE_NEGATIVE_CYCLE",
+          "cycle_witness": {
+            "classes": [
+              0,
+              2,
+              1
+            ],
+            "sum": -0.2368837592287354,
+            "strict_edge_count": 2,
+            "edges": [
+              {
+                "from": 0,
+                "to": 2,
+                "cost": 0.013493086856314673,
+                "strict": false,
+                "image_id": "VTM-007993"
+              },
+              {
+                "from": 2,
+                "to": 1,
+                "cost": 0.01280460133811312,
+                "strict": true,
+                "image_id": "VTM-005913"
+              },
+              {
+                "from": 1,
+                "to": 0,
+                "cost": -0.2631814474231632,
+                "strict": true,
+                "image_id": "VTM-002934"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "seed": 20261004,
+      "subsets": [
+        {
+          "count": 340,
+          "target_winner_count": 66,
+          "lower_inclusive": -0.01349308685631447,
+          "upper_exclusive": -0.26318144742316324,
+          "interval_nonempty": false,
+          "separation_width": -0.24968836056684876,
+          "infeasibility_witness": {
+            "retain_target": {
+              "image_id": "VTM-007993",
+              "required_delta_at_least": -0.01349308685631447,
+              "existing_predicted_class": 0
+            },
+            "exclude_target": {
+              "image_id": "VTM-002934",
+              "required_delta_strictly_below": -0.26318144742316324,
+              "existing_predicted_class": 1
+            }
+          },
+          "subset": "gate_stop_projector_fit",
+          "fixed_non_target_ratio_max_residual": 1.1102230246251565e-16,
+          "static_class_bias": {
+            "scope": "All static four-class log-probability offsets, also any positive global temperature plus those offsets",
+            "simple_cycles_checked": 20,
+            "tolerance": 1e-12,
+            "minimum_cycle_sum": -0.20496350548870756,
+            "status": "INFEASIBLE_NEGATIVE_CYCLE",
+            "cycle_witness": {
+              "classes": [
+                0,
+                2,
+                1
+              ],
+              "sum": -0.20496350548870756,
+              "strict_edge_count": 2,
+              "edges": [
+                {
+                  "from": 0,
+                  "to": 2,
+                  "cost": 0.013493086856314673,
+                  "strict": false,
+                  "image_id": "VTM-007993"
+                },
+                {
+                  "from": 2,
+                  "to": 1,
+                  "cost": 0.044724855078140946,
+                  "strict": true,
+                  "image_id": "VTM-003990"
+                },
+                {
+                  "from": 1,
+                  "to": 0,
+                  "cost": -0.2631814474231632,
+                  "strict": true,
+                  "image_id": "VTM-002934"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "count": 340,
+          "target_winner_count": 65,
+          "lower_inclusive": -0.046220317510725584,
+          "upper_exclusive": -0.08077705092645925,
+          "interval_nonempty": false,
+          "separation_width": -0.03455673341573366,
+          "infeasibility_witness": {
+            "retain_target": {
+              "image_id": "VTM-000559",
+              "required_delta_at_least": -0.046220317510725584,
+              "existing_predicted_class": 0
+            },
+            "exclude_target": {
+              "image_id": "VTM-006633",
+              "required_delta_strictly_below": -0.08077705092645925,
+              "existing_predicted_class": 1
+            }
+          },
+          "subset": "projector_stop",
+          "fixed_non_target_ratio_max_residual": 2.220446049250313e-16,
+          "static_class_bias": {
+            "scope": "All static four-class log-probability offsets, also any positive global temperature plus those offsets",
+            "simple_cycles_checked": 20,
+            "tolerance": 1e-12,
+            "minimum_cycle_sum": -0.0217521320776205,
+            "status": "INFEASIBLE_NEGATIVE_CYCLE",
+            "cycle_witness": {
+              "classes": [
+                0,
+                2,
+                1
+              ],
+              "sum": -0.0217521320776205,
+              "strict_edge_count": 2,
+              "edges": [
+                {
+                  "from": 0,
+                  "to": 2,
+                  "cost": 0.04622031751072564,
+                  "strict": false,
+                  "image_id": "VTM-000559"
+                },
+                {
+                  "from": 2,
+                  "to": 1,
+                  "cost": 0.01280460133811312,
+                  "strict": true,
+                  "image_id": "VTM-005913"
+                },
+                {
+                  "from": 1,
+                  "to": 0,
+                  "cost": -0.08077705092645926,
+                  "strict": true,
+                  "image_id": "VTM-006633"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "combined_fit_stop": {
+        "count": 680,
+        "target_winner_count": 131,
+        "lower_inclusive": -0.01349308685631447,
+        "upper_exclusive": -0.26318144742316324,
+        "interval_nonempty": false,
+        "separation_width": -0.24968836056684876,
+        "infeasibility_witness": {
+          "retain_target": {
+            "image_id": "VTM-007993",
+            "required_delta_at_least": -0.01349308685631447,
+            "existing_predicted_class": 0
+          },
+          "exclude_target": {
+            "image_id": "VTM-002934",
+            "required_delta_strictly_below": -0.26318144742316324,
+            "existing_predicted_class": 1
+          }
+        },
+        "static_class_bias": {
+          "scope": "All static four-class log-probability offsets, also any positive global temperature plus those offsets",
+          "simple_cycles_checked": 20,
+          "tolerance": 1e-12,
+          "minimum_cycle_sum": -0.2368837592287354,
+          "status": "INFEASIBLE_NEGATIVE_CYCLE",
+          "cycle_witness": {
+            "classes": [
+              0,
+              2,
+              1
+            ],
+            "sum": -0.2368837592287354,
+            "strict_edge_count": 2,
+            "edges": [
+              {
+                "from": 0,
+                "to": 2,
+                "cost": 0.013493086856314673,
+                "strict": false,
+                "image_id": "VTM-007993"
+              },
+              {
+                "from": 2,
+                "to": 1,
+                "cost": 0.01280460133811312,
+                "strict": true,
+                "image_id": "VTM-005913"
+              },
+              {
+                "from": 1,
+                "to": 0,
+                "cost": -0.2631814474231632,
+                "strict": true,
+                "image_id": "VTM-002934"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "input_sha256": {
+    "gate_stop_projector_fit/component_predictions.csv": "020c42d91cfdda0c7df0529d68055450d5e4868c8607dfd0be22cf7d6152346c",
+    "gate_stop_projector_fit/routing_evidence.csv": "f4ea3c642487317219dda7af550f2ced585df6010aa8270d6f93bb14fe283b13",
+    "gate_stop_projector_fit/manifest.csv": "eb79afac38f664b22a4a58cc2fb38f1d32e698395c6c1824b051c99d11240531",
+    "projector_stop/component_predictions.csv": "faf7a42c04d440f2d5a380ed3ae985b66b8c8ad8ab675d88cffe4db8fd06d24c",
+    "projector_stop/routing_evidence.csv": "2299dae331ac7f012ec5cfac8a9533d84cdc8f4a0519546054d93dc92e2173c3",
+    "projector_stop/manifest.csv": "1a63741360e5ae8bc97377a86d761bbdb289ddcee11b24e184fa49b47a95bd09"
+  },
+  "prediction_table_sha256": {
+    "P1_seed20261002/fit_predictions.csv": "72e50d34c132cd8751b6ab3b836b83e042c4e7a5935c39dc8991b7fe0a0fb972",
+    "P1_seed20261002/stop_predictions.csv": "43469a61c5046526d26d3b23b9cd24bd1394aa6213b8ac0a2f7197934e9a2c4a",
+    "P1_seed20261003/fit_predictions.csv": "1b893eaf3463d78d283ce8a10fee9a548d4b6e74ca5c7f517be9d736bf431a54",
+    "P1_seed20261003/stop_predictions.csv": "736fa0530d03fbd9b608ee88ab300e30abc3cc7a0fa8e8ee67a6c3decc34639f",
+    "P1_seed20261004/fit_predictions.csv": "50b5bd101fa0ea7eb335c390d3f1754cfba17d777ffc9f1927c756a4ed42fc7b",
+    "P1_seed20261004/stop_predictions.csv": "be6c4919a2ebff643e5a601c717c5626a3152643b2e6e7562c9d162702745393"
+  },
+  "reference_summary_sha256": "87ed2385fe5bbcd6b28713e0fb949f996d8301fdb634d96253fd1070ff045fca",
+  "registered_protocol_sha256": "b8c1ec58746ca4d39961af3f93e8e7f4bc3b3e59e11fa47fd2f06fca4f435a4a",
+  "source_tables_unchanged": true,
+  "interpretation": "Feasibility concerns finite classification patterns only; not risk equivalence, independent efficacy, or a deployed offset."
+}

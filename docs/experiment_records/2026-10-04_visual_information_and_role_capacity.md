@@ -199,6 +199,7 @@ q_{\neg T}=(1-q_T)u,\qquad
 1. **AdaTS，AAAI 2023**：原方法已用冻结分类器的视觉表示构造逐样本温度。相关方法正文已阅读；“给校准头加视觉特征”不能单独称为网络创新。[官方论文](https://ojs.aaai.org/index.php/AAAI/article/download/26742/26514)。
 2. **CAEC，MICCAI 2026**：官方论文的方法部分已有混淆感知视觉取证、logit 补偿及视觉可靠性分支，服务少样本全切片分类。已阅读其方法正文；“混淆感知 + 视觉补偿 + 残差 logits”这一组合也不能直接写成首次。其 WSI/VLM、文本提示与混淆记忆不同于本项目，不把它称为同任务复现或结果可直接比较。[官方论文](https://papers.miccai.org/miccai-2026/paper/3046_paper.pdf)。
 3. **Composite Binary Losses，JMLR 2010**：已有适当损失的凹 Bayes 风险与遗憾分解理论。式 (4)–(6) 利用这些基础及熵的链式法则，不能仅因写出公式就宣称新的一般机器学习定理。[官方论文](https://www.jmlr.org/papers/volume11/reid10a/reid10a.pdf)。
+4. **Information, Divergence and Risk for Binary Experiments，JMLR 2011**：后续本轮查新已核对 §4.3–4.7、§5.3–5.4 的相关正文。一般风险下降的 Jensen 信息表示与损失权重框架已存在；区间风险具有截断对数损失的曲率权重，因而式 (4)–(5) 应作为具体结构推论而非新的一般原理。固定完整条件状态下的裁剪 BCE 是非严格适当，不应误写为一概不适当；这与其原始报告不唯一、饱和区梯度为零不矛盾。详见 `2026-10-04_theory_novelty_fact_check.md`。[官方论文](https://www.jmlr.org/papers/volume12/reid11a/reid11a.pdf)。
 
 已核对上述发表年份；本轮不是完整系统查新，未断言全球不存在相同受限信息收益结果。本文的现阶段贡献是**针对实际角色受限网络，明确信息收益、比例通道与判决容量之间的关系，并修正先前结构结论**。要成为论文方法/理论创新，还需与近邻工作全文比较，并让新结构在公平强对照与独立数据上支持其必要性。
 
