@@ -1,0 +1,165 @@
+{
+  "status": "MATHEMATICAL_AND_READONLY_CAPACITY_CHECK_ONLY",
+  "seed": 20261004,
+  "synthetic_E_states": 10000,
+  "H_states_per_E": 2,
+  "risk_identity_max_abs_residual": 2.7755575615628914e-16,
+  "categorical_identity_max_abs_residual": 5.134781488891349e-16,
+  "nonnegative_gain_violations": 0,
+  "gain_above_target_information_violations": 0,
+  "mean_synthetic_constrained_gain": 0.04181430721132394,
+  "mean_synthetic_target_information": 0.09406061841880946,
+  "mean_synthetic_interval_jensen_penalty": 0.05224631120748552,
+  "examples": {
+    "informative_but_upper_saturated": {
+      "a": 0.1,
+      "b": 0.2,
+      "r_given_H": [
+        0.3,
+        0.5
+      ],
+      "weights": [
+        0.5,
+        0.5
+      ],
+      "target_information": 0.021005925701837125,
+      "constrained_risk_gain": 1.1102230246251565e-16
+    },
+    "informative_inside_interval": {
+      "a": 0.1,
+      "b": 0.6,
+      "r_given_H": [
+        0.2,
+        0.4
+      ],
+      "weights": [
+        0.5,
+        0.5
+      ],
+      "target_information": 0.02415725678117131,
+      "constrained_risk_gain": 0.02415725678117131
+    }
+  },
+  "frozen_probability_capacity": [
+    {
+      "subset": "gate_stop_projector_fit",
+      "count": 340,
+      "base_target_winners": 70,
+      "free_u_only_candidate_count": 28,
+      "per_true_class": [
+        {
+          "class_id": 0,
+          "baseline_non_target_winners": 29,
+          "target_feasible_by_free_non_target_ratios_only": 7,
+          "still_impossible_without_target_mass_increase": 22
+        },
+        {
+          "class_id": 1,
+          "baseline_non_target_winners": 113,
+          "target_feasible_by_free_non_target_ratios_only": 12,
+          "still_impossible_without_target_mass_increase": 101
+        },
+        {
+          "class_id": 2,
+          "baseline_non_target_winners": 89,
+          "target_feasible_by_free_non_target_ratios_only": 5,
+          "still_impossible_without_target_mass_increase": 84
+        },
+        {
+          "class_id": 3,
+          "baseline_non_target_winners": 39,
+          "target_feasible_by_free_non_target_ratios_only": 4,
+          "still_impossible_without_target_mass_increase": 35
+        }
+      ],
+      "minimum_target_odds_boost_log_margin_true_target_median": 1.1489115476332703
+    },
+    {
+      "subset": "projector_stop",
+      "count": 340,
+      "base_target_winners": 69,
+      "free_u_only_candidate_count": 30,
+      "per_true_class": [
+        {
+          "class_id": 0,
+          "baseline_non_target_winners": 23,
+          "target_feasible_by_free_non_target_ratios_only": 9,
+          "still_impossible_without_target_mass_increase": 14
+        },
+        {
+          "class_id": 1,
+          "baseline_non_target_winners": 117,
+          "target_feasible_by_free_non_target_ratios_only": 9,
+          "still_impossible_without_target_mass_increase": 108
+        },
+        {
+          "class_id": 2,
+          "baseline_non_target_winners": 90,
+          "target_feasible_by_free_non_target_ratios_only": 2,
+          "still_impossible_without_target_mass_increase": 88
+        },
+        {
+          "class_id": 3,
+          "baseline_non_target_winners": 41,
+          "target_feasible_by_free_non_target_ratios_only": 10,
+          "still_impossible_without_target_mass_increase": 31
+        }
+      ],
+      "minimum_target_odds_boost_log_margin_true_target_median": 1.2531928262489402
+    }
+  ],
+  "input_sha256": {
+    "gate_stop_projector_fit/component_predictions.csv": "020c42d91cfdda0c7df0529d68055450d5e4868c8607dfd0be22cf7d6152346c",
+    "gate_stop_projector_fit/routing_evidence.csv": "f4ea3c642487317219dda7af550f2ced585df6010aa8270d6f93bb14fe283b13",
+    "gate_stop_projector_fit/manifest.csv": "eb79afac38f664b22a4a58cc2fb38f1d32e698395c6c1824b051c99d11240531",
+    "projector_stop/component_predictions.csv": "faf7a42c04d440f2d5a380ed3ae985b66b8c8ad8ab675d88cffe4db8fd06d24c",
+    "projector_stop/routing_evidence.csv": "2299dae331ac7f012ec5cfac8a9533d84cdc8f4a0519546054d93dc92e2173c3",
+    "projector_stop/manifest.csv": "1a63741360e5ae8bc97377a86d761bbdb289ddcee11b24e184fa49b47a95bd09"
+  },
+  "registered_protocol_sha256": "b8c1ec58746ca4d39961af3f93e8e7f4bc3b3e59e11fa47fd2f06fca4f435a4a",
+  "input_unchanged": true,
+  "images_loaded": false,
+  "optimizer_steps": 0,
+  "new_head_training": false,
+  "non_target_only_information_example": {
+    "posterior_given_H": [
+      [
+        0.2,
+        0.64,
+        0.08,
+        0.08
+      ],
+      [
+        0.2,
+        0.08,
+        0.64,
+        0.08
+      ]
+    ],
+    "target_information": 0,
+    "four_class_information": 0.24790686099617779,
+    "gain_with_fixed_non_target_ratios": 0,
+    "gain_if_non_target_ratios_also_adapt": 0.24790686099617779
+  },
+  "capacity_counterexample": {
+    "base": [
+      0.26,
+      0.6,
+      0.1,
+      0.04
+    ],
+    "free_non_target_ratios": [
+      0.26,
+      0.24666666666666667,
+      0.24666666666666667,
+      0.24666666666666667
+    ],
+    "target_mass_unchanged": true,
+    "target_promotion": true,
+    "minimum_log_odds_boost_if_non_target_ratios_fixed": 0.8362480242006185,
+    "classes_below_above_threshold": [
+      1,
+      0
+    ]
+  }
+}
