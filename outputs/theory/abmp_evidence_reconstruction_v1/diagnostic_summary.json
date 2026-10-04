@@ -1,0 +1,55 @@
+{
+  "status": "READ_ONLY_EVIDENCE_RECONSTRUCTION_AUDIT",
+  "reference_summary_sha256": "b0a7a26c8a9277925fa1d5e9a704c594d6e7b7160e35c1873427b7583bd73c56",
+  "source_snapshot": {
+    "checkpoint": "ea50dbee3c8f6860ec4c901d180ad50959f51e97e8b5cb7cdc2d7e11d799e8f2",
+    "strong_control_summary": "87ed2385fe5bbcd6b28713e0fb949f996d8301fdb634d96253fd1070ff045fca",
+    "formal_report": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+    "input_sha256": {
+      "gate_stop_projector_fit/component_predictions.csv": "020c42d91cfdda0c7df0529d68055450d5e4868c8607dfd0be22cf7d6152346c",
+      "gate_stop_projector_fit/routing_evidence.csv": "f4ea3c642487317219dda7af550f2ced585df6010aa8270d6f93bb14fe283b13",
+      "gate_stop_projector_fit/manifest.csv": "eb79afac38f664b22a4a58cc2fb38f1d32e698395c6c1824b051c99d11240531",
+      "projector_stop/component_predictions.csv": "faf7a42c04d440f2d5a380ed3ae985b66b8c8ad8ab675d88cffe4db8fd06d24c",
+      "projector_stop/routing_evidence.csv": "2299dae331ac7f012ec5cfac8a9533d84cdc8f4a0519546054d93dc92e2173c3",
+      "projector_stop/manifest.csv": "1a63741360e5ae8bc97377a86d761bbdb289ddcee11b24e184fa49b47a95bd09"
+    }
+  },
+  "subsets": [
+    {
+      "subset": "gate_stop_projector_fit",
+      "rows": 340,
+      "evidence_dimensions": 18,
+      "p_reconstruction_max_abs_residual": 3.3306690738754696e-16,
+      "L_reconstruction_max_abs_residual": 0.0,
+      "verification_roundtrip_max_abs_residual": 2.220446049250313e-16,
+      "standardization_inverse_max_abs_residual": 2.220446049250313e-16,
+      "simplex_max_abs_residual": 2.220446049250313e-16,
+      "scale_min": 0.13831745591263567,
+      "scale_max": 1.0,
+      "epsilon_clamp_active_count": 0
+    },
+    {
+      "subset": "projector_stop",
+      "rows": 340,
+      "evidence_dimensions": 18,
+      "p_reconstruction_max_abs_residual": 2.220446049250313e-16,
+      "L_reconstruction_max_abs_residual": 0.0,
+      "verification_roundtrip_max_abs_residual": 2.220446049250313e-16,
+      "standardization_inverse_max_abs_residual": 2.220446049250313e-16,
+      "simplex_max_abs_residual": 2.220446049250313e-16,
+      "scale_min": 0.15036491077760322,
+      "scale_max": 1.0,
+      "epsilon_clamp_active_count": 0
+    }
+  ],
+  "synthetic_rows": 10004,
+  "synthetic_seed": 20261004,
+  "synthetic_max_abs_residual": 2.220446049250313e-16,
+  "numeric_tolerance": 1e-12,
+  "new_training": false,
+  "new_images_loaded": false,
+  "visual_feature_matrix_loaded": false,
+  "formal_report_unchanged": true,
+  "outer_manifest_read": false,
+  "interpretation": "With fixed positive verifier scale, p and L are deterministic functions of E18 in exact arithmetic. Explicit posterior anchor changes representation/optimization, not statistical information; finite-precision residuals are reported. No conditional MI estimate or network novelty proof."
+}
