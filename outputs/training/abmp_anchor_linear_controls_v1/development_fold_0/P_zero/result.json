@@ -1,0 +1,96 @@
+{
+  "initialization": "zero",
+  "converged": true,
+  "gradient_l2": 4.976989332179423e-09,
+  "gradient_max_abs": 2.3210352701223333e-09,
+  "gap_upper_bound": 1.238521140631389e-14,
+  "regularized_fit_objective": 0.773757956764646,
+  "fit_nll": 0.7730183204749952,
+  "identity_fit_objective": 0.8040965550531278,
+  "regularization": 0.001,
+  "parameter_count": 20,
+  "solver_stages": [
+    {
+      "method": "L-BFGS-B",
+      "success": true,
+      "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+      "iterations": 33,
+      "function_evaluations": 37
+    },
+    {
+      "method": "trust-exact",
+      "success": false,
+      "message": "A bad approximation caused failure to predict improvement.",
+      "iterations": 0,
+      "function_evaluations": 2
+    }
+  ],
+  "arm": "P",
+  "state_sha256": "0ed8056e637da3c856c769819915dea187945e3432aaba141d4c2a87c0c65238",
+  "metrics": {
+    "fit": {
+      "nll": 0.7730183204749952,
+      "accuracy": 0.6705882352941176,
+      "macro_f1": 0.6446312841184556,
+      "target_recall": 0.5303030303030303,
+      "ti_intrusion_to_target": 0.11538461538461539,
+      "metallic_intrusion_to_target": 0.19148936170212766
+    },
+    "stop": {
+      "nll": 0.8773705829313592,
+      "accuracy": 0.6705882352941176,
+      "macro_f1": 0.6229578282782215,
+      "target_recall": 0.5909090909090909,
+      "ti_intrusion_to_target": 0.06923076923076923,
+      "metallic_intrusion_to_target": 0.10638297872340426
+    }
+  },
+  "transitions": {
+    "fit": {
+      "classification_changes": 24,
+      "new_correct_targets": 0,
+      "lost_correct_targets": 2,
+      "net_correct_targets": -2,
+      "correct_target_count": 35,
+      "target_count": 66,
+      "new_false_target_by_class": {
+        "1": 0,
+        "2": 0,
+        "3": 2
+      },
+      "removed_false_target_by_class": {
+        "1": 2,
+        "2": 2,
+        "3": 1
+      },
+      "false_target_count_by_class": {
+        "1": 15,
+        "2": 6,
+        "3": 9
+      }
+    },
+    "stop": {
+      "classification_changes": 21,
+      "new_correct_targets": 0,
+      "lost_correct_targets": 4,
+      "net_correct_targets": -4,
+      "correct_target_count": 39,
+      "target_count": 66,
+      "new_false_target_by_class": {
+        "1": 0,
+        "2": 0,
+        "3": 0
+      },
+      "removed_false_target_by_class": {
+        "1": 4,
+        "2": 1,
+        "3": 1
+      },
+      "false_target_count_by_class": {
+        "1": 9,
+        "2": 6,
+        "3": 5
+      }
+    }
+  }
+}

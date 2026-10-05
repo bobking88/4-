@@ -1,0 +1,96 @@
+{
+  "initialization": "zero",
+  "converged": true,
+  "gradient_l2": 4.7219498105084084e-15,
+  "gradient_max_abs": 7.678048734999221e-16,
+  "gap_upper_bound": 1.1148405006480196e-26,
+  "regularized_fit_objective": 0.3213033187228956,
+  "fit_nll": 0.277825517853354,
+  "identity_fit_objective": 0.8040965550531278,
+  "regularization": 0.001,
+  "parameter_count": 352,
+  "solver_stages": [
+    {
+      "method": "L-BFGS-B",
+      "success": true,
+      "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+      "iterations": 199,
+      "function_evaluations": 213
+    },
+    {
+      "method": "trust-exact",
+      "success": true,
+      "message": "Optimization terminated successfully.",
+      "iterations": 1,
+      "function_evaluations": 2
+    }
+  ],
+  "arm": "EH_permuted",
+  "state_sha256": "b06ea385fe290ba1a671c647f4e0415b054c80299dd72e571fea6696393ec6c4",
+  "metrics": {
+    "fit": {
+      "nll": 0.2778255178533541,
+      "accuracy": 0.9058823529411765,
+      "macro_f1": 0.9107582991726267,
+      "target_recall": 0.8484848484848485,
+      "ti_intrusion_to_target": 0.06923076923076923,
+      "metallic_intrusion_to_target": 0.02127659574468085
+    },
+    "stop": {
+      "nll": 2.3290406086366553,
+      "accuracy": 0.5823529411764706,
+      "macro_f1": 0.5277579862760403,
+      "target_recall": 0.4393939393939394,
+      "ti_intrusion_to_target": 0.08461538461538462,
+      "metallic_intrusion_to_target": 0.2127659574468085
+    }
+  },
+  "transitions": {
+    "fit": {
+      "classification_changes": 104,
+      "new_correct_targets": 22,
+      "lost_correct_targets": 3,
+      "net_correct_targets": 19,
+      "correct_target_count": 56,
+      "target_count": 66,
+      "new_false_target_by_class": {
+        "1": 7,
+        "2": 0,
+        "3": 0
+      },
+      "removed_false_target_by_class": {
+        "1": 15,
+        "2": 6,
+        "3": 7
+      },
+      "false_target_count_by_class": {
+        "1": 9,
+        "2": 2,
+        "3": 1
+      }
+    },
+    "stop": {
+      "classification_changes": 98,
+      "new_correct_targets": 4,
+      "lost_correct_targets": 18,
+      "net_correct_targets": -14,
+      "correct_target_count": 29,
+      "target_count": 66,
+      "new_false_target_by_class": {
+        "1": 6,
+        "2": 6,
+        "3": 8
+      },
+      "removed_false_target_by_class": {
+        "1": 8,
+        "2": 3,
+        "3": 4
+      },
+      "false_target_count_by_class": {
+        "1": 11,
+        "2": 10,
+        "3": 10
+      }
+    }
+  }
+}

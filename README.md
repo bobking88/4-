@@ -140,6 +140,19 @@ python -m unittest discover -s tests -p "*abmp*.py" -v
 
 ## Theory-aware evidence reproduction
 
+2026-10-05 已完成 [后验锚点收敛强对照](docs/experiment_records/2026-10-05_anchor_linear_controls_results.md)。
+协议/代码在真实拟合前以 `11af17f` 推送；15 次凸求解与 32 张预测表精确重放。
+收敛检查通过，但视觉联合残差未超过 T0，角色约束也未通过，不能宣称网络创新有效。
+入口：[预注册](docs/experiment_records/2026-10-05_anchor_linear_controls_registration.md)、
+[结果 JSON](outputs/training/abmp_anchor_linear_controls_v1/development_fold_0/development_summary.json)、
+[交付验证](outputs/training/abmp_anchor_linear_controls_v1/development_fold_0/delivery_verification.json)。
+本轮只读既有缓存，不打开新图片或其他真实折，正式报告未修改；系数/缓存不公开分发。
+
+```powershell
+python -m unittest discover -s tests -p "test_anchor_linear_controls.py" -v
+python scripts/run_anchor_linear_controls.py --verify
+```
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.

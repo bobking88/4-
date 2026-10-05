@@ -1,0 +1,11 @@
+{
+  "status": "EXACT_REPLAY_VERIFIED",
+  "solution_replays": 15,
+  "prediction_tables": 32,
+  "prediction_rows": 10880,
+  "prediction_max_abs_residual": 0.0,
+  "source_and_report_unchanged": true,
+  "new_images_loaded": false,
+  "outer_manifest_read": false,
+  "numerical_stability_passed": true
+}

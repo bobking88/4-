@@ -1,0 +1,13 @@
+# Observed core package versions, Windows / Python 3.11.5.
+# Install torch/torchvision from the official CUDA 13.0 index as in requirements-training.txt.
+# CPU float64 solve with one BLAS thread; not a complete transitive lockfile.
+torch==2.12.1+cu130
+torchvision==0.27.1+cu130
+numpy==2.4.6
+scipy==1.17.1
+threadpoolctl==3.6.0
+scikit-learn==1.9.0
+pandas==3.0.5
+Pillow==12.3.0
+matplotlib==3.11.1
+seaborn==0.13.2

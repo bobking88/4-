@@ -1,0 +1,2233 @@
+{
+  "protocol": "abmp_anchor_linear_controls_v1",
+  "status": "DEVELOPMENT_CONVEX_CONTROL_ONLY",
+  "protocol_sha256": "ca40c798b69f623db2de9546d889aaba01adce6bbc7e4bef3e1666f2714be2cb",
+  "code_sha256": {
+    "anchor_linear_controls.py": "1a979127c960cfc44c8fc3ef682d790dbb280e2488cfc2440baa2c161ed10192",
+    "run_anchor_linear_controls.py": "15beb38c7825a439199b5545bfb5a4d842947d9f107b18ec09ccca759a747735",
+    "frozen_visual_probe.py": "6e417ea900ed3cbd1c8653898a5bb9849b73958b57c4c50803217d82a4793bfa",
+    "run_frozen_visual_probe.py": "db6db46bd8f046ad0e3ec9c2bc14f138fa2150e297ab4b30eb316d4510a36d2d",
+    "verifier_strong_controls.py": "a1adefaef8852bceb85aa22cd42a10609ff904b09a3f8b6dce94787c6a87299b",
+    "run_verifier_trust_development.py": "62ee01068bb6ef6cbb3b464732a9f57f3e2e5bc86aba879f0b2a304d40dbbce3",
+    "tc_oos_rsg.py": "38445a3f24ccd424e5e6a635f78ef079e73f2139be62d3e974134470c66bcba2",
+    "hrgv_network.py": "f4c2889b9a129d9f52fd999b189c0888407f9887e1f739cd5e1b55b4d361a0da",
+    "run_tc_oos_rsg_experiments.py": "7006b72d27942ab29c7b22eaf58cae344fcb8c3c8d30e2930788da9900c4bef1",
+    "run_verifier_strong_controls.py": "40edbdd576ddc49d0a3f5a27ec71aee944660691ccba955829df4ed99a0599d6"
+  },
+  "source_snapshot": {
+    "checkpoint": "ea50dbee3c8f6860ec4c901d180ad50959f51e97e8b5cb7cdc2d7e11d799e8f2",
+    "strong_control_summary": "87ed2385fe5bbcd6b28713e0fb949f996d8301fdb634d96253fd1070ff045fca",
+    "formal_report": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+    "input_sha256": {
+      "gate_stop_projector_fit/component_predictions.csv": "020c42d91cfdda0c7df0529d68055450d5e4868c8607dfd0be22cf7d6152346c",
+      "gate_stop_projector_fit/routing_evidence.csv": "f4ea3c642487317219dda7af550f2ced585df6010aa8270d6f93bb14fe283b13",
+      "gate_stop_projector_fit/manifest.csv": "eb79afac38f664b22a4a58cc2fb38f1d32e698395c6c1824b051c99d11240531",
+      "projector_stop/component_predictions.csv": "faf7a42c04d440f2d5a380ed3ae985b66b8c8ad8ab675d88cffe4db8fd06d24c",
+      "projector_stop/routing_evidence.csv": "2299dae331ac7f012ec5cfac8a9533d84cdc8f4a0519546054d93dc92e2173c3",
+      "projector_stop/manifest.csv": "1a63741360e5ae8bc97377a86d761bbdb289ddcee11b24e184fa49b47a95bd09"
+    },
+    "cache_sha256": {
+      "frozen_features.pt": "6bbb3221293d5bf0fcadb13bcaa7a3029fdc77e8328e119820665256e3509090",
+      "preprocessing.pt": "343dbff5ec6ede2441d70e7377029d59e735727bd0ef69884fce1f3ec2447d59"
+    }
+  },
+  "temperature_anchor": {
+    "beta": 0.8558665112273149,
+    "temperature": 1.1684065060169222,
+    "boundary": null,
+    "derivative_at_lower": -1.710101318898793,
+    "derivative_at_upper": 0.43521704773762193,
+    "derivative_at_optimum": 5.224578939412501e-17
+  },
+  "baseline": {
+    "metrics": {
+      "fit": {
+        "nll": 0.8040965550531282,
+        "accuracy": 0.6823529411764706,
+        "macro_f1": 0.6623959632318858,
+        "target_recall": 0.5606060606060606,
+        "ti_intrusion_to_target": 0.13076923076923078,
+        "metallic_intrusion_to_target": 0.1702127659574468
+      },
+      "stop": {
+        "nll": 0.8351905930926401,
+        "accuracy": 0.6852941176470588,
+        "macro_f1": 0.6542874384459548,
+        "target_recall": 0.6515151515151515,
+        "ti_intrusion_to_target": 0.1,
+        "metallic_intrusion_to_target": 0.1276595744680851
+      }
+    },
+    "transitions": {
+      "fit": {
+        "classification_changes": 0,
+        "new_correct_targets": 0,
+        "lost_correct_targets": 0,
+        "net_correct_targets": 0,
+        "correct_target_count": 37,
+        "target_count": 66,
+        "new_false_target_by_class": {
+          "1": 0,
+          "2": 0,
+          "3": 0
+        },
+        "removed_false_target_by_class": {
+          "1": 0,
+          "2": 0,
+          "3": 0
+        },
+        "false_target_count_by_class": {
+          "1": 17,
+          "2": 8,
+          "3": 8
+        }
+      },
+      "stop": {
+        "classification_changes": 0,
+        "new_correct_targets": 0,
+        "lost_correct_targets": 0,
+        "net_correct_targets": 0,
+        "correct_target_count": 43,
+        "target_count": 66,
+        "new_false_target_by_class": {
+          "1": 0,
+          "2": 0,
+          "3": 0
+        },
+        "removed_false_target_by_class": {
+          "1": 0,
+          "2": 0,
+          "3": 0
+        },
+        "false_target_count_by_class": {
+          "1": 13,
+          "2": 7,
+          "3": 6
+        }
+      }
+    }
+  },
+  "primary": {
+    "P": {
+      "initialization": "zero",
+      "converged": true,
+      "gradient_l2": 4.976989332179423e-09,
+      "gradient_max_abs": 2.3210352701223333e-09,
+      "gap_upper_bound": 1.238521140631389e-14,
+      "regularized_fit_objective": 0.773757956764646,
+      "fit_nll": 0.7730183204749952,
+      "identity_fit_objective": 0.8040965550531278,
+      "regularization": 0.001,
+      "parameter_count": 20,
+      "solver_stages": [
+        {
+          "method": "L-BFGS-B",
+          "success": true,
+          "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+          "iterations": 33,
+          "function_evaluations": 37
+        },
+        {
+          "method": "trust-exact",
+          "success": false,
+          "message": "A bad approximation caused failure to predict improvement.",
+          "iterations": 0,
+          "function_evaluations": 2
+        }
+      ],
+      "arm": "P",
+      "state_sha256": "0ed8056e637da3c856c769819915dea187945e3432aaba141d4c2a87c0c65238",
+      "metrics": {
+        "fit": {
+          "nll": 0.7730183204749952,
+          "accuracy": 0.6705882352941176,
+          "macro_f1": 0.6446312841184556,
+          "target_recall": 0.5303030303030303,
+          "ti_intrusion_to_target": 0.11538461538461539,
+          "metallic_intrusion_to_target": 0.19148936170212766
+        },
+        "stop": {
+          "nll": 0.8773705829313592,
+          "accuracy": 0.6705882352941176,
+          "macro_f1": 0.6229578282782215,
+          "target_recall": 0.5909090909090909,
+          "ti_intrusion_to_target": 0.06923076923076923,
+          "metallic_intrusion_to_target": 0.10638297872340426
+        }
+      },
+      "transitions": {
+        "fit": {
+          "classification_changes": 24,
+          "new_correct_targets": 0,
+          "lost_correct_targets": 2,
+          "net_correct_targets": -2,
+          "correct_target_count": 35,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 0,
+            "2": 0,
+            "3": 2
+          },
+          "removed_false_target_by_class": {
+            "1": 2,
+            "2": 2,
+            "3": 1
+          },
+          "false_target_count_by_class": {
+            "1": 15,
+            "2": 6,
+            "3": 9
+          }
+        },
+        "stop": {
+          "classification_changes": 21,
+          "new_correct_targets": 0,
+          "lost_correct_targets": 4,
+          "net_correct_targets": -4,
+          "correct_target_count": 39,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "removed_false_target_by_class": {
+            "1": 4,
+            "2": 1,
+            "3": 1
+          },
+          "false_target_count_by_class": {
+            "1": 9,
+            "2": 6,
+            "3": 5
+          }
+        }
+      }
+    },
+    "E": {
+      "initialization": "zero",
+      "converged": true,
+      "gradient_l2": 3.925162904984295e-15,
+      "gradient_max_abs": 8.965538814825758e-16,
+      "gap_upper_bound": 7.703451915332374e-27,
+      "regularized_fit_objective": 0.690432678857,
+      "fit_nll": 0.6805967793504643,
+      "identity_fit_objective": 0.8040965550531278,
+      "regularization": 0.001,
+      "parameter_count": 96,
+      "solver_stages": [
+        {
+          "method": "L-BFGS-B",
+          "success": true,
+          "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+          "iterations": 231,
+          "function_evaluations": 247
+        },
+        {
+          "method": "trust-exact",
+          "success": true,
+          "message": "Optimization terminated successfully.",
+          "iterations": 1,
+          "function_evaluations": 2
+        }
+      ],
+      "arm": "E",
+      "state_sha256": "7ecb82a0635da48f052b0a7080ad7c177379bff9ebf36d066a3d48674538d867",
+      "metrics": {
+        "fit": {
+          "nll": 0.6805967793504644,
+          "accuracy": 0.711764705882353,
+          "macro_f1": 0.6950514940629295,
+          "target_recall": 0.5454545454545454,
+          "ti_intrusion_to_target": 0.1,
+          "metallic_intrusion_to_target": 0.10638297872340426
+        },
+        "stop": {
+          "nll": 1.014104208521957,
+          "accuracy": 0.6352941176470588,
+          "macro_f1": 0.5896273346591399,
+          "target_recall": 0.5454545454545454,
+          "ti_intrusion_to_target": 0.1076923076923077,
+          "metallic_intrusion_to_target": 0.1276595744680851
+        }
+      },
+      "transitions": {
+        "fit": {
+          "classification_changes": 61,
+          "new_correct_targets": 6,
+          "lost_correct_targets": 7,
+          "net_correct_targets": -1,
+          "correct_target_count": 36,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 7,
+            "2": 1,
+            "3": 1
+          },
+          "removed_false_target_by_class": {
+            "1": 11,
+            "2": 5,
+            "3": 4
+          },
+          "false_target_count_by_class": {
+            "1": 13,
+            "2": 4,
+            "3": 5
+          }
+        },
+        "stop": {
+          "classification_changes": 59,
+          "new_correct_targets": 1,
+          "lost_correct_targets": 8,
+          "net_correct_targets": -7,
+          "correct_target_count": 36,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 6,
+            "2": 3,
+            "3": 3
+          },
+          "removed_false_target_by_class": {
+            "1": 5,
+            "2": 2,
+            "3": 3
+          },
+          "false_target_count_by_class": {
+            "1": 14,
+            "2": 8,
+            "3": 6
+          }
+        }
+      }
+    },
+    "H": {
+      "initialization": "zero",
+      "converged": true,
+      "gradient_l2": 1.9989579975043735e-15,
+      "gradient_max_abs": 4.4078239322398183e-16,
+      "gap_upper_bound": 1.9979165378933474e-27,
+      "regularized_fit_objective": 0.33707578100954116,
+      "fit_nll": 0.2926473182917901,
+      "identity_fit_objective": 0.8040965550531278,
+      "regularization": 0.001,
+      "parameter_count": 260,
+      "solver_stages": [
+        {
+          "method": "L-BFGS-B",
+          "success": true,
+          "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+          "iterations": 103,
+          "function_evaluations": 108
+        },
+        {
+          "method": "trust-exact",
+          "success": true,
+          "message": "Optimization terminated successfully.",
+          "iterations": 1,
+          "function_evaluations": 2
+        }
+      ],
+      "arm": "H",
+      "state_sha256": "60276f413ca637fc53397f9f6d2361b75f5bd3475937d49cdb478c6734042fd0",
+      "metrics": {
+        "fit": {
+          "nll": 0.2926473182917901,
+          "accuracy": 0.8735294117647059,
+          "macro_f1": 0.8705821800932675,
+          "target_recall": 0.8333333333333334,
+          "ti_intrusion_to_target": 0.06923076923076923,
+          "metallic_intrusion_to_target": 0.02127659574468085
+        },
+        "stop": {
+          "nll": 1.896574535452801,
+          "accuracy": 0.5970588235294118,
+          "macro_f1": 0.5597444711611567,
+          "target_recall": 0.5757575757575758,
+          "ti_intrusion_to_target": 0.14615384615384616,
+          "metallic_intrusion_to_target": 0.1702127659574468
+        }
+      },
+      "transitions": {
+        "fit": {
+          "classification_changes": 94,
+          "new_correct_targets": 20,
+          "lost_correct_targets": 2,
+          "net_correct_targets": 18,
+          "correct_target_count": 55,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 2,
+            "2": 1,
+            "3": 0
+          },
+          "removed_false_target_by_class": {
+            "1": 10,
+            "2": 7,
+            "3": 7
+          },
+          "false_target_count_by_class": {
+            "1": 9,
+            "2": 2,
+            "3": 1
+          }
+        },
+        "stop": {
+          "classification_changes": 88,
+          "new_correct_targets": 7,
+          "lost_correct_targets": 12,
+          "net_correct_targets": -5,
+          "correct_target_count": 38,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 12,
+            "2": 5,
+            "3": 4
+          },
+          "removed_false_target_by_class": {
+            "1": 6,
+            "2": 5,
+            "3": 2
+          },
+          "false_target_count_by_class": {
+            "1": 19,
+            "2": 7,
+            "3": 8
+          }
+        }
+      }
+    },
+    "EH": {
+      "initialization": "zero",
+      "converged": true,
+      "gradient_l2": 4.500119145283201e-15,
+      "gradient_max_abs": 7.244638916548141e-16,
+      "gap_upper_bound": 1.0125536160872203e-26,
+      "regularized_fit_objective": 0.25094008403499535,
+      "fit_nll": 0.18524785181162012,
+      "identity_fit_objective": 0.8040965550531278,
+      "regularization": 0.001,
+      "parameter_count": 352,
+      "solver_stages": [
+        {
+          "method": "L-BFGS-B",
+          "success": true,
+          "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+          "iterations": 195,
+          "function_evaluations": 206
+        },
+        {
+          "method": "trust-exact",
+          "success": true,
+          "message": "Optimization terminated successfully.",
+          "iterations": 1,
+          "function_evaluations": 2
+        }
+      ],
+      "arm": "EH",
+      "state_sha256": "46a7eb0b48d34a7b29390deb27312a87c5557ff1b2926ee2427cde0dca483003",
+      "metrics": {
+        "fit": {
+          "nll": 0.18524785181162018,
+          "accuracy": 0.9588235294117647,
+          "macro_f1": 0.9613739469087946,
+          "target_recall": 0.9242424242424242,
+          "ti_intrusion_to_target": 0.007692307692307693,
+          "metallic_intrusion_to_target": 0.0
+        },
+        "stop": {
+          "nll": 2.2939607934912303,
+          "accuracy": 0.6029411764705882,
+          "macro_f1": 0.5606916147754065,
+          "target_recall": 0.6060606060606061,
+          "ti_intrusion_to_target": 0.15384615384615385,
+          "metallic_intrusion_to_target": 0.2127659574468085
+        }
+      },
+      "transitions": {
+        "fit": {
+          "classification_changes": 100,
+          "new_correct_targets": 24,
+          "lost_correct_targets": 0,
+          "net_correct_targets": 24,
+          "correct_target_count": 61,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "removed_false_target_by_class": {
+            "1": 16,
+            "2": 7,
+            "3": 8
+          },
+          "false_target_count_by_class": {
+            "1": 1,
+            "2": 1,
+            "3": 0
+          }
+        },
+        "stop": {
+          "classification_changes": 86,
+          "new_correct_targets": 8,
+          "lost_correct_targets": 11,
+          "net_correct_targets": -3,
+          "correct_target_count": 40,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 11,
+            "2": 3,
+            "3": 6
+          },
+          "removed_false_target_by_class": {
+            "1": 4,
+            "2": 7,
+            "3": 2
+          },
+          "false_target_count_by_class": {
+            "1": 20,
+            "2": 3,
+            "3": 10
+          }
+        }
+      }
+    },
+    "EH_permuted": {
+      "initialization": "zero",
+      "converged": true,
+      "gradient_l2": 4.7219498105084084e-15,
+      "gradient_max_abs": 7.678048734999221e-16,
+      "gap_upper_bound": 1.1148405006480196e-26,
+      "regularized_fit_objective": 0.3213033187228956,
+      "fit_nll": 0.277825517853354,
+      "identity_fit_objective": 0.8040965550531278,
+      "regularization": 0.001,
+      "parameter_count": 352,
+      "solver_stages": [
+        {
+          "method": "L-BFGS-B",
+          "success": true,
+          "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+          "iterations": 199,
+          "function_evaluations": 213
+        },
+        {
+          "method": "trust-exact",
+          "success": true,
+          "message": "Optimization terminated successfully.",
+          "iterations": 1,
+          "function_evaluations": 2
+        }
+      ],
+      "arm": "EH_permuted",
+      "state_sha256": "b06ea385fe290ba1a671c647f4e0415b054c80299dd72e571fea6696393ec6c4",
+      "metrics": {
+        "fit": {
+          "nll": 0.2778255178533541,
+          "accuracy": 0.9058823529411765,
+          "macro_f1": 0.9107582991726267,
+          "target_recall": 0.8484848484848485,
+          "ti_intrusion_to_target": 0.06923076923076923,
+          "metallic_intrusion_to_target": 0.02127659574468085
+        },
+        "stop": {
+          "nll": 2.3290406086366553,
+          "accuracy": 0.5823529411764706,
+          "macro_f1": 0.5277579862760403,
+          "target_recall": 0.4393939393939394,
+          "ti_intrusion_to_target": 0.08461538461538462,
+          "metallic_intrusion_to_target": 0.2127659574468085
+        }
+      },
+      "transitions": {
+        "fit": {
+          "classification_changes": 104,
+          "new_correct_targets": 22,
+          "lost_correct_targets": 3,
+          "net_correct_targets": 19,
+          "correct_target_count": 56,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 7,
+            "2": 0,
+            "3": 0
+          },
+          "removed_false_target_by_class": {
+            "1": 15,
+            "2": 6,
+            "3": 7
+          },
+          "false_target_count_by_class": {
+            "1": 9,
+            "2": 2,
+            "3": 1
+          }
+        },
+        "stop": {
+          "classification_changes": 98,
+          "new_correct_targets": 4,
+          "lost_correct_targets": 18,
+          "net_correct_targets": -14,
+          "correct_target_count": 29,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 6,
+            "2": 6,
+            "3": 8
+          },
+          "removed_false_target_by_class": {
+            "1": 8,
+            "2": 3,
+            "3": 4
+          },
+          "false_target_count_by_class": {
+            "1": 11,
+            "2": 10,
+            "3": 10
+          }
+        }
+      }
+    }
+  },
+  "runs": [
+    {
+      "initialization": "zero",
+      "converged": true,
+      "gradient_l2": 4.976989332179423e-09,
+      "gradient_max_abs": 2.3210352701223333e-09,
+      "gap_upper_bound": 1.238521140631389e-14,
+      "regularized_fit_objective": 0.773757956764646,
+      "fit_nll": 0.7730183204749952,
+      "identity_fit_objective": 0.8040965550531278,
+      "regularization": 0.001,
+      "parameter_count": 20,
+      "solver_stages": [
+        {
+          "method": "L-BFGS-B",
+          "success": true,
+          "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+          "iterations": 33,
+          "function_evaluations": 37
+        },
+        {
+          "method": "trust-exact",
+          "success": false,
+          "message": "A bad approximation caused failure to predict improvement.",
+          "iterations": 0,
+          "function_evaluations": 2
+        }
+      ],
+      "arm": "P",
+      "state_sha256": "0ed8056e637da3c856c769819915dea187945e3432aaba141d4c2a87c0c65238",
+      "metrics": {
+        "fit": {
+          "nll": 0.7730183204749952,
+          "accuracy": 0.6705882352941176,
+          "macro_f1": 0.6446312841184556,
+          "target_recall": 0.5303030303030303,
+          "ti_intrusion_to_target": 0.11538461538461539,
+          "metallic_intrusion_to_target": 0.19148936170212766
+        },
+        "stop": {
+          "nll": 0.8773705829313592,
+          "accuracy": 0.6705882352941176,
+          "macro_f1": 0.6229578282782215,
+          "target_recall": 0.5909090909090909,
+          "ti_intrusion_to_target": 0.06923076923076923,
+          "metallic_intrusion_to_target": 0.10638297872340426
+        }
+      },
+      "transitions": {
+        "fit": {
+          "classification_changes": 24,
+          "new_correct_targets": 0,
+          "lost_correct_targets": 2,
+          "net_correct_targets": -2,
+          "correct_target_count": 35,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 0,
+            "2": 0,
+            "3": 2
+          },
+          "removed_false_target_by_class": {
+            "1": 2,
+            "2": 2,
+            "3": 1
+          },
+          "false_target_count_by_class": {
+            "1": 15,
+            "2": 6,
+            "3": 9
+          }
+        },
+        "stop": {
+          "classification_changes": 21,
+          "new_correct_targets": 0,
+          "lost_correct_targets": 4,
+          "net_correct_targets": -4,
+          "correct_target_count": 39,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "removed_false_target_by_class": {
+            "1": 4,
+            "2": 1,
+            "3": 1
+          },
+          "false_target_count_by_class": {
+            "1": 9,
+            "2": 6,
+            "3": 5
+          }
+        }
+      }
+    },
+    {
+      "initialization": "perturbed_20261003",
+      "converged": true,
+      "gradient_l2": 1.3055248823102864e-16,
+      "gradient_max_abs": 6.179952383167375e-17,
+      "gap_upper_bound": 8.521976091656436e-30,
+      "regularized_fit_objective": 0.7737579567646459,
+      "fit_nll": 0.7730183204352633,
+      "identity_fit_objective": 0.8040965550531278,
+      "regularization": 0.001,
+      "parameter_count": 20,
+      "solver_stages": [
+        {
+          "method": "L-BFGS-B",
+          "success": true,
+          "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+          "iterations": 44,
+          "function_evaluations": 48
+        },
+        {
+          "method": "trust-exact",
+          "success": true,
+          "message": "Optimization terminated successfully.",
+          "iterations": 1,
+          "function_evaluations": 2
+        }
+      ],
+      "arm": "P",
+      "state_sha256": "1c942e3afab3139c2b56fc28613c6d1880ca5297f5b70bb91cb777feaa014cbc",
+      "metrics": {
+        "fit": {
+          "nll": 0.7730183204352633,
+          "accuracy": 0.6705882352941176,
+          "macro_f1": 0.6446312841184556,
+          "target_recall": 0.5303030303030303,
+          "ti_intrusion_to_target": 0.11538461538461539,
+          "metallic_intrusion_to_target": 0.19148936170212766
+        },
+        "stop": {
+          "nll": 0.8773705835657227,
+          "accuracy": 0.6705882352941176,
+          "macro_f1": 0.6229578282782215,
+          "target_recall": 0.5909090909090909,
+          "ti_intrusion_to_target": 0.06923076923076923,
+          "metallic_intrusion_to_target": 0.10638297872340426
+        }
+      },
+      "transitions": {
+        "fit": {
+          "classification_changes": 24,
+          "new_correct_targets": 0,
+          "lost_correct_targets": 2,
+          "net_correct_targets": -2,
+          "correct_target_count": 35,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 0,
+            "2": 0,
+            "3": 2
+          },
+          "removed_false_target_by_class": {
+            "1": 2,
+            "2": 2,
+            "3": 1
+          },
+          "false_target_count_by_class": {
+            "1": 15,
+            "2": 6,
+            "3": 9
+          }
+        },
+        "stop": {
+          "classification_changes": 21,
+          "new_correct_targets": 0,
+          "lost_correct_targets": 4,
+          "net_correct_targets": -4,
+          "correct_target_count": 39,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "removed_false_target_by_class": {
+            "1": 4,
+            "2": 1,
+            "3": 1
+          },
+          "false_target_count_by_class": {
+            "1": 9,
+            "2": 6,
+            "3": 5
+          }
+        }
+      }
+    },
+    {
+      "initialization": "perturbed_20261004",
+      "converged": true,
+      "gradient_l2": 1.834427313199098e-16,
+      "gradient_max_abs": 7.352245982167327e-17,
+      "gap_upper_bound": 1.6825617837054308e-29,
+      "regularized_fit_objective": 0.7737579567646461,
+      "fit_nll": 0.7730183204352635,
+      "identity_fit_objective": 0.8040965550531278,
+      "regularization": 0.001,
+      "parameter_count": 20,
+      "solver_stages": [
+        {
+          "method": "L-BFGS-B",
+          "success": true,
+          "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+          "iterations": 45,
+          "function_evaluations": 50
+        },
+        {
+          "method": "trust-exact",
+          "success": true,
+          "message": "Optimization terminated successfully.",
+          "iterations": 1,
+          "function_evaluations": 2
+        }
+      ],
+      "arm": "P",
+      "state_sha256": "aac45fc202fa78978191508c5ee4baaa0c6342b9c1ec08455d6ba295480414c6",
+      "metrics": {
+        "fit": {
+          "nll": 0.7730183204352633,
+          "accuracy": 0.6705882352941176,
+          "macro_f1": 0.6446312841184556,
+          "target_recall": 0.5303030303030303,
+          "ti_intrusion_to_target": 0.11538461538461539,
+          "metallic_intrusion_to_target": 0.19148936170212766
+        },
+        "stop": {
+          "nll": 0.8773705835657226,
+          "accuracy": 0.6705882352941176,
+          "macro_f1": 0.6229578282782215,
+          "target_recall": 0.5909090909090909,
+          "ti_intrusion_to_target": 0.06923076923076923,
+          "metallic_intrusion_to_target": 0.10638297872340426
+        }
+      },
+      "transitions": {
+        "fit": {
+          "classification_changes": 24,
+          "new_correct_targets": 0,
+          "lost_correct_targets": 2,
+          "net_correct_targets": -2,
+          "correct_target_count": 35,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 0,
+            "2": 0,
+            "3": 2
+          },
+          "removed_false_target_by_class": {
+            "1": 2,
+            "2": 2,
+            "3": 1
+          },
+          "false_target_count_by_class": {
+            "1": 15,
+            "2": 6,
+            "3": 9
+          }
+        },
+        "stop": {
+          "classification_changes": 21,
+          "new_correct_targets": 0,
+          "lost_correct_targets": 4,
+          "net_correct_targets": -4,
+          "correct_target_count": 39,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "removed_false_target_by_class": {
+            "1": 4,
+            "2": 1,
+            "3": 1
+          },
+          "false_target_count_by_class": {
+            "1": 9,
+            "2": 6,
+            "3": 5
+          }
+        }
+      }
+    },
+    {
+      "initialization": "zero",
+      "converged": true,
+      "gradient_l2": 3.925162904984295e-15,
+      "gradient_max_abs": 8.965538814825758e-16,
+      "gap_upper_bound": 7.703451915332374e-27,
+      "regularized_fit_objective": 0.690432678857,
+      "fit_nll": 0.6805967793504643,
+      "identity_fit_objective": 0.8040965550531278,
+      "regularization": 0.001,
+      "parameter_count": 96,
+      "solver_stages": [
+        {
+          "method": "L-BFGS-B",
+          "success": true,
+          "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+          "iterations": 231,
+          "function_evaluations": 247
+        },
+        {
+          "method": "trust-exact",
+          "success": true,
+          "message": "Optimization terminated successfully.",
+          "iterations": 1,
+          "function_evaluations": 2
+        }
+      ],
+      "arm": "E",
+      "state_sha256": "7ecb82a0635da48f052b0a7080ad7c177379bff9ebf36d066a3d48674538d867",
+      "metrics": {
+        "fit": {
+          "nll": 0.6805967793504644,
+          "accuracy": 0.711764705882353,
+          "macro_f1": 0.6950514940629295,
+          "target_recall": 0.5454545454545454,
+          "ti_intrusion_to_target": 0.1,
+          "metallic_intrusion_to_target": 0.10638297872340426
+        },
+        "stop": {
+          "nll": 1.014104208521957,
+          "accuracy": 0.6352941176470588,
+          "macro_f1": 0.5896273346591399,
+          "target_recall": 0.5454545454545454,
+          "ti_intrusion_to_target": 0.1076923076923077,
+          "metallic_intrusion_to_target": 0.1276595744680851
+        }
+      },
+      "transitions": {
+        "fit": {
+          "classification_changes": 61,
+          "new_correct_targets": 6,
+          "lost_correct_targets": 7,
+          "net_correct_targets": -1,
+          "correct_target_count": 36,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 7,
+            "2": 1,
+            "3": 1
+          },
+          "removed_false_target_by_class": {
+            "1": 11,
+            "2": 5,
+            "3": 4
+          },
+          "false_target_count_by_class": {
+            "1": 13,
+            "2": 4,
+            "3": 5
+          }
+        },
+        "stop": {
+          "classification_changes": 59,
+          "new_correct_targets": 1,
+          "lost_correct_targets": 8,
+          "net_correct_targets": -7,
+          "correct_target_count": 36,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 6,
+            "2": 3,
+            "3": 3
+          },
+          "removed_false_target_by_class": {
+            "1": 5,
+            "2": 2,
+            "3": 3
+          },
+          "false_target_count_by_class": {
+            "1": 14,
+            "2": 8,
+            "3": 6
+          }
+        }
+      }
+    },
+    {
+      "initialization": "perturbed_20261003",
+      "converged": true,
+      "gradient_l2": 1.0096007414980123e-14,
+      "gradient_max_abs": 2.2675817386991204e-15,
+      "gap_upper_bound": 5.096468286166682e-26,
+      "regularized_fit_objective": 0.690432678857,
+      "fit_nll": 0.6805967793504645,
+      "identity_fit_objective": 0.8040965550531278,
+      "regularization": 0.001,
+      "parameter_count": 96,
+      "solver_stages": [
+        {
+          "method": "L-BFGS-B",
+          "success": true,
+          "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+          "iterations": 220,
+          "function_evaluations": 236
+        },
+        {
+          "method": "trust-exact",
+          "success": true,
+          "message": "Optimization terminated successfully.",
+          "iterations": 1,
+          "function_evaluations": 2
+        }
+      ],
+      "arm": "E",
+      "state_sha256": "155cb2f55ac021bb88c43ee60775c421474136bf89c4497cfd95c71b1889b558",
+      "metrics": {
+        "fit": {
+          "nll": 0.6805967793504645,
+          "accuracy": 0.711764705882353,
+          "macro_f1": 0.6950514940629295,
+          "target_recall": 0.5454545454545454,
+          "ti_intrusion_to_target": 0.1,
+          "metallic_intrusion_to_target": 0.10638297872340426
+        },
+        "stop": {
+          "nll": 1.0141042085219532,
+          "accuracy": 0.6352941176470588,
+          "macro_f1": 0.5896273346591399,
+          "target_recall": 0.5454545454545454,
+          "ti_intrusion_to_target": 0.1076923076923077,
+          "metallic_intrusion_to_target": 0.1276595744680851
+        }
+      },
+      "transitions": {
+        "fit": {
+          "classification_changes": 61,
+          "new_correct_targets": 6,
+          "lost_correct_targets": 7,
+          "net_correct_targets": -1,
+          "correct_target_count": 36,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 7,
+            "2": 1,
+            "3": 1
+          },
+          "removed_false_target_by_class": {
+            "1": 11,
+            "2": 5,
+            "3": 4
+          },
+          "false_target_count_by_class": {
+            "1": 13,
+            "2": 4,
+            "3": 5
+          }
+        },
+        "stop": {
+          "classification_changes": 59,
+          "new_correct_targets": 1,
+          "lost_correct_targets": 8,
+          "net_correct_targets": -7,
+          "correct_target_count": 36,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 6,
+            "2": 3,
+            "3": 3
+          },
+          "removed_false_target_by_class": {
+            "1": 5,
+            "2": 2,
+            "3": 3
+          },
+          "false_target_count_by_class": {
+            "1": 14,
+            "2": 8,
+            "3": 6
+          }
+        }
+      }
+    },
+    {
+      "initialization": "perturbed_20261004",
+      "converged": true,
+      "gradient_l2": 7.799739854088294e-15,
+      "gradient_max_abs": 2.5141564177766362e-15,
+      "gap_upper_bound": 3.041797089572664e-26,
+      "regularized_fit_objective": 0.6904326788570001,
+      "fit_nll": 0.6805967793504645,
+      "identity_fit_objective": 0.8040965550531278,
+      "regularization": 0.001,
+      "parameter_count": 96,
+      "solver_stages": [
+        {
+          "method": "L-BFGS-B",
+          "success": true,
+          "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+          "iterations": 212,
+          "function_evaluations": 223
+        },
+        {
+          "method": "trust-exact",
+          "success": true,
+          "message": "Optimization terminated successfully.",
+          "iterations": 1,
+          "function_evaluations": 2
+        }
+      ],
+      "arm": "E",
+      "state_sha256": "97f27d69227d2169d17a28eba060f9ac5c03c44e36f158526d6e579c9ca8660e",
+      "metrics": {
+        "fit": {
+          "nll": 0.6805967793504645,
+          "accuracy": 0.711764705882353,
+          "macro_f1": 0.6950514940629295,
+          "target_recall": 0.5454545454545454,
+          "ti_intrusion_to_target": 0.1,
+          "metallic_intrusion_to_target": 0.10638297872340426
+        },
+        "stop": {
+          "nll": 1.0141042085219572,
+          "accuracy": 0.6352941176470588,
+          "macro_f1": 0.5896273346591399,
+          "target_recall": 0.5454545454545454,
+          "ti_intrusion_to_target": 0.1076923076923077,
+          "metallic_intrusion_to_target": 0.1276595744680851
+        }
+      },
+      "transitions": {
+        "fit": {
+          "classification_changes": 61,
+          "new_correct_targets": 6,
+          "lost_correct_targets": 7,
+          "net_correct_targets": -1,
+          "correct_target_count": 36,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 7,
+            "2": 1,
+            "3": 1
+          },
+          "removed_false_target_by_class": {
+            "1": 11,
+            "2": 5,
+            "3": 4
+          },
+          "false_target_count_by_class": {
+            "1": 13,
+            "2": 4,
+            "3": 5
+          }
+        },
+        "stop": {
+          "classification_changes": 59,
+          "new_correct_targets": 1,
+          "lost_correct_targets": 8,
+          "net_correct_targets": -7,
+          "correct_target_count": 36,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 6,
+            "2": 3,
+            "3": 3
+          },
+          "removed_false_target_by_class": {
+            "1": 5,
+            "2": 2,
+            "3": 3
+          },
+          "false_target_count_by_class": {
+            "1": 14,
+            "2": 8,
+            "3": 6
+          }
+        }
+      }
+    },
+    {
+      "initialization": "zero",
+      "converged": true,
+      "gradient_l2": 1.9989579975043735e-15,
+      "gradient_max_abs": 4.4078239322398183e-16,
+      "gap_upper_bound": 1.9979165378933474e-27,
+      "regularized_fit_objective": 0.33707578100954116,
+      "fit_nll": 0.2926473182917901,
+      "identity_fit_objective": 0.8040965550531278,
+      "regularization": 0.001,
+      "parameter_count": 260,
+      "solver_stages": [
+        {
+          "method": "L-BFGS-B",
+          "success": true,
+          "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+          "iterations": 103,
+          "function_evaluations": 108
+        },
+        {
+          "method": "trust-exact",
+          "success": true,
+          "message": "Optimization terminated successfully.",
+          "iterations": 1,
+          "function_evaluations": 2
+        }
+      ],
+      "arm": "H",
+      "state_sha256": "60276f413ca637fc53397f9f6d2361b75f5bd3475937d49cdb478c6734042fd0",
+      "metrics": {
+        "fit": {
+          "nll": 0.2926473182917901,
+          "accuracy": 0.8735294117647059,
+          "macro_f1": 0.8705821800932675,
+          "target_recall": 0.8333333333333334,
+          "ti_intrusion_to_target": 0.06923076923076923,
+          "metallic_intrusion_to_target": 0.02127659574468085
+        },
+        "stop": {
+          "nll": 1.896574535452801,
+          "accuracy": 0.5970588235294118,
+          "macro_f1": 0.5597444711611567,
+          "target_recall": 0.5757575757575758,
+          "ti_intrusion_to_target": 0.14615384615384616,
+          "metallic_intrusion_to_target": 0.1702127659574468
+        }
+      },
+      "transitions": {
+        "fit": {
+          "classification_changes": 94,
+          "new_correct_targets": 20,
+          "lost_correct_targets": 2,
+          "net_correct_targets": 18,
+          "correct_target_count": 55,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 2,
+            "2": 1,
+            "3": 0
+          },
+          "removed_false_target_by_class": {
+            "1": 10,
+            "2": 7,
+            "3": 7
+          },
+          "false_target_count_by_class": {
+            "1": 9,
+            "2": 2,
+            "3": 1
+          }
+        },
+        "stop": {
+          "classification_changes": 88,
+          "new_correct_targets": 7,
+          "lost_correct_targets": 12,
+          "net_correct_targets": -5,
+          "correct_target_count": 38,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 12,
+            "2": 5,
+            "3": 4
+          },
+          "removed_false_target_by_class": {
+            "1": 6,
+            "2": 5,
+            "3": 2
+          },
+          "false_target_count_by_class": {
+            "1": 19,
+            "2": 7,
+            "3": 8
+          }
+        }
+      }
+    },
+    {
+      "initialization": "perturbed_20261003",
+      "converged": true,
+      "gradient_l2": 1.3816285965727814e-15,
+      "gradient_max_abs": 2.660632131279428e-16,
+      "gap_upper_bound": 9.544487894338367e-28,
+      "regularized_fit_objective": 0.33707578100954116,
+      "fit_nll": 0.29264731829178975,
+      "identity_fit_objective": 0.8040965550531278,
+      "regularization": 0.001,
+      "parameter_count": 260,
+      "solver_stages": [
+        {
+          "method": "L-BFGS-B",
+          "success": true,
+          "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+          "iterations": 116,
+          "function_evaluations": 121
+        },
+        {
+          "method": "trust-exact",
+          "success": true,
+          "message": "Optimization terminated successfully.",
+          "iterations": 1,
+          "function_evaluations": 2
+        }
+      ],
+      "arm": "H",
+      "state_sha256": "bf2152af2a3f0c15932105da8c54fbfc85cf3478c793689807a23dfb19b30378",
+      "metrics": {
+        "fit": {
+          "nll": 0.2926473182917898,
+          "accuracy": 0.8735294117647059,
+          "macro_f1": 0.8705821800932675,
+          "target_recall": 0.8333333333333334,
+          "ti_intrusion_to_target": 0.06923076923076923,
+          "metallic_intrusion_to_target": 0.02127659574468085
+        },
+        "stop": {
+          "nll": 1.896574535452806,
+          "accuracy": 0.5970588235294118,
+          "macro_f1": 0.5597444711611567,
+          "target_recall": 0.5757575757575758,
+          "ti_intrusion_to_target": 0.14615384615384616,
+          "metallic_intrusion_to_target": 0.1702127659574468
+        }
+      },
+      "transitions": {
+        "fit": {
+          "classification_changes": 94,
+          "new_correct_targets": 20,
+          "lost_correct_targets": 2,
+          "net_correct_targets": 18,
+          "correct_target_count": 55,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 2,
+            "2": 1,
+            "3": 0
+          },
+          "removed_false_target_by_class": {
+            "1": 10,
+            "2": 7,
+            "3": 7
+          },
+          "false_target_count_by_class": {
+            "1": 9,
+            "2": 2,
+            "3": 1
+          }
+        },
+        "stop": {
+          "classification_changes": 88,
+          "new_correct_targets": 7,
+          "lost_correct_targets": 12,
+          "net_correct_targets": -5,
+          "correct_target_count": 38,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 12,
+            "2": 5,
+            "3": 4
+          },
+          "removed_false_target_by_class": {
+            "1": 6,
+            "2": 5,
+            "3": 2
+          },
+          "false_target_count_by_class": {
+            "1": 19,
+            "2": 7,
+            "3": 8
+          }
+        }
+      }
+    },
+    {
+      "initialization": "perturbed_20261004",
+      "converged": true,
+      "gradient_l2": 1.6254961263642365e-15,
+      "gradient_max_abs": 3.328229618987377e-16,
+      "gap_upper_bound": 1.321118828412569e-27,
+      "regularized_fit_objective": 0.3370757810095412,
+      "fit_nll": 0.29264731829178975,
+      "identity_fit_objective": 0.8040965550531278,
+      "regularization": 0.001,
+      "parameter_count": 260,
+      "solver_stages": [
+        {
+          "method": "L-BFGS-B",
+          "success": true,
+          "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+          "iterations": 116,
+          "function_evaluations": 122
+        },
+        {
+          "method": "trust-exact",
+          "success": true,
+          "message": "Optimization terminated successfully.",
+          "iterations": 1,
+          "function_evaluations": 2
+        }
+      ],
+      "arm": "H",
+      "state_sha256": "efbd780a5cdac7b25fe48edb8a232d370f1c6da8ee7d9883e1759c2fa747c5d5",
+      "metrics": {
+        "fit": {
+          "nll": 0.29264731829178975,
+          "accuracy": 0.8735294117647059,
+          "macro_f1": 0.8705821800932675,
+          "target_recall": 0.8333333333333334,
+          "ti_intrusion_to_target": 0.06923076923076923,
+          "metallic_intrusion_to_target": 0.02127659574468085
+        },
+        "stop": {
+          "nll": 1.8965745354528063,
+          "accuracy": 0.5970588235294118,
+          "macro_f1": 0.5597444711611567,
+          "target_recall": 0.5757575757575758,
+          "ti_intrusion_to_target": 0.14615384615384616,
+          "metallic_intrusion_to_target": 0.1702127659574468
+        }
+      },
+      "transitions": {
+        "fit": {
+          "classification_changes": 94,
+          "new_correct_targets": 20,
+          "lost_correct_targets": 2,
+          "net_correct_targets": 18,
+          "correct_target_count": 55,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 2,
+            "2": 1,
+            "3": 0
+          },
+          "removed_false_target_by_class": {
+            "1": 10,
+            "2": 7,
+            "3": 7
+          },
+          "false_target_count_by_class": {
+            "1": 9,
+            "2": 2,
+            "3": 1
+          }
+        },
+        "stop": {
+          "classification_changes": 88,
+          "new_correct_targets": 7,
+          "lost_correct_targets": 12,
+          "net_correct_targets": -5,
+          "correct_target_count": 38,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 12,
+            "2": 5,
+            "3": 4
+          },
+          "removed_false_target_by_class": {
+            "1": 6,
+            "2": 5,
+            "3": 2
+          },
+          "false_target_count_by_class": {
+            "1": 19,
+            "2": 7,
+            "3": 8
+          }
+        }
+      }
+    },
+    {
+      "initialization": "zero",
+      "converged": true,
+      "gradient_l2": 4.500119145283201e-15,
+      "gradient_max_abs": 7.244638916548141e-16,
+      "gap_upper_bound": 1.0125536160872203e-26,
+      "regularized_fit_objective": 0.25094008403499535,
+      "fit_nll": 0.18524785181162012,
+      "identity_fit_objective": 0.8040965550531278,
+      "regularization": 0.001,
+      "parameter_count": 352,
+      "solver_stages": [
+        {
+          "method": "L-BFGS-B",
+          "success": true,
+          "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+          "iterations": 195,
+          "function_evaluations": 206
+        },
+        {
+          "method": "trust-exact",
+          "success": true,
+          "message": "Optimization terminated successfully.",
+          "iterations": 1,
+          "function_evaluations": 2
+        }
+      ],
+      "arm": "EH",
+      "state_sha256": "46a7eb0b48d34a7b29390deb27312a87c5557ff1b2926ee2427cde0dca483003",
+      "metrics": {
+        "fit": {
+          "nll": 0.18524785181162018,
+          "accuracy": 0.9588235294117647,
+          "macro_f1": 0.9613739469087946,
+          "target_recall": 0.9242424242424242,
+          "ti_intrusion_to_target": 0.007692307692307693,
+          "metallic_intrusion_to_target": 0.0
+        },
+        "stop": {
+          "nll": 2.2939607934912303,
+          "accuracy": 0.6029411764705882,
+          "macro_f1": 0.5606916147754065,
+          "target_recall": 0.6060606060606061,
+          "ti_intrusion_to_target": 0.15384615384615385,
+          "metallic_intrusion_to_target": 0.2127659574468085
+        }
+      },
+      "transitions": {
+        "fit": {
+          "classification_changes": 100,
+          "new_correct_targets": 24,
+          "lost_correct_targets": 0,
+          "net_correct_targets": 24,
+          "correct_target_count": 61,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "removed_false_target_by_class": {
+            "1": 16,
+            "2": 7,
+            "3": 8
+          },
+          "false_target_count_by_class": {
+            "1": 1,
+            "2": 1,
+            "3": 0
+          }
+        },
+        "stop": {
+          "classification_changes": 86,
+          "new_correct_targets": 8,
+          "lost_correct_targets": 11,
+          "net_correct_targets": -3,
+          "correct_target_count": 40,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 11,
+            "2": 3,
+            "3": 6
+          },
+          "removed_false_target_by_class": {
+            "1": 4,
+            "2": 7,
+            "3": 2
+          },
+          "false_target_count_by_class": {
+            "1": 20,
+            "2": 3,
+            "3": 10
+          }
+        }
+      }
+    },
+    {
+      "initialization": "perturbed_20261003",
+      "converged": true,
+      "gradient_l2": 3.2757745096926077e-15,
+      "gradient_max_abs": 5.642188105614565e-16,
+      "gap_upper_bound": 5.3653493191759224e-27,
+      "regularized_fit_objective": 0.25094008403499535,
+      "fit_nll": 0.18524785181161943,
+      "identity_fit_objective": 0.8040965550531278,
+      "regularization": 0.001,
+      "parameter_count": 352,
+      "solver_stages": [
+        {
+          "method": "L-BFGS-B",
+          "success": true,
+          "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+          "iterations": 198,
+          "function_evaluations": 211
+        },
+        {
+          "method": "trust-exact",
+          "success": true,
+          "message": "Optimization terminated successfully.",
+          "iterations": 1,
+          "function_evaluations": 2
+        }
+      ],
+      "arm": "EH",
+      "state_sha256": "1b9888eaa09fd8d1cf0e6e17f688aa6ba7a830bf58bdff5acc9d60967d2ff9eb",
+      "metrics": {
+        "fit": {
+          "nll": 0.18524785181161943,
+          "accuracy": 0.9588235294117647,
+          "macro_f1": 0.9613739469087946,
+          "target_recall": 0.9242424242424242,
+          "ti_intrusion_to_target": 0.007692307692307693,
+          "metallic_intrusion_to_target": 0.0
+        },
+        "stop": {
+          "nll": 2.2939607934912436,
+          "accuracy": 0.6029411764705882,
+          "macro_f1": 0.5606916147754065,
+          "target_recall": 0.6060606060606061,
+          "ti_intrusion_to_target": 0.15384615384615385,
+          "metallic_intrusion_to_target": 0.2127659574468085
+        }
+      },
+      "transitions": {
+        "fit": {
+          "classification_changes": 100,
+          "new_correct_targets": 24,
+          "lost_correct_targets": 0,
+          "net_correct_targets": 24,
+          "correct_target_count": 61,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "removed_false_target_by_class": {
+            "1": 16,
+            "2": 7,
+            "3": 8
+          },
+          "false_target_count_by_class": {
+            "1": 1,
+            "2": 1,
+            "3": 0
+          }
+        },
+        "stop": {
+          "classification_changes": 86,
+          "new_correct_targets": 8,
+          "lost_correct_targets": 11,
+          "net_correct_targets": -3,
+          "correct_target_count": 40,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 11,
+            "2": 3,
+            "3": 6
+          },
+          "removed_false_target_by_class": {
+            "1": 4,
+            "2": 7,
+            "3": 2
+          },
+          "false_target_count_by_class": {
+            "1": 20,
+            "2": 3,
+            "3": 10
+          }
+        }
+      }
+    },
+    {
+      "initialization": "perturbed_20261004",
+      "converged": true,
+      "gradient_l2": 4.036484842686695e-15,
+      "gradient_max_abs": 7.029966886396011e-16,
+      "gap_upper_bound": 8.146604942619716e-27,
+      "regularized_fit_objective": 0.25094008403499535,
+      "fit_nll": 0.18524785181161982,
+      "identity_fit_objective": 0.8040965550531278,
+      "regularization": 0.001,
+      "parameter_count": 352,
+      "solver_stages": [
+        {
+          "method": "L-BFGS-B",
+          "success": true,
+          "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+          "iterations": 198,
+          "function_evaluations": 209
+        },
+        {
+          "method": "trust-exact",
+          "success": true,
+          "message": "Optimization terminated successfully.",
+          "iterations": 1,
+          "function_evaluations": 2
+        }
+      ],
+      "arm": "EH",
+      "state_sha256": "765b76cbdabe699fdefa0c6fa8cf842e98eba194753d78ff3ae4d592a4f7fd5b",
+      "metrics": {
+        "fit": {
+          "nll": 0.18524785181161985,
+          "accuracy": 0.9588235294117647,
+          "macro_f1": 0.9613739469087946,
+          "target_recall": 0.9242424242424242,
+          "ti_intrusion_to_target": 0.007692307692307693,
+          "metallic_intrusion_to_target": 0.0
+        },
+        "stop": {
+          "nll": 2.2939607934912365,
+          "accuracy": 0.6029411764705882,
+          "macro_f1": 0.5606916147754065,
+          "target_recall": 0.6060606060606061,
+          "ti_intrusion_to_target": 0.15384615384615385,
+          "metallic_intrusion_to_target": 0.2127659574468085
+        }
+      },
+      "transitions": {
+        "fit": {
+          "classification_changes": 100,
+          "new_correct_targets": 24,
+          "lost_correct_targets": 0,
+          "net_correct_targets": 24,
+          "correct_target_count": 61,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "removed_false_target_by_class": {
+            "1": 16,
+            "2": 7,
+            "3": 8
+          },
+          "false_target_count_by_class": {
+            "1": 1,
+            "2": 1,
+            "3": 0
+          }
+        },
+        "stop": {
+          "classification_changes": 86,
+          "new_correct_targets": 8,
+          "lost_correct_targets": 11,
+          "net_correct_targets": -3,
+          "correct_target_count": 40,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 11,
+            "2": 3,
+            "3": 6
+          },
+          "removed_false_target_by_class": {
+            "1": 4,
+            "2": 7,
+            "3": 2
+          },
+          "false_target_count_by_class": {
+            "1": 20,
+            "2": 3,
+            "3": 10
+          }
+        }
+      }
+    },
+    {
+      "initialization": "zero",
+      "converged": true,
+      "gradient_l2": 4.7219498105084084e-15,
+      "gradient_max_abs": 7.678048734999221e-16,
+      "gap_upper_bound": 1.1148405006480196e-26,
+      "regularized_fit_objective": 0.3213033187228956,
+      "fit_nll": 0.277825517853354,
+      "identity_fit_objective": 0.8040965550531278,
+      "regularization": 0.001,
+      "parameter_count": 352,
+      "solver_stages": [
+        {
+          "method": "L-BFGS-B",
+          "success": true,
+          "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+          "iterations": 199,
+          "function_evaluations": 213
+        },
+        {
+          "method": "trust-exact",
+          "success": true,
+          "message": "Optimization terminated successfully.",
+          "iterations": 1,
+          "function_evaluations": 2
+        }
+      ],
+      "arm": "EH_permuted",
+      "state_sha256": "b06ea385fe290ba1a671c647f4e0415b054c80299dd72e571fea6696393ec6c4",
+      "metrics": {
+        "fit": {
+          "nll": 0.2778255178533541,
+          "accuracy": 0.9058823529411765,
+          "macro_f1": 0.9107582991726267,
+          "target_recall": 0.8484848484848485,
+          "ti_intrusion_to_target": 0.06923076923076923,
+          "metallic_intrusion_to_target": 0.02127659574468085
+        },
+        "stop": {
+          "nll": 2.3290406086366553,
+          "accuracy": 0.5823529411764706,
+          "macro_f1": 0.5277579862760403,
+          "target_recall": 0.4393939393939394,
+          "ti_intrusion_to_target": 0.08461538461538462,
+          "metallic_intrusion_to_target": 0.2127659574468085
+        }
+      },
+      "transitions": {
+        "fit": {
+          "classification_changes": 104,
+          "new_correct_targets": 22,
+          "lost_correct_targets": 3,
+          "net_correct_targets": 19,
+          "correct_target_count": 56,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 7,
+            "2": 0,
+            "3": 0
+          },
+          "removed_false_target_by_class": {
+            "1": 15,
+            "2": 6,
+            "3": 7
+          },
+          "false_target_count_by_class": {
+            "1": 9,
+            "2": 2,
+            "3": 1
+          }
+        },
+        "stop": {
+          "classification_changes": 98,
+          "new_correct_targets": 4,
+          "lost_correct_targets": 18,
+          "net_correct_targets": -14,
+          "correct_target_count": 29,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 6,
+            "2": 6,
+            "3": 8
+          },
+          "removed_false_target_by_class": {
+            "1": 8,
+            "2": 3,
+            "3": 4
+          },
+          "false_target_count_by_class": {
+            "1": 11,
+            "2": 10,
+            "3": 10
+          }
+        }
+      }
+    },
+    {
+      "initialization": "perturbed_20261003",
+      "converged": true,
+      "gradient_l2": 4.261668739487162e-15,
+      "gradient_max_abs": 8.265415261943243e-16,
+      "gap_upper_bound": 9.080910222561048e-27,
+      "regularized_fit_objective": 0.32130331872289564,
+      "fit_nll": 0.27782551785335463,
+      "identity_fit_objective": 0.8040965550531278,
+      "regularization": 0.001,
+      "parameter_count": 352,
+      "solver_stages": [
+        {
+          "method": "L-BFGS-B",
+          "success": true,
+          "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+          "iterations": 197,
+          "function_evaluations": 210
+        },
+        {
+          "method": "trust-exact",
+          "success": true,
+          "message": "Optimization terminated successfully.",
+          "iterations": 1,
+          "function_evaluations": 2
+        }
+      ],
+      "arm": "EH_permuted",
+      "state_sha256": "844b6c5837c5779d3919940c0f86847913e6edae8ccebf07d8c32baec81ef4d1",
+      "metrics": {
+        "fit": {
+          "nll": 0.2778255178533546,
+          "accuracy": 0.9058823529411765,
+          "macro_f1": 0.9107582991726267,
+          "target_recall": 0.8484848484848485,
+          "ti_intrusion_to_target": 0.06923076923076923,
+          "metallic_intrusion_to_target": 0.02127659574468085
+        },
+        "stop": {
+          "nll": 2.3290406086366433,
+          "accuracy": 0.5823529411764706,
+          "macro_f1": 0.5277579862760403,
+          "target_recall": 0.4393939393939394,
+          "ti_intrusion_to_target": 0.08461538461538462,
+          "metallic_intrusion_to_target": 0.2127659574468085
+        }
+      },
+      "transitions": {
+        "fit": {
+          "classification_changes": 104,
+          "new_correct_targets": 22,
+          "lost_correct_targets": 3,
+          "net_correct_targets": 19,
+          "correct_target_count": 56,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 7,
+            "2": 0,
+            "3": 0
+          },
+          "removed_false_target_by_class": {
+            "1": 15,
+            "2": 6,
+            "3": 7
+          },
+          "false_target_count_by_class": {
+            "1": 9,
+            "2": 2,
+            "3": 1
+          }
+        },
+        "stop": {
+          "classification_changes": 98,
+          "new_correct_targets": 4,
+          "lost_correct_targets": 18,
+          "net_correct_targets": -14,
+          "correct_target_count": 29,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 6,
+            "2": 6,
+            "3": 8
+          },
+          "removed_false_target_by_class": {
+            "1": 8,
+            "2": 3,
+            "3": 4
+          },
+          "false_target_count_by_class": {
+            "1": 11,
+            "2": 10,
+            "3": 10
+          }
+        }
+      }
+    },
+    {
+      "initialization": "perturbed_20261004",
+      "converged": true,
+      "gradient_l2": 3.4175790527141785e-15,
+      "gradient_max_abs": 7.332645639767862e-16,
+      "gap_upper_bound": 5.8399232907753705e-27,
+      "regularized_fit_objective": 0.3213033187228956,
+      "fit_nll": 0.27782551785335374,
+      "identity_fit_objective": 0.8040965550531278,
+      "regularization": 0.001,
+      "parameter_count": 352,
+      "solver_stages": [
+        {
+          "method": "L-BFGS-B",
+          "success": true,
+          "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+          "iterations": 202,
+          "function_evaluations": 213
+        },
+        {
+          "method": "trust-exact",
+          "success": true,
+          "message": "Optimization terminated successfully.",
+          "iterations": 1,
+          "function_evaluations": 2
+        }
+      ],
+      "arm": "EH_permuted",
+      "state_sha256": "43fdb33e80dd0dbda5a0a09b20d7657f78edd76e99027748e4793cc10952e39d",
+      "metrics": {
+        "fit": {
+          "nll": 0.27782551785335374,
+          "accuracy": 0.9058823529411765,
+          "macro_f1": 0.9107582991726267,
+          "target_recall": 0.8484848484848485,
+          "ti_intrusion_to_target": 0.06923076923076923,
+          "metallic_intrusion_to_target": 0.02127659574468085
+        },
+        "stop": {
+          "nll": 2.3290406086366615,
+          "accuracy": 0.5823529411764706,
+          "macro_f1": 0.5277579862760403,
+          "target_recall": 0.4393939393939394,
+          "ti_intrusion_to_target": 0.08461538461538462,
+          "metallic_intrusion_to_target": 0.2127659574468085
+        }
+      },
+      "transitions": {
+        "fit": {
+          "classification_changes": 104,
+          "new_correct_targets": 22,
+          "lost_correct_targets": 3,
+          "net_correct_targets": 19,
+          "correct_target_count": 56,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 7,
+            "2": 0,
+            "3": 0
+          },
+          "removed_false_target_by_class": {
+            "1": 15,
+            "2": 6,
+            "3": 7
+          },
+          "false_target_count_by_class": {
+            "1": 9,
+            "2": 2,
+            "3": 1
+          }
+        },
+        "stop": {
+          "classification_changes": 98,
+          "new_correct_targets": 4,
+          "lost_correct_targets": 18,
+          "net_correct_targets": -14,
+          "correct_target_count": 29,
+          "target_count": 66,
+          "new_false_target_by_class": {
+            "1": 6,
+            "2": 6,
+            "3": 8
+          },
+          "removed_false_target_by_class": {
+            "1": 8,
+            "2": 3,
+            "3": 4
+          },
+          "false_target_count_by_class": {
+            "1": 11,
+            "2": 10,
+            "3": 10
+          }
+        }
+      }
+    }
+  ],
+  "restart_checks": {
+    "P": [
+      {
+        "initialization": "perturbed_20261003",
+        "coefficient_l2_distance": 6.199746576869176e-08,
+        "strong_convexity_distance_bound": 4.976989462731911e-06,
+        "probability_max_abs_distance": 1.4927924563146178e-08,
+        "objective_abs_distance": 1.1102230246251565e-16,
+        "passed": true
+      },
+      {
+        "initialization": "perturbed_20261004",
+        "coefficient_l2_distance": 6.199746308556458e-08,
+        "strong_convexity_distance_bound": 4.976989515622154e-06,
+        "probability_max_abs_distance": 1.4927924785190783e-08,
+        "objective_abs_distance": 1.1102230246251565e-16,
+        "passed": true
+      }
+    ],
+    "E": [
+      {
+        "initialization": "perturbed_20261003",
+        "coefficient_l2_distance": 2.1352220368221996e-13,
+        "strong_convexity_distance_bound": 1.4021170319964418e-11,
+        "probability_max_abs_distance": 1.9095836023552692e-14,
+        "objective_abs_distance": 0.0,
+        "passed": true
+      },
+      {
+        "initialization": "perturbed_20261004",
+        "coefficient_l2_distance": 2.244895934663088e-13,
+        "strong_convexity_distance_bound": 1.1724902759072589e-11,
+        "probability_max_abs_distance": 5.395683899678261e-14,
+        "objective_abs_distance": 1.1102230246251565e-16,
+        "passed": true
+      }
+    ],
+    "H": [
+      {
+        "initialization": "perturbed_20261003",
+        "coefficient_l2_distance": 1.5221559824706728e-13,
+        "strong_convexity_distance_bound": 3.380586594077155e-12,
+        "probability_max_abs_distance": 2.250977182427505e-14,
+        "objective_abs_distance": 0.0,
+        "passed": true
+      },
+      {
+        "initialization": "perturbed_20261004",
+        "coefficient_l2_distance": 1.4865742829812495e-13,
+        "strong_convexity_distance_bound": 3.62445412386861e-12,
+        "probability_max_abs_distance": 4.107825191113079e-14,
+        "objective_abs_distance": 5.551115123125783e-17,
+        "passed": true
+      }
+    ],
+    "EH": [
+      {
+        "initialization": "perturbed_20261003",
+        "coefficient_l2_distance": 2.1733484273461302e-13,
+        "strong_convexity_distance_bound": 7.775893654975809e-12,
+        "probability_max_abs_distance": 6.339373470609644e-14,
+        "objective_abs_distance": 0.0,
+        "passed": true
+      },
+      {
+        "initialization": "perturbed_20261004",
+        "coefficient_l2_distance": 2.416179918710435e-13,
+        "strong_convexity_distance_bound": 8.536603987969897e-12,
+        "probability_max_abs_distance": 4.5075054799781356e-14,
+        "objective_abs_distance": 0.0,
+        "passed": true
+      }
+    ],
+    "EH_permuted": [
+      {
+        "initialization": "perturbed_20261003",
+        "coefficient_l2_distance": 3.437639044562319e-13,
+        "strong_convexity_distance_bound": 8.98361854999557e-12,
+        "probability_max_abs_distance": 8.920642002863133e-14,
+        "objective_abs_distance": 5.551115123125783e-17,
+        "passed": true
+      },
+      {
+        "initialization": "perturbed_20261004",
+        "coefficient_l2_distance": 2.519127065770979e-13,
+        "strong_convexity_distance_bound": 8.139528863222587e-12,
+        "probability_max_abs_distance": 8.359979375427429e-14,
+        "objective_abs_distance": 0.0,
+        "passed": true
+      }
+    ]
+  },
+  "numerical_stability_passed": true,
+  "screening": {
+    "information_signal": false,
+    "role_usable_signal": false,
+    "role_checks": {
+      "new_correct_target": true,
+      "net_correct_targets": false,
+      "ti_guard": false,
+      "metallic_guard": false
+    }
+  },
+  "environment": {
+    "python": "3.11.5",
+    "torch": "2.12.1+cu130",
+    "scipy": "1.17.1",
+    "device": "cpu",
+    "dtype": "float64",
+    "threads": 1
+  },
+  "new_images_loaded": false,
+  "backbone_updated": false,
+  "outer_manifest_read": false,
+  "formal_report_unchanged": true,
+  "independent_confirmation": false,
+  "automatic_promotion": false,
+  "claim_boundary": "Strong convex control, not a new neural architecture. Numerical restarts are not statistical seed replicates. Exposed development stopping data only; no MI, significance or industrial claim.",
+  "artifact_sha256": {
+    "E_perturbed_20261003/coefficients.pt": "575ac7b2d77334e5a1cae4dbeebea3efd55fcea065decfbf2142e562c4c904bf",
+    "E_perturbed_20261003/fit_predictions.csv": "a84e29bfb99ee1e157f3caf3d8ba0edaa7d41b07fd42912934a8664a459f87eb",
+    "E_perturbed_20261003/history.json": "1807aee13574a7532a4d8e53f34e2b218d8ac1a4ec74b5c18e511f9af592d7b4",
+    "E_perturbed_20261003/result.json": "7fd56809ff323ad07e7a979a70cce8f5a7db68b4bbb5b9d034b3d456a3387e20",
+    "E_perturbed_20261003/stop_predictions.csv": "61da09a55f0516689040a3bde5bf5669bb38e9b573a415a73c2bdef961101462",
+    "E_perturbed_20261004/coefficients.pt": "08df3714987b65d1b6279015745fb5c8a1ceeca2cb3af0abe3b5003f5e51104d",
+    "E_perturbed_20261004/fit_predictions.csv": "588b8629f229fa40be46b5e2b3e47b6fcf614fffbdecf3ddd0a4f260bc874987",
+    "E_perturbed_20261004/history.json": "5e887c0bde3168c03e40105b201e68a03b28fc22e79632ea3f0f2578d7430d0f",
+    "E_perturbed_20261004/result.json": "71d2235f1beee1a2f913609f72062c69d03ddbc4c9b4233cc42dfbd04d469fb2",
+    "E_perturbed_20261004/stop_predictions.csv": "6141b7c9062da6bed2e7b6f559c2d7abb2d511077e0e8e3ba08cc97ff11b95fb",
+    "E_zero/coefficients.pt": "eb136cd74c16300920945947b360cca40565404d0196da757661e9b5eb91f656",
+    "E_zero/fit_predictions.csv": "5592d20e50e203f648b649472ef3b79c5c7b76e06f16e0303241511407d13fd3",
+    "E_zero/history.json": "08dc154d78951ca46b5ef1b4b981115c962c9ed6f21a8ef6d3f5a92eb19a9c96",
+    "E_zero/result.json": "b7cc5246fe509000bd6e585db696bd2631444f53f34ed97a4fc1096b34f1bc38",
+    "E_zero/stop_predictions.csv": "2b6efef023a4a4d00f1296b54f61980534d917f9e9c86582025fc223220d11e4",
+    "EH_permuted_perturbed_20261003/coefficients.pt": "78835714f4909f2cd1b60f9c52a7499774f10efc36c8d8b4b50a0261a7b46f32",
+    "EH_permuted_perturbed_20261003/fit_predictions.csv": "9a29be425a91266493ce6cf456e1a812b8e3dc9c07906b0c9e8ed9828a5a4568",
+    "EH_permuted_perturbed_20261003/history.json": "389f9b19e510e3bc79abe0beb8a6d2613dc9c8c9b14fc7fc1f2c148c562655c4",
+    "EH_permuted_perturbed_20261003/result.json": "11327275d2ec1ba89cbbd7d38433317e0bec73ea75e5c4e29ba91e3fa95221a8",
+    "EH_permuted_perturbed_20261003/stop_predictions.csv": "146e9e261c63d6859c4ff02eb43d70afb6ef9ae3e2b8ee3ecb839529c2379f60",
+    "EH_permuted_perturbed_20261004/coefficients.pt": "ce51d1e2972121cc6c819d795a4585ade8fe732d741a94ef3d91924c55a86c4d",
+    "EH_permuted_perturbed_20261004/fit_predictions.csv": "8b4308d761804d9a769033cabe8863267cb8ec3f96dcd2db3f628e26e819d19c",
+    "EH_permuted_perturbed_20261004/history.json": "2b2af4d917b18913099cbd62488586b18c85c8fc13d1b91b96da0738e9a03b78",
+    "EH_permuted_perturbed_20261004/result.json": "845a451de6ccbcaeb0b5f9da090dd39305eaa8535d5c021d6a026dc4957a674b",
+    "EH_permuted_perturbed_20261004/stop_predictions.csv": "4db8fd5184e5a235878a290598cbe1a30ad9a96a97b076419edfa80635a3e23a",
+    "EH_permuted_zero/coefficients.pt": "b38829d2d47389b34515e3b6d5928ca5411bf25612bdcf8b0270195c7fd52a33",
+    "EH_permuted_zero/fit_predictions.csv": "52754821896eb5506eb1ab823300371fcf5ee4431b4a80434f987d272f99251e",
+    "EH_permuted_zero/history.json": "5e19f9ac9882cd1be054ad957428a72fff20a21beda7256425ae001870c496b4",
+    "EH_permuted_zero/result.json": "65a642b4b60279221d4cfb7db008faa81cc6b3b63ec87b0555b0584c4f8819ea",
+    "EH_permuted_zero/stop_predictions.csv": "452b7395200a7def1ea98eb74f6c715beff73a9e66585d3289637c9256c81dcd",
+    "EH_perturbed_20261003/coefficients.pt": "be06b77275f7d214b0111b7ded01cb2f0a773dfaea9f0e8d6f732e925c35213a",
+    "EH_perturbed_20261003/fit_predictions.csv": "8126d56af49ac03ec5bb36f5c9ff00493cba55f0707f2bf16bd5c750cb40b49f",
+    "EH_perturbed_20261003/history.json": "a5405b609dab6d5f7724920c72b640fb41772c7eea6070215b6a4f6a2aa54f6f",
+    "EH_perturbed_20261003/result.json": "9b2b3bd5f02604239cdc72397315dcf328af8f4edcdef33a71564030c9c373d2",
+    "EH_perturbed_20261003/stop_predictions.csv": "b93e2bcd56e5717ba0a8da5e813cbedb5592ebab22e326d8433fc284ef94f121",
+    "EH_perturbed_20261004/coefficients.pt": "c07170270b82b41d4f637ae671aeb57276d0bb53e719a7908822f5e093ba77ed",
+    "EH_perturbed_20261004/fit_predictions.csv": "f984fe791d93b43ef0a35706c3b4d61eaab12d835cbdc887d7c71654eddad651",
+    "EH_perturbed_20261004/history.json": "e284df934da199840bff8347f4c365a08301cca26a5484d91ca5d959bd1fb29a",
+    "EH_perturbed_20261004/result.json": "04cbb2138a87b3feb8578514e44c5580a029dc5aec3de64772179ef42dbbfc37",
+    "EH_perturbed_20261004/stop_predictions.csv": "8dec44bae0d6fa34ced813a31423af8842d77d86b4ee966061e9b2010c7ba53b",
+    "EH_zero/coefficients.pt": "3af41790e3fc39e54f1230c90c244e810e9e7f3e8dc8ae91dd367f0a88962dce",
+    "EH_zero/fit_predictions.csv": "8c964250d6b5d8440c5ef6cf394a81259b8ef5eea451cc1404e4ba014b5bd0d4",
+    "EH_zero/history.json": "1806cf68439f15be4b8862d550dda351a7eaeadd0d48579f7540950e11ba910e",
+    "EH_zero/result.json": "73e7cf156d9d047ec7c3a2b0f298f344b6e37932cb41cc47118994dd1ba577de",
+    "EH_zero/stop_predictions.csv": "5ec2acdedb5a7c27f1ecf493571c65905ebc75ce0d57736df4bdbe08480bb4f3",
+    "H_perturbed_20261003/coefficients.pt": "1e5c0d2053299bce95ff4289372b34b97cc5985979981e24b797217d7997bef5",
+    "H_perturbed_20261003/fit_predictions.csv": "8ccdb150329f27a965379157cfc9c6ede5a4531f60daf85e7e2f6cb348102ad7",
+    "H_perturbed_20261003/history.json": "96a9a1ef69900ded3268cf50c5e6f120b2bd69f1e26292e507dcda6733df3dc0",
+    "H_perturbed_20261003/result.json": "e9cb0f43df6be99634626c1ca280ccea7f8dd5eecdc2ecc74c7001c856b87b85",
+    "H_perturbed_20261003/stop_predictions.csv": "46baa60f6b13c63ee48d12ed658481546fd7d295a7c738f0a4081d79a20f3a00",
+    "H_perturbed_20261004/coefficients.pt": "31f0171cbab5048c9050d24b10830077b0382d43908e0bb4602056bc3c3b655d",
+    "H_perturbed_20261004/fit_predictions.csv": "369767d13531d7df4cc5eebf0f526d7485e057e445cac1bcd0ada758db0b3aaa",
+    "H_perturbed_20261004/history.json": "10b6c31d4d26417535bdacf13f810cdc08628721077a8dce78b15fcf6883765c",
+    "H_perturbed_20261004/result.json": "c0cb57a5f3cb54b7948c2a2011a4891db3fc82d17371dcfdcba7cd9d6e02e2e4",
+    "H_perturbed_20261004/stop_predictions.csv": "7c58b1488af0e4a71dff7251bb6596f4dbe502d90a927ca3a4f6e60b9a645237",
+    "H_zero/coefficients.pt": "d93555e91d4a4d326d6daa8dea535cda4c25751183f53f4acc171e484c8f2bcf",
+    "H_zero/fit_predictions.csv": "3daedb9bd8ec4a5260d2488882912ede0496119f5eec363b9aab248a21f46658",
+    "H_zero/history.json": "1f4364678297da793fffd73025af44ac22e3f3c78587302c5bf8cef2044d5f4a",
+    "H_zero/result.json": "4e105254a5608d23edaaff7829444ba82eab0e5cdce060f98482a48463d13508",
+    "H_zero/stop_predictions.csv": "ecb29b21a6db1ff11c42a3f39de9a00c9c4334e45ea92318a0a5628742030222",
+    "P_perturbed_20261003/coefficients.pt": "1db6c2549ad30cc236a095bac25aeb5708f6bdeabf38ce3f4d9ad490c8fd0cb0",
+    "P_perturbed_20261003/fit_predictions.csv": "9b35593744d77a07baf7172af39b61177834ef0b53f0f10d469a5c72c55e3642",
+    "P_perturbed_20261003/history.json": "39449ee389d0ff1195b93c5e4d8e32f89349603276aba58362e792c1b40d1929",
+    "P_perturbed_20261003/result.json": "1a4c5cad1295afff01acbbd66a337e3c0a3446f0f858d3c5ae3ea48218ff5038",
+    "P_perturbed_20261003/stop_predictions.csv": "5127fba2428998751dcc7397ca85cb6eafec15ebb2085d22728f660fca8b609d",
+    "P_perturbed_20261004/coefficients.pt": "49b3bc593e8964f3b66faf6d4a2a199e13f656e9debb792c0122ac48306c8370",
+    "P_perturbed_20261004/fit_predictions.csv": "a15aefeef054924d4e6d26da843b38331d3a067857c7adc2278f973b9fe0e9e3",
+    "P_perturbed_20261004/history.json": "0a9acec922a4e7310d879c9fa434b2ee9e084dd9f7f51237ca82e9d96fa3699b",
+    "P_perturbed_20261004/result.json": "6557e2abfdb24f416e484bb8ccbffe98c51a3910c6e5e5aa6302742fc284a59d",
+    "P_perturbed_20261004/stop_predictions.csv": "9ce9cffb2e479b3f4021432e554424776ec1940bbdf55764f2a3d147155fe4ba",
+    "P_zero/coefficients.pt": "c373b72da70512aacab2fa89b35548c888155fa7dc7c22ef19abe85fcb652efc",
+    "P_zero/fit_predictions.csv": "b4003acd034984cd8de10256df386fff391e2f835717858426136b7e816c0f6d",
+    "P_zero/history.json": "1ad79a166c41e8ea754c5e2230b78d458cce090a89b432e07c6f32c32bfccde9",
+    "P_zero/result.json": "e3d360b11f368900cf3ae925e962c8c0d407c676608057cbb6396de3e30fd5c8",
+    "P_zero/stop_predictions.csv": "70894d1bd89e8c2b25be1f1c46eaa9ffddc5a71a32634efed27e48713a884583",
+    "registered_protocol.json": "ca40c798b69f623db2de9546d889aaba01adce6bbc7e4bef3e1666f2714be2cb",
+    "representation.pt": "eaf70a712704aa677ba5b06b44421a689a709c5b01f7dd09f114188463edd305",
+    "T0_fit_predictions.csv": "1ae99c3e92ed4267d47cb8558eef43a43b522b4a378f5e01bafa0709206146b2",
+    "T0_stop_predictions.csv": "5d6393931a7b54d6e537e957a48c570cc45fc11985e737adffccb2fd2859bbf4"
+  }
+}
