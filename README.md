@@ -176,6 +176,13 @@ PB 与 REPAIR 已覆盖通用边界及成对残差思路；本轮不实施新网
 这些是标准代数结构的设计前核查，不是矿物测试结果。下一候选应验证角色条件表示学习的
 独立作用，不能只改变输出图名称；规格与训练范围仍待确认。
 
+2026-10-06 用户同意先写轻量角色适配规格，已形成
+[LC-RFA-B v1 书面设计](docs/superpowers/specs/2026-10-06-lightweight-role-adaptation-design.md)。
+候选使用冻结池化特征后的三个非线性瓶颈适配器及共享读出，拟训练参数共 3024；
+包含网络草图、双层幅度/局部稳定性推导、有限纠错包络和精确同参数 S1 强对照。
+公式中的输出限制不是召回或泛化保证；网络未实现、未训练，规格待用户书面审核，
+之后才进入实施计划与开发协议。没有新性能结论，正式报告未改，C 路线继续后置。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.
