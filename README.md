@@ -170,6 +170,12 @@ PB 与 REPAIR 已覆盖通用边界及成对残差思路；本轮不实施新网
 [重放验证](outputs/theory/abmp_role_residual_equivalence_v1/reproduction_verification.json)
 保留输入和代码哈希，正式报告保持不变。
 
+同日 [角色图头核查](docs/experiment_records/2026-10-06_role_graph_head_audit.md)
+进一步排除固定图线性聚合作为独立输出能力的主张：3072 行合成输出可精确合并为普通头。
+无约束树图的正边权自适应不改变输出；遗漏脉石会降低输出秩。
+这些是标准代数结构的设计前核查，不是矿物测试结果。下一候选应验证角色条件表示学习的
+独立作用，不能只改变输出图名称；规格与训练范围仍待确认。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.

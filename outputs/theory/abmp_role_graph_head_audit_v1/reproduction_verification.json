@@ -1,0 +1,31 @@
+{
+  "status": "EXACT_REPLAY_PASS",
+  "verified_on": "2026-10-06",
+  "document_sha256": "ef428a2066c9dc8333cfd46b6fa566da24971d69918e60d13975a5c9cadad623",
+  "python_block_sha256": "c15fb175083bf756f2215ac8acdb4809e6e6dc517d57a5dc6767a5205e9225c9",
+  "audit_summary_sha256": "18207fa49348f5761c717649a6e5364587c394c4983590b5754e39579aa74ff5",
+  "formal_report_sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+  "python_version": "3.11.5",
+  "numpy_version": "2.4.6",
+  "graph_count": 3,
+  "synthetic_probability_rows": 3072,
+  "synthetic_argmax_changes": 0,
+  "positive_weight_checks": 256,
+  "optimizer_steps": 0,
+  "new_network_implemented": false,
+  "real_images_read": false,
+  "real_features_read": false,
+  "real_predictions_read": false,
+  "outer_manifest_read": false,
+  "independent_confirmation": false,
+  "equations_present": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "verification_scope": "author self-review, primary-source metadata/method checks and exact synthetic algebra replay; not training, generalization or independent novelty certification"
+}
