@@ -180,8 +180,10 @@ PB 与 REPAIR 已覆盖通用边界及成对残差思路；本轮不实施新网
 [LC-RFA-B v1 书面设计](docs/superpowers/specs/2026-10-06-lightweight-role-adaptation-design.md)。
 候选使用冻结池化特征后的三个非线性瓶颈适配器及共享读出，拟训练参数共 3024；
 包含网络草图、双层幅度/局部稳定性推导、有限纠错包络和精确同参数 S1 强对照。
-公式中的输出限制不是召回或泛化保证；网络未实现、未训练，规格待用户书面审核，
-之后才进入实施计划与开发协议。没有新性能结论，正式报告未改，C 路线继续后置。
+公式中的输出限制不是召回或泛化保证。用户已认可规格，现已形成
+[LC-RFA-B v1 实施计划](docs/superpowers/plans/2026-10-06-lightweight-role-adaptation-implementation.md)，
+状态为待计划审核；推荐先进行代码、合成验收与结构图，真实开发训练单独登记获准后执行。
+网络未实现、未训练，没有新性能结论；正式报告未改，C 路线继续后置。
 
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
