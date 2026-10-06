@@ -1,0 +1,44 @@
+{
+  "status": "EXACT_REPLAY_PASS",
+  "artifacts": [
+    {
+      "path": "outputs/theory/abmp_anchor_channel_analysis_v1/diagnostic_summary.json",
+      "json_exact_match": true,
+      "sha256": "d65d9a7687fca26659afedcaf56b3e44cb73273e7e93de952a75b433032d4615"
+    },
+    {
+      "path": "outputs/theory/abmp_bounded_role_capacity_v1/geometry_properties.json",
+      "json_exact_match": true,
+      "sha256": "16f33ab08571d2ab953ce9cfef27dd6f8e0f066e73d7709dc2e96fd9e1c6fdba"
+    }
+  ],
+  "inline_code_blocks": 2,
+  "proof_equations": 14,
+  "reproduction_document_sha256": "49cd4dbb092f04870c4fecf22809c65e42fb0442dd417b99da12bc7d546a81c0",
+  "independent_confirmation": false,
+  "source_commit": "58ec06a8f6b88e3c62e33c71009556cbdfbcb8e8",
+  "analysis_replay": "both saved JSON objects exact",
+  "existing_anchor_tests": {
+    "command": "python -m unittest discover -s tests -p test_anchor_linear_controls.py -v",
+    "passed": 11,
+    "failed": 0
+  },
+  "methodology": {
+    "posthoc": true,
+    "neural_training": false,
+    "synthetic_linear_programs": 768,
+    "probability_checks": 5000,
+    "budget_selection": false,
+    "outer_read": false,
+    "formal_report_modified": false
+  },
+  "author_self_review": {
+    "assumptions_and_attaining_witness_written": true,
+    "standard_results_not_claimed_new": true,
+    "prediction_vs_true_label_guarantees_separated": true,
+    "numerical_checks_not_a_proof": true,
+    "synthetic_vs_model_validation_separated": true,
+    "independent_peer_review": false
+  },
+  "auxiliary_check_correction": "initial tag-count check expected parentheses rather than LaTeX braces; corrected the check, then fully replayed both analyses without changing calculations or source artifacts"
+}

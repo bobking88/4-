@@ -37,3 +37,6 @@
 /tests/test_anchor_linear_controls.py -text whitespace=cr-at-eol
 /docs/experiment_protocols/abmp_anchor_linear_controls_v1.json -text whitespace=cr-at-eol
 /outputs/training/abmp_anchor_linear_controls_v1/development_fold_0/** -text whitespace=cr-at-eol
+/outputs/theory/abmp_anchor_channel_analysis_v1/** -text whitespace=cr-at-eol
+/outputs/theory/abmp_bounded_role_capacity_v1/** -text whitespace=cr-at-eol
+/docs/experiment_records/2026-10-05_bounded_role_reproduction.md -text whitespace=cr-at-eol

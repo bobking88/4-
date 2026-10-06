@@ -1,0 +1,367 @@
+{
+  "status": "READ_ONLY_SYNTHETIC_PROOF_AND_LABEL_ASSISTED_CAPACITY_DIAGNOSTIC",
+  "seed": 20261005,
+  "lp_comparisons": 768,
+  "lp_max_abs_error": 3.3306690738754696e-16,
+  "random_probability_checks": 5000,
+  "pointwise_loss_violations": 0,
+  "kl_bound_violations": 0,
+  "protected_margin_rows": 1891,
+  "protected_margin_violations": 0,
+  "capacity": [
+    {
+      "subset": "fit",
+      "alpha": 0,
+      "beta": 0,
+      "recoverable_missed_targets": 0,
+      "new_false_target_capable_ti": 0,
+      "new_false_target_capable_gangue": 0,
+      "new_false_target_capable_metallic": 0
+    },
+    {
+      "subset": "fit",
+      "alpha": 0,
+      "beta": 0.25,
+      "recoverable_missed_targets": 0,
+      "new_false_target_capable_ti": 1,
+      "new_false_target_capable_gangue": 0,
+      "new_false_target_capable_metallic": 3
+    },
+    {
+      "subset": "fit",
+      "alpha": 0,
+      "beta": 0.5,
+      "recoverable_missed_targets": 0,
+      "new_false_target_capable_ti": 4,
+      "new_false_target_capable_gangue": 3,
+      "new_false_target_capable_metallic": 3
+    },
+    {
+      "subset": "fit",
+      "alpha": 0,
+      "beta": 1,
+      "recoverable_missed_targets": 3,
+      "new_false_target_capable_ti": 5,
+      "new_false_target_capable_gangue": 5,
+      "new_false_target_capable_metallic": 3
+    },
+    {
+      "subset": "fit",
+      "alpha": 0.25,
+      "beta": 0,
+      "recoverable_missed_targets": 2,
+      "new_false_target_capable_ti": 4,
+      "new_false_target_capable_gangue": 4,
+      "new_false_target_capable_metallic": 3
+    },
+    {
+      "subset": "fit",
+      "alpha": 0.25,
+      "beta": 0.25,
+      "recoverable_missed_targets": 3,
+      "new_false_target_capable_ti": 5,
+      "new_false_target_capable_gangue": 4,
+      "new_false_target_capable_metallic": 3
+    },
+    {
+      "subset": "fit",
+      "alpha": 0.25,
+      "beta": 0.5,
+      "recoverable_missed_targets": 3,
+      "new_false_target_capable_ti": 8,
+      "new_false_target_capable_gangue": 5,
+      "new_false_target_capable_metallic": 3
+    },
+    {
+      "subset": "fit",
+      "alpha": 0.25,
+      "beta": 1,
+      "recoverable_missed_targets": 5,
+      "new_false_target_capable_ti": 12,
+      "new_false_target_capable_gangue": 5,
+      "new_false_target_capable_metallic": 5
+    },
+    {
+      "subset": "fit",
+      "alpha": 0.5,
+      "beta": 0,
+      "recoverable_missed_targets": 4,
+      "new_false_target_capable_ti": 9,
+      "new_false_target_capable_gangue": 6,
+      "new_false_target_capable_metallic": 4
+    },
+    {
+      "subset": "fit",
+      "alpha": 0.5,
+      "beta": 0.25,
+      "recoverable_missed_targets": 4,
+      "new_false_target_capable_ti": 13,
+      "new_false_target_capable_gangue": 6,
+      "new_false_target_capable_metallic": 7
+    },
+    {
+      "subset": "fit",
+      "alpha": 0.5,
+      "beta": 0.5,
+      "recoverable_missed_targets": 5,
+      "new_false_target_capable_ti": 16,
+      "new_false_target_capable_gangue": 7,
+      "new_false_target_capable_metallic": 7
+    },
+    {
+      "subset": "fit",
+      "alpha": 0.5,
+      "beta": 1,
+      "recoverable_missed_targets": 12,
+      "new_false_target_capable_ti": 16,
+      "new_false_target_capable_gangue": 7,
+      "new_false_target_capable_metallic": 7
+    },
+    {
+      "subset": "fit",
+      "alpha": 1,
+      "beta": 0,
+      "recoverable_missed_targets": 15,
+      "new_false_target_capable_ti": 19,
+      "new_false_target_capable_gangue": 9,
+      "new_false_target_capable_metallic": 7
+    },
+    {
+      "subset": "fit",
+      "alpha": 1,
+      "beta": 0.25,
+      "recoverable_missed_targets": 17,
+      "new_false_target_capable_ti": 20,
+      "new_false_target_capable_gangue": 10,
+      "new_false_target_capable_metallic": 7
+    },
+    {
+      "subset": "fit",
+      "alpha": 1,
+      "beta": 0.5,
+      "recoverable_missed_targets": 18,
+      "new_false_target_capable_ti": 21,
+      "new_false_target_capable_gangue": 10,
+      "new_false_target_capable_metallic": 9
+    },
+    {
+      "subset": "fit",
+      "alpha": 1,
+      "beta": 1,
+      "recoverable_missed_targets": 19,
+      "new_false_target_capable_ti": 26,
+      "new_false_target_capable_gangue": 10,
+      "new_false_target_capable_metallic": 11
+    },
+    {
+      "subset": "stop",
+      "alpha": 0,
+      "beta": 0,
+      "recoverable_missed_targets": 0,
+      "new_false_target_capable_ti": 0,
+      "new_false_target_capable_gangue": 0,
+      "new_false_target_capable_metallic": 0
+    },
+    {
+      "subset": "stop",
+      "alpha": 0,
+      "beta": 0.25,
+      "recoverable_missed_targets": 1,
+      "new_false_target_capable_ti": 0,
+      "new_false_target_capable_gangue": 0,
+      "new_false_target_capable_metallic": 3
+    },
+    {
+      "subset": "stop",
+      "alpha": 0,
+      "beta": 0.5,
+      "recoverable_missed_targets": 1,
+      "new_false_target_capable_ti": 2,
+      "new_false_target_capable_gangue": 0,
+      "new_false_target_capable_metallic": 5
+    },
+    {
+      "subset": "stop",
+      "alpha": 0,
+      "beta": 1,
+      "recoverable_missed_targets": 2,
+      "new_false_target_capable_ti": 3,
+      "new_false_target_capable_gangue": 1,
+      "new_false_target_capable_metallic": 6
+    },
+    {
+      "subset": "stop",
+      "alpha": 0.25,
+      "beta": 0,
+      "recoverable_missed_targets": 1,
+      "new_false_target_capable_ti": 2,
+      "new_false_target_capable_gangue": 0,
+      "new_false_target_capable_metallic": 5
+    },
+    {
+      "subset": "stop",
+      "alpha": 0.25,
+      "beta": 0.25,
+      "recoverable_missed_targets": 2,
+      "new_false_target_capable_ti": 3,
+      "new_false_target_capable_gangue": 1,
+      "new_false_target_capable_metallic": 6
+    },
+    {
+      "subset": "stop",
+      "alpha": 0.25,
+      "beta": 0.5,
+      "recoverable_missed_targets": 2,
+      "new_false_target_capable_ti": 3,
+      "new_false_target_capable_gangue": 3,
+      "new_false_target_capable_metallic": 7
+    },
+    {
+      "subset": "stop",
+      "alpha": 0.25,
+      "beta": 1,
+      "recoverable_missed_targets": 3,
+      "new_false_target_capable_ti": 9,
+      "new_false_target_capable_gangue": 4,
+      "new_false_target_capable_metallic": 9
+    },
+    {
+      "subset": "stop",
+      "alpha": 0.5,
+      "beta": 0,
+      "recoverable_missed_targets": 4,
+      "new_false_target_capable_ti": 5,
+      "new_false_target_capable_gangue": 3,
+      "new_false_target_capable_metallic": 8
+    },
+    {
+      "subset": "stop",
+      "alpha": 0.5,
+      "beta": 0.25,
+      "recoverable_missed_targets": 5,
+      "new_false_target_capable_ti": 7,
+      "new_false_target_capable_gangue": 3,
+      "new_false_target_capable_metallic": 9
+    },
+    {
+      "subset": "stop",
+      "alpha": 0.5,
+      "beta": 0.5,
+      "recoverable_missed_targets": 7,
+      "new_false_target_capable_ti": 10,
+      "new_false_target_capable_gangue": 5,
+      "new_false_target_capable_metallic": 9
+    },
+    {
+      "subset": "stop",
+      "alpha": 0.5,
+      "beta": 1,
+      "recoverable_missed_targets": 8,
+      "new_false_target_capable_ti": 13,
+      "new_false_target_capable_gangue": 7,
+      "new_false_target_capable_metallic": 9
+    },
+    {
+      "subset": "stop",
+      "alpha": 1,
+      "beta": 0,
+      "recoverable_missed_targets": 11,
+      "new_false_target_capable_ti": 15,
+      "new_false_target_capable_gangue": 9,
+      "new_false_target_capable_metallic": 11
+    },
+    {
+      "subset": "stop",
+      "alpha": 1,
+      "beta": 0.25,
+      "recoverable_missed_targets": 11,
+      "new_false_target_capable_ti": 15,
+      "new_false_target_capable_gangue": 10,
+      "new_false_target_capable_metallic": 13
+    },
+    {
+      "subset": "stop",
+      "alpha": 1,
+      "beta": 0.5,
+      "recoverable_missed_targets": 12,
+      "new_false_target_capable_ti": 15,
+      "new_false_target_capable_gangue": 10,
+      "new_false_target_capable_metallic": 14
+    },
+    {
+      "subset": "stop",
+      "alpha": 1,
+      "beta": 1,
+      "recoverable_missed_targets": 13,
+      "new_false_target_capable_ti": 21,
+      "new_false_target_capable_gangue": 15,
+      "new_false_target_capable_metallic": 17
+    }
+  ],
+  "maximum_margin_witness_checks": 5000,
+  "maximum_margin_max_abs_error": 2.4940050025179517e-11,
+  "identity_max_abs_error": 5.551115123125783e-17,
+  "counterexamples": [
+    {
+      "name": "bounded_update_can_lose_correct_target",
+      "base_probability": [
+        0.26,
+        0.25,
+        0.245,
+        0.245
+      ],
+      "repaired_probability": [
+        0.24122621310113868,
+        0.2563424955739396,
+        0.25121564566246085,
+        0.25121564566246085
+      ],
+      "true_class_id": 0,
+      "alpha": 0.1,
+      "beta": 0,
+      "u": -0.1,
+      "v": [
+        0,
+        0,
+        0
+      ],
+      "base_prediction": 0,
+      "new_prediction": 1
+    },
+    {
+      "name": "bounded_update_can_add_false_target",
+      "base_probability": [
+        0.24,
+        0.25,
+        0.255,
+        0.255
+      ],
+      "repaired_probability": [
+        0.27834627028681735,
+        0.23738609530038904,
+        0.24213381720639682,
+        0.24213381720639682
+      ],
+      "true_class_id": 1,
+      "alpha": 0.2,
+      "beta": 0,
+      "u": 0.2,
+      "v": [
+        0,
+        0,
+        0
+      ],
+      "base_prediction": 2,
+      "new_prediction": 0
+    }
+  ],
+  "source_summary_sha256": "2e018dbe2e223008b1adaf82680230e110dc98edad1fe557ff6138cff7331c32",
+  "formal_report_sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+  "new_neural_training": false,
+  "synthetic_lp_only": true,
+  "new_images_loaded": false,
+  "outer_manifest_read": false,
+  "formal_report_unchanged": true,
+  "budget_selection_performed": false,
+  "independent_confirmation": false
+}

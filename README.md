@@ -153,6 +153,15 @@ python -m unittest discover -s tests -p "test_anchor_linear_controls.py" -v
 python scripts/run_anchor_linear_controls.py --verify
 ```
 
+2026-10-05 后续 [通道诊断与有限预算理论](docs/experiment_records/2026-10-05_bounded_role_residual_theory.md)
+给出目标 odds 与非目标条件分配的精确损失分解，以及有限预算下的目标可达条件、
+逐标签损失/KL 漂移界与间隔保护反例。EH stop 的净损失增量约 72.27% 来自条件分配。
+768 个合成 LP 对照与 5000 个概率检查通过，两个
+[分析 JSON](outputs/theory/abmp_bounded_role_capacity_v1/reproduction_verification.json)
+精确重放；[完整只读代码](docs/experiment_records/2026-10-05_bounded_role_reproduction.md)
+不依赖图片或训练权重。该分析不是新网络效果验证；双通道方向仍待规格批准，
+不把通用概率分解/校准性质称为首次理论创新，正式报告未修改。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.
