@@ -162,6 +162,14 @@ python scripts/run_anchor_linear_controls.py --verify
 不依赖图片或训练权重。该分析不是新网络效果验证；双通道方向仍待规格批准，
 不把通用概率分解/校准性质称为首次理论创新，正式报告未修改。
 
+2026-10-06 [精确等价与约束几何核查](docs/experiment_records/2026-10-06_role_residual_equivalence_and_novelty.md)
+证明双通道与普通 softmax 残差逐点精确互换：同潜变量、同损失的输出和梯度相同。
+既有 3400 行预测重建后类别不变；两类预算形成耦合凸多面体，但不证明网络训练为凸。
+同数值的双预算与普通残差 span 不等容量，后续对照须分离坐标、可行域和实际学习机制。
+PB 与 REPAIR 已覆盖通用边界及成对残差思路；本轮不实施新网络或宣称性能收益。
+[重放验证](outputs/theory/abmp_role_residual_equivalence_v1/reproduction_verification.json)
+保留输入和代码哈希，正式报告保持不变。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.

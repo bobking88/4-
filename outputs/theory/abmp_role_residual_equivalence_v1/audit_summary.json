@@ -1,0 +1,159 @@
+{
+  "status": "READ_ONLY_FUNCTION_FAMILY_EQUIVALENCE_AUDIT",
+  "seed": 20261006,
+  "synthetic_probability_rows": 5000,
+  "dual_to_flat_max_abs_error": 4.440892098500626e-16,
+  "flat_to_dual_max_abs_error": 3.3306690738754696e-16,
+  "inverse_u_max_abs_error": 2.220446049250313e-16,
+  "gauge_u_max_abs_error": 1.9984014443252818e-15,
+  "gauge_v_span_max_abs_error": 1.7763568394002505e-15,
+  "autograd_rows": 128,
+  "gradient_max_abs_error": 2.168404344971009e-18,
+  "hessian_vector_max_abs_error": 1.2468324983583301e-17,
+  "strict_budget_inclusion_witness": {
+    "base": [
+      0.5,
+      0.16666666666666666,
+      0.16666666666666666,
+      0.16666666666666666
+    ],
+    "u": 1,
+    "v": [
+      -1,
+      0,
+      0
+    ],
+    "alpha": 1,
+    "beta": 1,
+    "equivalent_flat_d": [
+      0.7633825153901412,
+      -1,
+      0,
+      0
+    ],
+    "flat_logit_span": 1.7633825153901412
+  },
+  "polytope_membership_rows": 5000,
+  "polytope_membership_mismatches": 0,
+  "fixed_box_counterexample": {
+    "w": [
+      0.3333333333333333,
+      0.3333333333333333,
+      0.3333333333333333
+    ],
+    "beta": 0.6931471805599453,
+    "coordinate_lower": [
+      0.2,
+      0.2,
+      0.2
+    ],
+    "coordinate_upper": [
+      0.5,
+      0.5,
+      0.5
+    ],
+    "box_feasible_r": [
+      0.5,
+      0.3,
+      0.2
+    ],
+    "pairwise_ratio": 2.5,
+    "allowed_ratio": 2
+  },
+  "real_prediction_reconstructions": [
+    {
+      "subset": "fit",
+      "arm": "P",
+      "rows": 340,
+      "max_probability_abs_error": 3.3306690738754696e-16,
+      "argmax_changes": 0
+    },
+    {
+      "subset": "fit",
+      "arm": "E",
+      "rows": 340,
+      "max_probability_abs_error": 2.220446049250313e-16,
+      "argmax_changes": 0
+    },
+    {
+      "subset": "fit",
+      "arm": "H",
+      "rows": 340,
+      "max_probability_abs_error": 2.220446049250313e-16,
+      "argmax_changes": 0
+    },
+    {
+      "subset": "fit",
+      "arm": "EH",
+      "rows": 340,
+      "max_probability_abs_error": 3.3306690738754696e-16,
+      "argmax_changes": 0
+    },
+    {
+      "subset": "fit",
+      "arm": "EH_permuted",
+      "rows": 340,
+      "max_probability_abs_error": 3.3306690738754696e-16,
+      "argmax_changes": 0
+    },
+    {
+      "subset": "stop",
+      "arm": "P",
+      "rows": 340,
+      "max_probability_abs_error": 2.220446049250313e-16,
+      "argmax_changes": 0
+    },
+    {
+      "subset": "stop",
+      "arm": "E",
+      "rows": 340,
+      "max_probability_abs_error": 3.3306690738754696e-16,
+      "argmax_changes": 0
+    },
+    {
+      "subset": "stop",
+      "arm": "H",
+      "rows": 340,
+      "max_probability_abs_error": 2.220446049250313e-16,
+      "argmax_changes": 0
+    },
+    {
+      "subset": "stop",
+      "arm": "EH",
+      "rows": 340,
+      "max_probability_abs_error": 2.220446049250313e-16,
+      "argmax_changes": 0
+    },
+    {
+      "subset": "stop",
+      "arm": "EH_permuted",
+      "rows": 340,
+      "max_probability_abs_error": 3.3306690738754696e-16,
+      "argmax_changes": 0
+    }
+  ],
+  "source_summary_sha256": "2e018dbe2e223008b1adaf82680230e110dc98edad1fe557ff6138cff7331c32",
+  "input_sha256": {
+    "T0_fit_predictions.csv": "1ae99c3e92ed4267d47cb8558eef43a43b522b4a378f5e01bafa0709206146b2",
+    "P_zero/fit_predictions.csv": "b4003acd034984cd8de10256df386fff391e2f835717858426136b7e816c0f6d",
+    "E_zero/fit_predictions.csv": "5592d20e50e203f648b649472ef3b79c5c7b76e06f16e0303241511407d13fd3",
+    "H_zero/fit_predictions.csv": "3daedb9bd8ec4a5260d2488882912ede0496119f5eec363b9aab248a21f46658",
+    "EH_zero/fit_predictions.csv": "8c964250d6b5d8440c5ef6cf394a81259b8ef5eea451cc1404e4ba014b5bd0d4",
+    "EH_permuted_zero/fit_predictions.csv": "52754821896eb5506eb1ab823300371fcf5ee4431b4a80434f987d272f99251e",
+    "T0_stop_predictions.csv": "5d6393931a7b54d6e537e957a48c570cc45fc11985e737adffccb2fd2859bbf4",
+    "P_zero/stop_predictions.csv": "70894d1bd89e8c2b25be1f1c46eaa9ffddc5a71a32634efed27e48713a884583",
+    "E_zero/stop_predictions.csv": "2b6efef023a4a4d00f1296b54f61980534d917f9e9c86582025fc223220d11e4",
+    "H_zero/stop_predictions.csv": "ecb29b21a6db1ff11c42a3f39de9a00c9c4334e45ea92318a0a5628742030222",
+    "EH_zero/stop_predictions.csv": "5ec2acdedb5a7c27f1ecf493571c65905ebc75ce0d57736df4bdbe08480bb4f3",
+    "EH_permuted_zero/stop_predictions.csv": "452b7395200a7def1ea98eb74f6c715beff73a9e66585d3289637c9256c81dcd"
+  },
+  "formal_report_sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+  "raw_images_loaded": false,
+  "visual_features_loaded": false,
+  "new_network_implemented": false,
+  "optimizer_steps": 0,
+  "outer_manifest_read": false,
+  "true_labels_used_for_real_reconstruction": false,
+  "independent_confirmation": false,
+  "fixed_architecture_parameter_families_proved_equal": false
+}

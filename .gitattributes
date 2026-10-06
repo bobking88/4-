@@ -40,3 +40,5 @@
 /outputs/theory/abmp_anchor_channel_analysis_v1/** -text whitespace=cr-at-eol
 /outputs/theory/abmp_bounded_role_capacity_v1/** -text whitespace=cr-at-eol
 /docs/experiment_records/2026-10-05_bounded_role_reproduction.md -text whitespace=cr-at-eol
+/outputs/theory/abmp_role_residual_equivalence_v1/** -text whitespace=cr-at-eol
+/docs/experiment_records/2026-10-06_role_residual_equivalence_and_novelty.md -text whitespace=cr-at-eol
