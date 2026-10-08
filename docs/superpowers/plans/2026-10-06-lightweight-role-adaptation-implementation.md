@@ -188,6 +188,8 @@ def test_pooled_nll_and_tie_break(self):
 
 ## Task 5: 执行状态机、上限与故障留痕
 
+执行记录（2026-10-08）：13项新测试通过；全套447项通过，70.985秒。监督器真实合成进程、失败/超时/累计预算、完整选择锁和S1精确复用已验证。实际 preflight/benchmark 命令推迟到 Task7 后，以便快照包含全部七个模块；仍无真实训练授权。登记字节按Git过滤后的blob身份核对，运行时源文件SHA另行保留。
+
 **Files:** Create `scripts/run_lc_role_adaptation.py`; Test `tests/test_run_lc_role_adaptation.py`; 后续经批准创建 `docs/experiment_protocols/lc_role_adaptation_v1.json`。
 
 **Interfaces:** `validate_protocol(protocol: dict, stage: str) -> None`；`build_jobs(protocol: dict) -> list[dict]`；`maximum_fit_count(protocol: dict) -> int`；`temperature_fit_count(protocol: dict) -> int`；`run_supervised_job(job: dict, protocol: dict, remaining_seconds: float) -> dict`；`run_stage(root: Path, protocol_path: Path | None, output: Path, stage: str) -> dict`。CLI 阶段为 `preflight/benchmark/fit/evaluate/verify`，每次显式指定，无默认训练动作。
