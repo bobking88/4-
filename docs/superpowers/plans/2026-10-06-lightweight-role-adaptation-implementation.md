@@ -43,7 +43,7 @@
 - Origin Skill / Mode：writing-plans；academic-research-suite / experiment-agent plan。
 - 日期：2026-10-06；版本：`lc_rfa_b_implementation_plan_v1`。
 - 用户已认可规格，原话：“认可规格，编写实施计划”。该授权仅支持本计划，不等于实施或训练许可。
-- 当前状态：`DRAFT_FOR_PLAN_REVIEW`。本文件所有实施任务均未执行。
+- 当前状态：`IMPLEMENTATION_IN_PROGRESS`。用户原话：“认可计划，原生实施代码与合成验收”；仅批准 Tasks 1-7，2026-10-08 继续实施。Task8 真实训练和 Task9 报告整合仍未获准。
 - Verification Status：`UNVERIFIED`（计划已自审；新模型、测试、实验与结构图尚不存在）。
 - 已认可规格保留提交时的原文/哈希；其中待审核状态是历史快照，新的认可事件以本计划记录为准。
 - 推荐执行方式：当前会话原生逐任务实施，执行前读 executing-plans；当前工具没有独立子代理，不能承诺独立评审。后续正式结论仍需另行评审和独立确认。
@@ -71,6 +71,8 @@
 - 在工作树根目录执行。命令中的 `python` 指 `D:\成信工科研\人工智能选矿\.venv-training\Scripts\python.exe`；不得静默换环境。
 
 ## Task 1: 来源隔离与内折预处理
+
+执行记录（2026-10-08）：6项新测试 RED -> GREEN；全套410项通过，44.030秒。步骤1-5已执行，缓存测试均为临时合成源；没有读取真实stop。
 
 **Files:** Create `scripts/lc_role_data.py`; Test `tests/test_lc_role_data.py`。
 
