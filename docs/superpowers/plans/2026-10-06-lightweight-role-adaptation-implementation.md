@@ -104,6 +104,8 @@ def test_row_reorder_and_fold_one_fail(self):
 
 ## Task 2: 有效适配结构与成对监督
 
+执行记录（2026-10-08）：8项新测试 RED -> GREEN；全套418项通过，44.393秒。步骤1-5已执行；3024参数/共享辅助视图/五步数据与总梯度/下溢失败均合成核验。
+
 **Files:** Create `scripts/lc_role_adapter.py`; Test `tests/test_lc_role_adapter.py`。
 
 **Interfaces:**
