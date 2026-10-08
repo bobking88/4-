@@ -160,6 +160,8 @@ def test_bound_violations_are_not_averaged_away(self):
 
 ## Task 4: fit 内选模与收敛强对照
 
+执行记录（2026-10-08）：9项新测试 RED -> GREEN；全套434项通过，49.733秒。步骤1-5已执行；九组均完成合成3折选择/重拟合/推理重放，未取得证书的凸OOF明确拒绝，400获选标为截断。未开展真实训练。
+
 **Files:** Create `scripts/lc_role_training.py`; Test `tests/test_lc_role_training.py`。
 
 **Interfaces:**
