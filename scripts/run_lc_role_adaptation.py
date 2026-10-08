@@ -276,6 +276,9 @@ def _registered(root, protocol_path, protocol):
 
 
 def _packet_job(output, packet, job_id):
+    packet = dict(packet)
+    if "prepared_path" in packet:
+        packet["prepared_relative_path"] = Path(packet["prepared_path"]).resolve().relative_to(output.resolve()).as_posix()
     folder = output/"runs"/job_id
     folder.mkdir(parents=True, exist_ok=False)
     path = folder/"packet.pt"

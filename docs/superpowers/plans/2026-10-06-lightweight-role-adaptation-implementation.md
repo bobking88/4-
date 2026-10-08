@@ -215,6 +215,8 @@ def test_scope_count_and_failure_gates(self):
 
 ## Task 6: 指标、逐图证据与可重放交付
 
+执行记录（2026-10-08）：9项缺模块失败 RED -> GREEN，随后可移植预处理引用回归 RED -> GREEN；11项新测试，全套458项通过，131.750秒。合成完整网格重建2124个OOF候选、26组最终状态及54份fit/stop逐图CSV；改动记录被拒绝，默认复验禁止优化器调用。训练重放代码单独授权并严格比对状态，差异留痕；没有开展真实训练或真实stop评价。
+
 **Files:** Create `scripts/analyze_lc_role_adaptation.py`; Test `tests/test_analyze_lc_role_adaptation.py`。
 
 **Interfaces:** `summarize_predictions(batch: dict, logq: Tensor, anchor_logq: Tensor) -> dict`；`screen_development(results: list[dict], controls: list[dict]) -> dict`；`verify_delivery(root: Path, output: Path, *, training_replay_protocol: Path | None = None) -> dict`；CLI `--output-dir PATH --verify`。训练重放另需 `--replay-training --replay-protocol PATH`，缺少独立授权文件直接拒绝。
