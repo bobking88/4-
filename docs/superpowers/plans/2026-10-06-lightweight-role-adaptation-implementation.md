@@ -135,6 +135,8 @@ def test_parameter_counts_and_identity(self):
 
 ## Task 3: 三个理论部分的实现证书
 
+执行记录（2026-10-08）：7项新测试 RED -> GREEN；全套425项通过，43.064秒。步骤1-5已执行；两预算各5000合成行、总10000行零违规，单行破坏可检出；摘要为 `outputs/lc_role_implementation_qa/theory_synthetic_acceptance.json`。这不是精度/召回的实验证据。
+
 **Files:** Create `scripts/lc_role_audit.py`; Test `tests/test_lc_role_audit.py`。
 
 **Interfaces:** `audit_theory(model: RoleResidualModel, batch: dict, result: dict) -> dict` 返回逐行诊断和汇总；`replay_without_adaptation(model: RoleResidualModel, batch: dict) -> dict` 固定同权重、锚点、e、b，只改主视觉输入为 h；`check_flat_reconstruction(result: dict, log_anchor: Tensor) -> dict`。
