@@ -238,6 +238,8 @@ def test_each_seed_must_pass_and_tampering_fails(self):
 
 ## Task 7: 与真实代码一致的网络结构图
 
+执行记录（2026-10-09）：3项缺模块失败 RED -> GREEN；全套461项通过，139.237秒。真实模块确认3024参数、各支516、共享头1476；SVG/PDF/300dpi PNG/图源JSON已导出。PNG及单页PDF渲染已查看，文本不溢出；图仅标已实现、效果待真实实验验证。正式报告未修改。
+
 **Files:** Create `scripts/generate_lc_role_adaptation_figure.py`; Test `tests/test_generate_lc_role_adaptation_figure.py`。
 
 **Interfaces:** `architecture_manifest(model: RoleResidualModel) -> dict` 返回 `trainable_parameter_count/adapter_parameter_count/shared_head_parameter_count/nodes/edges/state` 及真实 named_modules/示例尺寸；`render_architecture(manifest: dict, output_dir: Path) -> dict` 输出 SVG/PDF/300dpi PNG 和图源 JSON。执行时读取 nature-figure 技能，优先沿用现有图表字号/字体与颜色。

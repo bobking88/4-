@@ -1,0 +1,395 @@
+{
+  "name": "LC-RFA-B v1 / R1",
+  "state": "IMPLEMENTED_EFFECT_UNVERIFIED",
+  "arm": "R1",
+  "trainable_parameter_count": 3024,
+  "adapter_parameter_count": [
+    516,
+    516,
+    516
+  ],
+  "shared_head_parameter_count": 1476,
+  "modules": {
+    "": {
+      "type": "RoleResidualModel"
+    },
+    "adapters": {
+      "type": "ModuleList"
+    },
+    "adapters.0": {
+      "type": "BottleneckAdapter"
+    },
+    "adapters.0.down": {
+      "type": "Linear",
+      "weight_shape": [
+        4,
+        64
+      ],
+      "bias_shape": [
+        4
+      ]
+    },
+    "adapters.0.up": {
+      "type": "Linear",
+      "weight_shape": [
+        64,
+        4
+      ],
+      "bias_shape": null
+    },
+    "adapters.1": {
+      "type": "BottleneckAdapter"
+    },
+    "adapters.1.down": {
+      "type": "Linear",
+      "weight_shape": [
+        4,
+        64
+      ],
+      "bias_shape": [
+        4
+      ]
+    },
+    "adapters.1.up": {
+      "type": "Linear",
+      "weight_shape": [
+        64,
+        4
+      ],
+      "bias_shape": null
+    },
+    "adapters.2": {
+      "type": "BottleneckAdapter"
+    },
+    "adapters.2.down": {
+      "type": "Linear",
+      "weight_shape": [
+        4,
+        64
+      ],
+      "bias_shape": [
+        4
+      ]
+    },
+    "adapters.2.up": {
+      "type": "Linear",
+      "weight_shape": [
+        64,
+        4
+      ],
+      "bias_shape": null
+    },
+    "head": {
+      "type": "Sequential"
+    },
+    "head.0": {
+      "type": "Linear",
+      "weight_shape": [
+        16,
+        87
+      ],
+      "bias_shape": [
+        16
+      ]
+    },
+    "head.1": {
+      "type": "SiLU"
+    },
+    "head.2": {
+      "type": "Linear",
+      "weight_shape": [
+        4,
+        16
+      ],
+      "bias_shape": [
+        4
+      ]
+    }
+  },
+  "nodes": [
+    {
+      "id": "H1280",
+      "kind": "frozen"
+    },
+    {
+      "id": "PCA64",
+      "kind": "fit_preprocessing"
+    },
+    {
+      "id": "E23",
+      "kind": "frozen"
+    },
+    {
+      "id": "E_scaled",
+      "kind": "fit_preprocessing"
+    },
+    {
+      "id": "p",
+      "kind": "frozen"
+    },
+    {
+      "id": "anchor",
+      "kind": "fit_preprocessing"
+    },
+    {
+      "id": "budget",
+      "kind": "analytic"
+    },
+    {
+      "id": "delta1",
+      "kind": "trainable",
+      "module_path": "adapters.0"
+    },
+    {
+      "id": "delta2",
+      "kind": "trainable",
+      "module_path": "adapters.1"
+    },
+    {
+      "id": "delta3",
+      "kind": "trainable",
+      "module_path": "adapters.2"
+    },
+    {
+      "id": "adapted_h",
+      "kind": "analytic"
+    },
+    {
+      "id": "head",
+      "kind": "trainable",
+      "module_path": "head"
+    },
+    {
+      "id": "bounded",
+      "kind": "analytic"
+    },
+    {
+      "id": "q",
+      "kind": "output"
+    },
+    {
+      "id": "auxiliary",
+      "kind": "training"
+    }
+  ],
+  "edges": [
+    {
+      "source": "H1280",
+      "target": "PCA64",
+      "style": "solid",
+      "kind": "inference"
+    },
+    {
+      "source": "E23",
+      "target": "E_scaled",
+      "style": "solid",
+      "kind": "inference"
+    },
+    {
+      "source": "p",
+      "target": "anchor",
+      "style": "solid",
+      "kind": "inference"
+    },
+    {
+      "source": "anchor",
+      "target": "budget",
+      "style": "solid",
+      "kind": "inference"
+    },
+    {
+      "source": "PCA64",
+      "target": "adapted_h",
+      "style": "solid",
+      "kind": "inference"
+    },
+    {
+      "source": "budget",
+      "target": "adapted_h",
+      "style": "solid",
+      "kind": "inference"
+    },
+    {
+      "source": "budget",
+      "target": "bounded",
+      "style": "solid",
+      "kind": "inference"
+    },
+    {
+      "source": "anchor",
+      "target": "bounded",
+      "style": "solid",
+      "kind": "inference"
+    },
+    {
+      "source": "adapted_h",
+      "target": "head",
+      "style": "solid",
+      "kind": "inference"
+    },
+    {
+      "source": "E_scaled",
+      "target": "head",
+      "style": "solid",
+      "kind": "inference"
+    },
+    {
+      "source": "head",
+      "target": "bounded",
+      "style": "solid",
+      "kind": "inference"
+    },
+    {
+      "source": "bounded",
+      "target": "q",
+      "style": "solid",
+      "kind": "inference"
+    },
+    {
+      "source": "PCA64",
+      "target": "delta1",
+      "style": "solid",
+      "kind": "inference"
+    },
+    {
+      "source": "delta1",
+      "target": "adapted_h",
+      "style": "solid",
+      "kind": "inference"
+    },
+    {
+      "source": "delta1",
+      "target": "auxiliary",
+      "style": "dashed",
+      "kind": "training"
+    },
+    {
+      "source": "PCA64",
+      "target": "delta2",
+      "style": "solid",
+      "kind": "inference"
+    },
+    {
+      "source": "delta2",
+      "target": "adapted_h",
+      "style": "solid",
+      "kind": "inference"
+    },
+    {
+      "source": "delta2",
+      "target": "auxiliary",
+      "style": "dashed",
+      "kind": "training"
+    },
+    {
+      "source": "PCA64",
+      "target": "delta3",
+      "style": "solid",
+      "kind": "inference"
+    },
+    {
+      "source": "delta3",
+      "target": "adapted_h",
+      "style": "solid",
+      "kind": "inference"
+    },
+    {
+      "source": "delta3",
+      "target": "auxiliary",
+      "style": "dashed",
+      "kind": "training"
+    },
+    {
+      "source": "auxiliary",
+      "target": "head",
+      "style": "dashed",
+      "kind": "training"
+    }
+  ],
+  "example_shapes": {
+    "logq": [
+      2,
+      4
+    ],
+    "u": [
+      2,
+      1
+    ],
+    "v": [
+      2,
+      3
+    ],
+    "alpha": [
+      2,
+      1
+    ],
+    "beta": [
+      2,
+      1
+    ],
+    "logw": [
+      2,
+      3
+    ],
+    "logit_t": [
+      2,
+      1
+    ],
+    "scores": [
+      2,
+      4
+    ],
+    "g": [
+      2,
+      3
+    ],
+    "b": [
+      2,
+      1
+    ],
+    "delta": [
+      2,
+      3,
+      64
+    ],
+    "adapted_h": [
+      2,
+      64
+    ],
+    "aux_logq": [
+      2,
+      3,
+      4
+    ]
+  },
+  "code_sha256": {
+    "lc_role_adapter.py": "3c02653b5a1aafd1cf452fa029b827baa899ff6a6645986cebc368fbdeecf1aa",
+    "generate_lc_role_adaptation_figure.py": "4d77370e23ca6b05e7b4df839d294c96a1eed39593f1550d7d70a883324f9c7b"
+  },
+  "figure_contract": {
+    "conclusion": "Three role-conditioned bounded feature adapters feed one shared readout.",
+    "archetype": "schematic-led composite",
+    "backend": "Python/matplotlib",
+    "size_inches": [
+      7.2,
+      6.8
+    ],
+    "dpi": 300,
+    "editable_text": true,
+    "statistical_claims": false,
+    "panels": [
+      "main implemented graph",
+      "single adapter detail",
+      "matched S1/R1 comparison"
+    ]
+  },
+  "formulas": {
+    "adapter": "delta_j=tanh(U_j SiLU(V_j h+b_j))/sqrt(64)",
+    "routing": "g_j=4*pbar_T*pbar_j; b=sum_j(g_j)",
+    "adapted_h": "h_tilde=h+sum_j(g_j*delta_j)",
+    "auxiliary": "h+delta_j; same head and bounded map; no g_j factor",
+    "head": "F:87->16->4 (SiLU)",
+    "budgets": "alpha=alpha_max*b; beta=beta_max*b",
+    "output": "q_T=sigmoid(logit(t)+u); q_j=(1-q_T)*softmax(log(w)+v)_j"
+  }
+}
