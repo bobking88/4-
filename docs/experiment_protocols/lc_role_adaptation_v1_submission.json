@@ -1,0 +1,77 @@
+{
+  "submission": "lc_role_adaptation_v1_training_submission",
+  "status": "AWAITING_HUMAN_TRAINING_APPROVAL",
+  "date": "2026-10-09",
+  "implementation_commit": "8f8bb1608a454df357050a783de73bd15b191332",
+  "runtime_protocol_path": "outputs/training/lc_role_adaptation_v1/preflight/draft_protocol.json",
+  "runtime_protocol_raw_sha256": "c7a79b5d6f4117109ca13af8711683930f7948cd6f45ff9bd5e57d11280b4ec5",
+  "runtime_protocol_semantic_sha256": "aedd39b332bc62c59d7129e2830f4a1a501ca8e145d675f73fdb3328d03e4b21",
+  "requested_authorization": {
+    "scope": "REAL_LC_RFA_FIT_AND_ONCE_STOP",
+    "max_fits": 422,
+    "temperature_fits": 4,
+    "max_seconds": 21600,
+    "per_fit_seconds": 600,
+    "stop_evaluations": 1,
+    "training_replay": false,
+    "other_outer_folds": false,
+    "new_images": false,
+    "formal_report_edits": false,
+    "automatic_retries_or_grid_expansion": false
+  },
+  "output_dir": "outputs/training/lc_role_adaptation_v1/development_fold_0",
+  "scope_note": "Existing repeatedly exposed development fit/stop only; no independent confirmation.",
+  "hypotheses": [
+    {
+      "id": "H_ROUTE",
+      "claim_under_test": "Role-conditioned routing improves the registered learning pipeline beyond uniform routing with the same parameter count, auxiliary views and loss.",
+      "primary_comparison": "R1 versus S1 and R1-budget-matched S1",
+      "limit": "Fit-selected regularization and updates may differ; pipeline comparison is not a pure fixed-optimizer causal routing estimate."
+    },
+    {
+      "id": "H_SPECIALIZATION",
+      "claim_under_test": "Auxiliary role supervision is accompanied by nondegenerate branch learning and useful conditional predictions.",
+      "comparison": "R1 versus R0, S1 versus S0; pair NLL, gradients, delta norms/cosines and same-weight branch ablations",
+      "limit": "Diagnostics alone do not prove specialization caused higher generalization accuracy."
+    },
+    {
+      "id": "H_BOUNDED_BENEFIT",
+      "claim_under_test": "Bounded adaptation retains useful development corrections while limiting perturbations.",
+      "comparison": "R1 versus U1 and analytical A/B/C audits",
+      "limit": "U1 Pareto dominance denies bounded net-benefit support; risk bounds do not guarantee target recall."
+    }
+  ],
+  "screen_rules": {
+    "required_seeds": [20261002, 20261003, 20261004],
+    "primary_metric": "stop mean unweighted four-class NLL",
+    "minimum_nll_gain_vs_T0_and_strongest_qualified_control_each_seed": 0.005,
+    "minimum_net_correct_target_vs_T0_each_seed": 1,
+    "maximum_extra_ti_false_targets_vs_T0_each_seed": 1,
+    "maximum_extra_metallic_false_targets_vs_T0_each_seed": 1,
+    "must_have_lower_nll_than_R1_budget_matched_S1_each_seed": true,
+    "missing_unreliable_truncated_or_theory_violating_groups_reject_support": true,
+    "independent_or_statistical_significance_claim": false,
+    "specialization_diagnostics_change_selection": false
+  },
+  "evidence_sha256": {
+    "outputs/training/lc_role_adaptation_v1/preflight/inner_assignment.json": "e603ba0b603bc903f82649dd19edaebb69f7e171be0dec2092d69048c5469927",
+    "outputs/training/lc_role_adaptation_v1/preflight/schedule.json": "ada69bdb1e8a9f6a482ed94f84d4e34f4e19ebcd3b9cf6a01a2e04973bd2a7a7",
+    "outputs/training/lc_role_adaptation_v1/preflight/summary.json": "a99a7fcf53741a0736a85f974c7c5e88b43ea4c5fb29c38700d552e46cb9ab2d",
+    "outputs/training/lc_role_adaptation_v1/synthetic_benchmark/summary.json": "58dcc048e3fa6a698cb2051a7ca81f3b653ce06f06dc80e8ad17339df0c8d1ea",
+    "outputs/lc_role_implementation_qa/final_tests.log": "a58862052712af40d9ba33be0b2afda550302b6905a9dcde34b95d2d28aacb06",
+    "outputs/lc_role_implementation_qa/theory_synthetic_acceptance.json": "68867605a5ce31089dd754c6da4f4cddaabc4c41457d26bbe3d5a5a2f6d9ae95",
+    "outputs/paper_figures_lc_rfa_v1/lc_rfa_b_architecture.json": "882863b297c66ec9eb197ff1a7b4ec5a0fa62b7983d3a888126310069efb6d85",
+    "outputs/paper_figures_lc_rfa_v1/lc_rfa_b_architecture.svg": "eab628cbcc49c22f7996f0b318bd259d3917de7f6300ab2d1623af8ea991073c",
+    "docs/experiment_records/2026-10-09_lc_role_implementation_acceptance.md": "5816d740577e5cdf576d4fdeb2cfd72d76786998d6fc6442ce41f6ed8624acd2"
+  },
+  "verified_readiness": {
+    "source_and_input_hashes_checked": 33,
+    "draft_rejects_real_stages": ["fit", "evaluate", "verify"],
+    "preflight_status": "PREFLIGHT_OK",
+    "stop_tables_parsed_at_preflight": false,
+    "synthetic_benchmark_status": "BENCHMARK_COMPLETE",
+    "projected_schedule_seconds": 7810.07325021259,
+    "projection_is_a_strict_time_bound": false,
+    "real_development_started": false
+  }
+}
