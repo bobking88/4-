@@ -261,6 +261,8 @@ def test_figure_counts_come_from_real_model(self):
 
 ## Task 8: 预登记、训练授权与有限开发执行
 
+实现验收记录（2026-10-09）：Tasks 1-7 已实现；作者全范围自审发现三项重要缺口，均由失败回归复现后修复。补充每分支无缩放辅助对损失、delta相似度及固定权重禁用诊断；保留NUMERIC_RANGE_FAILURE终态；锁定Python/platform及六依赖版本。针对性27项通过，整套464项通过，138.611秒。验收明细见 `docs/experiment_records/2026-10-09_lc_role_implementation_acceptance.md`。实际preflight/合成benchmark在完整源码快照冻结后执行，结果另存验收记录，不回改此登记源码。当前仍无真实训练或stop评价授权。
+
 **Files:** Create 训练获准后的 `docs/experiment_protocols/lc_role_adaptation_v1.json`、`docs/experiment_records/2026-10-06_lc_role_adaptation_registration.md`（日期按实际登记）；输出根 `outputs/training/lc_role_adaptation_v1/development_fold_0/`，禁止覆盖旧实验。
 
 **Interfaces:** 消费 Tasks 1-7 的已通过测试实现、排程dry-run和合成benchmark；协议固定所有代码/规格/计划/来源哈希及用户训练原话，不能留待填占位符。无其他数据审批的入口。

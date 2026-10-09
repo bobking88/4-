@@ -150,6 +150,29 @@ class ExecutionGateTests(unittest.TestCase):
                     runner.run_stage(root, None, output, "preflight")
                 protocol.assert_not_called()
 
+    def test_numeric_worker_failure_keeps_numeric_terminal_stage(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            protocol = dict(self.protocol,source_sha256={})
+            with patch.object(runner,"default_protocol",return_value=protocol), patch.object(runner,"_benchmark",side_effect=RuntimeError("NUMERIC_RANGE_FAILURE: synthetic worker underflow")):
+                with self.assertRaises(RuntimeError):
+                    runner.run_stage(root,None,root/"out","benchmark")
+            terminal = json.loads((root/"out"/"stage_state.json").read_text(encoding="utf-8"))
+            self.assertEqual(terminal["status"],"NUMERIC_RANGE_FAILURE")
+
+    def test_registered_runtime_records_packages_and_rejects_version_drift(self):
+        self.assertTrue(hasattr(runner,"runtime_environment"),"Missing dependency runtime fingerprint")
+        environment = runner.runtime_environment()
+        self.assertTrue({"torch","numpy","scipy","scikit-learn","threadpoolctl","matplotlib"} <= set(environment["packages"]))
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            protocol = dict(self.protocol,source_sha256={},runtime_environment=environment)
+            self.assertEqual(runner.check_sources(root,protocol),{})
+            changed = dict(environment,python="different-runtime")
+            with patch.object(runner,"runtime_environment",return_value=changed):
+                with self.assertRaisesRegex(ValueError,"environment"):
+                    runner.check_sources(root,protocol)
+
     def test_registered_code_identity_uses_git_normalized_blob_bytes(self):
         self.assertIsNotNone(getattr(runner, "registered_source_blob_digest", None), "Missing normalized registration digest")
         root = Path(__file__).resolve().parents[1]

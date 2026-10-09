@@ -223,7 +223,58 @@ def replay_oof(output, lock, raw, protocol):
     return len(candidates)
 
 
-def _prediction_rows(batch, logq, arm, seed, diagnostics=None, result=None):
+@torch.no_grad()
+def specialization_diagnostics(model: RoleResidualModel, batch: dict, result: dict) -> dict:
+    if len(model.adapters) != 3:
+        raise ValueError("Three adapter branches required for specialization diagnostics.")
+    labels, delta, b = batch["labels"], result["delta"], result["b"]
+    views = torch.stack([model.readout(batch["h"]+delta[:,j], batch["e"], batch["log_anchor"], b)["logq"]
+                         for j in range(3)], 1)
+    ablated = torch.stack([model.readout(result["adapted_h"]-result["g"][:,j:j+1]*delta[:,j],
+                            batch["e"], batch["log_anchor"], b)["logq"] for j in range(3)], 1)
+    drift = (ablated-result["logq"][:,None]).abs().amax(2)
+    winner_changes = ablated.argmax(2) != result["logq"].argmax(1)[:,None]
+    norms = delta.norm(dim=2)
+    pairs = ((0,1), (0,2), (1,2))
+    cosine_rows = []
+    for i in range(len(labels)):
+        cosine_rows.append([float(torch.dot(delta[i,a],delta[i,c])/(norms[i,a]*norms[i,c]))
+                            if norms[i,a] > 0 and norms[i,c] > 0 else None for a,c in pairs])
+    losses = torch.full((len(labels),3), float("nan"), dtype=torch.float64)
+    pair_views = []
+    for j in range(1,4):
+        mask = (labels == 0)|(labels == j)
+        selected = (labels[mask] != 0).long()
+        def conditional_nll(logq):
+            pair = logq[mask][:,[0,j]]
+            return -(pair-torch.logsumexp(pair,1,keepdim=True))[torch.arange(len(pair)),selected]
+        own_loss = conditional_nll(views[:,j-1])
+        losses[mask,j-1] = own_loss
+        pair_views.append(dict(branch=j-1, negative_class_id=j, count=int(mask.sum()),
+            nll=float(own_loss.mean()) if mask.any() else None,
+            anchor_nll=float(conditional_nll(batch["log_anchor"]).mean()) if mask.any() else None,
+            main_nll=float(conditional_nll(result["logq"]).mean()) if mask.any() else None))
+    rows = [dict(auxiliary_logq=views[i].tolist(),
+                 auxiliary_pair_nll=[float(v) if torch.isfinite(v) else None for v in losses[i]],
+                 branch_cosines=cosine_rows[i], leave_one_branch_out_logq_drift=drift[i].tolist(),
+                 leave_one_branch_out_winner_changes=winner_changes[i].tolist()) for i in range(len(labels))]
+    cosine_summary = []
+    for k,(a,c) in enumerate(pairs):
+        values = [row[k] for row in cosine_rows if row[k] is not None]
+        cosine_summary.append(dict(branches=[a,c], valid_count=len(values),
+                                   mean=sum(values)/len(values) if values else None))
+    summary = dict(pair_views=pair_views, branch_cosines=cosine_summary,
+        branch_nonzero_count=(norms > 0).sum(0).tolist(),
+        leave_one_branch_out_mean_logq_drift=drift.mean(0).tolist(),
+        leave_one_branch_out_max_logq_drift=drift.amax(0).tolist(),
+        leave_one_branch_out_winner_change_count=winner_changes.sum(0).tolist(),
+        auxiliary_supervision_used=model.arm in ("S1","R1","U1"),
+        auxiliary_view="unscaled h+delta_j; same anchor, budget and shared readout",
+        scope="descriptive fixed-state diagnostics; not proof of specialization or accuracy gains")
+    return dict(rows=rows, summary=summary)
+
+
+def _prediction_rows(batch, logq, arm, seed, diagnostics=None, result=None, specialization=None):
     rows = []
     anchor = batch["log_anchor"]
     for i,record in enumerate(batch["records"]):
@@ -241,6 +292,9 @@ def _prediction_rows(batch, logq, arm, seed, diagnostics=None, result=None):
             row["tanh_saturation_count"] = int((result["scores"][i].tanh().abs() >= .95).sum())
             row["adapter_tanh_saturation_counts"] = json.dumps(
                 (result["delta"][i].abs()*math.sqrt(64) >= .95).sum(1).tolist(),separators=(",",":"))
+        if specialization is not None:
+            row.update({key:json.dumps(value,separators=(",",":"))
+                        for key,value in specialization["rows"][i].items()})
         rows.append(row)
     return rows
 
@@ -270,15 +324,17 @@ def _final_evidence(output, lock, raw_fit, raw_stop):
             if subset == "fit" and artifact is not None:
                 _same(logq,artifact["train_logq"],"final "+arm+"/"+str(seed))
             audit = None if model is None else audit_theory(model,batch,result)
+            specialization = specialization_diagnostics(model,batch,result) if model is not None and len(model.adapters) else None
             name = f"{subset}-{arm}-{seed}"
             tensors[name] = logq
-            tables[name] = _prediction_rows(batch,logq,arm,seed,audit,result)
+            tables[name] = _prediction_rows(batch,logq,arm,seed,audit,result,specialization)
             summaries.append(dict(subset=subset,arm=arm,seed=seed,
                 status="ANCHOR" if arm == "T0" else "CONVERGED" if arm in ("P","E") else selected["status"],
                 config=None if selected is None else selected["config"],
                 metrics=summarize_predictions(batch,logq,batch["log_anchor"]),
                 theory_violation_count=0 if audit is None else audit["violation_count"],
-                theory_summary=None if audit is None else {k:v for k,v in audit.items() if k != "rows"}))
+                theory_summary=None if audit is None else {k:v for k,v in audit.items() if k != "rows"},
+                specialization_summary=None if specialization is None else specialization["summary"]))
     stop_rows = [r for r in summaries if r["subset"] == "stop"]
     summary = dict(status="DEVELOPMENT_EVALUATED",final_group_count=len(lock["finals"]),groups=summaries,
         screen=screen_development([r for r in stop_rows if r["arm"] == "R1"],[r for r in stop_rows if r["arm"] != "R1"]),

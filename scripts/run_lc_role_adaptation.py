@@ -5,6 +5,7 @@ import argparse
 import base64
 import csv
 import hashlib
+import importlib.metadata
 import itertools
 import json
 import os
@@ -123,7 +124,15 @@ def build_jobs(protocol: dict) -> list[dict]:
     return jobs
 
 
+def runtime_environment() -> dict:
+    packages = ("torch", "numpy", "scipy", "scikit-learn", "threadpoolctl", "matplotlib")
+    return dict(python=platform.python_version(), platform=platform.platform(),
+                packages={name: importlib.metadata.version(name) for name in packages})
+
+
 def check_sources(root: Path, protocol: dict) -> dict:
+    if "runtime_environment" in protocol and protocol["runtime_environment"] != runtime_environment():
+        raise ValueError("Registered runtime environment changed.")
     snapshot = {}
     for relative, expected in protocol.get("source_sha256", {}).items():
         path = scoped_file(root, relative)
@@ -139,6 +148,7 @@ def default_protocol(root: Path) -> dict:
     old = json.loads(old_path.read_text(encoding="utf-8"))
     base = "outputs/training/abmp_frozen_visual_probe_v1/development_fold_0/"
     protocol = dict(draft_settings(), input_hashes=old["input_sha256"],
+                    runtime_environment=runtime_environment(),
                     cache_path=base+"frozen_features.pt",
                     cache_sha256="6bbb3221293d5bf0fcadb13bcaa7a3029fdc77e8328e119820665256e3509090",
                     audit_path=base+"image_feature_audit.json")
@@ -512,6 +522,7 @@ def run_stage(root: Path, protocol_path: Path | None, output: Path, stage: str) 
             result = dict(status="PREFLIGHT_OK", protocol_status=protocol["status"], class_counts=counts,
                           unique_groups=len({r["split_group_id"] for r in fit["records"]}),
                           python=platform.python_version(), torch=torch.__version__, platform=platform.platform(),
+                          runtime_environment=runtime_environment(),
                           source_snapshot=snapshot, stop_tables_parsed=False, max_fits=422, temperature_fits=4)
         elif stage == "benchmark":
             result = _benchmark(protocol, output, started)
@@ -521,7 +532,7 @@ def run_stage(root: Path, protocol_path: Path | None, output: Path, stage: str) 
         _json(output/"summary.json", result, exclusive=True)
         return result
     except Exception as error:
-        status = "NUMERIC_RANGE_FAILURE" if isinstance(error, NumericRangeFailure) else "TIMED_OUT" if str(error).startswith("TIMED_OUT") else "FAILED"
+        status = "NUMERIC_RANGE_FAILURE" if isinstance(error, NumericRangeFailure) or str(error).startswith("NUMERIC_RANGE_FAILURE") else "TIMED_OUT" if str(error).startswith("TIMED_OUT") else "FAILED"
         _json(output/"stage_state.json", dict(status=status, stage=stage, error=str(error), attempts=1))
         raise
 

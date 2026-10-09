@@ -192,6 +192,36 @@ class AnalysisTests(unittest.TestCase):
         self.assertFalse(screen["bounded_net_benefit_supported"])
         self.assertEqual(screen["u1_dominating_seeds"], list(SEEDS))
 
+    def test_specialization_reports_pair_views_and_each_branch_effect(self):
+        self.assertTrue(hasattr(self.analysis,"specialization_diagnostics"),"Missing semantic specialization diagnostics")
+        generator = torch.Generator().manual_seed(20261009)
+        batch = dict(h=torch.randn(12,64,generator=generator,dtype=torch.float64),
+                     e=torch.randn(12,23,generator=generator,dtype=torch.float64),
+                     log_anchor=torch.log_softmax(torch.randn(12,4,generator=generator,dtype=torch.float64),1),
+                     labels=torch.arange(12)%4,records=[dict(image_id=str(i)) for i in range(12)])
+        model = RoleResidualModel("R1",seed=SEEDS[0],alpha_max=.5,beta_max=.5)
+        with torch.no_grad():
+            for branch in model.adapters:
+                branch.up.weight.copy_(torch.randn(branch.up.weight.shape,generator=generator,dtype=torch.float64)*.3)
+            model.head[2].weight.copy_(torch.randn(model.head[2].weight.shape,generator=generator,dtype=torch.float64)*.2)
+            result = model(batch["h"],batch["e"],batch["log_anchor"])
+            diagnostic = self.analysis.specialization_diagnostics(model,batch,result)
+        self.assertEqual(len(diagnostic["rows"]),12)
+        for j in range(1,4):
+            view = model.readout(batch["h"]+result["delta"][:,j-1],batch["e"],batch["log_anchor"],result["b"])["logq"]
+            mask = (batch["labels"] == 0)|(batch["labels"] == j)
+            pair = view[mask][:,[0,j]]
+            pair -= torch.logsumexp(pair,1,keepdim=True)
+            expected = -pair[torch.arange(len(pair)),(batch["labels"][mask] != 0).long()].mean()
+            self.assertAlmostEqual(diagnostic["summary"]["pair_views"][j-1]["nll"],float(expected.detach()),places=14)
+        self.assertGreater(max(diagnostic["rows"][0]["leave_one_branch_out_logq_drift"]),0.)
+        delta = result["delta"][0]
+        expected_cosine = float(torch.dot(delta[0],delta[1])/(delta[0].norm()*delta[1].norm()))
+        self.assertAlmostEqual(diagnostic["rows"][0]["branch_cosines"][0],expected_cosine,places=14)
+        zero = RoleResidualModel("R1",seed=SEEDS[0],alpha_max=.5,beta_max=.5)
+        empty = self.analysis.specialization_diagnostics(zero,batch,zero(batch["h"],batch["e"],batch["log_anchor"]))
+        self.assertEqual(empty["rows"][0]["branch_cosines"],[None,None,None])
+
     def test_replay_training_needs_independent_authorization_before_data(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)
@@ -241,6 +271,12 @@ class AnalysisTests(unittest.TestCase):
             self.assertEqual(verified["oof_candidate_count"],2124)
             self.assertFalse(verified["training_replayed"])
             self.assertFalse(summary["screen"]["passed"])
+            role = next(r for r in summary["groups"] if r["subset"] == "stop" and r["arm"] == "R1")
+            self.assertTrue(role["specialization_summary"]["auxiliary_supervision_used"])
+            self.assertEqual(role["specialization_summary"]["branch_nonzero_count"],[0,0,0])
+            header = (output/"evaluation"/"predictions"/f"stop-R1-{SEEDS[0]}.csv").read_text(encoding="utf-8").splitlines()[0]
+            self.assertIn("leave_one_branch_out_logq_drift",header)
+            self.assertIn("auxiliary_pair_nll",header)
 
     def test_altered_prediction_is_rejected(self):
         with tempfile.TemporaryDirectory() as folder:
