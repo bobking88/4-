@@ -73,12 +73,30 @@ $$
 
 ## 6. 实际预检与合成计时
 
-完整源码提交冻结后执行一次，尚待记录实测结果。输出路径：
+实现冻结提交：`f019395`。完整源码提交后，实际执行一次预检与一次合成计时，均成功。预检与计时的draft协议完全相同；完成后再次检查所有源码/输入hash与环境版本，仍与快照一致。输出路径：
 
 - `outputs/training/lc_role_adaptation_v1/preflight/`
 - `outputs/training/lc_role_adaptation_v1/synthetic_benchmark/`
 
 预检只解析既定fit子集，允许对既有stop文件计算hash，不解析stop源表/标签。计时仅使用120行合成数据（80训练/40验证），每神经组20步及两种凸控制。预算预测不是实测完整开发耗时；若预测超过6小时，不静默缩小候选网格。
+
+| 实测项目 | 结果 |
+| --- | --- |
+| 预检状态 | `PREFLIGHT_OK`；340个unique groups，四类66/130/97/47；`stop_tables_parsed=false` |
+| 授权状态 | `DRAFT_NOT_AUTHORIZED`；不得用于真实fit/evaluate |
+| 合成状态 | `BENCHMARK_COMPLETE`；10个worker（1预处理+7神经+2凸），均exit 0、alive=false、attempts=1 |
+| 预处理wall time | 4.953秒（包含进程导入等开销） |
+| 七神经组20步compute time | H0 .063、F0 .078、S0 .094、S1 .157、R0 .094、R1 .140、U1 .125秒 |
+| P/E compute time | 各约.063秒，均通过驻点及gap证书 |
+| P梯度/gap | `5.2366e-9 / 1.3711e-15` |
+| E梯度/gap | `2.1212e-16 / 2.2496e-30` |
+| 完整上限排程估计 | 7810.073秒，约2.17小时，低于21600秒预算 |
+
+CPU、float64、单线程；Python3.11.5，torch2.12.1+cu130，numpy2.4.6，scipy1.17.1，scikit-learn1.9.0，threadpoolctl3.6.0，matplotlib3.11.1。CUDA软件包存在不代表本实验使用GPU。
+
+预测使用较慢神经组的导入开销及20步compute time按400步、340/80样本缩放，凸求解按样本缩放、预处理按样本平方缩放。它不是严格的计算上界：真实特征谱、温度优化和凸求解迭代数可能改变耗时；实际执行仍依赖硬timeout，而不是相信此估计。未因计时结果改网格或读真实stop。
+
+GitHub同步清单包含两目录的36个小型JSON/JSONL/CSV/log文件；`.pt`、原图、冻结特征缓存和模型权重仅本地保存并保留hash。源码和清单可追溯，但第三方仍须合法取得原图及冻结模型，不称开箱即完整复现。
 
 ## 7. 后续边界
 

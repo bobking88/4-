@@ -1,0 +1,10 @@
+{"job_id": "synthetic-prepare", "status": "COMPLETE", "attempts": 1, "pid": 27544, "exit_code": 0, "alive": false, "elapsed_seconds": 4.952999999979511, "log_tail": "", "heartbeats": [], "cumulative_seconds": 4.9689999999827705}
+{"job_id": "synthetic-H0", "status": "COMPLETE", "attempts": 1, "pid": 12044, "exit_code": 0, "alive": false, "elapsed_seconds": 5.0, "log_tail": "", "heartbeats": [], "cumulative_seconds": 9.98499999998603}
+{"job_id": "synthetic-F0", "status": "COMPLETE", "attempts": 1, "pid": 19024, "exit_code": 0, "alive": false, "elapsed_seconds": 5.0, "log_tail": "", "heartbeats": [], "cumulative_seconds": 14.98499999998603}
+{"job_id": "synthetic-S0", "status": "COMPLETE", "attempts": 1, "pid": 33992, "exit_code": 0, "alive": false, "elapsed_seconds": 5.0, "log_tail": "", "heartbeats": [], "cumulative_seconds": 20.0}
+{"job_id": "synthetic-S1", "status": "COMPLETE", "attempts": 1, "pid": 25708, "exit_code": 0, "alive": false, "elapsed_seconds": 5.0939999999827705, "log_tail": "", "heartbeats": [], "cumulative_seconds": 25.10999999998603}
+{"job_id": "synthetic-R0", "status": "COMPLETE", "attempts": 1, "pid": 29440, "exit_code": 0, "alive": false, "elapsed_seconds": 5.0, "log_tail": "", "heartbeats": [], "cumulative_seconds": 30.125}
+{"job_id": "synthetic-R1", "status": "COMPLETE", "attempts": 1, "pid": 34712, "exit_code": 0, "alive": false, "elapsed_seconds": 5.0, "log_tail": "", "heartbeats": [], "cumulative_seconds": 35.14100000000326}
+{"job_id": "synthetic-U1", "status": "COMPLETE", "attempts": 1, "pid": 31448, "exit_code": 0, "alive": false, "elapsed_seconds": 4.98399999999674, "log_tail": "", "heartbeats": [], "cumulative_seconds": 40.15700000000652}
+{"job_id": "synthetic-P", "status": "COMPLETE", "attempts": 1, "pid": 5104, "exit_code": 0, "alive": false, "elapsed_seconds": 4.937999999965541, "log_tail": "", "heartbeats": [], "cumulative_seconds": 45.10999999998603}
+{"job_id": "synthetic-E", "status": "COMPLETE", "attempts": 1, "pid": 24436, "exit_code": 0, "alive": false, "elapsed_seconds": 4.936999999976251, "log_tail": "", "heartbeats": [], "cumulative_seconds": 50.07799999997951}

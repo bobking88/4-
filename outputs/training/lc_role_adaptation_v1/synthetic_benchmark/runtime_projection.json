@@ -1,0 +1,58 @@
+{
+  "status": "BENCHMARK_COMPLETE",
+  "scope": "SYNTHETIC_ONLY_NOT_TRAINING_AUTHORIZATION",
+  "rows": 120,
+  "neural_updates": 20,
+  "per_arm": [
+    {
+      "arm": "H0",
+      "elapsed_seconds": 5.0,
+      "compute_seconds": 0.06299999996554106
+    },
+    {
+      "arm": "F0",
+      "elapsed_seconds": 5.0,
+      "compute_seconds": 0.0779999999795109
+    },
+    {
+      "arm": "S0",
+      "elapsed_seconds": 5.0,
+      "compute_seconds": 0.0940000000409782
+    },
+    {
+      "arm": "S1",
+      "elapsed_seconds": 5.0939999999827705,
+      "compute_seconds": 0.15700000000651926
+    },
+    {
+      "arm": "R0",
+      "elapsed_seconds": 5.0,
+      "compute_seconds": 0.09399999998277053
+    },
+    {
+      "arm": "R1",
+      "elapsed_seconds": 5.0,
+      "compute_seconds": 0.13999999995576218
+    },
+    {
+      "arm": "U1",
+      "elapsed_seconds": 4.98399999999674,
+      "compute_seconds": 0.125
+    },
+    {
+      "arm": "P",
+      "elapsed_seconds": 4.937999999965541,
+      "compute_seconds": 0.06300000002374873
+    },
+    {
+      "arm": "E",
+      "elapsed_seconds": 4.936999999976251,
+      "compute_seconds": 0.06300000002374873
+    }
+  ],
+  "preparation_seconds": 4.952999999979511,
+  "projected_upper_schedule_seconds": 7810.07325021259,
+  "fit_upper_bound": 422,
+  "temperature_fits": 4,
+  "uncertainty": "Runtime projection, not a guaranteed wall time"
+}
