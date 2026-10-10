@@ -1,0 +1,96 @@
+{
+  "status": "FAILED_RUN_COMPLETE_SMALL_EVIDENCE",
+  "excludes": [
+    ".pt weights/packets/cache; local inventory hashes only"
+  ],
+  "member_count": 14,
+  "members": [
+    {
+      "path": ".gitattributes",
+      "size_bytes": 4128,
+      "sha256": "d5188c63836202c6699e90435da7b4483d3dd935289ee30bec4ff007141d6c63",
+      "git_blob_sha": "285ccccbe60685f0f3ba67266469bbe098ab3ad2"
+    },
+    {
+      "path": "docs/experiment_records/2026-10-10_lc_role_development_abort.md",
+      "size_bytes": 6384,
+      "sha256": "138a7280ffce2d47c2dcd95d0a59e7f854b5d85911222aa5613fe773677cb890",
+      "git_blob_sha": "9bb3c512de602e16bc576fbd151c086c7a36aac1"
+    },
+    {
+      "path": "outputs/lc_role_implementation_qa/development_fit_console.log",
+      "size_bytes": 1468,
+      "sha256": "11c71addf2d8e5109f8cc62fa69a311059b5c37256fee4d05c4f01c28b61d391",
+      "git_blob_sha": "89ae20788b1c6070dfa3c575b2281610e43288f3"
+    },
+    {
+      "path": "outputs/training/lc_role_adaptation_v1/development_fold_0/abort_archive/abort_audit.json",
+      "size_bytes": 2361,
+      "sha256": "1ba307dec65b34c7e067a2249499f9476c039af6d6608b81b1867dce44fc0e72",
+      "git_blob_sha": "2674ef9b1fd106c86a1e27ec56120762e045a78b"
+    },
+    {
+      "path": "outputs/training/lc_role_adaptation_v1/development_fold_0/abort_archive/artifact_inventory.csv",
+      "size_bytes": 217152,
+      "sha256": "5b64505be9a4bfbe77c5c58f610a99245c1d0b6cc6d013acb98a8cc11d2b6096",
+      "git_blob_sha": "d0e729c5ce0504868fc2b502c082a6f534809dac"
+    },
+    {
+      "path": "outputs/training/lc_role_adaptation_v1/development_fold_0/abort_archive/partial_worker_evidence.zip",
+      "size_bytes": 5118023,
+      "sha256": "a8fe44ecc62a554a12ad3c500b44bb583e4b39dcea53c2640fd0443b06a5024f",
+      "git_blob_sha": "f6a7a3b2f358d7379c0757be3c20bc93a45b8117"
+    },
+    {
+      "path": "outputs/training/lc_role_adaptation_v1/development_fold_0/abort_archive/source_snapshot.json",
+      "size_bytes": 5731,
+      "sha256": "59a7cdbb85f6e2db5c86650c8b9952fab94ca9535b7d96c3f1b87bc801686f51",
+      "git_blob_sha": "f49c1e770f4a80943081ec5a1a8f32946e5b949f"
+    },
+    {
+      "path": "outputs/training/lc_role_adaptation_v1/development_fold_0/abort_archive/worker_evidence_manifest.json",
+      "size_bytes": 173574,
+      "sha256": "1806bdf324c0d363e0718181dabe2d1af1db222fa8dd0c72f375dbe0e2a82b58",
+      "git_blob_sha": "8273c64ebb05a6aff1e4fde966226e3bb263adda"
+    },
+    {
+      "path": "outputs/training/lc_role_adaptation_v1/development_fold_0/host_power_events.json",
+      "size_bytes": 1540,
+      "sha256": "a3ce55e329a6cd4c30f88257c6209c4af74fce3009a6b4c04f51c892d31ddc0f",
+      "git_blob_sha": "711565ad02da39b7c8f81585822b4567e8f03536"
+    },
+    {
+      "path": "outputs/training/lc_role_adaptation_v1/development_fold_0/inner_assignment.csv",
+      "size_bytes": 10925,
+      "sha256": "224d432f1c735890f384e617d06b0145949c470d5a794ff661429fee800fae0f",
+      "git_blob_sha": "12814a624db2cae95835fe309b1b64e8935a7174"
+    },
+    {
+      "path": "outputs/training/lc_role_adaptation_v1/development_fold_0/inner_assignment.json",
+      "size_bytes": 44559,
+      "sha256": "e603ba0b603bc903f82649dd19edaebb69f7e171be0dec2092d69048c5469927",
+      "git_blob_sha": "200ad97995ba606695a7cc70c7fd68d96c1faf76"
+    },
+    {
+      "path": "outputs/training/lc_role_adaptation_v1/development_fold_0/job_ledger.jsonl",
+      "size_bytes": 76740,
+      "sha256": "3714e33d99048d79d983780e38ed6df05d4ae2acc0d98eec34fc8c47587f495e",
+      "git_blob_sha": "87c4674825ec2f15e84821bf549974f95cd463f3"
+    },
+    {
+      "path": "outputs/training/lc_role_adaptation_v1/development_fold_0/registered_protocol.json",
+      "size_bytes": 11190,
+      "sha256": "36254788f172af988124fe7058c7822dd96ac5be803d37d99b02ca754340e1db",
+      "git_blob_sha": "7d454d513f5944182e4e6e255d1c2d84e11a8cd9"
+    },
+    {
+      "path": "outputs/training/lc_role_adaptation_v1/development_fold_0/stage_state.json",
+      "size_bytes": 89,
+      "sha256": "11cf66260e6f7bb3f42890fb45d803eb498c6f1eae1a728d909c65b6286884be",
+      "git_blob_sha": "8c6bee175877164db2cb7b113fbb32f994696e0b"
+    }
+  ],
+  "includes_all_worker_small_evidence": true,
+  "worker_small_evidence_zip_members": 1040,
+  "self_hash_excluded": true
+}

@@ -1,0 +1,2044 @@
+{
+  "rows": [
+    {
+      "image_id": "VTM-000005",
+      "split_group_id": "DG-c56c77bc69b9",
+      "inner_fold": 1,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000008",
+      "split_group_id": "DG-866dc24795ee",
+      "inner_fold": 2,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000037",
+      "split_group_id": "DG-134533c2ee9a",
+      "inner_fold": 1,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000074",
+      "split_group_id": "DG-05c8d12a3443",
+      "inner_fold": 1,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000087",
+      "split_group_id": "DG-9eeca622f783",
+      "inner_fold": 1,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000088",
+      "split_group_id": "DG-6aab048ce8a7",
+      "inner_fold": 1,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000118",
+      "split_group_id": "DG-14b376873e31",
+      "inner_fold": 2,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000142",
+      "split_group_id": "DG-6f8fb1c77e4c",
+      "inner_fold": 0,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000221",
+      "split_group_id": "DG-a4bd6daf961b",
+      "inner_fold": 2,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000252",
+      "split_group_id": "DG-ed7133e0dd49",
+      "inner_fold": 2,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000281",
+      "split_group_id": "DG-84fcc1d3f52a",
+      "inner_fold": 1,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000298",
+      "split_group_id": "DG-92e88f8c1435",
+      "inner_fold": 0,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000326",
+      "split_group_id": "DG-328ad092690f",
+      "inner_fold": 0,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000381",
+      "split_group_id": "DG-32afcf6adb10",
+      "inner_fold": 0,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000383",
+      "split_group_id": "DG-f0a06cb9e4f5",
+      "inner_fold": 2,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000401",
+      "split_group_id": "DG-1b2524fd0729",
+      "inner_fold": 2,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000471",
+      "split_group_id": "DG-cea97ec6d8bc",
+      "inner_fold": 1,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000476",
+      "split_group_id": "DG-59d980326e53",
+      "inner_fold": 1,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000502",
+      "split_group_id": "DG-798518079cf8",
+      "inner_fold": 1,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000526",
+      "split_group_id": "DG-0e1dac20bf87",
+      "inner_fold": 0,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000553",
+      "split_group_id": "DG-2a97609617c5",
+      "inner_fold": 2,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000611",
+      "split_group_id": "DG-8aca82ee2d9a",
+      "inner_fold": 0,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000653",
+      "split_group_id": "DG-43118d65bbc5",
+      "inner_fold": 0,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000679",
+      "split_group_id": "DG-1b90ed208216",
+      "inner_fold": 1,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000693",
+      "split_group_id": "DG-215e87cde7ce",
+      "inner_fold": 0,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000714",
+      "split_group_id": "DG-d5b2d2d0f47d",
+      "inner_fold": 2,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000724",
+      "split_group_id": "DG-71445ecdb56e",
+      "inner_fold": 0,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000730",
+      "split_group_id": "DG-3a2fcad1ab5c",
+      "inner_fold": 0,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000740",
+      "split_group_id": "DG-be20a789f2d6",
+      "inner_fold": 1,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000784",
+      "split_group_id": "DG-dee47a6e3020",
+      "inner_fold": 1,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000787",
+      "split_group_id": "DG-c6f678882da1",
+      "inner_fold": 1,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000789",
+      "split_group_id": "DG-1c975bac96ef",
+      "inner_fold": 0,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000793",
+      "split_group_id": "DG-8e11b27e79d2",
+      "inner_fold": 1,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000820",
+      "split_group_id": "DG-cb62257007e8",
+      "inner_fold": 2,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000829",
+      "split_group_id": "DG-3a19371a5a2f",
+      "inner_fold": 0,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000878",
+      "split_group_id": "DG-b4b902bcc281",
+      "inner_fold": 0,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000950",
+      "split_group_id": "DG-52149f250b6b",
+      "inner_fold": 0,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000968",
+      "split_group_id": "DG-4504ea2bbae4",
+      "inner_fold": 1,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000984",
+      "split_group_id": "DG-20a1ed1c7f25",
+      "inner_fold": 0,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-000988",
+      "split_group_id": "DG-9909953eb71a",
+      "inner_fold": 0,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-001009",
+      "split_group_id": "DG-3a6609277b62",
+      "inner_fold": 2,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-001017",
+      "split_group_id": "DG-aa250e46435d",
+      "inner_fold": 0,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-001032",
+      "split_group_id": "DG-e8a4e7f08a76",
+      "inner_fold": 0,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-001046",
+      "split_group_id": "DG-02686e525e12",
+      "inner_fold": 2,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-001055",
+      "split_group_id": "DG-cc8a31d9a8d1",
+      "inner_fold": 1,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-001076",
+      "split_group_id": "DG-5d50abc742d1",
+      "inner_fold": 2,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-001150",
+      "split_group_id": "DG-96f2335172fb",
+      "inner_fold": 2,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-001164",
+      "split_group_id": "DG-a3b1959b14cb",
+      "inner_fold": 2,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-001182",
+      "split_group_id": "DG-f78cf8579796",
+      "inner_fold": 0,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-001216",
+      "split_group_id": "DG-a0b56d2c7eb4",
+      "inner_fold": 2,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-001247",
+      "split_group_id": "DG-fa5b00803530",
+      "inner_fold": 1,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-001248",
+      "split_group_id": "DG-54453e287950",
+      "inner_fold": 0,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-001277",
+      "split_group_id": "DG-9aa6cf537ad2",
+      "inner_fold": 1,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-001283",
+      "split_group_id": "DG-f241854c4277",
+      "inner_fold": 2,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-001312",
+      "split_group_id": "DG-060ca0c5c72d",
+      "inner_fold": 2,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-001342",
+      "split_group_id": "DG-4329fd0fa254",
+      "inner_fold": 2,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-001357",
+      "split_group_id": "DG-7f4dc6574ffe",
+      "inner_fold": 2,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-001382",
+      "split_group_id": "DG-1509292b6cc8",
+      "inner_fold": 0,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-001395",
+      "split_group_id": "DG-537642b233cd",
+      "inner_fold": 2,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-001419",
+      "split_group_id": "DG-d98fb1bcefac",
+      "inner_fold": 2,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-001471",
+      "split_group_id": "DG-127eae5e258a",
+      "inner_fold": 2,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-001509",
+      "split_group_id": "DG-e325dc5be40a",
+      "inner_fold": 1,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-001607",
+      "split_group_id": "DG-080fb8d0d108",
+      "inner_fold": 1,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-001621",
+      "split_group_id": "DG-101ac59f319a",
+      "inner_fold": 0,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-001632",
+      "split_group_id": "DG-34e20a4b6942",
+      "inner_fold": 1,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-001671",
+      "split_group_id": "DG-a5ee170f9ded",
+      "inner_fold": 1,
+      "class_id": 0
+    },
+    {
+      "image_id": "VTM-001706",
+      "split_group_id": "DG-09c9971334d4",
+      "inner_fold": 0,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-001728",
+      "split_group_id": "DG-df4c8a563a24",
+      "inner_fold": 1,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-001740",
+      "split_group_id": "DG-4b56e6a07cac",
+      "inner_fold": 1,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-001767",
+      "split_group_id": "DG-dc4471ec2abc",
+      "inner_fold": 0,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-001818",
+      "split_group_id": "DG-37314de86155",
+      "inner_fold": 1,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-001873",
+      "split_group_id": "DG-2fc4fa8ac5ba",
+      "inner_fold": 2,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-001936",
+      "split_group_id": "DG-eeae9d39a9dc",
+      "inner_fold": 2,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-001949",
+      "split_group_id": "DG-407a74f71db2",
+      "inner_fold": 1,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-001963",
+      "split_group_id": "DG-b51f8446301b",
+      "inner_fold": 0,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-001966",
+      "split_group_id": "DG-dd004fef834a",
+      "inner_fold": 1,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-001998",
+      "split_group_id": "DG-2c0e69601f5e",
+      "inner_fold": 1,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002028",
+      "split_group_id": "DG-946770892149",
+      "inner_fold": 0,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002044",
+      "split_group_id": "DG-6975427a2b00",
+      "inner_fold": 0,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002050",
+      "split_group_id": "DG-b3c27b551590",
+      "inner_fold": 1,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002065",
+      "split_group_id": "DG-da3cfad91132",
+      "inner_fold": 2,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002070",
+      "split_group_id": "DG-4d2397e45b8d",
+      "inner_fold": 2,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002098",
+      "split_group_id": "DG-5f080264a9e9",
+      "inner_fold": 2,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002111",
+      "split_group_id": "DG-c547e96f8a5e",
+      "inner_fold": 0,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002137",
+      "split_group_id": "DG-d17fb3fe6588",
+      "inner_fold": 2,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002205",
+      "split_group_id": "DG-024f820c5d42",
+      "inner_fold": 2,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002208",
+      "split_group_id": "DG-8a9eea001fb7",
+      "inner_fold": 2,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002209",
+      "split_group_id": "DG-013a772a41b4",
+      "inner_fold": 2,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002212",
+      "split_group_id": "DG-47fc26f33286",
+      "inner_fold": 1,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002265",
+      "split_group_id": "DG-4d5ee2eb3642",
+      "inner_fold": 1,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002322",
+      "split_group_id": "DG-2c899b501f1d",
+      "inner_fold": 2,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002358",
+      "split_group_id": "DG-c8215fda6914",
+      "inner_fold": 1,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002388",
+      "split_group_id": "DG-7927329cc85d",
+      "inner_fold": 1,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002391",
+      "split_group_id": "DG-ebc7edc66f19",
+      "inner_fold": 1,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002445",
+      "split_group_id": "DG-83eb15527c67",
+      "inner_fold": 1,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002466",
+      "split_group_id": "DG-7e0145e05115",
+      "inner_fold": 0,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002468",
+      "split_group_id": "DG-4b5608916bb1",
+      "inner_fold": 2,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002508",
+      "split_group_id": "DG-290ae7f2f62f",
+      "inner_fold": 2,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002530",
+      "split_group_id": "DG-8b08316d8e8a",
+      "inner_fold": 0,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002581",
+      "split_group_id": "DG-f47265c51350",
+      "inner_fold": 1,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002588",
+      "split_group_id": "DG-bf1e0b7b2b2d",
+      "inner_fold": 0,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002596",
+      "split_group_id": "DG-6357e7195437",
+      "inner_fold": 1,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002607",
+      "split_group_id": "DG-8fe6033ae663",
+      "inner_fold": 2,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002682",
+      "split_group_id": "DG-899b21bec40d",
+      "inner_fold": 2,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002717",
+      "split_group_id": "DG-3e6877aaa98b",
+      "inner_fold": 1,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002718",
+      "split_group_id": "DG-d20c64f46ebb",
+      "inner_fold": 0,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002721",
+      "split_group_id": "DG-c37da979c6a0",
+      "inner_fold": 0,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002735",
+      "split_group_id": "DG-8a8a435e8e4b",
+      "inner_fold": 1,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002736",
+      "split_group_id": "DG-7c1b30efe9b2",
+      "inner_fold": 0,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002749",
+      "split_group_id": "DG-07647b295c72",
+      "inner_fold": 1,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002750",
+      "split_group_id": "DG-1b5a4a187e76",
+      "inner_fold": 1,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002778",
+      "split_group_id": "DG-06b16132942b",
+      "inner_fold": 2,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002841",
+      "split_group_id": "DG-6c3015bf0dd0",
+      "inner_fold": 0,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002899",
+      "split_group_id": "DG-9aa0f6f11f4d",
+      "inner_fold": 0,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002914",
+      "split_group_id": "DG-ecd4fac4287f",
+      "inner_fold": 0,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002934",
+      "split_group_id": "DG-2ed01f8ef8d1",
+      "inner_fold": 1,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002948",
+      "split_group_id": "DG-c8c2af62c64d",
+      "inner_fold": 0,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002980",
+      "split_group_id": "DG-e16a6abaf9b2",
+      "inner_fold": 0,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-002992",
+      "split_group_id": "DG-fc957ab58e9b",
+      "inner_fold": 0,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003021",
+      "split_group_id": "DG-36932a249f8e",
+      "inner_fold": 2,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003034",
+      "split_group_id": "DG-00b42aa15c42",
+      "inner_fold": 0,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003040",
+      "split_group_id": "DG-fea5d767b540",
+      "inner_fold": 0,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003152",
+      "split_group_id": "DG-9c840e161e3d",
+      "inner_fold": 2,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003177",
+      "split_group_id": "DG-490ca7f8b15a",
+      "inner_fold": 2,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003192",
+      "split_group_id": "DG-3d7227aa9b91",
+      "inner_fold": 2,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003196",
+      "split_group_id": "DG-00e1e7a9cabb",
+      "inner_fold": 0,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003227",
+      "split_group_id": "DG-04c20cda0e71",
+      "inner_fold": 0,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003306",
+      "split_group_id": "DG-1ee4428aac3b",
+      "inner_fold": 1,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003307",
+      "split_group_id": "DG-38f00c502b7d",
+      "inner_fold": 2,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003311",
+      "split_group_id": "DG-e85c640a9c96",
+      "inner_fold": 0,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003334",
+      "split_group_id": "DG-a710b9a2298b",
+      "inner_fold": 0,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003335",
+      "split_group_id": "DG-34dd699c74d9",
+      "inner_fold": 0,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003345",
+      "split_group_id": "DG-9c58387a1341",
+      "inner_fold": 1,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003392",
+      "split_group_id": "DG-adb8ff4a3305",
+      "inner_fold": 2,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003422",
+      "split_group_id": "DG-5f94cd40772b",
+      "inner_fold": 0,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003469",
+      "split_group_id": "DG-8e7d2619575d",
+      "inner_fold": 2,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003484",
+      "split_group_id": "DG-ba79d4ae3e6f",
+      "inner_fold": 2,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003492",
+      "split_group_id": "DG-badb6c58fb4c",
+      "inner_fold": 0,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003504",
+      "split_group_id": "DG-441ba4d71a75",
+      "inner_fold": 0,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003550",
+      "split_group_id": "DG-89773fbc8e7a",
+      "inner_fold": 1,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003584",
+      "split_group_id": "DG-28164c360700",
+      "inner_fold": 2,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003587",
+      "split_group_id": "DG-7e62e8adad39",
+      "inner_fold": 1,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003610",
+      "split_group_id": "DG-d551c2a1ee4f",
+      "inner_fold": 1,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003667",
+      "split_group_id": "DG-99dab9bc8ee8",
+      "inner_fold": 2,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003694",
+      "split_group_id": "DG-1dc142df98e6",
+      "inner_fold": 1,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003704",
+      "split_group_id": "DG-3462001fa780",
+      "inner_fold": 2,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003714",
+      "split_group_id": "DG-10893e86d676",
+      "inner_fold": 1,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003774",
+      "split_group_id": "DG-d1bfbb45f49d",
+      "inner_fold": 1,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003781",
+      "split_group_id": "DG-a453b1efc70f",
+      "inner_fold": 0,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003795",
+      "split_group_id": "DG-9447598af4cc",
+      "inner_fold": 2,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003817",
+      "split_group_id": "DG-bdbd224e45a1",
+      "inner_fold": 2,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003825",
+      "split_group_id": "DG-b2fbba78e76c",
+      "inner_fold": 0,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003875",
+      "split_group_id": "DG-b9ac843632dd",
+      "inner_fold": 2,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003884",
+      "split_group_id": "DG-9a0ced165273",
+      "inner_fold": 1,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003928",
+      "split_group_id": "DG-7baf62e4bd78",
+      "inner_fold": 1,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003963",
+      "split_group_id": "DG-4838f0e63554",
+      "inner_fold": 1,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003989",
+      "split_group_id": "DG-2da0a4904941",
+      "inner_fold": 0,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-003990",
+      "split_group_id": "DG-067e404da2ae",
+      "inner_fold": 2,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-004004",
+      "split_group_id": "DG-f8ce8cd92306",
+      "inner_fold": 2,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-004017",
+      "split_group_id": "DG-bb59d8a61e69",
+      "inner_fold": 0,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-004057",
+      "split_group_id": "DG-a2f9f7b4b664",
+      "inner_fold": 1,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-004097",
+      "split_group_id": "DG-aa684bb9f534",
+      "inner_fold": 2,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-004103",
+      "split_group_id": "DG-e2ced24584b8",
+      "inner_fold": 0,
+      "class_id": 2
+    },
+    {
+      "image_id": "VTM-004139",
+      "split_group_id": "DG-fededd0ce8aa",
+      "inner_fold": 0,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-004194",
+      "split_group_id": "DG-3be83e28c412",
+      "inner_fold": 0,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-004213",
+      "split_group_id": "DG-8ecbbdd1dd86",
+      "inner_fold": 2,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-004261",
+      "split_group_id": "DG-ebf4b2913dc1",
+      "inner_fold": 2,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-004268",
+      "split_group_id": "DG-65aea3032445",
+      "inner_fold": 0,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-004304",
+      "split_group_id": "DG-03519b037d6a",
+      "inner_fold": 2,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-004329",
+      "split_group_id": "DG-f4f4ec97614c",
+      "inner_fold": 2,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-004380",
+      "split_group_id": "DG-bfacba130f10",
+      "inner_fold": 1,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-004383",
+      "split_group_id": "DG-a154ff2570aa",
+      "inner_fold": 2,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-004410",
+      "split_group_id": "DG-8595231a9602",
+      "inner_fold": 1,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-004429",
+      "split_group_id": "DG-2b0e9254349c",
+      "inner_fold": 2,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-004443",
+      "split_group_id": "DG-f81a10ce8a95",
+      "inner_fold": 1,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-004465",
+      "split_group_id": "DG-b25c7d12c261",
+      "inner_fold": 1,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-004536",
+      "split_group_id": "DG-cd5ac65925db",
+      "inner_fold": 1,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-004539",
+      "split_group_id": "DG-2df5601df0a0",
+      "inner_fold": 1,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-004551",
+      "split_group_id": "DG-790ba3916d97",
+      "inner_fold": 1,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-004571",
+      "split_group_id": "DG-e11f0c422035",
+      "inner_fold": 1,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-004590",
+      "split_group_id": "DG-82a5d3fbebab",
+      "inner_fold": 2,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-004619",
+      "split_group_id": "DG-7124eccb0fa9",
+      "inner_fold": 2,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-004642",
+      "split_group_id": "DG-78b46abc4f6e",
+      "inner_fold": 1,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-004644",
+      "split_group_id": "DG-3e4a9e2df8b3",
+      "inner_fold": 0,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-004710",
+      "split_group_id": "DG-5de1646fc38c",
+      "inner_fold": 2,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-004712",
+      "split_group_id": "DG-d59d955b7917",
+      "inner_fold": 2,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-004723",
+      "split_group_id": "DG-b28200684618",
+      "inner_fold": 0,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-004725",
+      "split_group_id": "DG-db918e7bf2a1",
+      "inner_fold": 2,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-004731",
+      "split_group_id": "DG-2744cabbd30d",
+      "inner_fold": 2,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-004752",
+      "split_group_id": "DG-c05dfd1427d0",
+      "inner_fold": 0,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-004770",
+      "split_group_id": "DG-6ac201f1fceb",
+      "inner_fold": 0,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-004830",
+      "split_group_id": "DG-62a3af97b3a6",
+      "inner_fold": 2,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-004869",
+      "split_group_id": "DG-4f7f500cdd02",
+      "inner_fold": 1,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-004880",
+      "split_group_id": "DG-6ce5b842832c",
+      "inner_fold": 0,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-004897",
+      "split_group_id": "DG-2c16ff8f2499",
+      "inner_fold": 1,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-004907",
+      "split_group_id": "DG-78b3d3ddbae7",
+      "inner_fold": 0,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-004908",
+      "split_group_id": "DG-8549029ec9c5",
+      "inner_fold": 1,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-004969",
+      "split_group_id": "DG-0552f6f86183",
+      "inner_fold": 0,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-005037",
+      "split_group_id": "DG-254019202fdb",
+      "inner_fold": 0,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-005055",
+      "split_group_id": "DG-9e10fc231ca0",
+      "inner_fold": 0,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-005061",
+      "split_group_id": "DG-5ea940153c87",
+      "inner_fold": 1,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-005067",
+      "split_group_id": "DG-b4d0b6499ae1",
+      "inner_fold": 1,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-005101",
+      "split_group_id": "DG-90d1f8ac69ec",
+      "inner_fold": 2,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-005110",
+      "split_group_id": "DG-86ac20a333a4",
+      "inner_fold": 2,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-005144",
+      "split_group_id": "DG-b447ded5a7f9",
+      "inner_fold": 2,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-005172",
+      "split_group_id": "DG-e25575bbef0a",
+      "inner_fold": 0,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-005175",
+      "split_group_id": "DG-bd581c571442",
+      "inner_fold": 0,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-005211",
+      "split_group_id": "DG-1387f1c5cef6",
+      "inner_fold": 0,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-005229",
+      "split_group_id": "DG-97123b8e5595",
+      "inner_fold": 1,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-005281",
+      "split_group_id": "DG-31cf2bbd23f5",
+      "inner_fold": 1,
+      "class_id": 3
+    },
+    {
+      "image_id": "VTM-005330",
+      "split_group_id": "DG-f6d3862025a9",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-005414",
+      "split_group_id": "DG-d053a42b81b9",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-005519",
+      "split_group_id": "DG-bb2273a44b63",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-005533",
+      "split_group_id": "DG-12c55890ddbd",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-005569",
+      "split_group_id": "DG-d331eac9870d",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-005583",
+      "split_group_id": "DG-312837bb557b",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-005618",
+      "split_group_id": "DG-2e359b7e1db7",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-005622",
+      "split_group_id": "DG-7de80ecb7118",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-005645",
+      "split_group_id": "DG-42e3c86f9ebb",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-005688",
+      "split_group_id": "DG-4b0f92196d21",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-005736",
+      "split_group_id": "DG-5f4656c0dfee",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-005754",
+      "split_group_id": "DG-e4a92d901d9c",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-005768",
+      "split_group_id": "DG-309bcd1b5c9e",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-005793",
+      "split_group_id": "DG-a5253d85d0bc",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-005797",
+      "split_group_id": "DG-7ee1f605e2f4",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-005834",
+      "split_group_id": "DG-2a54a445b613",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-005845",
+      "split_group_id": "DG-bd8af52d1134",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-005865",
+      "split_group_id": "DG-265b58a54a61",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-005875",
+      "split_group_id": "DG-5d3983d4a819",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-005889",
+      "split_group_id": "DG-96752d8bab5e",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-005894",
+      "split_group_id": "DG-c3c008ed6d1a",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-005910",
+      "split_group_id": "DG-8c72ea78dd48",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-005911",
+      "split_group_id": "DG-a8c6e39bedf3",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-005923",
+      "split_group_id": "DG-ab1238a20f5e",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-005930",
+      "split_group_id": "DG-46bea66675d6",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-005963",
+      "split_group_id": "DG-84a0a194dc30",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-005995",
+      "split_group_id": "DG-b092d388e7e4",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-006027",
+      "split_group_id": "DG-39ce6d397743",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-006046",
+      "split_group_id": "DG-2a7fde7bf924",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-006051",
+      "split_group_id": "DG-601f95d04581",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-006097",
+      "split_group_id": "DG-f2e4d3c510f0",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-006109",
+      "split_group_id": "DG-c0166bf88dab",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-006137",
+      "split_group_id": "DG-dd4a829df941",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-006165",
+      "split_group_id": "DG-7dec16db5cba",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-006177",
+      "split_group_id": "DG-c73319b31e52",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-006194",
+      "split_group_id": "DG-0c7ea643bdd7",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-006245",
+      "split_group_id": "DG-028e13aa74bd",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-006256",
+      "split_group_id": "DG-2d4ccef1110f",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-006261",
+      "split_group_id": "DG-5447bd9f4019",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-006271",
+      "split_group_id": "DG-af9b715bbab3",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-006317",
+      "split_group_id": "DG-3f80c4ea4257",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-006318",
+      "split_group_id": "DG-e2e846a4eaf2",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-006332",
+      "split_group_id": "DG-9405e3d7cf41",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-006434",
+      "split_group_id": "DG-69a95924ce20",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-006447",
+      "split_group_id": "DG-dd8018eb38c7",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-006491",
+      "split_group_id": "DG-f5501b5261fe",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-006512",
+      "split_group_id": "DG-893640c33530",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-006537",
+      "split_group_id": "DG-595ca7af18ac",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-006539",
+      "split_group_id": "DG-c00b5cc39d02",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-006565",
+      "split_group_id": "DG-76bdada12601",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-006583",
+      "split_group_id": "DG-27f071b46645",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-006637",
+      "split_group_id": "DG-1d8ffe350acf",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-006660",
+      "split_group_id": "DG-a4e5f29727db",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-006693",
+      "split_group_id": "DG-f391de15836c",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-006705",
+      "split_group_id": "DG-334327407d16",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-006714",
+      "split_group_id": "DG-fc602967d82d",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-006725",
+      "split_group_id": "DG-83daee72ea6f",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-006794",
+      "split_group_id": "DG-a7c729a56102",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-006804",
+      "split_group_id": "DG-ffa9af1548d4",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-006824",
+      "split_group_id": "DG-af9d2e2ef619",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-006829",
+      "split_group_id": "DG-2a1d805075bd",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-006883",
+      "split_group_id": "DG-601c7764236b",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-006936",
+      "split_group_id": "DG-f6d03d16a81e",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-006943",
+      "split_group_id": "DG-ec734403d442",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007009",
+      "split_group_id": "DG-39d7b0912ce5",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007043",
+      "split_group_id": "DG-7f60aba9a6ae",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007076",
+      "split_group_id": "DG-f79fe0f52c94",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007083",
+      "split_group_id": "DG-7184dc0ff98c",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007113",
+      "split_group_id": "DG-19b2c7b5ce4e",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007117",
+      "split_group_id": "DG-2a28894a69c2",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007146",
+      "split_group_id": "DG-93e1adefaa54",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007175",
+      "split_group_id": "DG-22cde3cc3600",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007214",
+      "split_group_id": "DG-a2492682f54e",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007246",
+      "split_group_id": "DG-373878db0c3f",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007293",
+      "split_group_id": "DG-dd47f65657ec",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007304",
+      "split_group_id": "DG-f070b42c1dd7",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007305",
+      "split_group_id": "DG-59fd9a04a5bb",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007306",
+      "split_group_id": "DG-aec8d4a9d063",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007363",
+      "split_group_id": "DG-334a894001d0",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007368",
+      "split_group_id": "DG-596feded19b8",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007418",
+      "split_group_id": "DG-f4d7d037a256",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007451",
+      "split_group_id": "DG-4b3bcaba91d2",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007475",
+      "split_group_id": "DG-2a816dbc2852",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007477",
+      "split_group_id": "DG-23ba772e5c5f",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007499",
+      "split_group_id": "DG-4371018f907d",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007530",
+      "split_group_id": "DG-5cdcce28f20a",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007556",
+      "split_group_id": "DG-daac523b226e",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007563",
+      "split_group_id": "DG-38da1b311950",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007588",
+      "split_group_id": "DG-6fbe36d4f648",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007637",
+      "split_group_id": "DG-f6393442f9b2",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007724",
+      "split_group_id": "DG-d3662a365ef5",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007780",
+      "split_group_id": "DG-7dbfd0834471",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007807",
+      "split_group_id": "DG-ccb009827c69",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007833",
+      "split_group_id": "DG-b6f4751d4e1b",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007837",
+      "split_group_id": "DG-b7e19b7ae55a",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007846",
+      "split_group_id": "DG-3f41bbd63637",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007864",
+      "split_group_id": "DG-505e1ebc97c2",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007883",
+      "split_group_id": "DG-71881dcb8e83",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007884",
+      "split_group_id": "DG-4fc1852d5c10",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007892",
+      "split_group_id": "DG-08fea9933438",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007917",
+      "split_group_id": "DG-14ec324c7a4e",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007923",
+      "split_group_id": "DG-b28bc96837ee",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007930",
+      "split_group_id": "DG-2b72251d88f8",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007945",
+      "split_group_id": "DG-03c0a8989100",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-007993",
+      "split_group_id": "DG-92537f835a14",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-008033",
+      "split_group_id": "DG-2792994947c6",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-008080",
+      "split_group_id": "DG-b896793f1f25",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-008085",
+      "split_group_id": "DG-755ffa8befb1",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-008088",
+      "split_group_id": "DG-b11339615a59",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-008094",
+      "split_group_id": "DG-c1bace1c897f",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-008112",
+      "split_group_id": "DG-3b64eee940e6",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-008127",
+      "split_group_id": "DG-5b2d2bc5deb3",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-008142",
+      "split_group_id": "DG-871920f3d222",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-008185",
+      "split_group_id": "DG-3288a13bdef9",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-008201",
+      "split_group_id": "DG-8f056936797a",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-008235",
+      "split_group_id": "DG-90c6c9ca2797",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-008276",
+      "split_group_id": "DG-47f14ce473fa",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-008317",
+      "split_group_id": "DG-3ad8475704ce",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-008320",
+      "split_group_id": "DG-787325895365",
+      "inner_fold": 1,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-008323",
+      "split_group_id": "DG-c0ede3d4e248",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-008347",
+      "split_group_id": "DG-6455fda523c2",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-008379",
+      "split_group_id": "DG-d6d91b3b592b",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-008390",
+      "split_group_id": "DG-7ceeb0464230",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-008429",
+      "split_group_id": "DG-314d212adcd6",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-008430",
+      "split_group_id": "DG-80f6a340dbe8",
+      "inner_fold": 0,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-008458",
+      "split_group_id": "DG-e3f31ddd4567",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-008513",
+      "split_group_id": "DG-549be0b52c87",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-008534",
+      "split_group_id": "DG-aaff4f2a5ff6",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-008543",
+      "split_group_id": "DG-c6d167ed06ef",
+      "inner_fold": 2,
+      "class_id": 1
+    },
+    {
+      "image_id": "VTM-008576",
+      "split_group_id": "DG-ab154a0192dc",
+      "inner_fold": 0,
+      "class_id": 1
+    }
+  ]
+}

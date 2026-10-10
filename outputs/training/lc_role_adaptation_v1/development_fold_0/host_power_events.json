@@ -1,0 +1,20 @@
+{
+  "scope": "Read-only Windows System event log; host timing diagnosis, not training data",
+  "queried_local_start": "2026-10-09T23:20:00+08:00",
+  "provider": "Microsoft-Windows-Kernel-Power",
+  "events": [
+    {"time": "2026-10-10T00:16:27.4927509+08:00", "id": 506, "reason": "Idle Timeout"},
+    {"time": "2026-10-10T00:16:36.9567163+08:00", "id": 507, "reason": "Input Mouse"},
+    {"time": "2026-10-10T00:28:42.0437109+08:00", "id": 506, "reason": "Idle Timeout"},
+    {"time": "2026-10-10T03:14:40.2291094+08:00", "id": 507, "reason": "16777220"},
+    {"time": "2026-10-10T03:14:40.230454+08:00", "id": 506, "reason": "16777220"},
+    {"time": "2026-10-10T10:28:32.1140126+08:00", "id": 507, "reason": "AC/DC Display Burst Suppressed"},
+    {"time": "2026-10-10T10:28:32.1187452+08:00", "id": 506, "reason": "AC/DC Display Burst Suppressed"},
+    {"time": "2026-10-10T10:33:59.8886316+08:00", "id": 507, "reason": "Austerity Battery Drain Budget Exceeded"},
+    {"time": "2026-10-10T10:33:59.8907724+08:00", "id": 506, "reason": "Austerity Battery Drain Budget Exceeded"},
+    {"time": "2026-10-10T10:52:20.8897692+08:00", "id": 507, "reason": "AC/DC Display Burst"},
+    {"time": "2026-10-10T10:52:26.8134054+08:00", "id": 506, "reason": "AC/DC Display Burst"},
+    {"time": "2026-10-10T10:52:32.9760054+08:00", "id": 507, "reason": "Input Mouse"}
+  ],
+  "interpretation": "506=enter Modern Standby; 507=exit Modern Standby. Correlation supports host suspension as the timeout cause; not an active-compute duration measurement."
+}

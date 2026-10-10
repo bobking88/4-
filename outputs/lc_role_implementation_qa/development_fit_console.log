@@ -1,0 +1,16 @@
+{"job_id": "cv-R1-0281", "pid": 31408, "alive": true, "elapsed_seconds": 10.01500000001397}
+Traceback (most recent call last):
+  File "D:\���Ź�����\�˹�����ѡ��\.worktrees\theory-aware-report\scripts\run_lc_role_adaptation.py", line 559, in <module>
+    main()
+  File "D:\���Ź�����\�˹�����ѡ��\.worktrees\theory-aware-report\scripts\run_lc_role_adaptation.py", line 555, in main
+    print(json.dumps(run_stage(ROOT, args.protocol, args.output_dir, args.stage), ensure_ascii=False), flush=True)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\���Ź�����\�˹�����ѡ��\.worktrees\theory-aware-report\scripts\run_lc_role_adaptation.py", line 530, in run_stage
+    result = _fit_stage(root, protocol, output, started, snapshot)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\���Ź�����\�˹�����ѡ��\.worktrees\theory-aware-report\scripts\run_lc_role_adaptation.py", line 382, in _fit_stage
+    result, _ = _execute(job, protocol, ledger, started)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\���Ź�����\�˹�����ѡ��\.worktrees\theory-aware-report\scripts\run_lc_role_adaptation.py", line 341, in _execute
+    raise RuntimeError(result["status"]+": "+result["log_tail"])
+RuntimeError: TIMED_OUT: 

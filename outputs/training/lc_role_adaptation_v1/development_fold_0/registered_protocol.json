@@ -1,0 +1,176 @@
+{
+  "protocol": "lc_role_adaptation_v1",
+  "status": "APPROVED_FOR_DEVELOPMENT",
+  "outer_fold": 0,
+  "subsets": [
+    "gate_stop_projector_fit",
+    "projector_stop"
+  ],
+  "counts": {
+    "fit": 340,
+    "stop": 340
+  },
+  "seeds": [
+    20261002,
+    20261003,
+    20261004
+  ],
+  "regularization": [
+    0.001,
+    0.01,
+    0.1
+  ],
+  "budgets": [
+    [
+      0.25,
+      0.25
+    ],
+    [
+      0.5,
+      0.5
+    ]
+  ],
+  "checkpoints": [
+    0,
+    20,
+    50,
+    100,
+    200,
+    400
+  ],
+  "threads": 1,
+  "learning_rate": 0.001,
+  "max_fits": 422,
+  "max_seconds": 21600,
+  "per_fit_seconds": 600,
+  "heartbeat_seconds": 10,
+  "training_authorization": {
+    "scope": "REAL_LC_RFA_FIT_AND_ONCE_STOP",
+    "max_fits": 422,
+    "max_seconds": 21600,
+    "stop_evaluations": 1,
+    "human_text": "批准该有限真实开发实验",
+    "date": "2026-10-09",
+    "human_question": "是否批准 LC-RFA-B v1 的有限真实开发实验？仅使用既定340个fit分组及340个已暴露stop分组；最多422次拟合，另4次温度拟合；累计6小时硬上限，锁定后一次stop评价。失败即停，不自动重试、扩网格、训练重放、读新图片或修改正式报告。",
+    "source": "direct human response to request_user_input_async",
+    "training_replay": false,
+    "other_outer_folds": false,
+    "new_images": false,
+    "formal_report_edits": false,
+    "automatic_retries_or_grid_expansion": false
+  },
+  "input_hashes": {
+    "gate_stop_projector_fit/component_predictions.csv": "020c42d91cfdda0c7df0529d68055450d5e4868c8607dfd0be22cf7d6152346c",
+    "gate_stop_projector_fit/routing_evidence.csv": "f4ea3c642487317219dda7af550f2ced585df6010aa8270d6f93bb14fe283b13",
+    "gate_stop_projector_fit/manifest.csv": "eb79afac38f664b22a4a58cc2fb38f1d32e698395c6c1824b051c99d11240531",
+    "projector_stop/component_predictions.csv": "faf7a42c04d440f2d5a380ed3ae985b66b8c8ad8ab675d88cffe4db8fd06d24c",
+    "projector_stop/routing_evidence.csv": "2299dae331ac7f012ec5cfac8a9533d84cdc8f4a0519546054d93dc92e2173c3",
+    "projector_stop/manifest.csv": "1a63741360e5ae8bc97377a86d761bbdb289ddcee11b24e184fa49b47a95bd09"
+  },
+  "runtime_environment": {
+    "python": "3.11.5",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "packages": {
+      "torch": "2.12.1+cu130",
+      "numpy": "2.4.6",
+      "scipy": "1.17.1",
+      "scikit-learn": "1.9.0",
+      "threadpoolctl": "3.6.0",
+      "matplotlib": "3.11.1"
+    }
+  },
+  "cache_path": "outputs/training/abmp_frozen_visual_probe_v1/development_fold_0/frozen_features.pt",
+  "cache_sha256": "6bbb3221293d5bf0fcadb13bcaa7a3029fdc77e8328e119820665256e3509090",
+  "audit_path": "outputs/training/abmp_frozen_visual_probe_v1/development_fold_0/image_feature_audit.json",
+  "audit_sha256": "4a52b9ebd462caaedd235cceee79a6329665e46bdce52b533aac19fbf75ddd79",
+  "source_sha256": {
+    "scripts/lc_role_data.py": "d8639d3035d55ef04b04605b2f565c2cc29a7dcefaba995fd852b396cf489e09",
+    "scripts/lc_role_adapter.py": "3c02653b5a1aafd1cf452fa029b827baa899ff6a6645986cebc368fbdeecf1aa",
+    "scripts/lc_role_audit.py": "587bdb18a27e897e47064889f9d77869be94b62bf661379e4409d88d2802ec1c",
+    "scripts/lc_role_training.py": "1431e80200a7639aca10493d4d7d4ef91c66eb45bbd1457a9a1cdc52f983adb7",
+    "scripts/run_lc_role_adaptation.py": "95c1abdf470ba95821e3f028c4bbc64d059c9e66e0cd50596a9b2f00afa06446",
+    "scripts/analyze_lc_role_adaptation.py": "54b98dbcf1ed1299c05b2bbc3f4722c36d00ba35fb9fc44095f45a59bb4fbc1b",
+    "scripts/generate_lc_role_adaptation_figure.py": "4d77370e23ca6b05e7b4df839d294c96a1eed39593f1550d7d70a883324f9c7b",
+    "scripts/anchor_linear_controls.py": "1a979127c960cfc44c8fc3ef682d790dbb280e2488cfc2440baa2c161ed10192",
+    "scripts/frozen_visual_probe.py": "6e417ea900ed3cbd1c8653898a5bb9849b73958b57c4c50803217d82a4793bfa",
+    "scripts/verifier_strong_controls.py": "a1adefaef8852bceb85aa22cd42a10609ff904b09a3f8b6dce94787c6a87299b",
+    "scripts/run_verifier_trust_development.py": "62ee01068bb6ef6cbb3b464732a9f57f3e2e5bc86aba879f0b2a304d40dbbce3",
+    "scripts/run_frozen_visual_probe.py": "db6db46bd8f046ad0e3ec9c2bc14f138fa2150e297ab4b30eb316d4510a36d2d",
+    "scripts/run_anchor_linear_controls.py": "15beb38c7825a439199b5545bfb5a4d842947d9f107b18ec09ccca759a747735",
+    "scripts/audit_abmp_candidate_capacity.py": "163c224a5ff9f72c2daf1341570c0bc40be76b8593671177c50f7d036b83675c",
+    "scripts/tc_oos_rsg.py": "38445a3f24ccd424e5e6a635f78ef079e73f2139be62d3e974134470c66bcba2",
+    "scripts/hrgv_network.py": "f4c2889b9a129d9f52fd999b189c0888407f9887e1f739cd5e1b55b4d361a0da",
+    "scripts/run_tc_oos_rsg_experiments.py": "7006b72d27942ab29c7b22eaf58cae344fcb8c3c8d30e2930788da9900c4bef1",
+    "scripts/train_mineral_classifier.py": "d81cda1da77076e3dbbdf81fd9969846314187fa8ffd079fb01106c60b80edea",
+    "docs/superpowers/specs/2026-10-06-lightweight-role-adaptation-design.md": "aa9fcec06b6190fa6e56969da667c7adbcd07c5eb9ea56574031bd51dabefea0",
+    "docs/superpowers/plans/2026-10-06-lightweight-role-adaptation-implementation.md": "0c033f145d98a14ef87fc9636b8f7e10821a97d56e9692d95a4f216e028ed1fb",
+    "结题/基于深度学习的钒钛矿相关矿物图像识别方法研究_技术报告（正式版）.docx": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+    "docs/experiment_protocols/abmp_frozen_visual_probe_v1.json": "e5824dccc71b9dbf77d2e73224d9ef66cf10a311895f512740319dae5dfed9c8",
+    "outputs/training/abmp_frozen_visual_probe_v1/development_fold_0/frozen_features.pt": "6bbb3221293d5bf0fcadb13bcaa7a3029fdc77e8328e119820665256e3509090",
+    "outputs/training/abmp_frozen_visual_probe_v1/development_fold_0/image_feature_audit.json": "4a52b9ebd462caaedd235cceee79a6329665e46bdce52b533aac19fbf75ddd79",
+    "outputs/training/abmp_frozen_visual_probe_v1/development_fold_0/development_summary.json": "b0a7a26c8a9277925fa1d5e9a704c594d6e7b7160e35c1873427b7583bd73c56",
+    "outputs/training/abmp_frozen_visual_probe_v1/development_fold_0/registered_protocol.json": "e5824dccc71b9dbf77d2e73224d9ef66cf10a311895f512740319dae5dfed9c8",
+    "outputs/training/tc_oos_rsg_v1/fold_0/expert/best_model.pt": "ea50dbee3c8f6860ec4c901d180ad50959f51e97e8b5cb7cdc2d7e11d799e8f2",
+    "outputs/theory/abmp_candidate_capacity_v1/gate_stop_projector_fit/component_predictions.csv": "020c42d91cfdda0c7df0529d68055450d5e4868c8607dfd0be22cf7d6152346c",
+    "outputs/theory/abmp_candidate_capacity_v1/gate_stop_projector_fit/routing_evidence.csv": "f4ea3c642487317219dda7af550f2ced585df6010aa8270d6f93bb14fe283b13",
+    "outputs/training/tc_oos_rsg_manifests_v1/fold_0/gate_stop_projector_fit.csv": "eb79afac38f664b22a4a58cc2fb38f1d32e698395c6c1824b051c99d11240531",
+    "outputs/theory/abmp_candidate_capacity_v1/projector_stop/component_predictions.csv": "faf7a42c04d440f2d5a380ed3ae985b66b8c8ad8ab675d88cffe4db8fd06d24c",
+    "outputs/theory/abmp_candidate_capacity_v1/projector_stop/routing_evidence.csv": "2299dae331ac7f012ec5cfac8a9533d84cdc8f4a0519546054d93dc92e2173c3",
+    "outputs/training/tc_oos_rsg_manifests_v1/fold_0/projector_stop.csv": "1a63741360e5ae8bc97377a86d761bbdb289ddcee11b24e184fa49b47a95bd09",
+    "outputs/training/lc_role_adaptation_v1/preflight/inner_assignment.json": "e603ba0b603bc903f82649dd19edaebb69f7e171be0dec2092d69048c5469927",
+    "outputs/training/lc_role_adaptation_v1/preflight/schedule.json": "ada69bdb1e8a9f6a482ed94f84d4e34f4e19ebcd3b9cf6a01a2e04973bd2a7a7",
+    "outputs/training/lc_role_adaptation_v1/preflight/summary.json": "a99a7fcf53741a0736a85f974c7c5e88b43ea4c5fb29c38700d552e46cb9ab2d",
+    "outputs/training/lc_role_adaptation_v1/synthetic_benchmark/summary.json": "58dcc048e3fa6a698cb2051a7ca81f3b653ce06f06dc80e8ad17339df0c8d1ea",
+    "outputs/lc_role_implementation_qa/final_tests.log": "a58862052712af40d9ba33be0b2afda550302b6905a9dcde34b95d2d28aacb06",
+    "outputs/lc_role_implementation_qa/theory_synthetic_acceptance.json": "68867605a5ce31089dd754c6da4f4cddaabc4c41457d26bbe3d5a5a2f6d9ae95",
+    "outputs/paper_figures_lc_rfa_v1/lc_rfa_b_architecture.json": "882863b297c66ec9eb197ff1a7b4ec5a0fa62b7983d3a888126310069efb6d85",
+    "outputs/paper_figures_lc_rfa_v1/lc_rfa_b_architecture.svg": "eab628cbcc49c22f7996f0b318bd259d3917de7f6300ab2d1623af8ea991073c",
+    "docs/experiment_records/2026-10-09_lc_role_implementation_acceptance.md": "5816d740577e5cdf576d4fdeb2cfd72d76786998d6fc6442ce41f6ed8624acd2",
+    "docs/experiment_protocols/lc_role_adaptation_v1_submission.json": "2e748c16d9677afed96ab537b11bb4f029865a683bc20784b60d89011e78e44f",
+    "docs/experiment_records/2026-10-09_lc_role_development_submission.md": "7fc486a905dc3b502e316e4e62ceb5cac1063aa4ea61834e35b40b2825f253d8"
+  },
+  "preregistration": {
+    "implementation_commit": "8f8bb1608a454df357050a783de73bd15b191332",
+    "accepted_draft_raw_sha256": "c7a79b5d6f4117109ca13af8711683930f7948cd6f45ff9bd5e57d11280b4ec5",
+    "accepted_draft_semantic_sha256": "aedd39b332bc62c59d7129e2830f4a1a501ca8e145d675f73fdb3328d03e4b21",
+    "hypotheses": [
+      {
+        "id": "H_ROUTE",
+        "claim_under_test": "Role-conditioned routing improves the registered learning pipeline beyond uniform routing with the same parameter count, auxiliary views and loss.",
+        "primary_comparison": "R1 versus S1 and R1-budget-matched S1",
+        "limit": "Fit-selected regularization and updates may differ; pipeline comparison is not a pure fixed-optimizer causal routing estimate."
+      },
+      {
+        "id": "H_SPECIALIZATION",
+        "claim_under_test": "Auxiliary role supervision is accompanied by nondegenerate branch learning and useful conditional predictions.",
+        "comparison": "R1 versus R0, S1 versus S0; pair NLL, gradients, delta norms/cosines and same-weight branch ablations",
+        "limit": "Diagnostics alone do not prove specialization caused higher generalization accuracy."
+      },
+      {
+        "id": "H_BOUNDED_BENEFIT",
+        "claim_under_test": "Bounded adaptation retains useful development corrections while limiting perturbations.",
+        "comparison": "R1 versus U1 and analytical A/B/C audits",
+        "limit": "U1 Pareto dominance denies bounded net-benefit support; risk bounds do not guarantee target recall."
+      }
+    ],
+    "screen_rules": {
+      "required_seeds": [
+        20261002,
+        20261003,
+        20261004
+      ],
+      "primary_metric": "stop mean unweighted four-class NLL",
+      "minimum_nll_gain_vs_T0_and_strongest_qualified_control_each_seed": 0.005,
+      "minimum_net_correct_target_vs_T0_each_seed": 1,
+      "maximum_extra_ti_false_targets_vs_T0_each_seed": 1,
+      "maximum_extra_metallic_false_targets_vs_T0_each_seed": 1,
+      "must_have_lower_nll_than_R1_budget_matched_S1_each_seed": true,
+      "missing_unreliable_truncated_or_theory_violating_groups_reject_support": true,
+      "independent_or_statistical_significance_claim": false,
+      "specialization_diagnostics_change_selection": false
+    },
+    "output_dir": "outputs/training/lc_role_adaptation_v1/development_fold_0",
+    "exposure_scope": "Existing repeatedly exposed development fit/stop only; no independent confirmation.",
+    "registration_required_before_real_execution": true
+  }
+}

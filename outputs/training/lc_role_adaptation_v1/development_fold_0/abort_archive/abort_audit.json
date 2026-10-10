@@ -1,0 +1,84 @@
+{
+  "status": "TIMED_OUT_ABORTED_NO_STOP",
+  "created_at": "2026-10-10T11:08:09.074695+08:00",
+  "preregistration_commit": "0d98c1b0f18ec4ca199d0421a4736cb882f7040d",
+  "protocol_semantic_sha256": "ef78934dff3b9728afed1968fb64a80b70e63f77f88d2b13ea04290bb345b0c0",
+  "registered_source_count": 44,
+  "source_hashes_match": true,
+  "workers_attempted": 350,
+  "workers_complete": 349,
+  "cv_attempted": 346,
+  "cv_complete": 345,
+  "planned_cv": 369,
+  "temperature_preparation_complete": 4,
+  "final_fit_count": 0,
+  "per_arm": {
+    "H0": {
+      "attempted": 54,
+      "completed": 54,
+      "timed_out": 0
+    },
+    "F0": {
+      "attempted": 54,
+      "completed": 54,
+      "timed_out": 0
+    },
+    "S0": {
+      "attempted": 54,
+      "completed": 54,
+      "timed_out": 0
+    },
+    "S1": {
+      "attempted": 54,
+      "completed": 54,
+      "timed_out": 0
+    },
+    "R0": {
+      "attempted": 54,
+      "completed": 54,
+      "timed_out": 0
+    },
+    "R1": {
+      "attempted": 54,
+      "completed": 54,
+      "timed_out": 0
+    },
+    "U1": {
+      "attempted": 22,
+      "completed": 21,
+      "timed_out": 1
+    }
+  },
+  "failure": {
+    "job_id": "cv-U1-0345",
+    "status": "TIMED_OUT",
+    "attempts": 1,
+    "pid": 33860,
+    "exit_code": 1,
+    "alive": false,
+    "elapsed_seconds": 9955.407000000007,
+    "log_tail": "",
+    "heartbeats": [],
+    "cumulative_seconds": 12226.891000000003
+  },
+  "max_fits": 422,
+  "actual_fit_attempts": 346,
+  "max_seconds": 21600,
+  "per_fit_seconds": 600,
+  "consumed_seconds": 12226.891000000003,
+  "per_fit_wall_cap_satisfied": false,
+  "global_monotonic_budget_exceeded": false,
+  "timing_qualification": "Host standby events match delay; not active compute time; cross-suspend wall-time deadline was not enforced continuously",
+  "stop_evaluations": 0,
+  "selection_locked": false,
+  "default_inference_verified": false,
+  "training_replayed": false,
+  "model_effectiveness": "NOT_EVALUATED",
+  "host_power_events_sha256": "a3ce55e329a6cd4c30f88257c6209c4af74fce3009a6b4c04f51c892d31ddc0f",
+  "worker_bundle_members": 1040,
+  "local_binary_count": 700,
+  "original_artifact_count": 1746,
+  "no_retries": true,
+  "formal_report_sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+  "console_log_sha256": "11c71addf2d8e5109f8cc62fa69a311059b5c37256fee4d05c4f01c28b61d391"
+}
