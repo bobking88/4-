@@ -18,6 +18,7 @@ from pathlib import Path
 import torch
 
 from lc_role_adapter import ARMS, NumericRangeFailure
+from lc_execution_safety import WindowsAwakeGuard, stage_elapsed_seconds
 from lc_role_data import SUBSETS, checked_file, fit_preprocessing, load_cache_subset, make_inner_assignment, scoped_file, transform_subset
 from lc_role_training import CHECKPOINTS, SEEDS, fit_convex, fit_neural, matched_budget_candidates, refit_neural, select_oof
 
@@ -33,6 +34,7 @@ SOURCE_FILES = (
     "scripts/audit_abmp_candidate_capacity.py", "scripts/tc_oos_rsg.py",
     "scripts/hrgv_network.py", "scripts/run_tc_oos_rsg_experiments.py",
     "scripts/train_mineral_classifier.py",
+    "scripts/lc_execution_safety.py",
     "docs/superpowers/specs/2026-10-06-lightweight-role-adaptation-design.md",
     "docs/superpowers/plans/2026-10-06-lightweight-role-adaptation-implementation.md",
 )
@@ -169,6 +171,22 @@ def default_protocol(root: Path) -> dict:
     return protocol
 
 
+def terminal_status(error: BaseException) -> str:
+    if isinstance(error, KeyboardInterrupt):
+        return "SUPERVISION_INTERRUPTED"
+    if isinstance(error, NumericRangeFailure):
+        return "NUMERIC_RANGE_FAILURE"
+    for status in ("TIMED_OUT", "NUMERIC_RANGE_FAILURE", "SUPERVISION_INTERRUPTED",
+                   "POWER_REQUEST_FAILED", "POWER_RELEASE_FAILED"):
+        if str(error).startswith(status):
+            return status
+    return "FAILED"
+
+
+def elapsed_stage(started: float, *, check=True) -> float:
+    return max(time.monotonic()-started, stage_elapsed_seconds(check=check))
+
+
 def run_supervised_job(job: dict, protocol: dict, remaining_seconds: float) -> dict:
     if remaining_seconds <= 0:
         return dict(job_id=job["job_id"], status="TIMED_OUT", attempts=0, pid=None,
@@ -178,31 +196,46 @@ def run_supervised_job(job: dict, protocol: dict, remaining_seconds: float) -> d
     env = dict(os.environ, OMP_NUM_THREADS="1", MKL_NUM_THREADS="1", OPENBLAS_NUM_THREADS="1",
                NUMEXPR_NUM_THREADS="1", PYTHONUNBUFFERED="1", PYTHONUTF8="1")
     start = time.monotonic()
-    deadline = start+min(float(protocol["per_fit_seconds"]), remaining_seconds)
-    heartbeats, timed_out = [], False
-    next_heartbeat = start+protocol["heartbeat_seconds"]
-    with log_path.open("x", encoding="utf-8") as log:
-        process = subprocess.Popen(job["command"], stdout=log, stderr=subprocess.STDOUT, env=env,
-                                   creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0)
-        while process.poll() is None:
-            now = time.monotonic()
-            if now >= deadline:
-                timed_out = True
-                process.kill()
-                process.wait(timeout=5)
-                break
-            if now >= next_heartbeat:
-                item = dict(pid=process.pid, alive=True, elapsed_seconds=now-start)
-                heartbeats.append(item)
-                print(json.dumps(dict(job_id=job["job_id"], **item)), flush=True)
-                next_heartbeat = now+protocol["heartbeat_seconds"]
-            time.sleep(min(.05, max(0., deadline-now)))
-    elapsed = time.monotonic()-start
+    budget = min(float(protocol["per_fit_seconds"]), remaining_seconds)
+    heartbeats, process, guard = [], None, None
+    status, failure = "COMPLETE", ""
+    next_heartbeat = float(protocol["heartbeat_seconds"])
+    try:
+        with log_path.open("x", encoding="utf-8") as log, WindowsAwakeGuard() as guard:
+            guard.check()
+            try:
+                process = subprocess.Popen(job["command"], stdout=log, stderr=subprocess.STDOUT, env=env,
+                                           creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0)
+                while True:
+                    # Check time continuity before poll, including an already-exited worker.
+                    now = max(time.monotonic()-start, guard.check())
+                    if now >= budget:
+                        status = "TIMED_OUT"
+                        break
+                    if process.poll() is not None:
+                        status = "COMPLETE" if process.returncode == 0 else "NUMERIC_RANGE_FAILURE" if process.returncode == 3 else "FAILED"
+                        break
+                    if now >= next_heartbeat:
+                        item = dict(pid=process.pid, alive=True, elapsed_seconds=now)
+                        heartbeats.append(item)
+                        print(json.dumps(dict(job_id=job["job_id"], **item)), flush=True)
+                        next_heartbeat = now+protocol["heartbeat_seconds"]
+                    time.sleep(min(.05, max(0., budget-now)))
+            finally:
+                if process is not None:
+                    if process.poll() is None:
+                        process.kill()
+                    process.wait(timeout=5)
+    except BaseException as error:
+        status, failure = terminal_status(error), f"{type(error).__name__}: {error}"
+    evidence = {} if guard is None else guard.evidence()
+    elapsed = max(time.monotonic()-start, evidence.get("wall_elapsed_seconds", 0.))
     tail = log_path.read_text(encoding="utf-8", errors="replace")[-4000:]
-    status = "TIMED_OUT" if timed_out else "COMPLETE" if process.returncode == 0 else "NUMERIC_RANGE_FAILURE" if process.returncode == 3 else "FAILED"
-    return dict(job_id=job["job_id"], status=status, attempts=1, pid=process.pid,
-                exit_code=process.returncode, alive=False, elapsed_seconds=elapsed,
-                log_tail=tail, heartbeats=heartbeats)
+    return dict(job_id=job["job_id"], status=status, attempts=int(process is not None),
+                pid=None if process is None else process.pid,
+                exit_code=None if process is None else process.returncode,
+                alive=process is not None and process.poll() is None, elapsed_seconds=elapsed,
+                log_tail=tail, error=failure, supervision=evidence, heartbeats=heartbeats)
 
 
 def run_job_batch(jobs: list[dict], protocol: dict, ledger: Path, *, consumed_seconds: float) -> list[dict]:
@@ -233,6 +266,9 @@ def write_selection_lock(output: Path, lock: dict) -> None:
 
 def read_selection_lock(output: Path, protocol: dict) -> dict:
     try:
+        stage_path = output/"stage_state.json"
+        if stage_path.exists() and json.loads(stage_path.read_text(encoding="utf-8")).get("status") != "FIT_LOCKED":
+            raise ValueError("Fit stage did not terminate successfully; selection lock is invalid.")
         path = output/"selection.lock.json"
         complete = json.loads((output/"fit_complete.json").read_text(encoding="utf-8"))
         lock = json.loads(path.read_text(encoding="utf-8"))
@@ -332,13 +368,18 @@ def _worker(path):
 
 
 def _execute(job, protocol, ledger, stage_start, previous_seconds=0):
-    elapsed = previous_seconds+time.monotonic()-stage_start
+    elapsed = previous_seconds+elapsed_stage(stage_start, check=False)
     result = run_supervised_job(job, protocol, protocol["max_seconds"]-elapsed)
-    result["cumulative_seconds"] = previous_seconds+time.monotonic()-stage_start
+    if result["status"] == "COMPLETE":
+        try:
+            elapsed_stage(stage_start)
+        except BaseException as error:
+            result["status"], result["error"] = terminal_status(error), f"{type(error).__name__}: {error}"
+    result["cumulative_seconds"] = max(previous_seconds+elapsed_stage(stage_start, check=False), elapsed+result["elapsed_seconds"])
     with ledger.open("a", encoding="utf-8") as stream:
         stream.write(json.dumps(result, allow_nan=False)+"\n")
     if result["status"] != "COMPLETE":
-        raise RuntimeError(result["status"]+": "+result["log_tail"])
+        raise RuntimeError(result["status"]+": "+result.get("error", "")+" "+result["log_tail"])
     fitted = torch.load(job["result_path"], map_location="cpu", weights_only=True)
     for field in ("history", "gradients"):
         if fitted.get(field):
@@ -418,7 +459,7 @@ def _fit_stage(root, protocol, output, started, snapshot):
                 source_snapshot=snapshot, selections=selections, finals=finals,
                 full_preprocessing_path=Path(prepared["full"]).relative_to(output).as_posix(),
                 cv_paths={key: Path(path).relative_to(output).as_posix() for key, path in cv_paths.items()},
-                artifacts=artifacts, consumed_seconds=time.monotonic()-started,
+                artifacts=artifacts, consumed_seconds=elapsed_stage(started),
                 actual_fit_count=len(cv_paths)+len(final_cache), temperature_fit_count=4)
     if lock["consumed_seconds"] > protocol["max_seconds"] or lock["actual_fit_count"] > protocol["max_fits"]:
         raise RuntimeError("TIMED_OUT: cumulative development budget exhausted before selection lock.")
@@ -498,12 +539,14 @@ def run_stage(root: Path, protocol_path: Path | None, output: Path, stage: str) 
         started = time.monotonic()
         try:
             job = _packet_job(evaluation, dict(kind="evaluate", root=str(root), protocol=protocol, output=str(output)), "evaluate-once")
-            result, timing = _execute(job, protocol, evaluation/"job_ledger.jsonl", started, lock["consumed_seconds"])
+            with WindowsAwakeGuard() as guard:
+                result, timing = _execute(job, protocol, evaluation/"job_ledger.jsonl", started, lock["consumed_seconds"])
+                guard.check()
             _json(evaluation/"complete.json", dict(status="EVALUATED", consumed_seconds=timing["cumulative_seconds"],
                                                     result_sha256=file_digest(Path(job["result_path"]))), exclusive=True)
             return result
-        except Exception as error:
-            status = "TIMED_OUT" if str(error).startswith("TIMED_OUT") else "NUMERIC_RANGE_FAILURE" if str(error).startswith("NUMERIC_RANGE_FAILURE") else "FAILED"
+        except BaseException as error:
+            status = terminal_status(error)
             _json(evaluation/"stage_state.json", dict(status=status, attempts=1, error=str(error)), exclusive=True)
             raise
     output.mkdir(parents=True, exist_ok=False)
@@ -525,14 +568,18 @@ def run_stage(root: Path, protocol_path: Path | None, output: Path, stage: str) 
                           runtime_environment=runtime_environment(),
                           source_snapshot=snapshot, stop_tables_parsed=False, max_fits=422, temperature_fits=4)
         elif stage == "benchmark":
-            result = _benchmark(protocol, output, started)
+            with WindowsAwakeGuard() as guard:
+                result = _benchmark(protocol, output, started)
+                guard.check()
         else:
-            result = _fit_stage(root, protocol, output, started, snapshot)
+            with WindowsAwakeGuard() as guard:
+                result = _fit_stage(root, protocol, output, started, snapshot)
+                guard.check()
         _json(output/"stage_state.json", dict(status=result["status"], stage=stage, registration=registration))
         _json(output/"summary.json", result, exclusive=True)
         return result
-    except Exception as error:
-        status = "NUMERIC_RANGE_FAILURE" if isinstance(error, NumericRangeFailure) or str(error).startswith("NUMERIC_RANGE_FAILURE") else "TIMED_OUT" if str(error).startswith("TIMED_OUT") else "FAILED"
+    except BaseException as error:
+        status = terminal_status(error)
         _json(output/"stage_state.json", dict(status=status, stage=stage, error=str(error), attempts=1))
         raise
 

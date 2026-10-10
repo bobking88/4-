@@ -3,9 +3,10 @@ import hashlib
 import json
 import sys
 import tempfile
+import time
 import unittest
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 import torch
 
@@ -16,10 +17,139 @@ except ModuleNotFoundError:
     runner = None
 
 
+class SyntheticAwakeGuard:
+    def __enter__(self):
+        self.started = time.monotonic()
+        self.released = False
+        return self
+
+    def check(self):
+        return time.monotonic()-self.started
+
+    def __exit__(self, *args):
+        self.released = True
+
+    def evidence(self):
+        return dict(wall_elapsed_seconds=time.monotonic()-self.started)
+
+
 class ExecutionGateTests(unittest.TestCase):
     def setUp(self):
         self.assertIsNotNone(runner, "LC-RFA supervised runner missing")
         self.protocol = runner.draft_settings()
+        self.addCleanup(patch.stopall)
+        patch.object(runner, "WindowsAwakeGuard", side_effect=SyntheticAwakeGuard, create=True).start()
+
+    def test_power_request_failure_never_spawns_worker(self):
+        class RefusedGuard(SyntheticAwakeGuard):
+            def __enter__(self):
+                raise RuntimeError("POWER_REQUEST_FAILED: synthetic refusal")
+        with tempfile.TemporaryDirectory() as folder:
+            job = dict(job_id="refused", command=[sys.executable, "-c", "pass"], log_path=str(Path(folder)/"worker.log"))
+            with patch.object(runner, "WindowsAwakeGuard", RefusedGuard), patch.object(runner.subprocess, "Popen") as spawn:
+                result = runner.run_supervised_job(job, self.protocol, 30)
+            spawn.assert_not_called()
+            self.assertEqual(result["status"], "POWER_REQUEST_FAILED")
+            self.assertEqual(result["attempts"], 0)
+            self.assertFalse(result["alive"])
+
+    def test_gap_is_failure_even_if_worker_exited_before_next_poll(self):
+        class InterruptedGuard(SyntheticAwakeGuard):
+            def check(self):
+                if getattr(self, "checked", False):
+                    raise RuntimeError("SUPERVISION_INTERRUPTED: synthetic suspend")
+                self.checked = True
+                return 0.
+        process = Mock(pid=123, returncode=0)
+        process.poll.return_value = 0
+        with tempfile.TemporaryDirectory() as folder:
+            job = dict(job_id="gap", command=["synthetic-exited-worker"], log_path=str(Path(folder)/"worker.log"))
+            with patch.object(runner, "WindowsAwakeGuard", InterruptedGuard), patch.object(runner.subprocess, "Popen", return_value=process):
+                result = runner.run_supervised_job(job, self.protocol, 600)
+            self.assertEqual(result["status"], "SUPERVISION_INTERRUPTED")
+            self.assertEqual(result["attempts"], 1)
+            self.assertFalse(result["alive"])
+
+    def test_parent_interrupt_kills_real_synthetic_child_and_releases_guard(self):
+        guard = SyntheticAwakeGuard()
+        spawned = []
+        real_spawn = runner.subprocess.Popen
+        def spawn(*args, **kwargs):
+            process = real_spawn(*args, **kwargs)
+            spawned.append(process)
+            return process
+        with tempfile.TemporaryDirectory() as folder:
+            job = dict(job_id="interrupt", command=[sys.executable, "-c", "import time; time.sleep(30)"], log_path=str(Path(folder)/"worker.log"))
+            with patch.object(runner, "WindowsAwakeGuard", return_value=guard), patch.object(runner.subprocess, "Popen", side_effect=spawn), patch.object(runner.time, "sleep", side_effect=KeyboardInterrupt):
+                try:
+                    try:
+                        result = runner.run_supervised_job(job, self.protocol, 60)
+                    except KeyboardInterrupt:
+                        self.fail("Supervisor leaked interrupt instead of terminating and recording failure")
+                finally:
+                    for child in spawned:
+                        if child.poll() is None:
+                            child.kill()
+                        child.wait(timeout=5)
+            self.assertEqual(result["status"], "SUPERVISION_INTERRUPTED")
+            self.assertFalse(result["alive"])
+            self.assertIsNotNone(spawned[0].returncode)
+            self.assertTrue(guard.released)
+
+    def test_release_failure_rejects_otherwise_complete_worker(self):
+        class ReleaseFailure(SyntheticAwakeGuard):
+            def __exit__(self, *args):
+                raise RuntimeError("POWER_RELEASE_FAILED: synthetic refusal")
+        with tempfile.TemporaryDirectory() as folder:
+            job = dict(job_id="release", command=[sys.executable, "-c", "pass"], log_path=str(Path(folder)/"worker.log"))
+            with patch.object(runner, "WindowsAwakeGuard", ReleaseFailure):
+                result = runner.run_supervised_job(job, self.protocol, 30)
+            self.assertEqual(result["status"], "POWER_RELEASE_FAILED")
+            self.assertFalse(result["alive"])
+
+    def test_interrupted_job_stops_batch_without_second_worker(self):
+        class InterruptedGuard(SyntheticAwakeGuard):
+            def check(self):
+                raise RuntimeError("SUPERVISION_INTERRUPTED: synthetic gap")
+        with tempfile.TemporaryDirectory() as folder:
+            jobs = [dict(job_id=str(i), command=[sys.executable, "-c", "pass"], log_path=str(Path(folder)/f"{i}.log")) for i in range(2)]
+            with patch.object(runner, "WindowsAwakeGuard", InterruptedGuard), patch.object(runner.subprocess, "Popen") as spawn:
+                results = runner.run_job_batch(jobs, self.protocol, Path(folder)/"ledger.jsonl", consumed_seconds=0)
+            spawn.assert_not_called()
+            self.assertEqual(len(results), 1)
+            self.assertEqual(results[0]["status"], "SUPERVISION_INTERRUPTED")
+            self.assertFalse((Path(folder)/"1.log").exists())
+
+    def test_safety_failure_keeps_specific_terminal_stage(self):
+        for status in ("SUPERVISION_INTERRUPTED", "POWER_REQUEST_FAILED", "POWER_RELEASE_FAILED"):
+            with self.subTest(status=status), tempfile.TemporaryDirectory() as folder:
+                root = Path(folder)
+                protocol = dict(self.protocol, source_sha256={})
+                with patch.object(runner, "default_protocol", return_value=protocol), patch.object(runner, "_benchmark", side_effect=RuntimeError(status+": synthetic")):
+                    with self.assertRaises(RuntimeError):
+                        runner.run_stage(root, None, root/"out", "benchmark")
+                terminal = json.loads((root/"out"/"stage_state.json").read_text(encoding="utf-8"))
+                self.assertEqual(terminal["status"], status)
+
+    def test_gap_before_ledger_write_keeps_failure_evidence_and_no_result_read(self):
+        checked = 0
+        def clock(*, check=True):
+            nonlocal checked
+            if not check:
+                return 31. if checked else 0.
+            checked += 1
+            raise RuntimeError("SUPERVISION_INTERRUPTED: synthetic post-worker gap")
+        with tempfile.TemporaryDirectory() as folder:
+            ledger = Path(folder)/"ledger.jsonl"
+            job = dict(job_id="late-gap", result_path=str(Path(folder)/"must-not-read.pt"))
+            result = dict(status="COMPLETE", elapsed_seconds=.1, log_tail="", attempts=1)
+            with patch.object(runner, "stage_elapsed_seconds", side_effect=clock), patch.object(runner, "run_supervised_job", return_value=result), patch.object(runner.torch, "load") as load:
+                with self.assertRaisesRegex(RuntimeError, "SUPERVISION_INTERRUPTED"):
+                    runner._execute(job, self.protocol, ledger, time.monotonic())
+                load.assert_not_called()
+            row = json.loads(ledger.read_text(encoding="utf-8"))
+            self.assertEqual(row["status"], "SUPERVISION_INTERRUPTED")
+            self.assertGreaterEqual(row["cumulative_seconds"], 31.)
 
     def test_scope_schedule_count_and_distinct_unbounded_candidates(self):
         self.assertEqual(runner.maximum_fit_count(self.protocol), 422)
@@ -112,6 +242,12 @@ class ExecutionGateTests(unittest.TestCase):
                                 for seed in ((0,) if arm in ("P", "E") else runner.SEEDS)],
                         consumed_seconds=1, source_snapshot={})
             runner.write_selection_lock(root, lock)
+            self.assertEqual(runner.read_selection_lock(root, self.protocol), lock)
+            for status in ("FITTING", "POWER_RELEASE_FAILED", "SUPERVISION_INTERRUPTED", "FAILED"):
+                (root/"stage_state.json").write_text(json.dumps(dict(status=status)), encoding="utf-8")
+                with self.assertRaisesRegex(ValueError, "stage"):
+                    runner.read_selection_lock(root, self.protocol)
+            (root/"stage_state.json").write_text(json.dumps(dict(status="FIT_LOCKED")), encoding="utf-8")
             self.assertEqual(runner.read_selection_lock(root, self.protocol), lock)
             artifact.write_bytes(b"changed")
             with self.assertRaises(ValueError):

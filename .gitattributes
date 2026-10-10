@@ -47,3 +47,8 @@
 # Preserve the complete failed-run archive; no model or source changes.
 /outputs/training/lc_role_adaptation_v1/development_fold_0/** -text whitespace=cr-at-eol
 /outputs/lc_role_implementation_qa/development_fit_console.log -text whitespace=-blank-at-eol,cr-at-eol
+# Preserve execution-safety evidence and future source snapshot bytes.
+/scripts/lc_execution_safety.py -text whitespace=cr-at-eol
+/scripts/run_lc_role_adaptation.py -text whitespace=cr-at-eol
+/outputs/lc_execution_safety_qa/*.log -text whitespace=-blank-at-eol,cr-at-eol
+/outputs/lc_execution_safety_qa/*.json -text whitespace=cr-at-eol

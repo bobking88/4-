@@ -1,0 +1,45 @@
+{
+  "status": "SYNTHETIC_ACCEPTED_REAL_UNAUTHORIZED",
+  "base_commit": "1da47db851ef6cfff312416be214c56b35f6f4f1",
+  "real_training_started": false,
+  "real_stop_evaluation_started": false,
+  "native_power_probe_run": false,
+  "formal_report_sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+  "old_protocol_sha256": "36254788f172af988124fe7058c7822dd96ac5be803d37d99b02ca754340e1db",
+  "old_protocol_rejection": "Registered source changed: scripts/run_lc_role_adaptation.py",
+  "old_batch_status": "TIMED_OUT",
+  "protected_sources": {
+    "scripts/lc_role_adapter.py": "3c02653b5a1aafd1cf452fa029b827baa899ff6a6645986cebc368fbdeecf1aa",
+    "scripts/lc_role_training.py": "1431e80200a7639aca10493d4d7d4ef91c66eb45bbd1457a9a1cdc52f983adb7",
+    "docs/superpowers/specs/2026-10-06-lightweight-role-adaptation-design.md": "aa9fcec06b6190fa6e56969da667c7adbcd07c5eb9ea56574031bd51dabefea0",
+    "docs/superpowers/plans/2026-10-06-lightweight-role-adaptation-implementation.md": "0c033f145d98a14ef87fc9636b8f7e10821a97d56e9692d95a4f216e028ed1fb"
+  },
+  "execution_sources": {
+    "scripts/run_lc_role_adaptation.py": "b5646792731ded7a4ab537f0c67ce42bed7dbbd26c5b722a0d8e808636d22e68",
+    "scripts/lc_execution_safety.py": "84089e43cb36133d41647b7576c27e4609058b9c087f4979f595452cd37bc029"
+  },
+  "logs": {
+    "green_native_final.log": "4de0030bb30623049b6fd972bcb874d6e41093205452ed26b8ed6959aa2cda9c",
+    "green_runner_final.log": "969835ddc3ccb5db42df86ea85acc0d25332cb465677db0eed7fd763e61c2219",
+    "full_suite.log": "dd434734b76bf65354c741069bbe4db5d4767a24f41edbb9537e1caaa6d35be1",
+    "red_post_worker.log": "4b5e5924e2bda14c8d55b81118d1a28c0766df7f1137467544489fd834971adc"
+  },
+  "tests": {
+    "native": {
+      "count": 12,
+      "seconds": 0.003
+    },
+    "runner": {
+      "count": 22,
+      "seconds": 21.467
+    },
+    "whole_project": {
+      "count": 483,
+      "seconds": 139.608
+    }
+  },
+  "safety_thresholds": {
+    "poll_gap_seconds": 30.0,
+    "sleep_delta_tolerance_seconds": 2.0
+  }
+}

@@ -1,0 +1,30 @@
+test_atomic_lock_must_be_complete_current_and_unmodified (test_run_lc_role_adaptation.ExecutionGateTests.test_atomic_lock_must_be_complete_current_and_unmodified) ... FAIL
+test_gap_before_ledger_write_keeps_failure_evidence_and_no_result_read (test_run_lc_role_adaptation.ExecutionGateTests.test_gap_before_ledger_write_keeps_failure_evidence_and_no_result_read) ... ERROR
+
+======================================================================
+ERROR: test_gap_before_ledger_write_keeps_failure_evidence_and_no_result_read (test_run_lc_role_adaptation.ExecutionGateTests.test_gap_before_ledger_write_keeps_failure_evidence_and_no_result_read)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_run_lc_role_adaptation.py", line 150, in test_gap_before_ledger_write_keeps_failure_evidence_and_no_result_read
+    row = json.loads(ledger.read_text(encoding="utf-8"))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\pathlib.py", line 1058, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\bob\\AppData\\Local\\Temp\\tmph32nzpuj\\ledger.jsonl'
+
+======================================================================
+FAIL: test_atomic_lock_must_be_complete_current_and_unmodified (test_run_lc_role_adaptation.ExecutionGateTests.test_atomic_lock_must_be_complete_current_and_unmodified)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_run_lc_role_adaptation.py", line 248, in test_atomic_lock_must_be_complete_current_and_unmodified
+    with self.assertRaisesRegex(ValueError, "stage"):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.033s
+
+FAILED (failures=1, errors=1)
