@@ -1,0 +1,33 @@
+{
+  "status": "CODE_SYNTHETIC_ACCEPTANCE_PASS_NATIVE_ON_HOLD",
+  "native_protocol_status": "ON_HOLD_NATIVE_REAUTH_REQUIRED",
+  "native_refusal": "Native-only approval, scope, or fixed budget does not match.",
+  "synthetic_tests": 25,
+  "focused_seconds": 0.297,
+  "suite_tests": 508,
+  "suite_seconds": 139.575,
+  "unchanged_sha256": {
+    "scripts/lc_execution_safety.py": "84089e43cb36133d41647b7576c27e4609058b9c087f4979f595452cd37bc029",
+    "scripts/run_lc_role_adaptation.py": "b5646792731ded7a4ab537f0c67ce42bed7dbbd26c5b722a0d8e808636d22e68",
+    "scripts/lc_role_adapter.py": "3c02653b5a1aafd1cf452fa029b827baa899ff6a6645986cebc368fbdeecf1aa",
+    "scripts/lc_role_training.py": "1431e80200a7639aca10493d4d7d4ef91c66eb45bbd1457a9a1cdc52f983adb7",
+    "docs/experiment_protocols/lc_role_adaptation_v1.json": "36254788f172af988124fe7058c7822dd96ac5be803d37d99b02ca754340e1db"
+  },
+  "native_source_sha256": {
+    "scripts/check_lc_native_environment.py": "6a7f0163c6879294b421247eb103d9d68e356c557bd0c77e6c2a3f71d63889b2",
+    "scripts/lc_execution_safety.py": "84089e43cb36133d41647b7576c27e4609058b9c087f4979f595452cd37bc029",
+    "scripts/run_lc_role_adaptation.py": "b5646792731ded7a4ab537f0c67ce42bed7dbbd26c5b722a0d8e808636d22e68"
+  },
+  "report_sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+  "main_and_worktree_report_unchanged": true,
+  "native_attempt_valid": false,
+  "native_retry_performed": false,
+  "real_training_performed": false,
+  "stop_evaluation_performed": false,
+  "independent_review": false,
+  "published_log_sha256": {
+    "native_final_boundary_red.log": "2aedc430101fc23f7337f57e698611af92c7b3ad06ae3d2305db2b0fe8e344e3",
+    "native_acceptance_green.log": "cc1887093be36ce7bc392b1c4a56ba67bf770361e5e61a9ee60d73d6da14b212",
+    "native_acceptance_full_suite.log": "fe732ded1dc2963dec625a0ab12bbb052d050edec220b9e39d6b641058447f2e"
+  }
+}

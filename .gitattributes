@@ -52,3 +52,6 @@
 /scripts/run_lc_role_adaptation.py -text whitespace=cr-at-eol
 /outputs/lc_execution_safety_qa/*.log -text whitespace=-blank-at-eol,cr-at-eol
 /outputs/lc_execution_safety_qa/*.json -text whitespace=cr-at-eol
+/scripts/check_lc_native_environment.py -text whitespace=cr-at-eol
+/tests/test_check_lc_native_environment.py -text whitespace=cr-at-eol
+/docs/experiment_protocols/lc_native_environment_v1.json -text whitespace=cr-at-eol
