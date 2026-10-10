@@ -1,0 +1,50 @@
+{
+  "status": "READ_ONLY_AUDIT_NATIVE_ACCEPTANCE_PENDING",
+  "observed_at": "2026-10-10T13:34:50+08:00",
+  "source_commit": "db9c70daabc0508737ed175d7afdc3cbe3d2d64e",
+  "scope": "READ_ONLY_NO_POWER_REQUEST_OR_TRAINING",
+  "power_status": {
+    "ac_line_status": 1,
+    "ac_connected": true,
+    "battery_percent": 99,
+    "battery_saver": 0,
+    "native_clock_pair_read_succeeded": true
+  },
+  "powercfg": {
+    "sleep_state": "S0_LOW_POWER_IDLE_NETWORK_CONNECTED",
+    "s1_s2_s3_available": false,
+    "hibernation_enabled": false,
+    "scheme": "SCHEME_BALANCED",
+    "ac_standby_idle_index_hex": "0x0000012c",
+    "dc_standby_idle_index_hex": "0x0000012c",
+    "ac_standby_idle_seconds": 300,
+    "dc_standby_idle_seconds": 300,
+    "request_override_entries": {
+      "SERVICE": [],
+      "PROCESS": [],
+      "DRIVER": []
+    },
+    "read_only_commands": [
+      "powercfg /a",
+      "powercfg /q SCHEME_CURRENT SUB_SLEEP STANDBYIDLE",
+      "powercfg /requestsoverride"
+    ]
+  },
+  "interpretation": {
+    "ac_status_is_time_local_not_future_guarantee": true,
+    "idle_settings_do_not_prove_actual_transition_time": true,
+    "empty_overrides_do_not_prove_request_will_be_honored": true,
+    "native_power_request_or_release_verified": false,
+    "physical_standby_prevention_verified": false,
+    "real_model_effectiveness_verified": false
+  },
+  "actions_taken": {
+    "power_request_issued": false,
+    "power_settings_changed": false,
+    "sleep_or_hibernation_triggered": false,
+    "real_training_started": false,
+    "stop_evaluation_started": false,
+    "failed_run_resumed": false,
+    "formal_report_changed": false
+  }
+}
