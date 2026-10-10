@@ -64,8 +64,8 @@ class NativeAcceptanceTests(unittest.TestCase):
         self.protocol = {
             "protocol": "lc_native_environment_v1", "status": "APPROVED_NATIVE_ONLY",
             "scope": "NATIVE_IDLE_SUPERVISION_NO_TRAINING",
-            "approval_call_id": "call_d317f0f1f2fd4fceab4110e48d049e53",
-            "approval_answer": "批准环境验收代码与一次原生运行（推荐）",
+            "approval_call_id": "direct_user_2026-10-11_native_once",
+            "approval_answer": "一次原生验收批准",
             "idle_seconds": 360, "timeout_seconds": .25, "max_seconds": 480,
             "long_worker_seconds": 420, "heartbeat_seconds": 10,
             "standby_seconds": 300, "require_ac": True, "max_attempts": 1,
@@ -125,6 +125,24 @@ class NativeAcceptanceTests(unittest.TestCase):
                 protocol[field] = value
                 with self.assertRaises(ValueError):
                     native.validate_protocol(self.root, protocol)
+
+    def test_renewed_direct_approval_is_recognized_without_native_execution(self):
+        protocol = copy.deepcopy(self.protocol)
+        protocol["approval_call_id"] = "direct_user_2026-10-11_native_once"
+        protocol["approval_answer"] = "一次原生验收批准"
+        try:
+            native.validate_protocol(self.root, protocol)
+        except ValueError as error:
+            self.fail(f"Renewed direct-human approval must be recognized: {error}")
+        self.assertEqual(self.host.requests, [])
+        self.assertEqual(self.jobs, [])
+
+    def test_superseded_approval_cannot_authorize_new_native_attempt(self):
+        protocol = copy.deepcopy(self.protocol)
+        protocol["approval_call_id"] = "call_d317f0f1f2fd4fceab4110e48d049e53"
+        protocol["approval_answer"] = "批准环境验收代码与一次原生运行（推荐）"
+        with self.assertRaisesRegex(ValueError, "approval"):
+            native.validate_protocol(self.root, protocol)
 
     def test_changed_registered_source_rejected_before_native_api(self):
         (self.root/native.SOURCE_FILES[0]).write_bytes(b"changed")

@@ -1,0 +1,24 @@
+{
+  "status": "PASS_PREREGISTRATION_LOCAL_AUDIT",
+  "approval_identity": "direct_user_2026-10-11_native_once",
+  "protocol_sha256": "da54960efc9adde85ea125a68593505901d43b9cacd924b0a6318d289b73fdb6",
+  "source_sha256": {
+    "scripts/check_lc_native_environment.py": "40cdd9c154fdcf0916dadff394665f9695d27b87178ac1a27fbb041e120559b7",
+    "scripts/lc_execution_safety.py": "84089e43cb36133d41647b7576c27e4609058b9c087f4979f595452cd37bc029",
+    "scripts/run_lc_role_adaptation.py": "b5646792731ded7a4ab537f0c67ce42bed7dbbd26c5b722a0d8e808636d22e68"
+  },
+  "authorization_only_source_change": true,
+  "protected_files_unchanged": {
+    "scripts/lc_execution_safety.py": "84089e43cb36133d41647b7576c27e4609058b9c087f4979f595452cd37bc029",
+    "scripts/run_lc_role_adaptation.py": "b5646792731ded7a4ab537f0c67ce42bed7dbbd26c5b722a0d8e808636d22e68",
+    "scripts/lc_role_adapter.py": "3c02653b5a1aafd1cf452fa029b827baa899ff6a6645986cebc368fbdeecf1aa",
+    "scripts/lc_role_training.py": "1431e80200a7639aca10493d4d7d4ef91c66eb45bbd1457a9a1cdc52f983adb7",
+    "docs/experiment_protocols/lc_role_adaptation_v1.json": "36254788f172af988124fe7058c7822dd96ac5be803d37d99b02ca754340e1db",
+    "结题/基于深度学习的钒钛矿相关矿物图像识别方法研究_技术报告（正式版）.docx": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c"
+  },
+  "output_root_absent": true,
+  "focused_tests": 27,
+  "full_synthetic_tests": 510,
+  "native_attempt_started": false,
+  "independent_review": false
+}

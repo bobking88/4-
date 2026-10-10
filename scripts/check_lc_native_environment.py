@@ -20,8 +20,8 @@ SOURCE_FILES = ("scripts/check_lc_native_environment.py", "scripts/lc_execution_
                 "scripts/run_lc_role_adaptation.py")
 SETTINGS = dict(protocol="lc_native_environment_v1", status="APPROVED_NATIVE_ONLY",
                 scope="NATIVE_IDLE_SUPERVISION_NO_TRAINING",
-                approval_call_id="call_d317f0f1f2fd4fceab4110e48d049e53",
-                approval_answer="批准环境验收代码与一次原生运行（推荐）",
+                approval_call_id="direct_user_2026-10-11_native_once",
+                approval_answer="一次原生验收批准",
                 idle_seconds=360, timeout_seconds=.25, max_seconds=480,
                 long_worker_seconds=420, heartbeat_seconds=10, standby_seconds=300,
                 require_ac=True, max_attempts=1,

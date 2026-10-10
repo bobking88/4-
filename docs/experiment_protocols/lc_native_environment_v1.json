@@ -1,9 +1,9 @@
 {
   "protocol": "lc_native_environment_v1",
-  "status": "ON_HOLD_NATIVE_REAUTH_REQUIRED",
+  "status": "APPROVED_NATIVE_ONLY",
   "scope": "NATIVE_IDLE_SUPERVISION_NO_TRAINING",
-  "approval_call_id": "call_d317f0f1f2fd4fceab4110e48d049e53",
-  "approval_answer": "批准环境验收代码与一次原生运行（推荐）",
+  "approval_call_id": "direct_user_2026-10-11_native_once",
+  "approval_answer": "一次原生验收批准",
   "idle_seconds": 360,
   "timeout_seconds": 0.25,
   "max_seconds": 480,
@@ -14,7 +14,7 @@
   "max_attempts": 1,
   "output_dir": "outputs/lc_native_environment_v1/acceptance_once",
   "source_sha256": {
-    "scripts/check_lc_native_environment.py": "6a7f0163c6879294b421247eb103d9d68e356c557bd0c77e6c2a3f71d63889b2",
+    "scripts/check_lc_native_environment.py": "40cdd9c154fdcf0916dadff394665f9695d27b87178ac1a27fbb041e120559b7",
     "scripts/lc_execution_safety.py": "84089e43cb36133d41647b7576c27e4609058b9c087f4979f595452cd37bc029",
     "scripts/run_lc_role_adaptation.py": "b5646792731ded7a4ab537f0c67ce42bed7dbbd26c5b722a0d8e808636d22e68"
   }
