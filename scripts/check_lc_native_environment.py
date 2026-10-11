@@ -18,14 +18,14 @@ from run_lc_role_adaptation import run_supervised_job
 
 SOURCE_FILES = ("scripts/check_lc_native_environment.py", "scripts/lc_execution_safety.py",
                 "scripts/run_lc_role_adaptation.py")
-SETTINGS = dict(protocol="lc_native_environment_v1", status="APPROVED_NATIVE_ONLY",
+SETTINGS = dict(protocol="lc_native_environment_v2", status="APPROVED_NATIVE_ONLY",
                 scope="NATIVE_IDLE_SUPERVISION_NO_TRAINING",
-                approval_call_id="direct_user_2026-10-11_native_once",
-                approval_answer="一次原生验收批准",
+                approval_call_id="call_kjhdIG03wWgnfdpyGlkiNaqh",
+                approval_answer="批准上述单次验收",
                 idle_seconds=360, timeout_seconds=.25, max_seconds=480,
                 long_worker_seconds=420, heartbeat_seconds=10, standby_seconds=300,
                 require_ac=True, max_attempts=1,
-                output_dir="outputs/lc_native_environment_v1/acceptance_once")
+                output_dir="outputs/lc_native_environment_v2/acceptance_once")
 
 
 class SYSTEM_POWER_STATUS(ctypes.Structure):
