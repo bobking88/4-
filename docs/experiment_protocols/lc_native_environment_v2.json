@@ -1,6 +1,6 @@
 {
   "protocol": "lc_native_environment_v2",
-  "status": "APPROVED_NATIVE_ONLY",
+  "status": "CONSUMED_NATIVE_INCONCLUSIVE_NO_RETRY",
   "scope": "NATIVE_IDLE_SUPERVISION_NO_TRAINING",
   "approval_call_id": "call_kjhdIG03wWgnfdpyGlkiNaqh",
   "approval_answer": "批准上述单次验收",

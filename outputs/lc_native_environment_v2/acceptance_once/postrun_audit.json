@@ -1,0 +1,51 @@
+{
+  "status": "PASS_EVIDENCE_CONSISTENCY_NOT_NATIVE_ACCEPTANCE",
+  "native_outcome": "INCONCLUSIVE_IDLE_WINDOW",
+  "checked_at": "2026-10-11T11:25:01.609802+08:00",
+  "registered_commit": "4a6f6c7778f15c82fa178c7aca419c5edd5cff49",
+  "registered_protocol_sha256": "7f59cb9e192f9fa4fb89fa63757bc261a459056d6cb1b5285a4adf728b83797a",
+  "native_v2_attempts": 1,
+  "job_attempts": [
+    1,
+    1
+  ],
+  "elapsed_seconds": 360.375,
+  "session_idle_seconds": 129.39,
+  "process_query": {
+    "pids": [
+      14756,
+      29324
+    ],
+    "matched_processes": [],
+    "exit_code": 0
+  },
+  "raw_ledger_matches_terminal_state": true,
+  "console_matches_terminal_state": true,
+  "power_requests_released": true,
+  "power_settings_unchanged": true,
+  "consumed_protocol_rejects_execution": true,
+  "source_sha256_unchanged_since_v2_registration": {
+    "scripts/check_lc_native_environment.py": "cd49054276ec758d2c9e1792bb6d50f2ba411d77e1af720727440607525a8ab5",
+    "scripts/lc_execution_safety.py": "84089e43cb36133d41647b7576c27e4609058b9c087f4979f595452cd37bc029",
+    "scripts/run_lc_role_adaptation.py": "b5646792731ded7a4ab537f0c67ce42bed7dbbd26c5b722a0d8e808636d22e68"
+  },
+  "protected_files_unchanged": {
+    "scripts/lc_role_adapter.py": "3c02653b5a1aafd1cf452fa029b827baa899ff6a6645986cebc368fbdeecf1aa",
+    "scripts/lc_role_training.py": "1431e80200a7639aca10493d4d7d4ef91c66eb45bbd1457a9a1cdc52f983adb7",
+    "docs/experiment_protocols/lc_role_adaptation_v1.json": "36254788f172af988124fe7058c7822dd96ac5be803d37d99b02ca754340e1db",
+    "结题/基于深度学习的钒钛矿相关矿物图像识别方法研究_技术报告（正式版）.docx": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c"
+  },
+  "main_workspace_report_unchanged": true,
+  "v1_raw_evidence_unchanged": true,
+  "artifact_sha256": {
+    "outputs/lc_native_environment_v2/acceptance_once/stage_state.json": "3fba73ff8706e6522a3b029db96c0226eadda3f194f64e7191d8357c8d7f45d1",
+    "outputs/lc_native_environment_v2/acceptance_once/worker_ledger.jsonl": "be91c88be2d36d2df628177da2374901405ff5cfb865c65e4ce622e09502f0d8",
+    "outputs/lc_native_environment_v2/acceptance_once/idle_child.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "outputs/lc_native_environment_v2/acceptance_once/timeout_child.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "outputs/lc_native_environment_v2/acceptance_once/registered_protocol.json": "7f59cb9e192f9fa4fb89fa63757bc261a459056d6cb1b5285a4adf728b83797a",
+    "outputs/lc_execution_safety_qa/native_v2_once_console_20261011.log": "984090356894bc93e6ca74c4a2436130a9ccc0416322b3e218375a92b74a07c6"
+  },
+  "input_source_not_inferred": true,
+  "real_training_authorized": false,
+  "no_retry_no_resume": true
+}

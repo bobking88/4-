@@ -1,0 +1,21 @@
+{
+  "protocol": "lc_native_environment_v2",
+  "status": "APPROVED_NATIVE_ONLY",
+  "scope": "NATIVE_IDLE_SUPERVISION_NO_TRAINING",
+  "approval_call_id": "call_kjhdIG03wWgnfdpyGlkiNaqh",
+  "approval_answer": "批准上述单次验收",
+  "idle_seconds": 360,
+  "timeout_seconds": 0.25,
+  "max_seconds": 480,
+  "long_worker_seconds": 420,
+  "heartbeat_seconds": 10,
+  "standby_seconds": 300,
+  "require_ac": true,
+  "max_attempts": 1,
+  "output_dir": "outputs/lc_native_environment_v2/acceptance_once",
+  "source_sha256": {
+    "scripts/check_lc_native_environment.py": "cd49054276ec758d2c9e1792bb6d50f2ba411d77e1af720727440607525a8ab5",
+    "scripts/lc_execution_safety.py": "84089e43cb36133d41647b7576c27e4609058b9c087f4979f595452cd37bc029",
+    "scripts/run_lc_role_adaptation.py": "b5646792731ded7a4ab537f0c67ce42bed7dbbd26c5b722a0d8e808636d22e68"
+  }
+}
