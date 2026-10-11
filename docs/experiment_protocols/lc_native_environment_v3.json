@@ -1,6 +1,6 @@
 {
   "protocol": "lc_native_environment_v3",
-  "status": "APPROVED_NATIVE_ONLY",
+  "status": "CONSUMED_NATIVE_PASS_NO_RETRY",
   "scope": "NATIVE_IDLE_SUPERVISION_NO_TRAINING",
   "approval_call_id": "call_2573049c0a844b2fae6b4e99b2cec3a6",
   "approval_answer": "批准，期间接电且不操作键鼠",
