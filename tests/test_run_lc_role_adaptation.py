@@ -189,6 +189,26 @@ class ExecutionGateTests(unittest.TestCase):
                 runner.run_stage(root, protocol, root / "result", "fit")
             self.assertFalse((root / "result").exists())
 
+    def test_separately_authorized_v2_permits_registered_real_stages(self):
+        protocol = dict(self.protocol, protocol="lc_role_adaptation_v2",
+                        status="APPROVED_FOR_DEVELOPMENT",
+                        training_authorization=dict(scope="REAL_LC_RFA_FIT_AND_ONCE_STOP",
+                            max_fits=422, max_seconds=21600, stop_evaluations=1,
+                            human_text="完整开发重跑",
+                            authorization_id="direct_user_2026-10-11_full_development_rerun"))
+        for stage in ("fit", "evaluate", "verify"):
+            with self.subTest(stage=stage):
+                runner.validate_protocol(protocol, stage)
+
+    def test_superseded_v1_identity_cannot_start_a_new_real_run(self):
+        protocol = dict(self.protocol, protocol="lc_role_adaptation_v1",
+                        status="APPROVED_FOR_DEVELOPMENT",
+                        training_authorization=dict(scope="REAL_LC_RFA_FIT_AND_ONCE_STOP",
+                            max_fits=422, max_seconds=21600, stop_evaluations=1,
+                            human_text="完整开发重跑"))
+        with self.assertRaises(ValueError):
+            runner.validate_protocol(protocol, "fit")
+
     def test_supervised_failure_has_one_attempt_pid_exit_and_tail(self):
         with tempfile.TemporaryDirectory() as folder:
             job = dict(job_id="crash", command=[sys.executable, "-c", "print('intentional crash'); raise SystemExit(7)"],

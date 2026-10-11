@@ -60,3 +60,6 @@
 /outputs/lc_native_environment_v2/acceptance_once/* -text whitespace=cr-at-eol
 /docs/experiment_protocols/lc_native_environment_v3.json -text whitespace=cr-at-eol
 /outputs/lc_native_environment_v3/acceptance_once/* -text whitespace=cr-at-eol
+# Preserve separately authorized real-development rerun evidence.
+/docs/experiment_protocols/lc_role_adaptation_v2.json -text whitespace=cr-at-eol
+/outputs/training/lc_role_adaptation_v2/** -text whitespace=-blank-at-eol,cr-at-eol

@@ -1,0 +1,4937 @@
+{
+  "jobs": [
+    {
+      "job_id": "cv-H0-0000",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-H0-0001",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-H0-0002",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-H0-0003",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-H0-0004",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-H0-0005",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-H0-0006",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-H0-0007",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-H0-0008",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-H0-0009",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-H0-0010",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-H0-0011",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-H0-0012",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-H0-0013",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-H0-0014",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-H0-0015",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-H0-0016",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-H0-0017",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-H0-0018",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-H0-0019",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-H0-0020",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-H0-0021",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-H0-0022",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-H0-0023",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-H0-0024",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-H0-0025",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-H0-0026",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-H0-0027",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-H0-0028",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-H0-0029",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-H0-0030",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-H0-0031",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-H0-0032",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-H0-0033",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-H0-0034",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-H0-0035",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-H0-0036",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-H0-0037",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-H0-0038",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-H0-0039",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-H0-0040",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-H0-0041",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-H0-0042",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-H0-0043",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-H0-0044",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-H0-0045",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-H0-0046",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-H0-0047",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-H0-0048",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-H0-0049",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-H0-0050",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-H0-0051",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-H0-0052",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-H0-0053",
+      "phase": "cv",
+      "arm": "H0",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-F0-0054",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-F0-0055",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-F0-0056",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-F0-0057",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-F0-0058",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-F0-0059",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-F0-0060",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-F0-0061",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-F0-0062",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-F0-0063",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-F0-0064",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-F0-0065",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-F0-0066",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-F0-0067",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-F0-0068",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-F0-0069",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-F0-0070",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-F0-0071",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-F0-0072",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-F0-0073",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-F0-0074",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-F0-0075",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-F0-0076",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-F0-0077",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-F0-0078",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-F0-0079",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-F0-0080",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-F0-0081",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-F0-0082",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-F0-0083",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-F0-0084",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-F0-0085",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-F0-0086",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-F0-0087",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-F0-0088",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-F0-0089",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-F0-0090",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-F0-0091",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-F0-0092",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-F0-0093",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-F0-0094",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-F0-0095",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-F0-0096",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-F0-0097",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-F0-0098",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-F0-0099",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-F0-0100",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-F0-0101",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-F0-0102",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-F0-0103",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-F0-0104",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-F0-0105",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-F0-0106",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-F0-0107",
+      "phase": "cv",
+      "arm": "F0",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S0-0108",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S0-0109",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S0-0110",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S0-0111",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S0-0112",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S0-0113",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S0-0114",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S0-0115",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S0-0116",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S0-0117",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S0-0118",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S0-0119",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S0-0120",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S0-0121",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S0-0122",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S0-0123",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S0-0124",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S0-0125",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S0-0126",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S0-0127",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S0-0128",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S0-0129",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S0-0130",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S0-0131",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S0-0132",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S0-0133",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S0-0134",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S0-0135",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S0-0136",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S0-0137",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S0-0138",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S0-0139",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S0-0140",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S0-0141",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S0-0142",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S0-0143",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S0-0144",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S0-0145",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S0-0146",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S0-0147",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S0-0148",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S0-0149",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S0-0150",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S0-0151",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S0-0152",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S0-0153",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S0-0154",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S0-0155",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S0-0156",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S0-0157",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S0-0158",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S0-0159",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S0-0160",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S0-0161",
+      "phase": "cv",
+      "arm": "S0",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S1-0162",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S1-0163",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S1-0164",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S1-0165",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S1-0166",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S1-0167",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S1-0168",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S1-0169",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S1-0170",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S1-0171",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S1-0172",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S1-0173",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S1-0174",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S1-0175",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S1-0176",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S1-0177",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S1-0178",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S1-0179",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S1-0180",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S1-0181",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S1-0182",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S1-0183",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S1-0184",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S1-0185",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S1-0186",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S1-0187",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S1-0188",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S1-0189",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S1-0190",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S1-0191",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S1-0192",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S1-0193",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S1-0194",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S1-0195",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S1-0196",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S1-0197",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S1-0198",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S1-0199",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S1-0200",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S1-0201",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S1-0202",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S1-0203",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S1-0204",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S1-0205",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S1-0206",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-S1-0207",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S1-0208",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S1-0209",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S1-0210",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S1-0211",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S1-0212",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S1-0213",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S1-0214",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-S1-0215",
+      "phase": "cv",
+      "arm": "S1",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R0-0216",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R0-0217",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R0-0218",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R0-0219",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R0-0220",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R0-0221",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R0-0222",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R0-0223",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R0-0224",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R0-0225",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R0-0226",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R0-0227",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R0-0228",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R0-0229",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R0-0230",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R0-0231",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R0-0232",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R0-0233",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R0-0234",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R0-0235",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R0-0236",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R0-0237",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R0-0238",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R0-0239",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R0-0240",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R0-0241",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R0-0242",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R0-0243",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R0-0244",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R0-0245",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R0-0246",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R0-0247",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R0-0248",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R0-0249",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R0-0250",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R0-0251",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R0-0252",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R0-0253",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R0-0254",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R0-0255",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R0-0256",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R0-0257",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R0-0258",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R0-0259",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R0-0260",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R0-0261",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R0-0262",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R0-0263",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R0-0264",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R0-0265",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R0-0266",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R0-0267",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R0-0268",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R0-0269",
+      "phase": "cv",
+      "arm": "R0",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R1-0270",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R1-0271",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R1-0272",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R1-0273",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R1-0274",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R1-0275",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R1-0276",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R1-0277",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R1-0278",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R1-0279",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R1-0280",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R1-0281",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R1-0282",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R1-0283",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R1-0284",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R1-0285",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R1-0286",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R1-0287",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R1-0288",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R1-0289",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R1-0290",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R1-0291",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R1-0292",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R1-0293",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R1-0294",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R1-0295",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R1-0296",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R1-0297",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R1-0298",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R1-0299",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R1-0300",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R1-0301",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R1-0302",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R1-0303",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R1-0304",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R1-0305",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R1-0306",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R1-0307",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R1-0308",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R1-0309",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R1-0310",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R1-0311",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R1-0312",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R1-0313",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R1-0314",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.25,
+        "beta_max": 0.25
+      }
+    },
+    {
+      "job_id": "cv-R1-0315",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R1-0316",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R1-0317",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R1-0318",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R1-0319",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R1-0320",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R1-0321",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R1-0322",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-R1-0323",
+      "phase": "cv",
+      "arm": "R1",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      }
+    },
+    {
+      "job_id": "cv-U1-0324",
+      "phase": "cv",
+      "arm": "U1",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-U1-0325",
+      "phase": "cv",
+      "arm": "U1",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-U1-0326",
+      "phase": "cv",
+      "arm": "U1",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-U1-0327",
+      "phase": "cv",
+      "arm": "U1",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-U1-0328",
+      "phase": "cv",
+      "arm": "U1",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-U1-0329",
+      "phase": "cv",
+      "arm": "U1",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-U1-0330",
+      "phase": "cv",
+      "arm": "U1",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-U1-0331",
+      "phase": "cv",
+      "arm": "U1",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-U1-0332",
+      "phase": "cv",
+      "arm": "U1",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-U1-0333",
+      "phase": "cv",
+      "arm": "U1",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-U1-0334",
+      "phase": "cv",
+      "arm": "U1",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-U1-0335",
+      "phase": "cv",
+      "arm": "U1",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-U1-0336",
+      "phase": "cv",
+      "arm": "U1",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-U1-0337",
+      "phase": "cv",
+      "arm": "U1",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-U1-0338",
+      "phase": "cv",
+      "arm": "U1",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-U1-0339",
+      "phase": "cv",
+      "arm": "U1",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-U1-0340",
+      "phase": "cv",
+      "arm": "U1",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-U1-0341",
+      "phase": "cv",
+      "arm": "U1",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-U1-0342",
+      "phase": "cv",
+      "arm": "U1",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-U1-0343",
+      "phase": "cv",
+      "arm": "U1",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-U1-0344",
+      "phase": "cv",
+      "arm": "U1",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-U1-0345",
+      "phase": "cv",
+      "arm": "U1",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-U1-0346",
+      "phase": "cv",
+      "arm": "U1",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-U1-0347",
+      "phase": "cv",
+      "arm": "U1",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-U1-0348",
+      "phase": "cv",
+      "arm": "U1",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-U1-0349",
+      "phase": "cv",
+      "arm": "U1",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-U1-0350",
+      "phase": "cv",
+      "arm": "U1",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-P-0351",
+      "phase": "cv",
+      "arm": "P",
+      "seed": 0,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-P-0352",
+      "phase": "cv",
+      "arm": "P",
+      "seed": 0,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-P-0353",
+      "phase": "cv",
+      "arm": "P",
+      "seed": 0,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-P-0354",
+      "phase": "cv",
+      "arm": "P",
+      "seed": 0,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-P-0355",
+      "phase": "cv",
+      "arm": "P",
+      "seed": 0,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-P-0356",
+      "phase": "cv",
+      "arm": "P",
+      "seed": 0,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-P-0357",
+      "phase": "cv",
+      "arm": "P",
+      "seed": 0,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-P-0358",
+      "phase": "cv",
+      "arm": "P",
+      "seed": 0,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-P-0359",
+      "phase": "cv",
+      "arm": "P",
+      "seed": 0,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-E-0360",
+      "phase": "cv",
+      "arm": "E",
+      "seed": 0,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-E-0361",
+      "phase": "cv",
+      "arm": "E",
+      "seed": 0,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-E-0362",
+      "phase": "cv",
+      "arm": "E",
+      "seed": 0,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-E-0363",
+      "phase": "cv",
+      "arm": "E",
+      "seed": 0,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-E-0364",
+      "phase": "cv",
+      "arm": "E",
+      "seed": 0,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-E-0365",
+      "phase": "cv",
+      "arm": "E",
+      "seed": 0,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-E-0366",
+      "phase": "cv",
+      "arm": "E",
+      "seed": 0,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-E-0367",
+      "phase": "cv",
+      "arm": "E",
+      "seed": 0,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "cv-E-0368",
+      "phase": "cv",
+      "arm": "E",
+      "seed": 0,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0,
+        "beta_max": 0
+      }
+    },
+    {
+      "job_id": "final-H0-0369",
+      "phase": "final",
+      "arm": "H0",
+      "seed": 20261002,
+      "inner_fold": null,
+      "config": null
+    },
+    {
+      "job_id": "final-H0-0370",
+      "phase": "final",
+      "arm": "H0",
+      "seed": 20261003,
+      "inner_fold": null,
+      "config": null
+    },
+    {
+      "job_id": "final-H0-0371",
+      "phase": "final",
+      "arm": "H0",
+      "seed": 20261004,
+      "inner_fold": null,
+      "config": null
+    },
+    {
+      "job_id": "final-F0-0372",
+      "phase": "final",
+      "arm": "F0",
+      "seed": 20261002,
+      "inner_fold": null,
+      "config": null
+    },
+    {
+      "job_id": "final-F0-0373",
+      "phase": "final",
+      "arm": "F0",
+      "seed": 20261003,
+      "inner_fold": null,
+      "config": null
+    },
+    {
+      "job_id": "final-F0-0374",
+      "phase": "final",
+      "arm": "F0",
+      "seed": 20261004,
+      "inner_fold": null,
+      "config": null
+    },
+    {
+      "job_id": "final-S0-0375",
+      "phase": "final",
+      "arm": "S0",
+      "seed": 20261002,
+      "inner_fold": null,
+      "config": null
+    },
+    {
+      "job_id": "final-S0-0376",
+      "phase": "final",
+      "arm": "S0",
+      "seed": 20261003,
+      "inner_fold": null,
+      "config": null
+    },
+    {
+      "job_id": "final-S0-0377",
+      "phase": "final",
+      "arm": "S0",
+      "seed": 20261004,
+      "inner_fold": null,
+      "config": null
+    },
+    {
+      "job_id": "final-S1-0378",
+      "phase": "final",
+      "arm": "S1",
+      "seed": 20261002,
+      "inner_fold": null,
+      "config": null
+    },
+    {
+      "job_id": "final-S1-0379",
+      "phase": "final",
+      "arm": "S1",
+      "seed": 20261003,
+      "inner_fold": null,
+      "config": null
+    },
+    {
+      "job_id": "final-S1-0380",
+      "phase": "final",
+      "arm": "S1",
+      "seed": 20261004,
+      "inner_fold": null,
+      "config": null
+    },
+    {
+      "job_id": "final-R0-0381",
+      "phase": "final",
+      "arm": "R0",
+      "seed": 20261002,
+      "inner_fold": null,
+      "config": null
+    },
+    {
+      "job_id": "final-R0-0382",
+      "phase": "final",
+      "arm": "R0",
+      "seed": 20261003,
+      "inner_fold": null,
+      "config": null
+    },
+    {
+      "job_id": "final-R0-0383",
+      "phase": "final",
+      "arm": "R0",
+      "seed": 20261004,
+      "inner_fold": null,
+      "config": null
+    },
+    {
+      "job_id": "final-R1-0384",
+      "phase": "final",
+      "arm": "R1",
+      "seed": 20261002,
+      "inner_fold": null,
+      "config": null
+    },
+    {
+      "job_id": "final-R1-0385",
+      "phase": "final",
+      "arm": "R1",
+      "seed": 20261003,
+      "inner_fold": null,
+      "config": null
+    },
+    {
+      "job_id": "final-R1-0386",
+      "phase": "final",
+      "arm": "R1",
+      "seed": 20261004,
+      "inner_fold": null,
+      "config": null
+    },
+    {
+      "job_id": "final-U1-0387",
+      "phase": "final",
+      "arm": "U1",
+      "seed": 20261002,
+      "inner_fold": null,
+      "config": null
+    },
+    {
+      "job_id": "final-U1-0388",
+      "phase": "final",
+      "arm": "U1",
+      "seed": 20261003,
+      "inner_fold": null,
+      "config": null
+    },
+    {
+      "job_id": "final-U1-0389",
+      "phase": "final",
+      "arm": "U1",
+      "seed": 20261004,
+      "inner_fold": null,
+      "config": null
+    },
+    {
+      "job_id": "final-P-0390",
+      "phase": "final",
+      "arm": "P",
+      "seed": 0,
+      "inner_fold": null,
+      "config": null
+    },
+    {
+      "job_id": "final-E-0391",
+      "phase": "final",
+      "arm": "E",
+      "seed": 0,
+      "inner_fold": null,
+      "config": null
+    },
+    {
+      "job_id": "matched_cv-S1-0392",
+      "phase": "matched_cv",
+      "arm": "S1",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "budget_source": "R1_fit_selection"
+      }
+    },
+    {
+      "job_id": "matched_cv-S1-0393",
+      "phase": "matched_cv",
+      "arm": "S1",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "budget_source": "R1_fit_selection"
+      }
+    },
+    {
+      "job_id": "matched_cv-S1-0394",
+      "phase": "matched_cv",
+      "arm": "S1",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.001,
+        "budget_source": "R1_fit_selection"
+      }
+    },
+    {
+      "job_id": "matched_cv-S1-0395",
+      "phase": "matched_cv",
+      "arm": "S1",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "budget_source": "R1_fit_selection"
+      }
+    },
+    {
+      "job_id": "matched_cv-S1-0396",
+      "phase": "matched_cv",
+      "arm": "S1",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "budget_source": "R1_fit_selection"
+      }
+    },
+    {
+      "job_id": "matched_cv-S1-0397",
+      "phase": "matched_cv",
+      "arm": "S1",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.001,
+        "budget_source": "R1_fit_selection"
+      }
+    },
+    {
+      "job_id": "matched_cv-S1-0398",
+      "phase": "matched_cv",
+      "arm": "S1",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "budget_source": "R1_fit_selection"
+      }
+    },
+    {
+      "job_id": "matched_cv-S1-0399",
+      "phase": "matched_cv",
+      "arm": "S1",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "budget_source": "R1_fit_selection"
+      }
+    },
+    {
+      "job_id": "matched_cv-S1-0400",
+      "phase": "matched_cv",
+      "arm": "S1",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.001,
+        "budget_source": "R1_fit_selection"
+      }
+    },
+    {
+      "job_id": "matched_cv-S1-0401",
+      "phase": "matched_cv",
+      "arm": "S1",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "budget_source": "R1_fit_selection"
+      }
+    },
+    {
+      "job_id": "matched_cv-S1-0402",
+      "phase": "matched_cv",
+      "arm": "S1",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "budget_source": "R1_fit_selection"
+      }
+    },
+    {
+      "job_id": "matched_cv-S1-0403",
+      "phase": "matched_cv",
+      "arm": "S1",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.01,
+        "budget_source": "R1_fit_selection"
+      }
+    },
+    {
+      "job_id": "matched_cv-S1-0404",
+      "phase": "matched_cv",
+      "arm": "S1",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "budget_source": "R1_fit_selection"
+      }
+    },
+    {
+      "job_id": "matched_cv-S1-0405",
+      "phase": "matched_cv",
+      "arm": "S1",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "budget_source": "R1_fit_selection"
+      }
+    },
+    {
+      "job_id": "matched_cv-S1-0406",
+      "phase": "matched_cv",
+      "arm": "S1",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.01,
+        "budget_source": "R1_fit_selection"
+      }
+    },
+    {
+      "job_id": "matched_cv-S1-0407",
+      "phase": "matched_cv",
+      "arm": "S1",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "budget_source": "R1_fit_selection"
+      }
+    },
+    {
+      "job_id": "matched_cv-S1-0408",
+      "phase": "matched_cv",
+      "arm": "S1",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "budget_source": "R1_fit_selection"
+      }
+    },
+    {
+      "job_id": "matched_cv-S1-0409",
+      "phase": "matched_cv",
+      "arm": "S1",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.01,
+        "budget_source": "R1_fit_selection"
+      }
+    },
+    {
+      "job_id": "matched_cv-S1-0410",
+      "phase": "matched_cv",
+      "arm": "S1",
+      "seed": 20261002,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "budget_source": "R1_fit_selection"
+      }
+    },
+    {
+      "job_id": "matched_cv-S1-0411",
+      "phase": "matched_cv",
+      "arm": "S1",
+      "seed": 20261003,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "budget_source": "R1_fit_selection"
+      }
+    },
+    {
+      "job_id": "matched_cv-S1-0412",
+      "phase": "matched_cv",
+      "arm": "S1",
+      "seed": 20261004,
+      "inner_fold": 0,
+      "config": {
+        "regularization": 0.1,
+        "budget_source": "R1_fit_selection"
+      }
+    },
+    {
+      "job_id": "matched_cv-S1-0413",
+      "phase": "matched_cv",
+      "arm": "S1",
+      "seed": 20261002,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "budget_source": "R1_fit_selection"
+      }
+    },
+    {
+      "job_id": "matched_cv-S1-0414",
+      "phase": "matched_cv",
+      "arm": "S1",
+      "seed": 20261003,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "budget_source": "R1_fit_selection"
+      }
+    },
+    {
+      "job_id": "matched_cv-S1-0415",
+      "phase": "matched_cv",
+      "arm": "S1",
+      "seed": 20261004,
+      "inner_fold": 1,
+      "config": {
+        "regularization": 0.1,
+        "budget_source": "R1_fit_selection"
+      }
+    },
+    {
+      "job_id": "matched_cv-S1-0416",
+      "phase": "matched_cv",
+      "arm": "S1",
+      "seed": 20261002,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "budget_source": "R1_fit_selection"
+      }
+    },
+    {
+      "job_id": "matched_cv-S1-0417",
+      "phase": "matched_cv",
+      "arm": "S1",
+      "seed": 20261003,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "budget_source": "R1_fit_selection"
+      }
+    },
+    {
+      "job_id": "matched_cv-S1-0418",
+      "phase": "matched_cv",
+      "arm": "S1",
+      "seed": 20261004,
+      "inner_fold": 2,
+      "config": {
+        "regularization": 0.1,
+        "budget_source": "R1_fit_selection"
+      }
+    },
+    {
+      "job_id": "matched_final-S1_matched-0419",
+      "phase": "matched_final",
+      "arm": "S1_matched",
+      "seed": 20261002,
+      "inner_fold": null,
+      "config": null
+    },
+    {
+      "job_id": "matched_final-S1_matched-0420",
+      "phase": "matched_final",
+      "arm": "S1_matched",
+      "seed": 20261003,
+      "inner_fold": null,
+      "config": null
+    },
+    {
+      "job_id": "matched_final-S1_matched-0421",
+      "phase": "matched_final",
+      "arm": "S1_matched",
+      "seed": 20261004,
+      "inner_fold": null,
+      "config": null
+    }
+  ]
+}

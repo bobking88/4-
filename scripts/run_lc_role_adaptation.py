@@ -62,7 +62,7 @@ def _json(path: Path, value: dict, *, exclusive=False) -> None:
 
 
 def draft_settings() -> dict:
-    return dict(protocol="lc_role_adaptation_v1", status="DRAFT_NOT_AUTHORIZED", outer_fold=0,
+    return dict(protocol="lc_role_adaptation_v2", status="DRAFT_NOT_AUTHORIZED", outer_fold=0,
                 subsets=list(SUBSETS), counts={"fit": 340, "stop": 340}, seeds=list(SEEDS),
                 regularization=[.001, .01, .1], budgets=[[.25, .25], [.5, .5]],
                 checkpoints=list(CHECKPOINTS), threads=1, learning_rate=.001,
