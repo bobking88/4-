@@ -63,9 +63,9 @@ experiment protocol, and formal report remain unchanged. Formal report SHA-256:
 
 Two separately authorized attempts have now produced consistent task-supervision
 and timeout-cleanup observations but insufficient final idle windows. A further
-identical attempt is not launched automatically. The human has been asked whether
-keyboard/mouse input occurred during v2 before choosing any input-source
-diagnostic or a newly registered acceptance design.
+identical attempt is not launched automatically. The human input clarification
+below resolves the previously unanswered question; any further native acceptance
+still requires an independent registration and approval.
 
 This engineering result does not prove causal sleep prevention, network
 recognition benefit, or theoretical superiority. No mineral images, real fits,
@@ -74,3 +74,26 @@ The original development remains `TIMED_OUT`, without a selection lock,
 evaluation, or verified performance evidence. Network innovation still requires
 the frozen strong-control experiment and theory-to-outcome analysis; neither an
 idle test nor synthetic certificate checks substitute for that experiment.
+
+## Human Follow-Up: 2026-10-11
+
+The user subsequently confirmed that keyboard/mouse input occurred during the
+six-minute acceptance window, and stated that it had no effect on the experiment.
+This is a human self-report, recorded separately from the native API evidence.
+It is consistent with the observed input-timestamp change, but does not establish
+the source of every input event or explain the earlier v1 attempt.
+
+No real model training or mineral-image evaluation occurred in this acceptance.
+Keyboard/mouse activity does not itself change the registered network, loss,
+data or protocol. It does reset the session idle timer, however, so the claim of
+no effect cannot be used to waive the required 300-second final idle evidence.
+The terminal outcome remains `INCONCLUSIVE_IDLE_WINDOW`; the successful child
+supervision and timeout-cleanup observations remain unchanged.
+
+The prior question about whether the user operated the keyboard/mouse is now
+answered. No automatic-input diagnosis is inferred or initiated from this
+confirmation. No raw logs, protocol status, acceptance result, network code or
+formal report are relabeled or changed. A new acceptance would require AC power
+and no keyboard/mouse operation, including other windows, for its full native
+window, under a fresh single-attempt authorization. This follow-up is not that
+authorization and does not authorize a real training rerun.
