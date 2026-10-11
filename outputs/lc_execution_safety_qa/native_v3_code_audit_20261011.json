@@ -1,0 +1,47 @@
+{
+  "status": "PASS_LOCAL_METADATA_SCOPE_AUDIT",
+  "checked_at": "2026-10-11T14:50:18.838689+08:00",
+  "approval_call_id": "call_2573049c0a844b2fae6b4e99b2cec3a6",
+  "source_sha256": {
+    "scripts/check_lc_native_environment.py": "6ff6bf40cec8c5f0b78ffc61fd11be8aeadf35880b1ebe9e8112be0b298ac161",
+    "scripts/lc_execution_safety.py": "84089e43cb36133d41647b7576c27e4609058b9c087f4979f595452cd37bc029",
+    "scripts/run_lc_role_adaptation.py": "b5646792731ded7a4ab537f0c67ce42bed7dbbd26c5b722a0d8e808636d22e68"
+  },
+  "protocol_sha256": "c49bdac02a5a3cedf0acbc452bc1527d51e423bb7e905148ee1aac5e2376996f",
+  "metadata_fields_changed": [
+    "approval_answer",
+    "approval_call_id",
+    "output_dir",
+    "protocol"
+  ],
+  "runtime_ast_unchanged": true,
+  "old_native_evidence_sha256": {
+    "docs/experiment_protocols/lc_native_environment_v1.json": "4f90ce6f92bc9918a81eeb12afd165150a9627afad9673b4d3463840b1d89d5a",
+    "docs/experiment_protocols/lc_native_environment_v2.json": "c8fc3f60fdcb543e2976987ea8bd6d3dcec63b271e5f7afda1951265a9902263",
+    "outputs/lc_native_environment_v1/acceptance_once/idle_child.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "outputs/lc_native_environment_v1/acceptance_once/postrun_audit.json": "b2c73761becbf45473a83344fd9cf982fed7eccbd871b34989f0eff27b6b05c7",
+    "outputs/lc_native_environment_v1/acceptance_once/registered_protocol.json": "da54960efc9adde85ea125a68593505901d43b9cacd924b0a6318d289b73fdb6",
+    "outputs/lc_native_environment_v1/acceptance_once/stage_state.json": "d4b3047c57525634d80323f77970f4f1024fad0d9acf4c972f3c6e08b8eba60e",
+    "outputs/lc_native_environment_v1/acceptance_once/timeout_child.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "outputs/lc_native_environment_v1/acceptance_once/worker_ledger.jsonl": "41a1fd8a7ca41a27cc7f8b3f0615ca7681f6fa393a3359faab51bb57183f813e",
+    "outputs/lc_native_environment_v2/acceptance_once/idle_child.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "outputs/lc_native_environment_v2/acceptance_once/postrun_audit.json": "0e55077219e9e3d9b062dda8357bc3d550a7d5a15e37ca4bf859a3fff92d2825",
+    "outputs/lc_native_environment_v2/acceptance_once/registered_protocol.json": "7f59cb9e192f9fa4fb89fa63757bc261a459056d6cb1b5285a4adf728b83797a",
+    "outputs/lc_native_environment_v2/acceptance_once/stage_state.json": "3fba73ff8706e6522a3b029db96c0226eadda3f194f64e7191d8357c8d7f45d1",
+    "outputs/lc_native_environment_v2/acceptance_once/timeout_child.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "outputs/lc_native_environment_v2/acceptance_once/worker_ledger.jsonl": "be91c88be2d36d2df628177da2374901405ff5cfb865c65e4ce622e09502f0d8"
+  },
+  "protected_files_unchanged": {
+    "scripts/lc_role_adapter.py": "3c02653b5a1aafd1cf452fa029b827baa899ff6a6645986cebc368fbdeecf1aa",
+    "scripts/lc_role_training.py": "1431e80200a7639aca10493d4d7d4ef91c66eb45bbd1457a9a1cdc52f983adb7",
+    "docs/experiment_protocols/lc_role_adaptation_v1.json": "36254788f172af988124fe7058c7822dd96ac5be803d37d99b02ca754340e1db",
+    "结题/基于深度学习的钒钛矿相关矿物图像识别方法研究_技术报告（正式版）.docx": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+    "docs/superpowers/specs/2026-10-06-lightweight-role-adaptation-design.md": "aa9fcec06b6190fa6e56969da667c7adbcd07c5eb9ea56574031bd51dabefea0",
+    "docs/superpowers/plans/2026-10-06-lightweight-role-adaptation-implementation.md": "0c033f145d98a14ef87fc9636b8f7e10821a97d56e9692d95a4f216e028ed1fb"
+  },
+  "main_formal_report_unchanged": true,
+  "new_output_absent": true,
+  "native_attempt_started": false,
+  "synthetic_full_suite_count": 510,
+  "independent_review": false
+}

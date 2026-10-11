@@ -62,14 +62,14 @@ class NativeAcceptanceTests(unittest.TestCase):
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)
         self.protocol = {
-            "protocol": "lc_native_environment_v2", "status": "APPROVED_NATIVE_ONLY",
+            "protocol": "lc_native_environment_v3", "status": "APPROVED_NATIVE_ONLY",
             "scope": "NATIVE_IDLE_SUPERVISION_NO_TRAINING",
-            "approval_call_id": "call_kjhdIG03wWgnfdpyGlkiNaqh",
-            "approval_answer": "批准上述单次验收",
+            "approval_call_id": "call_2573049c0a844b2fae6b4e99b2cec3a6",
+            "approval_answer": "批准，期间接电且不操作键鼠",
             "idle_seconds": 360, "timeout_seconds": .25, "max_seconds": 480,
             "long_worker_seconds": 420, "heartbeat_seconds": 10,
             "standby_seconds": 300, "require_ac": True, "max_attempts": 1,
-            "output_dir": "outputs/lc_native_environment_v2/acceptance_once",
+            "output_dir": "outputs/lc_native_environment_v3/acceptance_once",
             "source_sha256": {},
         }
         for name in native.SOURCE_FILES:
@@ -77,7 +77,7 @@ class NativeAcceptanceTests(unittest.TestCase):
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_bytes(b"registered source\n")
             self.protocol["source_sha256"][name] = hashlib.sha256(path.read_bytes()).hexdigest()
-        self.protocol_path = self.root/"docs/experiment_protocols/lc_native_environment_v2.json"
+        self.protocol_path = self.root/"docs/experiment_protocols/lc_native_environment_v3.json"
         self.protocol_path.parent.mkdir(parents=True)
         self.protocol_path.write_text(json.dumps(self.protocol, ensure_ascii=False), encoding="utf-8")
         self.host = FakeHost()
@@ -128,10 +128,10 @@ class NativeAcceptanceTests(unittest.TestCase):
 
     def test_new_single_approval_and_independent_root_are_recognized_without_native_execution(self):
         protocol = copy.deepcopy(self.protocol)
-        protocol["protocol"] = "lc_native_environment_v2"
-        protocol["approval_call_id"] = "call_kjhdIG03wWgnfdpyGlkiNaqh"
-        protocol["approval_answer"] = "批准上述单次验收"
-        protocol["output_dir"] = "outputs/lc_native_environment_v2/acceptance_once"
+        protocol["protocol"] = "lc_native_environment_v3"
+        protocol["approval_call_id"] = "call_2573049c0a844b2fae6b4e99b2cec3a6"
+        protocol["approval_answer"] = "批准，期间接电且不操作键鼠"
+        protocol["output_dir"] = "outputs/lc_native_environment_v3/acceptance_once"
         try:
             native.validate_protocol(self.root, protocol)
         except ValueError as error:
@@ -139,15 +139,17 @@ class NativeAcceptanceTests(unittest.TestCase):
         self.assertEqual(self.host.requests, [])
         self.assertEqual(self.jobs, [])
 
-    def test_both_superseded_approvals_cannot_authorize_new_native_attempt(self):
-        for identity, answer in (("direct_user_2026-10-11_native_once", "一次原生验收批准"),
-                                 ("call_d317f0f1f2fd4fceab4110e48d049e53", "批准环境验收代码与一次原生运行（推荐）")):
+    def test_superseded_approvals_cannot_authorize_new_native_attempt(self):
+        for version, identity, answer in (
+                ("v1", "direct_user_2026-10-11_native_once", "一次原生验收批准"),
+                ("v1", "call_d317f0f1f2fd4fceab4110e48d049e53", "批准环境验收代码与一次原生运行（推荐）"),
+                ("v2", "call_kjhdIG03wWgnfdpyGlkiNaqh", "批准上述单次验收")):
             with self.subTest(identity=identity):
                 protocol = copy.deepcopy(self.protocol)
-                protocol["protocol"] = "lc_native_environment_v1"
+                protocol["protocol"] = "lc_native_environment_" + version
                 protocol["approval_call_id"] = identity
                 protocol["approval_answer"] = answer
-                protocol["output_dir"] = "outputs/lc_native_environment_v1/acceptance_once"
+                protocol["output_dir"] = "outputs/lc_native_environment_" + version + "/acceptance_once"
                 with self.assertRaisesRegex(ValueError, "approval"):
                     native.validate_protocol(self.root, protocol)
 

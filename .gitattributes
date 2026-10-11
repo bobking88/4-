@@ -58,3 +58,5 @@
 /outputs/lc_native_environment_v1/acceptance_once/* -text whitespace=cr-at-eol
 /docs/experiment_protocols/lc_native_environment_v2.json -text whitespace=cr-at-eol
 /outputs/lc_native_environment_v2/acceptance_once/* -text whitespace=cr-at-eol
+/docs/experiment_protocols/lc_native_environment_v3.json -text whitespace=cr-at-eol
+/outputs/lc_native_environment_v3/acceptance_once/* -text whitespace=cr-at-eol
