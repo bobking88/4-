@@ -1,0 +1,8 @@
+{
+  "status": "FIT_LOCKED",
+  "stage": "fit",
+  "registration": {
+    "commit": "6e7af63932ab1fada75fd6e1200939819c874fd2",
+    "protocol_blob_sha": "ef20e3a87b4194aa7f9ff376212c82f12f6f062e"
+  }
+}

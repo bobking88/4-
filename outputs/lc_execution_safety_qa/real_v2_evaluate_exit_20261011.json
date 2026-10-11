@@ -1,0 +1,30 @@
+{
+  "status": "EVALUATION_PROCESS_FINISHED",
+  "host_started_at": "2026-10-11T23:54:23.258124+08:00",
+  "command": [
+    "D:\\成信工科研\\人工智能选矿\\.venv-training\\Scripts\\python.exe",
+    "-X",
+    "utf8",
+    "scripts/run_lc_role_adaptation.py",
+    "--protocol",
+    "docs/experiment_protocols/lc_role_adaptation_v2.json",
+    "--output-dir",
+    "outputs/training/lc_role_adaptation_v2/development_fold_0",
+    "--stage",
+    "evaluate"
+  ],
+  "attempts": 1,
+  "selection_lock_sha256": "0ce4a702075c5b0b0fc437d54cb4adf6d4e654bad8f491121eaba0e93660a7ea",
+  "fit_consumed_seconds": 2555.7029999999795,
+  "power_snapshot": {
+    "ac_connected": true,
+    "battery_percent": 97,
+    "session_idle_seconds": 0.078,
+    "last_input_tick_ms": 693762234
+  },
+  "pid": 26436,
+  "exit_code": 0,
+  "alive": false,
+  "host_finished_at": "2026-10-11T23:54:54.157761+08:00",
+  "invocation_elapsed_seconds": 30.905999999959022
+}

@@ -1,0 +1,9 @@
+{
+  "reused": true,
+  "budget": {
+    "regularization": 0.001,
+    "alpha_max": 0.5,
+    "beta_max": 0.5
+  },
+  "source": "same-protocol S1 CV grid"
+}

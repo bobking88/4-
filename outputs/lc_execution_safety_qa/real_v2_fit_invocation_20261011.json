@@ -1,0 +1,30 @@
+{
+  "status": "STARTING_SINGLE_FIT",
+  "host_started_at": "2026-10-11T23:07:19.907110+08:00",
+  "registered_commit": "6e7af63932ab1fada75fd6e1200939819c874fd2",
+  "protocol_sha256": "2f716188280105361335129c0a2c4c56455755a415b21fe20a84a4ecc3b05555",
+  "power_snapshot": {
+    "ac_connected": true,
+    "battery_percent": 97,
+    "session_idle_seconds": 130.984,
+    "last_input_tick_ms": 690799359
+  },
+  "power_settings": {
+    "scheme": "381b4222-f694-41f0-9685-ff5bb260df2e",
+    "ac_standby_seconds": 300,
+    "dc_standby_seconds": 300
+  },
+  "command": [
+    "D:\\成信工科研\\人工智能选矿\\.venv-training\\Scripts\\python.exe",
+    "-X",
+    "utf8",
+    "scripts/run_lc_role_adaptation.py",
+    "--protocol",
+    "docs/experiment_protocols/lc_role_adaptation_v2.json",
+    "--output-dir",
+    "outputs/training/lc_role_adaptation_v2/development_fold_0",
+    "--stage",
+    "fit"
+  ],
+  "attempts": 1
+}

@@ -1,0 +1,1 @@
+{"status": "VERIFIED_INFERENCE_ONLY", "training_replayed": false, "oof_candidate_count": 2124, "final_group_count": 26, "preprocessing": "frozen fit-state application replay", "tolerance": "exact dtype/shape/tensor equality in the same environment; no 5% allowance", "histories_and_gradients": "hash-integrity checked; optimizer authenticity requires authorized training replay"}

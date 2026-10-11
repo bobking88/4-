@@ -1,0 +1,109 @@
+{
+  "status": "FIT_LOCK_AUDITED_BEFORE_ONCE_STOP",
+  "host_checked_at": "2026-10-11T23:53:08.091952+08:00",
+  "selection_lock_sha256": "0ce4a702075c5b0b0fc437d54cb4adf6d4e654bad8f491121eaba0e93660a7ea",
+  "registered_protocol_sha256": "2f716188280105361335129c0a2c4c56455755a415b21fe20a84a4ecc3b05555",
+  "actual_fit_count": 392,
+  "temperature_fit_count": 4,
+  "fit_consumed_seconds": 2555.7029999999795,
+  "final_groups": 26,
+  "workers": 396,
+  "all_workers_complete_and_reaped": true,
+  "all_child_power_requests_released": true,
+  "max_child_poll_gap_seconds": 0.06300000008195639,
+  "max_child_suspend_delta_seconds": 0.012914000020828098,
+  "stop_evaluation_directory_absent": true,
+  "source_snapshot_unchanged": true,
+  "selections": {
+    "H0": {
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      },
+      "updates": 400,
+      "status": "OPTIMIZATION_TRUNCATED"
+    },
+    "F0": {
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      },
+      "updates": 100,
+      "status": "FIT_SELECTED"
+    },
+    "S0": {
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      },
+      "updates": 400,
+      "status": "OPTIMIZATION_TRUNCATED"
+    },
+    "S1": {
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      },
+      "updates": 100,
+      "status": "FIT_SELECTED"
+    },
+    "R0": {
+      "config": {
+        "regularization": 0.01,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      },
+      "updates": 400,
+      "status": "OPTIMIZATION_TRUNCATED"
+    },
+    "R1": {
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      },
+      "updates": 100,
+      "status": "FIT_SELECTED"
+    },
+    "U1": {
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.0,
+        "beta_max": 0.0
+      },
+      "updates": 400,
+      "status": "OPTIMIZATION_TRUNCATED"
+    },
+    "P": {
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.0,
+        "beta_max": 0.0
+      },
+      "updates": 0,
+      "status": "FIT_SELECTED"
+    },
+    "E": {
+      "config": {
+        "regularization": 0.1,
+        "alpha_max": 0.0,
+        "beta_max": 0.0
+      },
+      "updates": 0,
+      "status": "FIT_SELECTED"
+    },
+    "S1_matched": {
+      "config": {
+        "regularization": 0.001,
+        "alpha_max": 0.5,
+        "beta_max": 0.5
+      },
+      "updates": 100,
+      "status": "FIT_SELECTED"
+    }
+  }
+}

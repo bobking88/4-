@@ -1,0 +1,19 @@
+{
+  "exit_code": 0,
+  "command": [
+    "D:\\成信工科研\\人工智能选矿\\.venv-training\\Scripts\\python.exe",
+    "-X",
+    "utf8",
+    "scripts/run_lc_role_adaptation.py",
+    "--protocol",
+    "docs/experiment_protocols/lc_role_adaptation_v2.json",
+    "--output-dir",
+    "outputs/training/lc_role_adaptation_v2/development_fold_0",
+    "--stage",
+    "verify"
+  ],
+  "host_started_at": "2026-10-11T23:57:36.806262+08:00",
+  "host_finished_at": "2026-10-11T23:58:28.377911+08:00",
+  "elapsed_seconds": 51.57799999997951,
+  "training_replayed": false
+}
