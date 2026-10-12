@@ -195,7 +195,9 @@ PB 与 REPAIR 已覆盖通用边界及成对残差思路；本轮不实施新网
 [IC-RFA-B v1 恒等中心化书面设计](docs/superpowers/specs/2026-10-12-identity-centered-role-adaptation-design.md)。
 新候选固定原始输入上的函数参照，拟训练3024参数、另存3024固定函数参照参数，
 通过参数化/正则化/路由的交叉控制及同修复普通路由检验角色净作用。
-状态为待书面规格审核：未实施新网络、未真实训练，也未修改正式报告。
+用户已确认书面规格，现形成
+[IC-RFA-B v1 实施计划](docs/superpowers/plans/2026-10-12-identity-centered-role-adaptation-implementation.md)，
+状态为待计划审核：未实施新网络、未真实训练，也未修改正式报告。
 首轮只拟做现有fit分组的有限机制探查，stop评价与新数据确认另行设计批准。
 C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独当作原创理论。
 
