@@ -1,0 +1,34 @@
+{
+  "status": "DERIVED_ARCHIVE_BYTE_VERIFIED",
+  "zip_path": "derived_trace_tables.zip",
+  "size_bytes": 6257085,
+  "sha256": "858a27b7fd826096f15c416fd7b75daaa64d0b065353e842780651569724c175",
+  "members": [
+    {
+      "path": "checkpoint_parameter_norms.csv",
+      "size_bytes": 3278816,
+      "sha256": "b4c1475ca62266fe409845713bfe1c2a9cb4772c2f353d7cb4d6847dc7e5ddb0"
+    },
+    {
+      "path": "gradient_observations.csv",
+      "size_bytes": 3332023,
+      "sha256": "6129940bfc340f1cdbe7b0e8f8d3d9ab571b2e1606ab33ba22602e1604f5e52d"
+    },
+    {
+      "path": "gradient_summary.csv",
+      "size_bytes": 50640,
+      "sha256": "b974e1dd6fb255bf376a2ffc943dc7eee825b3ff66d1ca21f7efd7919b30a236"
+    },
+    {
+      "path": "history_observations.csv",
+      "size_bytes": 19339743,
+      "sha256": "c9e59b3becee6fd2555ffbae4fa1ef1586ab057dbb86a68d030537b9068a643d"
+    },
+    {
+      "path": "initial_gradient_identity.csv",
+      "size_bytes": 402507,
+      "sha256": "40839c6e349070711180b78d682ca7feb8a050dbe40b06812f541263e3540f65"
+    }
+  ],
+  "contains_images_cache_weights": false
+}

@@ -1,0 +1,26 @@
+{
+  "status": "READ_ONLY_DIAGNOSIS_BOUNDARY_VERIFIED",
+  "host_checked_at": "2026-10-12T11:13:30.873602+08:00",
+  "source_commit": "29769e01cb01c70762ec7fe5e484aac0992349a7",
+  "historical_files_checked": 1776,
+  "registered_sources_checked": 49,
+  "original_result_files_checked": 2028,
+  "changed_protected_files": [],
+  "changed_original_result_files": [],
+  "formal_reports": [
+    {
+      "path": "D:\\\u6210\u4fe1\u5de5\u79d1\u7814\\\u4eba\u5de5\u667a\u80fd\u9009\u77ff\\.worktrees\\theory-aware-report\\\u7ed3\u9898\\\u57fa\u4e8e\u6df1\u5ea6\u5b66\u4e60\u7684\u9492\u949b\u77ff\u76f8\u5173\u77ff\u7269\u56fe\u50cf\u8bc6\u522b\u65b9\u6cd5\u7814\u7a76_\u6280\u672f\u62a5\u544a\uff08\u6b63\u5f0f\u7248\uff09.docx",
+      "sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c"
+    },
+    {
+      "path": "D:\\\u6210\u4fe1\u5de5\u79d1\u7814\\\u4eba\u5de5\u667a\u80fd\u9009\u77ff\\\u7ed3\u9898\\\u57fa\u4e8e\u6df1\u5ea6\u5b66\u4e60\u7684\u9492\u949b\u77ff\u76f8\u5173\u77ff\u7269\u56fe\u50cf\u8bc6\u522b\u65b9\u6cd5\u7814\u7a76_\u6280\u672f\u62a5\u544a\uff08\u6b63\u5f0f\u7248\uff09.docx",
+      "sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c"
+    }
+  ],
+  "no_model_or_protocol_change": true,
+  "training_replay_performed": false,
+  "new_training_performed": false,
+  "new_stop_evaluation_performed": false,
+  "new_raw_images_or_feature_cache_read": false,
+  "verification_scope": "Hash integrity and saved scalar/tensor metadata only; not independent optimizer reproduction or performance improvement"
+}
