@@ -224,19 +224,81 @@ $$
 
 ## 6. 已有研究与创新边界
 
-截至本次核对，初始化、上下投影学习率与多头随机化均已有明确前例：
+截至本次及后续定向核对，中心化、起点正则化、初始化、上下投影学习率与多头随机化均已有明确前例：
 
 | 已核对原始来源 | 时间 | 与本候选的关系 |
 | --- | --- | --- |
+| [Explicit Inductive Bias for Transfer Learning with Convolutional Networks](https://proceedings.mlr.press/v80/li18a.html) | ICML 2018 | L2-SP 以预训练起点而非零为正则化中心；当前随机适配器参照不是具有源任务知识的预训练权重，不能直接搬用其实验收益 |
+| [On Lazy Training in Differentiable Programming](https://proceedings.neurips.cc/paper_files/paper/2019/hash/ae614c557843b1df326cb29c57225459-Abstract.html) | NeurIPS 2019；预印本 2018 | 第 3.2 节、PDF 第 8 页使用减去初始 VGG 输出的中心化模型，并保留初始参数微分；中心化本身不是新构造 |
+| [ReZero](https://proceedings.mlr.press/v161/bachlechner21a.html) | UAI 2021；预印本 2020 | 通过零初始化残差门获得恒等起点；第 1 节明确分支初始梯度为零但之后可演化，反驳“初始梯度为零就必然性能差”的推断 |
 | [LoRA+](https://proceedings.mlr.press/v235/hayou24a.html) | ICML 2024 | 分析上下投影同学习率的特征学习限制；分开学习率不是新点 |
 | [The Impact of Initialization on LoRA Finetuning Dynamics](https://proceedings.neurips.cc/paper_files/paper/2024/hash/d4387c37b3b06e55f86eccdb8cd1f829-Abstract-Conference.html) | NeurIPS 2024 | 零初始化方向影响动态，恒等输出并不意味着动态等价 |
 | [LoRA-GA](https://proceedings.neurips.cc/paper_files/paper/2024/hash/62c4718cc334f6a0a62fb81c4a2095a1-Abstract-Conference.html) | NeurIPS 2024 | 梯度对齐初始化已被研究，不能宣称首次改进初始梯度 |
 | [Beyond Zero Initialization](https://proceedings.mlr.press/v267/li25bm.html) | ICML 2025 | 研究上下投影同时非零初始化；原文第 4.3 节比较是否减去初始低秩项 |
 | [R-LoRA](https://aclanthology.org/2025.findings-emnlp.35/) | Findings EMNLP 2025，11 月 | 多头随机化及减去初始低秩更新已有研究，不能宣称首次让分支多样化 |
 
-这些工作多数针对语言模型中的线性权重适配；当前实现是冻结 CNN 特征上的非线性有界适配，不能直接搬用其无限宽定理或数字，也不能因为应用对象不同就认为理论新颖。
+较新的 LoRA 工作多数针对语言模型中的线性权重适配，而前述较早工作也覆盖 CNN、恒等残差和通用可微模型。当前实现是冻结 CNN 特征上的非线性有界适配，不能直接搬用其无限宽定理或数字，也不能因为应用对象不同就认为理论新颖。
+
+**查新后的限制更强**：第 5 节的中心化与起点正则化应定位为已有思想指导的机制修复和强对照，而不是它们自身构成理论创新。ReZero 的例子不否定第 3 节的精确梯度阻断证明，但要求删除“发现阻断便解释全部负结果”的因果跳跃。当前存储证据支持早期弱数据梯度、参数收缩及小分支作用的并存，不足以把这些现象等同于文献中的 lazy-training 极限。
 
 **有望保留的研究问题**是：在角色概率路由和受控概率修正的双重预算下，怎样同时满足恒等起点、有限扰动证书和可用的分支学习路径；该结构是否在相同参照、参数量、优化器与正则化控制下产生增量目标纠错。原创性尚需继续查新和严格对照，不得写“已证明稳定提高召回”。
+
+### 6.1 条件性推导：路由改变学习尺度，但不自动增加初始核的秩
+
+以下为作者侧数学分析，不是已经执行的 Jacobian 实验，也不是新的一般核理论。神经切线核的参数 Jacobian 内积定义已有 [Jacot 等，NeurIPS 2018](https://proceedings.neurips.cc/paper_files/paper/2018/hash/5a4be1fa34e62bb8a6ec6b91d2462f5a-Abstract.html)。这里仅针对角色分支的一个标量输出块推导，不能套用其无限宽收敛结论。
+
+固定所有非分支参数以及锚点/路由。设某个起点所有 $\delta_j=0$，主路径和各辅助路径都在相同视觉输入 $h$ 上计算；参照函数冻结且不依赖适配后输入。对第 $j$ 个分支参数向量 $\vartheta_j$，取目标/第 $j$ 类标量 log-odds
+
+$$
+r_j=\log q_T-\log q_j.
+$$
+
+分别记主路径和第 $j$ 个无缩放辅助视图的参数 Jacobian 为 $J_j^{\mathrm{main}}(x)$、$J_j^{\mathrm{aux}}(x)$。链式法则给出起点处的**精确恒等式**
+
+$$
+J_j^{\mathrm{main}}(x)=g_j(x)J_j^{\mathrm{aux}}(x),
+\qquad g_j(x)=b(x)\rho_j(x).
+$$
+
+证明：该点主、辅路径的输出对视觉输入的导数相同。主路径对分支参数的输入导数为 $g_j\,\partial\delta_j/\partial\vartheta_j$，辅助路径为 $\partial\delta_j/\partial\vartheta_j$，冻结路由不引入额外参数导数。此式对原始零初始化也成立，但此时两个 Jacobian 均为零，并不产生学习性保证。
+
+对固定 $n$ 个输入堆叠上述标量 Jacobian，定义该分支块的 Gram 矩阵
+
+$$
+K_j^{\mathrm{aux}}=J_j^{\mathrm{aux}}(J_j^{\mathrm{aux}})^\top,
+\quad G_j=\operatorname{diag}(g_j(x_1),\ldots,g_j(x_n)).
+$$
+
+于是
+
+$$
+K_j^{\mathrm{main}}=G_jK_j^{\mathrm{aux}}G_j.
+$$
+
+若每个路由系数严格正，则 $G_j$ 可逆，两个块的秩相同。因此不能宣称“仅靠正角色路由就增加初始核的秩或解决不可辨识”。若进一步已知 $K_j^{\mathrm{aux}}\succ0$ 且 $g_{\min}>0$，才有
+
+$$
+\lambda_{\min}(K_j^{\mathrm{main}})
+\geq g_{\min}^{\,2}\lambda_{\min}(K_j^{\mathrm{aux}}).
+$$
+
+证明：对任意单位向量 $v$，
+$v^\top G_jK_j^{\mathrm{aux}}G_jv\geq
+\lambda_{\min}(K_j^{\mathrm{aux}})\|G_jv\|^2
+\geq g_{\min}^2\lambda_{\min}(K_j^{\mathrm{aux}})$。
+这只是已有矩阵 Rayleigh 商不等式在该结构上的应用，不应单独命名为原创定理。
+
+当前没有计算上述核或核特征值，更没有证据满足正定条件。非零参数、非零单样本梯度或大梯度范数都不等于核正定；重复输入、低秩 Jacobian、损失方向抵消和近饱和激活均可能造成退化。锚点趋于极端置信时 $g_{\min}$ 可以任意小，故不存在不加条件的正学习尺度下界。上述关系仅在共同零适配起点成立；训练后主、辅输入不再相同，不能把恒等式外推到全程。
+
+该推导的价值是限制未来论证：必须分别检查初始化修复、角色路由改变的学习尺度和真实增量纠错。它不是总体 NLL Hessian、全部参数联合核或真实标签泛化界，也不能推出核尺度越大、召回率一定越高。
+
+### 6.2 后续查新的记录范围
+
+2026-10-12 的后续检索是针对候选构造的定向重合核查，不是 PRISMA 系统综述或正式查新报告。关键词覆盖 `antisymmetric/antisymmetrical initialization`、`centered model`、`lazy training`、`L2-SP` 和 `ReZero`。正文结论仅使用已核对题目、作者、会议年份及相关原文位置的会议论文。
+
+当前没有挂载 CrossRef/arXiv/Semantic Scholar 的专用检索 MCP；使用 web 检索定位 PMLR、NeurIPS 原始论文与会议信息，未查询引用量，也未声称数据库覆盖率。arXiv 的 ASI 旧论文 HTML 打开失败，不把该预印本用于新增核心结论；上述 NeurIPS 2019 原文已足以确认中心化的前例。
+
+分析使用 AI 辅助检索和作者侧推导，没有独立数学审稿、外部模型审核或新实验。没有任何“未找到完全相同论文，所以首次提出”的推断。下一轮若仅取得初始化/正则化修复增益，应如实定位为工程改进；只有在共享这些修复的强对照上得到角色结构的额外收益，并明确剩余新颖性，才可能作为报告与论文的网络贡献。
 
 ## 7. 下一步顺序与可证伪标准
 
