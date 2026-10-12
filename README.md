@@ -183,7 +183,21 @@ PB 与 REPAIR 已覆盖通用边界及成对残差思路；本轮不实施新网
 公式中的输出限制不是召回或泛化保证。用户已认可规格，现已形成
 [LC-RFA-B v1 实施计划](docs/superpowers/plans/2026-10-06-lightweight-role-adaptation-implementation.md)，
 状态为待计划审核；推荐先进行代码、合成验收与结构图，真实开发训练单独登记获准后执行。
-网络未实现、未训练，没有新性能结论；正式报告未改，C 路线继续后置。
+该条目是 2026-10-06 设计时点的状态；后续实际实施与研究状态见下方更新。
+
+2026-10-12 更新：LC-RFA 已完成代码、合成验收及一次获准的完整开发重跑，
+[v2 负结果记录](docs/experiment_records/2026-10-12_lc_role_v2_results.md)
+明确注册筛选未通过，R1/S1 三种子的开发 stop argmax 完全相同。
+[全量梯度诊断与查新](docs/experiment_records/2026-10-12_lc_role_gradient_mechanism_diagnosis.md)
+分析了串联零初始化、正则化收缩与条件性核关系；没有证明角色收益。
+
+用户现已同意先写新网络规格，形成
+[IC-RFA-B v1 恒等中心化书面设计](docs/superpowers/specs/2026-10-12-identity-centered-role-adaptation-design.md)。
+新候选固定原始输入上的函数参照，拟训练3024参数、另存3024固定函数参照参数，
+通过参数化/正则化/路由的交叉控制及同修复普通路由检验角色净作用。
+状态为待书面规格审核：未实施新网络、未真实训练，也未修改正式报告。
+首轮只拟做现有fit分组的有限机制探查，stop评价与新数据确认另行设计批准。
+C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独当作原创理论。
 
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
