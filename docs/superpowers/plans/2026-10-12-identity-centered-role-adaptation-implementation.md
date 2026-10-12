@@ -40,7 +40,7 @@
 
 - 日期：2026-10-12；模式：writing-plans / academic-research-suite experiment-agent plan。
 - 人类确认原文：“确认上方的规格审核选项”；所确认的问题限定为“认可规格，仅编写实施计划”。因此规格认可，**本轮只写计划**。
-- 状态：`SPEC_APPROVED_PLAN_REVIEW_PENDING`。任务均未执行；不把计划中的复现命令解释为当前运行指令。
+- 状态：`IMPLEMENTATION_IN_PROGRESS`。用户于2026-10-12明确批准“认可计划，批准原生代码与合成验收”；只执行Tasks1--7，Task8和正式报告修改未获准。
 - Verification Status：`UNVERIFIED`，指新网络、理论实施与实际效果尚未验收；计划本身另做作者侧覆盖检查。
 - 旧负结果基线：`d34d853a0b2f6352f6b975cede91e68560057f83`；规格快照：`dfee7b592e274bb78fd4d4a3d8a1c3c283e1419e`。
 - 当前没有独立子代理工具；建议原生逐任务实施，不能承诺尚不存在的独立评审。作者侧自审不是第三方数学验证。
@@ -75,6 +75,8 @@
 
 ## Task 1: 严格 fit-only 数据包装
 
+执行记录：2026-10-12，8项新测试RED→GREEN，旧数据模块6项合成回归通过；最终合并14项通过（0.475秒测试时间），提交 `d9baa2b598271decef5abdfdd8726127570afc96`。未加载任何真实fit/stop包。Steps1--5完成；详见本计划独立执行ledger与测试日志。
+
 **Files:** Create `scripts/ic_role_data.py`; Test `tests/test_ic_role_data.py`。
 
 **Interfaces:**
@@ -82,13 +84,15 @@
 - `validate_assignment(raw: dict, assignment: list[dict]) -> list[dict]` 检查逐行image/group/class/fold身份，不生成新划分。
 - `prepare_inner_fold(raw: dict, assignment: list[dict], fold: int) -> dict` 返回state/train/validation与其训练/验证索引。
 
-- [ ] **Step1 写失败测试：** `test_loader_never_opens_stop_or_combined_cache`、`test_assignment_reorder_duplicate_missing_class_rejected`、`test_validation_changes_do_not_change_preprocessing`、`test_fullfit_state_cannot_be_reused`。用mock捕获打开路径；生产路径仅可为列明两个输入，假blob错误哈希先于反序列化失败。训练状态train_ids不得含验证ID；改验证数值/标签后状态逐元素不变。
-- [ ] **Step2 红灯：** `python -m unittest discover -s tests -p test_ic_role_data.py -v`；预期新模块缺失或断言失败，不接受fixture/依赖错误冒充红灯。
-- [ ] **Step3 实现接口：** 对 `fit_raw.pt` 的SHA `d1edbe1f87977ce0a91639bc8cb455708d4c2e17d53340c48d11d2e8b2a568b1`、assignment SHA `e603ba0b603bc903f82649dd19edaebb69f7e171be0dec2092d69048c5469927` 先核验，后 `torch.load(weights_only=True,map_location="cpu")` 只载入该fit包。assignment的JSON根对象为dict，取其 `rows` 列表，再校验有序的image_id/split_group_id/class_id/inner_fold字段。验证340行/分组、四类数量、形状、有限性及record身份；预处理公共纯函数只接该折训练索引。现有assignment原样沿用，不调用make_inner_assignment。首版统一重拟合3个内折状态，不读取已有fullfit状态；最多3次T0标定。
-- [ ] **Step4 绿灯与回归：** 上述新测试全部通过，既有 `test_lc_role_data.py` 合成测试通过；相关旧测试先静态确认无真实数据读取，不能运行可能读取stop的全库任务。保存/载入训练状态、变批量transform一致。
-- [ ] **Step5 提交：** 仅模块/对应测试；`feat: add isolated fit-only identity-centered data contracts`。
+- [x] **Step1 写失败测试：** `test_loader_never_opens_stop_or_combined_cache`、`test_assignment_reorder_duplicate_missing_class_rejected`、`test_validation_changes_do_not_change_preprocessing`、`test_fullfit_state_cannot_be_reused`。用mock捕获打开路径；生产路径仅可为列明两个输入，假blob错误哈希先于反序列化失败。训练状态train_ids不得含验证ID；改验证数值/标签后状态逐元素不变。
+- [x] **Step2 红灯：** `python -m unittest discover -s tests -p test_ic_role_data.py -v`；预期新模块缺失或断言失败，不接受fixture/依赖错误冒充红灯。
+- [x] **Step3 实现接口：** 对 `fit_raw.pt` 的SHA `d1edbe1f87977ce0a91639bc8cb455708d4c2e17d53340c48d11d2e8b2a568b1`、assignment SHA `e603ba0b603bc903f82649dd19edaebb69f7e171be0dec2092d69048c5469927` 先核验，后 `torch.load(weights_only=True,map_location="cpu")` 只载入该fit包。assignment的JSON根对象为dict，取其 `rows` 列表，再校验有序的image_id/split_group_id/class_id/inner_fold字段。验证340行/分组、四类数量、形状、有限性及record身份；预处理公共纯函数只接该折训练索引。现有assignment原样沿用，不调用make_inner_assignment。首版统一重拟合3个内折状态，不读取已有fullfit状态；最多3次T0标定。
+- [x] **Step4 绿灯与回归：** 上述新测试全部通过，既有 `test_lc_role_data.py` 合成测试通过；相关旧测试先静态确认无真实数据读取，不能运行可能读取stop的全库任务。保存/载入训练状态、变批量transform一致。
+- [x] **Step5 提交：** 仅模块/对应测试；`feat: add isolated fit-only identity-centered data contracts`。
 
 ## Task 2: 中心化网络及12单元
+
+执行记录：2026-10-12，先8项RED，再实现；补查角色重排/别名/随机流后11项新模型测试通过（警告作错误），旧适配器8项合成回归通过。最终IC数据+模型19项通过（0.705秒测试时间），提交 `58f03941234e01e6c25e3bb9d90d8a06afd2d0fc`。仅基础结构验收，不是Task3理论验收或真实效果。
 
 **Files:** Create `scripts/ic_role_model.py`; Test `tests/test_ic_role_model.py`。
 
@@ -98,11 +102,11 @@
 - `reference_identity(model: ICRoleModel) -> dict` 返回版本、初始化hash、当前/函数参照/正则快照计数及无别名证据。
 - `objective(model: ICRoleModel, result: dict, labels: Tensor) -> dict` 返回 `nll/pair/data/regularization/total`，不使用model.parameters无差别惩罚参照。
 
-- [ ] **Step1 写失败测试：** `test_all_units_identity_parameter_and_storage_counts`、`test_reference_is_frozen_unaliased_and_reload_stable`、`test_same_seed_controls_have_same_initial_current_parameters`、`test_pair_loss_paths_and_regularization_centers`、`test_numeric_underflow_and_invalid_inputs_fail`。C核心3024/3024、HC1476/1476、FC3132/3132；Z各3024当前，不伪造函数参照。C主/辅初始logq等于anchor，atol1e-12；更新当前后参照hash不变且无grad。O初始正则可非零，S初始为0；noaux系数0。
-- [ ] **Step2 红灯：** `python -m unittest discover -s tests -p test_ic_role_model.py -v`。
-- [ ] **Step3 实现接口：** 按规格式(1)--(9)和初始化表。C差值必须在外层tanh输出相减后除16，Z旧差值分支除sqrt64；固定读出参照输入h/e，ref权重深复制requires_grad=False。S正则复用同身份固定参数，Z-S只另存初始参数buffer。HC/FC在主输出计算三对pair，C/Z在三个辅助视图计算。复用log-space公开概率函数但强制bounded=True；同样本output不依赖batch。
-- [ ] **Step4 绿灯：** 新测试及既有 `test_lc_role_adapter.py` 合成回归通过；单独/分批、保存重载和同时角色重排等价。逐项核对非零U/W2、fan-in范围和构造流，环境版本不符即失败，不事后重初始化。
-- [ ] **Step5 提交：** `feat: add identity-centered bounded adapters and matched controls`。
+- [x] **Step1 写失败测试：** `test_all_units_identity_parameter_and_storage_counts`、`test_reference_is_frozen_unaliased_and_reload_stable`、`test_same_seed_controls_have_same_initial_current_parameters`、`test_pair_loss_paths_and_regularization_centers`、`test_numeric_underflow_and_invalid_inputs_fail`。C核心3024/3024、HC1476/1476、FC3132/3132；Z各3024当前，不伪造函数参照。C主/辅初始logq等于anchor，atol1e-12；更新当前后参照hash不变且无grad。O初始正则可非零，S初始为0；noaux系数0。
+- [x] **Step2 红灯：** `python -m unittest discover -s tests -p test_ic_role_model.py -v`。
+- [x] **Step3 实现接口：** 按规格式(1)--(9)和初始化表。C差值必须在外层tanh输出相减后除16，Z旧差值分支除sqrt64；固定读出参照输入h/e，ref权重深复制requires_grad=False。S正则复用同身份固定参数，Z-S只另存初始参数buffer。HC/FC在主输出计算三对pair，C/Z在三个辅助视图计算。复用log-space公开概率函数但强制bounded=True；同样本output不依赖batch。
+- [x] **Step4 绿灯：** 新测试及既有 `test_lc_role_adapter.py` 合成回归通过；单独/分批、保存重载和同时角色重排等价。逐项核对非零U/W2、fan-in范围和构造流，环境版本不符即失败，不事后重初始化。
+- [x] **Step5 提交：** `feat: add identity-centered bounded adapters and matched controls`。
 
 ## Task 3: 三个命题的数值与反例验收
 
@@ -206,6 +210,6 @@
 
 覆盖检查：规格1/2/11/12→本计划Passport、Task6/8；规格3→Task1；规格4/5/6/8→Task2/4；规格7/9→Task3；规格10→Task4/5/6/8。五项Review Focus分别有命名测试；各消费者使用上文定义的接口，不改旧公共模块。
 
-未授权事项仍未执行：所有Tasks1--8、新代码和测试、合成模型/计时/图、真实fit、stop评价、报告整合。当前仅规格认可和实施计划编写。可复现文档检查不是新网络合成验收，不会给计划中的任务打完成勾。
+授权状态已更新：Tasks1--7原生代码/预定合成验收获准，按各任务实际证据逐步标记；Task8真实fit、stop评价和报告整合仍未获准。文档检查不冒充网络验收，未执行任务不勾选完成。
 
-后续建议原生逐任务实施Tasks1--7，因为接口紧密、已有可复用数值/安全模块且当前没有子代理工具；需要用户先审核计划并明确批准“代码与合成验收”。Task8和报告修改继续单独授权。正式学术结论仍须真正效果证据和独立检查，不用自审代替。
+用户已批准原生逐任务实施Tasks1--7；当前已完成Tasks1/2，继续执行Tasks3--7，不逐任务重复申请许可。Task8和报告修改继续单独授权。正式学术结论仍须真正效果证据和独立检查，不用自审代替。
