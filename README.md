@@ -205,6 +205,13 @@ PB 与 REPAIR 已覆盖通用边界及成对残差思路；本轮不实施新网
 独立代码审核发现的四项重要问题已通过一次TDD修复处理，详见
 [审核与修复记录](docs/experiment_records/2026-10-13_ic_role_final_review.md)。合成计时未重跑，原记录保留其源码身份。
 首轮只拟做现有fit分组的有限机制探查，stop评价与新数据确认另行设计批准。
+2026-10-13 用户仅批准协议编写与GitHub登记，现形成
+[IC-RFA fit-only机制预登记](docs/experiment_protocols/ic_role_mechanism_v1.md)和
+[机器协议草稿](docs/experiment_protocols/ic_role_mechanism_v1.json)：固定340个fit分组、108条最多400步轨迹、
+另最多3次温度拟合、累计7200秒。协议状态为DRAFT_NOT_AUTHORIZED，不能运行；
+源文件、环境、对照、100步主点及失败停止条件均登记，运行仍需新的明确批准。
+本次未读取真实输入内容、未训练、未创建真实输出目录、未修改正式报告。
+身份与授权门核验见[机制协议登记记录](docs/experiment_records/2026-10-13_ic_role_mechanism_preregistration.md)。
 C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独当作原创理论。
 
 Run these commands from the repository root with the fixed manifest and a locally
