@@ -12,6 +12,7 @@ from ic_role_audit import audit_bounds, audit_initial_kernel, scalar_branch_jaco
 from ic_role_model import ICRoleModel, UNITS, _digest, objective, reference_identity
 from lc_role_adapter import anchor_geometry, bounded_log_probabilities
 from lc_role_data import require_classes
+from lc_execution_safety import stage_elapsed_seconds
 
 SEEDS = (20261002, 20261003, 20261004)
 CHECKPOINTS = (0, 1, 2, 5, 20, 50, 100, 200, 400)
@@ -92,6 +93,7 @@ def _branch_diagnostics(model, batch, result):
 
 
 def _checkpoint(model, train, validation, result, gradients, completed, initial_vector):
+    stage_elapsed_seconds()
     identity = reference_identity(model)
     if not all(identity[k] for k in ("references_unaliased", "references_frozen", "references_match_initial")):
         raise ValueError("Reference identity changed during trajectory.")
@@ -106,8 +108,11 @@ def _checkpoint(model, train, validation, result, gradients, completed, initial_
         current = torch.cat([p.flatten() for _, p in model.named_current()])
         distance = float((current-initial_vector).norm())
         val_losses = {k: float(v) for k, v in objective(model, val, validation["labels"]).items()}
-    jacobians = {str(role): {view: scalar_branch_jacobian(model, train, role, view)
-                           for view in ("main", "aux")} for role in (1, 2, 3)}
+    jacobians = {}
+    for role in (1, 2, 3):
+        stage_elapsed_seconds()
+        jacobians[str(role)] = {view: scalar_branch_jacobian(model, train, role, view)
+                               for view in ("main", "aux")}
     return dict(completed_updates=completed, state_dict=copy.deepcopy(model.state_dict()),
                 train_logq=result["logq"].detach().clone(), validation_logq=val["logq"].clone(),
                 identity=identity, current_sha256=_digest(model.named_current()),
@@ -129,7 +134,10 @@ def fit_trajectory(train: dict, validation: dict, unit: str, seed: int, *, max_u
         initial_vector = torch.cat([p.detach().flatten() for _, p in model.named_current()]).clone()
         initialization_seconds = time.perf_counter()-start
         kernel_start = time.perf_counter()
-        initial_kernels = [audit_initial_kernel(model, train, role) for role in (1, 2, 3)]
+        initial_kernels = []
+        for role in (1, 2, 3):
+            stage_elapsed_seconds()
+            initial_kernels.append(audit_initial_kernel(model, train, role))
         if any(a.get("passed") is False for a in initial_kernels):
             raise ValueError("Initial-kernel audit failure.")
         kernel_seconds = time.perf_counter()-kernel_start
@@ -137,6 +145,7 @@ def fit_trajectory(train: dict, validation: dict, unit: str, seed: int, *, max_u
                                      betas=(.9, .999), eps=1e-8, weight_decay=0)
         saved, history, vectors, update_times, checkpoint_times = {}, [], [], [], []
         for completed in range(max_updates+1):
+            stage_elapsed_seconds()
             update_start = time.perf_counter()
             optimizer.zero_grad(set_to_none=True)
             result = model(train["h"], train["e"], train["log_anchor"], auxiliary=True)

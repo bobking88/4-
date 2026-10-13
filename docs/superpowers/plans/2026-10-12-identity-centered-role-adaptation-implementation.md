@@ -1,6 +1,6 @@
 # IC-RFA-B v1 Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 
 **Goal:** 实现恒等中心化有界角色适配，并用可证伪的导数验收和同修复强对照区分结构修复、通用保护与角色净纠错贡献。
 
@@ -40,14 +40,14 @@
 
 - 日期：2026-10-12；模式：writing-plans / academic-research-suite experiment-agent plan。
 - 人类确认原文：“确认上方的规格审核选项”；所确认的问题限定为“认可规格，仅编写实施计划”。因此规格认可，**本轮只写计划**。
-- 状态：`IMPLEMENTATION_IN_PROGRESS`。用户于2026-10-12明确批准“认可计划，批准原生代码与合成验收”；只执行Tasks1--7，Task8和正式报告修改未获准。
-- Verification Status：`UNVERIFIED`，指新网络、理论实施与实际效果尚未验收；计划本身另做作者侧覆盖检查。
+- 状态：`CODE_SYNTHETIC_ACCEPTANCE_COMPLETE_REAL_UNAUTHORIZED`。用户于2026-10-12明确批准“认可计划，批准原生代码与合成验收”；只执行Tasks1--7，Task8和正式报告修改未获准。
+- Verification Status：`SYNTHETIC_VERIFIED_REAL_UNVERIFIED`。53项新测试、33项旧纯合成回归和一次原生计时通过；实际角色效果及论文新颖性尚未确认。
 - 旧负结果基线：`d34d853a0b2f6352f6b975cede91e68560057f83`；规格快照：`dfee7b592e274bb78fd4d4a3d8a1c3c283e1419e`。
 - 当前没有独立子代理工具；建议原生逐任务实施，不能承诺尚不存在的独立评审。作者侧自审不是第三方数学验证。
 
 ## 文件与接口边界
 
-以下均为未来文件，本轮只创建这份计划和更新 README。所有已有代码、协议、结果及原报告不改。
+以下文件已在获准的Tasks1--7实施中创建。另增一次性合成计时脚本`check_ic_role_implementation.py`，判断与证据见实施验收记录；历史代码、协议、结果及正式报告不改。
 
 | 拟创建文件 | 责任 | 对应测试 |
 | --- | --- | --- |
@@ -118,12 +118,12 @@
 - `audit_initial_kernel(model: ICRoleModel, batch: dict, role: int) -> dict` 返回Jmain/Jaux、Kmain/Kaux、G、谱和恒等残差。
 - `audit_directional_derivative(model: ICRoleModel, batch: dict, role: int, parameter: str, direction: Tensor) -> dict` 固定step1e-6，不优化模型，扰动后精确恢复状态。
 
-- [ ] **Step1 写失败测试：** `test_identity_has_nonzero_constructed_branch_jacobian`、`test_wrong_reference_and_detach_negative_fixture`、`test_zero_u_and_zero_w2_have_distinct_blocking_effects`、`test_single_row_bound_violation_is_not_averaged_away`、`test_gram_congruence_and_duplicate_input_counterexample`、`test_same_weight_off_is_not_retrained_control`。
+- [x] **Step1 写失败测试：** `test_identity_has_nonzero_constructed_branch_jacobian`、`test_wrong_reference_and_detach_negative_fixture`、`test_zero_u_and_zero_w2_have_distinct_blocking_effects`、`test_single_row_bound_violation_is_not_averaged_away`、`test_gram_congruence_and_duplicate_input_counterexample`、`test_same_weight_off_is_not_retrained_control`。
   非退化fixture只在测试中明确设down=.03、up=.04、读出第一层h块=.02；读出第二层T行=.10、其余行=-.10，偏置0，h全1、e全0，p均匀，再复制初始参照。检查U/V方向Jacobians>1e-8及自动求导/固定有限差分一致；不筛选随机种子，不声称真实数据梯度下界。
-- [ ] **Step2 红灯：** `python -m unittest discover -s tests -p test_ic_role_audit.py -v`。
-- [ ] **Step3 实现P1/P2/P3：** 对冻结原始输入上的正确参照核对真导数。错误ref在htilde上接收输入时，只改适配参数的链式导数相消；加detach负例的autograd须与值函数差分不一致。P2记录主b²/辅b证书、单类及成对log-odds漂移、q_off保护覆盖，不能只由两个单类界推margin η。P3仅共同零适配点/标量分支块使用Kmain=G Kaux G；训练后不得套此恒等。用实际谱范数L_F，不引用旧模型常数。
-- [ ] **Step4 绿灯及合成证书：** 固定seed20261006的至少5000行输入，包含极端正锚点、近并列、预算0和重复输入；全部最大残差入档。重复输入导致奇异核是预期反例；构造正定条件不满足不报“可学习性保证”。调用旧通用输出包络仅限接口/定义完全相符的纯函数，不读旧真实汇总。
-- [ ] **Step5 提交：** `test: certify centered derivatives perturbation limits and initial kernels`。
+- [x] **Step2 红灯：** `python -m unittest discover -s tests -p test_ic_role_audit.py -v`。
+- [x] **Step3 实现P1/P2/P3：** 对冻结原始输入上的正确参照核对真导数。错误ref在htilde上接收输入时，只改适配参数的链式导数相消；加detach负例的autograd须与值函数差分不一致。P2记录主b²/辅b证书、单类及成对log-odds漂移、q_off保护覆盖，不能只由两个单类界推margin η。P3仅共同零适配点/标量分支块使用Kmain=G Kaux G；训练后不得套此恒等。用实际谱范数L_F，不引用旧模型常数。
+- [x] **Step4 绿灯及合成证书：** 固定seed20261006的至少5000行输入，包含极端正锚点、近并列、预算0和重复输入；全部最大残差入档。重复输入导致奇异核是预期反例；构造正定条件不满足不报“可学习性保证”。调用旧通用输出包络仅限接口/定义完全相符的纯函数，不读旧真实汇总。
+- [x] **Step5 提交：** `test: certify centered derivatives perturbation limits and initial kernels`。
 
 ## Task 4: 固定轨迹与完整梯度日志
 
@@ -134,11 +134,11 @@
 - `fit_trajectory(train: dict, validation: dict, unit: str, seed: int, *, max_updates: int=400) -> dict` 返回checkpoints/history/gradient_vectors/identities/costs，不返回winner。
 - `build_fit_matrix() -> list[dict]` 生成固定12单元×3折×3种子的108唯一任务，固定排列为规格表顺序、fold0/1/2、seed升序。
 
-- [ ] **Step1 写失败测试：** `test_gradients_are_vectors_and_sum_before_update`、`test_checkpoint_phase_and_reference_hashes`、`test_validation_does_not_choose_epoch_or_change_trajectory`、`test_fixed_matrix_has_108_without_refits`、`test_failure_returns_no_promoted_partial_result`。验证first5 pre_update_index=0..4，gradient_total=data+reg在容忍度内；改变验证标签不影响参数轨迹。0检查点无更新，100对应恰好100次更新；不能以第99步状态替代。
-- [ ] **Step2 红灯：** `python -m unittest discover -s tests -p test_ic_role_training.py -v`。
-- [ ] **Step3 实现接口：** 每一步用完整batch计算objective及Adam；初始采集仅train的3个标量分支Jacobians/Gram。前五步保留完整梯度向量，其他指定点保留梯度范数、参数状态、参照距离、NLL/pair/惩罚/总损失和分支范数/相似度。关闭单支和全适配只作同状态推理，不再训练。记录train/validation row身份。不存在选择、early stopping、scheduler、最佳种子、fullfit refit或optimization replay接口。
-- [ ] **Step4 绿灯及合成轨迹：** 对全部12单元的短合成轨迹检查日志字段、保存重载、有效正则中心和失败行为；构造不同验证标签不能改变同种子更新。保留400截断语义，不能让小合成成功被解释为真实收敛。
-- [ ] **Step5 提交：** `feat: add fixed centered-adaptation trajectories and gradient provenance`。
+- [x] **Step1 写失败测试：** `test_gradients_are_vectors_and_sum_before_update`、`test_checkpoint_phase_and_reference_hashes`、`test_validation_does_not_choose_epoch_or_change_trajectory`、`test_fixed_matrix_has_108_without_refits`、`test_failure_returns_no_promoted_partial_result`。验证first5 pre_update_index=0..4，gradient_total=data+reg在容忍度内；改变验证标签不影响参数轨迹。0检查点无更新，100对应恰好100次更新；不能以第99步状态替代。
+- [x] **Step2 红灯：** `python -m unittest discover -s tests -p test_ic_role_training.py -v`。
+- [x] **Step3 实现接口：** 每一步用完整batch计算objective及Adam；初始采集仅train的3个标量分支Jacobians/Gram。前五步保留完整梯度向量，其他指定点保留梯度范数、参数状态、参照距离、NLL/pair/惩罚/总损失和分支范数/相似度。关闭单支和全适配只作同状态推理，不再训练。记录train/validation row身份。不存在选择、early stopping、scheduler、最佳种子、fullfit refit或optimization replay接口。
+- [x] **Step4 绿灯及合成轨迹：** 对全部12单元的短合成轨迹检查日志字段、保存重载、有效正则中心和失败行为；构造不同验证标签不能改变同种子更新。保留400截断语义，不能让小合成成功被解释为真实收敛。
+- [x] **Step5 提交：** `feat: add fixed centered-adaptation trajectories and gradient provenance`。
 
 ## Task 5: 有限执行器与授权隔离
 
@@ -149,11 +149,11 @@
 - `run_stage(root: Path, protocol_path: Path | None, output: Path, stage: str) -> dict` stage仅synthetic/fit-mechanism；真实必须单独已批准并已登记的协议。
 - `worker(packet_path: Path) -> dict` 只接受新入口的prepare/trajectory/analysis packet；无evaluate-stop/refit/replay-training类型。
 
-- [ ] **Step1 写失败测试：** `test_draft_or_consumed_protocol_cannot_run_real`、`test_existing_output_and_path_escape_rejected`、`test_stop_or_combined_cache_path_rejected`、`test_timeout_interrupt_release_fail_closed`、`test_108_count_three_temperatures_and_whole_stage_budget`。所有真实路径用mock，短超时仅临时合成子进程；不再自动做360秒空闲验收。
-- [ ] **Step2 红灯：** `python -m unittest discover -s tests -p test_run_ic_role_mechanism.py -v`。
-- [ ] **Step3 实现新状态机：** DRAFT不运行真实；新独占输出依次PREPARING→RUNNING→MECHANISM_COMPLETE，另有FAILED/TIMED_OUT/SUPERVISION_INTERRUPTED/POWER_REQUEST_FAILED/POWER_RELEASE_FAILED不可续跑。使用既有run_supervised_job与WindowsAwakeGuard；heartbeat15秒、每job预算min(剩余累计预算,7200)，全部preprocess/诊断/export包含在累计计时，父进程监督不中断。输入范围在任何真实文件打开前校验；SHA在反序列化前校验。要求接电，不改永久电源方案、不主动休眠，worker退出释放请求、失败停止余下job。
-- [ ] **Step4 绿灯与合成全链路：** 新入口只接测试生成内存/临时合成packet，模拟108任务和≤3温度计数、失败后无下一任务。与既有 `test_lc_execution_safety.py` 合成安全回归一起通过；不将旧真实fit或stop用于速度估计。
-- [ ] **Step5 提交：** `feat: gate centered mechanism execution and reuse fail-closed supervision`。
+- [x] **Step1 写失败测试：** `test_draft_or_consumed_protocol_cannot_run_real`、`test_existing_output_and_path_escape_rejected`、`test_stop_or_combined_cache_path_rejected`、`test_timeout_interrupt_release_fail_closed`、`test_108_count_three_temperatures_and_whole_stage_budget`。所有真实路径用mock，短超时仅临时合成子进程；不再自动做360秒空闲验收。
+- [x] **Step2 红灯：** `python -m unittest discover -s tests -p test_run_ic_role_mechanism.py -v`。
+- [x] **Step3 实现新状态机：** DRAFT不运行真实；新独占输出依次PREPARING→RUNNING→MECHANISM_COMPLETE，另有FAILED/TIMED_OUT/SUPERVISION_INTERRUPTED/POWER_REQUEST_FAILED/POWER_RELEASE_FAILED不可续跑。使用既有run_supervised_job与WindowsAwakeGuard；heartbeat15秒、每job预算min(剩余累计预算,7200)，全部preprocess/诊断/export包含在累计计时，父进程监督不中断。输入范围在任何真实文件打开前校验；SHA在反序列化前校验。要求接电，不改永久电源方案、不主动休眠，worker退出释放请求、失败停止余下job。
+- [x] **Step4 绿灯与合成全链路：** 新入口只接测试生成内存/临时合成packet，模拟108任务和≤3温度计数、失败后无下一任务。与既有 `test_lc_execution_safety.py` 合成安全回归一起通过；不将旧真实fit或stop用于速度估计。
+- [x] **Step5 提交：** `feat: gate centered mechanism execution and reuse fail-closed supervision`。
 
 ## Task 6: 推理重放与角色增量分析
 
@@ -165,11 +165,11 @@
 - `verify_mechanism_delivery(root: Path, output: Path) -> dict` 只重放已有108轨迹checkpoint的前向推理，核对hash/界/计数/参照身份，不优化。
 - `write_mechanism_report(evidence: dict, output: Path) -> dict` 输出描述性Markdown/CSV/JSON，不修改正式报告。
 
-- [ ] **Step1 写失败测试：** `test_oof_missing_duplicate_or_reordered_rows_rejected`、`test_pooled_metrics_not_unweighted_fold_average`、`test_100_primary_no_best_epoch_selection`、`test_paired_new_lost_counts_and_false_target_denominators`、`test_inference_verifier_cannot_optimize_or_open_stop`。不等长fold、标签计数和人工指定小混淆表须能手算验证；三个seed不得充当独立样本t检验。
-- [ ] **Step2 红灯：** `python -m unittest discover -s tests -p test_analyze_ic_role_mechanism.py -v`。
-- [ ] **Step3 实现分析：** 复用summarize_predictions的四类argmax、Macro F1、Brier、15桶ECE和每类原始分母；OOF每行每unit/seed恰好一次。核心先比较C-S-R/C-S-U，再检查noaux、HC/FC及Z/O/S；不以完整模型对弱旧模型比较宣称角色收益。另报梯度、kernel数值秩阈值1e-10、分支移除变化和参照/缓存/无缓存计算成本。verify只载入已保存的各内折state后调用transform_subset，不能调用prepare_inner_fold/fit_preprocessing或重做PCA/温度拟合。
-- [ ] **Step4 绿灯与合成重放：** replay输出/hash一致、单行损坏能够失败；checkpoint0为锚点，训练后off不强称锚点。验证报告模板有“仅fit探索”“固定400预算不是收敛”“无独立确认”“中心化/L2-SP/Gram同余已有前例”等限制文字。
-- [ ] **Step5 提交：** `feat: report paired role gains and inference-only mechanism evidence`。
+- [x] **Step1 写失败测试：** `test_oof_missing_duplicate_or_reordered_rows_rejected`、`test_pooled_metrics_not_unweighted_fold_average`、`test_100_primary_no_best_epoch_selection`、`test_paired_new_lost_counts_and_false_target_denominators`、`test_inference_verifier_cannot_optimize_or_open_stop`。不等长fold、标签计数和人工指定小混淆表须能手算验证；三个seed不得充当独立样本t检验。
+- [x] **Step2 红灯：** `python -m unittest discover -s tests -p test_analyze_ic_role_mechanism.py -v`。
+- [x] **Step3 实现分析：** 复用summarize_predictions的四类argmax、Macro F1、Brier、15桶ECE和每类原始分母；OOF每行每unit/seed恰好一次。核心先比较C-S-R/C-S-U，再检查noaux、HC/FC及Z/O/S；不以完整模型对弱旧模型比较宣称角色收益。另报梯度、kernel数值秩阈值1e-10、分支移除变化和参照/缓存/无缓存计算成本。verify只载入已保存的各内折state后调用transform_subset，不能调用prepare_inner_fold/fit_preprocessing或重做PCA/温度拟合。
+- [x] **Step4 绿灯与合成重放：** replay输出/hash一致、单行损坏能够失败；checkpoint0为锚点，训练后off不强称锚点。验证报告模板有“仅fit探索”“固定400预算不是收敛”“无独立确认”“中心化/L2-SP/Gram同余已有前例”等限制文字。
+- [x] **Step5 提交：** `feat: report paired role gains and inference-only mechanism evidence`。
 
 ## Task 7: 结构图与一次合成集成交付
 
@@ -177,11 +177,11 @@
 
 **Interfaces:** `render_architecture(output: Path) -> dict` 返回SVG/PDF/PNG路径、尺寸和元数据；从unit_spec读取实际维数，不读真实数据。
 
-- [ ] **Step1 写失败测试：** `test_diagram_matches_formula_inputs_and_dimensions`、`test_export_has_all_nodes_and_no_clipping`。应有H1280、h64、E23、64-4-64、87-16-4、A−A0除16、原始h/e参照箭头、训练辅助虚线、3024+3024，不得把固定参照画成共享可训练模块。
-- [ ] **Step2 红灯：** `python -m unittest discover -s tests -p test_generate_ic_role_figure.py -v`。
-- [ ] **Step3 用Python生成图：** 执行前读取nature-figure技能；输出可编辑SVG、矢量PDF、300dpi PNG及caption.md；绘图只读架构定义。图题标注“结构/机制验收，不表示真实效果”，不生成伪结果曲线。
-- [ ] **Step4 一次集成验收：** 新7个测试文件全部通过，静态确认的旧纯合成相关回归通过；短合成runner验证全部12单元、保存重载和安全失败。采用合成最大行数340、训练步数20、仅一个seed作计时上界估计（不是正式实验缩减版）；只运行预定合成轨迹，不扩规模或重复耗时试验寻找更快记录。估算取 `1.5*[3*t_prepare_max+108*(t_initial_kernel_max+400*t_update_max+9*t_checkpoint_max+t_artifact_max)+t_verify_export_max]`，各t均为这次合成运行测得的最大对应耗时，不能用最小/平均单元掩盖慢控制；固定20步计时中缺失的检查点成本用同次保存重载计时，verify/export若未覆盖则估算证据不足。7200秒包含全部成本；估算超限或监督证据不足则停在未就绪，不悄悄减对照。查看所有图PNG/PDF预览，修复布局，不嵌入正式报告。
-- [ ] **Step5 提交和交付：** 只提交代码/测试、轻量合成证据和结构图；原始tensor/权重不上传。输出实施验收记录、完整测试数/耗时/最大数学残差、数据访问审计、参照成本、合成计时估算和GitHub提交。即使通过，也只能称“实现符合规格”。
+- [x] **Step1 写失败测试：** `test_diagram_matches_formula_inputs_and_dimensions`、`test_export_has_all_nodes_and_no_clipping`。应有H1280、h64、E23、64-4-64、87-16-4、A−A0除16、原始h/e参照箭头、训练辅助虚线、3024+3024，不得把固定参照画成共享可训练模块。
+- [x] **Step2 红灯：** `python -m unittest discover -s tests -p test_generate_ic_role_figure.py -v`。
+- [x] **Step3 用Python生成图：** 执行前读取nature-figure技能；输出可编辑SVG、矢量PDF、300dpi PNG及caption.md；绘图只读架构定义。图题标注“结构/机制验收，不表示真实效果”，不生成伪结果曲线。
+- [x] **Step4 一次集成验收：** 新7个测试文件全部通过，静态确认的旧纯合成相关回归通过；短合成runner验证全部12单元、保存重载和安全失败。采用合成最大行数340、训练步数20、仅一个seed作计时上界估计（不是正式实验缩减版）；只运行预定合成轨迹，不扩规模或重复耗时试验寻找更快记录。估算取 `1.5*[3*t_prepare_max+108*(t_initial_kernel_max+400*t_update_max+9*t_checkpoint_max+t_artifact_max)+t_verify_export_max]`，各t均为这次合成运行测得的最大对应耗时，不能用最小/平均单元掩盖慢控制；固定20步计时中缺失的检查点成本用同次保存重载计时，verify/export若未覆盖则估算证据不足。7200秒包含全部成本；估算超限或监督证据不足则停在未就绪，不悄悄减对照。查看所有图PNG/PDF预览，修复布局，不嵌入正式报告。
+- [x] **Step5 提交和交付：** 只提交代码/测试、轻量合成证据和结构图；原始tensor/权重不上传。输出实施验收记录、完整测试数/耗时/最大数学残差、数据访问审计、参照成本、合成计时估算和GitHub提交。即使通过，也只能称“实现符合规格”。
 
 ## Task 8: 另行登记真实机制协议与研究决策
 

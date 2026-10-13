@@ -1,0 +1,10 @@
+{
+  "scope": "read-only SHA256; no real tensor deserialization",
+  "protected_file_count": 1817,
+  "protected_mismatches": [],
+  "historical_v2_artifact_count": 2028,
+  "historical_v2_mismatches": [],
+  "main_and_worktree_formal_report_sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+  "formal_report_modified": false,
+  "user_modified_legacy_figures_staged": false
+}

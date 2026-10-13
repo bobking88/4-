@@ -109,6 +109,12 @@ class ICTrainingTests(unittest.TestCase):
                 training.fit_trajectory(self.train, self.validation, "C-S-R", 20261002, max_updates=5)
         self.assertEqual(count, 3)
 
+    def test_internal_checkpoint_checks_parent_supervision(self):
+        with patch.object(training, "stage_elapsed_seconds", create=True,
+                          side_effect=RuntimeError("SUPERVISION_INTERRUPTED: synthetic")):
+            with self.assertRaisesRegex(RuntimeError, "SUPERVISION_INTERRUPTED"):
+                training.fit_trajectory(self.train, self.validation, "C-S-R", 20261002, max_updates=1)
+
     def test_all_twelve_units_short_trajectory_and_bad_scope(self):
         for unit in UNITS:
             result = training.fit_trajectory(self.train, self.validation, unit, 20261002, max_updates=1)

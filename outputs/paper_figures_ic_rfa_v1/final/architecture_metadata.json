@@ -1,0 +1,51 @@
+{
+  "svg": "outputs\\paper_figures_ic_rfa_v1\\final\\ic_rfa_architecture.svg",
+  "pdf": "outputs\\paper_figures_ic_rfa_v1\\final\\ic_rfa_architecture.pdf",
+  "png": "outputs\\paper_figures_ic_rfa_v1\\final\\ic_rfa_architecture.png",
+  "caption": "outputs\\paper_figures_ic_rfa_v1\\final\\caption.md",
+  "contract": {
+    "dimensions": {
+      "H": 1280,
+      "h": 64,
+      "E": 23,
+      "bottleneck": 4,
+      "readout": [
+        87,
+        16,
+        4
+      ]
+    },
+    "current_parameters": 3024,
+    "reference_parameters": 3024,
+    "delta_divisor": 16,
+    "reference_input": "original h and E, never adapted h",
+    "backbone_trainable": false,
+    "auxiliary_training_only": true,
+    "archetype": "schematic-led composite",
+    "claim": "Identity-centered bounded role adaptation: structure, not real effectiveness",
+    "evidence": "Actual unit_spec and module dimensions; equations (2)--(9)",
+    "export": "12 x 7.5 inch source, SVG editable text, vector PDF, 300 dpi PNG"
+  },
+  "node_ids": [
+    "frozen_backbone",
+    "pca_h64",
+    "expert_e23",
+    "anchor",
+    "routing",
+    "adapter_0",
+    "adapter_1",
+    "adapter_2",
+    "aggregate",
+    "reference_head",
+    "current_head",
+    "score_difference",
+    "bounded_output",
+    "auxiliary_views"
+  ],
+  "dpi": 300,
+  "text_clipping_count": 0,
+  "source_dimensions_inches": [
+    12,
+    7.5
+  ]
+}

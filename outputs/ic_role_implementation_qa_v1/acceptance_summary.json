@@ -1,0 +1,42 @@
+{
+  "status": "SYNTHETIC_ACCEPTANCE_COMPLETE",
+  "ready": true,
+  "timeout_cleanup": {
+    "job_id": "one_short_timeout",
+    "status": "TIMED_OUT",
+    "attempts": 1,
+    "pid": 25076,
+    "exit_code": 1,
+    "alive": false,
+    "elapsed_seconds": 0.25,
+    "log_tail": "",
+    "error": "",
+    "supervision": {
+      "wall_elapsed_seconds": 0.25,
+      "max_poll_gap_seconds": 0.06300000008195639,
+      "max_suspend_delta_seconds": 0.01250490004895255,
+      "poll_gap_limit_seconds": 30.0,
+      "suspend_tolerance_seconds": 2.0,
+      "power_request_acquired": true,
+      "power_request_released": true
+    },
+    "heartbeats": []
+  },
+  "estimate": {
+    "estimated_seconds": 3767.654059512599,
+    "maxima_seconds": {
+      "prepare": 0.08006820001173764,
+      "initial_kernel": 1.211448699934408,
+      "update": 0.027173200040124357,
+      "checkpoint": 1.1708472000900656,
+      "artifact": 0.2588760999497026,
+      "verify_export": 40.78836979996413
+    },
+    "timing_evidence_complete": true,
+    "ready": true,
+    "hard_limit_seconds": 7200,
+    "safety_factor": 1.5,
+    "scope": "one synthetic shape/timing estimate, not a runtime guarantee or real approval"
+  },
+  "real_training_authorized": false
+}
