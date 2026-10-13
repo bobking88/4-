@@ -96,6 +96,42 @@ class MechanismAnalysisTests(unittest.TestCase):
         trajectory["initial_kernels"][0]["Kmain"][0, 0] += .1
         with self.assertRaises(ValueError): analysis._verify_trajectory(trajectory, train, val)
 
+    def test_failed_terminal_delivery_never_opens_artifacts(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            output = root/"out"
+            output.mkdir()
+            manifest = dict(stage="synthetic", scope="synthetic_saved_processed_inputs", artifacts={}, trajectories=[])
+            (output/"artifact_manifest.json").write_text(json.dumps(manifest))
+            for status in ("RUNNING", "FAILED", "POWER_RELEASE_FAILED", "TIMED_OUT"):
+                (output/"stage_state.json").write_text(json.dumps(dict(status=status, stage="synthetic", elapsed_seconds=7201., alive=False,
+                    power=dict(power_request_acquired=True, power_request_released=False), jobs=[])))
+                with patch.object(analysis.torch, "load", side_effect=AssertionError("Never open artifact")):
+                    with self.assertRaisesRegex(ValueError, "terminal|budget|power|supervision"):
+                        analysis.verify_mechanism_delivery(root, output)
+
+    def test_diagnostic_schema_and_ablation_tampering_rejected(self):
+        train, val = processed(8, "train", 7), processed(8, "val", 8)
+        original = fit_trajectory(train, val, "C-S-R", SEEDS[0], max_updates=1)
+        for kind in ("empty_gradient", "missing_jacobian", "nonfinite_jacobian", "false_ablation", "row_order"):
+            bad = copy.deepcopy(original)
+            if kind == "empty_gradient":
+                for key in ("data", "regularization", "total"): bad["gradient_vectors"][0][key] = torch.empty(0, dtype=torch.float64)
+                bad["gradient_vectors"][0]["layout"] = []
+            elif kind == "missing_jacobian": del bad["checkpoints"][1]["train_jacobians"]
+            elif kind == "nonfinite_jacobian": bad["checkpoints"][1]["train_jacobians"]["1"]["main"]["jacobian"][0, 0] = float("nan")
+            elif kind == "false_ablation": bad["checkpoints"][1]["branch_diagnostics"]["validation"]["removed_branch_max_log_drift"].fill_(123.)
+            elif kind == "row_order": bad["checkpoints"][1]["train_jacobians"]["1"]["aux"]["row_ids"].reverse()
+            with self.subTest(kind=kind):
+                with self.assertRaises(ValueError): analysis._verify_trajectory(bad, train, val)
+
+    def test_provisional_analysis_requires_live_supervision(self):
+        helper = getattr(analysis, "_verify_active_mechanism", None)
+        self.assertIsNotNone(helper, "Provisional analysis must be separated from terminal acceptance")
+        with tempfile.TemporaryDirectory() as directory:
+            with self.assertRaisesRegex(ValueError, "supervision"):
+                helper(Path(directory), Path(directory)/"out")
+
     def test_inference_verifier_cannot_optimize_or_open_stop(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -109,6 +145,8 @@ class MechanismAnalysisTests(unittest.TestCase):
             manifest = dict(stage="synthetic", artifacts={"trajectory.pt": analysis.file_digest(trajectory_path)},
                             trajectories=["trajectory.pt"], scope="synthetic_saved_processed_inputs")
             (output/"artifact_manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
+            (output/"stage_state.json").write_text(json.dumps(dict(status="MECHANISM_COMPLETE", stage="synthetic",
+                elapsed_seconds=.1, alive=False, power=dict(power_request_acquired=True, power_request_released=True), jobs=[])))
             with patch.object(torch.optim.Adam, "step", side_effect=AssertionError("No optimization")), \
                     patch.object(analysis, "load_fit_bundle", side_effect=AssertionError("No real file")):
                 evidence = analysis.verify_mechanism_delivery(root, output)

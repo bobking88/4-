@@ -197,11 +197,13 @@ PB 与 REPAIR 已覆盖通用边界及成对残差思路；本轮不实施新网
 通过参数化/正则化/路由的交叉控制及同修复普通路由检验角色净作用。
 用户已确认书面规格，现形成
 [IC-RFA-B v1 实施计划](docs/superpowers/plans/2026-10-12-identity-centered-role-adaptation-implementation.md)，
-用户已批准原生代码与合成验收，Tasks1--7已完成：53项新测试、33项旧纯合成回归通过，
+用户已批准原生代码与合成验收，Tasks1--7已完成：最终60项新测试、33项旧纯合成回归通过，
 一次340行、12单元、20步的原生合成计时与安全清理通过。未开展真实训练，也未修改正式报告。
 详见[IC-RFA实施验收记录](docs/experiment_records/2026-10-13_ic_role_implementation_acceptance.md)、
 [公式结构图PDF](outputs/paper_figures_ic_rfa_v1/final/ic_rfa_architecture.pdf)及
 [一次合成计时证据](outputs/ic_role_implementation_qa_v1/acceptance_summary.json)。
+独立代码审核发现的四项重要问题已通过一次TDD修复处理，详见
+[审核与修复记录](docs/experiment_records/2026-10-13_ic_role_final_review.md)。合成计时未重跑，原记录保留其源码身份。
 首轮只拟做现有fit分组的有限机制探查，stop评价与新数据确认另行设计批准。
 C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独当作原创理论。
 

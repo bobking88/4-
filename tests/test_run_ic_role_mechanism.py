@@ -3,9 +3,11 @@ import json
 import sys
 import tempfile
 import unittest
+import platform
 from contextlib import contextmanager
 from pathlib import Path
 from unittest.mock import patch
+import torch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]/"scripts"))
 try:
@@ -103,6 +105,55 @@ class MechanismRunnerTests(unittest.TestCase):
         result, jobs = self.simulate(elapsed=lambda **kw: 7201.)
         self.assertEqual(result["status"], "TIMED_OUT")
         self.assertEqual(len(jobs), 0)
+
+    def test_completed_packet_is_rejected_before_fitting(self):
+        output = self.root/"out"
+        folder = output/"runs"/"trajectory"
+        folder.mkdir(parents=True)
+        protocol = self.root/"protocol.json"
+        protocol.write_text("{}")
+        (output/"stage_state.json").write_text(json.dumps(dict(status="RUNNING", stage="fit-mechanism")))
+        (output/"prepared.pt").write_bytes(b"synthetic placeholder")
+        (folder/"result.pt").write_bytes(b"already completed")
+        packet = dict(kind="trajectory", root=str(self.root), output=str(output), stage="fit-mechanism",
+                      protocol_path=str(protocol), prepared_relative="prepared.pt", prepared_sha256="0",
+                      max_updates=400, primary_checkpoint=100, unit="C-S-R", seed=20261002, fold=0)
+        path = folder/"packet.json"
+        path.write_text(json.dumps(packet))
+        with patch.object(runner, "validate_protocol"), patch.object(runner, "WindowsAwakeGuard", FakeGuard), \
+                patch.object(runner, "NativeEnvironmentAPI"), patch.object(runner, "file_digest", return_value="0"), \
+                patch.object(runner.torch, "load", return_value=dict(train={}, validation={})), \
+                patch.object(runner, "fit_trajectory", return_value={}) as fit:
+            with self.assertRaises(FileExistsError): runner.worker(path)
+            fit.assert_not_called()
+
+    def test_interrupted_packet_claim_remains_consumed(self):
+        output = self.root/"out"
+        folder = output/"runs"/"prepare"
+        folder.mkdir(parents=True)
+        (output/"stage_state.json").write_text(json.dumps(dict(status="RUNNING", stage="synthetic")))
+        path = folder/"packet.json"
+        path.write_text(json.dumps(dict(kind="prepare", root=str(self.root), output=str(output), stage="synthetic", fold=0)))
+        with patch.object(runner, "WindowsAwakeGuard", side_effect=RuntimeError("POWER_REQUEST_FAILED")), \
+                patch.object(runner, "NativeEnvironmentAPI"):
+            with self.assertRaises(RuntimeError): runner.worker(path)
+        with self.assertRaises(FileExistsError): runner.worker(path)
+
+    def test_executed_dependency_hash_changes_fail_closed(self):
+        for dependency in ("scripts/verifier_strong_controls.py", "scripts/analyze_lc_role_adaptation.py"):
+            self.assertIn(dependency, runner.SOURCE_FILES)
+            protocol = dict(runner.synthetic_protocol(), status="APPROVED_REAL_ONCE",
+                authorization=dict(scope="ic_rfa_b_v1_fit_only_mechanism_once", human_approved=True,
+                                   user_message_id="synthetic-fixture-not-real-approval", approval_utc="fixture"),
+                fit_path=runner.FIT_PATH, fit_sha256=runner.FIT_SHA,
+                assignment_path=runner.ASSIGNMENT_PATH, assignment_sha256=runner.ASSIGNMENT_SHA,
+                source_sha256={name: "0" for name in runner.SOURCE_FILES}, protocol_path="protocol.json",
+                output_relative="out", environment=dict(python=sys.version.split()[0], torch=str(torch.__version__), dtype="float64", device="cpu"))
+            def digest(path):
+                return "1" if Path(path).relative_to(self.root).as_posix() == dependency else "0"
+            with patch.object(runner, "file_digest", side_effect=digest):
+                with self.assertRaisesRegex(ValueError, "source changed"):
+                    runner.validate_protocol(self.root, protocol, "fit-mechanism")
 
 
 if __name__ == "__main__": unittest.main()

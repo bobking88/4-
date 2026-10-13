@@ -18,11 +18,18 @@ from ic_role_training import build_fit_matrix, fit_trajectory
 from lc_execution_safety import WindowsAwakeGuard, stage_elapsed_seconds
 from run_lc_role_adaptation import run_supervised_job, terminal_status
 
+# Local import closure of the execution and analysis roots, including transitive math dependencies.
 SOURCE_FILES = tuple(f"scripts/{name}.py" for name in (
-    "ic_role_data", "ic_role_model", "ic_role_audit", "ic_role_training", "run_ic_role_mechanism",
-    "analyze_ic_role_mechanism", "lc_role_adapter", "lc_role_audit", "lc_role_data",
-    "frozen_visual_probe", "anchor_linear_controls", "run_anchor_linear_controls",
-    "run_lc_role_adaptation", "lc_execution_safety", "check_lc_native_environment"))
+    "analyze_ic_role_mechanism", "analyze_lc_role_adaptation", "analyze_misclassifications",
+    "anchor_linear_controls", "audit_abmp_candidate_capacity", "check_lc_native_environment",
+    "frozen_visual_probe", "hrgv_network", "ic_role_audit", "ic_role_data", "ic_role_model",
+    "ic_role_training", "lc_execution_safety", "lc_role_adapter", "lc_role_audit", "lc_role_data",
+    "lc_role_training", "mineral_hierarchy", "run_anchor_linear_controls", "run_frozen_visual_probe",
+    "run_ic_role_mechanism", "run_lc_role_adaptation", "run_seen_unseen_gate_study",
+    "run_tc_oos_rsg_experiments", "run_verifier_strong_controls", "run_verifier_trust_development",
+    "tc_oos_rsg", "train_hierarchical_mineral_classifier", "train_hrgv_mineral_classifier",
+    "train_mineral_classifier", "train_role_aware_mineral_classifier", "verifier_risk",
+    "verifier_strong_controls", "verify_verifier_trust_delivery"))
 TERMINAL = ("FAILED", "TIMED_OUT", "SUPERVISION_INTERRUPTED", "POWER_REQUEST_FAILED", "POWER_RELEASE_FAILED")
 
 
@@ -136,7 +143,7 @@ def run_stage(root: Path, protocol_path: Path | None, output: Path, stage: str) 
     output.mkdir(parents=True, exist_ok=False)
     state = dict(status="PREPARING", state_history=["PREPARING"], stage=stage,
                  trajectory_count=0, temperature_count=0, alive=False, registration=registration,
-                 real_data_opened=False, jobs=[], artifacts={})
+                 real_data_opened=False, jobs=[], artifacts={}, elapsed_seconds=0.)
     _json(output/"stage_state.json", state, exclusive=True)
     guard = None
     try:
@@ -176,6 +183,7 @@ def run_stage(root: Path, protocol_path: Path | None, output: Path, stage: str) 
                         state["real_data_opened"] = True
                 if item["kind"] == "prepare": state["temperature_count"] += 1
                 if item["kind"] == "trajectory": state["trajectory_count"] += 1
+                state["elapsed_seconds"] = max(time.monotonic()-start, stage_elapsed_seconds())
                 _json(output/"stage_state.json", state)
                 if max(time.monotonic()-start, stage_elapsed_seconds()) >= protocol["max_seconds"]:
                     raise RuntimeError("TIMED_OUT: cumulative stage budget exhausted")
@@ -200,12 +208,17 @@ def worker(packet_path: Path) -> dict:
     _path(root, output)
     _path(output, packet_path)
     stage = packet["stage"]
+    suffix = "result.json" if stage == "synthetic" or packet["kind"] == "analysis" else "result.pt"
+    destination = packet_path.parent/suffix
+    if destination.exists():
+        raise FileExistsError("Completed worker task cannot be replayed.")
     protocol = (synthetic_protocol() if stage == "synthetic" else
                 json.loads(Path(packet["protocol_path"]).read_text(encoding="utf-8")))
     validate_protocol(root, protocol, stage)
     state = json.loads((output/"stage_state.json").read_text(encoding="utf-8"))
     if state["status"] != "RUNNING" or state["stage"] != stage:
         raise ValueError("Worker requires an active exclusive stage.")
+    _json(packet_path.parent/"task_started.json", dict(status="ATTEMPT_CONSUMED", kind=packet["kind"], stage=stage), exclusive=True)
     torch.set_num_threads(1)
     torch.use_deterministic_algorithms(True)
     with WindowsAwakeGuard(api=NativeEnvironmentAPI()):
@@ -225,11 +238,9 @@ def worker(packet_path: Path) -> dict:
             result = fit_trajectory(data["train"], data["validation"], packet["unit"], packet["seed"])
             result.update(inner_fold=packet["fold"], prepared_relative=packet["prepared_relative"])
         else:
-            from analyze_ic_role_mechanism import verify_mechanism_delivery, write_mechanism_report
-            evidence = verify_mechanism_delivery(root, output)
+            from analyze_ic_role_mechanism import _verify_active_mechanism, write_mechanism_report
+            evidence = _verify_active_mechanism(root, output)
             result = write_mechanism_report(evidence, output/"analysis")
-        suffix = "result.json" if stage == "synthetic" or packet["kind"] == "analysis" else "result.pt"
-        destination = packet_path.parent/suffix
         if destination.exists(): raise FileExistsError("Worker result cannot be overwritten.")
         if suffix.endswith("json"): _json(destination, result, exclusive=True)
         else: torch.save(result, destination)

@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import csv
 import json
+import math
 from pathlib import Path
 
 import torch
@@ -10,8 +11,9 @@ import torch
 from analyze_lc_role_adaptation import summarize_predictions
 from ic_role_audit import audit_bounds
 from ic_role_data import file_digest, load_fit_bundle
-from ic_role_model import ICRoleModel, UNITS, _digest, reference_identity
-from ic_role_training import CHECKPOINTS, SEEDS, build_fit_matrix
+from ic_role_model import ICRoleModel, UNITS, _digest, objective, reference_identity
+from ic_role_training import CHECKPOINTS, SEEDS, _branch_diagnostics, build_fit_matrix
+from lc_execution_safety import _CURRENT_GUARD
 from lc_role_data import transform_subset
 
 
@@ -89,6 +91,49 @@ def _scoped(output, relative):
     return path
 
 
+def _layout(named, prefix=""):
+    rows, offset = [], 0
+    for name, parameter in named:
+        rows.append(dict(name=prefix+name, shape=list(parameter.shape), offset=offset, numel=parameter.numel()))
+        offset += parameter.numel()
+    return rows, offset
+
+
+def _finite_tensor(value, shape):
+    return (torch.is_tensor(value) and tuple(value.shape) == tuple(shape) and value.dtype == torch.float64
+            and value.device.type == "cpu" and not value.requires_grad and bool(torch.isfinite(value).all()))
+
+
+def _same_diagnostics(actual, expected):
+    if not isinstance(actual, dict) or set(actual) != set(expected):
+        raise ValueError("Missing branch diagnostic schema.")
+    for key, value in expected.items():
+        if torch.is_tensor(value):
+            if not _finite_tensor(actual[key], value.shape) or not torch.equal(actual[key], value):
+                raise ValueError("Branch ablation forward replay mismatch.")
+        elif actual[key] != value: raise ValueError("Branch diagnostic metadata mismatch.")
+
+
+def _checkpoint_jacobians(point, model, train):
+    saved = point.get("train_jacobians")
+    if not isinstance(saved, dict) or set(saved) != {"1", "2", "3"}:
+        raise ValueError("Missing checkpoint scalar Jacobians.")
+    ids = [r["image_id"] for r in train["records"]]
+    for j in range(3):
+        views = saved[str(j+1)]
+        if set(views) != {"main", "aux"}: raise ValueError("Missing scalar views.")
+        for view, block in views.items():
+            if not model.adapters:
+                if block.get("status") != "NOT_APPLICABLE" or block.get("jacobian") is not None:
+                    raise ValueError("Head-only checkpoint Jacobian must be inapplicable.")
+                continue
+            layout, width = _layout(model.adapters[j].named_parameters(), f"adapters.{j}.")
+            if (block.get("status") != "COMPLETE" or block.get("layout") != layout
+                    or block.get("row_ids") != ids or block.get("role") != j+1 or block.get("view") != view
+                    or not _finite_tensor(block.get("jacobian"), (len(ids), width))):
+                raise ValueError("Checkpoint scalar Jacobian schema, finiteness or identity mismatch.")
+
+
 def _verify_trajectory(trajectory, train, validation):
     if (trajectory["train_records"] != train["records"]
             or trajectory["validation_records"] != validation["records"]):
@@ -99,8 +144,11 @@ def _verify_trajectory(trajectory, train, validation):
     expected_gradients = list(range(min(5, trajectory["optimizer_updates"])))
     if [r["pre_update_index"] for r in trajectory["gradient_vectors"]] != expected_gradients:
         raise ValueError("Missing first-five full gradient provenance.")
+    origin_model = ICRoleModel(trajectory["unit"], seed=trajectory["seed"])
+    layout, width = _layout(origin_model.named_current())
     for gradients in trajectory["gradient_vectors"]:
-        if not torch.allclose(gradients["total"], gradients["data"]+gradients["regularization"], atol=1e-10, rtol=1e-10):
+        if (gradients.get("layout") != layout or any(not _finite_tensor(gradients.get(k), (width,)) for k in ("data", "regularization", "total"))
+                or not torch.allclose(gradients["total"], gradients["data"]+gradients["regularization"], atol=1e-10, rtol=1e-10)):
             raise ValueError("Gradient provenance changed.")
     initial = ICRoleModel(trajectory["unit"], seed=trajectory["seed"])
     initial.load_state_dict(trajectory["checkpoints"][0]["state_dict"])
@@ -139,6 +187,10 @@ def _verify_trajectory(trajectory, train, validation):
                 or not identity["references_frozen"] or not identity["references_unaliased"]
                 or _digest(model.named_current()) != point["current_sha256"] or point["completed_updates"] != step):
             raise ValueError("Saved state or reference identity mismatch.")
+        _checkpoint_jacobians(point, model, train)
+        if set(point.get("gradient_norms", {})) != {"data", "regularization", "total"} or any(
+            type(v) not in (int, float) or not math.isfinite(v) or v < 0 for v in point["gradient_norms"].values()):
+            raise ValueError("Invalid checkpoint gradient norms.")
         with torch.no_grad():
             for name, batch in (("train", train), ("validation", validation)):
                 result = model(batch["h"], batch["e"], batch["log_anchor"], auxiliary=True)
@@ -149,6 +201,10 @@ def _verify_trajectory(trajectory, train, validation):
                 bounds = audit_bounds(model, batch, result)
                 if bounds["violation_count"] or bounds != point["bounds"][name]:
                     raise ValueError("Saved or replayed stability certificate mismatch.")
+                _same_diagnostics(point.get("branch_diagnostics", {}).get(name), _branch_diagnostics(model, batch, result))
+                losses = {k: float(v) for k, v in objective(model, result, batch["labels"]).items()}
+                if point.get(name+"_losses") != losses:
+                    raise ValueError("Saved objective forward replay mismatch.")
                 for row in bounds["rows"]:
                     maxima["main_log_drift"] = max(maxima["main_log_drift"], row["actual_main_logq_drift"])
                     maxima["auxiliary_log_drift"] = max(maxima["auxiliary_log_drift"], row["actual_aux_logq_drift"])
@@ -164,10 +220,53 @@ def _verify_trajectory(trajectory, train, validation):
                     for s, p in trajectory["checkpoints"].items()])
 
 
+def _execution_envelope(output, manifest, *, provisional):
+    try:
+        state = json.loads((output/"stage_state.json").read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise ValueError("Missing terminal supervision state.") from error
+    expected_status = "RUNNING" if provisional else "MECHANISM_COMPLETE"
+    if state.get("status") != expected_status or state.get("stage") != manifest["stage"] or state.get("alive") is not False:
+        raise ValueError("Invalid terminal/supervision status; no delivery acceptance.")
+    elapsed = state.get("elapsed_seconds")
+    if type(elapsed) not in (int, float) or not math.isfinite(elapsed) or not 0 <= elapsed < 7200:
+        raise ValueError("Cumulative budget exhausted or unavailable.")
+    if not provisional:
+        power = state.get("power", {})
+        if not power.get("power_request_acquired") or not power.get("power_request_released"):
+            raise ValueError("Terminal power request/release evidence missing.")
+    jobs = state.get("jobs", [])
+    if manifest["stage"] == "fit-mechanism":
+        if state.get("trajectory_count") != 108 or state.get("temperature_count") != 3 or len(jobs) != (111 if provisional else 112):
+            raise ValueError("Incomplete terminal fit/temperature/supervision count.")
+    for job in jobs:
+        power = job.get("supervision", {})
+        if (job.get("status") != "COMPLETE" or job.get("alive") is not False
+                or not power.get("power_request_acquired") or not power.get("power_request_released")):
+            raise ValueError("Failed worker supervision or power release.")
+    return state
+
+
 def verify_mechanism_delivery(root: Path, output: Path) -> dict:
+    return _verify_mechanism(root, output, provisional=False)
+
+
+def _verify_active_mechanism(root: Path, output: Path) -> dict:
+    guard = _CURRENT_GUARD.get()
+    if guard is None:
+        raise ValueError("Provisional analysis requires live supervision.")
+    guard.check()
+    output = Path(output).resolve()
+    claim = output/"runs"/"analysis"/"task_started.json"
+    if not claim.exists(): raise ValueError("Provisional analysis supervision claim missing.")
+    return _verify_mechanism(root, output, provisional=True)
+
+
+def _verify_mechanism(root: Path, output: Path, *, provisional: bool) -> dict:
     root, output = Path(root).resolve(), Path(output).resolve()
     if not output.is_relative_to(root): raise ValueError("Delivery scope escape.")
     manifest = json.loads((output/"artifact_manifest.json").read_text(encoding="utf-8"))
+    _execution_envelope(output, manifest, provisional=provisional)
     stage = manifest["stage"]
     if stage not in ("synthetic", "fit-mechanism"): raise ValueError("Unrecognized delivery type.")
     for relative, digest in manifest["artifacts"].items():
@@ -222,7 +321,7 @@ def verify_mechanism_delivery(root: Path, output: Path) -> dict:
     return dict(stage=stage, trajectory_count=len(diagnostics), checkpoint_count=sum(d["checkpoint_count"] for d in diagnostics),
                 theory_violation_count=0, diagnostics=diagnostics, comparisons=comparisons,
                 metrics=[] if pooled is None else [dict(unit=r["unit"], seed=r["seed"], **r["metrics"]) for r in pooled["groups"].values()],
-                primary_checkpoint=100, independent_confirmation=False,
+                primary_checkpoint=100, independent_confirmation=False, delivery_verified=not provisional,
                 scope="synthetic implementation only" if stage == "synthetic" else "exposed fit-only exploration; no industrial result")
 
 

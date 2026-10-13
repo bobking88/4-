@@ -59,5 +59,14 @@ class ICArchitectureTests(unittest.TestCase):
         timings["checkpoint"] = []
         self.assertIsNone(acceptance.budget_estimate(timings)["estimated_seconds"])
 
+    def test_consumed_timing_worker_never_restarts(self):
+        import check_ic_role_implementation as acceptance
+        from unittest.mock import patch
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory)
+            (output/"timing_evidence.json").write_text("{}")
+            with patch.object(acceptance, "fit_trajectory", side_effect=AssertionError("No fitting")):
+                with self.assertRaises(FileExistsError): acceptance.timing_worker(output)
+
 
 if __name__ == "__main__": unittest.main()

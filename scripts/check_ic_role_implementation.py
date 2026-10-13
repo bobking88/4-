@@ -53,6 +53,11 @@ def _raw():
 
 
 def timing_worker(output):
+    output = Path(output)
+    if (output/"timing_evidence.json").exists():
+        raise FileExistsError("Completed one-shot timing cannot be replayed.")
+    with (output/"timing_started.json").open("x", encoding="utf-8") as stream:
+        json.dump(dict(status="ATTEMPT_CONSUMED", scope="one synthetic timing only"), stream)
     torch.set_num_threads(1)
     torch.use_deterministic_algorithms(True)
     timings = {k: [] for k in ("prepare", "initial_kernel", "update", "checkpoint", "artifact", "verify_export")}
