@@ -212,6 +212,10 @@ PB 与 REPAIR 已覆盖通用边界及成对残差思路；本轮不实施新网
 源文件、环境、对照、100步主点及失败停止条件均登记，运行仍需新的明确批准。
 本次未读取真实输入内容、未训练、未创建真实输出目录、未修改正式报告。
 身份与授权门核验见[机制协议登记记录](docs/experiment_records/2026-10-13_ic_role_mechanism_preregistration.md)。
+用户随后明确回答“批准一次真实机制实验”，现仅补录
+[单次运行授权](docs/experiment_records/2026-10-13_ic_role_mechanism_authorization.md)并重新登记机器协议。
+运行仍限上述固定fit-only范围；准备、训练、诊断及最终推理验收共同受7200秒上限约束，
+网络/损失/网格不变；登记和授权不等于真实效果已验证。
 C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独当作原创理论。
 
 Run these commands from the repository root with the fixed manifest and a locally
