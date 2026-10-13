@@ -78,3 +78,6 @@
 /docs/experiment_protocols/ic_role_mechanism_v2.json -text whitespace=cr-at-eol
 /docs/experiment_protocols/ic_role_mechanism_v2.md -text whitespace=cr-at-eol
 /docs/experiment_records/2026-10-13_ic_role_mechanism_v2_preregistration.md -text whitespace=cr-at-eol
+# Preserve the separately approved independent engineering review text.
+/outputs/ic_role_state_publication_review_v2/reviewer_response.md -text whitespace=cr-at-eol
+/docs/experiment_records/2026-10-13_ic_role_state_publication_independent_review_v2.md -text whitespace=cr-at-eol

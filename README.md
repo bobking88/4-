@@ -231,6 +231,10 @@ PB 与 REPAIR 已覆盖通用边界及成对残差思路；本轮不实施新网
 机器状态DRAFT_NOT_AUTHORIZED，独立复查尚未完成；未读真实输入、未训练、未重计时、未改正式报告。
 登记与静态授权门核验见[v2登记记录](docs/experiment_records/2026-10-13_ic_role_mechanism_v2_preregistration.md)。
 真实运行仍需单独明确批准，旧失败目录和已消费许可不复用，Task8整体未完成。
+随后按新批准完成一次[独立只读工程复查](docs/experiment_records/2026-10-13_ic_role_state_publication_independent_review_v2.md)，
+未发现新增的范围内工程问题；[审阅原文](outputs/ic_role_state_publication_review_v2/reviewer_response.md)保留全部未覆盖项。
+此结果只更新限定静态复查状态，未运行测试/实验、未改源码或协议，v2仍未授权真实运行。
+最终公开验收的剩余7200秒监督前提仍必须落实，理论新颖性和实际角色净纠错仍待验证。
 C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独当作原创理论。
 
 Run these commands from the repository root with the fixed manifest and a locally
