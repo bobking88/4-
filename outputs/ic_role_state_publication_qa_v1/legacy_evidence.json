@@ -1,0 +1,20 @@
+{
+  "phase": "LEGACY_PURE_SYNTHETIC_GREEN",
+  "test_count": 33,
+  "exit_code": 0,
+  "modules": [
+    "test_lc_role_data",
+    "test_lc_role_adapter",
+    "test_lc_role_audit",
+    "test_lc_execution_safety"
+  ],
+  "command": "python -X utf8 -W error -c <prepend tests/ to sys.path; load the four named modules with unittest.TestSuite>",
+  "summary": "Ran 33 tests in 1.232s; OK",
+  "capture_note": "Structured summary transcribed from the native tool result, not a full console log.",
+  "initial_invocation_correction": {
+    "invocation": "python -m unittest tests.test_lc_role_data tests.test_lc_role_adapter tests.test_lc_role_audit tests.test_lc_execution_safety -v",
+    "result": "27 cases passed, one loader error: No module named 'lc_role_fixtures'",
+    "resolution": "Prepend tests/ to sys.path, matching test discovery. No legacy source/test edit."
+  },
+  "scope": "Random synthetic tensors and temporary fixture files only; no real fit/stop bundles or images"
+}

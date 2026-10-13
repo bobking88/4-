@@ -70,3 +70,7 @@
 /outputs/training/ic_role_mechanism_v1/development_fold_0/whole_experiment.json -text whitespace=cr-at-eol
 /outputs/training/ic_role_mechanism_v1/development_fold_0/runs/prepare_fold0/packet.json -text whitespace=cr-at-eol
 /outputs/training/ic_role_mechanism_v1/development_fold_0/runs/prepare_fold0/worker.log -text whitespace=cr-at-eol
+# Preserve the separately approved state-publication repair identities/evidence.
+/scripts/run_ic_role_mechanism.py -text whitespace=cr-at-eol
+/tests/test_run_ic_role_mechanism.py -text whitespace=cr-at-eol
+/outputs/ic_role_state_publication_qa_v1/** -text whitespace=cr-at-eol

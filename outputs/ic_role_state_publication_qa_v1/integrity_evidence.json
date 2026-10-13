@@ -1,0 +1,19 @@
+{
+  "status": "REPAIR_INTEGRITY_PASS",
+  "baseline": "99f163df58ca76cfacc047818a2611a209abb2d8",
+  "registered_source_count": 34,
+  "changed_execution_sources": [
+    {
+      "path": "scripts/run_ic_role_mechanism.py",
+      "previous_sha256": "2afedbd43e9c7820c2e5473b6b3132ae4f169d99642c80f3b9aaebb9cc5a6f3b",
+      "current_sha256": "423fad79bee6d5a351589319cb03b98a8097b958615a9b9e1fd274ef921f302a"
+    }
+  ],
+  "old_real_protocol_rejected": "Registered execution source changed.",
+  "old_failure_files_verified": 4,
+  "formal_report_sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+  "real_fit_stop_images_opened": false,
+  "real_training_added": false,
+  "network_loss_matrix_changed": false,
+  "benchmark_or_idle_repeated": false
+}

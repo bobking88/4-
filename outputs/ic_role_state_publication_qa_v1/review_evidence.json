@@ -1,0 +1,26 @@
+{
+  "status": "SELF_REVIEW_ONLY_INDEPENDENT_UNAVAILABLE",
+  "independent_agent": "01a13442-a27c-71d0-98c9-6bc514f6b178",
+  "independent_result": "Agent failed due to usage limit; no review conclusion returned; agent closed.",
+  "scope": [
+    "scripts/run_ic_role_mechanism.py: one state publication before dispatch",
+    "tests/test_run_ic_role_mechanism.py: three regression additions"
+  ],
+  "self_review": {
+    "new_code_findings": [],
+    "checked": [
+      "RUNNING publication completes before task construction/dispatch",
+      "Publication exception takes existing FAILED path before workers",
+      "Worker authorization/activity gates not relaxed",
+      "Actual worker/file boundary, native synthetic startup and fail-stop assertions",
+      "Consumed real protocol rejected due to changed source identity"
+    ],
+    "limitations": [
+      "Self-review is not independent review",
+      "No complete real 108-trajectory/final-verification run",
+      "No independent mathematical/novelty/effectiveness certification",
+      "Native smoke requires Windows and AC; not a new timing or idle acceptance"
+    ]
+  },
+  "ready_for_independent_merge_claim": false
+}

@@ -44,6 +44,7 @@
 - 2026-10-13 授权更新：用户回答“批准协议编写与登记（推荐）”，仅允许Task8的预登记部分。形成[新机器协议](../../experiment_protocols/ic_role_mechanism_v1.json)和[中文协议](../../experiment_protocols/ic_role_mechanism_v1.md)；运行、真实数据读取和正式报告修改仍未获准，Task8整体不标记完成。
 - 随后单次运行授权：用户在call_d12ae77d482e46f28498bfaed5810de7明确回答“批准一次真实机制实验”。当前状态为`REAL_MECHANISM_ONCE_APPROVED_PENDING_EXECUTION`；仅按已登记340fit/108轨迹/3温度/7200秒范围执行Task8。正式报告、stop与新数据仍未获准；[授权记录](../../experiment_records/2026-10-13_ic_role_mechanism_authorization.md)固定最终验收的剩余预算监督。
 - 单次运行终态：`REAL_MECHANISM_ATTEMPT_FAILED_CONSUMED`，34.265秒，首次prepare在活动状态检查失败，无特征反序列化、温度/PCA或神经拟合，未自动重试。Task8整体未完成，剩余步骤停止；[失败记录](../../experiment_records/2026-10-13_ic_role_mechanism_v1_failure.md)保留证据。修复/合成验收和新真实运行分别等待后续批准。
+- 执行安全修复：用户在call_b5eec178b6d34f319532e1984755dafb批准仅修复与合成验收；新增三回归已RED到GREEN，最小改动为派发前写回RUNNING。当前`STATE_PUBLICATION_REPAIR_SYNTHETIC_VERIFIED_REAL_UNAUTHORIZED`，96项限定合成检查通过；[修复记录](../../experiment_records/2026-10-13_ic_role_state_publication_repair.md)。没有续跑或另开真实实验，Task8效果部分仍未完成。
 - Verification Status：`SYNTHETIC_VERIFIED_REAL_UNVERIFIED`。最终60项新测试、33项旧纯合成回归通过；独立代码审核四项重要问题已一次TDD修复。一次原生计时保留其f933153源码身份，不重跑；实际角色效果及论文新颖性尚未确认。
 - 旧负结果基线：`d34d853a0b2f6352f6b975cede91e68560057f83`；规格快照：`dfee7b592e274bb78fd4d4a3d8a1c3c283e1419e`。
 - 当前没有独立子代理工具；建议原生逐任务实施，不能承诺尚不存在的独立评审。作者侧自审不是第三方数学验证。

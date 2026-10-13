@@ -219,6 +219,11 @@ PB 与 REPAIR 已覆盖通用边界及成对残差思路；本轮不实施新网
 该单次运行在首个prepare任务因RUNNING状态未写回而失败，0条训练轨迹、0次温度拟合，
 未反序列化特征；许可已消费，不续跑或重试。见[执行失败与状态同步诊断](docs/experiment_records/2026-10-13_ic_role_mechanism_v1_failure.md)。
 失败不构成模型效果负结果；执行器修复/合成验收及新的真实运行需另行批准。
+用户随后批准仅修复状态发布并做合成验收；生产代码仅增加派发前的RUNNING落盘，
+三项回归已RED到GREEN，63项IC-RFA与33项旧纯合成回归通过，见
+[状态发布修复与合成验收](docs/experiment_records/2026-10-13_ic_role_state_publication_repair.md)。
+旧真实协议/失败目录保留且不复用；修复不是新模型效果，下一次真实实验须重新登记并单独批准。
+独立工程复查因调用额度未返回结论，仅完成作者自审，不宣称独立审核通过。
 C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独当作原创理论。
 
 Run these commands from the repository root with the fixed manifest and a locally

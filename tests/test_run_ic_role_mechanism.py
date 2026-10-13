@@ -155,5 +155,80 @@ class MechanismRunnerTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, "source changed"):
                     runner.validate_protocol(self.root, protocol, "fit-mechanism")
 
+    def test_persisted_running_state_allows_synthetic_workers(self):
+        completed = []
+
+        def dispatch(job, protocol, remaining):
+            result = runner.worker(Path(job["command"][-1]))
+            completed.append(job["job_id"])
+            self.assertFalse(result["real_data_opened"])
+            return dict(job_id=job["job_id"], status="COMPLETE", alive=False,
+                        supervision=dict(power_request_released=True), attempts=1)
+
+        with patch.object(runner, "WindowsAwakeGuard", FakeGuard), \
+                patch.object(runner, "NativeEnvironmentAPI"), patch.object(runner, "require_ac_power"), \
+                patch.object(runner, "run_supervised_job", side_effect=dispatch), \
+                patch.object(runner.torch, "load", side_effect=AssertionError("Tensor reads forbidden")), \
+                patch.object(runner, "load_fit_bundle", side_effect=AssertionError("Fit reads forbidden")), \
+                patch.object(runner, "prepare_inner_fold", side_effect=AssertionError("Fitting forbidden")), \
+                patch.object(runner, "fit_trajectory", side_effect=AssertionError("Training forbidden")):
+            result = runner.run_stage(self.root, None, self.root/"new", "synthetic")
+        self.assertEqual(result["status"], "MECHANISM_COMPLETE", result.get("error"))
+        self.assertEqual(len(completed), 112)
+        self.assertFalse(result["real_data_opened"])
+        self.assertTrue((self.root/"new/runs/prepare_fold0/task_started.json").exists())
+        final = json.loads((self.root/"new/runs/analysis/result.json").read_text())
+        self.assertEqual(final["scope"], "control-plane simulation only")
+        self.assertFalse(final["real_data_opened"])
+
+    def test_running_publication_failure_dispatches_no_workers(self):
+        original = runner._json
+
+        def write(path, value, *, exclusive=False):
+            if Path(path).name == "stage_state.json" and value.get("status") == "RUNNING":
+                raise OSError("Synthetic publication failure")
+            original(path, value, exclusive=exclusive)
+
+        with patch.object(runner, "_json", side_effect=write):
+            result, jobs = self.simulate()
+        self.assertEqual(result["status"], "FAILED")
+        self.assertIn("Synthetic publication failure", result["error"])
+        self.assertEqual(jobs, [])
+        self.assertFalse((self.root/"new/runs").exists())
+        terminal = json.loads((self.root/"new/stage_state.json").read_text())
+        self.assertEqual(terminal["status"], "FAILED")
+
+    @unittest.skipUnless(platform.system() == "Windows", "Native worker boundary requires Windows")
+    def test_native_synthetic_first_worker_then_failure_stops_dispatch(self):
+        supervise = runner.run_supervised_job
+        dispatched = []
+
+        def dispatch(job, protocol, remaining):
+            dispatched.append(job["job_id"])
+            if len(dispatched) == 1:
+                return supervise(job, protocol, min(30., remaining))
+            return dict(job_id=job["job_id"], status="FAILED", alive=False, attempts=0,
+                        supervision={}, error="Injected synthetic failure, no child launched")
+
+        with patch.object(runner, "run_supervised_job", side_effect=dispatch), \
+                patch.object(runner.torch, "load", side_effect=AssertionError("Tensor reads forbidden")), \
+                patch.object(runner, "load_fit_bundle", side_effect=AssertionError("Fit reads forbidden")), \
+                patch.object(runner, "prepare_inner_fold", side_effect=AssertionError("Fitting forbidden")), \
+                patch.object(runner, "fit_trajectory", side_effect=AssertionError("Training forbidden")):
+            result = runner.run_stage(self.root, None, self.root/"new", "synthetic")
+        self.assertEqual(dispatched, ["prepare_fold0", "prepare_fold1"])
+        self.assertEqual(result["status"], "FAILED")
+        first = result["jobs"][0]
+        self.assertEqual(first["status"], "COMPLETE", first.get("log_tail"))
+        self.assertFalse(first["alive"])
+        self.assertTrue(first["supervision"]["power_request_acquired"])
+        self.assertTrue(first["supervision"]["power_request_released"])
+        self.assertTrue(result["power"]["power_request_released"])
+        self.assertFalse((self.root/"new/runs/prepare_fold2").exists())
+        packet_result = json.loads((self.root/"new/runs/prepare_fold0/result.json").read_text())
+        self.assertFalse(packet_result["real_data_opened"])
+        self.assertEqual(packet_result["scope"], "control-plane simulation only")
+        self.assertFalse(result["real_data_opened"])
+
 
 if __name__ == "__main__": unittest.main()

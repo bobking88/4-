@@ -151,6 +151,7 @@ def run_stage(root: Path, protocol_path: Path | None, output: Path, stage: str) 
         with WindowsAwakeGuard(api=NativeEnvironmentAPI()) as guard:
             state["status"] = "RUNNING"
             state["state_history"].append("RUNNING")
+            _json(output/"stage_state.json", state)
             prepared = {}
             schedule = [dict(kind="prepare", fold=fold, job_id=f"prepare_fold{fold}") for fold in range(3)]
             schedule += [dict(job, kind="trajectory") for job in build_fit_matrix()]
