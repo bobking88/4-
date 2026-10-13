@@ -224,6 +224,13 @@ PB 与 REPAIR 已覆盖通用边界及成对残差思路；本轮不实施新网
 [状态发布修复与合成验收](docs/experiment_records/2026-10-13_ic_role_state_publication_repair.md)。
 旧真实协议/失败目录保留且不复用；修复不是新模型效果，下一次真实实验须重新登记并单独批准。
 独立工程复查因调用额度未返回结论，仅完成作者自审，不宣称独立审核通过。
+用户已批准“新协议登记，暂不运行”，现新增
+[修复后v2执行预登记](docs/experiment_protocols/ic_role_mechanism_v2.md)及
+[v2未授权机器协议](docs/experiment_protocols/ic_role_mechanism_v2.json)。模型仍为IC-RFA-B v1，
+只更新修复后34源码身份和独立输出目录；340fit/108轨迹/3温度/7200秒范围不变。
+机器状态DRAFT_NOT_AUTHORIZED，独立复查尚未完成；未读真实输入、未训练、未重计时、未改正式报告。
+登记与静态授权门核验见[v2登记记录](docs/experiment_records/2026-10-13_ic_role_mechanism_v2_preregistration.md)。
+真实运行仍需单独明确批准，旧失败目录和已消费许可不复用，Task8整体未完成。
 C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独当作原创理论。
 
 Run these commands from the repository root with the fixed manifest and a locally

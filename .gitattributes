@@ -74,3 +74,7 @@
 /scripts/run_ic_role_mechanism.py -text whitespace=cr-at-eol
 /tests/test_run_ic_role_mechanism.py -text whitespace=cr-at-eol
 /outputs/ic_role_state_publication_qa_v1/** -text whitespace=cr-at-eol
+# Preserve the separately approved repaired-code execution preregistration bytes.
+/docs/experiment_protocols/ic_role_mechanism_v2.json -text whitespace=cr-at-eol
+/docs/experiment_protocols/ic_role_mechanism_v2.md -text whitespace=cr-at-eol
+/docs/experiment_records/2026-10-13_ic_role_mechanism_v2_preregistration.md -text whitespace=cr-at-eol

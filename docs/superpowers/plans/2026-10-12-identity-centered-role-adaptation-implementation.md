@@ -45,6 +45,7 @@
 - 随后单次运行授权：用户在call_d12ae77d482e46f28498bfaed5810de7明确回答“批准一次真实机制实验”。当前状态为`REAL_MECHANISM_ONCE_APPROVED_PENDING_EXECUTION`；仅按已登记340fit/108轨迹/3温度/7200秒范围执行Task8。正式报告、stop与新数据仍未获准；[授权记录](../../experiment_records/2026-10-13_ic_role_mechanism_authorization.md)固定最终验收的剩余预算监督。
 - 单次运行终态：`REAL_MECHANISM_ATTEMPT_FAILED_CONSUMED`，34.265秒，首次prepare在活动状态检查失败，无特征反序列化、温度/PCA或神经拟合，未自动重试。Task8整体未完成，剩余步骤停止；[失败记录](../../experiment_records/2026-10-13_ic_role_mechanism_v1_failure.md)保留证据。修复/合成验收和新真实运行分别等待后续批准。
 - 执行安全修复：用户在call_b5eec178b6d34f319532e1984755dafb批准仅修复与合成验收；新增三回归已RED到GREEN，最小改动为派发前写回RUNNING。当前`STATE_PUBLICATION_REPAIR_SYNTHETIC_VERIFIED_REAL_UNAUTHORIZED`，96项限定合成检查通过；[修复记录](../../experiment_records/2026-10-13_ic_role_state_publication_repair.md)。没有续跑或另开真实实验，Task8效果部分仍未完成。
+- 修复后预登记：用户在call_b7aaa1e4e1764728b80858311c0bf2a6回答“批准新协议登记，暂不运行”。新增[执行协议v2](../../experiment_protocols/ic_role_mechanism_v2.md)和[未授权JSON](../../experiment_protocols/ic_role_mechanism_v2.json)，源码快照da176fc，独立新目录；网络/损失/矩阵/预算不变。当前`REPAIRED_PROTOCOL_REGISTERED_REAL_UNAUTHORIZED_REVIEW_PENDING`，独立工程复查尚未完成，真实输入读取和运行均未获准，不重计时/空闲验收、不改正式报告。Task8整体继续未完成；[登记记录](../../experiment_records/2026-10-13_ic_role_mechanism_v2_preregistration.md)。
 - Verification Status：`SYNTHETIC_VERIFIED_REAL_UNVERIFIED`。最终60项新测试、33项旧纯合成回归通过；独立代码审核四项重要问题已一次TDD修复。一次原生计时保留其f933153源码身份，不重跑；实际角色效果及论文新颖性尚未确认。
 - 旧负结果基线：`d34d853a0b2f6352f6b975cede91e68560057f83`；规格快照：`dfee7b592e274bb78fd4d4a3d8a1c3c283e1419e`。
 - 当前没有独立子代理工具；建议原生逐任务实施，不能承诺尚不存在的独立评审。作者侧自审不是第三方数学验证。
@@ -196,6 +197,7 @@
 **Interfaces:** 使用Task5的获准fit-mechanism入口和Task6的推理验证/分析，无新增模型或网格。
 
 - [x] **Step1 前置审核：** 1b91d0e已在GitHub登记，随后取得明确单次批准；Tasks1--7验收及34源码/环境/输入字节身份核对通过。授权envelope重新登记后才执行；旧计时新增校验成本不确定性明确，累计7200秒与固定矩阵不变。
+  此勾选保留v1前置步骤的历史完成，不表示v2可运行。v1许可已消费；v2仅登记，独立复查缺口及新的真实运行批准仍待处理，未再次读取输入。
 - [ ] **Step2 一次执行：** 只载入fit-only包和既有assignment；3次内折T0，108轨迹，禁止读取stop、全fit重训、扩网格、训练重放和失败自动重试。结束确认所有子进程终止和防待机释放。
   单次尝试已消费但执行未完成：prepare_fold0失败，0/108轨迹、0/3温度；进程已结束、临时防待机释放。本目录冻结，不勾选完整执行通过。
 - [ ] **Step3 一次推理重放：** 固定100主点以及其他轨迹描述，核对输入/hash/参照/全部理论界、实际拟合计数、累计时间和失败。合法的零梯度、奇异核、没有角色增量均保留，不换数据/种子。
