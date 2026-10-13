@@ -1,0 +1,9 @@
+{
+  "kind": "prepare",
+  "fold": 0,
+  "job_id": "prepare_fold0",
+  "root": "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report",
+  "output": "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\training\\ic_role_mechanism_v1\\development_fold_0",
+  "stage": "fit-mechanism",
+  "protocol_path": "D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\docs\\experiment_protocols\\ic_role_mechanism_v1.json"
+}

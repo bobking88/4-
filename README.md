@@ -216,6 +216,9 @@ PB 与 REPAIR 已覆盖通用边界及成对残差思路；本轮不实施新网
 [单次运行授权](docs/experiment_records/2026-10-13_ic_role_mechanism_authorization.md)并重新登记机器协议。
 运行仍限上述固定fit-only范围；准备、训练、诊断及最终推理验收共同受7200秒上限约束，
 网络/损失/网格不变；登记和授权不等于真实效果已验证。
+该单次运行在首个prepare任务因RUNNING状态未写回而失败，0条训练轨迹、0次温度拟合，
+未反序列化特征；许可已消费，不续跑或重试。见[执行失败与状态同步诊断](docs/experiment_records/2026-10-13_ic_role_mechanism_v1_failure.md)。
+失败不构成模型效果负结果；执行器修复/合成验收及新的真实运行需另行批准。
 C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独当作原创理论。
 
 Run these commands from the repository root with the fixed manifest and a locally

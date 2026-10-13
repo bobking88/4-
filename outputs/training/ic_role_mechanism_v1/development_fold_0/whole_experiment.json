@@ -1,0 +1,16 @@
+{
+  "status": "FAILED",
+  "started_utc": "2026-10-13T05:32:48.751025+00:00",
+  "ended_utc": "2026-10-13T05:33:23.009229+00:00",
+  "elapsed_seconds": 34.26500000001397,
+  "max_seconds": 7200,
+  "mechanism_status": "FAILED",
+  "trajectory_count": 0,
+  "temperature_count": 0,
+  "final_inference": null,
+  "final_parent_power": {},
+  "protocol_sha256": "f2311d538a8410dca3c525e91235edbaf7f45b214243c6e386d4eccb960fd3aa",
+  "error": "RuntimeError: Mechanism phase failed: FAILED",
+  "real_scope": "existing exposed 340 fit groups only; no stop or images",
+  "automatic_retry": false
+}

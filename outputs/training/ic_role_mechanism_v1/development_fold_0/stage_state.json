@@ -1,0 +1,56 @@
+{
+  "status": "FAILED",
+  "state_history": [
+    "PREPARING",
+    "RUNNING",
+    "FAILED"
+  ],
+  "stage": "fit-mechanism",
+  "trajectory_count": 0,
+  "temperature_count": 0,
+  "alive": false,
+  "registration": {
+    "commit": "1ee406c6b2cb53a00d066b4f47de0ae1cef16783",
+    "protocol_sha256": "f2311d538a8410dca3c525e91235edbaf7f45b214243c6e386d4eccb960fd3aa"
+  },
+  "real_data_opened": false,
+  "jobs": [
+    {
+      "job_id": "prepare_fold0",
+      "status": "FAILED",
+      "attempts": 1,
+      "pid": 36800,
+      "exit_code": 1,
+      "alive": false,
+      "elapsed_seconds": 5.85999999998603,
+      "log_tail": "Traceback (most recent call last):\n  File \"D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\scripts\\run_ic_role_mechanism.py\", line 258, in <module>\n    if args.worker_packet: worker(args.worker_packet)\n                           ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\scripts\\run_ic_role_mechanism.py\", line 220, in worker\n    raise ValueError(\"Worker requires an active exclusive stage.\")\nValueError: Worker requires an active exclusive stage.\n",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 5.85999999998603,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012844099954236299,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [],
+      "kind": "prepare",
+      "fold": 0,
+      "unit": null,
+      "seed": null
+    }
+  ],
+  "artifacts": {},
+  "elapsed_seconds": 34.26500000001397,
+  "error": "RuntimeError: FAILED: job failed or supervision incomplete",
+  "power": {
+    "wall_elapsed_seconds": 5.875,
+    "max_poll_gap_seconds": 0.06300000008195639,
+    "max_suspend_delta_seconds": 0.012844099954236299,
+    "poll_gap_limit_seconds": 30.0,
+    "suspend_tolerance_seconds": 2.0,
+    "power_request_acquired": true,
+    "power_request_released": true
+  }
+}

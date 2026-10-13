@@ -65,3 +65,8 @@
 /outputs/training/lc_role_adaptation_v2/** -text whitespace=-blank-at-eol,cr-at-eol
 # Preserve byte-verified, read-only derived trace diagnostics.
 /outputs/lc_role_gradient_diagnosis_v2/** -text whitespace=cr-at-eol
+# Preserve only the four immutable IC-RFA failed-attempt evidence files.
+/outputs/training/ic_role_mechanism_v1/development_fold_0/stage_state.json -text whitespace=cr-at-eol
+/outputs/training/ic_role_mechanism_v1/development_fold_0/whole_experiment.json -text whitespace=cr-at-eol
+/outputs/training/ic_role_mechanism_v1/development_fold_0/runs/prepare_fold0/packet.json -text whitespace=cr-at-eol
+/outputs/training/ic_role_mechanism_v1/development_fold_0/runs/prepare_fold0/worker.log -text whitespace=cr-at-eol

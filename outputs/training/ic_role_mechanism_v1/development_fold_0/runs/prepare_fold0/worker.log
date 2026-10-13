@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\run_ic_role_mechanism.py", line 258, in <module>
+    if args.worker_packet: worker(args.worker_packet)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\run_ic_role_mechanism.py", line 220, in worker
+    raise ValueError("Worker requires an active exclusive stage.")
+ValueError: Worker requires an active exclusive stage.
