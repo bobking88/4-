@@ -257,6 +257,8 @@ PB 与 REPAIR 已覆盖通用边界及成对残差思路；本轮不实施新网
 间隔缩放预算、角色双线性证据、内部可达/边界控制推导和普通/凸强对照，附公式化方法图。
 [作者自审](docs/experiment_records/2026-10-14_msb_role_spec_self_review.md)明确bias-only也可满足部分理论性质，
 不能把公式或图示当网络效果；本轮无真实数据读取、前向、拟合或实现，待规格审核后再写计划。
+随后用户认可规格并限定编写[MSB-RRE v1原生实施计划](docs/superpowers/plans/2026-10-14-margin-scaled-role-evidence-implementation.md)。
+计划区分代码/合成验收、真实协议登记、真实机制实验及独立确认；当前只有计划，没有实施或新的运行授权。
 C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独当作原创理论。
 
 Run these commands from the repository root with the fixed manifest and a locally
