@@ -235,6 +235,10 @@ PB 与 REPAIR 已覆盖通用边界及成对残差思路；本轮不实施新网
 未发现新增的范围内工程问题；[审阅原文](outputs/ic_role_state_publication_review_v2/reviewer_response.md)保留全部未覆盖项。
 此结果只更新限定静态复查状态，未运行测试/实验、未改源码或协议，v2仍未授权真实运行。
 最终公开验收的剩余7200秒监督前提仍必须落实，理论新颖性和实际角色净纠错仍待验证。
+2026-10-14用户明确批准一次固定v2协议的真实fit-only机制实验，
+[单次授权记录](docs/experiment_records/2026-10-14_ic_role_mechanism_v2_authorization.md)仅补真实授权envelope并重新登记，
+范围仍为340fit/108轨迹/3温度/7200秒，最终公开推理验收受剩余累计预算监督。
+登记和许可不是效果结论；不续跑v1、不读stop/原图、不改网络或正式报告，失败即停、不重试。
 C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独当作原创理论。
 
 Run these commands from the repository root with the fixed manifest and a locally

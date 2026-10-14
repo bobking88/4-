@@ -1,6 +1,6 @@
 {
   "protocol": "ic_rfa_b_v1",
-  "status": "DRAFT_NOT_AUTHORIZED",
+  "status": "APPROVED_REAL_ONCE",
   "max_seconds": 7200,
   "per_fit_seconds": 7200,
   "heartbeat_seconds": 15,
@@ -10,9 +10,9 @@
   "primary_checkpoint": 100,
   "authorization": {
     "scope": "ic_rfa_b_v1_fit_only_mechanism_once",
-    "human_approved": false,
-    "user_message_id": null,
-    "approval_utc": null
+    "human_approved": true,
+    "user_message_id": "[\"request_user_input_async\",\"call_RHuePD3CQpoUvp4t88mzQnSM\",0]",
+    "approval_utc": "2026-10-14T02:15:35Z"
   },
   "fit_path": "outputs/training/lc_role_adaptation_v2/development_fold_0/fit_raw.pt",
   "fit_sha256": "d1edbe1f87977ce0a91639bc8cb455708d4c2e17d53340c48d11d2e8b2a568b1",
