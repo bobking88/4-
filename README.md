@@ -251,6 +251,12 @@ PB 与 REPAIR 已覆盖通用边界及成对残差思路；本轮不实施新网
 见[轻量诊断数据](outputs/ic_role_offline_theory_audit_v1/diagnosis.json)和
 [下一版角色间隔网络建议](docs/experiment_records/2026-10-14_margin_budget_role_network_recommendation.md)。
 建议未构成新网络开发/真实运行授权，正式报告未修改，原创性和独立确认均待验证。
+
+另行批准后的[机制筛选与限域查新](docs/experiment_records/2026-10-14_margin_scaled_role_mechanism_screening.md)
+形成[MSB-RRE v1待审规格](docs/superpowers/specs/2026-10-14_margin_scaled_bilinear_role_evidence_design.md)：
+间隔缩放预算、角色双线性证据、内部可达/边界控制推导和普通/凸强对照，附公式化方法图。
+[作者自审](docs/experiment_records/2026-10-14_msb_role_spec_self_review.md)明确bias-only也可满足部分理论性质，
+不能把公式或图示当网络效果；本轮无真实数据读取、前向、拟合或实现，待规格审核后再写计划。
 C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独当作原创理论。
 
 Run these commands from the repository root with the fixed manifest and a locally
