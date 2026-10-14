@@ -1,0 +1,11 @@
+{
+  "status": "ANALYZED_OFFLINE_ALGEBRA_ONLY",
+  "saved_anchor_rows": 340,
+  "closed_box_witnesses": 1360,
+  "export_scalar_checks": 680,
+  "max_witness_margin_error": 1.7763568394002505e-15,
+  "new_model_forwards": 0,
+  "new_fits": 0,
+  "method": "stdlib scalar algebra versus tensor exported envelopes; boundary witnesses are mathematical, not network outputs",
+  "novelty_or_generalization_verified": false
+}

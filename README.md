@@ -245,6 +245,12 @@ PB 与 REPAIR 已覆盖通用边界及成对残差思路；本轮不实施新网
 平均NLL差仅-0.000015114652，不称选矿收益。结构数值核验通过不等于理论原创或效果成立。
 已按登记规则停止该候选效果晋级，不读stop、不扩网格、不重训、不改正式报告；许可已消费。
 [轻量摘要](outputs/training/ic_role_mechanism_v2/development_fold_0/summary/result_summary.json)和完整JSON证据归档，原始特征/权重仍仅本地保留。
+
+2026-10-14经另行批准完成[离线理论审计](docs/experiment_records/2026-10-14_ic_role_offline_theory_audit.md)：
+仅保存结果算术显示108个锚点错误中92个在现预算内不可纠正，全部预设检查点角色适配开/关无改判。
+见[轻量诊断数据](outputs/ic_role_offline_theory_audit_v1/diagnosis.json)和
+[下一版角色间隔网络建议](docs/experiment_records/2026-10-14_margin_budget_role_network_recommendation.md)。
+建议未构成新网络开发/真实运行授权，正式报告未修改，原创性和独立确认均待验证。
 C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独当作原创理论。
 
 Run these commands from the repository root with the fixed manifest and a locally

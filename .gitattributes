@@ -95,3 +95,5 @@
 /outputs/training/ic_role_mechanism_v2/development_fold_0/final_acceptance/worker.log -text whitespace=cr-at-eol
 /outputs/training/ic_role_mechanism_v2/development_fold_0/summary/*.json -text whitespace=cr-at-eol
 /outputs/training/ic_role_mechanism_v2/development_fold_0/summary/*.csv -text whitespace=cr-at-eol
+# Preserve only saved-output offline diagnosis artifacts; no experiment changes.
+/outputs/ic_role_offline_theory_audit_v1/* -text whitespace=cr-at-eol

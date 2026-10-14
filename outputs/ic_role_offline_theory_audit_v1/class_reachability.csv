@@ -1,0 +1,5 @@
+class_id,class_name,count,anchor_wrong_count,anchor_wrong_reachable_count,anchor_wrong_unreachable_count,strict_oracle_correct_count,negative_target_reachable_count
+0,target,66,29,4,25,41,0
+1,ti_negative,130,42,8,34,96,27
+2,gangue,97,20,3,17,80,14
+3,metallic_negative,47,17,1,16,31,13

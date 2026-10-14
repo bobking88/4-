@@ -1,0 +1,152 @@
+[
+  {
+    "path": "outputs/training/ic_role_mechanism_v2/development_fold_0/runs/prepare_fold0/result.pt",
+    "size_bytes": 1061921,
+    "sha256": "dd28188b59652d11e2b468b8797a13ebb782619194b6e1e8428084d30464d5ca"
+  },
+  {
+    "path": "outputs/training/ic_role_mechanism_v2/development_fold_0/runs/prepare_fold1/result.pt",
+    "size_bytes": 1061793,
+    "sha256": "f5cae51976f573527971c5881a5d8da1c77af6ab37b0a00b1e065d5aeac60168"
+  },
+  {
+    "path": "outputs/training/ic_role_mechanism_v2/development_fold_0/runs/prepare_fold2/result.pt",
+    "size_bytes": 1061793,
+    "sha256": "bdeb433ac8abdde309b21de45e99b96dc7a3f4196eea2527628d8dced8635eab"
+  },
+  {
+    "path": "outputs/training/ic_role_mechanism_v2/development_fold_0/runs/C-S-R_fold0_seed20261002/result.pt",
+    "size_bytes": 62607977,
+    "sha256": "bf5b88cb5b024b060789fd020baa7e12b144930b31dd4f0aa9a596135c359138"
+  },
+  {
+    "path": "outputs/training/ic_role_mechanism_v2/development_fold_0/runs/C-S-R_fold1_seed20261002/result.pt",
+    "size_bytes": 62887401,
+    "sha256": "69689dec22125e105b343a93b6587caff791d825a02cd0aad412141141894cdd"
+  },
+  {
+    "path": "outputs/training/ic_role_mechanism_v2/development_fold_0/runs/C-S-R_fold2_seed20261002/result.pt",
+    "size_bytes": 62887401,
+    "sha256": "eaa3f22527a023402cd91e85ff9491fd71f7c3618a2bfd34d6430a7a93ba013d"
+  },
+  {
+    "path": "outputs/training/ic_role_mechanism_v2/development_fold_0/runs/C-S-R_fold0_seed20261003/result.pt",
+    "size_bytes": 62607977,
+    "sha256": "b6eb50016b42fa9b95440f985a3cc4eb2bf2d43cdc65ffbedbd5324c870992c9"
+  },
+  {
+    "path": "outputs/training/ic_role_mechanism_v2/development_fold_0/runs/C-S-R_fold1_seed20261003/result.pt",
+    "size_bytes": 62887401,
+    "sha256": "1ec32b3a18f85b1ed69b1ca82536ec23f544daeaa023fdb56a9ca737699635ce"
+  },
+  {
+    "path": "outputs/training/ic_role_mechanism_v2/development_fold_0/runs/C-S-R_fold2_seed20261003/result.pt",
+    "size_bytes": 62887401,
+    "sha256": "4115a3cc10eb11cc80c12fbdf14811cbfdd38c2f47157212caa980b3e1f0c0fd"
+  },
+  {
+    "path": "outputs/training/ic_role_mechanism_v2/development_fold_0/runs/C-S-R_fold0_seed20261004/result.pt",
+    "size_bytes": 62607977,
+    "sha256": "54936c333aca21755a3ee2ac49a552c9af0a884d59be357f5a66a8732be26b87"
+  },
+  {
+    "path": "outputs/training/ic_role_mechanism_v2/development_fold_0/runs/C-S-R_fold1_seed20261004/result.pt",
+    "size_bytes": 62887401,
+    "sha256": "1f2379dd2f48837b33fb42c7a30d7061895a10960845f4e639ed237cbdb380e1"
+  },
+  {
+    "path": "outputs/training/ic_role_mechanism_v2/development_fold_0/runs/C-S-R_fold2_seed20261004/result.pt",
+    "size_bytes": 62887401,
+    "sha256": "53007a40e29ec538d282b503d31e48ebefcfa8b78a2afe410e9804253e02aafe"
+  },
+  {
+    "path": "outputs/training/ic_role_mechanism_v2/development_fold_0/runs/C-S-U_fold0_seed20261002/result.pt",
+    "size_bytes": 62607977,
+    "sha256": "c258bfbc1452fe3f883e862da2ea28a6c669453fb2d63e050c428fddd2eeb3d8"
+  },
+  {
+    "path": "outputs/training/ic_role_mechanism_v2/development_fold_0/runs/C-S-U_fold1_seed20261002/result.pt",
+    "size_bytes": 62887401,
+    "sha256": "b50f6aca35b583f8c5b9186103432fa8e010b605a545139842358842200754be"
+  },
+  {
+    "path": "outputs/training/ic_role_mechanism_v2/development_fold_0/runs/C-S-U_fold2_seed20261002/result.pt",
+    "size_bytes": 62887401,
+    "sha256": "2e4dc9fd766e64b97d9502f24f77efecb4130d14f11f93dd7beb0495f5e1b4a7"
+  },
+  {
+    "path": "outputs/training/ic_role_mechanism_v2/development_fold_0/runs/C-S-U_fold0_seed20261003/result.pt",
+    "size_bytes": 62607977,
+    "sha256": "36ec965ace1351e5684493cc4a30acaa1ea1ee4651bdacbd6d0bfca10f9f443e"
+  },
+  {
+    "path": "outputs/training/ic_role_mechanism_v2/development_fold_0/runs/C-S-U_fold1_seed20261003/result.pt",
+    "size_bytes": 62887401,
+    "sha256": "af63a80683ec9518f053c280355e7a545196a0d25f6b5ef48d825cc759ec5f4e"
+  },
+  {
+    "path": "outputs/training/ic_role_mechanism_v2/development_fold_0/runs/C-S-U_fold2_seed20261003/result.pt",
+    "size_bytes": 62887401,
+    "sha256": "3d0000486108dc91c805200084d80ae8435d84448e31b6ce151cd377d393717e"
+  },
+  {
+    "path": "outputs/training/ic_role_mechanism_v2/development_fold_0/runs/C-S-U_fold0_seed20261004/result.pt",
+    "size_bytes": 62607977,
+    "sha256": "829e33696932c839339b2464abfa64a6d0bceb8802eee3769644786be8ecd187"
+  },
+  {
+    "path": "outputs/training/ic_role_mechanism_v2/development_fold_0/runs/C-S-U_fold1_seed20261004/result.pt",
+    "size_bytes": 62887401,
+    "sha256": "e1cdcce8c5a2b83b7deddad8363eb60830975c928ad316d41b26717cf7f0bf26"
+  },
+  {
+    "path": "outputs/training/ic_role_mechanism_v2/development_fold_0/runs/C-S-U_fold2_seed20261004/result.pt",
+    "size_bytes": 62887401,
+    "sha256": "b6b3560c32d425ff0e7b25516370f22573f3616fc6d74dfa22207e0d2fff7a09"
+  },
+  {
+    "path": "outputs/training/ic_role_mechanism_v2/development_fold_0/runs/HC-S_fold0_seed20261002/result.pt",
+    "size_bytes": 2357123,
+    "sha256": "2d666b1a51870deb3ef79db49c9defe218709c9f98f4dfff324d2e97257fd337"
+  },
+  {
+    "path": "outputs/training/ic_role_mechanism_v2/development_fold_0/runs/HC-S_fold1_seed20261002/result.pt",
+    "size_bytes": 2357699,
+    "sha256": "2b724c9d133bcc006889f9fa9be9f0ad9b98ef6e7c9a32da788f4957e7298aa3"
+  },
+  {
+    "path": "outputs/training/ic_role_mechanism_v2/development_fold_0/runs/HC-S_fold2_seed20261002/result.pt",
+    "size_bytes": 2357699,
+    "sha256": "007e56c4acd4409b3902cf388fcfd1747190cc86f5c4ce03ef3f92322fe087a6"
+  },
+  {
+    "path": "outputs/training/ic_role_mechanism_v2/development_fold_0/runs/HC-S_fold0_seed20261003/result.pt",
+    "size_bytes": 2357123,
+    "sha256": "ee9120e09e703daf779667a7d47478a7010db2e4582c0f9009c195c6a4d57e18"
+  },
+  {
+    "path": "outputs/training/ic_role_mechanism_v2/development_fold_0/runs/HC-S_fold1_seed20261003/result.pt",
+    "size_bytes": 2357699,
+    "sha256": "876ad9deb3aa9243175a2b15afbbc124d21e2abdcab0979052cf6ea7cc220183"
+  },
+  {
+    "path": "outputs/training/ic_role_mechanism_v2/development_fold_0/runs/HC-S_fold2_seed20261003/result.pt",
+    "size_bytes": 2357699,
+    "sha256": "b1f9d31d776c73eb5b70f7ec804d162f4315aa3bb793fb2db5ccd34505e4763d"
+  },
+  {
+    "path": "outputs/training/ic_role_mechanism_v2/development_fold_0/runs/HC-S_fold0_seed20261004/result.pt",
+    "size_bytes": 2357123,
+    "sha256": "780ebe4a7f19aed7295ec34c612d6f3f99bce2d92a1f7e469cc15764d528e6ca"
+  },
+  {
+    "path": "outputs/training/ic_role_mechanism_v2/development_fold_0/runs/HC-S_fold1_seed20261004/result.pt",
+    "size_bytes": 2357699,
+    "sha256": "3d77ae3267cd7da2373ea719e55b94e180045bf6a7e138f2c0df7fc917d63870"
+  },
+  {
+    "path": "outputs/training/ic_role_mechanism_v2/development_fold_0/runs/HC-S_fold2_seed20261004/result.pt",
+    "size_bytes": 2357699,
+    "sha256": "745dd4afc1d05eec8b144887c0d4648de1cf0685e69d4ab7b331e29d828a92da"
+  }
+]

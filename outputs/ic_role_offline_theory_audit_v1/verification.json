@@ -1,0 +1,30 @@
+{
+  "status": "ANALYZED_OFFLINE_VERIFICATION",
+  "saved_input_hash_matches": 30,
+  "registered_source_hash_matches": 34,
+  "spec_unchanged": true,
+  "protocol_unchanged": true,
+  "formal_report_sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+  "formal_report_copies_unchanged": 2,
+  "offline_tool_sha256": "f2038f3e80a2291432af1371ecf51fdfe2cf953142c0935d730dae941f64bf3d",
+  "allowed_imports": [
+    "__future__",
+    "csv",
+    "gc",
+    "hashlib",
+    "json",
+    "pathlib",
+    "torch"
+  ],
+  "csv_counts": {
+    "anchor_reachability.csv": 340,
+    "class_reachability.csv": 4,
+    "attribution_primary.csv": 2040,
+    "trajectory_attribution_summary.csv": 81,
+    "paired_role_summary.csv": 27
+  },
+  "all_prespecified_role_control_argmax_changes": 0,
+  "new_model_forwards": 0,
+  "new_fits": 0,
+  "scope": "Static helper scan, CSV arithmetic, immutable-source/report checks; not model replay or independent confirmation"
+}

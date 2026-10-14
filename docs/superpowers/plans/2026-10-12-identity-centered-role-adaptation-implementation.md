@@ -49,6 +49,7 @@
 - 限定独立复查：用户在call_7c55d9cb7be1447d96e08dd4887168b2批准一次只读独立工程复查及结论登记。代理01a135f5-71e3-7640-9e21-1e205e9a32d8完成且已关闭，未发现新增范围内问题；[复查记录](../../experiment_records/2026-10-13_ic_role_state_publication_independent_review_v2.md)与原文保留限制。当前`SCOPED_INDEPENDENT_STATIC_REVIEW_COMPLETE_REAL_UNAUTHORIZED`，没有新测试、代码修改或真实实验。最终验收须受剩余7200秒监督；数学新颖性和效果未审定，Task8整体未完成。
 - 2026-10-14 v2单次运行批准：用户在call_RHuePD3CQpoUvp4t88mzQnSM回答“批准一次固定协议的真实机制实验”。[授权记录](../../experiment_records/2026-10-14_ic_role_mechanism_v2_authorization.md)及真实envelope重新登记后，仅执行固定340fit/108轨迹/3T0/7200秒范围；源码/损失/矩阵不变，最终验收必须受剩余时间监督。当前`REAL_V2_ONCE_APPROVED_PENDING_EXECUTION`；不读stop/原图、不改报告、不重试，Task8不预先勾选完成。
 - v2单次结果：`COMPLETE_NO_PRIMARY_ROLE_DECISION_INCREMENT`，108轨迹、3T0、972检查点及一次公开验收完成，累计2299秒，所有监督释放证据完整。[结果记录](../../experiment_records/2026-10-14_ic_role_mechanism_v2_results.md)显示100步C-S-R/C-S-U三seed各340图argmax完全相同、目标净纠错均0。按既定规则停止候选晋级，无stop/扩网格/重训/报告修改；许可已消费，整个论文创新目标未完成。
+- 用户在call_ec886148d74c4ae595b130823340a25d批准仅保存结果离线理论诊断及GitHub结论登记。[审计](../../experiment_records/2026-10-14_ic_role_offline_theory_audit.md)补齐全类别输出可达条件，92/108锚点错误不可达；全部预设点R/U/HC决策一致，适配开/关不改判。[下一版建议](../../experiment_records/2026-10-14_margin_budget_role_network_recommendation.md)仅供新规格审核；未改网络或报告，未新增前向/拟合/stop暴露，Task8后续研究决策及整体创新目标仍未完成。
 - Verification Status：`SYNTHETIC_VERIFIED_REAL_UNVERIFIED`。最终60项新测试、33项旧纯合成回归通过；独立代码审核四项重要问题已一次TDD修复。一次原生计时保留其f933153源码身份，不重跑；实际角色效果及论文新颖性尚未确认。
 - 旧负结果基线：`d34d853a0b2f6352f6b975cede91e68560057f83`；规格快照：`dfee7b592e274bb78fd4d4a3d8a1c3c283e1419e`。
 - 当前没有独立子代理工具；建议原生逐任务实施，不能承诺尚不存在的独立评审。作者侧自审不是第三方数学验证。
