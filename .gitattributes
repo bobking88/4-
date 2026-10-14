@@ -83,3 +83,15 @@
 /docs/experiment_records/2026-10-13_ic_role_state_publication_independent_review_v2.md -text whitespace=cr-at-eol
 # Preserve the separately approved v2 real execution authorization record.
 /docs/experiment_records/2026-10-14_ic_role_mechanism_v2_authorization.md -text whitespace=cr-at-eol
+# Preserve only the lightweight v2 result evidence selected for public archiving.
+/docs/experiment_records/2026-10-14_ic_role_mechanism_v2_results.md -text whitespace=cr-at-eol
+/outputs/training/ic_role_mechanism_v2/development_fold_0/stage_state.json -text whitespace=cr-at-eol
+/outputs/training/ic_role_mechanism_v2/development_fold_0/whole_experiment.json -text whitespace=cr-at-eol
+/outputs/training/ic_role_mechanism_v2/development_fold_0/artifact_manifest.json -text whitespace=cr-at-eol
+/outputs/training/ic_role_mechanism_v2/development_fold_0/analysis/evidence.json -text whitespace=cr-at-eol
+/outputs/training/ic_role_mechanism_v2/development_fold_0/analysis/metrics.csv -text whitespace=cr-at-eol
+/outputs/training/ic_role_mechanism_v2/development_fold_0/analysis/mechanism_report.md -text whitespace=cr-at-eol
+/outputs/training/ic_role_mechanism_v2/development_fold_0/final_acceptance/evidence.json -text whitespace=cr-at-eol
+/outputs/training/ic_role_mechanism_v2/development_fold_0/final_acceptance/worker.log -text whitespace=cr-at-eol
+/outputs/training/ic_role_mechanism_v2/development_fold_0/summary/*.json -text whitespace=cr-at-eol
+/outputs/training/ic_role_mechanism_v2/development_fold_0/summary/*.csv -text whitespace=cr-at-eol

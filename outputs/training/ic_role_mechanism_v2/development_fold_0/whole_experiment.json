@@ -1,0 +1,81 @@
+{
+  "status": "COMPLETE",
+  "started_utc": "2026-10-14T02:38:48.786555+00:00",
+  "ended_utc": "2026-10-14T03:17:07.779819+00:00",
+  "elapsed_seconds": 2299.0,
+  "max_seconds": 7200,
+  "parent_pid": 34924,
+  "mechanism_status": "MECHANISM_COMPLETE",
+  "trajectory_count": 108,
+  "temperature_count": 3,
+  "final_inference": {
+    "job_id": "final_public_inference_acceptance",
+    "status": "COMPLETE",
+    "attempts": 1,
+    "pid": 42532,
+    "exit_code": 0,
+    "alive": false,
+    "elapsed_seconds": 110.875,
+    "log_tail": "{\"status\": \"FINAL_PUBLIC_INFERENCE_ACCEPTANCE_COMPLETE\", \"delivery_verified\": true, \"trajectory_count\": 108, \"checkpoint_count\": 972, \"theory_violation_count\": 0}\n",
+    "error": "",
+    "supervision": {
+      "wall_elapsed_seconds": 110.875,
+      "max_poll_gap_seconds": 0.06300000008195639,
+      "max_suspend_delta_seconds": 0.012863899988587946,
+      "poll_gap_limit_seconds": 30.0,
+      "suspend_tolerance_seconds": 2.0,
+      "power_request_acquired": true,
+      "power_request_released": true
+    },
+    "heartbeats": [
+      {
+        "pid": 42532,
+        "alive": true,
+        "elapsed_seconds": 15.0
+      },
+      {
+        "pid": 42532,
+        "alive": true,
+        "elapsed_seconds": 30.031000000075437
+      },
+      {
+        "pid": 42532,
+        "alive": true,
+        "elapsed_seconds": 45.03100000007544
+      },
+      {
+        "pid": 42532,
+        "alive": true,
+        "elapsed_seconds": 60.03100000007544
+      },
+      {
+        "pid": 42532,
+        "alive": true,
+        "elapsed_seconds": 75.03100000007544
+      },
+      {
+        "pid": 42532,
+        "alive": true,
+        "elapsed_seconds": 90.03100000007544
+      },
+      {
+        "pid": 42532,
+        "alive": true,
+        "elapsed_seconds": 105.06200000003446
+      }
+    ]
+  },
+  "final_parent_power": {
+    "wall_elapsed_seconds": 110.875,
+    "max_poll_gap_seconds": 0.06300000008195639,
+    "max_suspend_delta_seconds": 0.012863899988587946,
+    "poll_gap_limit_seconds": 30.0,
+    "suspend_tolerance_seconds": 2.0,
+    "power_request_acquired": true,
+    "power_request_released": true
+  },
+  "protocol_sha256": "332dd67fec71b123a0b88eea1d0c255e34af11d251f9f48f672065d78679852c",
+  "error": null,
+  "real_scope": "existing exposed 340 fit groups only; no stop or images",
+  "automatic_retry": false
+}

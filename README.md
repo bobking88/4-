@@ -239,6 +239,12 @@ PB 与 REPAIR 已覆盖通用边界及成对残差思路；本轮不实施新网
 [单次授权记录](docs/experiment_records/2026-10-14_ic_role_mechanism_v2_authorization.md)仅补真实授权envelope并重新登记，
 范围仍为340fit/108轨迹/3温度/7200秒，最终公开推理验收受剩余累计预算监督。
 登记和许可不是效果结论；不续跑v1、不读stop/原图、不改网络或正式报告，失败即停、不重试。
+该单次实验已完整完成，108轨迹/3T0/972检查点，含监督最终公开验收累计2299秒，
+见[v2真实机制结果及负结论](docs/experiment_records/2026-10-14_ic_role_mechanism_v2_results.md)。
+固定100步的C-S-R/C-S-U三个种子各340张逐图预测完全相同，目标净纠错均0；
+平均NLL差仅-0.000015114652，不称选矿收益。结构数值核验通过不等于理论原创或效果成立。
+已按登记规则停止该候选效果晋级，不读stop、不扩网格、不重训、不改正式报告；许可已消费。
+[轻量摘要](outputs/training/ic_role_mechanism_v2/development_fold_0/summary/result_summary.json)和完整JSON证据归档，原始特征/权重仍仅本地保留。
 C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独当作原创理论。
 
 Run these commands from the repository root with the fixed manifest and a locally

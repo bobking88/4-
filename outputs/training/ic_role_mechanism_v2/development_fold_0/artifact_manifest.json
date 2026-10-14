@@ -1,0 +1,3512 @@
+{
+  "status": "RUNNING",
+  "state_history": [
+    "PREPARING",
+    "RUNNING"
+  ],
+  "stage": "fit-mechanism",
+  "trajectory_count": 108,
+  "temperature_count": 3,
+  "alive": false,
+  "registration": {
+    "commit": "3dd2fd985fd3de938e0f61418547b5cce373e120",
+    "protocol_sha256": "332dd67fec71b123a0b88eea1d0c255e34af11d251f9f48f672065d78679852c"
+  },
+  "real_data_opened": true,
+  "jobs": [
+    {
+      "job_id": "prepare_fold0",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 13284,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 5.812000000034459,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 5.812000000034459,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012830899970140308,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [],
+      "kind": "prepare",
+      "fold": 0,
+      "unit": null,
+      "seed": null
+    },
+    {
+      "job_id": "prepare_fold1",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 31632,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 5.858999999938533,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 5.858999999938533,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012811099993996322,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [],
+      "kind": "prepare",
+      "fold": 1,
+      "unit": null,
+      "seed": null
+    },
+    {
+      "job_id": "prepare_fold2",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 36212,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 5.75,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 5.75,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.0126976000610739,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [],
+      "kind": "prepare",
+      "fold": 2,
+      "unit": null,
+      "seed": null
+    },
+    {
+      "job_id": "Z-O-U_fold0_seed20261002",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 32344,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 21.29599999997299,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 21.29599999997299,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012886700103990734,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 32344,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 0,
+      "unit": "Z-O-U",
+      "seed": 20261002
+    },
+    {
+      "job_id": "Z-O-U_fold0_seed20261003",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 26960,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.640999999945052,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.640999999945052,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012901999987661839,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 26960,
+          "alive": true,
+          "elapsed_seconds": 15.030999999959022
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 0,
+      "unit": "Z-O-U",
+      "seed": 20261003
+    },
+    {
+      "job_id": "Z-O-U_fold0_seed20261004",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 30148,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.188000000081956,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.188000000081956,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012865199998486787,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 30148,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 0,
+      "unit": "Z-O-U",
+      "seed": 20261004
+    },
+    {
+      "job_id": "Z-O-U_fold1_seed20261002",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 37620,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 19.780999999959022,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 19.780999999959022,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012858899950515479,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 37620,
+          "alive": true,
+          "elapsed_seconds": 15.047000000020489
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 1,
+      "unit": "Z-O-U",
+      "seed": 20261002
+    },
+    {
+      "job_id": "Z-O-U_fold1_seed20261003",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 3028,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 21.56200000003446,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 21.56200000003446,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012847700098063797,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 3028,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 1,
+      "unit": "Z-O-U",
+      "seed": 20261003
+    },
+    {
+      "job_id": "Z-O-U_fold1_seed20261004",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 36920,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 21.405999999959022,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 21.39000000001397,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012833699933253229,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 36920,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 1,
+      "unit": "Z-O-U",
+      "seed": 20261004
+    },
+    {
+      "job_id": "Z-O-U_fold2_seed20261002",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 31300,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.70299999997951,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.70299999997951,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012872599996626377,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 31300,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 2,
+      "unit": "Z-O-U",
+      "seed": 20261002
+    },
+    {
+      "job_id": "Z-O-U_fold2_seed20261003",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 21248,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.09299999999348,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.09299999999348,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.01286930008791387,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 21248,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 2,
+      "unit": "Z-O-U",
+      "seed": 20261003
+    },
+    {
+      "job_id": "Z-O-U_fold2_seed20261004",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 28124,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.844000000040978,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.844000000040978,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012853399966843426,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 28124,
+          "alive": true,
+          "elapsed_seconds": 15.047000000020489
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 2,
+      "unit": "Z-O-U",
+      "seed": 20261004
+    },
+    {
+      "job_id": "Z-O-R_fold0_seed20261002",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 26148,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.0,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.0,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012852399959228933,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 26148,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 0,
+      "unit": "Z-O-R",
+      "seed": 20261002
+    },
+    {
+      "job_id": "Z-O-R_fold0_seed20261003",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 17760,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.25,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.25,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012840199924539775,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 17760,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 0,
+      "unit": "Z-O-R",
+      "seed": 20261003
+    },
+    {
+      "job_id": "Z-O-R_fold0_seed20261004",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 34216,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.17200000002049,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.17200000002049,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.014763900078833103,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 34216,
+          "alive": true,
+          "elapsed_seconds": 15.01500000001397
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 0,
+      "unit": "Z-O-R",
+      "seed": 20261004
+    },
+    {
+      "job_id": "Z-O-R_fold1_seed20261002",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 32716,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 21.640999999945052,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 21.640999999945052,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012864499993156642,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 32716,
+          "alive": true,
+          "elapsed_seconds": 15.015999999945052
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 1,
+      "unit": "Z-O-R",
+      "seed": 20261002
+    },
+    {
+      "job_id": "Z-O-R_fold1_seed20261003",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 39916,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 21.094000000040978,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 21.094000000040978,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.01286609994713217,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 39916,
+          "alive": true,
+          "elapsed_seconds": 15.047000000020489
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 1,
+      "unit": "Z-O-R",
+      "seed": 20261003
+    },
+    {
+      "job_id": "Z-O-R_fold1_seed20261004",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 29624,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.25,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.25,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012838299968279898,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 29624,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 1,
+      "unit": "Z-O-R",
+      "seed": 20261004
+    },
+    {
+      "job_id": "Z-O-R_fold2_seed20261002",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 36668,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.39000000001397,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.39000000001397,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012821000011172146,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 36668,
+          "alive": true,
+          "elapsed_seconds": 15.047000000020489
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 2,
+      "unit": "Z-O-R",
+      "seed": 20261002
+    },
+    {
+      "job_id": "Z-O-R_fold2_seed20261003",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 12704,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 21.35999999998603,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 21.35999999998603,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012835300003644079,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 12704,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 2,
+      "unit": "Z-O-R",
+      "seed": 20261003
+    },
+    {
+      "job_id": "Z-O-R_fold2_seed20261004",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 32328,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 21.01500000001397,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 21.01500000001397,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012809199979528785,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 32328,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 2,
+      "unit": "Z-O-R",
+      "seed": 20261004
+    },
+    {
+      "job_id": "Z-S-U_fold0_seed20261002",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 40060,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 21.109000000054948,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 21.109000000054948,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.01284720009425655,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 40060,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 0,
+      "unit": "Z-S-U",
+      "seed": 20261002
+    },
+    {
+      "job_id": "Z-S-U_fold0_seed20261003",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 41596,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 21.218999999924563,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 21.218999999924563,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012868999969214201,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 41596,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 0,
+      "unit": "Z-S-U",
+      "seed": 20261003
+    },
+    {
+      "job_id": "Z-S-U_fold0_seed20261004",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 41800,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.766000000061467,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.766000000061467,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.01281879999442026,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 41800,
+          "alive": true,
+          "elapsed_seconds": 15.016000000061467
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 0,
+      "unit": "Z-S-U",
+      "seed": 20261004
+    },
+    {
+      "job_id": "Z-S-U_fold1_seed20261002",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 15848,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.71799999999348,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.71799999999348,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012851999956183136,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 15848,
+          "alive": true,
+          "elapsed_seconds": 15.01500000001397
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 1,
+      "unit": "Z-S-U",
+      "seed": 20261002
+    },
+    {
+      "job_id": "Z-S-U_fold1_seed20261003",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 7420,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 21.671999999904074,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 21.671999999904074,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.01283369999146089,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 7420,
+          "alive": true,
+          "elapsed_seconds": 15.015999999945052
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 1,
+      "unit": "Z-S-U",
+      "seed": 20261003
+    },
+    {
+      "job_id": "Z-S-U_fold1_seed20261004",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 26868,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 19.891000000061467,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 19.891000000061467,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012880399997811764,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 26868,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 1,
+      "unit": "Z-S-U",
+      "seed": 20261004
+    },
+    {
+      "job_id": "Z-S-U_fold2_seed20261002",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 16476,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.53200000000652,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.53200000000652,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012852199957706034,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 16476,
+          "alive": true,
+          "elapsed_seconds": 15.03200000000652
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 2,
+      "unit": "Z-S-U",
+      "seed": 20261002
+    },
+    {
+      "job_id": "Z-S-U_fold2_seed20261003",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 2284,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 19.73499999998603,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 19.73499999998603,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012863699987065047,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 2284,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 2,
+      "unit": "Z-S-U",
+      "seed": 20261003
+    },
+    {
+      "job_id": "Z-S-U_fold2_seed20261004",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 41788,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 19.733999999938533,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 19.733999999938533,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012866399949416518,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 41788,
+          "alive": true,
+          "elapsed_seconds": 15.030999999959022
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 2,
+      "unit": "Z-S-U",
+      "seed": 20261004
+    },
+    {
+      "job_id": "Z-S-R_fold0_seed20261002",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 26740,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 19.57799999997951,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 19.57799999997951,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012848799990024418,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 26740,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 0,
+      "unit": "Z-S-R",
+      "seed": 20261002
+    },
+    {
+      "job_id": "Z-S-R_fold0_seed20261003",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 27332,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 21.07799999997951,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 21.07799999997951,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012872699997387826,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 27332,
+          "alive": true,
+          "elapsed_seconds": 15.030999999959022
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 0,
+      "unit": "Z-S-R",
+      "seed": 20261003
+    },
+    {
+      "job_id": "Z-S-R_fold0_seed20261004",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 40812,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 24.54599999997299,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 24.54599999997299,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012847599980887026,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 40812,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 0,
+      "unit": "Z-S-R",
+      "seed": 20261004
+    },
+    {
+      "job_id": "Z-S-R_fold1_seed20261002",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 33624,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 21.75,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 21.75,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012811099993996322,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 33624,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 1,
+      "unit": "Z-S-R",
+      "seed": 20261002
+    },
+    {
+      "job_id": "Z-S-R_fold1_seed20261003",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 40912,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 19.719000000040978,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 19.719000000040978,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012872800056356937,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 40912,
+          "alive": true,
+          "elapsed_seconds": 15.03200000000652
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 1,
+      "unit": "Z-S-R",
+      "seed": 20261003
+    },
+    {
+      "job_id": "Z-S-R_fold1_seed20261004",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 22532,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 19.484000000054948,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 19.484000000054948,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012875199958216399,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 22532,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 1,
+      "unit": "Z-S-R",
+      "seed": 20261004
+    },
+    {
+      "job_id": "Z-S-R_fold2_seed20261002",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 36768,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 19.57799999997951,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 19.57799999997951,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012822600081562996,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 36768,
+          "alive": true,
+          "elapsed_seconds": 15.030999999959022
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 2,
+      "unit": "Z-S-R",
+      "seed": 20261002
+    },
+    {
+      "job_id": "Z-S-R_fold2_seed20261003",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 39584,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 19.780999999959022,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 19.780999999959022,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012840899988077581,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 39584,
+          "alive": true,
+          "elapsed_seconds": 15.047000000020489
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 2,
+      "unit": "Z-S-R",
+      "seed": 20261003
+    },
+    {
+      "job_id": "Z-S-R_fold2_seed20261004",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 41216,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.281000000075437,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.281000000075437,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012808599974960089,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 41216,
+          "alive": true,
+          "elapsed_seconds": 15.031000000075437
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 2,
+      "unit": "Z-S-R",
+      "seed": 20261004
+    },
+    {
+      "job_id": "C-O-U_fold0_seed20261002",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 29964,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.89000000001397,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.89000000001397,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012871200102381408,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 29964,
+          "alive": true,
+          "elapsed_seconds": 15.045999999972992
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 0,
+      "unit": "C-O-U",
+      "seed": 20261002
+    },
+    {
+      "job_id": "C-O-U_fold0_seed20261003",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 37476,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 21.04700000002049,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 21.04700000002049,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012838599970564246,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 37476,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 0,
+      "unit": "C-O-U",
+      "seed": 20261003
+    },
+    {
+      "job_id": "C-O-U_fold0_seed20261004",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 37160,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.093999999924563,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.093999999924563,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012847899983171374,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 37160,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 0,
+      "unit": "C-O-U",
+      "seed": 20261004
+    },
+    {
+      "job_id": "C-O-U_fold1_seed20261002",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 29892,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 21.0,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 21.0,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012871599989011884,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 29892,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 1,
+      "unit": "C-O-U",
+      "seed": 20261002
+    },
+    {
+      "job_id": "C-O-U_fold1_seed20261003",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 38276,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 21.04700000002049,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 21.04700000002049,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.01288089994341135,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 38276,
+          "alive": true,
+          "elapsed_seconds": 15.047000000020489
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 1,
+      "unit": "C-O-U",
+      "seed": 20261003
+    },
+    {
+      "job_id": "C-O-U_fold1_seed20261004",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 22420,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.280999999959022,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.280999999959022,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012898099957965314,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 22420,
+          "alive": true,
+          "elapsed_seconds": 15.030999999959022
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 1,
+      "unit": "C-O-U",
+      "seed": 20261004
+    },
+    {
+      "job_id": "C-O-U_fold2_seed20261002",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 30908,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 19.530999999959022,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 19.530999999959022,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012885999982245266,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 30908,
+          "alive": true,
+          "elapsed_seconds": 15.046999999904074
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 2,
+      "unit": "C-O-U",
+      "seed": 20261002
+    },
+    {
+      "job_id": "C-O-U_fold2_seed20261003",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 25472,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 19.89000000001397,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 19.89000000001397,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012842900003306568,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 25472,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 2,
+      "unit": "C-O-U",
+      "seed": 20261003
+    },
+    {
+      "job_id": "C-O-U_fold2_seed20261004",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 41076,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 19.984000000054948,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 19.984000000054948,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012850799947045743,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 41076,
+          "alive": true,
+          "elapsed_seconds": 15.047000000020489
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 2,
+      "unit": "C-O-U",
+      "seed": 20261004
+    },
+    {
+      "job_id": "C-O-R_fold0_seed20261002",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 24316,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.39000000001397,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.39000000001397,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012830600084271282,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 24316,
+          "alive": true,
+          "elapsed_seconds": 15.047000000020489
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 0,
+      "unit": "C-O-R",
+      "seed": 20261002
+    },
+    {
+      "job_id": "C-O-R_fold0_seed20261003",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 40524,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.844000000040978,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.844000000040978,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.01285119995009154,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 40524,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 0,
+      "unit": "C-O-R",
+      "seed": 20261003
+    },
+    {
+      "job_id": "C-O-R_fold0_seed20261004",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 41016,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.391000000061467,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.391000000061467,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012872599996626377,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 41016,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 0,
+      "unit": "C-O-R",
+      "seed": 20261004
+    },
+    {
+      "job_id": "C-O-R_fold1_seed20261002",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 26684,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 21.29599999997299,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 21.29599999997299,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012867399957031012,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 26684,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 1,
+      "unit": "C-O-R",
+      "seed": 20261002
+    },
+    {
+      "job_id": "C-O-R_fold1_seed20261003",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 19528,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 19.780999999959022,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 19.780999999959022,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012868899968452752,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 19528,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 1,
+      "unit": "C-O-R",
+      "seed": 20261003
+    },
+    {
+      "job_id": "C-O-R_fold1_seed20261004",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 38268,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.34299999999348,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.34299999999348,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012869799975305796,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 38268,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 1,
+      "unit": "C-O-R",
+      "seed": 20261004
+    },
+    {
+      "job_id": "C-O-R_fold2_seed20261002",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 19360,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.82799999997951,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.82799999997951,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.01285760005703196,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 19360,
+          "alive": true,
+          "elapsed_seconds": 15.030999999959022
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 2,
+      "unit": "C-O-R",
+      "seed": 20261002
+    },
+    {
+      "job_id": "C-O-R_fold2_seed20261003",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 41628,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 21.95299999997951,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 21.95299999997951,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012816600094083697,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 41628,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 2,
+      "unit": "C-O-R",
+      "seed": 20261003
+    },
+    {
+      "job_id": "C-O-R_fold2_seed20261004",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 34000,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 22.71799999999348,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 22.71799999999348,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.01286179997259751,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 34000,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 2,
+      "unit": "C-O-R",
+      "seed": 20261004
+    },
+    {
+      "job_id": "C-S-U_fold0_seed20261002",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 38436,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.04700000002049,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.04700000002049,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012889100005850196,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 38436,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 0,
+      "unit": "C-S-U",
+      "seed": 20261002
+    },
+    {
+      "job_id": "C-S-U_fold0_seed20261003",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 35236,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 21.358999999938533,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 21.358999999938533,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012824099976569414,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 35236,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 0,
+      "unit": "C-S-U",
+      "seed": 20261003
+    },
+    {
+      "job_id": "C-S-U_fold0_seed20261004",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 12716,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.25,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.25,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.01295809994917363,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 12716,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 0,
+      "unit": "C-S-U",
+      "seed": 20261004
+    },
+    {
+      "job_id": "C-S-U_fold1_seed20261002",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 39988,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 22.90700000000652,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 22.90700000000652,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012861100083682686,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 39988,
+          "alive": true,
+          "elapsed_seconds": 15.03200000000652
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 1,
+      "unit": "C-S-U",
+      "seed": 20261002
+    },
+    {
+      "job_id": "C-S-U_fold1_seed20261003",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 41940,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 19.75,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 19.75,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012877599976491183,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 41940,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 1,
+      "unit": "C-S-U",
+      "seed": 20261003
+    },
+    {
+      "job_id": "C-S-U_fold1_seed20261004",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 39284,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.29700000002049,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.29700000002049,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012828299950342625,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 39284,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 1,
+      "unit": "C-S-U",
+      "seed": 20261004
+    },
+    {
+      "job_id": "C-S-U_fold2_seed20261002",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 20704,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 19.781000000075437,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 19.781000000075437,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.01283659995533526,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 20704,
+          "alive": true,
+          "elapsed_seconds": 15.031000000075437
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 2,
+      "unit": "C-S-U",
+      "seed": 20261002
+    },
+    {
+      "job_id": "C-S-U_fold2_seed20261003",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 15308,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 21.18700000003446,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 21.18700000003446,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012879999936558306,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 15308,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 2,
+      "unit": "C-S-U",
+      "seed": 20261003
+    },
+    {
+      "job_id": "C-S-U_fold2_seed20261004",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 40088,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 21.125,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 21.125,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012798900075722486,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 40088,
+          "alive": true,
+          "elapsed_seconds": 15.01500000001397
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 2,
+      "unit": "C-S-U",
+      "seed": 20261004
+    },
+    {
+      "job_id": "C-S-R_fold0_seed20261002",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 28912,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 21.40700000000652,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 21.40700000000652,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012862399977166206,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 28912,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 0,
+      "unit": "C-S-R",
+      "seed": 20261002
+    },
+    {
+      "job_id": "C-S-R_fold0_seed20261003",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 42556,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.843999999924563,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.843999999924563,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.01287380000576377,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 42556,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 0,
+      "unit": "C-S-R",
+      "seed": 20261003
+    },
+    {
+      "job_id": "C-S-R_fold0_seed20261004",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 29256,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 22.45299999997951,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 22.45299999997951,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012834799999836832,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 29256,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 0,
+      "unit": "C-S-R",
+      "seed": 20261004
+    },
+    {
+      "job_id": "C-S-R_fold1_seed20261002",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 42152,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 21.890999999945052,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 21.890999999945052,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012843399948906153,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 42152,
+          "alive": true,
+          "elapsed_seconds": 15.030999999959022
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 1,
+      "unit": "C-S-R",
+      "seed": 20261002
+    },
+    {
+      "job_id": "C-S-R_fold1_seed20261003",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 15308,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 21.594000000040978,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 21.594000000040978,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012862099974881858,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 15308,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 1,
+      "unit": "C-S-R",
+      "seed": 20261003
+    },
+    {
+      "job_id": "C-S-R_fold1_seed20261004",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 41736,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 22.031000000075437,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 22.031000000075437,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012875199958216399,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 41736,
+          "alive": true,
+          "elapsed_seconds": 15.01500000001397
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 1,
+      "unit": "C-S-R",
+      "seed": 20261004
+    },
+    {
+      "job_id": "C-S-R_fold2_seed20261002",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 42064,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.45400000002701,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.45400000002701,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012868899968452752,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 42064,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 2,
+      "unit": "C-S-R",
+      "seed": 20261002
+    },
+    {
+      "job_id": "C-S-R_fold2_seed20261003",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 39236,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.18799999996554,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.18799999996554,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012877399916760623,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 39236,
+          "alive": true,
+          "elapsed_seconds": 15.047000000020489
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 2,
+      "unit": "C-S-R",
+      "seed": 20261003
+    },
+    {
+      "job_id": "C-S-R_fold2_seed20261004",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 40116,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.32799999997951,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.32799999997951,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012845100078266114,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 40116,
+          "alive": true,
+          "elapsed_seconds": 15.030999999959022
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 2,
+      "unit": "C-S-R",
+      "seed": 20261004
+    },
+    {
+      "job_id": "HC-S_fold0_seed20261002",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 34556,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 8.484000000054948,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 8.484000000054948,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012853400083258748,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [],
+      "kind": "trajectory",
+      "fold": 0,
+      "unit": "HC-S",
+      "seed": 20261002
+    },
+    {
+      "job_id": "HC-S_fold0_seed20261003",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 42640,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 7.984000000054948,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 7.984000000054948,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012836999958381057,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [],
+      "kind": "trajectory",
+      "fold": 0,
+      "unit": "HC-S",
+      "seed": 20261003
+    },
+    {
+      "job_id": "HC-S_fold0_seed20261004",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 9936,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 8.125,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 8.125,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012806400016415864,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [],
+      "kind": "trajectory",
+      "fold": 0,
+      "unit": "HC-S",
+      "seed": 20261004
+    },
+    {
+      "job_id": "HC-S_fold1_seed20261002",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 42040,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 7.936999999918044,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 7.936999999918044,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012778200092725456,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [],
+      "kind": "trajectory",
+      "fold": 1,
+      "unit": "HC-S",
+      "seed": 20261002
+    },
+    {
+      "job_id": "HC-S_fold1_seed20261003",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 37316,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 7.780999999959022,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 7.780999999959022,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012892500089947134,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [],
+      "kind": "trajectory",
+      "fold": 1,
+      "unit": "HC-S",
+      "seed": 20261003
+    },
+    {
+      "job_id": "HC-S_fold1_seed20261004",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 20288,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 8.077999999979511,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 8.077999999979511,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012775700015481561,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [],
+      "kind": "trajectory",
+      "fold": 1,
+      "unit": "HC-S",
+      "seed": 20261004
+    },
+    {
+      "job_id": "HC-S_fold2_seed20261002",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 38916,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 8.281000000075437,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 8.281000000075437,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012812399945687503,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [],
+      "kind": "trajectory",
+      "fold": 2,
+      "unit": "HC-S",
+      "seed": 20261002
+    },
+    {
+      "job_id": "HC-S_fold2_seed20261003",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 43168,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 8.48499999998603,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 8.48499999998603,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012829299957957119,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [],
+      "kind": "trajectory",
+      "fold": 2,
+      "unit": "HC-S",
+      "seed": 20261003
+    },
+    {
+      "job_id": "HC-S_fold2_seed20261004",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 43532,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 8.077999999979511,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 8.077999999979511,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012791199958883226,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [],
+      "kind": "trajectory",
+      "fold": 2,
+      "unit": "HC-S",
+      "seed": 20261004
+    },
+    {
+      "job_id": "FC-S_fold0_seed20261002",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 43824,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 7.983999999938533,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 7.983999999938533,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012736599950585514,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [],
+      "kind": "trajectory",
+      "fold": 0,
+      "unit": "FC-S",
+      "seed": 20261002
+    },
+    {
+      "job_id": "FC-S_fold0_seed20261003",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 43032,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 7.936999999918044,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 7.936999999918044,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012867299956269562,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [],
+      "kind": "trajectory",
+      "fold": 0,
+      "unit": "FC-S",
+      "seed": 20261003
+    },
+    {
+      "job_id": "FC-S_fold0_seed20261004",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 14800,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 7.922000000020489,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 7.922000000020489,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012850400002207607,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [],
+      "kind": "trajectory",
+      "fold": 0,
+      "unit": "FC-S",
+      "seed": 20261004
+    },
+    {
+      "job_id": "FC-S_fold1_seed20261002",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 17652,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 8.280999999959022,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 8.280999999959022,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012851699953898787,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [],
+      "kind": "trajectory",
+      "fold": 1,
+      "unit": "FC-S",
+      "seed": 20261002
+    },
+    {
+      "job_id": "FC-S_fold1_seed20261003",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 43596,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 8.344000000040978,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 8.344000000040978,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012789100117515773,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [],
+      "kind": "trajectory",
+      "fold": 1,
+      "unit": "FC-S",
+      "seed": 20261003
+    },
+    {
+      "job_id": "FC-S_fold1_seed20261004",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 36704,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 8.25,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 8.25,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012861200084444135,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [],
+      "kind": "trajectory",
+      "fold": 1,
+      "unit": "FC-S",
+      "seed": 20261004
+    },
+    {
+      "job_id": "FC-S_fold2_seed20261002",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 44020,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 8.5,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 8.5,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012682099943049252,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [],
+      "kind": "trajectory",
+      "fold": 2,
+      "unit": "FC-S",
+      "seed": 20261002
+    },
+    {
+      "job_id": "FC-S_fold2_seed20261003",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 25996,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 10.640999999945052,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 10.640999999945052,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012718799931462854,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [],
+      "kind": "trajectory",
+      "fold": 2,
+      "unit": "FC-S",
+      "seed": 20261003
+    },
+    {
+      "job_id": "FC-S_fold2_seed20261004",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 32276,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 8.672000000020489,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 8.672000000020489,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012697200058028102,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [],
+      "kind": "trajectory",
+      "fold": 2,
+      "unit": "FC-S",
+      "seed": 20261004
+    },
+    {
+      "job_id": "C-S-U-noaux_fold0_seed20261002",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 39300,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.89000000001397,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.89000000001397,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.01281300006667152,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 39300,
+          "alive": true,
+          "elapsed_seconds": 15.01500000001397
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 0,
+      "unit": "C-S-U-noaux",
+      "seed": 20261002
+    },
+    {
+      "job_id": "C-S-U-noaux_fold0_seed20261003",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 43520,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 21.45299999997951,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 21.45299999997951,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012855699984356761,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 43520,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 0,
+      "unit": "C-S-U-noaux",
+      "seed": 20261003
+    },
+    {
+      "job_id": "C-S-U-noaux_fold0_seed20261004",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 35224,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.85999999998603,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.85999999998603,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.01283959997817874,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 35224,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 0,
+      "unit": "C-S-U-noaux",
+      "seed": 20261004
+    },
+    {
+      "job_id": "C-S-U-noaux_fold1_seed20261002",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 42536,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 21.358999999938533,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 21.358999999938533,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012891200080048293,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 42536,
+          "alive": true,
+          "elapsed_seconds": 15.015999999945052
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 1,
+      "unit": "C-S-U-noaux",
+      "seed": 20261002
+    },
+    {
+      "job_id": "C-S-U-noaux_fold1_seed20261003",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 2500,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.64000000001397,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.64000000001397,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012887899938505143,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 2500,
+          "alive": true,
+          "elapsed_seconds": 15.030999999959022
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 1,
+      "unit": "C-S-U-noaux",
+      "seed": 20261003
+    },
+    {
+      "job_id": "C-S-U-noaux_fold1_seed20261004",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 43220,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.85999999998603,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.85999999998603,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012819699943065643,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 43220,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 1,
+      "unit": "C-S-U-noaux",
+      "seed": 20261004
+    },
+    {
+      "job_id": "C-S-U-noaux_fold2_seed20261002",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 5964,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.67200000002049,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.67200000002049,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012791799963451922,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 5964,
+          "alive": true,
+          "elapsed_seconds": 15.015999999945052
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 2,
+      "unit": "C-S-U-noaux",
+      "seed": 20261002
+    },
+    {
+      "job_id": "C-S-U-noaux_fold2_seed20261003",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 43912,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 21.75,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 21.75,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.0128649000544101,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 43912,
+          "alive": true,
+          "elapsed_seconds": 15.01500000001397
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 2,
+      "unit": "C-S-U-noaux",
+      "seed": 20261003
+    },
+    {
+      "job_id": "C-S-U-noaux_fold2_seed20261004",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 32200,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 19.81299999996554,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 19.81299999996554,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012851999956183136,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 32200,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 2,
+      "unit": "C-S-U-noaux",
+      "seed": 20261004
+    },
+    {
+      "job_id": "C-S-R-noaux_fold0_seed20261002",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 42948,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.218999999924563,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.218999999924563,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012861899973358959,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 42948,
+          "alive": true,
+          "elapsed_seconds": 15.015999999945052
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 0,
+      "unit": "C-S-R-noaux",
+      "seed": 20261002
+    },
+    {
+      "job_id": "C-S-R-noaux_fold0_seed20261003",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 43576,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.95299999997951,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.95299999997951,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012840699986554682,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 43576,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 0,
+      "unit": "C-S-R-noaux",
+      "seed": 20261003
+    },
+    {
+      "job_id": "C-S-R-noaux_fold0_seed20261004",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 14080,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.20299999997951,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.20299999997951,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012818999937735498,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 14080,
+          "alive": true,
+          "elapsed_seconds": 15.015999999945052
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 0,
+      "unit": "C-S-R-noaux",
+      "seed": 20261004
+    },
+    {
+      "job_id": "C-S-R-noaux_fold1_seed20261002",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 38092,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.405999999959022,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.405999999959022,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012824400095269084,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 38092,
+          "alive": true,
+          "elapsed_seconds": 15.01500000001397
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 1,
+      "unit": "C-S-R-noaux",
+      "seed": 20261002
+    },
+    {
+      "job_id": "C-S-R-noaux_fold1_seed20261003",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 33996,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 22.108999999938533,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 22.108999999938533,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.01276839995989576,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 33996,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 1,
+      "unit": "C-S-R-noaux",
+      "seed": 20261003
+    },
+    {
+      "job_id": "C-S-R-noaux_fold1_seed20261004",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 21008,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.95400000002701,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.95400000002701,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.01282179995905608,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 21008,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 1,
+      "unit": "C-S-R-noaux",
+      "seed": 20261004
+    },
+    {
+      "job_id": "C-S-R-noaux_fold2_seed20261002",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 38996,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 21.406000000075437,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 21.406000000075437,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.012860899965744466,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 38996,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 2,
+      "unit": "C-S-R-noaux",
+      "seed": 20261002
+    },
+    {
+      "job_id": "C-S-R-noaux_fold2_seed20261003",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 15132,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.43700000003446,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.43700000003446,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.01284870004747063,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 15132,
+          "alive": true,
+          "elapsed_seconds": 15.0
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 2,
+      "unit": "C-S-R-noaux",
+      "seed": 20261003
+    },
+    {
+      "job_id": "C-S-R-noaux_fold2_seed20261004",
+      "status": "COMPLETE",
+      "attempts": 1,
+      "pid": 36104,
+      "exit_code": 0,
+      "alive": false,
+      "elapsed_seconds": 20.20299999997951,
+      "log_tail": "",
+      "error": "",
+      "supervision": {
+        "wall_elapsed_seconds": 20.20299999997951,
+        "max_poll_gap_seconds": 0.06300000008195639,
+        "max_suspend_delta_seconds": 0.014079600048717111,
+        "poll_gap_limit_seconds": 30.0,
+        "suspend_tolerance_seconds": 2.0,
+        "power_request_acquired": true,
+        "power_request_released": true
+      },
+      "heartbeats": [
+        {
+          "pid": 36104,
+          "alive": true,
+          "elapsed_seconds": 15.01500000001397
+        }
+      ],
+      "kind": "trajectory",
+      "fold": 2,
+      "unit": "C-S-R-noaux",
+      "seed": 20261004
+    }
+  ],
+  "artifacts": {
+    "runs/prepare_fold0/result.pt": "dd28188b59652d11e2b468b8797a13ebb782619194b6e1e8428084d30464d5ca",
+    "runs/prepare_fold1/result.pt": "f5cae51976f573527971c5881a5d8da1c77af6ab37b0a00b1e065d5aeac60168",
+    "runs/prepare_fold2/result.pt": "bdeb433ac8abdde309b21de45e99b96dc7a3f4196eea2527628d8dced8635eab",
+    "runs/Z-O-U_fold0_seed20261002/result.pt": "3927f2172d7e4ff164a684bf4107356fbe78f51b8d8cfee79d4ace62af5c083a",
+    "runs/Z-O-U_fold0_seed20261003/result.pt": "d876521a6989f91eeaab7de30034ff5fe400cd9bfad618f2b853e44c46f3f7da",
+    "runs/Z-O-U_fold0_seed20261004/result.pt": "8c4858541c6c2e599157db453cf3f47385a500f0aa8ddf290a3040e4beb3fd83",
+    "runs/Z-O-U_fold1_seed20261002/result.pt": "e9dda1fd96a035cc25e8d2af0fc772130e2dabccf6408ac79cf65288b6c485df",
+    "runs/Z-O-U_fold1_seed20261003/result.pt": "aab27231a056b8a211ff96b901306088eee3bf8163974cc5feefb4707d253dd2",
+    "runs/Z-O-U_fold1_seed20261004/result.pt": "80ecaceae9e59ae5570c548376287f62113b5bc1de0d158a172be27a0765df04",
+    "runs/Z-O-U_fold2_seed20261002/result.pt": "83e418effdd3ce3659f0050dd73be8a5169a85d3ab43099ab928eafebdc06711",
+    "runs/Z-O-U_fold2_seed20261003/result.pt": "3e31e7164bf09419a76493e46fd3259d94a6d55ff07f96f12307794a754b2486",
+    "runs/Z-O-U_fold2_seed20261004/result.pt": "ac720a5c5da5d504d934a51c1aa9d2cec90c90fe776c84aa30a883457c09c0f1",
+    "runs/Z-O-R_fold0_seed20261002/result.pt": "e778fe394f5a0d8980ae1197c7ee6b2d2ae711e8f8bcd98fde39562d1c8ca49b",
+    "runs/Z-O-R_fold0_seed20261003/result.pt": "47517c116d451ee82ba11b7d258654d89d266517d6d029da67e06b3ee7bbafa1",
+    "runs/Z-O-R_fold0_seed20261004/result.pt": "bedcdc53a60b98204c37c179ab3bf372b2dbd7241ee6b3d200e9c2a73f25abf7",
+    "runs/Z-O-R_fold1_seed20261002/result.pt": "f1396fe744cdd93b5c3e332134ec412a3f3eef8a89ba4a5c22e970a8a3d86a61",
+    "runs/Z-O-R_fold1_seed20261003/result.pt": "d349a32899ccc5365dca1478cbb9534f0de8f9d16c675795528ddeb96cb1a198",
+    "runs/Z-O-R_fold1_seed20261004/result.pt": "14bb2e2d60241bb9dcd87eb8c36de80144bcb189d84c5b76c394d12d89610571",
+    "runs/Z-O-R_fold2_seed20261002/result.pt": "5559f5e80f7ac61999de9ccec5c06031c0f9625b22c96ba43de7f400a20ca66b",
+    "runs/Z-O-R_fold2_seed20261003/result.pt": "d3f639d2674789e43830afbeead9c0beb3d7c9ca0c61d233dbc7c55c8b9b879b",
+    "runs/Z-O-R_fold2_seed20261004/result.pt": "5dfee67ba31255b432afc7237a840c1fb26658a0517e8e21ec4b8c0bded097cd",
+    "runs/Z-S-U_fold0_seed20261002/result.pt": "5ef5a8b09a6b3158ff7a11bbca781854431e4842a768d61e90ed24d41e686062",
+    "runs/Z-S-U_fold0_seed20261003/result.pt": "a4f6baaa34a225e2b31000916b1b74ac60e0361bed9f60a031c407cb558cbb85",
+    "runs/Z-S-U_fold0_seed20261004/result.pt": "e7c76451aa1fa8ef1ee3b1177be935624627ef26bafe3b3400728d2c7411b05b",
+    "runs/Z-S-U_fold1_seed20261002/result.pt": "f24e585d2d48ff5cd644b9413738793aa30bebec5570d0ea2eea04822c9a5928",
+    "runs/Z-S-U_fold1_seed20261003/result.pt": "6d93b5c29ba332e9a146247d482a744627c669e9101b58bef8d5e991b3fa745c",
+    "runs/Z-S-U_fold1_seed20261004/result.pt": "277e451a3f835958c0fbefb20ddf83ed31c7ea83c8b793eb6b1f1ec4f2711e92",
+    "runs/Z-S-U_fold2_seed20261002/result.pt": "31b848c00935caa2a540992609431595f8eaee1928231279068246cc5ce82e00",
+    "runs/Z-S-U_fold2_seed20261003/result.pt": "7e0dbb70544deed65c2de795ca579f927260b119613ab253ccf25656e1b7a275",
+    "runs/Z-S-U_fold2_seed20261004/result.pt": "d8afc243c1a16329a381e636b3b8aeb0c79689822e51efe508e4b9a5e25c9cf4",
+    "runs/Z-S-R_fold0_seed20261002/result.pt": "16d7d47a1eafe4062e886f7f06fb6ee303694dec0f3e2a2f109e7bbdbe467304",
+    "runs/Z-S-R_fold0_seed20261003/result.pt": "6060c7b456fbb906937d3995c06654134b89ef5a570516360d8bf4ce695d9436",
+    "runs/Z-S-R_fold0_seed20261004/result.pt": "86c0fbe452ab79553dba008cb00de5ea6148d542daa152173c16809c60e02bee",
+    "runs/Z-S-R_fold1_seed20261002/result.pt": "61588b1a0421e9c8531e954377019da06fbb9dede02f72c37082c59a2346b81f",
+    "runs/Z-S-R_fold1_seed20261003/result.pt": "e6e46055e613064fb096f30a8114ae3325b42bcc5ff7be420a031743046b22a5",
+    "runs/Z-S-R_fold1_seed20261004/result.pt": "d542e52b54100138105ce78535f025e4b82d57fdb46d371cc7629f337ab4d93e",
+    "runs/Z-S-R_fold2_seed20261002/result.pt": "4460dda290c535128b0ac4dcc313b0bb8faf94a928a645ec2a1b69ecf4f453fd",
+    "runs/Z-S-R_fold2_seed20261003/result.pt": "378f02d9d7d04f0f2cf8a5003ada48e1c3445cb922993298bf283cd8e6c0d954",
+    "runs/Z-S-R_fold2_seed20261004/result.pt": "d54935914acf882f9a0b555c1bd555c6ce4351ef22a1b45928831dad0b82e950",
+    "runs/C-O-U_fold0_seed20261002/result.pt": "4b2eb72b5f5ee7ae79dd1feb25b249f44a0ab3b4d169f235bf39196bc71e0991",
+    "runs/C-O-U_fold0_seed20261003/result.pt": "08f82422e96bf57ca2da9890688204bfe0e037a72b68959e8015877bba0a4935",
+    "runs/C-O-U_fold0_seed20261004/result.pt": "7fb4d700abc7adfdfed4bd1fac205dbc9c39e42268fedfecf71caa0f3617a446",
+    "runs/C-O-U_fold1_seed20261002/result.pt": "063d9a7940f686f3fef8d47840fe22602ef7a376eac3dcccac6e636e8e1da584",
+    "runs/C-O-U_fold1_seed20261003/result.pt": "88cd598aeedcb9b64ecf8b2deeed2618e8626f393e7802e6978e46c08f037d25",
+    "runs/C-O-U_fold1_seed20261004/result.pt": "c92607688f7c931c0ef96c7f5d1642c13f2ac678dec03f2f936d59b5e71fd7ea",
+    "runs/C-O-U_fold2_seed20261002/result.pt": "e57dd772f2fd86a445ed88087f2de07ba15e09b60a775979523209e890e1bb08",
+    "runs/C-O-U_fold2_seed20261003/result.pt": "68c7ecac66ec4091cf8373c148e2ee20644d7dd4d91a2f5c3222f5862e589a5a",
+    "runs/C-O-U_fold2_seed20261004/result.pt": "a2ac71826e92153e882af5743adaceed74fee4432286aefb42ea58525096f38c",
+    "runs/C-O-R_fold0_seed20261002/result.pt": "f6fb09478e173af3087db5fcd4af26178a117ee4a61510d045d9b612f2840715",
+    "runs/C-O-R_fold0_seed20261003/result.pt": "8936559de076cd8254879bba797fac9184d8ca8218fdbb896a32dd9950e5ec06",
+    "runs/C-O-R_fold0_seed20261004/result.pt": "d7c46fb036572b2e31fb0bd90b14908bd846722f8c43c77a37a8f0c84f7dcb52",
+    "runs/C-O-R_fold1_seed20261002/result.pt": "d2496e4dad09bca610156ff36fece72f642cd336651a3d4b6bf78468828273a7",
+    "runs/C-O-R_fold1_seed20261003/result.pt": "dd1d4ba97cc23365cc23999775546ee578a3b8b302e457fc2f2da93e6a9496e3",
+    "runs/C-O-R_fold1_seed20261004/result.pt": "b37dab4d184ac1449b4d4dd45e11ce83a763da9ec118dc5b6986b357c64f3574",
+    "runs/C-O-R_fold2_seed20261002/result.pt": "99d4352b824ee91aaec066599dcc26e10bacb25cb77db9a1582c9a90e7d7287e",
+    "runs/C-O-R_fold2_seed20261003/result.pt": "25e8f8741fdc750a1d6e1afef91f8179747713c5546d416d9a1e22fc87d65847",
+    "runs/C-O-R_fold2_seed20261004/result.pt": "b39b412a391c1082a15c48ef60d7cb1d746f696b318dad894e08dceaa1aab8f1",
+    "runs/C-S-U_fold0_seed20261002/result.pt": "c258bfbc1452fe3f883e862da2ea28a6c669453fb2d63e050c428fddd2eeb3d8",
+    "runs/C-S-U_fold0_seed20261003/result.pt": "36ec965ace1351e5684493cc4a30acaa1ea1ee4651bdacbd6d0bfca10f9f443e",
+    "runs/C-S-U_fold0_seed20261004/result.pt": "829e33696932c839339b2464abfa64a6d0bceb8802eee3769644786be8ecd187",
+    "runs/C-S-U_fold1_seed20261002/result.pt": "b50f6aca35b583f8c5b9186103432fa8e010b605a545139842358842200754be",
+    "runs/C-S-U_fold1_seed20261003/result.pt": "af63a80683ec9518f053c280355e7a545196a0d25f6b5ef48d825cc759ec5f4e",
+    "runs/C-S-U_fold1_seed20261004/result.pt": "e1cdcce8c5a2b83b7deddad8363eb60830975c928ad316d41b26717cf7f0bf26",
+    "runs/C-S-U_fold2_seed20261002/result.pt": "2e4dc9fd766e64b97d9502f24f77efecb4130d14f11f93dd7beb0495f5e1b4a7",
+    "runs/C-S-U_fold2_seed20261003/result.pt": "3d0000486108dc91c805200084d80ae8435d84448e31b6ce151cd377d393717e",
+    "runs/C-S-U_fold2_seed20261004/result.pt": "b6b3560c32d425ff0e7b25516370f22573f3616fc6d74dfa22207e0d2fff7a09",
+    "runs/C-S-R_fold0_seed20261002/result.pt": "bf5b88cb5b024b060789fd020baa7e12b144930b31dd4f0aa9a596135c359138",
+    "runs/C-S-R_fold0_seed20261003/result.pt": "b6eb50016b42fa9b95440f985a3cc4eb2bf2d43cdc65ffbedbd5324c870992c9",
+    "runs/C-S-R_fold0_seed20261004/result.pt": "54936c333aca21755a3ee2ac49a552c9af0a884d59be357f5a66a8732be26b87",
+    "runs/C-S-R_fold1_seed20261002/result.pt": "69689dec22125e105b343a93b6587caff791d825a02cd0aad412141141894cdd",
+    "runs/C-S-R_fold1_seed20261003/result.pt": "1ec32b3a18f85b1ed69b1ca82536ec23f544daeaa023fdb56a9ca737699635ce",
+    "runs/C-S-R_fold1_seed20261004/result.pt": "1f2379dd2f48837b33fb42c7a30d7061895a10960845f4e639ed237cbdb380e1",
+    "runs/C-S-R_fold2_seed20261002/result.pt": "eaa3f22527a023402cd91e85ff9491fd71f7c3618a2bfd34d6430a7a93ba013d",
+    "runs/C-S-R_fold2_seed20261003/result.pt": "4115a3cc10eb11cc80c12fbdf14811cbfdd38c2f47157212caa980b3e1f0c0fd",
+    "runs/C-S-R_fold2_seed20261004/result.pt": "53007a40e29ec538d282b503d31e48ebefcfa8b78a2afe410e9804253e02aafe",
+    "runs/HC-S_fold0_seed20261002/result.pt": "2d666b1a51870deb3ef79db49c9defe218709c9f98f4dfff324d2e97257fd337",
+    "runs/HC-S_fold0_seed20261003/result.pt": "ee9120e09e703daf779667a7d47478a7010db2e4582c0f9009c195c6a4d57e18",
+    "runs/HC-S_fold0_seed20261004/result.pt": "780ebe4a7f19aed7295ec34c612d6f3f99bce2d92a1f7e469cc15764d528e6ca",
+    "runs/HC-S_fold1_seed20261002/result.pt": "2b724c9d133bcc006889f9fa9be9f0ad9b98ef6e7c9a32da788f4957e7298aa3",
+    "runs/HC-S_fold1_seed20261003/result.pt": "876ad9deb3aa9243175a2b15afbbc124d21e2abdcab0979052cf6ea7cc220183",
+    "runs/HC-S_fold1_seed20261004/result.pt": "3d77ae3267cd7da2373ea719e55b94e180045bf6a7e138f2c0df7fc917d63870",
+    "runs/HC-S_fold2_seed20261002/result.pt": "007e56c4acd4409b3902cf388fcfd1747190cc86f5c4ce03ef3f92322fe087a6",
+    "runs/HC-S_fold2_seed20261003/result.pt": "b1f9d31d776c73eb5b70f7ec804d162f4315aa3bb793fb2db5ccd34505e4763d",
+    "runs/HC-S_fold2_seed20261004/result.pt": "745dd4afc1d05eec8b144887c0d4648de1cf0685e69d4ab7b331e29d828a92da",
+    "runs/FC-S_fold0_seed20261002/result.pt": "94f446b30098e977990e525ff4a02883dbd0b68147d1675ea517c96c89b55f3d",
+    "runs/FC-S_fold0_seed20261003/result.pt": "2f8275f89a17f2979ae0d2c6c4429e407df8e4ef413e196507e4f13e0479e0f5",
+    "runs/FC-S_fold0_seed20261004/result.pt": "494ba261aeeadbe1064deab8c011c546c46c81c21ea6a33f9e168ad795f7be61",
+    "runs/FC-S_fold1_seed20261002/result.pt": "8a5219d79a1e299d51bf1bcd0d8ee7c19466aa533e8e975c1638fe1b25acad72",
+    "runs/FC-S_fold1_seed20261003/result.pt": "84db5b052fbbf48ae0eff61434a9fcd7c828def47094c58a0d49fe3cb7f39c9f",
+    "runs/FC-S_fold1_seed20261004/result.pt": "cd11ce48fd66354c8545eac74bd89f21f181216cf3997f4e6e96049c8a62b0a3",
+    "runs/FC-S_fold2_seed20261002/result.pt": "754c5d1b2b3b2f7e6c307e8f926911602fb9f5c89bd29b16b134d1eef2a87e2a",
+    "runs/FC-S_fold2_seed20261003/result.pt": "ae2c75a1705393d94230ddb18c893adb16cfefe901d273c8b0a7c5198f7c29b1",
+    "runs/FC-S_fold2_seed20261004/result.pt": "7534664eafbc50d688b0ef76fe992a3722b23f0e421c0276b672ae469dc0debb",
+    "runs/C-S-U-noaux_fold0_seed20261002/result.pt": "95db9a066a5e6f54be7e7cd0ed3984a8aea57da62f65101a60f88041e2c7090c",
+    "runs/C-S-U-noaux_fold0_seed20261003/result.pt": "5b34f41041f3fe0a9b623025003a9767d912f8ca98a5a5b44f5afb53e5f55d21",
+    "runs/C-S-U-noaux_fold0_seed20261004/result.pt": "dabb529bf33f3d8f9e16f88ffd6852b158828dbc096e2cd2b5e75a4e965fd15f",
+    "runs/C-S-U-noaux_fold1_seed20261002/result.pt": "de6edccfdaeb80a4c76c90307b870a3b42302eb80ea76d2cf8b5d67aa3ef94c4",
+    "runs/C-S-U-noaux_fold1_seed20261003/result.pt": "dab86ef24f85963de408a554c63ac13902e70dc9e7e30fa7016640d835cd0255",
+    "runs/C-S-U-noaux_fold1_seed20261004/result.pt": "b28d5129a17c9327d18beb40f85fd920360baad9b8ca8f6a6d143d158ef00496",
+    "runs/C-S-U-noaux_fold2_seed20261002/result.pt": "5886a616f53c264c68e1cf43a42e7dbbf9b06371a1986ce4168a0e5649f9bff8",
+    "runs/C-S-U-noaux_fold2_seed20261003/result.pt": "c43a7521479afb3a50fc832dbb58cc138d256519adabe7d967a3031dbf68cce1",
+    "runs/C-S-U-noaux_fold2_seed20261004/result.pt": "c3d7c57c8864d4643c0ba1f37833b580a1f78915fcb8216f1c083c38c4dc2a25",
+    "runs/C-S-R-noaux_fold0_seed20261002/result.pt": "e6cd8cb5aa3142798e1376c215044523a98b70134974ff6304d20e5f136b5bf4",
+    "runs/C-S-R-noaux_fold0_seed20261003/result.pt": "e4a669bad9e3357238a43685bcfe7354c9091557a19a802f7efd51cbbac8f5ac",
+    "runs/C-S-R-noaux_fold0_seed20261004/result.pt": "9ac0b33abf269727723b0d3a2cd5d32ec4fc9cf2e6f140e9ccebf15095ece2d4",
+    "runs/C-S-R-noaux_fold1_seed20261002/result.pt": "f52a1b9a36f261e130fd9f0c55e9b87ec9d4049ea8765e2507350f1fe8966890",
+    "runs/C-S-R-noaux_fold1_seed20261003/result.pt": "8a1089dd00d8f0d507797e618d433930dccbecf37d8fa39aa8a6921030a8065d",
+    "runs/C-S-R-noaux_fold1_seed20261004/result.pt": "deb6bd371cf97acf25961d2691cb017797ab1d9dc417f7244cc20823541a2714",
+    "runs/C-S-R-noaux_fold2_seed20261002/result.pt": "d851a005d7cf47294c10348dafe621612811d495fc9a989b6adad5c6ad8d305d",
+    "runs/C-S-R-noaux_fold2_seed20261003/result.pt": "d47c33d0b59de45801070473463492e6f2406ead7ff74ee8f88df05ff499d172",
+    "runs/C-S-R-noaux_fold2_seed20261004/result.pt": "246594d379ad1ef67bb3c4a1d7c840a5f49bb3bd42bb6b1d288205130ed0f250"
+  },
+  "elapsed_seconds": 2073.188000000082,
+  "protocol": {
+    "protocol": "ic_rfa_b_v1",
+    "status": "APPROVED_REAL_ONCE",
+    "max_seconds": 7200,
+    "per_fit_seconds": 7200,
+    "heartbeat_seconds": 15,
+    "max_trajectories": 108,
+    "max_temperatures": 3,
+    "max_updates": 400,
+    "primary_checkpoint": 100,
+    "authorization": {
+      "scope": "ic_rfa_b_v1_fit_only_mechanism_once",
+      "human_approved": true,
+      "user_message_id": "[\"request_user_input_async\",\"call_RHuePD3CQpoUvp4t88mzQnSM\",0]",
+      "approval_utc": "2026-10-14T02:15:35Z"
+    },
+    "fit_path": "outputs/training/lc_role_adaptation_v2/development_fold_0/fit_raw.pt",
+    "fit_sha256": "d1edbe1f87977ce0a91639bc8cb455708d4c2e17d53340c48d11d2e8b2a568b1",
+    "assignment_path": "outputs/training/lc_role_adaptation_v2/development_fold_0/inner_assignment.json",
+    "assignment_sha256": "e603ba0b603bc903f82649dd19edaebb69f7e171be0dec2092d69048c5469927",
+    "source_sha256": {
+      "scripts/analyze_ic_role_mechanism.py": "26fd12997e987c7e71649dd960cb82094d524a5071f6a954fccd4d96fdc2c906",
+      "scripts/analyze_lc_role_adaptation.py": "54b98dbcf1ed1299c05b2bbc3f4722c36d00ba35fb9fc44095f45a59bb4fbc1b",
+      "scripts/analyze_misclassifications.py": "3d2c7f463fe1257ec5a7e2c3571db4ae3cb65ef04bf3dd7b1942464c8ded707c",
+      "scripts/anchor_linear_controls.py": "1a979127c960cfc44c8fc3ef682d790dbb280e2488cfc2440baa2c161ed10192",
+      "scripts/audit_abmp_candidate_capacity.py": "163c224a5ff9f72c2daf1341570c0bc40be76b8593671177c50f7d036b83675c",
+      "scripts/check_lc_native_environment.py": "6ff6bf40cec8c5f0b78ffc61fd11be8aeadf35880b1ebe9e8112be0b298ac161",
+      "scripts/frozen_visual_probe.py": "6e417ea900ed3cbd1c8653898a5bb9849b73958b57c4c50803217d82a4793bfa",
+      "scripts/hrgv_network.py": "f4c2889b9a129d9f52fd999b189c0888407f9887e1f739cd5e1b55b4d361a0da",
+      "scripts/ic_role_audit.py": "ffadcaa76f8494fbd63080b90a4bd8d4f95d7d4b4ef585aac4847511074729d4",
+      "scripts/ic_role_data.py": "897751bb68c5fb40fc8c186c73041b6ed05990708e57771c403f4d604e7d6d2d",
+      "scripts/ic_role_model.py": "b62462a725e52a67f79d3fdba148bc19195dfe488f15c0ce3137f8a0680377b3",
+      "scripts/ic_role_training.py": "b4102538411b7079d5fcf83587a0b8558141660ed9c5048ca4d1c5acbdda58cd",
+      "scripts/lc_execution_safety.py": "84089e43cb36133d41647b7576c27e4609058b9c087f4979f595452cd37bc029",
+      "scripts/lc_role_adapter.py": "3c02653b5a1aafd1cf452fa029b827baa899ff6a6645986cebc368fbdeecf1aa",
+      "scripts/lc_role_audit.py": "587bdb18a27e897e47064889f9d77869be94b62bf661379e4409d88d2802ec1c",
+      "scripts/lc_role_data.py": "d8639d3035d55ef04b04605b2f565c2cc29a7dcefaba995fd852b396cf489e09",
+      "scripts/lc_role_training.py": "1431e80200a7639aca10493d4d7d4ef91c66eb45bbd1457a9a1cdc52f983adb7",
+      "scripts/mineral_hierarchy.py": "21c485b70d838a9acf1626762b0a643b0e8297e060e8cd7eb3348f807d191384",
+      "scripts/run_anchor_linear_controls.py": "15beb38c7825a439199b5545bfb5a4d842947d9f107b18ec09ccca759a747735",
+      "scripts/run_frozen_visual_probe.py": "db6db46bd8f046ad0e3ec9c2bc14f138fa2150e297ab4b30eb316d4510a36d2d",
+      "scripts/run_ic_role_mechanism.py": "423fad79bee6d5a351589319cb03b98a8097b958615a9b9e1fd274ef921f302a",
+      "scripts/run_lc_role_adaptation.py": "6c29a9f454e1e445d08aa4f6fabdb61bf0145e6d931dc9c23efe81144ae6b4ff",
+      "scripts/run_seen_unseen_gate_study.py": "b03b1c63aba4a1559e6a1e26797989d2cdac30c0d3bca618b76986613a1cd6bc",
+      "scripts/run_tc_oos_rsg_experiments.py": "7006b72d27942ab29c7b22eaf58cae344fcb8c3c8d30e2930788da9900c4bef1",
+      "scripts/run_verifier_strong_controls.py": "40edbdd576ddc49d0a3f5a27ec71aee944660691ccba955829df4ed99a0599d6",
+      "scripts/run_verifier_trust_development.py": "62ee01068bb6ef6cbb3b464732a9f57f3e2e5bc86aba879f0b2a304d40dbbce3",
+      "scripts/tc_oos_rsg.py": "38445a3f24ccd424e5e6a635f78ef079e73f2139be62d3e974134470c66bcba2",
+      "scripts/train_hierarchical_mineral_classifier.py": "75e1085a66dc70adad45ae41f10d825062a0594e7fa0db1ca6438092a5e0635f",
+      "scripts/train_hrgv_mineral_classifier.py": "0fa4d352c9327ea646cd42e0e267c31e9eb05a7007cfb2298ccbc595a8a94bdc",
+      "scripts/train_mineral_classifier.py": "d81cda1da77076e3dbbdf81fd9969846314187fa8ffd079fb01106c60b80edea",
+      "scripts/train_role_aware_mineral_classifier.py": "63380cc3806d5676312292d6345f7ea6173061a681d3430e59e54063988c0927",
+      "scripts/verifier_risk.py": "a5bc85cccee192479bcf49bddcce4863eac66126636ba7d04b83898b9606dfff",
+      "scripts/verifier_strong_controls.py": "a1adefaef8852bceb85aa22cd42a10609ff904b09a3f8b6dce94787c6a87299b",
+      "scripts/verify_verifier_trust_delivery.py": "daa8be53da3019607946cb4dfdfd9718e2cd43be4221ae5d1d3f30d24659ac09"
+    },
+    "protocol_path": "docs/experiment_protocols/ic_role_mechanism_v2.json",
+    "output_relative": "outputs/training/ic_role_mechanism_v2/development_fold_0",
+    "environment": {
+      "python": "3.11.5",
+      "torch": "2.12.1+cu130",
+      "dtype": "float64",
+      "device": "cpu"
+    }
+  }
+}
