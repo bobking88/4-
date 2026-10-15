@@ -187,3 +187,25 @@ class RunnerTests(unittest.TestCase):
         with patch.object(runner,"ROOT",self.root):
             with self.assertRaisesRegex(ValueError,"approval"):
                 runner.validate_protocol(self.root,protocol,"fit-mechanism")
+
+    def test_analysis_scope_is_bound_to_existing_worker_guard(self):
+        import analyze_msb_role_mechanism as analysis
+        output=self.root/"fixture"; folder=output/"runs"/"analysis"; folder.mkdir(parents=True)
+        path=self.root/"docs"/"experiment_protocols"/"msb_role_mechanism_v1.json"
+        path.parent.mkdir(parents=True); protocol={}
+        path.write_text(json.dumps(protocol),encoding="utf-8")
+        packet=dict(kind="analysis",job_id="analysis",root=str(self.root),output=str(output),
+                    stage="fit-mechanism",protocol_path=str(path),protocol_digest=runner.protocol_digest(protocol))
+        packet_path=folder/"packet.json"; packet_path.write_text(json.dumps(packet),encoding="utf-8")
+        state=dict(status="RUNNING",stage="fit-mechanism",active_job="analysis",protocol_digest=runner.protocol_digest(protocol),
+                   packets={"analysis":runner.file_digest(packet_path)})
+        (output/"stage_state.json").write_text(json.dumps(state),encoding="utf-8")
+        def collect(root,out,proto):
+            context=analysis._CONTEXT.get()
+            self.assertIsNotNone(context,"Worker did not bind the active supervised analysis scope")
+            self.assertEqual(context["kind"],"analysis")
+            return dict(delivery_verified=False)
+        with patch.object(runner,"validate_protocol"),patch.object(runner,"WindowsAwakeGuard",FakeGuard),patch.object(runner,"NativeEnvironmentAPI"),patch.object(analysis,"collect_saved_predictions",side_effect=collect),patch.object(analysis,"write_mechanism_report",side_effect=lambda e,o:e):
+            result=runner.worker(packet_path)
+        self.assertEqual(result["status"],"COMPLETE")
+        self.assertIsNone(analysis._CONTEXT.get())

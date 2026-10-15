@@ -289,13 +289,14 @@ def worker(packet_path):
             else:
                 result = fit_convex_fold(data["train"],data["validation"],packet["unit"],deadline_check=stage_elapsed_seconds)
         else:
-            from analyze_msb_role_mechanism import collect_saved_predictions, verify_saved_mechanism, write_mechanism_report
-            if packet["kind"] == "analysis":
-                evidence = collect_saved_predictions(root,output,protocol)
-                result = write_mechanism_report(evidence,output/"analysis_summary")
-            else:
-                evidence = verify_saved_mechanism(root,output,protocol)
-                result = write_mechanism_report(evidence,output/"verified_summary")
+            from analyze_msb_role_mechanism import collect_saved_predictions, supervised_analysis, verify_saved_mechanism, write_mechanism_report
+            with supervised_analysis(root,output,protocol,child_guard,packet["kind"]):
+                if packet["kind"] == "analysis":
+                    evidence = collect_saved_predictions(root,output,protocol)
+                    result = write_mechanism_report(evidence,output/"analysis_summary")
+                else:
+                    evidence = verify_saved_mechanism(root,output,protocol)
+                    result = write_mechanism_report(evidence,output/"verified_summary")
     worker_power = child_guard.evidence()
     if not worker_power.get("power_request_acquired") or not worker_power.get("power_request_released"):
         raise RuntimeError("POWER_RELEASE_FAILED: child request evidence incomplete")
