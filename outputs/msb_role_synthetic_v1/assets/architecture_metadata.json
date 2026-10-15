@@ -1,0 +1,59 @@
+{
+  "status": "MSB-RRE v1：合成验收，真实效果未验证",
+  "real_effect_verified": false,
+  "font": "Microsoft YaHei",
+  "text_overflow": [],
+  "connector_box_intersections": [],
+  "spec": {
+    "unit": "MAIN",
+    "roles": [
+      "Ti",
+      "G",
+      "M"
+    ],
+    "rank": 4,
+    "gamma": 2.0,
+    "tau": 0.25,
+    "trainable_parameters": 1083,
+    "fixed_reference_parameters": 1083,
+    "U_shape": [
+      4,
+      64
+    ],
+    "V_shape": [
+      4,
+      23
+    ],
+    "evidence_dimensions": {
+      "E": 18,
+      "log_base": 4,
+      "contradiction": 1,
+      "total": 23
+    },
+    "frozen_backbone": "EfficientNet-B0",
+    "frozen_backbone_width": 1280,
+    "trainable_shared_readout": false,
+    "real_effect_verified": false,
+    "mechanisms": [
+      "Hadamard",
+      "fixed_initial_reference",
+      "margin_budget",
+      "common_softmax",
+      "training_loss"
+    ],
+    "relative_weight": 0.01,
+    "pair_weight": 0.1,
+    "sp_weight": 0.001,
+    "formulas": {
+      "center": "s_j = f_theta_j(h,e) - f_theta0_j(h,e)",
+      "budget": "R_ref_j = 2*abs(log_anchor_T-log_anchor_j)+0.25",
+      "correction": "d_j=R_ref_j*tanh(s_j)",
+      "decoder": "softmax([log_anchor_T, log_anchor_non-d])"
+    }
+  },
+  "artifacts": {
+    "msb_rre_v1_architecture.svg": "1d436c0978f68a1ca5751477e8ecb00b75b62de046aac2d41decb1afb4157f4b",
+    "msb_rre_v1_architecture.pdf": "d8f03a748c7f5bfe2d715a51a2c67cb376d7207c0f7a82790eb74ec51cf2d1f3",
+    "msb_rre_v1_architecture.png": "efb66596db21c89cad2cc5bb3113765ebce3414f68167a63bae29c267913b889"
+  }
+}

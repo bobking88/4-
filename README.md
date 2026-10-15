@@ -261,6 +261,14 @@ PB 与 REPAIR 已覆盖通用边界及成对残差思路；本轮不实施新网
 计划区分代码/合成验收、真实协议登记、真实机制实验及独立确认；当前只有计划，没有实施或新的运行授权。
 C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独当作原创理论。
 
+2026-10-15在另行批准Tasks1--8之后，已完成[MSB-RRE v1原生实现与合成验收](docs/experiment_records/2026-10-14_msb_role_native_synthetic_acceptance.md)：
+八个限定合成模块83项通过；[条件数值证据](outputs/msb_role_synthetic_v1/conditional_theory_checks.json)及
+[候选公式结构图](outputs/msb_role_synthetic_v1/assets/msb_rre_v1_architecture.svg)单独归档。
+网络为1083个可训练参数+1083个固定初始参照参数的独立角色适配头，不改CNN主干；真实效果和原创性尚未验证。
+新实现保留七参照逐seed证伪门及全部反例；最终615次验证回读之外还需12次训练侧凸证书核验。
+没有读取真实prepared/fit/stop或原图、没有真实拟合、没有更改正式报告；旧34源码和保护文件哈希保持不变。
+当前状态为等待单独批准的独立只读复查。真实MSB协议登记、真实机制实验与报告更新均未获准，不沿用旧IC许可。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.

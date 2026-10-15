@@ -1,0 +1,206 @@
+[
+  {
+    "path": "scripts/analyze_ic_role_mechanism.py",
+    "expected": "26fd12997e987c7e71649dd960cb82094d524a5071f6a954fccd4d96fdc2c906",
+    "actual": "26fd12997e987c7e71649dd960cb82094d524a5071f6a954fccd4d96fdc2c906",
+    "unchanged": true
+  },
+  {
+    "path": "scripts/analyze_lc_role_adaptation.py",
+    "expected": "54b98dbcf1ed1299c05b2bbc3f4722c36d00ba35fb9fc44095f45a59bb4fbc1b",
+    "actual": "54b98dbcf1ed1299c05b2bbc3f4722c36d00ba35fb9fc44095f45a59bb4fbc1b",
+    "unchanged": true
+  },
+  {
+    "path": "scripts/analyze_misclassifications.py",
+    "expected": "3d2c7f463fe1257ec5a7e2c3571db4ae3cb65ef04bf3dd7b1942464c8ded707c",
+    "actual": "3d2c7f463fe1257ec5a7e2c3571db4ae3cb65ef04bf3dd7b1942464c8ded707c",
+    "unchanged": true
+  },
+  {
+    "path": "scripts/anchor_linear_controls.py",
+    "expected": "1a979127c960cfc44c8fc3ef682d790dbb280e2488cfc2440baa2c161ed10192",
+    "actual": "1a979127c960cfc44c8fc3ef682d790dbb280e2488cfc2440baa2c161ed10192",
+    "unchanged": true
+  },
+  {
+    "path": "scripts/audit_abmp_candidate_capacity.py",
+    "expected": "163c224a5ff9f72c2daf1341570c0bc40be76b8593671177c50f7d036b83675c",
+    "actual": "163c224a5ff9f72c2daf1341570c0bc40be76b8593671177c50f7d036b83675c",
+    "unchanged": true
+  },
+  {
+    "path": "scripts/check_lc_native_environment.py",
+    "expected": "6ff6bf40cec8c5f0b78ffc61fd11be8aeadf35880b1ebe9e8112be0b298ac161",
+    "actual": "6ff6bf40cec8c5f0b78ffc61fd11be8aeadf35880b1ebe9e8112be0b298ac161",
+    "unchanged": true
+  },
+  {
+    "path": "scripts/frozen_visual_probe.py",
+    "expected": "6e417ea900ed3cbd1c8653898a5bb9849b73958b57c4c50803217d82a4793bfa",
+    "actual": "6e417ea900ed3cbd1c8653898a5bb9849b73958b57c4c50803217d82a4793bfa",
+    "unchanged": true
+  },
+  {
+    "path": "scripts/hrgv_network.py",
+    "expected": "f4c2889b9a129d9f52fd999b189c0888407f9887e1f739cd5e1b55b4d361a0da",
+    "actual": "f4c2889b9a129d9f52fd999b189c0888407f9887e1f739cd5e1b55b4d361a0da",
+    "unchanged": true
+  },
+  {
+    "path": "scripts/ic_role_audit.py",
+    "expected": "ffadcaa76f8494fbd63080b90a4bd8d4f95d7d4b4ef585aac4847511074729d4",
+    "actual": "ffadcaa76f8494fbd63080b90a4bd8d4f95d7d4b4ef585aac4847511074729d4",
+    "unchanged": true
+  },
+  {
+    "path": "scripts/ic_role_data.py",
+    "expected": "897751bb68c5fb40fc8c186c73041b6ed05990708e57771c403f4d604e7d6d2d",
+    "actual": "897751bb68c5fb40fc8c186c73041b6ed05990708e57771c403f4d604e7d6d2d",
+    "unchanged": true
+  },
+  {
+    "path": "scripts/ic_role_model.py",
+    "expected": "b62462a725e52a67f79d3fdba148bc19195dfe488f15c0ce3137f8a0680377b3",
+    "actual": "b62462a725e52a67f79d3fdba148bc19195dfe488f15c0ce3137f8a0680377b3",
+    "unchanged": true
+  },
+  {
+    "path": "scripts/ic_role_training.py",
+    "expected": "b4102538411b7079d5fcf83587a0b8558141660ed9c5048ca4d1c5acbdda58cd",
+    "actual": "b4102538411b7079d5fcf83587a0b8558141660ed9c5048ca4d1c5acbdda58cd",
+    "unchanged": true
+  },
+  {
+    "path": "scripts/lc_execution_safety.py",
+    "expected": "84089e43cb36133d41647b7576c27e4609058b9c087f4979f595452cd37bc029",
+    "actual": "84089e43cb36133d41647b7576c27e4609058b9c087f4979f595452cd37bc029",
+    "unchanged": true
+  },
+  {
+    "path": "scripts/lc_role_adapter.py",
+    "expected": "3c02653b5a1aafd1cf452fa029b827baa899ff6a6645986cebc368fbdeecf1aa",
+    "actual": "3c02653b5a1aafd1cf452fa029b827baa899ff6a6645986cebc368fbdeecf1aa",
+    "unchanged": true
+  },
+  {
+    "path": "scripts/lc_role_audit.py",
+    "expected": "587bdb18a27e897e47064889f9d77869be94b62bf661379e4409d88d2802ec1c",
+    "actual": "587bdb18a27e897e47064889f9d77869be94b62bf661379e4409d88d2802ec1c",
+    "unchanged": true
+  },
+  {
+    "path": "scripts/lc_role_data.py",
+    "expected": "d8639d3035d55ef04b04605b2f565c2cc29a7dcefaba995fd852b396cf489e09",
+    "actual": "d8639d3035d55ef04b04605b2f565c2cc29a7dcefaba995fd852b396cf489e09",
+    "unchanged": true
+  },
+  {
+    "path": "scripts/lc_role_training.py",
+    "expected": "1431e80200a7639aca10493d4d7d4ef91c66eb45bbd1457a9a1cdc52f983adb7",
+    "actual": "1431e80200a7639aca10493d4d7d4ef91c66eb45bbd1457a9a1cdc52f983adb7",
+    "unchanged": true
+  },
+  {
+    "path": "scripts/mineral_hierarchy.py",
+    "expected": "21c485b70d838a9acf1626762b0a643b0e8297e060e8cd7eb3348f807d191384",
+    "actual": "21c485b70d838a9acf1626762b0a643b0e8297e060e8cd7eb3348f807d191384",
+    "unchanged": true
+  },
+  {
+    "path": "scripts/run_anchor_linear_controls.py",
+    "expected": "15beb38c7825a439199b5545bfb5a4d842947d9f107b18ec09ccca759a747735",
+    "actual": "15beb38c7825a439199b5545bfb5a4d842947d9f107b18ec09ccca759a747735",
+    "unchanged": true
+  },
+  {
+    "path": "scripts/run_frozen_visual_probe.py",
+    "expected": "db6db46bd8f046ad0e3ec9c2bc14f138fa2150e297ab4b30eb316d4510a36d2d",
+    "actual": "db6db46bd8f046ad0e3ec9c2bc14f138fa2150e297ab4b30eb316d4510a36d2d",
+    "unchanged": true
+  },
+  {
+    "path": "scripts/run_ic_role_mechanism.py",
+    "expected": "423fad79bee6d5a351589319cb03b98a8097b958615a9b9e1fd274ef921f302a",
+    "actual": "423fad79bee6d5a351589319cb03b98a8097b958615a9b9e1fd274ef921f302a",
+    "unchanged": true
+  },
+  {
+    "path": "scripts/run_lc_role_adaptation.py",
+    "expected": "6c29a9f454e1e445d08aa4f6fabdb61bf0145e6d931dc9c23efe81144ae6b4ff",
+    "actual": "6c29a9f454e1e445d08aa4f6fabdb61bf0145e6d931dc9c23efe81144ae6b4ff",
+    "unchanged": true
+  },
+  {
+    "path": "scripts/run_seen_unseen_gate_study.py",
+    "expected": "b03b1c63aba4a1559e6a1e26797989d2cdac30c0d3bca618b76986613a1cd6bc",
+    "actual": "b03b1c63aba4a1559e6a1e26797989d2cdac30c0d3bca618b76986613a1cd6bc",
+    "unchanged": true
+  },
+  {
+    "path": "scripts/run_tc_oos_rsg_experiments.py",
+    "expected": "7006b72d27942ab29c7b22eaf58cae344fcb8c3c8d30e2930788da9900c4bef1",
+    "actual": "7006b72d27942ab29c7b22eaf58cae344fcb8c3c8d30e2930788da9900c4bef1",
+    "unchanged": true
+  },
+  {
+    "path": "scripts/run_verifier_strong_controls.py",
+    "expected": "40edbdd576ddc49d0a3f5a27ec71aee944660691ccba955829df4ed99a0599d6",
+    "actual": "40edbdd576ddc49d0a3f5a27ec71aee944660691ccba955829df4ed99a0599d6",
+    "unchanged": true
+  },
+  {
+    "path": "scripts/run_verifier_trust_development.py",
+    "expected": "62ee01068bb6ef6cbb3b464732a9f57f3e2e5bc86aba879f0b2a304d40dbbce3",
+    "actual": "62ee01068bb6ef6cbb3b464732a9f57f3e2e5bc86aba879f0b2a304d40dbbce3",
+    "unchanged": true
+  },
+  {
+    "path": "scripts/tc_oos_rsg.py",
+    "expected": "38445a3f24ccd424e5e6a635f78ef079e73f2139be62d3e974134470c66bcba2",
+    "actual": "38445a3f24ccd424e5e6a635f78ef079e73f2139be62d3e974134470c66bcba2",
+    "unchanged": true
+  },
+  {
+    "path": "scripts/train_hierarchical_mineral_classifier.py",
+    "expected": "75e1085a66dc70adad45ae41f10d825062a0594e7fa0db1ca6438092a5e0635f",
+    "actual": "75e1085a66dc70adad45ae41f10d825062a0594e7fa0db1ca6438092a5e0635f",
+    "unchanged": true
+  },
+  {
+    "path": "scripts/train_hrgv_mineral_classifier.py",
+    "expected": "0fa4d352c9327ea646cd42e0e267c31e9eb05a7007cfb2298ccbc595a8a94bdc",
+    "actual": "0fa4d352c9327ea646cd42e0e267c31e9eb05a7007cfb2298ccbc595a8a94bdc",
+    "unchanged": true
+  },
+  {
+    "path": "scripts/train_mineral_classifier.py",
+    "expected": "d81cda1da77076e3dbbdf81fd9969846314187fa8ffd079fb01106c60b80edea",
+    "actual": "d81cda1da77076e3dbbdf81fd9969846314187fa8ffd079fb01106c60b80edea",
+    "unchanged": true
+  },
+  {
+    "path": "scripts/train_role_aware_mineral_classifier.py",
+    "expected": "63380cc3806d5676312292d6345f7ea6173061a681d3430e59e54063988c0927",
+    "actual": "63380cc3806d5676312292d6345f7ea6173061a681d3430e59e54063988c0927",
+    "unchanged": true
+  },
+  {
+    "path": "scripts/verifier_risk.py",
+    "expected": "a5bc85cccee192479bcf49bddcce4863eac66126636ba7d04b83898b9606dfff",
+    "actual": "a5bc85cccee192479bcf49bddcce4863eac66126636ba7d04b83898b9606dfff",
+    "unchanged": true
+  },
+  {
+    "path": "scripts/verifier_strong_controls.py",
+    "expected": "a1adefaef8852bceb85aa22cd42a10609ff904b09a3f8b6dce94787c6a87299b",
+    "actual": "a1adefaef8852bceb85aa22cd42a10609ff904b09a3f8b6dce94787c6a87299b",
+    "unchanged": true
+  },
+  {
+    "path": "scripts/verify_verifier_trust_delivery.py",
+    "expected": "daa8be53da3019607946cb4dfdfd9718e2cd43be4221ae5d1d3f30d24659ac09",
+    "actual": "daa8be53da3019607946cb4dfdfd9718e2cd43be4221ae5d1d3f30d24659ac09",
+    "unchanged": true
+  }
+]

@@ -34,7 +34,8 @@
 
 ## Material Passport
 
-- 日期2026-10-14；状态 `PLAN_WRITTEN_NOT_IMPLEMENTED`。
+- 日期2026-10-14；2026-10-15执行状态 `NATIVE_SYNTHETIC_ACCEPTED_PENDING_INDEPENDENT_REVIEW`。
+- 后续批准项 `call_978b15d460804fa2982cb750a1d4b4ad`：“认可计划，批准原生代码与合成验收（推荐）”；仅Tasks1--8，Task9仍未获准。
 - 人类批准项 `call_53a58e64d5ee47fbaba8b7f127ec10b0`，回答“认可规格，编写实施计划（推荐）”。原问题明确仅编写计划，不开发、不做合成前向、不读真实输入、不训练、不改报告。
 - 起点为规格归档提交7d039733；此前所有真实/计时/空闲验收许可已消费，本计划不恢复任何旧许可。
 - 用户历次选择原生实施，拟继续原生逐任务TDD；当前不派子代理、不执行独立审查。计划作者自审不等于独立理论审核。
@@ -70,6 +71,8 @@
 
 ## Task 1: prepared-only 数据边界
 
+执行进度：2026-10-14，7项合成测试RED到GREEN，提交 `da08a764563060452e5d1b4b93fa2cad79246f60`；隔离载入/有序身份已验收，未读真实输入。以下Step1--5已完成；历史计划checkbox由任务执行记录覆盖。
+
 **Files:** Create `scripts/msb_role_data.py`、`tests/msb_synthetic_helpers.py`; Test `tests/test_msb_role_data.py`。
 
 **Interfaces:** `validate_prepared_fold(data: dict, fold: int) -> dict`; `validate_fold_collection(folds: list[dict]) -> dict`; `load_prepared_fold(root: Path, entry: dict, authorization: dict) -> dict`。entry含fold、relative_path、sha256、registered_train_ids_digest及registered_validation_ids_digest。
@@ -81,6 +84,8 @@
 - [ ] **Step5 提交：** 仅这三个新文件；`feat: add registered prepared-only MSB data contracts`。
 
 ## Task 2: 模型、固定参照及精确普通包含
+
+执行进度：2026-10-15，9项合成测试通过，另7项数据回归通过。共享头偏置缩放故障已由新增测试RED到GREEN修复；恒等、参照无别名/重载、参数计数及共享非恒等包含得到限定验收。未读取真实输入。
 
 **Files:** Create `scripts/msb_role_model.py`; Test `tests/test_msb_role_model.py`。
 
@@ -94,6 +99,8 @@
 
 ## Task 3: 损失及充分求解的四种凸对照
 
+执行进度：2026-10-15，10项限定合成测试通过，四种凸对照均验收优化证书、bias-only目标等价和正ridge。最后更新后的证书漏检由回归RED到GREEN修复；未在真实输入拟合这些对照。
+
 **Files:** Create `scripts/msb_role_controls.py`; Test `tests/test_msb_role_controls.py`。
 
 **Interfaces:** `objective(model,result: dict,labels: Tensor) -> dict`; `make_convex_control(unit: str,batch: dict) -> object`; `control_forward(control,h,e,log_anchor) -> dict`; `convex_objective(control,coordinates: Tensor,batch: dict) -> Tensor`; `solve_convex(control,batch: dict,*,deadline_check: Callable[[],None]) -> dict`。
@@ -106,6 +113,8 @@
 
 ## Task 4: 理论性质、反例与梯度来源
 
+执行进度：2026-10-15，13项限定合成测试通过，包含500个内部见证、边界有限差分、分项梯度、概率共同归一化、bias子模型及高置信正确可被损害的反例。验收不构成共同可学习、全局收敛、原创性或真实识别增益证明。
+
 **Files:** Create `scripts/msb_role_audit.py`; Test `tests/test_msb_role_audit.py`。
 
 **Interfaces:** `audit_forward_contract(batch,result) -> dict`; `audit_synthetic_theory(model,batch) -> dict`; `gradient_components(model,result,labels) -> dict`; `audit_control_equivalence(main,control,batch) -> dict`。
@@ -117,6 +126,8 @@
 - [ ] **Step5 提交：** 仅模块和测试；`test: verify MSB interior controls and preserve counterexamples`。
 
 ## Task 5: 固定矩阵、轨迹与存储合同
+
+执行进度：2026-10-15，9项限定合成测试通过并提交 `7323dce5438b7edf59de0e97e9f08f0549e2cb58`。包括验证标签改动不影响训练状态、实际100步的角色关闭记录及空检查点边界修复；75任务只生成固定调度表，未执行真实矩阵。
 
 **Files:** Create `scripts/msb_role_training.py`; Test `tests/test_msb_role_training.py`。
 
@@ -180,8 +191,17 @@
 
 规格16节均映射到任务：输入/身份Task1；分支/初始化/预算/结构包含Task2；损失/凸证书Task3；式(8)--(17)及反例Task4；固定开发矩阵Task5；监督/数值/隔离Task6；效果与停止Task7；公式图/交付Task8；未授权真实与报告边界Task9。
 
-检查了接口名、Forward/Loss/Trajectory/Convex字段的跨任务一致性；五项Review Focus各有指定失败测试。所有任务checkbox保留未完成。数学原创性、独立复查、实际产物身份、代码实现及任何效果尚未验证；上述计数/预算为**待审核计划设置**，不是已消费运行许可。
+编写计划时检查了接口名、Forward/Loss/Trajectory/Convex字段的跨任务一致性；五项Review Focus各有指定失败测试。原计划checkbox保留历史状态，当前进度以各Task执行记录与原生ledger为准。数学原创性、独立复查、实际产物身份及真实效果尚未验证；上述真实计数/预算仍不是已消费运行许可。
 
 本轮仅用标准库做文档静态检查：9任务/45未勾选步骤、链接及分隔符、规格快照SHA、63+12=75拟合/80任务/615最终回读的算术均通过；34旧源码及两份正式报告、六张用户PNG哈希未变化。确认没有创建拟议源码/测试、真实协议或输出目录。这个检查不是执行计划中的模型测试、前向或求解证书。
 
 下一步只请求认可本计划并授权**原生代码与合成验收Tasks1--8**。若认可，不从Task9直接开始真实实验；若不认可，先修订计划，不实施。
+
+## 2026-10-15执行补记
+
+上段保留计划编写时的状态；此后用户批准Tasks1--8，八个模块已原生实现并完成83项限定合成联合验收。
+逐任务RED/GREEN、修复和裁决见[原生合成验收记录](../../experiment_records/2026-10-14_msb_role_native_synthetic_acceptance.md)。
+最终复算补充明确12次训练侧凸梯度证书核验，故为615验证前向+12训练证书检查，非615总计算；75拟合/0T0/7200秒拟议上限不变。
+代码中分析与最终核验绑定既有活跃worker guard并仅消费一次；无独立不受监督的verify入口。
+结构图已输出新目录并目视检查PNG及PDF预览；正式报告、六张用户PNG、34旧源码、旧IC规格及协议均未改。
+独立只读复查仍需单独批准，作者自审不能替代。Task9仍未获准，未创建真实MSB协议，未读取真实输入、未训练、未更新报告。

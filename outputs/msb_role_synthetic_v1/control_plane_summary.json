@@ -1,0 +1,11 @@
+{
+  "scope": "SYNTHETIC_MOCKED_CONTROL_PLANE_ONLY",
+  "status": "SYNTHETIC_COMPLETE",
+  "jobs": 80,
+  "real_data_opened": false,
+  "actual_neural_fits": 0,
+  "actual_convex_fits": 0,
+  "delivery_verified": false,
+  "mocked_power_released": true,
+  "native_power_or_idle_acceptance": false
+}

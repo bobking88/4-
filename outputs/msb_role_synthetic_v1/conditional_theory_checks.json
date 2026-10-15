@@ -1,0 +1,40 @@
+{
+  "scope": "SYNTHETIC_CONDITIONAL_PROPERTIES_NOT_EFFECT",
+  "interior_witness_count": 500,
+  "min_witness_winner_margin": 0.12499999999999645,
+  "min_witness_negative_margin": 0.24999999999999645,
+  "witness_relative_energy": 0.25,
+  "witness_sp_squared_distance_max": 0.9052117206094366,
+  "min_boundary_bias_derivative": 0.25,
+  "min_boundary_pair_loss_derivative": 0.125,
+  "min_wrong_pair_initial_bias_gradient": 0.125,
+  "max_finite_difference_error": 4.500790851125203e-09,
+  "normalized_bias_jacobian": [
+    [
+      0.75,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.75,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.75
+    ]
+  ],
+  "mixed_hessian_norm": 0.015244916730589773,
+  "mixed_hessian_analytic_error": 0.0,
+  "conflicting_input_correct_count": 1,
+  "correct_anchor_label": 0,
+  "harmful_witness_label": 1,
+  "pair_boundary_can_be_nonwinning": true,
+  "joint_fit_guaranteed": false,
+  "global_convergence_proved": false,
+  "parameter_identifiability_proved": false,
+  "all_confident_correct_protected": false,
+  "non_equivalence_to_general_mlp_proved": false
+}
