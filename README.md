@@ -269,6 +269,11 @@ C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独�
 没有读取真实prepared/fit/stop或原图、没有真实拟合、没有更改正式报告；旧34源码和保护文件哈希保持不变。
 当前状态为等待单独批准的独立只读复查。真实MSB协议登记、真实机制实验与报告更新均未获准，不沿用旧IC许可。
 
+随后获准的一次[独立只读工程与数学复查](docs/experiment_records/2026-10-15_msb_role_independent_review.md)
+于2026-10-16因代理额度限制终止，未返回审阅结论，状态为`REVIEW_UNAVAILABLE_NO_VERDICT`。
+[工具终止原文](outputs/msb_role_independent_review_v1/reviewer_response.md)不是审核报告；不能写成“独立复查通过”或“未发现问题”。
+已按单次边界停止并关闭代理，没有重派、重跑测试或真实实验，也未修改代码和正式报告。新的独立复查须重新授权；Task9仍未获准。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.
