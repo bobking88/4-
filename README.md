@@ -280,6 +280,11 @@ C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独�
 状态为`REVIEW_COMPLETED_CHANGES_REQUIRED`，不作为工程审核通过或真实协议冻结依据。
 本轮只记录并核对引用，未修代码、重跑测试、读真实输入、开展训练或改正式报告；修复规格/实施计划及后续工作另需批准。
 
+随后用户仅批准三项修复的文档阶段，已形成[执行合同修复规格](docs/superpowers/specs/2026-10-16-msb-execution-contract-repair-design.md)与
+[配套实施计划](docs/superpowers/plans/2026-10-16-msb-execution-contract-repair.md)，[授权与作者自审记录](docs/experiment_records/2026-10-16_msb_execution_contract_repair_planning.md)单独保存。
+方案保持网络/损失/公式及80任务、75拟合不变，将联合三折验收前移到首次拟合之前，并设计活跃父监督及继承累计期限。
+当前为`DOCUMENTED_NOT_IMPLEMENTED_NOT_RUN`，只编写与归档文档；未修源码、运行测试或访问真实数据，开发和合成验收仍待用户审核及另行批准。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.
