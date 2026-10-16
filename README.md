@@ -274,6 +274,12 @@ C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独�
 [工具终止原文](outputs/msb_role_independent_review_v1/reviewer_response.md)不是审核报告；不能写成“独立复查通过”或“未发现问题”。
 已按单次边界停止并关闭代理，没有重派、重跑测试或真实实验，也未修改代码和正式报告。新的独立复查须重新授权；Task9仍未获准。
 
+2026-10-16获新的单次授权后，完成[第二次独立只读复查](docs/experiment_records/2026-10-16_msb_role_independent_review_v2.md)，
+[完整原文](outputs/msb_role_independent_review_v2/reviewer_response.md)单独归档。核心条件数学及网络/损失基本一致，
+但有1项P1及2项P2工程/身份合同缺口：陈旧RUNNING可脱离父监督、非fit训练scope未严格拒绝、联合三折验收晚于拟合。
+状态为`REVIEW_COMPLETED_CHANGES_REQUIRED`，不作为工程审核通过或真实协议冻结依据。
+本轮只记录并核对引用，未修代码、重跑测试、读真实输入、开展训练或改正式报告；修复规格/实施计划及后续工作另需批准。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.
