@@ -22,6 +22,68 @@ class DataTests(unittest.TestCase):
         self.assertIsNotNone(data, "MSB prepared-only contracts missing")
         self.fixture = make_prepared_fixture()
 
+    def summaries(self, folds=None):
+        self.assertTrue(callable(getattr(data, "prepared_identity_summary", None)),
+                        "Prepared identity summaries missing")
+        result = []
+        for fold, item in enumerate(folds or self.fixture["folds"]):
+            entry = dict(fold=fold, relative_path=f"{data.PREPARED_BASE}/prepare_fold{fold}/result.pt",
+                         sha256="1" * 64)
+            for part in ("train", "validation"):
+                entry[f"registered_{part}_ids_digest"] = data.identity_digest(
+                    [r["image_id"] for r in item[part]["records"]])
+            result.append(data.prepared_identity_summary(item, fold, entry))
+        return result
+
+    def test_every_train_and_validation_row_requires_exact_fit_scope(self):
+        for part in ("train", "validation"):
+            for scope in (None, "", "projector_stop", "other", "Projector_fit", "projector_fit "):
+                with self.subTest(part=part, scope=scope):
+                    item = copy.deepcopy(self.fixture["folds"][0])
+                    item[part]["records"][0]["tc_subset"] = scope
+                    with self.assertRaises(ValueError): data.validate_prepared_fold(item, 0)
+            item = copy.deepcopy(self.fixture["folds"][0])
+            del item[part]["records"][0]["tc_subset"]
+            with self.assertRaises(ValueError): data.validate_prepared_fold(item, 0)
+
+    def test_joint_summary_rejects_locally_valid_oof_duplicate(self):
+        folds = copy.deepcopy(self.fixture["folds"])
+        folds[1] = copy.deepcopy(folds[0]); folds[1]["inner_fold"] = 1
+        for fold, item in enumerate(folds): data.validate_prepared_fold(item, fold)
+        summaries = self.summaries(folds)
+        with self.assertRaises(ValueError): data.validate_identity_collection(summaries)
+
+    def test_cross_fold_training_identity_and_scope_conflict(self):
+        summaries = self.summaries()
+        for field, value in (("image_id", "different"), ("four_class_id", "3"), ("tc_subset", "other")):
+            bad = copy.deepcopy(summaries)
+            bad[0]["train_records"][0][field] = value
+            with self.assertRaises(ValueError): data.validate_identity_collection(bad)
+
+    def test_summary_schema_rejects_bool_indices_and_unknown_fields(self):
+        summaries = self.summaries()
+        self.assertEqual(data.validate_identity_collection(summaries)["groups"], 340)
+        for mutate in (lambda s: s[0]["train_indices"].__setitem__(0, True),
+                       lambda s: s[0].__setitem__("h", []),
+                       lambda s: s[0]["train_records"][0].__setitem__("extra", "x")):
+            bad = copy.deepcopy(summaries); mutate(bad)
+            with self.assertRaises(ValueError): data.validate_identity_collection(bad)
+        def no_tensor(value):
+            self.assertFalse(torch.is_tensor(value))
+            if isinstance(value, dict):
+                for child in value.values(): no_tensor(child)
+            elif isinstance(value, list):
+                for child in value: no_tensor(child)
+        no_tensor(summaries)
+
+    def test_fold_specific_features_are_not_required_equal(self):
+        folds = copy.deepcopy(self.fixture["folds"])
+        folds[1]["train"]["h"] += 100
+        result = data.validate_fold_collection(folds)
+        self.assertEqual(result["counts"], [66, 130, 97, 47])
+        summaries = self.summaries(folds)
+        self.assertEqual(data.validate_identity_collection(summaries), result)
+
     def test_missing_or_reordered_rows_fail(self):
         for mutate in (lambda x: x["train"]["records"].reverse(),
                        lambda x: x["train"]["records"].pop(),
