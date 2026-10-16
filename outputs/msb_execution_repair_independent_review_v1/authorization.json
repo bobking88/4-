@@ -1,0 +1,36 @@
+{
+  "schema": "msb_execution_repair_readonly_review_v1",
+  "date": "2026-10-16",
+  "authorization": "call_358af6a530944d5c9a15f0ea8039b545",
+  "human_answer": "批准一次只读复查并归档（推荐）",
+  "status": "REVIEW_COMPLETED_CHANGES_REQUIRED",
+  "base_commit": "8de3804ea8d7893ad21df72281614c9d559a7d4b",
+  "head_commit": "0bb95a48a8fc47286dfcc3bd864d6ecfaf02ef58",
+  "agent_id": "01a14561-15f7-71b1-999b-af8968ae8319",
+  "agent_nickname": "Hilbert",
+  "dispatch_count": 1,
+  "fork_context": false,
+  "model_override": false,
+  "scope": [
+    "active_parent_supervision_and_handle_cleanup",
+    "inherited_cumulative_deadline",
+    "strict_fit_only",
+    "joint_three_fold_prefit_acceptance",
+    "existing_121_synthetic_logs",
+    "historical_native_clock_mocking_deviation"
+  ],
+  "prohibited": [
+    "real_prepared_fit_stop_or_original_images",
+    "test_forward_fit_or_timing_rerun",
+    "native_process_or_power_acceptance",
+    "code_or_formal_report_changes",
+    "redispatch_on_unavailable_or_no_verdict"
+  ],
+  "real_execution_authorized": false,
+  "code_verdict": "CHANGES_REQUIRED",
+  "native_supervision_verdict": "INSUFFICIENT_EVIDENCE",
+  "finding_count": 4,
+  "severity_counts": {"P1": 0, "P2": 4, "P3": 0},
+  "agent_closed": true,
+  "close_verdict_matches_wait": true
+}

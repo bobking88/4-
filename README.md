@@ -291,6 +291,12 @@ C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独�
 早期非法入口回归的只读系统时钟采样、v1验收器失败及修正均已单独披露，不反向标成完全模拟或模型效果。
 当前为`AUTHOR_REPAIR_SYNTHETIC_ACCEPTED_INDEPENDENT_REVIEW_PENDING`：尚无新独立复查、原生监督验收或真实MSB结果，不据此宣称网络改进有效。
 
+随后获新的单次授权，对`8de3804..0bb95a4`完成[执行合同修复独立只读复查](docs/experiment_records/2026-10-16_msb_execution_contract_repair_independent_review.md)，
+[完整原文](outputs/msb_execution_repair_independent_review_v1/reviewer_response.md)保留四项P2：最终成功写入跨期、启动后异常进程所有权丢失、退出早于ACK/DONE读完、RENEW/DONE终结竞争。
+当前代码裁决为`CHANGES_REQUIRED`，原生监督为`INSUFFICIENT_EVIDENCE`；精确fit-only及拟合前联合三折校验未发现新增问题，但整体不能据此冻结真实运行。
+本轮未重跑测试、前向、拟合或原生验收，未读真实输入，未改代码和正式报告。121项仍是既有作者合成记录；v1重建验收器快照及早期时钟模拟偏差保留来源限定。
+下一步先另批上述四项的修复规格与实施计划；实际修复、原生无数据验收及真实实验仍分别另行批准，不把工程进展写成理论或网络效果提升。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.
