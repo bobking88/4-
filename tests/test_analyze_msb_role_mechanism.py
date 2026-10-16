@@ -14,6 +14,7 @@ from msb_role_model import MSBRoleModel, reference_digest
 from msb_role_training import fit_trajectory, fit_convex_fold, SEEDS, CHECKPOINTS, build_fit_matrix, _input_digest
 from msb_role_data import identity_digest
 from msb_role_audit import gradient_components
+import test_msb_execution_safety as safety_tests
 try:
     import analyze_msb_role_mechanism as analysis
 except ModuleNotFoundError:
@@ -86,6 +87,8 @@ class AnalysisTests(unittest.TestCase):
     def setUp(self):
         self.assertIsNotNone(analysis, "MSB evidence analyzer missing")
         self.data = make_prepared_fixture(24)["folds"][0]
+        timer=patch("msb_role_training.stage_elapsed_seconds",return_value=0.)
+        timer.start(); self.addCleanup(timer.stop)
 
     def test_oof_count_row_order_and_duplicate_fail(self):
         rows = prediction_rows(perfect=True)
@@ -190,6 +193,13 @@ class AnalysisTests(unittest.TestCase):
             for fn in (analysis.collect_saved_predictions,analysis.verify_saved_mechanism):
                 with self.assertRaises(RuntimeError): fn(Path("unused"),Path("unused"),{})
 
+    def test_bare_awake_guard_cannot_authorize_analysis(self):
+        class BareGuard:
+            def evidence(self): return dict(power_request_acquired=True,power_request_released=False)
+            def check(self): return 0.
+        with self.assertRaises(RuntimeError):
+            with analysis.supervised_analysis(Path("unused"),Path("unused"),{},BareGuard(),"analysis"): pass
+
     def test_initial_state_metadata_matrix_is_not_a_positive_mechanism(self):
         entries,protocol = metadata_matrix_fixture()
         evidence = analysis._summarize_entries(entries,protocol)
@@ -201,16 +211,17 @@ class AnalysisTests(unittest.TestCase):
         self.assertEqual(evidence["summaries"]["MAIN"][str(SEEDS[0])]["counts"],[66,130,97,47])
 
     def test_guard_scope_is_single_use_and_does_not_read_data(self):
-        class FakeGuard:
-            def evidence(self): return dict(power_request_acquired=True,power_request_released=False)
-            def check(self): return 0.
         entries,protocol = metadata_matrix_fixture()
         root = Path("synthetic-only").resolve(); output = root/"fixture"
-        with analysis.supervised_analysis(root,output,protocol,FakeGuard(),"analysis"):
-            with patch.object(analysis,"_load_saved",return_value=entries):
-                result = analysis.collect_saved_predictions(root,output,protocol)
-                self.assertFalse(result["delivery_verified"])
-                with self.assertRaises(RuntimeError): analysis.collect_saved_predictions(root,output,protocol)
+        scope,api,awake=safety_tests.ScopeTests.scope(self)
+        with scope:
+            scope.begin_work()
+            with analysis.supervised_analysis(root,output,protocol,scope,"analysis"):
+                with patch.object(analysis,"_load_saved",return_value=entries):
+                    result = analysis.collect_saved_predictions(root,output,protocol)
+                    self.assertFalse(result["delivery_verified"])
+                    with self.assertRaises(RuntimeError): analysis.collect_saved_predictions(root,output,protocol)
+            awake.released=True; scope.begin_publish(awake.evidence())
 
     def test_final_replay_requires_exact615_validation_and12_certificates(self):
         self.assertEqual(analysis.replay_budget(),dict(neural_checkpoints=567,convex_validation=12,
@@ -233,7 +244,9 @@ class AnalysisTests(unittest.TestCase):
                                   supervision=dict(power_request_released=True)) for i in ids],
                        artifacts={relative:"0"*64})
             (output/"stage_state.json").write_text(json.dumps(state),encoding="utf-8")
-            with patch.object(runner,"validate_protocol"),patch("torch.load",side_effect=AssertionError("hash not checked")):
+            packet=output/"runs/analysis/packet.json"; packet.parent.mkdir(parents=True)
+            packet.write_text("{}",encoding="utf-8")
+            with patch.object(runner,"validate_protocol"),patch.object(runner,"require_joint_preflight"),patch("torch.load",side_effect=AssertionError("hash not checked")):
                 with self.assertRaisesRegex(ValueError,"hash"):
                     analysis._load_saved(root,output,protocol,dict(kind="analysis",guard=FakeGuard()))
 

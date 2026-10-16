@@ -6,7 +6,7 @@ import hashlib
 import json
 import torch
 from threadpoolctl import threadpool_limits
-from lc_execution_safety import stage_elapsed_seconds
+from msb_execution_safety import msb_stage_elapsed_seconds as stage_elapsed_seconds
 from msb_role_data import validate_batch
 from msb_role_model import CONVEX_UNITS, NEURAL_UNITS, MSBRoleModel, reference_digest
 from msb_role_controls import GAP_TOLERANCE, control_forward, make_convex_control, objective, solve_convex

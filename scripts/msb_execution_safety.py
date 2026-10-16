@@ -471,6 +471,11 @@ class NativeMSBAPI:
     def tick_ms(self): return int(self.kernel.GetTickCount64())
     def current_pid(self): return int(self.kernel.GetCurrentProcessId())
 
+    def current_identity(self):
+        handle=self._ok(self.kernel.OpenProcess(0x100000|0x1000,False,self.current_pid()))
+        try: return self.process_identity(handle)
+        finally: self.close_handle(handle)
+
     def process_identity(self,handle):
         times=[wintypes.FILETIME() for _ in range(4)]
         self._ok(self.kernel.GetProcessTimes(handle,*(ctypes.byref(t) for t in times)))

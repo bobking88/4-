@@ -20,6 +20,8 @@ class TrainingTests(unittest.TestCase):
     def setUp(self):
         self.assertIsNotNone(training,"MSB fixed training missing")
         self.data=make_prepared_fixture(24)["folds"][0]
+        timer=patch.object(training,"stage_elapsed_seconds",return_value=0.)
+        timer.start(); self.addCleanup(timer.stop)
 
     def short(self, validation=None, unit="MAIN"):
         return training.fit_trajectory(self.data["train"],validation or self.data["validation"],unit,20261002,max_updates=2,checkpoints=(0,1,2))

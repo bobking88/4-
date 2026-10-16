@@ -8,6 +8,7 @@ import json
 import math
 from pathlib import Path
 import torch
+from msb_execution_safety import MSBWorkerScope
 
 from msb_role_audit import audit_forward_contract
 from msb_role_controls import GAP_TOLERANCE, MU, convex_objective, control_forward, make_convex_control
@@ -215,9 +216,8 @@ def supervised_analysis(root,output,protocol,guard,kind):
     """Bind read/replay permission to the already active worker guard, not a new run."""
     if _CONTEXT.get() is not None or kind not in ("analysis","final-verify"):
         raise RuntimeError("No nested or unknown analysis scope.")
-    power = guard.evidence()
-    if power.get("power_request_acquired") is not True or power.get("power_request_released"):
-        raise RuntimeError("An active worker guard is required.")
+    if not isinstance(guard,MSBWorkerScope) or guard.phase != "WORKING":
+        raise RuntimeError("An active parent-bound MSBWorkerScope is required.")
     guard.check()
     token = _CONTEXT.set(dict(root=Path(root).resolve(),output=Path(output).resolve(),protocol=protocol,
                              guard=guard,kind=kind,consumed=False))
@@ -236,12 +236,14 @@ def _context(root,output,protocol,kind):
 
 
 def _load_saved(root,output,protocol,context):
-    from run_msb_role_mechanism import _path, protocol_digest, validate_protocol
+    from run_msb_role_mechanism import _path, protocol_digest, validate_protocol, require_joint_preflight
     validate_protocol(root,protocol,"fit-mechanism")
     output = _path(root,output)
     if output != _path(root,protocol["output_relative"]): raise ValueError("Output identity changed.")
     state = json.loads((output/"stage_state.json").read_text(encoding="utf-8"))
     active = "analysis" if context["kind"] == "analysis" else "final_verify"
+    packet = json.loads((_path(output,f"runs/{active}/packet.json")).read_text(encoding="utf-8"))
+    require_joint_preflight(output,protocol,packet,context["guard"])
     if (state.get("status") != "RUNNING" or state.get("active_job") != active
             or state.get("stage") != "fit-mechanism" or state.get("protocol_digest") != protocol_digest(protocol)
             or state.get("actual_neural_fits") != 63 or state.get("actual_convex_fits") != 12):
