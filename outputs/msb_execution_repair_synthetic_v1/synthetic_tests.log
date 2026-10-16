@@ -1,0 +1,481 @@
+test_cleanup_after_deadline_cannot_grant_compute_time (test_msb_execution_safety.LauncherTests.test_cleanup_after_deadline_cannot_grant_compute_time) ... ok
+test_done_closes_pipe_before_process_exit_is_accepted (test_msb_execution_safety.LauncherTests.test_done_closes_pipe_before_process_exit_is_accepted) ... ok
+test_job_assignment_failure_kills_without_fallback (test_msb_execution_safety.LauncherTests.test_job_assignment_failure_kills_without_fallback) ... ok
+test_job_handle_not_inherited_and_all_channel_ends_closed (test_msb_execution_safety.LauncherTests.test_job_handle_not_inherited_and_all_channel_ends_closed) ... ok
+test_kill_wait_or_release_uncertain_cannot_complete (test_msb_execution_safety.LauncherTests.test_kill_wait_or_release_uncertain_cannot_complete) ... ok
+test_lost_ack_does_not_renew_or_launch_next_job (test_msb_execution_safety.LauncherTests.test_lost_ack_does_not_renew_or_launch_next_job) ... ok
+test_no_grant_before_job_assignment (test_msb_execution_safety.LauncherTests.test_no_grant_before_job_assignment) ... ok
+test_no_renewal_from_unconditional_background_thread (test_msb_execution_safety.LauncherTests.test_no_renewal_from_unconditional_background_thread) ... ok
+test_parent_exit_before_assignment_never_enters_body (test_msb_execution_safety.LauncherTests.test_parent_exit_before_assignment_never_enters_body) ... ok
+test_parent_exit_between_publish_and_launch_denies_manual_worker (test_msb_execution_safety.LauncherTests.test_parent_exit_between_publish_and_launch_denies_manual_worker) ... ok
+test_worker_handshake_requires_real_pipe_grant_not_flags (test_msb_execution_safety.LauncherTests.test_worker_handshake_requires_real_pipe_grant_not_flags) ... ok
+test_job_object_kill_on_close_and_no_breakaway_flags (test_msb_execution_safety.NativeAdapterTests.test_job_object_kill_on_close_and_no_breakaway_flags) ... ok
+test_native_adapter_pipe_framing_with_fake_kernel_only (test_msb_execution_safety.NativeAdapterTests.test_native_adapter_pipe_framing_with_fake_kernel_only) ... ok
+test_native_spawn_explicit_handles_and_restore_without_os_spawn (test_msb_execution_safety.NativeAdapterTests.test_native_spawn_explicit_handles_and_restore_without_os_spawn) ... ok
+test_exact_deadline_and_noninteger_budget_rejected (test_msb_execution_safety.ScopeTests.test_exact_deadline_and_noninteger_budget_rejected) ... ok
+test_invalid_framing_and_duplicate_json_keys_fail_closed (test_msb_execution_safety.ScopeTests.test_invalid_framing_and_duplicate_json_keys_fail_closed) ... ok
+test_missing_parent_capability_cannot_be_recovered_from_packet (test_msb_execution_safety.ScopeTests.test_missing_parent_capability_cannot_be_recovered_from_packet) ... ok
+test_new_child_guard_does_not_restart_budget (test_msb_execution_safety.ScopeTests.test_new_child_guard_does_not_restart_budget) ... ok
+test_parent_death_disconnect_and_expired_lease_revoke_scope (test_msb_execution_safety.ScopeTests.test_parent_death_disconnect_and_expired_lease_revoke_scope) ... ok
+test_publish_keeps_deadline_after_awake_release_without_reacquire (test_msb_execution_safety.ScopeTests.test_publish_keeps_deadline_after_awake_release_without_reacquire) ... ok
+test_renewal_cannot_extend_original_deadline_or_replay_sequence (test_msb_execution_safety.ScopeTests.test_renewal_cannot_extend_original_deadline_or_replay_sequence) ... ok
+test_reused_pid_with_different_creation_time_rejected (test_msb_execution_safety.ScopeTests.test_reused_pid_with_different_creation_time_rejected) ... ok
+test_unbound_context_fails_instead_of_zero_elapsed (test_msb_execution_safety.ScopeTests.test_unbound_context_fails_instead_of_zero_elapsed) ... ok
+test_cross_fold_training_identity_and_scope_conflict (test_msb_role_data.DataTests.test_cross_fold_training_identity_and_scope_conflict) ... ok
+test_every_train_and_validation_row_requires_exact_fit_scope (test_msb_role_data.DataTests.test_every_train_and_validation_row_requires_exact_fit_scope) ... ok
+test_fold_specific_features_are_not_required_equal (test_msb_role_data.DataTests.test_fold_specific_features_are_not_required_equal) ... ok
+test_hash_checked_before_torch_load (test_msb_role_data.DataTests.test_hash_checked_before_torch_load) ... ok
+test_joint_summary_rejects_locally_valid_oof_duplicate (test_msb_role_data.DataTests.test_joint_summary_rejects_locally_valid_oof_duplicate) ... ok
+test_missing_or_reordered_rows_fail (test_msb_role_data.DataTests.test_missing_or_reordered_rows_fail) ... ok
+test_no_raw_or_refit_fallback (test_msb_role_data.DataTests.test_no_raw_or_refit_fallback) ... ok
+test_registered_loader_roundtrip_and_digest_identity (test_msb_role_data.DataTests.test_registered_loader_roundtrip_and_digest_identity) ... FAIL
+test_summary_schema_rejects_bool_indices_and_unknown_fields (test_msb_role_data.DataTests.test_summary_schema_rejects_bool_indices_and_unknown_fields) ... ok
+test_train_validation_and_oof_groups_disjoint (test_msb_role_data.DataTests.test_train_validation_and_oof_groups_disjoint) ... ok
+test_validation_label_changes_do_not_change_input_state (test_msb_role_data.DataTests.test_validation_label_changes_do_not_change_input_state) ... ok
+test_wrong_fold_or_stop_record_fail (test_msb_role_data.DataTests.test_wrong_fold_or_stop_record_fail) ... ok
+test_all_roles_off_returns_anchor (test_msb_role_model.ModelTests.test_all_roles_off_returns_anchor) ... ok
+test_counts_and_seed_streams_exact (test_msb_role_model.ModelTests.test_counts_and_seed_streams_exact) ... ok
+test_flat_decoder_rewrite_equivalent (test_msb_role_model.ModelTests.test_flat_decoder_rewrite_equivalent) ... ok
+test_initial_identity_all_neural_units (test_msb_role_model.ModelTests.test_initial_identity_all_neural_units) ... ok
+test_invalid_inputs_and_unknown_units_rejected (test_msb_role_model.ModelTests.test_invalid_inputs_and_unknown_units_rejected) ... ok
+test_matched_ablation_initial_bytes (test_msb_role_model.ModelTests.test_matched_ablation_initial_bytes) ... ok
+test_reference_no_alias_after_update_and_reload (test_msb_role_model.ModelTests.test_reference_no_alias_after_update_and_reload) ... ERROR
+test_shared_bias_is_not_scaled (test_msb_role_model.ModelTests.test_shared_bias_is_not_scaled) ... ok
+test_shared_block_embedding_contains_main (test_msb_role_model.ModelTests.test_shared_block_embedding_contains_main) ... ok
+test_actual_convex_solution_certificate_and_readout (test_msb_role_controls.ControlsTests.test_actual_convex_solution_certificate_and_readout) ... ok
+test_bias_hessian_lower_bound_and_endpoint_rejection (test_msb_role_controls.ControlsTests.test_bias_hessian_lower_bound_and_endpoint_rejection) ... ok
+test_bias_objective_is_main_submodel (test_msb_role_controls.ControlsTests.test_bias_objective_is_main_submodel) ... ok
+test_certificate_checked_after_final_allowed_update (test_msb_role_controls.ControlsTests.test_certificate_checked_after_final_allowed_update) ... ok
+test_fix1_regularizer_uses_main_reference_radius (test_msb_role_controls.ControlsTests.test_fix1_regularizer_uses_main_reference_radius) ... ok
+test_known_quadratic_and_deadline_interrupt (test_msb_role_controls.ControlsTests.test_known_quadratic_and_deadline_interrupt) ... ok
+test_lin_classwise_comp_positive_ridge (test_msb_role_controls.ControlsTests.test_lin_classwise_comp_positive_ridge) ... ok
+test_pair_uses_main_odds_and_original_denominators (test_msb_role_controls.ControlsTests.test_pair_uses_main_odds_and_original_denominators) ... ok
+test_repair_features_sign_ties_counts_and_degeneracy (test_msb_role_controls.ControlsTests.test_repair_features_sign_ties_counts_and_degeneracy) ... ok
+test_unsolved_control_fails_certificate (test_msb_role_controls.ControlsTests.test_unsolved_control_fails_certificate) ... ok
+test_all_class_interior_witnesses (test_msb_role_audit.AuditTests.test_all_class_interior_witnesses) ... ok
+test_bias_submodel_and_tampered_output_rejected (test_msb_role_audit.AuditTests.test_bias_submodel_and_tampered_output_rejected) ... ok
+test_common_normalizer_changes_other_probabilities (test_msb_role_audit.AuditTests.test_common_normalizer_changes_other_probabilities) ... ok
+test_correct_high_confidence_can_be_harmed (test_msb_role_audit.AuditTests.test_correct_high_confidence_can_be_harmed) ... ok
+test_data_regularizer_gradient_decomposition (test_msb_role_audit.AuditTests.test_data_regularizer_gradient_decomposition) ... ok
+test_mixed_hessian_not_claim_mlp_superiority (test_msb_role_audit.AuditTests.test_mixed_hessian_not_claim_mlp_superiority) ... ok
+test_pair_boundary_bias_derivative (test_msb_role_audit.AuditTests.test_pair_boundary_bias_derivative) ... ok
+test_radius_has_declared_log_odds_units (test_msb_role_audit.AuditTests.test_radius_has_declared_log_odds_units) ... ok
+test_real_identity_rejected_by_synthetic_probe (test_msb_role_audit.AuditTests.test_real_identity_rejected_by_synthetic_probe) ... ok
+test_root_odds_recover_correction_and_branch_cross_zero (test_msb_role_audit.AuditTests.test_root_odds_recover_correction_and_branch_cross_zero) ... ok
+test_single_input_oracle_not_joint_fit (test_msb_role_audit.AuditTests.test_single_input_oracle_not_joint_fit) ... ok
+test_underflow_and_tanh_saturation_explicit (test_msb_role_audit.AuditTests.test_underflow_and_tanh_saturation_explicit) ... ok
+test_wrong_pair_initial_gradient_bound (test_msb_role_audit.AuditTests.test_wrong_pair_initial_gradient_bound) ... ok
+test_63_neural_plus_12_convex_jobs (test_msb_role_training.TrainingTests.test_63_neural_plus_12_convex_jobs) ... ok
+test_checkpoint_is_completed_updates (test_msb_role_training.TrainingTests.test_checkpoint_is_completed_updates) ... FAIL
+test_convex_not_repeated_as_three_seed_evidence (test_msb_role_training.TrainingTests.test_convex_not_repeated_as_three_seed_evidence) ... FAIL
+test_empty_checkpoint_schedule_rejected (test_msb_role_training.TrainingTests.test_empty_checkpoint_schedule_rejected) ... ok
+test_invalid_real_short_budget_or_overlap_rejected (test_msb_role_training.TrainingTests.test_invalid_real_short_budget_or_overlap_rejected) ... ok
+test_missing_or_unsolved_job_fails_complete (test_msb_role_training.TrainingTests.test_missing_or_unsolved_job_fails_complete) ... ok
+test_no_validation_grad_or_selection (test_msb_role_training.TrainingTests.test_no_validation_grad_or_selection) ... FAIL
+test_primary_masks_require_actual_hundred_updates (test_msb_role_training.TrainingTests.test_primary_masks_require_actual_hundred_updates) ... FAIL
+test_reference_unchanged_all_steps (test_msb_role_training.TrainingTests.test_reference_unchanged_all_steps) ... FAIL
+test_analysis_and_final_export_share_original_deadline (test_run_msb_role_mechanism.RunnerTests.test_analysis_and_final_export_share_original_deadline) ... ok
+test_analysis_scope_is_bound_to_existing_worker_guard (test_run_msb_role_mechanism.RunnerTests.test_analysis_scope_is_bound_to_existing_worker_guard) ... ok
+test_cli_failure_does_not_pass_due_to_verified_flag (test_run_msb_role_mechanism.RunnerTests.test_cli_failure_does_not_pass_due_to_verified_flag) ... ok
+test_code_only_approval_cannot_be_relabelled_real (test_run_msb_role_mechanism.RunnerTests.test_code_only_approval_cannot_be_relabelled_real) ... ok
+test_complete_metadata_and_source_identity_without_input_open (test_run_msb_role_mechanism.RunnerTests.test_complete_metadata_and_source_identity_without_input_open) ... ok
+test_draft_old_or_consumed_approval_opens_nothing (test_run_msb_role_mechanism.RunnerTests.test_draft_old_or_consumed_approval_opens_nothing) ... ok
+test_existing_output_symlink_and_invalid_worker_rejected (test_run_msb_role_mechanism.RunnerTests.test_existing_output_symlink_and_invalid_worker_rejected) ... ok
+test_final_verify_failure_is_terminal (test_run_msb_role_mechanism.RunnerTests.test_final_verify_failure_is_terminal) ... ok
+test_forged_passed_state_without_live_parent_denied (test_run_msb_role_mechanism.RunnerTests.test_forged_passed_state_without_live_parent_denied) ... ok
+test_locally_valid_bad_threefold_preflight_has_zero_fit_calls (test_run_msb_role_mechanism.RunnerTests.test_locally_valid_bad_threefold_preflight_has_zero_fit_calls) ... ok
+test_metadata_registration_time_is_not_refunded (test_run_msb_role_mechanism.RunnerTests.test_metadata_registration_time_is_not_refunded) ... ok
+test_missing_parent_release_evidence_fails (test_run_msb_role_mechanism.RunnerTests.test_missing_parent_release_evidence_fails) ... ok
+test_no_resume_stop_or_training_replay (test_run_msb_role_mechanism.RunnerTests.test_no_resume_stop_or_training_replay) ... ok
+test_nonfit_training_record_fails_before_any_optimizer (test_run_msb_role_mechanism.RunnerTests.test_nonfit_training_record_fails_before_any_optimizer) ... ok
+test_packet_tamper_does_not_start_worker (test_run_msb_role_mechanism.RunnerTests.test_packet_tamper_does_not_start_worker) ... ok
+test_preflight_artifact_tamper_denied_before_fold_load (test_run_msb_role_mechanism.RunnerTests.test_preflight_artifact_tamper_denied_before_fold_load) ... ok
+test_preflight_scope_does_not_allow_raw_or_stop_fallback (test_run_msb_role_mechanism.RunnerTests.test_preflight_scope_does_not_allow_raw_or_stop_fallback) ... ok
+test_protocol_scope_checked_before_file_read (test_run_msb_role_mechanism.RunnerTests.test_protocol_scope_checked_before_file_read) ... ok
+test_real_path_worker_fixture_has_complete_status_and_release (test_run_msb_role_mechanism.RunnerTests.test_real_path_worker_fixture_has_complete_status_and_release) ... ok
+test_remaining_budget_reaches_final_verification (test_run_msb_role_mechanism.RunnerTests.test_remaining_budget_reaches_final_verification) ... ok
+test_running_published_before_dispatch (test_run_msb_role_mechanism.RunnerTests.test_running_published_before_dispatch) ... ok
+test_timeout_power_release_interrupt_fail_closed (test_run_msb_role_mechanism.RunnerTests.test_timeout_power_release_interrupt_fail_closed) ... ok
+test_artifact_hash_checked_before_deserialization (test_analyze_msb_role_mechanism.AnalysisTests.test_artifact_hash_checked_before_deserialization) ... ok
+test_bare_awake_guard_cannot_authorize_analysis (test_analyze_msb_role_mechanism.AnalysisTests.test_bare_awake_guard_cannot_authorize_analysis) ... ok
+test_bias_or_shared_equal_not_role_success (test_analyze_msb_role_mechanism.AnalysisTests.test_bias_or_shared_equal_not_role_success) ... ok
+test_convex_certificate_independently_recomputed (test_analyze_msb_role_mechanism.AnalysisTests.test_convex_certificate_independently_recomputed) ... FAIL
+test_final_orchestration_counts_are_not_training_evidence (test_analyze_msb_role_mechanism.AnalysisTests.test_final_orchestration_counts_are_not_training_evidence) ... ok
+test_final_replay_requires_exact615_validation_and12_certificates (test_analyze_msb_role_mechanism.AnalysisTests.test_final_replay_requires_exact615_validation_and12_certificates) ... ok
+test_guard_scope_is_single_use_and_does_not_read_data (test_analyze_msb_role_mechanism.AnalysisTests.test_guard_scope_is_single_use_and_does_not_read_data) ... ok
+test_initial_state_metadata_matrix_is_not_a_positive_mechanism (test_analyze_msb_role_mechanism.AnalysisTests.test_initial_state_metadata_matrix_is_not_a_positive_mechanism) ... ok
+test_metrics_probabilities_and_ece_endpoints (test_analyze_msb_role_mechanism.AnalysisTests.test_metrics_probabilities_and_ece_endpoints) ... ok
+test_mixed_seed_or_false_target_tradeoff_not_promoted (test_analyze_msb_role_mechanism.AnalysisTests.test_mixed_seed_or_false_target_tradeoff_not_promoted) ... ok
+test_nll_change_without_argmax_gain_fails_gate (test_analyze_msb_role_mechanism.AnalysisTests.test_nll_change_without_argmax_gain_fails_gate) ... ok
+test_oof_count_row_order_and_duplicate_fail (test_analyze_msb_role_mechanism.AnalysisTests.test_oof_count_row_order_and_duplicate_fail) ... ok
+test_report_is_exclusive_and_cannot_promote_unverified (test_analyze_msb_role_mechanism.AnalysisTests.test_report_is_exclusive_and_cannot_promote_unverified) ... ok
+test_same_state_off_returns_anchor_not_old_shared_head (test_analyze_msb_role_mechanism.AnalysisTests.test_same_state_off_returns_anchor_not_old_shared_head) ... FAIL
+test_tampered_state_or_prediction_fails (test_analyze_msb_role_mechanism.AnalysisTests.test_tampered_state_or_prediction_fails) ... FAIL
+test_unsolved_convex_cannot_be_called_weak_winner (test_analyze_msb_role_mechanism.AnalysisTests.test_unsolved_convex_cannot_be_called_weak_winner) ... ok
+test_unsupervised_replay_opens_nothing (test_analyze_msb_role_mechanism.AnalysisTests.test_unsupervised_replay_opens_nothing) ... ok
+test_connector_crossing_formula_box_is_detected (test_generate_msb_role_figure.FigureTests.test_connector_crossing_formula_box_is_detected) ... ok
+test_exports_valid_svg_png_pdf_and_candidate_label (test_generate_msb_role_figure.FigureTests.test_exports_valid_svg_png_pdf_and_candidate_label) ... ok
+test_figure_matches_formulas_and_frozen_paths (test_generate_msb_role_figure.FigureTests.test_figure_matches_formulas_and_frozen_paths) ... ok
+test_new_figure_never_overwrites_old_assets_or_docx (test_generate_msb_role_figure.FigureTests.test_new_figure_never_overwrites_old_assets_or_docx) ... ok
+
+======================================================================
+ERROR: test_reference_no_alias_after_update_and_reload (test_msb_role_model.ModelTests.test_reference_no_alias_after_update_and_reload)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_msb_role_model.py", line 55, in test_reference_no_alias_after_update_and_reload
+    other.load_state_dict(torch.load(memory,weights_only=True))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1124, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1128, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1189, in _execute_mock_call
+    result = effect(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\run_msb_execution_repair_acceptance.py", line 45, in temporary_load
+    path = Path(getattr(file,"name",file)).resolve()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\pathlib.py", line 871, in __new__
+    self = cls._from_parts(args)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\pathlib.py", line 509, in _from_parts
+    drv, root, parts = self._parse_args(args)
+                       ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\pathlib.py", line 493, in _parse_args
+    a = os.fspath(a)
+        ^^^^^^^^^^^^
+TypeError: expected str, bytes or os.PathLike object, not BytesIO
+
+======================================================================
+FAIL: test_registered_loader_roundtrip_and_digest_identity (test_msb_role_data.DataTests.test_registered_loader_roundtrip_and_digest_identity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_msb_role_data.py", line 151, in test_registered_loader_roundtrip_and_digest_identity
+    loaded = data.load_prepared_fold(root,entry,auth)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\msb_role_data.py", line 203, in load_prepared_fold
+    data = torch.load(path, map_location="cpu", weights_only=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1124, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1128, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1189, in _execute_mock_call
+    result = effect(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\run_msb_execution_repair_acceptance.py", line 48, in temporary_load
+    raise AssertionError("Real tensor input forbidden in synthetic acceptance")
+AssertionError: Real tensor input forbidden in synthetic acceptance
+
+======================================================================
+FAIL: test_checkpoint_is_completed_updates (test_msb_role_training.TrainingTests.test_checkpoint_is_completed_updates)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_msb_role_training.py", line 51, in test_checkpoint_is_completed_updates
+    result=self.short()
+           ^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_msb_role_training.py", line 27, in short
+    return training.fit_trajectory(self.data["train"],validation or self.data["validation"],unit,20261002,max_updates=2,checkpoints=(0,1,2))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\msb_role_training.py", line 106, in fit_trajectory
+    with threadpool_limits(limits=1):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 794, in __init__
+    super().__init__(ThreadpoolController(), limits=limits, user_api=user_api)
+                     ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 818, in __init__
+    self._load_libraries()
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 972, in _load_libraries
+    self._find_libraries_with_enum_process_module_ex()
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 1056, in _find_libraries_with_enum_process_module_ex
+    ps_api = self._get_windll("Psapi")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 1248, in _get_windll
+    dll = ctypes.WinDLL(f"{dll_name}.dll")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1124, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1128, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1189, in _execute_mock_call
+    result = effect(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\run_msb_execution_repair_acceptance.py", line 41, in reject
+    raise AssertionError("UNMOCKED_NATIVE_BOUNDARY_FORBIDDEN: "+name)
+AssertionError: UNMOCKED_NATIVE_BOUNDARY_FORBIDDEN: WinDLL
+
+======================================================================
+FAIL: test_convex_not_repeated_as_three_seed_evidence (test_msb_role_training.TrainingTests.test_convex_not_repeated_as_three_seed_evidence)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_msb_role_training.py", line 68, in test_convex_not_repeated_as_three_seed_evidence
+    result=training.fit_convex_fold(self.data["train"],self.data["validation"],"CLASSWISE4",deadline_check=lambda:None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\msb_role_training.py", line 139, in fit_convex_fold
+    with threadpool_limits(limits=1):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 794, in __init__
+    super().__init__(ThreadpoolController(), limits=limits, user_api=user_api)
+                     ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 818, in __init__
+    self._load_libraries()
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 972, in _load_libraries
+    self._find_libraries_with_enum_process_module_ex()
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 1056, in _find_libraries_with_enum_process_module_ex
+    ps_api = self._get_windll("Psapi")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 1248, in _get_windll
+    dll = ctypes.WinDLL(f"{dll_name}.dll")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1124, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1128, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1189, in _execute_mock_call
+    result = effect(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\run_msb_execution_repair_acceptance.py", line 41, in reject
+    raise AssertionError("UNMOCKED_NATIVE_BOUNDARY_FORBIDDEN: "+name)
+AssertionError: UNMOCKED_NATIVE_BOUNDARY_FORBIDDEN: WinDLL
+
+======================================================================
+FAIL: test_no_validation_grad_or_selection (test_msb_role_training.TrainingTests.test_no_validation_grad_or_selection)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_msb_role_training.py", line 41, in test_no_validation_grad_or_selection
+    before=self.short()
+           ^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_msb_role_training.py", line 27, in short
+    return training.fit_trajectory(self.data["train"],validation or self.data["validation"],unit,20261002,max_updates=2,checkpoints=(0,1,2))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\msb_role_training.py", line 106, in fit_trajectory
+    with threadpool_limits(limits=1):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 794, in __init__
+    super().__init__(ThreadpoolController(), limits=limits, user_api=user_api)
+                     ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 818, in __init__
+    self._load_libraries()
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 972, in _load_libraries
+    self._find_libraries_with_enum_process_module_ex()
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 1056, in _find_libraries_with_enum_process_module_ex
+    ps_api = self._get_windll("Psapi")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 1248, in _get_windll
+    dll = ctypes.WinDLL(f"{dll_name}.dll")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1124, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1128, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1189, in _execute_mock_call
+    result = effect(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\run_msb_execution_repair_acceptance.py", line 41, in reject
+    raise AssertionError("UNMOCKED_NATIVE_BOUNDARY_FORBIDDEN: "+name)
+AssertionError: UNMOCKED_NATIVE_BOUNDARY_FORBIDDEN: WinDLL
+
+======================================================================
+FAIL: test_primary_masks_require_actual_hundred_updates (test_msb_role_training.TrainingTests.test_primary_masks_require_actual_hundred_updates)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_msb_role_training.py", line 88, in test_primary_masks_require_actual_hundred_updates
+    result=training.fit_trajectory(self.data["train"],self.data["validation"],"MAIN",20261002,max_updates=100,checkpoints=(0,100))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\msb_role_training.py", line 106, in fit_trajectory
+    with threadpool_limits(limits=1):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 794, in __init__
+    super().__init__(ThreadpoolController(), limits=limits, user_api=user_api)
+                     ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 818, in __init__
+    self._load_libraries()
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 972, in _load_libraries
+    self._find_libraries_with_enum_process_module_ex()
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 1056, in _find_libraries_with_enum_process_module_ex
+    ps_api = self._get_windll("Psapi")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 1248, in _get_windll
+    dll = ctypes.WinDLL(f"{dll_name}.dll")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1124, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1128, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1189, in _execute_mock_call
+    result = effect(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\run_msb_execution_repair_acceptance.py", line 41, in reject
+    raise AssertionError("UNMOCKED_NATIVE_BOUNDARY_FORBIDDEN: "+name)
+AssertionError: UNMOCKED_NATIVE_BOUNDARY_FORBIDDEN: WinDLL
+
+======================================================================
+FAIL: test_reference_unchanged_all_steps (test_msb_role_training.TrainingTests.test_reference_unchanged_all_steps)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_msb_role_training.py", line 58, in test_reference_unchanged_all_steps
+    result=self.short()
+           ^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_msb_role_training.py", line 27, in short
+    return training.fit_trajectory(self.data["train"],validation or self.data["validation"],unit,20261002,max_updates=2,checkpoints=(0,1,2))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\msb_role_training.py", line 106, in fit_trajectory
+    with threadpool_limits(limits=1):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 794, in __init__
+    super().__init__(ThreadpoolController(), limits=limits, user_api=user_api)
+                     ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 818, in __init__
+    self._load_libraries()
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 972, in _load_libraries
+    self._find_libraries_with_enum_process_module_ex()
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 1056, in _find_libraries_with_enum_process_module_ex
+    ps_api = self._get_windll("Psapi")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 1248, in _get_windll
+    dll = ctypes.WinDLL(f"{dll_name}.dll")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1124, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1128, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1189, in _execute_mock_call
+    result = effect(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\run_msb_execution_repair_acceptance.py", line 41, in reject
+    raise AssertionError("UNMOCKED_NATIVE_BOUNDARY_FORBIDDEN: "+name)
+AssertionError: UNMOCKED_NATIVE_BOUNDARY_FORBIDDEN: WinDLL
+
+======================================================================
+FAIL: test_convex_certificate_independently_recomputed (test_analyze_msb_role_mechanism.AnalysisTests.test_convex_certificate_independently_recomputed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_analyze_msb_role_mechanism.py", line 183, in test_convex_certificate_independently_recomputed
+    result = fit_convex_fold(self.data["train"],self.data["validation"],unit,deadline_check=lambda:None)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\msb_role_training.py", line 139, in fit_convex_fold
+    with threadpool_limits(limits=1):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 794, in __init__
+    super().__init__(ThreadpoolController(), limits=limits, user_api=user_api)
+                     ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 818, in __init__
+    self._load_libraries()
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 972, in _load_libraries
+    self._find_libraries_with_enum_process_module_ex()
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 1056, in _find_libraries_with_enum_process_module_ex
+    ps_api = self._get_windll("Psapi")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 1248, in _get_windll
+    dll = ctypes.WinDLL(f"{dll_name}.dll")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1124, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1128, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1189, in _execute_mock_call
+    result = effect(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\run_msb_execution_repair_acceptance.py", line 41, in reject
+    raise AssertionError("UNMOCKED_NATIVE_BOUNDARY_FORBIDDEN: "+name)
+AssertionError: UNMOCKED_NATIVE_BOUNDARY_FORBIDDEN: WinDLL
+
+======================================================================
+FAIL: test_same_state_off_returns_anchor_not_old_shared_head (test_analyze_msb_role_mechanism.AnalysisTests.test_same_state_off_returns_anchor_not_old_shared_head)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_analyze_msb_role_mechanism.py", line 157, in test_same_state_off_returns_anchor_not_old_shared_head
+    result = self.trajectory(); point = result["checkpoints"][-1]
+             ^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_analyze_msb_role_mechanism.py", line 153, in trajectory
+    return fit_trajectory(self.data["train"],self.data["validation"],"MAIN",SEEDS[0],
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\msb_role_training.py", line 106, in fit_trajectory
+    with threadpool_limits(limits=1):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 794, in __init__
+    super().__init__(ThreadpoolController(), limits=limits, user_api=user_api)
+                     ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 818, in __init__
+    self._load_libraries()
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 972, in _load_libraries
+    self._find_libraries_with_enum_process_module_ex()
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 1056, in _find_libraries_with_enum_process_module_ex
+    ps_api = self._get_windll("Psapi")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 1248, in _get_windll
+    dll = ctypes.WinDLL(f"{dll_name}.dll")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1124, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1128, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1189, in _execute_mock_call
+    result = effect(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\run_msb_execution_repair_acceptance.py", line 41, in reject
+    raise AssertionError("UNMOCKED_NATIVE_BOUNDARY_FORBIDDEN: "+name)
+AssertionError: UNMOCKED_NATIVE_BOUNDARY_FORBIDDEN: WinDLL
+
+======================================================================
+FAIL: test_tampered_state_or_prediction_fails (test_analyze_msb_role_mechanism.AnalysisTests.test_tampered_state_or_prediction_fails)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_analyze_msb_role_mechanism.py", line 169, in test_tampered_state_or_prediction_fails
+    result = self.trajectory(); point = result["checkpoints"][-1]
+             ^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_analyze_msb_role_mechanism.py", line 153, in trajectory
+    return fit_trajectory(self.data["train"],self.data["validation"],"MAIN",SEEDS[0],
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\msb_role_training.py", line 106, in fit_trajectory
+    with threadpool_limits(limits=1):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 794, in __init__
+    super().__init__(ThreadpoolController(), limits=limits, user_api=user_api)
+                     ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 818, in __init__
+    self._load_libraries()
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 972, in _load_libraries
+    self._find_libraries_with_enum_process_module_ex()
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 1056, in _find_libraries_with_enum_process_module_ex
+    ps_api = self._get_windll("Psapi")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.venv-training\Lib\site-packages\threadpoolctl.py", line 1248, in _get_windll
+    dll = ctypes.WinDLL(f"{dll_name}.dll")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1124, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1128, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1189, in _execute_mock_call
+    result = effect(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\run_msb_execution_repair_acceptance.py", line 41, in reject
+    raise AssertionError("UNMOCKED_NATIVE_BOUNDARY_FORBIDDEN: "+name)
+AssertionError: UNMOCKED_NATIVE_BOUNDARY_FORBIDDEN: WinDLL
+
+----------------------------------------------------------------------
+Ran 119 tests in 48.022s
+
+FAILED (failures=9, errors=1)
+{"scope": "SYNTHETIC_CONTRACT_ONLY", "status": "FAILED", "tests_run": 119, "failures": 9, "errors": 1, "skipped": 0, "modules": ["test_msb_execution_safety", "test_msb_role_data", "test_msb_role_model", "test_msb_role_controls", "test_msb_role_audit", "test_msb_role_training", "test_run_msb_role_mechanism", "test_analyze_msb_role_mechanism", "test_generate_msb_role_figure"], "native_os_exercised": false, "unmocked_boundary_calls": ["torch.load outside synthetic temp", "WinDLL", "WinDLL", "WinDLL", "WinDLL", "WinDLL", "WinDLL", "WinDLL", "WinDLL"], "real_data_opened": false, "temporary_synthetic_tensor_reads": 0, "real_fits": 0, "historical_clock_deviation_disclosed_separately": true}

@@ -285,6 +285,12 @@ C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独�
 方案保持网络/损失/公式及80任务、75拟合不变，将联合三折验收前移到首次拟合之前，并设计活跃父监督及继承累计期限。
 当前为`DOCUMENTED_NOT_IMPLEMENTED_NOT_RUN`，只编写与归档文档；未修源码、运行测试或访问真实数据，开发和合成验收仍待用户审核及另行批准。
 
+2026-10-16随后获准原生实施上述修复，已完成[执行合同修复与合成验收记录](docs/experiment_records/2026-10-16_msb_execution_contract_repair_acceptance.md)：
+[最终v3守卫验收](outputs/msb_execution_repair_synthetic_v3/acceptance_summary.json)九模块121项通过，受限接口未模拟调用为0，旧34源码及10项保护文件不变。
+原网络/损失/公式、80任务/75拟合矩阵及正式报告未改；新增安全模块后未来执行闭包为43项。
+早期非法入口回归的只读系统时钟采样、v1验收器失败及修正均已单独披露，不反向标成完全模拟或模型效果。
+当前为`AUTHOR_REPAIR_SYNTHETIC_ACCEPTED_INDEPENDENT_REVIEW_PENDING`：尚无新独立复查、原生监督验收或真实MSB结果，不据此宣称网络改进有效。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.

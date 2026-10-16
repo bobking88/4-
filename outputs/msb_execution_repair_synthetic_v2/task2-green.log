@@ -1,0 +1,14 @@
+test_exact_deadline_and_noninteger_budget_rejected (test_msb_execution_safety.ScopeTests.test_exact_deadline_and_noninteger_budget_rejected) ... ok
+test_invalid_framing_and_duplicate_json_keys_fail_closed (test_msb_execution_safety.ScopeTests.test_invalid_framing_and_duplicate_json_keys_fail_closed) ... ok
+test_missing_parent_capability_cannot_be_recovered_from_packet (test_msb_execution_safety.ScopeTests.test_missing_parent_capability_cannot_be_recovered_from_packet) ... ok
+test_new_child_guard_does_not_restart_budget (test_msb_execution_safety.ScopeTests.test_new_child_guard_does_not_restart_budget) ... ok
+test_parent_death_disconnect_and_expired_lease_revoke_scope (test_msb_execution_safety.ScopeTests.test_parent_death_disconnect_and_expired_lease_revoke_scope) ... ok
+test_publish_keeps_deadline_after_awake_release_without_reacquire (test_msb_execution_safety.ScopeTests.test_publish_keeps_deadline_after_awake_release_without_reacquire) ... ok
+test_renewal_cannot_extend_original_deadline_or_replay_sequence (test_msb_execution_safety.ScopeTests.test_renewal_cannot_extend_original_deadline_or_replay_sequence) ... ok
+test_reused_pid_with_different_creation_time_rejected (test_msb_execution_safety.ScopeTests.test_reused_pid_with_different_creation_time_rejected) ... ok
+test_unbound_context_fails_instead_of_zero_elapsed (test_msb_execution_safety.ScopeTests.test_unbound_context_fails_instead_of_zero_elapsed) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.001s
+
+OK

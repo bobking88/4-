@@ -1,0 +1,95 @@
+test_cleanup_after_deadline_cannot_grant_compute_time (test_msb_execution_safety.LauncherTests.test_cleanup_after_deadline_cannot_grant_compute_time) ... FAIL
+test_job_assignment_failure_kills_without_fallback (test_msb_execution_safety.LauncherTests.test_job_assignment_failure_kills_without_fallback) ... FAIL
+test_job_handle_not_inherited_and_all_channel_ends_closed (test_msb_execution_safety.LauncherTests.test_job_handle_not_inherited_and_all_channel_ends_closed) ... FAIL
+test_kill_wait_or_release_uncertain_cannot_complete (test_msb_execution_safety.LauncherTests.test_kill_wait_or_release_uncertain_cannot_complete) ... FAIL
+test_lost_ack_does_not_renew_or_launch_next_job (test_msb_execution_safety.LauncherTests.test_lost_ack_does_not_renew_or_launch_next_job) ... FAIL
+test_no_grant_before_job_assignment (test_msb_execution_safety.LauncherTests.test_no_grant_before_job_assignment) ... FAIL
+test_no_renewal_from_unconditional_background_thread (test_msb_execution_safety.LauncherTests.test_no_renewal_from_unconditional_background_thread) ... FAIL
+test_parent_exit_before_assignment_never_enters_body (test_msb_execution_safety.LauncherTests.test_parent_exit_before_assignment_never_enters_body) ... FAIL
+test_parent_exit_between_publish_and_launch_denies_manual_worker (test_msb_execution_safety.LauncherTests.test_parent_exit_between_publish_and_launch_denies_manual_worker) ... FAIL
+test_exact_deadline_and_noninteger_budget_rejected (test_msb_execution_safety.ScopeTests.test_exact_deadline_and_noninteger_budget_rejected) ... ok
+test_invalid_framing_and_duplicate_json_keys_fail_closed (test_msb_execution_safety.ScopeTests.test_invalid_framing_and_duplicate_json_keys_fail_closed) ... ok
+test_missing_parent_capability_cannot_be_recovered_from_packet (test_msb_execution_safety.ScopeTests.test_missing_parent_capability_cannot_be_recovered_from_packet) ... ok
+test_new_child_guard_does_not_restart_budget (test_msb_execution_safety.ScopeTests.test_new_child_guard_does_not_restart_budget) ... ok
+test_parent_death_disconnect_and_expired_lease_revoke_scope (test_msb_execution_safety.ScopeTests.test_parent_death_disconnect_and_expired_lease_revoke_scope) ... ok
+test_publish_keeps_deadline_after_awake_release_without_reacquire (test_msb_execution_safety.ScopeTests.test_publish_keeps_deadline_after_awake_release_without_reacquire) ... ok
+test_renewal_cannot_extend_original_deadline_or_replay_sequence (test_msb_execution_safety.ScopeTests.test_renewal_cannot_extend_original_deadline_or_replay_sequence) ... ok
+test_reused_pid_with_different_creation_time_rejected (test_msb_execution_safety.ScopeTests.test_reused_pid_with_different_creation_time_rejected) ... ok
+test_unbound_context_fails_instead_of_zero_elapsed (test_msb_execution_safety.ScopeTests.test_unbound_context_fails_instead_of_zero_elapsed) ... ok
+
+======================================================================
+FAIL: test_cleanup_after_deadline_cannot_grant_compute_time (test_msb_execution_safety.LauncherTests.test_cleanup_after_deadline_cannot_grant_compute_time)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_msb_execution_safety.py", line 182, in setUp
+    self.assertTrue(hasattr(safety,"MSBParentSupervisor"),"MSB parent launcher missing")
+AssertionError: False is not true : MSB parent launcher missing
+
+======================================================================
+FAIL: test_job_assignment_failure_kills_without_fallback (test_msb_execution_safety.LauncherTests.test_job_assignment_failure_kills_without_fallback)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_msb_execution_safety.py", line 182, in setUp
+    self.assertTrue(hasattr(safety,"MSBParentSupervisor"),"MSB parent launcher missing")
+AssertionError: False is not true : MSB parent launcher missing
+
+======================================================================
+FAIL: test_job_handle_not_inherited_and_all_channel_ends_closed (test_msb_execution_safety.LauncherTests.test_job_handle_not_inherited_and_all_channel_ends_closed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_msb_execution_safety.py", line 182, in setUp
+    self.assertTrue(hasattr(safety,"MSBParentSupervisor"),"MSB parent launcher missing")
+AssertionError: False is not true : MSB parent launcher missing
+
+======================================================================
+FAIL: test_kill_wait_or_release_uncertain_cannot_complete (test_msb_execution_safety.LauncherTests.test_kill_wait_or_release_uncertain_cannot_complete)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_msb_execution_safety.py", line 182, in setUp
+    self.assertTrue(hasattr(safety,"MSBParentSupervisor"),"MSB parent launcher missing")
+AssertionError: False is not true : MSB parent launcher missing
+
+======================================================================
+FAIL: test_lost_ack_does_not_renew_or_launch_next_job (test_msb_execution_safety.LauncherTests.test_lost_ack_does_not_renew_or_launch_next_job)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_msb_execution_safety.py", line 182, in setUp
+    self.assertTrue(hasattr(safety,"MSBParentSupervisor"),"MSB parent launcher missing")
+AssertionError: False is not true : MSB parent launcher missing
+
+======================================================================
+FAIL: test_no_grant_before_job_assignment (test_msb_execution_safety.LauncherTests.test_no_grant_before_job_assignment)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_msb_execution_safety.py", line 182, in setUp
+    self.assertTrue(hasattr(safety,"MSBParentSupervisor"),"MSB parent launcher missing")
+AssertionError: False is not true : MSB parent launcher missing
+
+======================================================================
+FAIL: test_no_renewal_from_unconditional_background_thread (test_msb_execution_safety.LauncherTests.test_no_renewal_from_unconditional_background_thread)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_msb_execution_safety.py", line 182, in setUp
+    self.assertTrue(hasattr(safety,"MSBParentSupervisor"),"MSB parent launcher missing")
+AssertionError: False is not true : MSB parent launcher missing
+
+======================================================================
+FAIL: test_parent_exit_before_assignment_never_enters_body (test_msb_execution_safety.LauncherTests.test_parent_exit_before_assignment_never_enters_body)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_msb_execution_safety.py", line 182, in setUp
+    self.assertTrue(hasattr(safety,"MSBParentSupervisor"),"MSB parent launcher missing")
+AssertionError: False is not true : MSB parent launcher missing
+
+======================================================================
+FAIL: test_parent_exit_between_publish_and_launch_denies_manual_worker (test_msb_execution_safety.LauncherTests.test_parent_exit_between_publish_and_launch_denies_manual_worker)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_msb_execution_safety.py", line 182, in setUp
+    self.assertTrue(hasattr(safety,"MSBParentSupervisor"),"MSB parent launcher missing")
+AssertionError: False is not true : MSB parent launcher missing
+
+----------------------------------------------------------------------
+Ran 18 tests in 0.003s
+
+FAILED (failures=9)

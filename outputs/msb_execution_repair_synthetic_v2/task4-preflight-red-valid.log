@@ -1,0 +1,47 @@
+test_analysis_scope_is_bound_to_existing_worker_guard (test_run_msb_role_mechanism.RunnerTests.test_analysis_scope_is_bound_to_existing_worker_guard) ... ok
+test_cli_failure_does_not_pass_due_to_verified_flag (test_run_msb_role_mechanism.RunnerTests.test_cli_failure_does_not_pass_due_to_verified_flag) ... ok
+test_code_only_approval_cannot_be_relabelled_real (test_run_msb_role_mechanism.RunnerTests.test_code_only_approval_cannot_be_relabelled_real) ... ok
+test_complete_metadata_and_source_identity_without_input_open (test_run_msb_role_mechanism.RunnerTests.test_complete_metadata_and_source_identity_without_input_open) ... ok
+test_draft_old_or_consumed_approval_opens_nothing (test_run_msb_role_mechanism.RunnerTests.test_draft_old_or_consumed_approval_opens_nothing) ... ok
+test_existing_output_symlink_and_invalid_worker_rejected (test_run_msb_role_mechanism.RunnerTests.test_existing_output_symlink_and_invalid_worker_rejected) ... ok
+test_final_verify_failure_is_terminal (test_run_msb_role_mechanism.RunnerTests.test_final_verify_failure_is_terminal) ... ok
+test_locally_valid_bad_threefold_preflight_has_zero_fit_calls (test_run_msb_role_mechanism.RunnerTests.test_locally_valid_bad_threefold_preflight_has_zero_fit_calls) ... FAIL
+test_missing_parent_release_evidence_fails (test_run_msb_role_mechanism.RunnerTests.test_missing_parent_release_evidence_fails) ... ok
+test_no_resume_stop_or_training_replay (test_run_msb_role_mechanism.RunnerTests.test_no_resume_stop_or_training_replay) ... ok
+test_nonfit_training_record_fails_before_any_optimizer (test_run_msb_role_mechanism.RunnerTests.test_nonfit_training_record_fails_before_any_optimizer) ... FAIL
+test_packet_tamper_does_not_start_worker (test_run_msb_role_mechanism.RunnerTests.test_packet_tamper_does_not_start_worker) ... ok
+test_protocol_scope_checked_before_file_read (test_run_msb_role_mechanism.RunnerTests.test_protocol_scope_checked_before_file_read) ... ok
+test_real_path_worker_fixture_has_complete_status_and_release (test_run_msb_role_mechanism.RunnerTests.test_real_path_worker_fixture_has_complete_status_and_release) ... ok
+test_remaining_budget_reaches_final_verification (test_run_msb_role_mechanism.RunnerTests.test_remaining_budget_reaches_final_verification) ... ok
+test_running_published_before_dispatch (test_run_msb_role_mechanism.RunnerTests.test_running_published_before_dispatch) ... ok
+test_timeout_power_release_interrupt_fail_closed (test_run_msb_role_mechanism.RunnerTests.test_timeout_power_release_interrupt_fail_closed) ... ok
+
+======================================================================
+FAIL: test_locally_valid_bad_threefold_preflight_has_zero_fit_calls (test_run_msb_role_mechanism.RunnerTests.test_locally_valid_bad_threefold_preflight_has_zero_fit_calls)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_run_msb_role_mechanism.py", line 103, in test_locally_valid_bad_threefold_preflight_has_zero_fit_calls
+    self.assertEqual([j["kind"] for j in jobs],["load"]*3)
+AssertionError: Lists differ: ['load', 'load', 'load', 'trajectory'] != ['load', 'load', 'load']
+
+First list contains 1 additional elements.
+First extra element 3:
+'trajectory'
+
+- ['load', 'load', 'load', 'trajectory']
+?                        --------------
+
++ ['load', 'load', 'load']
+
+======================================================================
+FAIL: test_nonfit_training_record_fails_before_any_optimizer (test_run_msb_role_mechanism.RunnerTests.test_nonfit_training_record_fails_before_any_optimizer)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_run_msb_role_mechanism.py", line 113, in test_nonfit_training_record_fails_before_any_optimizer
+    self.assertTrue(all(j["kind"]=="load" for j in jobs))
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 17 tests in 25.655s
+
+FAILED (failures=2)

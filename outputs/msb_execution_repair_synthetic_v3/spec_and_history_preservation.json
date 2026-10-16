@@ -1,0 +1,16 @@
+{
+  "specifications": [
+    {
+      "path": "docs/superpowers/specs/2026-10-14_margin_scaled_bilinear_role_evidence_design.md",
+      "lf_sha256": "f656d2c73826deda4b850b30a94e9b78f5c3b9dabfdd873157bfcbff6681df42",
+      "unchanged": true
+    },
+    {
+      "path": "docs/superpowers/specs/2026-10-16-msb-execution-contract-repair-design.md",
+      "lf_sha256": "ec55fc59d9f2be2de6f1d0021573094c5d354cae6e3c9cb68d1090ae3b9ec21a",
+      "unchanged": true
+    }
+  ],
+  "historical_83_test_log_git_blob": "bd7f6d9e21047f571893efc397d95b7df47caffe",
+  "historical_log_unchanged": true
+}

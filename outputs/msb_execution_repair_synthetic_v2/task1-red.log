@@ -1,0 +1,115 @@
+test_cross_fold_training_identity_and_scope_conflict (test_msb_role_data.DataTests.test_cross_fold_training_identity_and_scope_conflict) ... FAIL
+test_every_train_and_validation_row_requires_exact_fit_scope (test_msb_role_data.DataTests.test_every_train_and_validation_row_requires_exact_fit_scope) ... 
+  test_every_train_and_validation_row_requires_exact_fit_scope (test_msb_role_data.DataTests.test_every_train_and_validation_row_requires_exact_fit_scope) (part='train', scope=None) ... FAIL
+  test_every_train_and_validation_row_requires_exact_fit_scope (test_msb_role_data.DataTests.test_every_train_and_validation_row_requires_exact_fit_scope) (part='train', scope='') ... FAIL
+  test_every_train_and_validation_row_requires_exact_fit_scope (test_msb_role_data.DataTests.test_every_train_and_validation_row_requires_exact_fit_scope) (part='train', scope='other') ... FAIL
+  test_every_train_and_validation_row_requires_exact_fit_scope (test_msb_role_data.DataTests.test_every_train_and_validation_row_requires_exact_fit_scope) (part='train', scope='Projector_fit') ... FAIL
+  test_every_train_and_validation_row_requires_exact_fit_scope (test_msb_role_data.DataTests.test_every_train_and_validation_row_requires_exact_fit_scope) (part='train', scope='projector_fit ') ... FAIL
+test_every_train_and_validation_row_requires_exact_fit_scope (test_msb_role_data.DataTests.test_every_train_and_validation_row_requires_exact_fit_scope) ... FAIL
+test_fold_specific_features_are_not_required_equal (test_msb_role_data.DataTests.test_fold_specific_features_are_not_required_equal) ... FAIL
+test_hash_checked_before_torch_load (test_msb_role_data.DataTests.test_hash_checked_before_torch_load) ... ok
+test_joint_summary_rejects_locally_valid_oof_duplicate (test_msb_role_data.DataTests.test_joint_summary_rejects_locally_valid_oof_duplicate) ... FAIL
+test_missing_or_reordered_rows_fail (test_msb_role_data.DataTests.test_missing_or_reordered_rows_fail) ... ok
+test_no_raw_or_refit_fallback (test_msb_role_data.DataTests.test_no_raw_or_refit_fallback) ... ok
+test_registered_loader_roundtrip_and_digest_identity (test_msb_role_data.DataTests.test_registered_loader_roundtrip_and_digest_identity) ... ok
+test_summary_schema_rejects_bool_indices_and_unknown_fields (test_msb_role_data.DataTests.test_summary_schema_rejects_bool_indices_and_unknown_fields) ... FAIL
+test_train_validation_and_oof_groups_disjoint (test_msb_role_data.DataTests.test_train_validation_and_oof_groups_disjoint) ... ok
+test_validation_label_changes_do_not_change_input_state (test_msb_role_data.DataTests.test_validation_label_changes_do_not_change_input_state) ... ok
+test_wrong_fold_or_stop_record_fail (test_msb_role_data.DataTests.test_wrong_fold_or_stop_record_fail) ... ok
+
+======================================================================
+FAIL: test_cross_fold_training_identity_and_scope_conflict (test_msb_role_data.DataTests.test_cross_fold_training_identity_and_scope_conflict)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_msb_role_data.py", line 57, in test_cross_fold_training_identity_and_scope_conflict
+    summaries = self.summaries()
+                ^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_msb_role_data.py", line 26, in summaries
+    self.assertTrue(callable(getattr(data, "prepared_identity_summary", None)),
+AssertionError: False is not true : Prepared identity summaries missing
+
+======================================================================
+FAIL: test_every_train_and_validation_row_requires_exact_fit_scope (test_msb_role_data.DataTests.test_every_train_and_validation_row_requires_exact_fit_scope) (part='train', scope=None)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_msb_role_data.py", line 44, in test_every_train_and_validation_row_requires_exact_fit_scope
+    with self.assertRaises(ValueError): data.validate_prepared_fold(item, 0)
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_every_train_and_validation_row_requires_exact_fit_scope (test_msb_role_data.DataTests.test_every_train_and_validation_row_requires_exact_fit_scope) (part='train', scope='')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_msb_role_data.py", line 44, in test_every_train_and_validation_row_requires_exact_fit_scope
+    with self.assertRaises(ValueError): data.validate_prepared_fold(item, 0)
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_every_train_and_validation_row_requires_exact_fit_scope (test_msb_role_data.DataTests.test_every_train_and_validation_row_requires_exact_fit_scope) (part='train', scope='other')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_msb_role_data.py", line 44, in test_every_train_and_validation_row_requires_exact_fit_scope
+    with self.assertRaises(ValueError): data.validate_prepared_fold(item, 0)
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_every_train_and_validation_row_requires_exact_fit_scope (test_msb_role_data.DataTests.test_every_train_and_validation_row_requires_exact_fit_scope) (part='train', scope='Projector_fit')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_msb_role_data.py", line 44, in test_every_train_and_validation_row_requires_exact_fit_scope
+    with self.assertRaises(ValueError): data.validate_prepared_fold(item, 0)
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_every_train_and_validation_row_requires_exact_fit_scope (test_msb_role_data.DataTests.test_every_train_and_validation_row_requires_exact_fit_scope) (part='train', scope='projector_fit ')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_msb_role_data.py", line 44, in test_every_train_and_validation_row_requires_exact_fit_scope
+    with self.assertRaises(ValueError): data.validate_prepared_fold(item, 0)
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_every_train_and_validation_row_requires_exact_fit_scope (test_msb_role_data.DataTests.test_every_train_and_validation_row_requires_exact_fit_scope)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_msb_role_data.py", line 47, in test_every_train_and_validation_row_requires_exact_fit_scope
+    with self.assertRaises(ValueError): data.validate_prepared_fold(item, 0)
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_fold_specific_features_are_not_required_equal (test_msb_role_data.DataTests.test_fold_specific_features_are_not_required_equal)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_msb_role_data.py", line 84, in test_fold_specific_features_are_not_required_equal
+    summaries = self.summaries(folds)
+                ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_msb_role_data.py", line 26, in summaries
+    self.assertTrue(callable(getattr(data, "prepared_identity_summary", None)),
+AssertionError: False is not true : Prepared identity summaries missing
+
+======================================================================
+FAIL: test_joint_summary_rejects_locally_valid_oof_duplicate (test_msb_role_data.DataTests.test_joint_summary_rejects_locally_valid_oof_duplicate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_msb_role_data.py", line 53, in test_joint_summary_rejects_locally_valid_oof_duplicate
+    summaries = self.summaries(folds)
+                ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_msb_role_data.py", line 26, in summaries
+    self.assertTrue(callable(getattr(data, "prepared_identity_summary", None)),
+AssertionError: False is not true : Prepared identity summaries missing
+
+======================================================================
+FAIL: test_summary_schema_rejects_bool_indices_and_unknown_fields (test_msb_role_data.DataTests.test_summary_schema_rejects_bool_indices_and_unknown_fields)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_msb_role_data.py", line 64, in test_summary_schema_rejects_bool_indices_and_unknown_fields
+    summaries = self.summaries()
+                ^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_msb_role_data.py", line 26, in summaries
+    self.assertTrue(callable(getattr(data, "prepared_identity_summary", None)),
+AssertionError: False is not true : Prepared identity summaries missing
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.276s
+
+FAILED (failures=10)

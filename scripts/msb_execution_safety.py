@@ -312,6 +312,12 @@ def _terminal(error):
     return "FAILED"
 
 
+class _WorkerStartError(RuntimeError):
+    def __init__(self, spawned_process, reason):
+        super().__init__("SUPERVISION_INTERRUPTED: "+reason)
+        self.spawned_process = spawned_process
+
+
 class MSBParentSupervisor:
     def __init__(self, budget: RunBudget, run_id: str, protocol_digest: str, *, api=None):
         self.budget,self.run_id,self.protocol_digest = budget,run_id,protocol_digest
@@ -395,6 +401,7 @@ class MSBParentSupervisor:
                         acked,last_renew = False,now
                     self.api.pause(.05)
         except BaseException as failure:
+            if process is None: process = getattr(failure,"spawned_process",None)
             status,error = _terminal(failure),f"{type(failure).__name__}: {failure}"
         finally:
             cleanup_start = self.api.tick_ms()
@@ -510,14 +517,21 @@ class NativeMSBAPI:
         startup=subprocess.STARTUPINFO(); startup.lpAttributeList={"handle_list":inherited}
         env=dict(os.environ,OMP_NUM_THREADS="1",MKL_NUM_THREADS="1",OPENBLAS_NUM_THREADS="1",
                  NUMEXPR_NUM_THREADS="1",PYTHONUNBUFFERED="1",PYTHONUTF8="1")
+        process = None
         try:
             for handle in inherited: os.set_handle_inheritable(handle,True)
             with Path(job["log_path"]).open("x",encoding="utf-8") as log:
-                return subprocess.Popen([*job["command"],"--worker-handles",json.dumps(child_handles)],
-                                        stdout=log,stderr=subprocess.STDOUT,stdin=subprocess.DEVNULL,
-                                        env=env,close_fds=True,startupinfo=startup,creationflags=subprocess.CREATE_NO_WINDOW)
+                process = subprocess.Popen([*job["command"],"--worker-handles",json.dumps(child_handles)],
+                                           stdout=log,stderr=subprocess.STDOUT,stdin=subprocess.DEVNULL,
+                                           env=env,close_fds=True,startupinfo=startup,creationflags=subprocess.CREATE_NO_WINDOW)
         finally:
-            for handle in inherited: os.set_handle_inheritable(handle,False)
+            restoration_error = None
+            for handle in inherited:
+                try: os.set_handle_inheritable(handle,False)
+                except BaseException as error: restoration_error = error
+            if restoration_error is not None:
+                raise _WorkerStartError(process,"handle inheritance restoration failed") from restoration_error
+        return process
 
     def create_kill_job(self):
         handle=self._ok(self.kernel.CreateJobObjectW(None,None))

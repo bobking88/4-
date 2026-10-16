@@ -1,0 +1,62 @@
+[
+  {
+    "path": "outputs/report_assets_v9/cgdc_decomposition.png",
+    "expected": "f142c749e41a5d3a027a0b0c8571d7358fbfe01e738b3a418adb443e388d7123",
+    "actual": "f142c749e41a5d3a027a0b0c8571d7358fbfe01e738b3a418adb443e388d7123",
+    "unchanged": true
+  },
+  {
+    "path": "outputs/report_assets_v9/mrpg_identity.png",
+    "expected": "6a8d9f993400a621b699d5579e7bb6acd742bcaac8939dd7fab98b1fff247519",
+    "actual": "6a8d9f993400a621b699d5579e7bb6acd742bcaac8939dd7fab98b1fff247519",
+    "unchanged": true
+  },
+  {
+    "path": "outputs/report_assets_v9/mrpg_monotone_gate.png",
+    "expected": "bbdd9f1671bfaf007292512e3c9cea7845d3e195b984349fe489a7beffe18d9c",
+    "actual": "bbdd9f1671bfaf007292512e3c9cea7845d3e195b984349fe489a7beffe18d9c",
+    "unchanged": true
+  },
+  {
+    "path": "outputs/report_assets_v9/rpg_entropy.png",
+    "expected": "5251d7a1548b715f98eff21969bbf93dbf77f2f38b862a98887492afe1aba90e",
+    "actual": "5251d7a1548b715f98eff21969bbf93dbf77f2f38b862a98887492afe1aba90e",
+    "unchanged": true
+  },
+  {
+    "path": "outputs/report_assets_v9/rpg_fusion.png",
+    "expected": "9723e900e48cd60f84be038afed3bcd3c9c524fc8c0706604e7583956389996c",
+    "actual": "9723e900e48cd60f84be038afed3bcd3c9c524fc8c0706604e7583956389996c",
+    "unchanged": true
+  },
+  {
+    "path": "outputs/report_assets_v9/rpg_gate.png",
+    "expected": "a0ba1106c2b734a75c379c959040feb8735aa5172079e1c076fd2f7190ef971a",
+    "actual": "a0ba1106c2b734a75c379c959040feb8735aa5172079e1c076fd2f7190ef971a",
+    "unchanged": true
+  },
+  {
+    "path": "结题/基于深度学习的钒钛矿相关矿物图像识别方法研究_技术报告（正式版）.docx",
+    "expected": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+    "actual": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+    "unchanged": true
+  },
+  {
+    "path": "D:/成信工科研/人工智能选矿/结题/基于深度学习的钒钛矿相关矿物图像识别方法研究_技术报告（正式版）.docx",
+    "expected": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+    "actual": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+    "unchanged": true
+  },
+  {
+    "path": "docs/experiment_protocols/ic_role_mechanism_v2.json",
+    "expected": "332dd67fec71b123a0b88eea1d0c255e34af11d251f9f48f672065d78679852c",
+    "actual": "332dd67fec71b123a0b88eea1d0c255e34af11d251f9f48f672065d78679852c",
+    "unchanged": true
+  },
+  {
+    "path": "docs/superpowers/specs/2026-10-12-identity-centered-role-adaptation-design.md",
+    "expected": "35894a722b27fd5bc7e02a23d1e87047b5e5acdb0762a5ed99dae6bab7f5183f",
+    "actual": "35894a722b27fd5bc7e02a23d1e87047b5e5acdb0762a5ed99dae6bab7f5183f",
+    "unchanged": true
+  }
+]

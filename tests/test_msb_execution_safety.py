@@ -154,6 +154,7 @@ class LauncherAPI(FakeAPI):
     def create_kill_job(self): self.events.append("create-job"); return 30
     def start_worker(self,job,handles):
         self.events.append("spawn")
+        if self.failure=="restore": raise safety._WorkerStartError(self.process,"inheritance restoration failed")
         if self.failure=="before-assignment": self.alive=False
         packet=json.loads(Path(job["packet_path"]).read_text(encoding="utf-8"))
         binding=safety._binding_from_metadata(packet,job["packet_path"],handles,8,self)
@@ -275,6 +276,13 @@ class LauncherTests(unittest.TestCase):
             scope.begin_work(); awake.released=True; scope.begin_publish(awake.evidence())
         self.assertEqual([m["kind"] for m in api.sent],["HELLO","ACK","DONE"])
 
+    def test_post_spawn_restore_failure_still_kills_and_waits(self):
+        result,api=self.run_fake("restore")
+        self.assertNotEqual(result["status"],"COMPLETE")
+        self.assertEqual(result["attempts"],1)
+        self.assertIn("killed",api.events)
+        self.assertFalse(result["alive"])
+
 
 class NativeAdapterTests(unittest.TestCase):
     def setUp(self): self.assertTrue(hasattr(safety,"NativeMSBAPI"))
@@ -316,3 +324,17 @@ class NativeAdapterTests(unittest.TestCase):
         api.kernel=SimpleNamespace(CreateJobObjectW=lambda a,b:30,SetInformationJobObject=configure)
         self.assertEqual(api.create_kill_job(),30)
         self.assertEqual(captured,[(30,9,0x2000)])
+
+    def test_native_restore_error_retains_spawned_process_for_cleanup(self):
+        api=object.__new__(safety.NativeMSBAPI)
+        process=FakeProcess()
+        handles=dict(read_handle=11,write_handle=12,parent_handle=10,nonce="3"*64)
+        def inherit(handle,flag):
+            if handle==11 and flag is False: raise OSError("restore failed")
+        with tempfile.TemporaryDirectory() as folder:
+            with patch.object(safety.subprocess,"STARTUPINFO",return_value=SimpleNamespace()),patch.object(
+                    safety.os,"set_handle_inheritable",side_effect=inherit),patch.object(safety.subprocess,"Popen",return_value=process):
+                try: api.start_worker(dict(command=["python"],log_path=str(Path(folder)/"log")),handles)
+                except BaseException as error:
+                    self.assertIs(getattr(error,"spawned_process",None),process)
+                else: self.fail("restore failure was swallowed")

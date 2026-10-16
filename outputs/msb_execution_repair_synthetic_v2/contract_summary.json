@@ -1,0 +1,45 @@
+{
+  "status": "AUTHOR_REPAIR_SYNTHETIC_ACCEPTED_INDEPENDENT_REVIEW_PENDING",
+  "authorization": "call_3d401d8b809843e0b7103995a772caad",
+  "scope": "SYNTHETIC_CONTRACT_ONLY",
+  "tests_passed": 119,
+  "real_data_opened": false,
+  "real_fits": 0,
+  "native_supervision_acceptance_run": false,
+  "final_acceptance_unmocked_boundary_calls": 0,
+  "matrix": {
+    "stage_jobs": 80,
+    "neural_trajectories": 63,
+    "convex_fits": 12,
+    "new_pca_t0": 0,
+    "primary_checkpoint": 100,
+    "max_updates": 400,
+    "cumulative_seconds": 7200,
+    "final_validation_forwards": 615,
+    "final_train_certificates": 12
+  },
+  "evidence_tests": [
+    "test_no_grant_before_job_assignment",
+    "test_reused_pid_with_different_creation_time_rejected",
+    "test_locally_valid_bad_threefold_preflight_has_zero_fit_calls",
+    "test_nonfit_training_record_fails_before_any_optimizer",
+    "test_preflight_artifact_tamper_denied_before_fold_load",
+    "test_analysis_and_final_export_share_original_deadline"
+  ],
+  "legacy_sources_unchanged": 34,
+  "protected_artifacts_unchanged": 10,
+  "network_loss_formula_sources_unchanged": 4,
+  "limitations": [
+    "No fresh independent review",
+    "No native Job/pipe/power/termination acceptance",
+    "No real model improvement or generalization evidence",
+    "Earlier invalid-entry integration tests sampled a native read-only system tick before the global mock; not a timing benchmark, no process/power/data/fit on those paths",
+    "Guarded v1 failed on acceptance-harness false positives; v1 outputs retained, v2 passed after harness-only fixes"
+  ],
+  "prior_unintended_clock_samples": {
+    "occurred": true,
+    "count_not_instrumented": true,
+    "real_experiment": false,
+    "disclosed": true
+  }
+}

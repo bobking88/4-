@@ -1,0 +1,35 @@
+{
+  "scope": "SYNTHETIC_CONTRACT_ONLY",
+  "status": "FAILED",
+  "tests_run": 119,
+  "failures": 9,
+  "errors": 1,
+  "skipped": 0,
+  "modules": [
+    "test_msb_execution_safety",
+    "test_msb_role_data",
+    "test_msb_role_model",
+    "test_msb_role_controls",
+    "test_msb_role_audit",
+    "test_msb_role_training",
+    "test_run_msb_role_mechanism",
+    "test_analyze_msb_role_mechanism",
+    "test_generate_msb_role_figure"
+  ],
+  "native_os_exercised": false,
+  "unmocked_boundary_calls": [
+    "torch.load outside synthetic temp",
+    "WinDLL",
+    "WinDLL",
+    "WinDLL",
+    "WinDLL",
+    "WinDLL",
+    "WinDLL",
+    "WinDLL",
+    "WinDLL"
+  ],
+  "real_data_opened": false,
+  "temporary_synthetic_tensor_reads": 0,
+  "real_fits": 0,
+  "historical_clock_deviation_disclosed_separately": true
+}
