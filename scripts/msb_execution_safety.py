@@ -3,10 +3,17 @@ from __future__ import annotations
 
 from contextvars import ContextVar
 from dataclasses import dataclass
+import ctypes
+from ctypes import wintypes
 import hashlib
 import json
+import os
+from pathlib import Path
 import re
+import secrets
 import struct
+import subprocess
+import sys
 import threading
 
 MAX_MS = 7_200_000
@@ -231,3 +238,332 @@ def msb_stage_elapsed_seconds() -> float:
     scope = _CURRENT.get()
     if scope is None: raise _interrupted("no inherited MSB worker scope")
     return scope.check()
+
+
+def _published(packet_path):
+    path = Path(packet_path).resolve()
+    if path.name != "packet.json" or path.parent.parent.name != "runs":
+        raise ValueError("Only an exclusive worker packet is allowed.")
+    payload = path.read_bytes()
+    if len(payload) > 65536: raise ValueError("Worker metadata exceeds bound.")
+    packet = json.loads(payload)
+    output = Path(packet["output"]).resolve()
+    state = json.loads((output/"stage_state.json").read_text(encoding="utf-8"))
+    if (path != output/"runs"/packet["job_id"]/"packet.json" or state.get("status") != "RUNNING"
+            or state.get("active_job") != packet["job_id"]
+            or any(state.get(k) != packet.get(k) for k in
+                   ("run_id","protocol_digest","start_tick_ms","deadline_tick_ms"))
+            or state.get("packets",{}).get(packet["job_id"]) != hashlib.sha256(payload).hexdigest()
+            or (path.parent/"task_started.json").exists()):
+        raise _interrupted("packet is stale, consumed or not published by parent")
+    return packet
+
+
+def _binding_from_metadata(packet, packet_path, handles, worker_pid, api):
+    required = {"read_handle","write_handle","parent_handle","nonce"}
+    if (not isinstance(handles,dict) or set(handles) != required
+            or any(type(handles[k]) is not int or handles[k] <= 0 for k in required-{"nonce"})
+            or not isinstance(handles["nonce"],str) or not re.fullmatch(r"[a-f0-9]{64}",handles["nonce"])):
+        raise ValueError("Missing inherited worker channel.")
+    parent_identity = api.process_identity(handles["parent_handle"])
+    if parent_identity != (packet["parent_pid"],packet["parent_created"]):
+        raise _interrupted("original parent identity changed")
+    return _VerifiedBinding(packet["run_id"],packet["job_id"],packet["protocol_digest"],
+                            hashlib.sha256(Path(packet_path).read_bytes()).hexdigest(),handles["nonce"],
+                            worker_pid,*parent_identity,handles["parent_handle"],handles["read_handle"],
+                            handles["write_handle"],RunBudget(packet["start_tick_ms"],packet["deadline_tick_ms"]),1,0)
+
+
+def open_worker_scope(packet_path: Path, handles: dict, *, api=None, awake_guard):
+    if not isinstance(handles,dict) or set(handles) != {"read_handle","write_handle","parent_handle","nonce"}:
+        raise ValueError("Worker cannot start from disk metadata alone.")
+    api = NativeMSBAPI() if api is None else api
+    binding = None
+    try:
+        packet = _published(packet_path)
+        binding = _binding_from_metadata(packet,packet_path,handles,api.current_pid(),api)
+        started = api.tick_ms()
+        binding.budget.remaining_seconds(started)
+        api.write_message(binding.write_handle,control_message(binding,"HELLO",sequence=0,lease_until_tick_ms=0))
+        while True:
+            now = api.tick_ms()
+            binding.budget.remaining_seconds(now)
+            if now-started >= LEASE_MS or not api.process_alive(binding.parent_handle):
+                raise _interrupted("parent unavailable before GRANT")
+            grant = api.read_message(binding.read_handle)
+            if grant is not None:
+                _validate_message(grant)
+                expected = control_message(binding,"GRANT",lease_until_tick_ms=grant["lease_until_tick_ms"])
+                if grant != expected or not now < grant["lease_until_tick_ms"] <= min(now+LEASE_MS,binding.budget.deadline_tick_ms):
+                    raise _interrupted("invalid parent GRANT")
+                binding = _VerifiedBinding(**{**binding.__dict__,"lease_until_tick_ms":grant["lease_until_tick_ms"]})
+                api.write_message(binding.write_handle,control_message(binding,"ACK"))
+                return MSBWorkerScope(binding,api=api,awake_guard=awake_guard)
+            api.pause(.05)
+    except BaseException:
+        for name in ("read_handle","write_handle","parent_handle"):
+            if type(handles.get(name)) is int and handles[name] > 0: api.close_handle(handles[name])
+        raise
+
+
+def _terminal(error):
+    for name in ("TIMED_OUT","SUPERVISION_INTERRUPTED","POWER_RELEASE_FAILED","NUMERIC_RANGE_FAILURE"):
+        if name in str(error): return name
+    return "FAILED"
+
+
+class MSBParentSupervisor:
+    def __init__(self, budget: RunBudget, run_id: str, protocol_digest: str, *, api=None):
+        self.budget,self.run_id,self.protocol_digest = budget,run_id,protocol_digest
+        self.api = NativeMSBAPI() if api is None else api
+        self.guard = None
+
+    def check(self):
+        remaining = self.budget.remaining_seconds(self.api.tick_ms())
+        if self.guard is not None: self.guard.check()
+        return remaining
+
+    def __enter__(self):
+        self.check()
+        self.guard = self.api.awake_guard()
+        self.guard.__enter__()
+        try: self.check()
+        except BaseException:
+            self.guard.__exit__(*sys.exc_info()); raise
+        return self
+
+    def __exit__(self,*args):
+        if self.guard is not None: self.guard.__exit__(*args)
+
+    def evidence(self): return {} if self.guard is None else self.guard.evidence()
+
+    def run_job(self, job: dict, protocol: dict) -> dict:
+        started = self.api.tick_ms()
+        channel, process, kill_job, binding = None,None,None,None
+        acked, done, assigned, lease, sequence = False,False,False,0,1
+        status, error, cleanup_ok = "FAILED","",True
+        guard = None
+        try:
+            self.check()
+            packet = _published(job["packet_path"])
+            if (packet["run_id"] != self.run_id or packet["protocol_digest"] != self.protocol_digest
+                    or packet["start_tick_ms"] != self.budget.start_tick_ms
+                    or packet["deadline_tick_ms"] != self.budget.deadline_tick_ms):
+                raise _interrupted("parent run binding differs")
+            with self.api.awake_guard() as guard:
+                channel = self.api.create_channel()
+                kill_job = self.api.create_kill_job()
+                child = dict(read_handle=channel["child_read"],write_handle=channel["child_write"],
+                             parent_handle=channel["parent_handle"],nonce=secrets.token_hex(32))
+                process = self.api.start_worker(job,child)
+                for field in ("child_read","child_write"):
+                    self.api.close_handle(channel[field]); channel[field] = None
+                binding = _binding_from_metadata(packet,job["packet_path"],child,process.pid,self.api)
+                self.check(); guard.check()
+                if not self.api.process_alive(binding.parent_handle): raise _interrupted("parent lost before assignment")
+                self.api.assign_job(kill_job,process); assigned = True
+                granted, last_renew = False, self.api.tick_ms()
+                while True:
+                    self.check(); guard.check()
+                    now = self.api.tick_ms()
+                    if now-started >= LEASE_MS and not granted: raise _interrupted("worker HELLO timeout")
+                    message = None if done else self.api.read_message(channel["parent_read"])
+                    if message is not None:
+                        _validate_message(message)
+                        if not granted:
+                            if message != control_message(binding,"HELLO",sequence=0,lease_until_tick_ms=0):
+                                raise _interrupted("worker HELLO identity differs")
+                            _published(job["packet_path"])
+                            lease = min(now+LEASE_MS,self.budget.deadline_tick_ms)
+                            self.api.write_message(channel["parent_write"],control_message(binding,"GRANT",lease_until_tick_ms=lease))
+                            granted,last_renew = True,now
+                        elif message == control_message(binding,"ACK",sequence=sequence,lease_until_tick_ms=lease) and not acked:
+                            acked = True
+                        elif (acked and not done and message == control_message(binding,"DONE",sequence=sequence,
+                                                                                lease_until_tick_ms=lease,power_released=True)):
+                            done = True
+                        else: raise _interrupted("worker ACK/DONE identity or order differs")
+                    if granted and now >= lease: raise _interrupted("worker lease/ACK expired")
+                    if process.poll() is not None:
+                        if process.returncode != 0 or not acked or not done:
+                            raise _interrupted("worker exit lacks bound DONE and release evidence")
+                        status = "COMPLETE"; break
+                    if granted and not done and now-last_renew >= RENEW_MS:
+                        if not acked: raise _interrupted("worker did not acknowledge current lease")
+                        sequence += 1; lease = min(now+LEASE_MS,self.budget.deadline_tick_ms)
+                        self.api.write_message(channel["parent_write"],control_message(binding,"RENEW",sequence=sequence,lease_until_tick_ms=lease))
+                        acked,last_renew = False,now
+                    self.api.pause(.05)
+        except BaseException as failure:
+            status,error = _terminal(failure),f"{type(failure).__name__}: {failure}"
+        finally:
+            cleanup_start = self.api.tick_ms()
+            try:
+                if process is not None:
+                    if process.poll() is None:
+                        if assigned: self.api.terminate_job(kill_job)
+                        else: self.api.kill_process(process)
+                    cleanup_ok = self.api.wait_process(process,5.)
+            except BaseException as failure:
+                cleanup_ok=False; error += f"; cleanup: {type(failure).__name__}"
+            for handle in ([kill_job] + ([] if channel is None else list(channel.values()))):
+                if handle is not None:
+                    try: self.api.close_handle(handle)
+                    except BaseException: cleanup_ok=False
+            cleanup_seconds = max(0,self.api.tick_ms()-cleanup_start)/1000.
+        power = {} if guard is None else guard.evidence()
+        if not cleanup_ok: status = "SUPERVISION_INTERRUPTED"
+        if status == "COMPLETE" and not power.get("power_request_released"):
+            status = "POWER_RELEASE_FAILED"
+        return dict(job_id=job["job_id"],status=status,attempts=int(process is not None),
+                    pid=None if process is None else process.pid,exit_code=None if process is None else process.returncode,
+                    alive=not cleanup_ok or (process is not None and process.poll() is None),error=error,
+                    elapsed_seconds=max(0,self.api.tick_ms()-started)/1000.,cleanup_seconds=cleanup_seconds,
+                    supervision=power,parent_binding_verified=acked and done,job_assigned=assigned,lease_sequence=sequence,
+                    start_tick_ms=self.budget.start_tick_ms,deadline_tick_ms=self.budget.deadline_tick_ms,
+                    final_tick_ms=self.api.tick_ms(),cleanup_confirmed=cleanup_ok,heartbeats=[])
+
+
+class _BasicLimits(ctypes.Structure):
+    _fields_ = [("process_time",ctypes.c_int64),("job_time",ctypes.c_int64),("flags",wintypes.DWORD),
+                ("min_working_set",ctypes.c_size_t),("max_working_set",ctypes.c_size_t),
+                ("active_processes",wintypes.DWORD),("affinity",ctypes.c_size_t),
+                ("priority",wintypes.DWORD),("scheduling",wintypes.DWORD)]
+
+
+class _IOLimits(ctypes.Structure):
+    _fields_ = [(name,ctypes.c_uint64) for name in ("read_ops","write_ops","other_ops","read_bytes","write_bytes","other_bytes")]
+
+
+class _ExtendedLimits(ctypes.Structure):
+    _fields_ = [("basic",_BasicLimits),("io",_IOLimits),("process_memory",ctypes.c_size_t),
+                ("job_memory",ctypes.c_size_t),("peak_process_memory",ctypes.c_size_t),("peak_job_memory",ctypes.c_size_t)]
+
+
+class NativeMSBAPI:
+    """WinAPI adapter. Construction and methods are never used in synthetic tests."""
+    def __init__(self):
+        if os.name != "nt": raise _interrupted("Windows MSB supervisor required")
+        self.kernel = ctypes.WinDLL("kernel32",use_last_error=True)
+        signatures = {
+            "GetTickCount64": ([],ctypes.c_uint64), "GetCurrentProcessId": ([],wintypes.DWORD),
+            "OpenProcess": ([wintypes.DWORD,wintypes.BOOL,wintypes.DWORD],wintypes.HANDLE),
+            "GetProcessId": ([wintypes.HANDLE],wintypes.DWORD),
+            "GetProcessTimes": ([wintypes.HANDLE]+[ctypes.POINTER(wintypes.FILETIME)]*4,wintypes.BOOL),
+            "WaitForSingleObject": ([wintypes.HANDLE,wintypes.DWORD],wintypes.DWORD),
+            "CreatePipe": ([ctypes.POINTER(wintypes.HANDLE),ctypes.POINTER(wintypes.HANDLE),ctypes.c_void_p,wintypes.DWORD],wintypes.BOOL),
+            "CreateJobObjectW": ([ctypes.c_void_p,wintypes.LPCWSTR],wintypes.HANDLE),
+            "SetInformationJobObject": ([wintypes.HANDLE,ctypes.c_int,ctypes.c_void_p,wintypes.DWORD],wintypes.BOOL),
+            "AssignProcessToJobObject": ([wintypes.HANDLE,wintypes.HANDLE],wintypes.BOOL),
+            "TerminateJobObject": ([wintypes.HANDLE,wintypes.UINT],wintypes.BOOL),
+            "CloseHandle": ([wintypes.HANDLE],wintypes.BOOL),
+            "PeekNamedPipe": ([wintypes.HANDLE,ctypes.c_void_p,wintypes.DWORD,ctypes.c_void_p,ctypes.POINTER(wintypes.DWORD),ctypes.c_void_p],wintypes.BOOL),
+            "ReadFile": ([wintypes.HANDLE,ctypes.c_void_p,wintypes.DWORD,ctypes.POINTER(wintypes.DWORD),ctypes.c_void_p],wintypes.BOOL),
+            "WriteFile": ([wintypes.HANDLE,ctypes.c_void_p,wintypes.DWORD,ctypes.POINTER(wintypes.DWORD),ctypes.c_void_p],wintypes.BOOL)}
+        for name,(args,result) in signatures.items():
+            function=getattr(self.kernel,name); function.argtypes=args; function.restype=result
+        self.buffers={}; self.writer=threading.Lock()
+
+    def _ok(self,result):
+        if not result: raise ctypes.WinError(ctypes.get_last_error())
+        return result
+
+    def tick_ms(self): return int(self.kernel.GetTickCount64())
+    def current_pid(self): return int(self.kernel.GetCurrentProcessId())
+
+    def process_identity(self,handle):
+        times=[wintypes.FILETIME() for _ in range(4)]
+        self._ok(self.kernel.GetProcessTimes(handle,*(ctypes.byref(t) for t in times)))
+        pid=self._ok(self.kernel.GetProcessId(handle))
+        return int(pid),(int(times[0].dwHighDateTime)<<32)|int(times[0].dwLowDateTime)
+
+    def process_alive(self,handle):
+        result=self.kernel.WaitForSingleObject(handle,0)
+        if result not in (0,258): raise _interrupted("parent wait failed")
+        return result==258
+
+    def awake_guard(self):
+        from lc_execution_safety import WindowsAwakeGuard
+        from check_lc_native_environment import NativeEnvironmentAPI
+        return WindowsAwakeGuard(api=NativeEnvironmentAPI())
+
+    def create_channel(self):
+        handles=[]
+        try:
+            for _ in range(2):
+                read,write=wintypes.HANDLE(),wintypes.HANDLE()
+                self._ok(self.kernel.CreatePipe(ctypes.byref(read),ctypes.byref(write),None,MAX_MESSAGE+4))
+                handles.extend((read.value,write.value))
+            parent=self._ok(self.kernel.OpenProcess(0x100000|0x1000,False,self.current_pid()))
+            return dict(parent_read=handles[0],child_write=handles[1],child_read=handles[2],parent_write=handles[3],parent_handle=parent)
+        except BaseException:
+            for handle in handles: self.close_handle(handle)
+            raise
+
+    def start_worker(self,job,child_handles):
+        inherited=[child_handles[k] for k in ("read_handle","write_handle","parent_handle")]
+        startup=subprocess.STARTUPINFO(); startup.lpAttributeList={"handle_list":inherited}
+        env=dict(os.environ,OMP_NUM_THREADS="1",MKL_NUM_THREADS="1",OPENBLAS_NUM_THREADS="1",
+                 NUMEXPR_NUM_THREADS="1",PYTHONUNBUFFERED="1",PYTHONUTF8="1")
+        try:
+            for handle in inherited: os.set_handle_inheritable(handle,True)
+            with Path(job["log_path"]).open("x",encoding="utf-8") as log:
+                return subprocess.Popen([*job["command"],"--worker-handles",json.dumps(child_handles)],
+                                        stdout=log,stderr=subprocess.STDOUT,stdin=subprocess.DEVNULL,
+                                        env=env,close_fds=True,startupinfo=startup,creationflags=subprocess.CREATE_NO_WINDOW)
+        finally:
+            for handle in inherited: os.set_handle_inheritable(handle,False)
+
+    def create_kill_job(self):
+        handle=self._ok(self.kernel.CreateJobObjectW(None,None))
+        try:
+            limits=_ExtendedLimits(); limits.basic.flags=0x2000
+            self._ok(self.kernel.SetInformationJobObject(handle,9,ctypes.byref(limits),ctypes.sizeof(limits)))
+            return handle
+        except BaseException:
+            self.close_handle(handle); raise
+
+    def assign_job(self,job_handle,process):
+        # The registered CPython 3.11 Windows Popen owns this process handle.
+        self._ok(self.kernel.AssignProcessToJobObject(job_handle,int(process._handle)))
+    def terminate_job(self,handle): self._ok(self.kernel.TerminateJobObject(handle,1))
+    def kill_process(self,process): process.kill()
+    def wait_process(self,process,timeout_seconds):
+        try: process.wait(timeout=timeout_seconds); return True
+        except subprocess.TimeoutExpired: return False
+    def close_handle(self,handle): self._ok(self.kernel.CloseHandle(handle))
+    def pause(self,seconds): threading.Event().wait(seconds)
+
+    def read_message(self,handle,max_bytes=MAX_MESSAGE):
+        if max_bytes != MAX_MESSAGE: raise ValueError("Fixed message bound required.")
+        buffer=self.buffers.setdefault(handle,bytearray())
+        while True:
+            needed=4 if len(buffer)<4 else 4+struct.unpack(">I",buffer[:4])[0]
+            if needed>MAX_MESSAGE+4 or needed<=4 and len(buffer)>=4: raise ValueError("Oversize control frame.")
+            if len(buffer)==needed and len(buffer)>=4:
+                frame=bytes(buffer); buffer.clear(); return decode_message(frame)
+            available=wintypes.DWORD()
+            self._ok(self.kernel.PeekNamedPipe(handle,None,0,None,ctypes.byref(available),None))
+            if not available.value: return None
+            count=min(available.value,needed-len(buffer))
+            chunk=ctypes.create_string_buffer(count); read=wintypes.DWORD()
+            self._ok(self.kernel.ReadFile(handle,chunk,count,ctypes.byref(read),None))
+            if read.value!=count: raise _interrupted("truncated pipe read")
+            buffer.extend(chunk.raw[:count])
+
+    def write_message(self,handle,message):
+        frame=encode_message(message)
+        with self.writer:
+            written=wintypes.DWORD()
+            self._ok(self.kernel.WriteFile(handle,frame,len(frame),ctypes.byref(written),None))
+            if written.value!=len(frame): raise _interrupted("truncated pipe write")
+
+    def start_watchdog(self,callback):
+        stop=threading.Event()
+        def watch():
+            while not stop.wait(.05): callback()
+        thread=threading.Thread(target=watch,name="msb-parent-watchdog",daemon=True); thread.start()
+        return stop,thread
+    def stop_watchdog(self,watch):
+        stop,thread=watch; stop.set(); thread.join(timeout=1.); return not thread.is_alive()
+    def abort_worker(self): os._exit(1)

@@ -1,9 +1,15 @@
 """MSB safety contracts: fake clocks, handles, power and processes only."""
 import copy
+import ctypes
+import hashlib
+import json
 from pathlib import Path
 import struct
 import sys
+import tempfile
+from types import SimpleNamespace
 import unittest
+from unittest.mock import Mock, patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 try:
@@ -20,6 +26,8 @@ class FakeAwake:
         return 0.
     def evidence(self):
         return dict(power_request_acquired=self.acquired, power_request_released=self.released)
+    def __enter__(self): self.released=False; return self
+    def __exit__(self,*args): self.released=True
 
 
 class FakeAPI:
@@ -128,3 +136,183 @@ class ScopeTests(unittest.TestCase):
             self.assertEqual(awake.checks,checks)
         self.assertEqual(scope.evidence()["phase"],"CLOSED")
         self.assertEqual(api.closed,[11,12,10])
+
+
+class FakeProcess:
+    pid = 8
+    returncode = None
+    def poll(self): return self.returncode
+
+
+class LauncherAPI(FakeAPI):
+    def __init__(self, failure=None):
+        super().__init__(); self.events=[]; self.failure=failure; self.process=FakeProcess()
+    def awake_guard(self): return FakeAwake()
+    def current_pid(self): return 7
+    def create_channel(self):
+        return dict(parent_read=21,parent_write=22,child_read=11,child_write=12,parent_handle=10)
+    def create_kill_job(self): self.events.append("create-job"); return 30
+    def start_worker(self,job,handles):
+        self.events.append("spawn")
+        if self.failure=="before-assignment": self.alive=False
+        packet=json.loads(Path(job["packet_path"]).read_text(encoding="utf-8"))
+        binding=safety._binding_from_metadata(packet,job["packet_path"],handles,8,self)
+        self.inbox.append(safety.control_message(binding,"HELLO",sequence=0,lease_until_tick_ms=0))
+        return self.process
+    def assign_job(self,handle,process):
+        if self.failure=="assign": raise RuntimeError("assignment failed")
+        self.events.append("assigned")
+    def terminate_job(self,handle): self.events.append("terminated"); self.process.returncode=1
+    def kill_process(self,process): self.events.append("killed"); process.returncode=1
+    def wait_process(self,process,timeout_seconds): return self.failure!="wait"
+    def pause(self,seconds): self.now+=50
+    def write_message(self,handle,message):
+        super().write_message(handle,message)
+        if message["kind"]=="GRANT":
+            self.events.append("body-permitted")
+            if self.failure=="ack": return
+            self.inbox.append(dict(message,kind="ACK"))
+            self.inbox.append(dict(message,kind="DONE",power_released=True))
+    def read_message(self,handle,max_bytes=8192):
+        value=super().read_message(handle,max_bytes)
+        if value and value["kind"]=="DONE":
+            if self.failure=="done-disconnect": self.inbox.append(BrokenPipeError())
+            self.process.returncode=0
+        return value
+
+
+class LauncherTests(unittest.TestCase):
+    def setUp(self):
+        self.assertIsNotNone(safety)
+        self.assertTrue(hasattr(safety,"MSBParentSupervisor"),"MSB parent launcher missing")
+        self.tmp=tempfile.TemporaryDirectory(); self.addCleanup(self.tmp.cleanup)
+        self.root=Path(self.tmp.name); self.output=self.root/"out"
+        folder=self.output/"runs"/"job"; folder.mkdir(parents=True)
+        self.packet=folder/"packet.json"
+        packet=dict(run_id="run",job_id="job",protocol_digest="1"*64,output=str(self.output),
+                    start_tick_ms=1000,deadline_tick_ms=7201000,parent_pid=7,parent_created=99)
+        self.packet.write_text(json.dumps(packet),encoding="utf-8")
+        state=dict(status="RUNNING",active_job="job",run_id="run",protocol_digest="1"*64,
+                   start_tick_ms=1000,deadline_tick_ms=7201000,
+                   packets={"job":hashlib.sha256(self.packet.read_bytes()).hexdigest()})
+        (self.output/"stage_state.json").write_text(json.dumps(state),encoding="utf-8")
+        self.job=dict(job_id="job",packet_path=str(self.packet),log_path=str(folder/"worker.log"),command=[])
+
+    def run_fake(self,failure=None):
+        api=LauncherAPI(failure)
+        with safety.MSBParentSupervisor(safety.RunBudget(1000,7201000),"run","1"*64,api=api) as parent:
+            result=parent.run_job(self.job,dict(heartbeat_seconds=15,per_fit_seconds=7200))
+        return result,api
+
+    def test_no_grant_before_job_assignment(self):
+        result,api=self.run_fake()
+        self.assertEqual(result["status"],"COMPLETE")
+        self.assertLess(api.events.index("assigned"),api.events.index("body-permitted"))
+        self.assertTrue(result["parent_binding_verified"])
+
+    def test_parent_exit_between_publish_and_launch_denies_manual_worker(self):
+        with self.assertRaises(ValueError): safety.open_worker_scope(self.packet,{},api=FakeAPI(),awake_guard=FakeAwake())
+        self.assertFalse(self.packet.with_name("task_started.json").exists())
+
+    def test_parent_exit_before_assignment_never_enters_body(self):
+        result,api=self.run_fake("before-assignment")
+        self.assertNotEqual(result["status"],"COMPLETE")
+        self.assertNotIn("body-permitted",api.events)
+
+    def test_job_assignment_failure_kills_without_fallback(self):
+        result,api=self.run_fake("assign")
+        self.assertNotEqual(result["status"],"COMPLETE")
+        self.assertNotIn("body-permitted",api.events)
+        self.assertIn("killed",api.events)
+
+    def test_lost_ack_does_not_renew_or_launch_next_job(self):
+        result,api=self.run_fake("ack")
+        self.assertNotEqual(result["status"],"COMPLETE")
+        self.assertEqual([m["kind"] for m in api.sent],["GRANT"])
+
+    def test_no_renewal_from_unconditional_background_thread(self):
+        result,api=self.run_fake()
+        self.assertEqual(result["status"],"COMPLETE")
+        self.assertFalse(hasattr(api,"watchdog"))
+
+    def test_job_handle_not_inherited_and_all_channel_ends_closed(self):
+        result,api=self.run_fake()
+        self.assertEqual(result["status"],"COMPLETE")
+        self.assertEqual(set(api.closed),{10,11,12,21,22,30})
+
+    def test_kill_wait_or_release_uncertain_cannot_complete(self):
+        result,_=self.run_fake("wait")
+        self.assertNotEqual(result["status"],"COMPLETE")
+        self.assertTrue(result["alive"])
+
+    def test_cleanup_after_deadline_cannot_grant_compute_time(self):
+        api=LauncherAPI(); api.now=7201000
+        with self.assertRaisesRegex(RuntimeError,"TIMED_OUT"):
+            with safety.MSBParentSupervisor(safety.RunBudget(1000,7201000),"run","1"*64,api=api): pass
+        self.assertNotIn("spawn",api.events)
+
+    def test_done_closes_pipe_before_process_exit_is_accepted(self):
+        api=LauncherAPI("done-disconnect")
+        old_poll=api.process.poll
+        polls=[0]
+        def poll():
+            if api.process.returncode==0 and polls[0]<1:
+                polls[0]+=1; return None
+            return old_poll()
+        api.process.poll=poll
+        with safety.MSBParentSupervisor(safety.RunBudget(1000,7201000),"run","1"*64,api=api) as parent:
+            result=parent.run_job(self.job,{})
+        self.assertEqual(result["status"],"COMPLETE")
+
+    def test_worker_handshake_requires_real_pipe_grant_not_flags(self):
+        api=FakeAPI(); api.current_pid=lambda:8; api.pause=lambda seconds:None
+        handles=dict(read_handle=11,write_handle=12,parent_handle=10,nonce="3"*64)
+        packet=json.loads(self.packet.read_text())
+        binding=safety._binding_from_metadata(packet,self.packet,handles,8,api)
+        api.inbox.append(safety.control_message(binding,"GRANT",lease_until_tick_ms=31000))
+        awake=FakeAwake()
+        with safety.open_worker_scope(self.packet,handles,api=api,awake_guard=awake) as scope:
+            scope.begin_work(); awake.released=True; scope.begin_publish(awake.evidence())
+        self.assertEqual([m["kind"] for m in api.sent],["HELLO","ACK","DONE"])
+
+
+class NativeAdapterTests(unittest.TestCase):
+    def setUp(self): self.assertTrue(hasattr(safety,"NativeMSBAPI"))
+
+    def test_native_adapter_pipe_framing_with_fake_kernel_only(self):
+        api=object.__new__(safety.NativeMSBAPI)
+        scope,_,_=ScopeTests.scope(self)
+        message=safety.control_message(scope.binding,"ACK")
+        payload=json.dumps(message).encode()
+        remaining=bytearray(struct.pack(">I",len(payload))+payload)
+        def peek(handle,unused,size,unused2,available,unused3):
+            ctypes.cast(available,ctypes.POINTER(safety.wintypes.DWORD)).contents.value=len(remaining); return 1
+        def read(handle,buffer,count,nread,overlapped):
+            ctypes.memmove(buffer,bytes(remaining[:count]),count); del remaining[:count]
+            ctypes.cast(nread,ctypes.POINTER(safety.wintypes.DWORD)).contents.value=count; return 1
+        api.kernel=SimpleNamespace(PeekNamedPipe=peek,ReadFile=read)
+        api.buffers={}
+        self.assertEqual(api.read_message(11),message)
+        self.assertIsNone(api.read_message(11))
+
+    def test_native_spawn_explicit_handles_and_restore_without_os_spawn(self):
+        api=object.__new__(safety.NativeMSBAPI)
+        handles=dict(read_handle=11,write_handle=12,parent_handle=10,nonce="3"*64)
+        with tempfile.TemporaryDirectory() as directory:
+            startup=SimpleNamespace()
+            with patch.object(safety.subprocess,"STARTUPINFO",return_value=startup),patch.object(
+                    safety.os,"set_handle_inheritable") as inherit,patch.object(safety.subprocess,"Popen",return_value=FakeProcess()) as spawn:
+                api.start_worker(dict(log_path=str(Path(directory)/"log"),command=["python","runner"]),handles)
+            self.assertEqual(startup.lpAttributeList,{"handle_list":[11,12,10]})
+            self.assertEqual(inherit.call_args_list[-3:],[((11,False),),((12,False),),((10,False),)])
+            self.assertTrue(spawn.call_args.kwargs["close_fds"])
+            self.assertEqual(spawn.call_args.kwargs["creationflags"],safety.subprocess.CREATE_NO_WINDOW)
+
+    def test_job_object_kill_on_close_and_no_breakaway_flags(self):
+        api=object.__new__(safety.NativeMSBAPI)
+        captured=[]
+        def configure(handle,kind,pointer,size):
+            captured.append((handle,kind,ctypes.cast(pointer,ctypes.POINTER(safety._ExtendedLimits)).contents.basic.flags)); return 1
+        api.kernel=SimpleNamespace(CreateJobObjectW=lambda a,b:30,SetInformationJobObject=configure)
+        self.assertEqual(api.create_kill_job(),30)
+        self.assertEqual(captured,[(30,9,0x2000)])
