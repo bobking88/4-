@@ -38,7 +38,7 @@ class RunnerTests(unittest.TestCase):
 
     def simulate(self,status="COMPLETE",*,final_status=None,tamper=False,guard_factory=FakeGuard,folds=None,
                  allow_fits=False,analysis_callback=None,pre_fit_mutation=None,registration_exhausted=False,
-                 expire_export=None,registered_path=None,terminal_mutation=None):
+                 expire_export=None,registered_path=None,terminal_mutation=None,end_evidence=True):
         jobs=[]; clock=[0.]; self.fit_calls=[]; self.load_calls=[]
         def monotonic(): clock[0]+=.2; return clock[0]
         def api_factory():
@@ -75,6 +75,7 @@ class RunnerTests(unittest.TestCase):
                     if "handles" in inspect.signature(runner.worker).parameters: runner.worker(packet,handles=handles)
                     else: runner.worker(packet)
             return dict(job_id=job["job_id"],status=outcome,attempts=1,alive=False,
+                        end_handshake_verified=end_evidence,exit_confirmed=end_evidence,
                         elapsed_seconds=.01,parent_binding_verified=True,job_assigned=True,
                         supervision=dict(power_request_released=outcome!="POWER_RELEASE_FAILED"))
         from contextlib import ExitStack
@@ -350,6 +351,11 @@ class RunnerTests(unittest.TestCase):
         spec.write_bytes((Path(__file__).resolve().parents[1]/runner.SPEC_PATH).read_bytes())
         repair=self.root/runner.REPAIR_SPEC_PATH; repair.parent.mkdir(parents=True,exist_ok=True)
         repair.write_bytes((Path(__file__).resolve().parents[1]/runner.REPAIR_SPEC_PATH).read_bytes())
+        if hasattr(runner,"TERMINAL_SPEC_PATH"):
+            protocol["terminal_spec_sha256"]=runner.TERMINAL_SPEC_SHA
+            terminal=self.root/runner.TERMINAL_SPEC_PATH
+            terminal.parent.mkdir(parents=True,exist_ok=True)
+            terminal.write_bytes((Path(__file__).resolve().parents[1]/runner.TERMINAL_SPEC_PATH).read_bytes())
         for fold in range(3):
             protocol["prepared_entries"].append(dict(fold=fold,relative_path=f"{runner.PREPARED_BASE}/prepare_fold{fold}/result.pt",sha256="1"*64,registered_train_ids_digest="2"*64,registered_validation_ids_digest="3"*64))
         return protocol

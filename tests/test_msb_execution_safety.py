@@ -34,17 +34,24 @@ class FakeAPI:
     def __init__(self):
         self.now = 1000; self.identity = (7, 99); self.alive = True
         self.inbox = []; self.sent = []; self.closed = []; self.aborted = False
+        self.auto_close = True
     def tick_ms(self): return self.now
     def process_identity(self, handle): return self.identity
     def process_alive(self, handle): return self.alive
     def read_message(self, handle, max_bytes=8192):
         if self.inbox and isinstance(self.inbox[0], BaseException): raise self.inbox.pop(0)
         return self.inbox.pop(0) if self.inbox else None
-    def write_message(self, handle, message): self.sent.append(copy.deepcopy(message))
+    def write_message(self, handle, message):
+        self.sent.append(copy.deepcopy(message))
+        if message["kind"]=="CLOSE_REQUEST" and self.auto_close:
+            self.inbox.append(dict(message,kind="CLOSE_GRANT"))
     def close_handle(self, handle): self.closed.append(handle)
     def start_watchdog(self, callback): self.watchdog = callback; return object()
     def stop_watchdog(self, watch): return True
     def abort_worker(self): self.aborted = True
+    def pause(self,seconds):
+        self.now+=int(seconds*1000)
+        if hasattr(self,"watchdog"): self.watchdog()
 
 
 class ScopeTests(unittest.TestCase):
@@ -137,6 +144,114 @@ class ScopeTests(unittest.TestCase):
         self.assertEqual(scope.evidence()["phase"],"CLOSED")
         self.assertEqual(api.closed,[11,12,10])
 
+    def test_ack_request_done_share_state_lock_and_wait_releases_it(self):
+        scope,api,awake=self.scope(); api.auto_close=False
+        original_write=api.write_message; original_pause=api.pause
+        def write(handle,message):
+            self.assertTrue(scope.lock._is_owned(),"control write outside state lock")
+            original_write(handle,message)
+            if message["kind"]=="CLOSE_REQUEST":
+                api.now=16000
+                api.inbox.append(safety.control_message(scope.binding,"RENEW",sequence=2,lease_until_tick_ms=46000))
+            if message["kind"]=="ACK" and message["sequence"]==2:
+                api.inbox.append(safety.control_message(scope.binding,"CLOSE_GRANT",sequence=2,
+                                                       lease_until_tick_ms=46000,power_released=True))
+        def pause(seconds):
+            self.assertFalse(scope.lock._is_owned(),"owner holds state lock while waiting")
+            original_pause(seconds)
+        api.write_message=write; api.pause=pause
+        with scope:
+            scope.begin_work(); self.publish(scope,awake)
+        self.assertEqual([(m["kind"],m["sequence"]) for m in api.sent],[("CLOSE_REQUEST",1),("ACK",2),("DONE",2)])
+        self.assertTrue(scope.evidence()["end_handshake_verified"])
+
+    def test_close_grant_wrong_pair_or_binding_is_rejected(self):
+        for invalid in ("lease","nonce","sequence"):
+            with self.subTest(invalid=invalid):
+                scope,api,awake=self.scope(); api.auto_close=False
+                original=api.write_message
+                def write(handle,message):
+                    original(handle,message)
+                    if message["kind"]=="CLOSE_REQUEST":
+                        grant=dict(message,kind="CLOSE_GRANT")
+                        if invalid=="lease": grant["lease_until_tick_ms"]-=1
+                        if invalid=="nonce": grant["nonce"]="4"*64
+                        if invalid=="sequence": grant["sequence"]+=1
+                        api.inbox.append(grant)
+                api.write_message=write
+                with self.assertRaises(RuntimeError):
+                    with scope:
+                        scope.begin_work(); self.publish(scope,awake)
+                self.assertNotIn("DONE",[m["kind"] for m in api.sent])
+
+    def test_close_deadline_disconnect_and_watchdog_failure_stop_next_job(self):
+        for failure in ("deadline","disconnect","watchdog"):
+            with self.subTest(failure=failure):
+                scope,api,awake=self.scope()
+                original=api.write_message
+                def write(handle,message):
+                    original(handle,message)
+                    if message["kind"]=="CLOSE_REQUEST":
+                        if failure=="deadline": api.now=7201000
+                        if failure=="disconnect": api.inbox[:]=[BrokenPipeError()]
+                api.write_message=write
+                if failure=="watchdog": api.stop_watchdog=lambda watch:False
+                with self.assertRaises(RuntimeError):
+                    with scope:
+                        scope.begin_work(); self.publish(scope,awake)
+                if failure!="watchdog": self.assertNotIn("DONE",[m["kind"] for m in api.sent])
+                self.assertEqual(api.closed,[11,12,10])
+
+
+class CloseControlTests(unittest.TestCase):
+    def control(self):
+        cls=getattr(safety,"MSBParentControl",None)
+        self.assertTrue(callable(cls),"No explicit parent close state machine")
+        scope,_,_=ScopeTests.scope(self)
+        return cls(scope.binding,lease_until_tick_ms=31000,granted_tick_ms=1000),scope.binding
+
+    def message(self,binding,kind,q=1,lease=31000):
+        return safety.control_message(binding,kind,sequence=q,lease_until_tick_ms=lease,
+                                      power_released=kind in ("CLOSE_REQUEST","DONE"))
+
+    def test_request_before_inflight_renewal_waits_exact_ack(self):
+        c,b=self.control(); c.accept(self.message(b,"ACK"),1000)
+        renewal=c.renew(16000)
+        self.assertEqual([(m["kind"],m["sequence"],m["lease_until_tick_ms"]) for m in renewal],[("RENEW",2,46000)])
+        self.assertEqual(c.accept(self.message(b,"CLOSE_REQUEST"),16000),[])
+        self.assertEqual(c.renew(31000),[])
+        self.assertFalse(c.done)
+        grants=c.accept(self.message(b,"ACK",2,46000),31001)
+        self.assertEqual([(m["kind"],m["sequence"],m["lease_until_tick_ms"]) for m in grants],[("CLOSE_GRANT",2,46000)])
+        c.accept(self.message(b,"DONE",2,46000),31002)
+        c.require_complete(0)
+
+    def test_renewal_ack_before_close_request_finishes(self):
+        c,b=self.control(); c.accept(self.message(b,"ACK"),1000); c.renew(16000)
+        c.accept(self.message(b,"ACK",2,46000),16001)
+        grants=c.accept(self.message(b,"CLOSE_REQUEST",2,46000),16002)
+        self.assertEqual([(m["kind"],m["sequence"]) for m in grants],[("CLOSE_GRANT",2)])
+        self.assertEqual(c.renew(32000),[])
+        c.accept(self.message(b,"DONE",2,46000),32000); c.require_complete(0)
+
+    def test_old_or_duplicate_close_request_is_rejected(self):
+        c,b=self.control(); c.accept(self.message(b,"ACK"),1000); c.renew(16000)
+        c.accept(self.message(b,"ACK",2,46000),16001)
+        with self.assertRaises(RuntimeError): c.accept(self.message(b,"CLOSE_REQUEST"),16002)
+        c.accept(self.message(b,"CLOSE_REQUEST",2,46000),16003)
+        with self.assertRaises(RuntimeError): c.accept(self.message(b,"CLOSE_REQUEST",2,46000),16004)
+
+    def test_done_before_close_grant_is_rejected(self):
+        c,b=self.control(); c.accept(self.message(b,"ACK"),1000)
+        with self.assertRaises(RuntimeError): c.accept(self.message(b,"DONE"),1001)
+        with self.assertRaises(RuntimeError): c.require_complete(0)
+
+    def test_closing_without_inflight_ack_cannot_complete(self):
+        c,b=self.control(); c.accept(self.message(b,"ACK"),1000); c.renew(16000)
+        self.assertEqual(c.accept(self.message(b,"CLOSE_REQUEST"),16000),[])
+        with self.assertRaises(RuntimeError): c.require_complete(0)
+        with self.assertRaises(RuntimeError): c.accept(self.message(b,"ACK",2,46000),46000)
+
 
 class FakeProcess:
     pid = 8
@@ -174,13 +289,11 @@ class LauncherAPI(FakeAPI):
             self.events.append("body-permitted")
             if self.failure=="ack": return
             self.inbox.append(dict(message,kind="ACK"))
-            self.inbox.append(dict(message,kind="DONE",power_released=True))
-    def read_message(self,handle,max_bytes=8192):
-        value=super().read_message(handle,max_bytes)
-        if value and value["kind"]=="DONE":
+            self.inbox.append(dict(message,kind="CLOSE_REQUEST",power_released=True))
+        if message["kind"]=="CLOSE_GRANT":
+            self.inbox.append(dict(message,kind="DONE"))
             if self.failure=="done-disconnect": self.inbox.append(BrokenPipeError())
             self.process.returncode=0
-        return value
 
 
 class LauncherTests(unittest.TestCase):
@@ -363,7 +476,7 @@ class LauncherTests(unittest.TestCase):
         self.assertEqual(result["status"],"COMPLETE")
 
     def test_worker_handshake_requires_real_pipe_grant_not_flags(self):
-        api=FakeAPI(); api.current_pid=lambda:8; api.pause=lambda seconds:None
+        api=FakeAPI(); api.current_pid=lambda:8
         handles=dict(read_handle=11,write_handle=12,parent_handle=10,nonce="3"*64)
         packet=json.loads(self.packet.read_text())
         binding=safety._binding_from_metadata(packet,self.packet,handles,8,api)
@@ -371,7 +484,59 @@ class LauncherTests(unittest.TestCase):
         awake=FakeAwake()
         with safety.open_worker_scope(self.packet,handles,api=api,awake_guard=awake) as scope:
             scope.begin_work(); awake.released=True; scope.begin_publish(awake.evidence())
-        self.assertEqual([m["kind"] for m in api.sent],["HELLO","ACK","DONE"])
+        self.assertEqual([m["kind"] for m in api.sent],["HELLO","ACK","CLOSE_REQUEST","DONE"])
+
+    def exit_before_read(self,mode="valid"):
+        api=LauncherAPI(); api.pending_done=None; api.empty_seen=False; api.exit_ready=False
+        original_start=api.start_worker
+        def start(job,handles,**kw):
+            api.child_handles=handles
+            return original_start(job,handles,**kw)
+        api.start_worker=start
+        def write(handle,message):
+            FakeAPI.write_message(api,handle,message)
+            if message["kind"]=="GRANT":
+                api.inbox.append(dict(message,kind="ACK"))
+                api.inbox.append(dict(message,kind="CLOSE_REQUEST",power_released=True))
+            if message["kind"]=="CLOSE_GRANT":
+                api.pending_done=dict(message,kind="DONE")
+        api.write_message=write
+        def read(handle,max_bytes=8192):
+            if api.pending_done is not None and not api.empty_seen:
+                api.empty_seen=True; api.exit_ready=True; api.events.append("read-empty"); return None
+            value=FakeAPI.read_message(api,handle,max_bytes)
+            if isinstance(value,dict) and value["kind"]=="DONE": api.events.append("read-DONE")
+            return value
+        api.read_message=read
+        def poll():
+            if api.exit_ready:
+                api.exit_ready=False; api.process.returncode=0; api.events.append("exit-zero")
+                if mode=="valid": api.inbox.append(api.pending_done)
+                if mode=="truncated": api.inbox.append(ValueError("truncated control frame"))
+                api.pending_done=None
+            return api.process.returncode
+        api.process.poll=poll
+        with safety.MSBParentSupervisor(safety.RunBudget(1000,7201000),"run","1"*64,api=api) as parent:
+            result=parent.run_job(self.job,{})
+        return result,api
+
+    def test_exit_after_grant_drains_queued_done_before_failure(self):
+        result,api=self.exit_before_read()
+        self.assertEqual(result["status"],"COMPLETE",result["error"])
+        self.assertLess(api.events.index("read-empty"),api.events.index("exit-zero"))
+        self.assertLess(api.events.index("exit-zero"),api.events.index("read-DONE"))
+        self.assertTrue(result["end_handshake_verified"])
+        self.assertTrue(result["exit_confirmed"])
+
+    def test_exit_drain_bound_or_truncated_frame_cannot_complete(self):
+        for mode in ("missing","truncated"):
+            result,_=self.exit_before_read(mode)
+            self.assertNotEqual(result["status"],"COMPLETE")
+        control,binding=CloseControlTests.control(self)
+        api=LauncherAPI()
+        with safety.MSBParentSupervisor(safety.RunBudget(1000,7201000),"run","1"*64,api=api) as parent:
+            with self.assertRaises(ValueError):
+                parent._drain_control(api.create_channel(),control,binding,max_frames=9)
 
     def test_post_spawn_restore_failure_still_kills_and_waits(self):
         result,api=self.run_fake("restore")
@@ -379,6 +544,41 @@ class LauncherTests(unittest.TestCase):
         self.assertEqual(result["attempts"],1)
         self.assertIn("killed",api.events)
         self.assertFalse(result["alive"])
+
+
+class ExecutionIdentityTests(unittest.TestCase):
+    def fixture(self):
+        from test_run_msb_role_mechanism import RunnerTests,runner
+        case=RunnerTests()
+        case.setUp(); self.addCleanup(case.doCleanups)
+        return case,runner
+
+    def test_v1_contract_is_not_accepted_as_new_execution(self):
+        case,runner=self.fixture()
+        protocol=case.real_metadata_fixture()
+        with patch.object(runner,"ROOT",case.root):
+            runner.validate_protocol(case.root,protocol,"fit-mechanism")
+            protocol["execution_contract"]="msb_parent_bound_v1"
+            with self.assertRaises(ValueError): runner.validate_protocol(case.root,protocol,"fit-mechanism")
+
+    def test_new_documentation_and_code_approval_opens_no_real_input(self):
+        case,runner=self.fixture()
+        protocol=case.real_metadata_fixture()
+        ids=("call_a697651b584d4fb8b2116607dcc82b52","call_2a665eb0bae044b38917a4aa34f5127a",
+             "call_34d91895cd594efe92c80a1bf6f41138","call_358af6a530944d5c9a15f0ea8039b545")
+        with patch.object(runner,"ROOT",case.root),patch.object(runner,"load_prepared_fold",side_effect=AssertionError("real input")):
+            for token in ids:
+                with self.subTest(token=token):
+                    protocol["authorization"]["user_message_id"]=token
+                    with self.assertRaisesRegex(ValueError,"approval"):
+                        runner.validate_protocol(case.root,protocol,"fit-mechanism")
+
+    def test_missing_close_evidence_stops_next_job(self):
+        case,_=self.fixture()
+        state,jobs=case.simulate(end_evidence=False)
+        self.assertEqual(state["status"],"SUPERVISION_INTERRUPTED")
+        self.assertFalse(state["delivery_verified"])
+        self.assertEqual(len(jobs),1)
 
 
 class NativeAdapterTests(unittest.TestCase):

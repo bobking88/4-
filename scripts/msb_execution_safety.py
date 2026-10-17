@@ -83,7 +83,7 @@ def control_message(binding, kind, *, sequence=None, lease_until_tick_ms=None, p
 
 def _validate_message(message):
     if (not isinstance(message, dict) or set(message) != _FIELDS
-            or message["kind"] not in ("HELLO", "GRANT", "RENEW", "ACK", "REVOKE", "DONE")
+            or message["kind"] not in ("HELLO", "GRANT", "RENEW", "ACK", "REVOKE", "CLOSE_REQUEST", "CLOSE_GRANT", "DONE")
             or any(type(message[k]) is not str or not message[k] for k in ("run_id", "job_id"))
             or any(type(message[k]) is not str or not re.fullmatch(r"[a-f0-9]{64}",message[k])
                    for k in ("protocol_digest", "packet_digest", "nonce"))
@@ -119,6 +119,73 @@ def decode_message(frame: bytes) -> dict:
     return result
 
 
+class MSBParentControl:
+    def __init__(self,binding,*,lease_until_tick_ms: int,granted_tick_ms: int):
+        binding.budget.remaining_seconds(granted_tick_ms)
+        if (type(lease_until_tick_ms) is not int or not granted_tick_ms < lease_until_tick_ms
+                <= min(granted_tick_ms+LEASE_MS,binding.budget.deadline_tick_ms)):
+            raise _interrupted("invalid parent initial lease")
+        self.binding = binding
+        self.issued = (1,lease_until_tick_ms)
+        self.last_acked = None
+        self.outstanding = True
+        self.phase = "RUNNING"
+        self.done = self.close_granted = False
+        self.last_renew = self.last_tick = granted_tick_ms
+
+    def _check(self,now):
+        self.binding.budget.remaining_seconds(now)
+        if now < self.last_tick or now >= self.issued[1]:
+            raise _interrupted("parent control clock or lease expired")
+        self.last_tick = now
+
+    def _message(self,kind,*,power_released=False):
+        return control_message(self.binding,kind,sequence=self.issued[0],
+                               lease_until_tick_ms=self.issued[1],power_released=power_released)
+
+    def _grant_close(self):
+        if self.outstanding or self.last_acked != self.issued:
+            raise _interrupted("close requires exact acknowledged lease")
+        self.phase,self.close_granted = "CLOSE_GRANTED",True
+        return [self._message("CLOSE_GRANT",power_released=True)]
+
+    def accept(self,message: dict,now_tick_ms: int) -> list[dict]:
+        self._check(now_tick_ms)
+        _validate_message(message)
+        kind = message["kind"]
+        pair = (message["sequence"],message["lease_until_tick_ms"])
+        expected = control_message(self.binding,kind,sequence=pair[0],lease_until_tick_ms=pair[1],
+                                   power_released=kind in ("CLOSE_REQUEST","DONE"))
+        if message != expected: raise _interrupted("control immutable binding differs")
+        if kind == "ACK" and self.outstanding and pair == self.issued and self.phase in ("RUNNING","CLOSE_WAIT_ACK"):
+            self.last_acked,self.outstanding = pair,False
+            return self._grant_close() if self.phase == "CLOSE_WAIT_ACK" else []
+        if kind == "CLOSE_REQUEST" and self.phase == "RUNNING" and pair == self.last_acked:
+            if self.outstanding:
+                if self.issued[0] != pair[0]+1: raise _interrupted("close request skips outstanding renewal")
+                self.phase = "CLOSE_WAIT_ACK"
+                return []
+            return self._grant_close()
+        if (kind == "DONE" and self.phase == "CLOSE_GRANTED" and pair == self.issued
+                and not self.outstanding and self.last_acked == self.issued):
+            self.phase,self.done = "DONE",True
+            return []
+        raise _interrupted("control order, close request or ACK differs")
+
+    def renew(self,now_tick_ms: int) -> list[dict]:
+        self._check(now_tick_ms)
+        if self.phase != "RUNNING" or now_tick_ms-self.last_renew < RENEW_MS: return []
+        if self.outstanding: raise _interrupted("worker did not acknowledge current lease")
+        self.issued = (self.issued[0]+1,min(now_tick_ms+LEASE_MS,self.binding.budget.deadline_tick_ms))
+        self.outstanding,self.last_renew = True,now_tick_ms
+        return [self._message("RENEW")]
+
+    def require_complete(self,exit_code: int) -> None:
+        if (exit_code != 0 or not self.done or not self.close_granted or self.phase != "DONE"
+                or self.outstanding or self.last_acked != self.issued):
+            raise _interrupted("worker exit lacks exact close handshake")
+
+
 class MSBWorkerScope:
     def __init__(self, binding: dict, *, api, awake_guard):
         if not isinstance(binding, _VerifiedBinding):
@@ -131,6 +198,8 @@ class MSBWorkerScope:
         self.lock = threading.RLock()
         self.owner = threading.get_ident()
         self.bound = False
+        self.close_granted = self.done_sent = False
+        self.close_ready = threading.Event()
 
     def _alive(self):
         if not self.api.process_alive(self.binding.parent_handle): raise _interrupted("original parent exited")
@@ -167,9 +236,17 @@ class MSBWorkerScope:
                 message = self.api.read_message(self.binding.read_handle)
                 if message is None: return
                 _validate_message(message)
+                if message["kind"] == "CLOSE_GRANT":
+                    expected = control_message(self.binding,"CLOSE_GRANT",sequence=self.sequence,
+                                               lease_until_tick_ms=self.lease_until,power_released=True)
+                    if self.phase != "CLOSING" or self.close_granted or message != expected:
+                        raise _interrupted("close grant binding or state differs")
+                    self.close_granted = True
+                    self.close_ready.set()
+                    return
                 expected = control_message(self.binding,"RENEW")
                 mutable = {"sequence", "lease_until_tick_ms"}
-                if (any(message[k] != expected[k] for k in _FIELDS-mutable)
+                if (self.close_granted or any(message[k] != expected[k] for k in _FIELDS-mutable)
                         or message["sequence"] != self.sequence+1
                         or not now < message["lease_until_tick_ms"] <= min(now+LEASE_MS,self.binding.budget.deadline_tick_ms)):
                     raise _interrupted("renewal replay or immutable binding changed")
@@ -211,10 +288,11 @@ class MSBWorkerScope:
         return dict(parent_binding_verified=self.bound, job_assigned=self.bound, lease_sequence=self.sequence,
                     start_tick_ms=self.binding.budget.start_tick_ms, deadline_tick_ms=self.binding.budget.deadline_tick_ms,
                     last_tick_ms=self.last_tick, phase=self.phase, revoked=self.failure is not None,
+                    end_handshake_verified=self.close_granted and self.done_sent,
                     nonce_sha256=hashlib.sha256(self.binding.nonce.encode()).hexdigest())
 
     def _close(self):
-        self.phase = "CLOSED"
+        with self.lock: self.phase = "CLOSED"
         try:
             if self.watch is not None and not self.api.stop_watchdog(self.watch):
                 raise _interrupted("watchdog did not exit")
@@ -223,13 +301,27 @@ class MSBWorkerScope:
             for handle in (self.binding.read_handle,self.binding.write_handle,self.binding.parent_handle):
                 self.api.close_handle(handle)
 
+    def _finish(self) -> None:
+        with self.lock:
+            if self.phase != "PUBLISHING": raise _interrupted("worker did not finish publish phase")
+            self.check()
+            self.phase = "CLOSING"
+            self.api.write_message(self.binding.write_handle,control_message(
+                self.binding,"CLOSE_REQUEST",sequence=self.sequence,lease_until_tick_ms=self.lease_until,power_released=True))
+        while True:
+            with self.lock:
+                self.check()
+                if self.close_ready.is_set():
+                    if not self.close_granted or self.phase != "CLOSING": raise _interrupted("invalid terminal grant state")
+                    self.api.write_message(self.binding.write_handle,control_message(
+                        self.binding,"DONE",sequence=self.sequence,lease_until_tick_ms=self.lease_until,power_released=True))
+                    self.done_sent,self.phase = True,"CLOSED"
+                    return
+            self.api.pause(.05)
+
     def __exit__(self, kind, value, traceback):
         try:
-            if kind is None:
-                if self.phase != "PUBLISHING": raise _interrupted("worker did not finish publish phase")
-                self.check()
-                self.api.write_message(self.binding.write_handle,control_message(
-                    self.binding,"DONE",sequence=self.sequence,lease_until_tick_ms=self.lease_until,power_released=True))
+            if kind is None: self._finish()
         finally:
             self._close()
 
@@ -363,10 +455,26 @@ class MSBParentSupervisor:
 
     def evidence(self): return {} if self.guard is None else self.guard.evidence()
 
+    def _drain_control(self,channel: dict,control: MSBParentControl,binding,*,max_frames: int = 8) -> int:
+        if type(max_frames) is not int or max_frames != 8: raise ValueError("Fixed eight-frame drain required")
+        if control.binding is not binding: raise _interrupted("drain binding differs")
+        count = 0
+        for _ in range(max_frames):
+            self.check()
+            if control.done: return count
+            message = self.api.read_message(channel["parent_read"])
+            if message is None: return count
+            for reply in control.accept(message,self.api.tick_ms()):
+                self.check()
+                self.api.write_message(channel["parent_write"],reply)
+            count += 1
+            self.check()
+        return count
+
     def run_job(self, job: dict, protocol: dict) -> dict:
         started = self.api.tick_ms()
         channel, process, kill_job, binding = None,None,None,None
-        acked, done, assigned, lease, sequence = False,False,False,0,1
+        assigned, control = False,None
         status, error, cleanup_ok = "FAILED","",True
         ownership = WorkerLaunchOwnership()
         guard = None
@@ -392,37 +500,33 @@ class MSBParentSupervisor:
                 self.check(); guard.check()
                 if not self.api.process_alive(binding.parent_handle): raise _interrupted("parent lost before assignment")
                 self.api.assign_job(kill_job,process); assigned = True
-                granted, last_renew = False, self.api.tick_ms()
                 while True:
                     self.check(); guard.check()
                     now = self.api.tick_ms()
-                    if now-started >= LEASE_MS and not granted: raise _interrupted("worker HELLO timeout")
-                    message = None if done else self.api.read_message(channel["parent_read"])
-                    if message is not None:
-                        _validate_message(message)
-                        if not granted:
+                    if control is None:
+                        if now-started >= LEASE_MS: raise _interrupted("worker HELLO timeout")
+                        message = self.api.read_message(channel["parent_read"])
+                        if message is not None:
+                            _validate_message(message)
                             if message != control_message(binding,"HELLO",sequence=0,lease_until_tick_ms=0):
                                 raise _interrupted("worker HELLO identity differs")
                             _published(job["packet_path"])
                             lease = min(now+LEASE_MS,self.budget.deadline_tick_ms)
+                            control = MSBParentControl(binding,lease_until_tick_ms=lease,granted_tick_ms=now)
                             self.api.write_message(channel["parent_write"],control_message(binding,"GRANT",lease_until_tick_ms=lease))
-                            granted,last_renew = True,now
-                        elif message == control_message(binding,"ACK",sequence=sequence,lease_until_tick_ms=lease) and not acked:
-                            acked = True
-                        elif (acked and not done and message == control_message(binding,"DONE",sequence=sequence,
-                                                                                lease_until_tick_ms=lease,power_released=True)):
-                            done = True
-                        else: raise _interrupted("worker ACK/DONE identity or order differs")
-                    if granted and now >= lease: raise _interrupted("worker lease/ACK expired")
+                    else:
+                        control._check(now)
+                        self._drain_control(channel,control,binding)
                     if process.poll() is not None:
-                        if process.returncode != 0 or not acked or not done:
-                            raise _interrupted("worker exit lacks bound DONE and release evidence")
+                        if control is None: raise _interrupted("worker exited before GRANT")
+                        self._drain_control(channel,control,binding)
+                        control.require_complete(process.returncode)
+                        self.check(); guard.check()
                         status = "COMPLETE"; break
-                    if granted and not done and now-last_renew >= RENEW_MS:
-                        if not acked: raise _interrupted("worker did not acknowledge current lease")
-                        sequence += 1; lease = min(now+LEASE_MS,self.budget.deadline_tick_ms)
-                        self.api.write_message(channel["parent_write"],control_message(binding,"RENEW",sequence=sequence,lease_until_tick_ms=lease))
-                        acked,last_renew = False,now
+                    if control is not None and not control.done:
+                        for renewal in control.renew(self.api.tick_ms()):
+                            self.check(); guard.check()
+                            self.api.write_message(channel["parent_write"],renewal)
                     self.api.pause(.05)
         except BaseException as failure:
             process = ownership.process
@@ -445,15 +549,20 @@ class MSBParentSupervisor:
                     except BaseException: cleanup_ok=False
             cleanup_seconds = max(0,self.api.tick_ms()-cleanup_start)/1000.
         power = {} if guard is None else guard.evidence()
+        exit_confirmed = process is not None and cleanup_ok and process.returncode is not None
+        end_verified = control is not None and control.close_granted and control.done
         if not cleanup_ok: status = "SUPERVISION_INTERRUPTED"
+        if status == "COMPLETE" and (not exit_confirmed or not end_verified): status = "SUPERVISION_INTERRUPTED"
         if status == "COMPLETE" and not power.get("power_request_released"):
             status = "POWER_RELEASE_FAILED"
         return dict(job_id=job["job_id"],status=status,attempts=int(ownership.attempt_started),
                     creation_uncertain=ownership.creation_uncertain,
                     pid=None if process is None else process.pid,exit_code=None if process is None else process.returncode,
-                    alive=not cleanup_ok or (process is not None and process.poll() is None),error=error,
+                    alive=not cleanup_ok or (process is not None and process.returncode is None),error=error,
                     elapsed_seconds=max(0,self.api.tick_ms()-started)/1000.,cleanup_seconds=cleanup_seconds,
-                    supervision=power,parent_binding_verified=acked and done,job_assigned=assigned,lease_sequence=sequence,
+                    supervision=power,parent_binding_verified=end_verified,job_assigned=assigned,
+                    end_handshake_verified=end_verified,exit_confirmed=exit_confirmed,
+                    lease_sequence=1 if control is None else control.issued[0],
                     start_tick_ms=self.budget.start_tick_ms,deadline_tick_ms=self.budget.deadline_tick_ms,
                     final_tick_ms=self.api.tick_ms(),cleanup_confirmed=cleanup_ok,heartbeats=[])
 

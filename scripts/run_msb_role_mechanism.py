@@ -28,12 +28,17 @@ SPEC_PATH = "docs/superpowers/specs/2026-10-14_margin_scaled_bilinear_role_evide
 SPEC_SHA = "f656d2c73826deda4b850b30a94e9b78f5c3b9dabfdd873157bfcbff6681df42"
 REPAIR_SPEC_PATH = "docs/superpowers/specs/2026-10-16-msb-execution-contract-repair-design.md"
 REPAIR_SPEC_SHA = "ec55fc59d9f2be2de6f1d0021573094c5d354cae6e3c9cb68d1090ae3b9ec21a"
+TERMINAL_SPEC_PATH = "docs/superpowers/specs/2026-10-17-msb-terminal-boundary-repair-design.md"
+TERMINAL_SPEC_SHA = "f734ebb2f0d7583b993fabc34a21868ff2bf397e7fad250547193cd89514856f"
 SOURCE_FILES = tuple(sorted(set(LEGACY_SOURCES) | {f"scripts/{name}.py" for name in (
     "msb_role_data", "msb_role_model", "msb_role_controls", "msb_role_audit", "msb_role_training",
     "run_msb_role_mechanism", "analyze_msb_role_mechanism", "generate_msb_role_figure", "msb_execution_safety")}))
 CODE_ONLY_IDS = ("call_978b15d460804fa2982cb750a1d4b4ad", "call_53a58e64d5ee47fbaba8b7f127ec10b0",
                  "call_b71499819f6c4a8f9f7d2c966238fe40", "call_RHuePD3CQpoUvp4t88mzQnSM",
-                 "call_1690e5bbad7a415f8880b0ff473b9521", "call_3d401d8b809843e0b7103995a772caad")
+                 "call_1690e5bbad7a415f8880b0ff473b9521", "call_3d401d8b809843e0b7103995a772caad",
+                 "call_bd72917caf2e42eba5bdca8b34c65841", "call_4ada24f023d34e1e8b2768bba9295873",
+                 "call_358af6a530944d5c9a15f0ea8039b545", "call_a697651b584d4fb8b2116607dcc82b52",
+                 "call_2a665eb0bae044b38917a4aa34f5127a", "call_34d91895cd594efe92c80a1bf6f41138")
 KINDS = ("load", "trajectory", "convex", "analysis", "final-verify")
 
 
@@ -98,7 +103,8 @@ def _publish_terminal_state(output: Path, state: dict, *, budget: RunBudget, api
 
 
 def synthetic_protocol():
-    return dict(protocol="msb_rre_v1", status="SYNTHETIC_ONLY", execution_contract="msb_parent_bound_v1", max_seconds=7200,
+    return dict(protocol="msb_rre_v1", status="SYNTHETIC_ONLY", execution_contract="msb_parent_bound_v2",
+                terminal_spec_sha256=TERMINAL_SPEC_SHA, max_seconds=7200,
                 per_fit_seconds=7200, heartbeat_seconds=15, max_neural_trajectories=63,
                 max_convex_fits=12, max_temperatures=0, max_updates=400, primary_checkpoint=100,
                 max_stage_jobs=80, final_validation_forwards=615, final_train_certificate_forwards=12)
@@ -157,6 +163,9 @@ def validate_protocol(root: Path, protocol: dict, stage: str) -> None:
     repair = _path(root,REPAIR_SPEC_PATH).read_text(encoding="utf-8")
     if protocol["repair_spec_sha256"] != REPAIR_SPEC_SHA or hashlib.sha256(repair.encode("utf-8")).hexdigest() != REPAIR_SPEC_SHA:
         raise ValueError("Approved execution repair specification changed.")
+    terminal = _path(root,TERMINAL_SPEC_PATH).read_text(encoding="utf-8")
+    if hashlib.sha256(terminal.encode("utf-8")).hexdigest() != TERMINAL_SPEC_SHA:
+        raise ValueError("Approved terminal specification changed.")
     entries = protocol["prepared_entries"]
     required = {"fold", "relative_path", "sha256", "registered_train_ids_digest", "registered_validation_ids_digest"}
     if not isinstance(entries, list) or len(entries) != 3:
@@ -338,7 +347,8 @@ def run_stage(root, protocol_path, output, stage):
                                           seed=item.get("seed"), fold=item.get("fold")))
                 if result.get("status") != "COMPLETE": raise RuntimeError(result.get("status","FAILED")+": worker failed")
                 if (result.get("alive") or result.get("attempts") != 1
-                        or result.get("parent_binding_verified") is not True or result.get("job_assigned") is not True):
+                        or result.get("parent_binding_verified") is not True or result.get("job_assigned") is not True
+                        or result.get("end_handshake_verified") is not True or result.get("exit_confirmed") is not True):
                     raise RuntimeError("SUPERVISION_INTERRUPTED: worker completion identity invalid")
                 if not result.get("supervision",{}).get("power_request_released"):
                     raise RuntimeError("POWER_RELEASE_FAILED: worker request not released")
