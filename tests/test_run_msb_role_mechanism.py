@@ -38,7 +38,7 @@ class RunnerTests(unittest.TestCase):
 
     def simulate(self,status="COMPLETE",*,final_status=None,tamper=False,guard_factory=FakeGuard,folds=None,
                  allow_fits=False,analysis_callback=None,pre_fit_mutation=None,registration_exhausted=False,
-                 expire_export=None,registered_path=None):
+                 expire_export=None,registered_path=None,terminal_mutation=None):
         jobs=[]; clock=[0.]; self.fit_calls=[]; self.load_calls=[]
         def monotonic(): clock[0]+=.2; return clock[0]
         def api_factory():
@@ -87,6 +87,14 @@ class RunnerTests(unittest.TestCase):
             if folds is None: raise AssertionError("real data opened")
             return folds[e["fold"]]
         with ExitStack() as stack:
+            self.state_writes=[]
+            original_json=runner._json
+            def capture(path,value,**kwargs):
+                original_json(path,value,**kwargs)
+                if Path(path).name=="stage_state.json":
+                    self.state_writes.append(copy.deepcopy(value))
+                    if terminal_mutation: terminal_mutation(value,clock)
+            stack.enter_context(patch.object(runner,"_json",side_effect=capture))
             for name,value in (("WindowsAwakeGuard",guard_factory),("NativeEnvironmentAPI",lambda:None),("require_ac_power",lambda:None),
                                ("run_supervised_job",dispatch),("stage_elapsed_seconds",lambda:0.),("NativeMSBAPI",lambda:parent_api),
                                ("MSBParentSupervisor",Parent)):
@@ -120,6 +128,58 @@ class RunnerTests(unittest.TestCase):
             state=runner.run_stage(self.root,self.root/"fixture.json" if folds is not None else None,self.root/"stage",
                                    "fit-mechanism" if folds is not None else "synthetic")
         return state,jobs
+
+    def test_only_final_success_write_crosses_deadline_is_revoked(self):
+        def expire(value,clock):
+            if value["status"]=="SYNTHETIC_COMPLETE" and value["state_history"][-1]==value["status"]:
+                clock[0]+=7200
+        state,jobs=self.simulate(terminal_mutation=expire)
+        self.assertEqual(state["status"],"TIMED_OUT")
+        self.assertFalse(state["delivery_verified"])
+        self.assertEqual(json.loads((self.root/"stage/stage_state.json").read_text())["status"],"TIMED_OUT")
+        self.assertEqual(len(jobs),80)
+
+    def test_terminal_write_error_cannot_return_complete(self):
+        raised=[False]
+        def fail(value,clock):
+            if value["status"]=="SYNTHETIC_COMPLETE" and value["state_history"][-1]==value["status"] and not raised[0]:
+                raised[0]=True
+                raise OSError("synthetic terminal write failure")
+        try: state,_=self.simulate(terminal_mutation=fail)
+        except OSError: state=dict(status="UNHANDLED",delivery_verified=True)
+        self.assertEqual(state["status"],"FAILED")
+        self.assertFalse(state["delivery_verified"])
+
+    def test_success_has_no_unchecked_tail_write(self):
+        state,_=self.simulate()
+        self.assertEqual(state["status"],"SYNTHETIC_COMPLETE")
+        self.assertEqual(sum(x["status"]=="SYNTHETIC_COMPLETE" for x in self.state_writes),1)
+
+    def test_failure_record_write_error_is_not_claimed_persisted(self):
+        publish=getattr(runner,"_publish_terminal_state",None)
+        self.assertTrue(callable(publish),"No terminal publisher with failure persistence contract")
+        api=FakeAPI()
+        state=dict(status="MECHANISM_COMPLETE",delivery_verified=True,state_history=["RUNNING"])
+        with patch.object(runner,"_json",side_effect=OSError("all writes fail")):
+            with self.assertRaisesRegex(RuntimeError,"not persisted"):
+                publish(self.root,state,budget=runner.RunBudget(0,7200000),api=api)
+        self.assertFalse(state["delivery_verified"])
+
+    def test_terminal_publication_exact_deadline_boundaries(self):
+        publish=getattr(runner,"_publish_terminal_state",None)
+        self.assertTrue(callable(publish),"No terminal publisher boundary checks")
+        for end_tick,want in ((7199999,"MECHANISM_COMPLETE"),(7200000,"TIMED_OUT"),(7200001,"TIMED_OUT")):
+            with self.subTest(end_tick=end_tick):
+                api=FakeAPI()
+                state=dict(status="MECHANISM_COMPLETE",delivery_verified=True,state_history=["RUNNING"])
+                original=runner._json
+                def write(path,value,**kw):
+                    original(path,value,**kw)
+                    api.now=end_tick
+                with patch.object(runner,"_json",side_effect=write):
+                    result=publish(self.root,state,budget=runner.RunBudget(0,7200000),api=api)
+                self.assertEqual(result["status"],want)
+                self.assertEqual(result["delivery_verified"],want=="MECHANISM_COMPLETE")
 
     def test_locally_valid_bad_threefold_preflight_has_zero_fit_calls(self):
         folds=make_prepared_fixture()["folds"]

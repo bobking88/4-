@@ -303,6 +303,11 @@ C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独�
 状态`DOCUMENTED_NOT_IMPLEMENTED_NOT_RUN`：未改代码/测试/网络/真实协议/正式报告，未读取真实输入或执行任何实验；原工程裁决仍需修复。
 书面文件待用户审核，开发及合成验收另批。真实强对照效果与理论创新尚未验证，不因文档完成改变网络成果或真实运行许可。
 
+用户随后批准原生Tasks1--4及全模拟合成验收。首个task1-red在导入sklearn时拦截其运行库WinDLL装载，测试尚未开始：
+[失败记录](docs/experiment_records/2026-10-17_msb_terminal_repair_harness_failure.md)及[直接原件快照](outputs/msb_terminal_repair_synthetic_v1/task1-red/source_snapshot.json)保留。
+状态`HARNESS_IMPORT_FAILED_NO_VALID_RED_NO_PRODUCTION_REPAIR`，不能把0项测试写成通过或有效红灯；未修改生产代码、读取真实输入或改正式报告。
+现停在验收器bootstrap/独占尝试目录调整的批准边界，不覆盖旧目录，不凭既有开发许可扩大真实运行范围。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.
