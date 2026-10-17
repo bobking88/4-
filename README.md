@@ -314,6 +314,8 @@ C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独�
 
 2026-10-17后续更新：同一获批Tasks1--4已完成限定合成验收，固定九模块146/146通过，0失败/错误/跳过/受限未模拟调用。见[终结边界修复验收记录](docs/experiment_records/2026-10-17_msb_terminal_boundary_repair_acceptance.md)及[完整证据](outputs/msb_terminal_repair_synthetic_v1/final/preservation_and_scope.json)。上述早期失败和阶段状态保留历史含义；本次仅为作者实现与合成证据，未开展新的独立复查、原生OS验收或真实实验，正式报告及科学模型不变，不能视为理论创新已验证。
 
+2026-10-17独立只读复查更新：[复查及接收判断](docs/experiment_records/2026-10-17_msb_terminal_boundary_repair_independent_review.md)为CHANGES_REQUIRED，发现2项P2（退出接收漏查冻结租约、跳过测试仍可通过）及1项P3（双重写入失败诊断原因丢失），另有排空额度反例覆盖缺口。既有146项零跳过日志不改写；本轮仅归档，不修代码、不重跑验收、不读真实数据或修改正式报告。原生证据仍不足，不能放行真实实验，后续修复与运行分别另批。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.

@@ -1,0 +1,275 @@
+{
+  "reviewed_head": "a40567ab2f99fde695194e15fe726a6c3b9dd863",
+  "source_count": 43,
+  "source_checks": [
+    {
+      "path": "scripts/analyze_ic_role_mechanism.py",
+      "sha256": "26fd12997e987c7e71649dd960cb82094d524a5071f6a954fccd4d96fdc2c906",
+      "matched": true
+    },
+    {
+      "path": "scripts/analyze_lc_role_adaptation.py",
+      "sha256": "54b98dbcf1ed1299c05b2bbc3f4722c36d00ba35fb9fc44095f45a59bb4fbc1b",
+      "matched": true
+    },
+    {
+      "path": "scripts/analyze_misclassifications.py",
+      "sha256": "3d2c7f463fe1257ec5a7e2c3571db4ae3cb65ef04bf3dd7b1942464c8ded707c",
+      "matched": true
+    },
+    {
+      "path": "scripts/analyze_msb_role_mechanism.py",
+      "sha256": "af439f8440284b3436a152c079cf8a922618a10a4ab90cbf5e4cbff11b054e59",
+      "matched": true
+    },
+    {
+      "path": "scripts/anchor_linear_controls.py",
+      "sha256": "1a979127c960cfc44c8fc3ef682d790dbb280e2488cfc2440baa2c161ed10192",
+      "matched": true
+    },
+    {
+      "path": "scripts/audit_abmp_candidate_capacity.py",
+      "sha256": "163c224a5ff9f72c2daf1341570c0bc40be76b8593671177c50f7d036b83675c",
+      "matched": true
+    },
+    {
+      "path": "scripts/check_lc_native_environment.py",
+      "sha256": "6ff6bf40cec8c5f0b78ffc61fd11be8aeadf35880b1ebe9e8112be0b298ac161",
+      "matched": true
+    },
+    {
+      "path": "scripts/frozen_visual_probe.py",
+      "sha256": "6e417ea900ed3cbd1c8653898a5bb9849b73958b57c4c50803217d82a4793bfa",
+      "matched": true
+    },
+    {
+      "path": "scripts/generate_msb_role_figure.py",
+      "sha256": "a96cead0999a23b3fb9f462299b0e3c77834c156969642e7c4a92efcc06be0f6",
+      "matched": true
+    },
+    {
+      "path": "scripts/hrgv_network.py",
+      "sha256": "f4c2889b9a129d9f52fd999b189c0888407f9887e1f739cd5e1b55b4d361a0da",
+      "matched": true
+    },
+    {
+      "path": "scripts/ic_role_audit.py",
+      "sha256": "ffadcaa76f8494fbd63080b90a4bd8d4f95d7d4b4ef585aac4847511074729d4",
+      "matched": true
+    },
+    {
+      "path": "scripts/ic_role_data.py",
+      "sha256": "897751bb68c5fb40fc8c186c73041b6ed05990708e57771c403f4d604e7d6d2d",
+      "matched": true
+    },
+    {
+      "path": "scripts/ic_role_model.py",
+      "sha256": "b62462a725e52a67f79d3fdba148bc19195dfe488f15c0ce3137f8a0680377b3",
+      "matched": true
+    },
+    {
+      "path": "scripts/ic_role_training.py",
+      "sha256": "b4102538411b7079d5fcf83587a0b8558141660ed9c5048ca4d1c5acbdda58cd",
+      "matched": true
+    },
+    {
+      "path": "scripts/lc_execution_safety.py",
+      "sha256": "84089e43cb36133d41647b7576c27e4609058b9c087f4979f595452cd37bc029",
+      "matched": true
+    },
+    {
+      "path": "scripts/lc_role_adapter.py",
+      "sha256": "3c02653b5a1aafd1cf452fa029b827baa899ff6a6645986cebc368fbdeecf1aa",
+      "matched": true
+    },
+    {
+      "path": "scripts/lc_role_audit.py",
+      "sha256": "587bdb18a27e897e47064889f9d77869be94b62bf661379e4409d88d2802ec1c",
+      "matched": true
+    },
+    {
+      "path": "scripts/lc_role_data.py",
+      "sha256": "d8639d3035d55ef04b04605b2f565c2cc29a7dcefaba995fd852b396cf489e09",
+      "matched": true
+    },
+    {
+      "path": "scripts/lc_role_training.py",
+      "sha256": "1431e80200a7639aca10493d4d7d4ef91c66eb45bbd1457a9a1cdc52f983adb7",
+      "matched": true
+    },
+    {
+      "path": "scripts/mineral_hierarchy.py",
+      "sha256": "21c485b70d838a9acf1626762b0a643b0e8297e060e8cd7eb3348f807d191384",
+      "matched": true
+    },
+    {
+      "path": "scripts/msb_execution_safety.py",
+      "sha256": "0f9b7bf4f6f20dd086c62d296dbf457612c2963f69c87a2a1fd80400020b446b",
+      "matched": true
+    },
+    {
+      "path": "scripts/msb_role_audit.py",
+      "sha256": "23eddcb993b3b4584ba67bbbafa94d20c40602bab15b3100a5157f789377bc20",
+      "matched": true
+    },
+    {
+      "path": "scripts/msb_role_controls.py",
+      "sha256": "ef649b352b4f877d60f34dd4f64e80dc98226e587495fadda0fd697b71e7c808",
+      "matched": true
+    },
+    {
+      "path": "scripts/msb_role_data.py",
+      "sha256": "674bde1f7ab1675ea427160e4a8435e9588b1ce198c7c864965ba7f6f7f7c242",
+      "matched": true
+    },
+    {
+      "path": "scripts/msb_role_model.py",
+      "sha256": "752e91afcc368fef0e5b54f6ff4ba5cb4c2d66267532211bfaaa0cab5b35f192",
+      "matched": true
+    },
+    {
+      "path": "scripts/msb_role_training.py",
+      "sha256": "2f16547744b86e5dbc5782111e2cdfe85fc1d0c0b3aef213774a8ed15ff9e04d",
+      "matched": true
+    },
+    {
+      "path": "scripts/run_anchor_linear_controls.py",
+      "sha256": "15beb38c7825a439199b5545bfb5a4d842947d9f107b18ec09ccca759a747735",
+      "matched": true
+    },
+    {
+      "path": "scripts/run_frozen_visual_probe.py",
+      "sha256": "db6db46bd8f046ad0e3ec9c2bc14f138fa2150e297ab4b30eb316d4510a36d2d",
+      "matched": true
+    },
+    {
+      "path": "scripts/run_ic_role_mechanism.py",
+      "sha256": "423fad79bee6d5a351589319cb03b98a8097b958615a9b9e1fd274ef921f302a",
+      "matched": true
+    },
+    {
+      "path": "scripts/run_lc_role_adaptation.py",
+      "sha256": "6c29a9f454e1e445d08aa4f6fabdb61bf0145e6d931dc9c23efe81144ae6b4ff",
+      "matched": true
+    },
+    {
+      "path": "scripts/run_msb_role_mechanism.py",
+      "sha256": "9412e76483d63e3b1bb88da54cb5ca43260e31ee5c4723ddd50fbe202f4b6480",
+      "matched": true
+    },
+    {
+      "path": "scripts/run_seen_unseen_gate_study.py",
+      "sha256": "b03b1c63aba4a1559e6a1e26797989d2cdac30c0d3bca618b76986613a1cd6bc",
+      "matched": true
+    },
+    {
+      "path": "scripts/run_tc_oos_rsg_experiments.py",
+      "sha256": "7006b72d27942ab29c7b22eaf58cae344fcb8c3c8d30e2930788da9900c4bef1",
+      "matched": true
+    },
+    {
+      "path": "scripts/run_verifier_strong_controls.py",
+      "sha256": "40edbdd576ddc49d0a3f5a27ec71aee944660691ccba955829df4ed99a0599d6",
+      "matched": true
+    },
+    {
+      "path": "scripts/run_verifier_trust_development.py",
+      "sha256": "62ee01068bb6ef6cbb3b464732a9f57f3e2e5bc86aba879f0b2a304d40dbbce3",
+      "matched": true
+    },
+    {
+      "path": "scripts/tc_oos_rsg.py",
+      "sha256": "38445a3f24ccd424e5e6a635f78ef079e73f2139be62d3e974134470c66bcba2",
+      "matched": true
+    },
+    {
+      "path": "scripts/train_hierarchical_mineral_classifier.py",
+      "sha256": "75e1085a66dc70adad45ae41f10d825062a0594e7fa0db1ca6438092a5e0635f",
+      "matched": true
+    },
+    {
+      "path": "scripts/train_hrgv_mineral_classifier.py",
+      "sha256": "0fa4d352c9327ea646cd42e0e267c31e9eb05a7007cfb2298ccbc595a8a94bdc",
+      "matched": true
+    },
+    {
+      "path": "scripts/train_mineral_classifier.py",
+      "sha256": "d81cda1da77076e3dbbdf81fd9969846314187fa8ffd079fb01106c60b80edea",
+      "matched": true
+    },
+    {
+      "path": "scripts/train_role_aware_mineral_classifier.py",
+      "sha256": "63380cc3806d5676312292d6345f7ea6173061a681d3430e59e54063988c0927",
+      "matched": true
+    },
+    {
+      "path": "scripts/verifier_risk.py",
+      "sha256": "a5bc85cccee192479bcf49bddcce4863eac66126636ba7d04b83898b9606dfff",
+      "matched": true
+    },
+    {
+      "path": "scripts/verifier_strong_controls.py",
+      "sha256": "a1adefaef8852bceb85aa22cd42a10609ff904b09a3f8b6dce94787c6a87299b",
+      "matched": true
+    },
+    {
+      "path": "scripts/verify_verifier_trust_delivery.py",
+      "sha256": "daa8be53da3019607946cb4dfdfd9718e2cd43be4221ae5d1d3f30d24659ac09",
+      "matched": true
+    }
+  ],
+  "protected_checks": [
+    {
+      "path": "outputs/report_assets_v9/cgdc_decomposition.png",
+      "sha256": "f142c749e41a5d3a027a0b0c8571d7358fbfe01e738b3a418adb443e388d7123",
+      "matched": true
+    },
+    {
+      "path": "outputs/report_assets_v9/mrpg_identity.png",
+      "sha256": "6a8d9f993400a621b699d5579e7bb6acd742bcaac8939dd7fab98b1fff247519",
+      "matched": true
+    },
+    {
+      "path": "outputs/report_assets_v9/mrpg_monotone_gate.png",
+      "sha256": "bbdd9f1671bfaf007292512e3c9cea7845d3e195b984349fe489a7beffe18d9c",
+      "matched": true
+    },
+    {
+      "path": "outputs/report_assets_v9/rpg_entropy.png",
+      "sha256": "5251d7a1548b715f98eff21969bbf93dbf77f2f38b862a98887492afe1aba90e",
+      "matched": true
+    },
+    {
+      "path": "outputs/report_assets_v9/rpg_fusion.png",
+      "sha256": "9723e900e48cd60f84be038afed3bcd3c9c524fc8c0706604e7583956389996c",
+      "matched": true
+    },
+    {
+      "path": "outputs/report_assets_v9/rpg_gate.png",
+      "sha256": "a0ba1106c2b734a75c379c959040feb8735aa5172079e1c076fd2f7190ef971a",
+      "matched": true
+    },
+    {
+      "path": "结题/基于深度学习的钒钛矿相关矿物图像识别方法研究_技术报告（正式版）.docx",
+      "sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+      "matched": true
+    },
+    {
+      "path": "D:/成信工科研/人工智能选矿/结题/基于深度学习的钒钛矿相关矿物图像识别方法研究_技术报告（正式版）.docx",
+      "sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+      "matched": true
+    },
+    {
+      "path": "docs/experiment_protocols/ic_role_mechanism_v2.json",
+      "sha256": "332dd67fec71b123a0b88eea1d0c255e34af11d251f9f48f672065d78679852c",
+      "matched": true
+    },
+    {
+      "path": "docs/superpowers/specs/2026-10-12-identity-centered-role-adaptation-design.md",
+      "sha256": "35894a722b27fd5bc7e02a23d1e87047b5e5acdb0762a5ed99dae6bab7f5183f",
+      "matched": true
+    }
+  ],
+  "review_output_exists": false,
+  "record_exists": false
+}

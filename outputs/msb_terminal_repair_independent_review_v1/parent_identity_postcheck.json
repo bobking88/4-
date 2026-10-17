@@ -1,0 +1,17 @@
+{
+  "reviewed_head": "a40567ab2f99fde695194e15fe726a6c3b9dd863",
+  "current_head": "a40567ab2f99fde695194e15fe726a6c3b9dd863",
+  "scope": "READ_ONLY_REVIEW_ARCHIVE",
+  "source_count": 43,
+  "all_source_matches": true,
+  "protected_count": 10,
+  "all_protected_matches": true,
+  "forbidden_tracked_changes": [],
+  "missing_record_links": [],
+  "tests_rerun": 0,
+  "forwards": 0,
+  "fits": 0,
+  "native_acceptance_runs": 0,
+  "real_data_opened": false,
+  "formal_report_modified": false
+}
