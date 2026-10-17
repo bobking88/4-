@@ -312,6 +312,8 @@ C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独�
 [限定合成开发记录](docs/experiment_records/2026-10-17_msb_terminal_repair_development.md)。未使用的torchvision模型/预处理导入以调用即失败的测试替身隔离，未放开其kernel32接口。
 两次载入前失败保留原件，Task1仅修复终态发布；其余三项及整体工程验收尚未完成，不代表真实实验或网络效果通过。
 
+2026-10-17后续更新：同一获批Tasks1--4已完成限定合成验收，固定九模块146/146通过，0失败/错误/跳过/受限未模拟调用。见[终结边界修复验收记录](docs/experiment_records/2026-10-17_msb_terminal_boundary_repair_acceptance.md)及[完整证据](outputs/msb_terminal_repair_synthetic_v1/final/preservation_and_scope.json)。上述早期失败和阶段状态保留历史含义；本次仅为作者实现与合成证据，未开展新的独立复查、原生OS验收或真实实验，正式报告及科学模型不变，不能视为理论创新已验证。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.
