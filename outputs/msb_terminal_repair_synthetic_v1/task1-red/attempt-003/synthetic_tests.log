@@ -1,0 +1,78 @@
+test_analysis_and_final_export_share_original_deadline (test_run_msb_role_mechanism.RunnerTests.test_analysis_and_final_export_share_original_deadline) ... ok
+test_analysis_scope_is_bound_to_existing_worker_guard (test_run_msb_role_mechanism.RunnerTests.test_analysis_scope_is_bound_to_existing_worker_guard) ... ok
+test_cli_failure_does_not_pass_due_to_verified_flag (test_run_msb_role_mechanism.RunnerTests.test_cli_failure_does_not_pass_due_to_verified_flag) ... ok
+test_code_only_approval_cannot_be_relabelled_real (test_run_msb_role_mechanism.RunnerTests.test_code_only_approval_cannot_be_relabelled_real) ... ok
+test_complete_metadata_and_source_identity_without_input_open (test_run_msb_role_mechanism.RunnerTests.test_complete_metadata_and_source_identity_without_input_open) ... ok
+test_draft_old_or_consumed_approval_opens_nothing (test_run_msb_role_mechanism.RunnerTests.test_draft_old_or_consumed_approval_opens_nothing) ... ok
+test_existing_output_symlink_and_invalid_worker_rejected (test_run_msb_role_mechanism.RunnerTests.test_existing_output_symlink_and_invalid_worker_rejected) ... ok
+test_failure_record_write_error_is_not_claimed_persisted (test_run_msb_role_mechanism.RunnerTests.test_failure_record_write_error_is_not_claimed_persisted) ... FAIL
+test_final_verify_failure_is_terminal (test_run_msb_role_mechanism.RunnerTests.test_final_verify_failure_is_terminal) ... ok
+test_forged_passed_state_without_live_parent_denied (test_run_msb_role_mechanism.RunnerTests.test_forged_passed_state_without_live_parent_denied) ... ok
+test_locally_valid_bad_threefold_preflight_has_zero_fit_calls (test_run_msb_role_mechanism.RunnerTests.test_locally_valid_bad_threefold_preflight_has_zero_fit_calls) ... ok
+test_metadata_registration_time_is_not_refunded (test_run_msb_role_mechanism.RunnerTests.test_metadata_registration_time_is_not_refunded) ... ok
+test_missing_parent_release_evidence_fails (test_run_msb_role_mechanism.RunnerTests.test_missing_parent_release_evidence_fails) ... ok
+test_no_resume_stop_or_training_replay (test_run_msb_role_mechanism.RunnerTests.test_no_resume_stop_or_training_replay) ... ok
+test_nonfit_training_record_fails_before_any_optimizer (test_run_msb_role_mechanism.RunnerTests.test_nonfit_training_record_fails_before_any_optimizer) ... ok
+test_only_final_success_write_crosses_deadline_is_revoked (test_run_msb_role_mechanism.RunnerTests.test_only_final_success_write_crosses_deadline_is_revoked) ... FAIL
+test_packet_tamper_does_not_start_worker (test_run_msb_role_mechanism.RunnerTests.test_packet_tamper_does_not_start_worker) ... ok
+test_preflight_artifact_tamper_denied_before_fold_load (test_run_msb_role_mechanism.RunnerTests.test_preflight_artifact_tamper_denied_before_fold_load) ... ok
+test_preflight_scope_does_not_allow_raw_or_stop_fallback (test_run_msb_role_mechanism.RunnerTests.test_preflight_scope_does_not_allow_raw_or_stop_fallback) ... ok
+test_protocol_scope_checked_before_file_read (test_run_msb_role_mechanism.RunnerTests.test_protocol_scope_checked_before_file_read) ... ok
+test_real_path_worker_fixture_has_complete_status_and_release (test_run_msb_role_mechanism.RunnerTests.test_real_path_worker_fixture_has_complete_status_and_release) ... ok
+test_remaining_budget_reaches_final_verification (test_run_msb_role_mechanism.RunnerTests.test_remaining_budget_reaches_final_verification) ... ok
+test_running_published_before_dispatch (test_run_msb_role_mechanism.RunnerTests.test_running_published_before_dispatch) ... ok
+test_success_has_no_unchecked_tail_write (test_run_msb_role_mechanism.RunnerTests.test_success_has_no_unchecked_tail_write) ... FAIL
+test_terminal_publication_exact_deadline_boundaries (test_run_msb_role_mechanism.RunnerTests.test_terminal_publication_exact_deadline_boundaries) ... FAIL
+test_terminal_write_error_cannot_return_complete (test_run_msb_role_mechanism.RunnerTests.test_terminal_write_error_cannot_return_complete) ... FAIL
+test_timeout_power_release_interrupt_fail_closed (test_run_msb_role_mechanism.RunnerTests.test_timeout_power_release_interrupt_fail_closed) ... ok
+
+======================================================================
+FAIL: test_failure_record_write_error_is_not_claimed_persisted (test_run_msb_role_mechanism.RunnerTests.test_failure_record_write_error_is_not_claimed_persisted)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_run_msb_role_mechanism.py", line 160, in test_failure_record_write_error_is_not_claimed_persisted
+    self.assertTrue(callable(publish),"No terminal publisher with failure persistence contract")
+AssertionError: False is not true : No terminal publisher with failure persistence contract
+
+======================================================================
+FAIL: test_only_final_success_write_crosses_deadline_is_revoked (test_run_msb_role_mechanism.RunnerTests.test_only_final_success_write_crosses_deadline_is_revoked)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_run_msb_role_mechanism.py", line 137, in test_only_final_success_write_crosses_deadline_is_revoked
+    self.assertEqual(state["status"],"TIMED_OUT")
+AssertionError: 'SYNTHETIC_COMPLETE' != 'TIMED_OUT'
+- SYNTHETIC_COMPLETE
++ TIMED_OUT
+
+
+======================================================================
+FAIL: test_success_has_no_unchecked_tail_write (test_run_msb_role_mechanism.RunnerTests.test_success_has_no_unchecked_tail_write)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_run_msb_role_mechanism.py", line 156, in test_success_has_no_unchecked_tail_write
+    self.assertEqual(sum(x["status"]=="SYNTHETIC_COMPLETE" for x in self.state_writes),1)
+AssertionError: 2 != 1
+
+======================================================================
+FAIL: test_terminal_publication_exact_deadline_boundaries (test_run_msb_role_mechanism.RunnerTests.test_terminal_publication_exact_deadline_boundaries)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_run_msb_role_mechanism.py", line 170, in test_terminal_publication_exact_deadline_boundaries
+    self.assertTrue(callable(publish),"No terminal publisher boundary checks")
+AssertionError: False is not true : No terminal publisher boundary checks
+
+======================================================================
+FAIL: test_terminal_write_error_cannot_return_complete (test_run_msb_role_mechanism.RunnerTests.test_terminal_write_error_cannot_return_complete)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_run_msb_role_mechanism.py", line 150, in test_terminal_write_error_cannot_return_complete
+    self.assertEqual(state["status"],"FAILED")
+AssertionError: 'UNHANDLED' != 'FAILED'
+- UNHANDLED
++ FAILED
+
+
+----------------------------------------------------------------------
+Ran 27 tests in 57.095s
+
+FAILED (failures=5)

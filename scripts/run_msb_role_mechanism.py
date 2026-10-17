@@ -70,6 +70,33 @@ def _json(path, value, *, exclusive=False):
     os.replace(temporary, path)
 
 
+def _publish_terminal_state(output: Path, state: dict, *, budget: RunBudget, api) -> dict:
+    history = state.setdefault("state_history", [])
+    if state["status"] in ("SYNTHETIC_COMPLETE", "MECHANISM_COMPLETE"):
+        try:
+            budget.remaining_seconds(api.tick_ms())
+            if not history or history[-1] != state["status"]: history.append(state["status"])
+            state["elapsed_seconds"] = budget.elapsed_seconds(api.tick_ms())
+            state["elapsed_sample_phase"] = "before_terminal_publish"
+            _json(Path(output)/"stage_state.json", state)
+            budget.remaining_seconds(api.tick_ms())
+            return state
+        except BaseException as error:
+            state["status"] = terminal_status(error)
+            state["error"] = f"{type(error).__name__}: {error}"
+            state["delivery_verified"] = False
+    state["delivery_verified"] = False
+    if not history or history[-1] != state["status"]: history.append(state["status"])
+    state["elapsed_seconds"] = max(0, api.tick_ms()-budget.start_tick_ms)/1000.
+    state["elapsed_sample_phase"] = "failure_cleanup_before_write"
+    try:
+        _json(Path(output)/"stage_state.json", state)
+    except BaseException as error:
+        state["failure_record_persisted"] = False
+        raise RuntimeError("Terminal failure record not persisted; no verified delivery") from error
+    return state
+
+
 def synthetic_protocol():
     return dict(protocol="msb_rre_v1", status="SYNTHETIC_ONLY", execution_contract="msb_parent_bound_v1", max_seconds=7200,
                 per_fit_seconds=7200, heartbeat_seconds=15, max_neural_trajectories=63,
@@ -335,17 +362,12 @@ def run_stage(root, protocol_path, output, stage):
         state["status"] = "MECHANISM_COMPLETE" if stage == "fit-mechanism" else "SYNTHETIC_COMPLETE"
         remaining()
         state["power"] = parent_power
-        _json(output/"stage_state.json",state)
-        remaining()
     except BaseException as error:
         state["status"] = terminal_status(error)
         state["error"] = f"{type(error).__name__}: {error}"
         state["delivery_verified"] = False
-    state["state_history"].append(state["status"])
-    state["elapsed_seconds"] = max(0,api.tick_ms()-started)/1000.
     state["power"] = {} if parent is None else parent.evidence()
-    _json(output/"stage_state.json",state)
-    return state
+    return _publish_terminal_state(output,state,budget=budget,api=api)
 
 
 def worker(packet_path, *, handles=None):

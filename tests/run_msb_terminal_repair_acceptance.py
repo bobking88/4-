@@ -14,6 +14,7 @@ import tempfile
 import threading
 import time
 import traceback
+from types import ModuleType
 import unittest
 from unittest.mock import patch
 
@@ -37,8 +38,19 @@ def main(argv=None):
     parser = argparse.ArgumentParser()
     parser.add_argument("--phase", required=True, choices=tuple(PHASES))
     args = parser.parse_args(argv)
-    output = ROOT/"outputs/msb_terminal_repair_synthetic_v1"/args.phase
-    output.mkdir(parents=True, exist_ok=False)
+    phase_root = ROOT/"outputs/msb_terminal_repair_synthetic_v1"/args.phase
+    phase_root.mkdir(parents=True, exist_ok=True)
+    legacy_attempt = (phase_root/"acceptance_summary.json").exists()
+    for attempt in range(1, 4):
+        if legacy_attempt and attempt == 1: continue
+        output = phase_root/f"attempt-{attempt:03d}"
+        try:
+            output.mkdir(exist_ok=False)
+            break
+        except FileExistsError:
+            continue
+    else:
+        raise FileExistsError("Three synthetic attempts consumed; retain all evidence and stop")
     scratch = ROOT/".superpowers/sdd/2026-10-17-msb-terminal-boundary-repair/test-tmp"
     scratch.mkdir(parents=True, exist_ok=True)
     tempfile.tempdir = str(scratch)
@@ -47,13 +59,11 @@ def main(argv=None):
     (output/"source_snapshot.json").write_text(json.dumps(snapshots, ensure_ascii=False, indent=2)+"\n", encoding="utf-8")
     os.chdir(ROOT)
     sys.path[:0] = [str(ROOT/"tests"), str(ROOT/"scripts")]
-    # Installed tensor runtime bootstrap is not an application/native acceptance run.
-    import torch
-    original_load = torch.load
     forbidden_calls, tensor_reads = [], []
     log = io.StringIO()
     result = None
     error = None
+    bootstrap = {}
 
     def forbidden(name):
         def reject(*a, **kw):
@@ -70,10 +80,29 @@ def main(argv=None):
         return original_load(file, *a, **kw)
 
     try:
+        # Only installed numeric runtimes bootstrap outside the application guards.
+        import torch
+        import sklearn
+        bootstrap = dict(torch=str(torch.__version__), sklearn=str(sklearn.__version__))
+        original_load = torch.load
         with ExitStack() as stack:
             for target, name in ((ctypes, "WinDLL"), (subprocess, "Popen"), (os, "_exit"),
                                  (threading.Thread, "start"), (time, "sleep")):
                 stack.enter_context(patch.object(target, name, side_effect=forbidden(name)))
+            # Frozen-feature MSB tests must not construct or preprocess a CNN.
+            vision = ModuleType("torchvision")
+            vision.__path__ = []
+            vision.__file__ = "<mocked-unused-torchvision>"
+            vision.__version__ = "MOCKED_UNUSED_NOT_LOADED"
+            stubs = {"torchvision": vision}
+            for name in ("models", "transforms"):
+                module = ModuleType("torchvision."+name)
+                module.__path__ = []
+                module.__file__ = "<mocked-unused-torchvision-"+name+">"
+                module.__getattr__ = forbidden("unused torchvision."+name)
+                setattr(vision, name, module)
+                stubs["torchvision."+name] = module
+            stack.enter_context(patch.dict(sys.modules, stubs))
             safety = importlib.import_module("msb_execution_safety")
             for name in ("__init__", "tick_ms"):
                 stack.enter_context(patch.object(safety.NativeMSBAPI, name, side_effect=forbidden(name)))
@@ -87,7 +116,9 @@ def main(argv=None):
         error = traceback.format_exc()
         log.write(error)
     successful = result is not None and result.wasSuccessful() and not forbidden_calls and error is None
-    summary = dict(scope="SYNTHETIC_CONTRACT_ONLY", phase=args.phase,
+    summary = dict(scope="SYNTHETIC_CONTRACT_ONLY", phase=args.phase, attempt=attempt,
+                   bootstrap=bootstrap,
+                   unused_dependency_stubs=["torchvision.models", "torchvision.transforms"],
                    status="PASSED" if successful else "FAILED", modules=PHASES[args.phase],
                    tests_run=0 if result is None else result.testsRun,
                    failures=0 if result is None else len(result.failures),

@@ -308,6 +308,10 @@ C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独�
 状态`HARNESS_IMPORT_FAILED_NO_VALID_RED_NO_PRODUCTION_REPAIR`，不能把0项测试写成通过或有效红灯；未修改生产代码、读取真实输入或改正式报告。
 现停在验收器bootstrap/独占尝试目录调整的批准边界，不覆盖旧目录，不凭既有开发许可扩大真实运行范围。
 
+随后有限调整获准，已取得Task1有效红灯（27项中5项新反例失败）及修复后27/27绿灯，见
+[限定合成开发记录](docs/experiment_records/2026-10-17_msb_terminal_repair_development.md)。未使用的torchvision模型/预处理导入以调用即失败的测试替身隔离，未放开其kernel32接口。
+两次载入前失败保留原件，Task1仅修复终态发布；其余三项及整体工程验收尚未完成，不代表真实实验或网络效果通过。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.
