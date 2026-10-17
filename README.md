@@ -297,6 +297,12 @@ C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独�
 本轮未重跑测试、前向、拟合或原生验收，未读真实输入，未改代码和正式报告。121项仍是既有作者合成记录；v1重建验收器快照及早期时钟模拟偏差保留来源限定。
 下一步先另批上述四项的修复规格与实施计划；实际修复、原生无数据验收及真实实验仍分别另行批准，不把工程进展写成理论或网络效果提升。
 
+2026-10-17用户批准仅编写上述四项的文档，已形成[终结边界修复规格](docs/superpowers/specs/2026-10-17-msb-terminal-boundary-repair-design.md)和
+[原生实施计划](docs/superpowers/plans/2026-10-17-msb-terminal-boundary-repair.md)，[授权及作者自审](docs/experiment_records/2026-10-17_msb_terminal_boundary_repair_planning.md)单独归档。
+方案为唯一成功发布、启动所有权记录、显式CLOSE_REQUEST/CLOSE_GRANT/DONE握手及有界退出排空；不宽松接受旧序号，不增加等待额度。
+状态`DOCUMENTED_NOT_IMPLEMENTED_NOT_RUN`：未改代码/测试/网络/真实协议/正式报告，未读取真实输入或执行任何实验；原工程裁决仍需修复。
+书面文件待用户审核，开发及合成验收另批。真实强对照效果与理论创新尚未验证，不因文档完成改变网络成果或真实运行许可。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.
