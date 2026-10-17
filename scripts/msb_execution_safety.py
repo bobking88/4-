@@ -312,10 +312,30 @@ def _terminal(error):
     return "FAILED"
 
 
+@dataclass
+class WorkerLaunchOwnership:
+    attempt_started: bool = False
+    process: object | None = None
+    creation_uncertain: bool = False
+
+    def note_attempt(self):
+        if self.attempt_started or self.process is not None:
+            raise _interrupted("worker launch attempt already consumed")
+        self.attempt_started = True
+
+    def note_process(self, process):
+        if not self.attempt_started or process is None or (self.process is not None and self.process is not process):
+            raise _interrupted("worker process ownership differs")
+        self.process = process
+
+
 class _WorkerStartError(RuntimeError):
-    def __init__(self, spawned_process, reason):
+    def __init__(self, ownership, reason, *, primary_error=None, restoration_errors=()):
         super().__init__("SUPERVISION_INTERRUPTED: "+reason)
-        self.spawned_process = spawned_process
+        self.ownership = ownership
+        self.spawned_process = ownership.process
+        self.primary_error = primary_error
+        self.restoration_errors = tuple(restoration_errors)
 
 
 class MSBParentSupervisor:
@@ -348,6 +368,7 @@ class MSBParentSupervisor:
         channel, process, kill_job, binding = None,None,None,None
         acked, done, assigned, lease, sequence = False,False,False,0,1
         status, error, cleanup_ok = "FAILED","",True
+        ownership = WorkerLaunchOwnership()
         guard = None
         try:
             self.check()
@@ -361,7 +382,10 @@ class MSBParentSupervisor:
                 kill_job = self.api.create_kill_job()
                 child = dict(read_handle=channel["child_read"],write_handle=channel["child_write"],
                              parent_handle=channel["parent_handle"],nonce=secrets.token_hex(32))
-                process = self.api.start_worker(job,child)
+                process = self.api.start_worker(job,child,ownership=ownership)
+                if process is not ownership.process:
+                    ownership.creation_uncertain = True
+                    raise _interrupted("launcher returned a different process owner")
                 for field in ("child_read","child_write"):
                     self.api.close_handle(channel[field]); channel[field] = None
                 binding = _binding_from_metadata(packet,job["packet_path"],child,process.pid,self.api)
@@ -401,16 +425,18 @@ class MSBParentSupervisor:
                         acked,last_renew = False,now
                     self.api.pause(.05)
         except BaseException as failure:
-            if process is None: process = getattr(failure,"spawned_process",None)
+            process = ownership.process
+            if ownership.attempt_started and process is None: ownership.creation_uncertain = True
             status,error = _terminal(failure),f"{type(failure).__name__}: {failure}"
         finally:
             cleanup_start = self.api.tick_ms()
+            cleanup_ok = not ownership.creation_uncertain
             try:
                 if process is not None:
                     if process.poll() is None:
                         if assigned: self.api.terminate_job(kill_job)
                         else: self.api.kill_process(process)
-                    cleanup_ok = self.api.wait_process(process,5.)
+                    cleanup_ok = self.api.wait_process(process,5.) and cleanup_ok
             except BaseException as failure:
                 cleanup_ok=False; error += f"; cleanup: {type(failure).__name__}"
             for handle in ([kill_job] + ([] if channel is None else list(channel.values()))):
@@ -422,7 +448,8 @@ class MSBParentSupervisor:
         if not cleanup_ok: status = "SUPERVISION_INTERRUPTED"
         if status == "COMPLETE" and not power.get("power_request_released"):
             status = "POWER_RELEASE_FAILED"
-        return dict(job_id=job["job_id"],status=status,attempts=int(process is not None),
+        return dict(job_id=job["job_id"],status=status,attempts=int(ownership.attempt_started),
+                    creation_uncertain=ownership.creation_uncertain,
                     pid=None if process is None else process.pid,exit_code=None if process is None else process.returncode,
                     alive=not cleanup_ok or (process is not None and process.poll() is None),error=error,
                     elapsed_seconds=max(0,self.api.tick_ms()-started)/1000.,cleanup_seconds=cleanup_seconds,
@@ -512,26 +539,37 @@ class NativeMSBAPI:
             for handle in handles: self.close_handle(handle)
             raise
 
-    def start_worker(self,job,child_handles):
+    def start_worker(self,job,child_handles,*,ownership: WorkerLaunchOwnership):
+        if (not isinstance(ownership,WorkerLaunchOwnership) or ownership.attempt_started
+                or ownership.process is not None or ownership.creation_uncertain):
+            raise _interrupted("fresh parent launch ownership required")
         inherited=[child_handles[k] for k in ("read_handle","write_handle","parent_handle")]
         startup=subprocess.STARTUPINFO(); startup.lpAttributeList={"handle_list":inherited}
         env=dict(os.environ,OMP_NUM_THREADS="1",MKL_NUM_THREADS="1",OPENBLAS_NUM_THREADS="1",
                  NUMEXPR_NUM_THREADS="1",PYTHONUNBUFFERED="1",PYTHONUTF8="1")
-        process = None
+        process, primary_error, restoration_errors = None, None, []
         try:
             for handle in inherited: os.set_handle_inheritable(handle,True)
             with Path(job["log_path"]).open("x",encoding="utf-8") as log:
+                ownership.note_attempt()
                 process = subprocess.Popen([*job["command"],"--worker-handles",json.dumps(child_handles)],
                                            stdout=log,stderr=subprocess.STDOUT,stdin=subprocess.DEVNULL,
                                            env=env,close_fds=True,startupinfo=startup,creationflags=subprocess.CREATE_NO_WINDOW)
+                ownership.note_process(process)
+        except BaseException as error:
+            primary_error = error
         finally:
-            restoration_error = None
+            if process is not None and ownership.process is None: ownership.note_process(process)
             for handle in inherited:
                 try: os.set_handle_inheritable(handle,False)
-                except BaseException as error: restoration_error = error
-            if restoration_error is not None:
-                raise _WorkerStartError(process,"handle inheritance restoration failed") from restoration_error
-        return process
+                except BaseException as error: restoration_errors.append(error)
+        if primary_error is not None or restoration_errors:
+            if ownership.attempt_started and ownership.process is None: ownership.creation_uncertain = True
+            errors = ([] if primary_error is None else [primary_error])+restoration_errors
+            reason = "; ".join(f"{type(e).__name__}: {e}" for e in errors)
+            raise _WorkerStartError(ownership,reason,primary_error=primary_error,
+                                    restoration_errors=restoration_errors) from errors[0]
+        return ownership.process
 
     def create_kill_job(self):
         handle=self._ok(self.kernel.CreateJobObjectW(None,None))

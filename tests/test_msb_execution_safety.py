@@ -152,9 +152,10 @@ class LauncherAPI(FakeAPI):
     def create_channel(self):
         return dict(parent_read=21,parent_write=22,child_read=11,child_write=12,parent_handle=10)
     def create_kill_job(self): self.events.append("create-job"); return 30
-    def start_worker(self,job,handles):
+    def start_worker(self,job,handles,*,ownership):
         self.events.append("spawn")
-        if self.failure=="restore": raise safety._WorkerStartError(self.process,"inheritance restoration failed")
+        ownership.note_attempt(); ownership.note_process(self.process)
+        if self.failure=="restore": raise safety._WorkerStartError(ownership,"inheritance restoration failed")
         if self.failure=="before-assignment": self.alive=False
         packet=json.loads(Path(job["packet_path"]).read_text(encoding="utf-8"))
         binding=safety._binding_from_metadata(packet,job["packet_path"],handles,8,self)
@@ -204,6 +205,102 @@ class LauncherTests(unittest.TestCase):
         with safety.MSBParentSupervisor(safety.RunBudget(1000,7201000),"run","1"*64,api=api) as parent:
             result=parent.run_job(self.job,dict(heartbeat_seconds=15,per_fit_seconds=7200))
         return result,api
+
+    def run_native_failure(self, event, *, restore_error=False, close_error=False):
+        api=LauncherAPI()
+        process=api.process
+        class Log:
+            def __enter__(inner):
+                if event=="before": raise OSError("primary log open failure")
+                return object()
+            def __exit__(inner,*args):
+                if event=="interrupt": raise KeyboardInterrupt("primary post-spawn interrupt")
+                if event=="log": raise OSError("primary log exit failure")
+        def inherit(handle,flag):
+            if restore_error and handle==11 and not flag: raise OSError("secondary restore failure")
+        spawn=Mock(return_value=process)
+        if event=="unknown": spawn.side_effect=KeyboardInterrupt("primary Popen interrupted")
+        def start(job,handles,**kwargs):
+            native=object.__new__(safety.NativeMSBAPI)
+            with patch.object(safety.subprocess,"STARTUPINFO",return_value=SimpleNamespace()),patch.object(
+                    safety.os,"set_handle_inheritable",side_effect=inherit),patch.object(
+                    safety.subprocess,"Popen",spawn),patch.object(Path,"open",return_value=Log()):
+                return native.start_worker(job,handles,**kwargs)
+        api.start_worker=start
+        old_wait=api.wait_process
+        def wait(p,timeout):
+            self.assertIs(p,process)
+            api.events.append("waited")
+            return old_wait(p,timeout)
+        api.wait_process=wait
+        old_close=api.close_handle
+        def close(handle):
+            old_close(handle)
+            if close_error and handle==30: raise OSError("close confirmation failed")
+        api.close_handle=close
+        with safety.MSBParentSupervisor(safety.RunBudget(1000,7201000),"run","1"*64,api=api) as parent:
+            result=parent.run_job(self.job,{})
+        return result,api,spawn.call_count
+
+    def test_log_exit_error_after_spawn_still_kills_and_waits(self):
+        result,api,count=self.run_native_failure("log")
+        self.assertEqual(count,1)
+        self.assertEqual(result["attempts"],1)
+        self.assertIn("killed",api.events)
+        self.assertIn("waited",api.events)
+        self.assertTrue(result["cleanup_confirmed"])
+        self.assertFalse(result["alive"])
+        self.assertEqual(set(api.closed),{10,11,12,21,22,30})
+
+    def test_keyboard_interrupt_after_spawn_retains_ownership(self):
+        result,api,count=self.run_native_failure("interrupt")
+        self.assertEqual(count,1)
+        self.assertEqual(result["attempts"],1)
+        self.assertIn("killed",api.events)
+        self.assertIn("waited",api.events)
+        self.assertFalse(result["alive"])
+
+    def test_restore_error_does_not_hide_primary_startup_error(self):
+        result,api,count=self.run_native_failure("log",restore_error=True)
+        self.assertEqual(count,1)
+        self.assertIn("primary log exit",result["error"])
+        self.assertIn("secondary restore",result["error"])
+        self.assertIn("waited",api.events)
+
+    def test_attempt_without_recoverable_process_is_uncertain_not_clean(self):
+        result,api,count=self.run_native_failure("unknown")
+        self.assertEqual(count,1)
+        self.assertEqual(result["attempts"],1)
+        self.assertTrue(result["creation_uncertain"])
+        self.assertTrue(result["alive"])
+        self.assertFalse(result["cleanup_confirmed"])
+        self.assertEqual(result["status"],"SUPERVISION_INTERRUPTED")
+
+    def test_failure_before_popen_has_zero_attempts(self):
+        result,api,count=self.run_native_failure("before")
+        self.assertEqual(count,0)
+        self.assertEqual(result["attempts"],0)
+        self.assertTrue(result["cleanup_confirmed"])
+        self.assertNotIn("killed",api.events)
+
+    def test_post_spawn_handle_close_failure_is_not_clean(self):
+        result,api,count=self.run_native_failure("log",close_error=True)
+        self.assertEqual(count,1)
+        self.assertEqual(result["attempts"],1)
+        self.assertIn("waited",api.events)
+        self.assertFalse(result["cleanup_confirmed"])
+        self.assertTrue(result["alive"])
+        self.assertEqual(set(api.closed),{10,11,12,21,22,30})
+
+    def test_ownership_rejects_second_attempt_and_process_replacement(self):
+        ownership_type=getattr(safety,"WorkerLaunchOwnership",None)
+        self.assertTrue(callable(ownership_type),"No single-attempt process ownership")
+        ownership=ownership_type()
+        ownership.note_attempt()
+        with self.assertRaises((RuntimeError,ValueError)): ownership.note_attempt()
+        process=FakeProcess(); ownership.note_process(process)
+        with self.assertRaises((RuntimeError,ValueError)): ownership.note_process(FakeProcess())
+        self.assertIs(ownership.process,process)
 
     def test_no_grant_before_job_assignment(self):
         result,api=self.run_fake()
@@ -310,7 +407,8 @@ class NativeAdapterTests(unittest.TestCase):
             startup=SimpleNamespace()
             with patch.object(safety.subprocess,"STARTUPINFO",return_value=startup),patch.object(
                     safety.os,"set_handle_inheritable") as inherit,patch.object(safety.subprocess,"Popen",return_value=FakeProcess()) as spawn:
-                api.start_worker(dict(log_path=str(Path(directory)/"log"),command=["python","runner"]),handles)
+                api.start_worker(dict(log_path=str(Path(directory)/"log"),command=["python","runner"]),handles,
+                                 ownership=safety.WorkerLaunchOwnership())
             self.assertEqual(startup.lpAttributeList,{"handle_list":[11,12,10]})
             self.assertEqual(inherit.call_args_list[-3:],[((11,False),),((12,False),),((10,False),)])
             self.assertTrue(spawn.call_args.kwargs["close_fds"])
@@ -334,7 +432,8 @@ class NativeAdapterTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             with patch.object(safety.subprocess,"STARTUPINFO",return_value=SimpleNamespace()),patch.object(
                     safety.os,"set_handle_inheritable",side_effect=inherit),patch.object(safety.subprocess,"Popen",return_value=process):
-                try: api.start_worker(dict(command=["python"],log_path=str(Path(folder)/"log")),handles)
+                try: api.start_worker(dict(command=["python"],log_path=str(Path(folder)/"log")),handles,
+                                      ownership=safety.WorkerLaunchOwnership())
                 except BaseException as error:
                     self.assertIs(getattr(error,"spawned_process",None),process)
                 else: self.fail("restore failure was swallowed")
