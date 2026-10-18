@@ -1,4 +1,4 @@
-"""Exclusive synthetic phases for the approved MSB terminal contract repair."""
+"""Exclusive synthetic phases for the approved MSB completion contract repair."""
 from contextlib import ExitStack, nullcontext
 import argparse
 import ctypes
@@ -24,8 +24,8 @@ ALL_MODULES = (
     "test_msb_role_controls", "test_msb_role_audit", "test_msb_role_training",
     "test_run_msb_role_mechanism", "test_analyze_msb_role_mechanism", "test_generate_msb_role_figure",
 )
-PHASES = {f"task{n}-{color}": (("test_run_msb_role_mechanism",) if n == 1 else
-          ("test_msb_execution_safety",)) for n in (1, 2, 3) for color in ("red", "green")}
+PHASES = {f"{stage}-{color}": (("test_msb_execution_safety",) if stage == "lease" else
+          ("test_run_msb_role_mechanism",)) for stage in ("gate", "lease", "publish") for color in ("red", "green")}
 PHASES["final"] = ALL_MODULES
 SNAPSHOTS = (
     "scripts/msb_execution_safety.py", "scripts/run_msb_role_mechanism.py",
@@ -34,11 +34,17 @@ SNAPSHOTS = (
 )
 
 
+def _acceptance_passed(result, *, forbidden_calls: list, harness_error: str | None) -> bool:
+    return (result is not None and result.wasSuccessful() and result.testsRun > 0
+            and not result.skipped and not result.expectedFailures and not result.unexpectedSuccesses
+            and not forbidden_calls and harness_error is None)
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser()
     parser.add_argument("--phase", required=True, choices=tuple(PHASES))
     args = parser.parse_args(argv)
-    phase_root = ROOT/"outputs/msb_terminal_repair_synthetic_v1"/args.phase
+    phase_root = ROOT/"outputs/msb_completion_repair_synthetic_v1"/args.phase
     phase_root.mkdir(parents=True, exist_ok=True)
     legacy_attempt = (phase_root/"acceptance_summary.json").exists()
     for attempt in range(1, 4):
@@ -51,7 +57,7 @@ def main(argv=None):
             continue
     else:
         raise FileExistsError("Three synthetic attempts consumed; retain all evidence and stop")
-    scratch = ROOT/".superpowers/sdd/2026-10-17-msb-terminal-boundary-repair/test-tmp"
+    scratch = ROOT/".superpowers/sdd/2026-10-17-msb-completion-acceptance-repair/test-tmp"
     scratch.mkdir(parents=True, exist_ok=True)
     tempfile.tempdir = str(scratch)
     snapshots = {p: dict(sha256=hashlib.sha256((ROOT/p).read_bytes()).hexdigest(),
@@ -115,7 +121,7 @@ def main(argv=None):
     except BaseException:
         error = traceback.format_exc()
         log.write(error)
-    successful = result is not None and result.wasSuccessful() and not forbidden_calls and error is None
+    successful = _acceptance_passed(result, forbidden_calls=forbidden_calls, harness_error=error)
     summary = dict(scope="SYNTHETIC_CONTRACT_ONLY", phase=args.phase, attempt=attempt,
                    bootstrap=bootstrap,
                    unused_dependency_stubs=["torchvision.models", "torchvision.transforms"],
@@ -124,6 +130,8 @@ def main(argv=None):
                    failures=0 if result is None else len(result.failures),
                    errors=0 if result is None else len(result.errors),
                    skipped=0 if result is None else len(result.skipped),
+                   expected_failures=0 if result is None else len(result.expectedFailures),
+                   unexpected_successes=0 if result is None else len(result.unexpectedSuccesses),
                    unmocked_boundary_calls=forbidden_calls, native_os_exercised=False,
                    real_data_opened=False, real_fits=0, temporary_synthetic_tensor_reads=len(tensor_reads),
                    source_snapshot="DIRECT_PRE_RUN_CAPTURE", harness_error=error)

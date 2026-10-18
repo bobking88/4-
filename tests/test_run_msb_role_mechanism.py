@@ -8,6 +8,7 @@ import sys
 import tempfile
 import hashlib
 import unittest
+from types import ModuleType
 from unittest.mock import patch
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"scripts"))
 try:
@@ -16,6 +17,53 @@ except ModuleNotFoundError:
     runner=None
 from msb_synthetic_helpers import make_prepared_fixture
 from test_msb_execution_safety import FakeAPI
+
+
+class AcceptanceGateTests(unittest.TestCase):
+    def test_acceptance_gate_rejects_skipped_expected_or_empty_result(self):
+        import run_msb_terminal_repair_acceptance as acceptance
+        for kind in ("passed", "empty", "skipped", "all-skipped", "expected", "unexpected", "missing"):
+            with self.subTest(kind=kind):
+                result = unittest.TestResult()
+                result.testsRun = 0 if kind == "empty" else 1
+                if kind in ("skipped", "all-skipped"): result.skipped = [(self, "synthetic skip")]
+                if kind == "expected": result.expectedFailures = [(self, "synthetic expected failure")]
+                if kind == "unexpected": result.unexpectedSuccesses = [self]
+                if kind == "missing": result = None
+                self.assertEqual(acceptance._acceptance_passed(result, forbidden_calls=[], harness_error=None),
+                                 kind == "passed")
+        result = unittest.TestResult(); result.testsRun = 1
+        self.assertFalse(acceptance._acceptance_passed(result, forbidden_calls=["blocked"], harness_error=None))
+        self.assertFalse(acceptance._acceptance_passed(result, forbidden_calls=[], harness_error="synthetic error"))
+
+    def test_acceptance_main_skip_result_is_failed_and_nonzero(self):
+        import run_msb_terminal_repair_acceptance as acceptance
+        from contextlib import ExitStack
+        result = unittest.TestResult(); result.testsRun = 1
+        result.skipped = [(self, "synthetic skip")]
+        modules = {name: sys.modules[name] for name in ("msb_execution_safety", "msb_role_training")}
+        def imported(name):
+            if name in modules: return modules[name]
+            self.assertIn(name, acceptance.PHASES["gate-red"])
+            return ModuleType(name)
+        with tempfile.TemporaryDirectory() as folder, ExitStack() as stack:
+            root = Path(folder)
+            for name in acceptance.SNAPSHOTS:
+                path = root/name; path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text("# synthetic snapshot fixture\n", encoding="utf-8")
+            stack.enter_context(patch.object(acceptance, "ROOT", root))
+            stack.enter_context(patch.object(tempfile, "tempdir", tempfile.tempdir))
+            stack.enter_context(patch.object(sys, "path", list(sys.path)))
+            stack.enter_context(patch.object(acceptance.os, "chdir"))
+            stack.enter_context(patch.object(acceptance.importlib, "import_module", side_effect=imported))
+            stack.enter_context(patch.object(unittest.defaultTestLoader, "loadTestsFromModule", return_value=unittest.TestSuite()))
+            stack.enter_context(patch.object(unittest.TextTestRunner, "run", return_value=result))
+            stack.enter_context(patch.object(sys, "stdout", io.StringIO()))
+            code = acceptance.main(["--phase", "gate-red"])
+            summary = json.loads((root/"outputs/msb_completion_repair_synthetic_v1/gate-red/attempt-001/acceptance_summary.json").read_text())
+            self.assertEqual(summary["skipped"], 1)
+            self.assertEqual(summary["status"], "FAILED")
+            self.assertEqual(code, 1)
 
 
 class FakeGuard:
