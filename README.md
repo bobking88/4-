@@ -322,6 +322,8 @@ C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独�
 
 2026-10-18独立复查更新：按另批的单次授权，对`51b1716..ee6078a`完成[完成接收修复只读复查及接收判断](docs/experiment_records/2026-10-18_msb_completion_acceptance_repair_independent_review.md)。三项修复及八帧补覆盖均为ADDRESSED，限定合成工程结论APPROVE，未发现需修复的新P1/P2/P3缺陷；原生验收仍INSUFFICIENT_EVIDENCE、科学效果未测试。原157项日志不重跑、不改写；43项源码、10项测试/验收器及20项指定文件身份匹配，正式报告和科学模型不变。完整独立原文、审查范围及保留事项裁定已归档；本次接收不是新真实实验许可，原生无数据验收及真实协议/运行仍须另批。
 
+2026-10-18原生验收文档更新：按另行文档授权归档[MSB原生无数据监督验收规格](docs/superpowers/specs/2026-10-18-msb-native-supervision-acceptance-design.md)、[实施计划](docs/superpowers/plans/2026-10-18-msb-native-supervision-acceptance.md)及[文档记录](docs/experiment_records/2026-10-18_msb_native_supervision_acceptance_planning.md)。拟用专用无数据驱动复用既有监督器，四场景/480秒窗口/每例一次，不改7200秒生产预算、不重跑旧键鼠空闲验收。仅DOCUMENTED_NOT_IMPLEMENTED_NOT_RUN：未开发、未测试、未建原生协议或输出、未读真实数据，正式报告与科学模型不变；当前原生证据仍不足，后续开发、登记和实际运行分别另批，不是网络理论创新已验证。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.
