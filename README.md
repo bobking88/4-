@@ -328,6 +328,8 @@ C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独�
 
 2026-10-18验收驱动独立复查更新：对`a71d548..c092f1c`完成[单次只读工程复查](docs/experiment_records/2026-10-18_msb_native_supervision_independent_review.md)，结论REQUEST_CHANGES。确认2项P1（N4故障前退出误通过、登记root与执行来源未绑定）及3项P2（末端AC/连续性、guard释放失败终态发布、N3零工作采样开销），均未修复。原202项日志保留、不重跑；78项保护哈希记录匹配，源码/测试/网络/正式报告不变。当前未放行原生或真实实验，修复规格、实施及后续验收须另批；工程审查不计为理论创新验证。
 
+2026-10-18验收驱动修复文档更新：按另行文档授权归档[五项最小修复规格](docs/superpowers/specs/2026-10-18-msb-native-acceptance-repair-design.md)、[三任务实施计划](docs/superpowers/plans/2026-10-18-msb-native-acceptance-repair.md)及[作者文档记录](docs/experiment_records/2026-10-18_msb_native_acceptance_repair_planning.md)。仅DOCUMENTED_NOT_IMPLEMENTED_NOT_RUN，15项计划步骤未开始；REQUEST_CHANGES不变。源码/测试/网络/正式报告不改，未来固定七阶段全fake验收、独立复查和原生/真实实验均另批，不把工程文档当网络创新证据。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.
