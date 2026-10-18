@@ -1,0 +1,134 @@
+test_deadline_equality_backwards_and_nonfinite_rejected (test_check_msb_native_supervision.ContractTests.test_deadline_equality_backwards_and_nonfinite_rejected) ... ok
+test_fixed_protocol_validates_without_reading_assets (test_check_msb_native_supervision.ContractTests.test_fixed_protocol_validates_without_reading_assets) ... ok
+test_no_execute_flag_denies_before_service_or_file_read (test_check_msb_native_supervision.ContractTests.test_no_execute_flag_denies_before_service_or_file_read) ... ok
+test_nonreal_and_unconfirmed_approval_rejected (test_check_msb_native_supervision.ContractTests.test_nonreal_and_unconfirmed_approval_rejected) ... ok
+test_old_output_missing_source_and_extra_source_rejected (test_check_msb_native_supervision.ContractTests.test_old_output_missing_source_and_extra_source_rejected) ... ok
+test_protocol_mutations_and_true_data_fields_rejected (test_check_msb_native_supervision.ContractTests.test_protocol_mutations_and_true_data_fields_rejected) ... ok
+test_remaining_uses_larger_elapsed_including_preparation (test_check_msb_native_supervision.ContractTests.test_remaining_uses_larger_elapsed_including_preparation) ... ok
+test_actual_main_never_passes_a_skipped_input (test_check_msb_native_supervision.HarnessGateTests.test_actual_main_never_passes_a_skipped_input) ... ok
+test_gate_rejects_nonpassing_result_classes (test_check_msb_native_supervision.HarnessGateTests.test_gate_rejects_nonpassing_result_classes) ... ok
+test_controller_reuses_real_parent_and_original_budget (test_check_msb_native_supervision.WorkerTests.test_controller_reuses_real_parent_and_original_budget) ... FAIL
+test_done_linger_expires_original_frozen_lease_not_outer_timer (test_check_msb_native_supervision.WorkerTests.test_done_linger_expires_original_frozen_lease_not_outer_timer) ... FAIL
+test_no_done_and_native_eof_remain_fail_closed_with_exit23 (test_check_msb_native_supervision.WorkerTests.test_no_done_and_native_eof_remain_fail_closed_with_exit23) ... FAIL
+test_parent_fault_case_still_uses_real_launch_and_rejects_assignment_failure (test_check_msb_native_supervision.WorkerTests.test_parent_fault_case_still_uses_real_launch_and_rejects_assignment_failure) ... FAIL
+test_parent_fault_rejects_job_handle_retention_wrong_identity_and_timeout (test_check_msb_native_supervision.WorkerTests.test_parent_fault_rejects_job_handle_retention_wrong_identity_and_timeout) ... FAIL
+test_parent_fault_requires_real_ready_identity_and_collector_ack (test_check_msb_native_supervision.WorkerTests.test_parent_fault_requires_real_ready_identity_and_collector_ack) ... FAIL
+test_real_worker_scope_waits45_and_completes_real_close (test_check_msb_native_supervision.WorkerTests.test_real_worker_scope_waits45_and_completes_real_close) ... FAIL
+test_worker_exit23_never_publishes_result_or_false_release (test_check_msb_native_supervision.WorkerTests.test_worker_exit23_never_publishes_result_or_false_release) ... FAIL
+test_worker_lingers_only_after_close_and_power_release (test_check_msb_native_supervision.WorkerTests.test_worker_lingers_only_after_close_and_power_release) ... FAIL
+test_worker_rejects_old_packet_and_missing_live_capability (test_check_msb_native_supervision.WorkerTests.test_worker_rejects_old_packet_and_missing_live_capability) ... FAIL
+
+======================================================================
+FAIL: test_controller_reuses_real_parent_and_original_budget (test_check_msb_native_supervision.WorkerTests.test_controller_reuses_real_parent_and_original_budget)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 219, in test_controller_reuses_real_parent_and_original_budget
+    run=self.function("run_controller")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 212, in function
+    self.assertTrue(callable(value),"Missing worker implementation: "+name)
+AssertionError: False is not true : Missing worker implementation: run_controller
+
+======================================================================
+FAIL: test_done_linger_expires_original_frozen_lease_not_outer_timer (test_check_msb_native_supervision.WorkerTests.test_done_linger_expires_original_frozen_lease_not_outer_timer)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 244, in test_done_linger_expires_original_frozen_lease_not_outer_timer
+    run=self.function("run_controller");api=CaseLauncher("N3")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 212, in function
+    self.assertTrue(callable(value),"Missing worker implementation: "+name)
+AssertionError: False is not true : Missing worker implementation: run_controller
+
+======================================================================
+FAIL: test_no_done_and_native_eof_remain_fail_closed_with_exit23 (test_check_msb_native_supervision.WorkerTests.test_no_done_and_native_eof_remain_fail_closed_with_exit23)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 234, in test_no_done_and_native_eof_remain_fail_closed_with_exit23
+    run=self.function("run_controller")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 212, in function
+    self.assertTrue(callable(value),"Missing worker implementation: "+name)
+AssertionError: False is not true : Missing worker implementation: run_controller
+
+======================================================================
+FAIL: test_parent_fault_case_still_uses_real_launch_and_rejects_assignment_failure (test_check_msb_native_supervision.WorkerTests.test_parent_fault_case_still_uses_real_launch_and_rejects_assignment_failure)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 254, in test_parent_fault_case_still_uses_real_launch_and_rejects_assignment_failure
+    run=self.function("run_controller");api=CaseLauncher("N4");api.failure="assign"
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 212, in function
+    self.assertTrue(callable(value),"Missing worker implementation: "+name)
+AssertionError: False is not true : Missing worker implementation: run_controller
+
+======================================================================
+FAIL: test_parent_fault_rejects_job_handle_retention_wrong_identity_and_timeout (test_check_msb_native_supervision.WorkerTests.test_parent_fault_rejects_job_handle_retention_wrong_identity_and_timeout)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 324, in test_parent_fault_rejects_job_handle_retention_wrong_identity_and_timeout
+    fault=self.function("parent_fault_after_ready")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 212, in function
+    self.assertTrue(callable(value),"Missing worker implementation: "+name)
+AssertionError: False is not true : Missing worker implementation: parent_fault_after_ready
+
+======================================================================
+FAIL: test_parent_fault_requires_real_ready_identity_and_collector_ack (test_check_msb_native_supervision.WorkerTests.test_parent_fault_requires_real_ready_identity_and_collector_ack)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 315, in test_parent_fault_requires_real_ready_identity_and_collector_ack
+    fault=self.function("parent_fault_after_ready")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 212, in function
+    self.assertTrue(callable(value),"Missing worker implementation: "+name)
+AssertionError: False is not true : Missing worker implementation: parent_fault_after_ready
+
+======================================================================
+FAIL: test_real_worker_scope_waits45_and_completes_real_close (test_check_msb_native_supervision.WorkerTests.test_real_worker_scope_waits45_and_completes_real_close)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 273, in test_real_worker_scope_waits45_and_completes_real_close
+    run=self.function("run_no_data_worker");api=WorkerAPI();services=FakeDriverServices(api)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 212, in function
+    self.assertTrue(callable(value),"Missing worker implementation: "+name)
+AssertionError: False is not true : Missing worker implementation: run_no_data_worker
+
+======================================================================
+FAIL: test_worker_exit23_never_publishes_result_or_false_release (test_check_msb_native_supervision.WorkerTests.test_worker_exit23_never_publishes_result_or_false_release)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 285, in test_worker_exit23_never_publishes_result_or_false_release
+    run=self.function("run_no_data_worker");api=WorkerAPI();services=FakeDriverServices(api)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 212, in function
+    self.assertTrue(callable(value),"Missing worker implementation: "+name)
+AssertionError: False is not true : Missing worker implementation: run_no_data_worker
+
+======================================================================
+FAIL: test_worker_lingers_only_after_close_and_power_release (test_check_msb_native_supervision.WorkerTests.test_worker_lingers_only_after_close_and_power_release)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 294, in test_worker_lingers_only_after_close_and_power_release
+    run=self.function("run_no_data_worker");api=WorkerAPI();services=FakeDriverServices(api)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 212, in function
+    self.assertTrue(callable(value),"Missing worker implementation: "+name)
+AssertionError: False is not true : Missing worker implementation: run_no_data_worker
+
+======================================================================
+FAIL: test_worker_rejects_old_packet_and_missing_live_capability (test_check_msb_native_supervision.WorkerTests.test_worker_rejects_old_packet_and_missing_live_capability)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 304, in test_worker_rejects_old_packet_and_missing_live_capability
+    run=self.function("run_no_data_worker")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 212, in function
+    self.assertTrue(callable(value),"Missing worker implementation: "+name)
+AssertionError: False is not true : Missing worker implementation: run_no_data_worker
+
+----------------------------------------------------------------------
+Ran 19 tests in 0.042s
+
+FAILED (failures=10)

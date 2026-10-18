@@ -1,0 +1,100 @@
+test_deadline_equality_backwards_and_nonfinite_rejected (test_check_msb_native_supervision.ContractTests.test_deadline_equality_backwards_and_nonfinite_rejected) ... ok
+test_fixed_protocol_validates_without_reading_assets (test_check_msb_native_supervision.ContractTests.test_fixed_protocol_validates_without_reading_assets) ... ok
+test_no_execute_flag_denies_before_service_or_file_read (test_check_msb_native_supervision.ContractTests.test_no_execute_flag_denies_before_service_or_file_read) ... ok
+test_nonreal_and_unconfirmed_approval_rejected (test_check_msb_native_supervision.ContractTests.test_nonreal_and_unconfirmed_approval_rejected) ... ok
+test_old_output_missing_source_and_extra_source_rejected (test_check_msb_native_supervision.ContractTests.test_old_output_missing_source_and_extra_source_rejected) ... ok
+test_protocol_mutations_and_true_data_fields_rejected (test_check_msb_native_supervision.ContractTests.test_protocol_mutations_and_true_data_fields_rejected) ... ok
+test_remaining_uses_larger_elapsed_including_preparation (test_check_msb_native_supervision.ContractTests.test_remaining_uses_larger_elapsed_including_preparation) ... ok
+test_actual_main_never_passes_a_skipped_input (test_check_msb_native_supervision.HarnessGateTests.test_actual_main_never_passes_a_skipped_input) ... ok
+test_gate_rejects_nonpassing_result_classes (test_check_msb_native_supervision.HarnessGateTests.test_gate_rejects_nonpassing_result_classes) ... ok
+test_controller_reuses_real_parent_and_original_budget (test_check_msb_native_supervision.WorkerTests.test_controller_reuses_real_parent_and_original_budget) ... ok
+test_done_linger_expires_original_frozen_lease_not_outer_timer (test_check_msb_native_supervision.WorkerTests.test_done_linger_expires_original_frozen_lease_not_outer_timer) ... ok
+test_no_done_and_native_eof_remain_fail_closed_with_exit23 (test_check_msb_native_supervision.WorkerTests.test_no_done_and_native_eof_remain_fail_closed_with_exit23) ... ok
+test_parent_fault_case_still_uses_real_launch_and_rejects_assignment_failure (test_check_msb_native_supervision.WorkerTests.test_parent_fault_case_still_uses_real_launch_and_rejects_assignment_failure) ... ok
+test_parent_fault_rejects_job_handle_retention_wrong_identity_and_timeout (test_check_msb_native_supervision.WorkerTests.test_parent_fault_rejects_job_handle_retention_wrong_identity_and_timeout) ... ok
+test_parent_fault_requires_real_ready_identity_and_collector_ack (test_check_msb_native_supervision.WorkerTests.test_parent_fault_requires_real_ready_identity_and_collector_ack) ... ok
+test_private_worker_cli_rejects_missing_handles_and_public_flag_mix (test_check_msb_native_supervision.WorkerTests.test_private_worker_cli_rejects_missing_handles_and_public_flag_mix) ... ok
+test_private_worker_cli_runs_the_real_scope_with_inherited_handles (test_check_msb_native_supervision.WorkerTests.test_private_worker_cli_runs_the_real_scope_with_inherited_handles) ... FAIL
+test_real_worker_scope_waits45_and_completes_real_close (test_check_msb_native_supervision.WorkerTests.test_real_worker_scope_waits45_and_completes_real_close) ... ERROR
+test_worker_exit23_never_publishes_result_or_false_release (test_check_msb_native_supervision.WorkerTests.test_worker_exit23_never_publishes_result_or_false_release) ... ERROR
+test_worker_lingers_only_after_close_and_power_release (test_check_msb_native_supervision.WorkerTests.test_worker_lingers_only_after_close_and_power_release) ... ERROR
+test_worker_rejects_old_packet_and_missing_live_capability (test_check_msb_native_supervision.WorkerTests.test_worker_rejects_old_packet_and_missing_live_capability) ... ok
+
+======================================================================
+ERROR: test_real_worker_scope_waits45_and_completes_real_close (test_check_msb_native_supervision.WorkerTests.test_real_worker_scope_waits45_and_completes_real_close)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 276, in test_real_worker_scope_waits45_and_completes_real_close
+    result=run(path,handles,services=services)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 286, in run_no_data_worker
+    with safety.open_worker_scope(packet_path,handles,api=services.api,awake_guard=awake) as scope:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\msb_execution_safety.py", line 391, in open_worker_scope
+    raise _interrupted("invalid parent GRANT")
+RuntimeError: SUPERVISION_INTERRUPTED: invalid parent GRANT
+
+======================================================================
+ERROR: test_worker_exit23_never_publishes_result_or_false_release (test_check_msb_native_supervision.WorkerTests.test_worker_exit23_never_publishes_result_or_false_release)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 288, in test_worker_exit23_never_publishes_result_or_false_release
+    with self.assertRaises(SystemExit) as error:run(path,handles,services=services)
+                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 286, in run_no_data_worker
+    with safety.open_worker_scope(packet_path,handles,api=services.api,awake_guard=awake) as scope:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\msb_execution_safety.py", line 391, in open_worker_scope
+    raise _interrupted("invalid parent GRANT")
+RuntimeError: SUPERVISION_INTERRUPTED: invalid parent GRANT
+
+======================================================================
+ERROR: test_worker_lingers_only_after_close_and_power_release (test_check_msb_native_supervision.WorkerTests.test_worker_lingers_only_after_close_and_power_release)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 297, in test_worker_lingers_only_after_close_and_power_release
+    result=run(path,handles,services=services)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 286, in run_no_data_worker
+    with safety.open_worker_scope(packet_path,handles,api=services.api,awake_guard=awake) as scope:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\msb_execution_safety.py", line 391, in open_worker_scope
+    raise _interrupted("invalid parent GRANT")
+RuntimeError: SUPERVISION_INTERRUPTED: invalid parent GRANT
+
+======================================================================
+FAIL: test_private_worker_cli_runs_the_real_scope_with_inherited_handles (test_check_msb_native_supervision.WorkerTests.test_private_worker_cli_runs_the_real_scope_with_inherited_handles)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 330, in test_private_worker_cli_runs_the_real_scope_with_inherited_handles
+    try:code=native.main(["--worker-packet",str(path),"--worker-handles",json.dumps(handles)])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 366, in main
+    args=parser.parse_args(argv)
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\argparse.py", line 1869, in parse_args
+    args, argv = self.parse_known_args(args, namespace)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\argparse.py", line 1902, in parse_known_args
+    namespace, args = self._parse_known_args(args, namespace)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\argparse.py", line 2142, in _parse_known_args
+    self.error(_('the following arguments are required: %s') %
+  File "C:\Program Files\Python311\Lib\argparse.py", line 2630, in error
+    self.exit(2, _('%(prog)s: error: %(message)s\n') % args)
+  File "C:\Program Files\Python311\Lib\argparse.py", line 2617, in exit
+    _sys.exit(status)
+SystemExit: 2
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 331, in test_private_worker_cli_runs_the_real_scope_with_inherited_handles
+    except SystemExit as error:self.fail("Worker CLI cannot dispatch live-capability mode: "+str(error))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Worker CLI cannot dispatch live-capability mode: 2
+
+----------------------------------------------------------------------
+Ran 21 tests in 0.939s
+
+FAILED (failures=1, errors=3)
