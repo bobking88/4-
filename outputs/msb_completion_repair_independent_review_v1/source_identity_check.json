@@ -1,0 +1,379 @@
+{
+  "identity_record": "outputs/msb_completion_repair_synthetic_v1/final/source_identity.json",
+  "sources": 43,
+  "tests_and_harness": 10,
+  "all_matched": true,
+  "files": [
+    {
+      "group": "source_sha256",
+      "path": "scripts/analyze_ic_role_mechanism.py",
+      "expected_sha256": "26fd12997e987c7e71649dd960cb82094d524a5071f6a954fccd4d96fdc2c906",
+      "actual_sha256": "26fd12997e987c7e71649dd960cb82094d524a5071f6a954fccd4d96fdc2c906",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/analyze_lc_role_adaptation.py",
+      "expected_sha256": "54b98dbcf1ed1299c05b2bbc3f4722c36d00ba35fb9fc44095f45a59bb4fbc1b",
+      "actual_sha256": "54b98dbcf1ed1299c05b2bbc3f4722c36d00ba35fb9fc44095f45a59bb4fbc1b",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/analyze_misclassifications.py",
+      "expected_sha256": "3d2c7f463fe1257ec5a7e2c3571db4ae3cb65ef04bf3dd7b1942464c8ded707c",
+      "actual_sha256": "3d2c7f463fe1257ec5a7e2c3571db4ae3cb65ef04bf3dd7b1942464c8ded707c",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/analyze_msb_role_mechanism.py",
+      "expected_sha256": "af439f8440284b3436a152c079cf8a922618a10a4ab90cbf5e4cbff11b054e59",
+      "actual_sha256": "af439f8440284b3436a152c079cf8a922618a10a4ab90cbf5e4cbff11b054e59",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/anchor_linear_controls.py",
+      "expected_sha256": "1a979127c960cfc44c8fc3ef682d790dbb280e2488cfc2440baa2c161ed10192",
+      "actual_sha256": "1a979127c960cfc44c8fc3ef682d790dbb280e2488cfc2440baa2c161ed10192",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/audit_abmp_candidate_capacity.py",
+      "expected_sha256": "163c224a5ff9f72c2daf1341570c0bc40be76b8593671177c50f7d036b83675c",
+      "actual_sha256": "163c224a5ff9f72c2daf1341570c0bc40be76b8593671177c50f7d036b83675c",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/check_lc_native_environment.py",
+      "expected_sha256": "6ff6bf40cec8c5f0b78ffc61fd11be8aeadf35880b1ebe9e8112be0b298ac161",
+      "actual_sha256": "6ff6bf40cec8c5f0b78ffc61fd11be8aeadf35880b1ebe9e8112be0b298ac161",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/frozen_visual_probe.py",
+      "expected_sha256": "6e417ea900ed3cbd1c8653898a5bb9849b73958b57c4c50803217d82a4793bfa",
+      "actual_sha256": "6e417ea900ed3cbd1c8653898a5bb9849b73958b57c4c50803217d82a4793bfa",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/generate_msb_role_figure.py",
+      "expected_sha256": "a96cead0999a23b3fb9f462299b0e3c77834c156969642e7c4a92efcc06be0f6",
+      "actual_sha256": "a96cead0999a23b3fb9f462299b0e3c77834c156969642e7c4a92efcc06be0f6",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/hrgv_network.py",
+      "expected_sha256": "f4c2889b9a129d9f52fd999b189c0888407f9887e1f739cd5e1b55b4d361a0da",
+      "actual_sha256": "f4c2889b9a129d9f52fd999b189c0888407f9887e1f739cd5e1b55b4d361a0da",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/ic_role_audit.py",
+      "expected_sha256": "ffadcaa76f8494fbd63080b90a4bd8d4f95d7d4b4ef585aac4847511074729d4",
+      "actual_sha256": "ffadcaa76f8494fbd63080b90a4bd8d4f95d7d4b4ef585aac4847511074729d4",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/ic_role_data.py",
+      "expected_sha256": "897751bb68c5fb40fc8c186c73041b6ed05990708e57771c403f4d604e7d6d2d",
+      "actual_sha256": "897751bb68c5fb40fc8c186c73041b6ed05990708e57771c403f4d604e7d6d2d",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/ic_role_model.py",
+      "expected_sha256": "b62462a725e52a67f79d3fdba148bc19195dfe488f15c0ce3137f8a0680377b3",
+      "actual_sha256": "b62462a725e52a67f79d3fdba148bc19195dfe488f15c0ce3137f8a0680377b3",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/ic_role_training.py",
+      "expected_sha256": "b4102538411b7079d5fcf83587a0b8558141660ed9c5048ca4d1c5acbdda58cd",
+      "actual_sha256": "b4102538411b7079d5fcf83587a0b8558141660ed9c5048ca4d1c5acbdda58cd",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/lc_execution_safety.py",
+      "expected_sha256": "84089e43cb36133d41647b7576c27e4609058b9c087f4979f595452cd37bc029",
+      "actual_sha256": "84089e43cb36133d41647b7576c27e4609058b9c087f4979f595452cd37bc029",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/lc_role_adapter.py",
+      "expected_sha256": "3c02653b5a1aafd1cf452fa029b827baa899ff6a6645986cebc368fbdeecf1aa",
+      "actual_sha256": "3c02653b5a1aafd1cf452fa029b827baa899ff6a6645986cebc368fbdeecf1aa",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/lc_role_audit.py",
+      "expected_sha256": "587bdb18a27e897e47064889f9d77869be94b62bf661379e4409d88d2802ec1c",
+      "actual_sha256": "587bdb18a27e897e47064889f9d77869be94b62bf661379e4409d88d2802ec1c",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/lc_role_data.py",
+      "expected_sha256": "d8639d3035d55ef04b04605b2f565c2cc29a7dcefaba995fd852b396cf489e09",
+      "actual_sha256": "d8639d3035d55ef04b04605b2f565c2cc29a7dcefaba995fd852b396cf489e09",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/lc_role_training.py",
+      "expected_sha256": "1431e80200a7639aca10493d4d7d4ef91c66eb45bbd1457a9a1cdc52f983adb7",
+      "actual_sha256": "1431e80200a7639aca10493d4d7d4ef91c66eb45bbd1457a9a1cdc52f983adb7",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/mineral_hierarchy.py",
+      "expected_sha256": "21c485b70d838a9acf1626762b0a643b0e8297e060e8cd7eb3348f807d191384",
+      "actual_sha256": "21c485b70d838a9acf1626762b0a643b0e8297e060e8cd7eb3348f807d191384",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/msb_execution_safety.py",
+      "expected_sha256": "aaf8f808805c0ce470e645757b625a6951f35e8bc362c628278ab97635dba41f",
+      "actual_sha256": "aaf8f808805c0ce470e645757b625a6951f35e8bc362c628278ab97635dba41f",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/msb_role_audit.py",
+      "expected_sha256": "23eddcb993b3b4584ba67bbbafa94d20c40602bab15b3100a5157f789377bc20",
+      "actual_sha256": "23eddcb993b3b4584ba67bbbafa94d20c40602bab15b3100a5157f789377bc20",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/msb_role_controls.py",
+      "expected_sha256": "ef649b352b4f877d60f34dd4f64e80dc98226e587495fadda0fd697b71e7c808",
+      "actual_sha256": "ef649b352b4f877d60f34dd4f64e80dc98226e587495fadda0fd697b71e7c808",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/msb_role_data.py",
+      "expected_sha256": "674bde1f7ab1675ea427160e4a8435e9588b1ce198c7c864965ba7f6f7f7c242",
+      "actual_sha256": "674bde1f7ab1675ea427160e4a8435e9588b1ce198c7c864965ba7f6f7f7c242",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/msb_role_model.py",
+      "expected_sha256": "752e91afcc368fef0e5b54f6ff4ba5cb4c2d66267532211bfaaa0cab5b35f192",
+      "actual_sha256": "752e91afcc368fef0e5b54f6ff4ba5cb4c2d66267532211bfaaa0cab5b35f192",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/msb_role_training.py",
+      "expected_sha256": "2f16547744b86e5dbc5782111e2cdfe85fc1d0c0b3aef213774a8ed15ff9e04d",
+      "actual_sha256": "2f16547744b86e5dbc5782111e2cdfe85fc1d0c0b3aef213774a8ed15ff9e04d",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/run_anchor_linear_controls.py",
+      "expected_sha256": "15beb38c7825a439199b5545bfb5a4d842947d9f107b18ec09ccca759a747735",
+      "actual_sha256": "15beb38c7825a439199b5545bfb5a4d842947d9f107b18ec09ccca759a747735",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/run_frozen_visual_probe.py",
+      "expected_sha256": "db6db46bd8f046ad0e3ec9c2bc14f138fa2150e297ab4b30eb316d4510a36d2d",
+      "actual_sha256": "db6db46bd8f046ad0e3ec9c2bc14f138fa2150e297ab4b30eb316d4510a36d2d",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/run_ic_role_mechanism.py",
+      "expected_sha256": "423fad79bee6d5a351589319cb03b98a8097b958615a9b9e1fd274ef921f302a",
+      "actual_sha256": "423fad79bee6d5a351589319cb03b98a8097b958615a9b9e1fd274ef921f302a",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/run_lc_role_adaptation.py",
+      "expected_sha256": "6c29a9f454e1e445d08aa4f6fabdb61bf0145e6d931dc9c23efe81144ae6b4ff",
+      "actual_sha256": "6c29a9f454e1e445d08aa4f6fabdb61bf0145e6d931dc9c23efe81144ae6b4ff",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/run_msb_role_mechanism.py",
+      "expected_sha256": "ed73b97a52f2a653c9f36decc557a1198eadf126e122f5e23b94ba91c0405fd8",
+      "actual_sha256": "ed73b97a52f2a653c9f36decc557a1198eadf126e122f5e23b94ba91c0405fd8",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/run_seen_unseen_gate_study.py",
+      "expected_sha256": "b03b1c63aba4a1559e6a1e26797989d2cdac30c0d3bca618b76986613a1cd6bc",
+      "actual_sha256": "b03b1c63aba4a1559e6a1e26797989d2cdac30c0d3bca618b76986613a1cd6bc",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/run_tc_oos_rsg_experiments.py",
+      "expected_sha256": "7006b72d27942ab29c7b22eaf58cae344fcb8c3c8d30e2930788da9900c4bef1",
+      "actual_sha256": "7006b72d27942ab29c7b22eaf58cae344fcb8c3c8d30e2930788da9900c4bef1",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/run_verifier_strong_controls.py",
+      "expected_sha256": "40edbdd576ddc49d0a3f5a27ec71aee944660691ccba955829df4ed99a0599d6",
+      "actual_sha256": "40edbdd576ddc49d0a3f5a27ec71aee944660691ccba955829df4ed99a0599d6",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/run_verifier_trust_development.py",
+      "expected_sha256": "62ee01068bb6ef6cbb3b464732a9f57f3e2e5bc86aba879f0b2a304d40dbbce3",
+      "actual_sha256": "62ee01068bb6ef6cbb3b464732a9f57f3e2e5bc86aba879f0b2a304d40dbbce3",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/tc_oos_rsg.py",
+      "expected_sha256": "38445a3f24ccd424e5e6a635f78ef079e73f2139be62d3e974134470c66bcba2",
+      "actual_sha256": "38445a3f24ccd424e5e6a635f78ef079e73f2139be62d3e974134470c66bcba2",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/train_hierarchical_mineral_classifier.py",
+      "expected_sha256": "75e1085a66dc70adad45ae41f10d825062a0594e7fa0db1ca6438092a5e0635f",
+      "actual_sha256": "75e1085a66dc70adad45ae41f10d825062a0594e7fa0db1ca6438092a5e0635f",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/train_hrgv_mineral_classifier.py",
+      "expected_sha256": "0fa4d352c9327ea646cd42e0e267c31e9eb05a7007cfb2298ccbc595a8a94bdc",
+      "actual_sha256": "0fa4d352c9327ea646cd42e0e267c31e9eb05a7007cfb2298ccbc595a8a94bdc",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/train_mineral_classifier.py",
+      "expected_sha256": "d81cda1da77076e3dbbdf81fd9969846314187fa8ffd079fb01106c60b80edea",
+      "actual_sha256": "d81cda1da77076e3dbbdf81fd9969846314187fa8ffd079fb01106c60b80edea",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/train_role_aware_mineral_classifier.py",
+      "expected_sha256": "63380cc3806d5676312292d6345f7ea6173061a681d3430e59e54063988c0927",
+      "actual_sha256": "63380cc3806d5676312292d6345f7ea6173061a681d3430e59e54063988c0927",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/verifier_risk.py",
+      "expected_sha256": "a5bc85cccee192479bcf49bddcce4863eac66126636ba7d04b83898b9606dfff",
+      "actual_sha256": "a5bc85cccee192479bcf49bddcce4863eac66126636ba7d04b83898b9606dfff",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/verifier_strong_controls.py",
+      "expected_sha256": "a1adefaef8852bceb85aa22cd42a10609ff904b09a3f8b6dce94787c6a87299b",
+      "actual_sha256": "a1adefaef8852bceb85aa22cd42a10609ff904b09a3f8b6dce94787c6a87299b",
+      "matched": true
+    },
+    {
+      "group": "source_sha256",
+      "path": "scripts/verify_verifier_trust_delivery.py",
+      "expected_sha256": "daa8be53da3019607946cb4dfdfd9718e2cd43be4221ae5d1d3f30d24659ac09",
+      "actual_sha256": "daa8be53da3019607946cb4dfdfd9718e2cd43be4221ae5d1d3f30d24659ac09",
+      "matched": true
+    },
+    {
+      "group": "tests_and_harness_sha256",
+      "path": "tests/test_msb_execution_safety.py",
+      "expected_sha256": "6a84667090df3730e11f08377d6bb3b649604fd3767c34e97feffa8a286afcad",
+      "actual_sha256": "6a84667090df3730e11f08377d6bb3b649604fd3767c34e97feffa8a286afcad",
+      "matched": true
+    },
+    {
+      "group": "tests_and_harness_sha256",
+      "path": "tests/test_msb_role_data.py",
+      "expected_sha256": "3dfb594edf9f683e8f3cfbf22c0763e138905586d2569011dab4722d64276bb1",
+      "actual_sha256": "3dfb594edf9f683e8f3cfbf22c0763e138905586d2569011dab4722d64276bb1",
+      "matched": true
+    },
+    {
+      "group": "tests_and_harness_sha256",
+      "path": "tests/test_msb_role_model.py",
+      "expected_sha256": "abbeb964daee6334faeca184d3b4ad306b48a7fc0b4711b7cd58475673166eb0",
+      "actual_sha256": "abbeb964daee6334faeca184d3b4ad306b48a7fc0b4711b7cd58475673166eb0",
+      "matched": true
+    },
+    {
+      "group": "tests_and_harness_sha256",
+      "path": "tests/test_msb_role_controls.py",
+      "expected_sha256": "cecb8bbbcfda318aa042de3c94d6c5b85a20302269555b4f2f24103a66eb0f0c",
+      "actual_sha256": "cecb8bbbcfda318aa042de3c94d6c5b85a20302269555b4f2f24103a66eb0f0c",
+      "matched": true
+    },
+    {
+      "group": "tests_and_harness_sha256",
+      "path": "tests/test_msb_role_audit.py",
+      "expected_sha256": "61ba5f62903f7039d8c032ac726d001dedad7772b14af7439d9180684c8af4b0",
+      "actual_sha256": "61ba5f62903f7039d8c032ac726d001dedad7772b14af7439d9180684c8af4b0",
+      "matched": true
+    },
+    {
+      "group": "tests_and_harness_sha256",
+      "path": "tests/test_msb_role_training.py",
+      "expected_sha256": "8a6f5c331dda085f7730d6d88824194a358b2b2f32faa96e55e1df4fad71244e",
+      "actual_sha256": "8a6f5c331dda085f7730d6d88824194a358b2b2f32faa96e55e1df4fad71244e",
+      "matched": true
+    },
+    {
+      "group": "tests_and_harness_sha256",
+      "path": "tests/test_run_msb_role_mechanism.py",
+      "expected_sha256": "29938f4db303e9092cb72a68ae15eb7688c44f943a22f22d34dbb98b42cc83c2",
+      "actual_sha256": "29938f4db303e9092cb72a68ae15eb7688c44f943a22f22d34dbb98b42cc83c2",
+      "matched": true
+    },
+    {
+      "group": "tests_and_harness_sha256",
+      "path": "tests/test_analyze_msb_role_mechanism.py",
+      "expected_sha256": "6de052f73ae323b939f3d580d71fe8b6709141082035f63046647b98f90edad7",
+      "actual_sha256": "6de052f73ae323b939f3d580d71fe8b6709141082035f63046647b98f90edad7",
+      "matched": true
+    },
+    {
+      "group": "tests_and_harness_sha256",
+      "path": "tests/test_generate_msb_role_figure.py",
+      "expected_sha256": "835dcd3cc38517cb230f2d679d6b7fb2328ea0798f6afdea94882f8c7ce865bb",
+      "actual_sha256": "835dcd3cc38517cb230f2d679d6b7fb2328ea0798f6afdea94882f8c7ce865bb",
+      "matched": true
+    },
+    {
+      "group": "tests_and_harness_sha256",
+      "path": "tests/run_msb_terminal_repair_acceptance.py",
+      "expected_sha256": "83ca6162c6d98ac508cb16f71c10039ec738a702bf2ed70a1a625c0f0b4dcff9",
+      "actual_sha256": "83ca6162c6d98ac508cb16f71c10039ec738a702bf2ed70a1a625c0f0b4dcff9",
+      "matched": true
+    }
+  ]
+}

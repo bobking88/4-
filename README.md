@@ -320,6 +320,8 @@ C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独�
 
 2026-10-18实施更新：按另批的原生Tasks1--4完成[最小修复与合成验收](docs/experiment_records/2026-10-17_msb_completion_acceptance_repair_acceptance.md)，新固定目录final/attempt-001为157/157通过，0失败/错误/跳过/预期失败/意外成功/受限未模拟调用；七阶段原始红绿证据和身份保护均保留。状态为AUTHOR_REPAIR_SYNTHETIC_ACCEPTED_INDEPENDENT_REVIEW_PENDING，不能将原独立复查自动改为APPROVE。未开展新的独立复查、原生验收或真实实验，网络/公式/矩阵/正式报告不变，不是理论创新已验证。
 
+2026-10-18独立复查更新：按另批的单次授权，对`51b1716..ee6078a`完成[完成接收修复只读复查及接收判断](docs/experiment_records/2026-10-18_msb_completion_acceptance_repair_independent_review.md)。三项修复及八帧补覆盖均为ADDRESSED，限定合成工程结论APPROVE，未发现需修复的新P1/P2/P3缺陷；原生验收仍INSUFFICIENT_EVIDENCE、科学效果未测试。原157项日志不重跑、不改写；43项源码、10项测试/验收器及20项指定文件身份匹配，正式报告和科学模型不变。完整独立原文、审查范围及保留事项裁定已归档；本次接收不是新真实实验许可，原生无数据验收及真实协议/运行仍须另批。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.

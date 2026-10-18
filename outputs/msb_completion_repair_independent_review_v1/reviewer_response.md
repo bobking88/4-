@@ -1,0 +1,35 @@
+**发现**
+未发现此次补丁引入的、具有具体触发链的 P1/P2/P3 缺陷；没有要求修复的发现。
+
+审查范围为冻结 `51b1716 → ee6078a`，以下行号均对应冻结 HEAD。仅进行了 Git/text 只读检查，没有修改文件、运行项目或测试、访问网络或再分派审阅者。
+
+**优点**
+改动集中于两条生产路径；反例检查真实调用接线，不止检查辅助函数；既有红灯、失败诊断及工程证据的适用限度均得到保留。
+
+**逐项结论**
+- **R1：ADDRESSED。** [require_complete:183](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/scripts/msb_execution_safety.py:183)先检查累计期限、时钟及当前冻结租约；[父退出接收:523](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/scripts/msb_execution_safety.py:523)在退出后排空、父检查及最后 guard 检查完成后重新采样，随后立即判定 COMPLETE，没有延租或重置预算。测试[独立退出边界:533](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/tests/test_msb_execution_safety.py:533)覆盖 DONE 于 L−1、poll 独立推进至 L/L+1，并保留 L−1 成功；[最终 guard 跨界:543](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/tests/test_msb_execution_safety.py:543)检查采样位置。
+- **R2：ADDRESSED。** [严格门:37](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/tests/run_msb_terminal_repair_acceptance.py:37)拒绝空结果、零测试、skip、expectedFailure、unexpectedSuccess、harness 错误及受限未模拟调用；[main:124](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/tests/run_msb_terminal_repair_acceptance.py:124)实际用它决定回执与返回码。[门函数反例:23](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/tests/test_run_msb_role_mechanism.py:23)及[实际 main 接线:39](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/tests/test_run_msb_role_mechanism.py:39)未 mock 被测判定；内部 skip 是输入，外层测试自身不跳过。
+- **R3：ADDRESSED。** [异常结构:80](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/scripts/run_msb_role_mechanism.py:80)保留两异常对象和失败状态浅快照；[发布失败分支:102](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/scripts/run_msb_role_mechanism.py:102)保留首要错误、关闭 delivery，并以第二异常为 cause 抛出，不补成功。[双写失败:217](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/tests/test_run_msb_role_mechanism.py:217)、[写后超时再写失败:237](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/tests/test_run_msb_role_mechanism.py:237)、[已有失败文本:256](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/tests/test_run_msb_role_mechanism.py:256)及[CLI 传播:268](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/tests/test_run_msb_role_mechanism.py:268)覆盖要求；TIMED_OUT 不被第二次 OSError 替换。
+- **G1：ADDRESSED，属于补覆盖。** [实际排空循环:459](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/scripts/msb_execution_safety.py:459)每次最多消费八帧。[计数测试:548](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/tests/test_msb_execution_safety.py:548)验证读/accept 均八次、第九项保留；它是 sentinel/ProbeControl，不是八条合法 ACK。[真实状态机缺 DONE:566](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/tests/test_msb_execution_safety.py:566)另行验证不能完成，既有缺帧/截断集成负例仍在。
+
+**证据与边界**
+既有日志分别记录 gate `29项/5失败 → 29项/0失败`、lease `49/3 → 49/0`、publish `34/7 → 34/0`；失败数包含子案例。快照中的旧判定与日志失败相符，不是以导入错误冒充 RED。G1 两个补覆盖测试在 RED 阶段已通过。
+
+[最终回执:25](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/outputs/msb_completion_repair_synthetic_v1/final/attempt-001/acceptance_summary.json:25)及[原始日志](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/outputs/msb_completion_repair_synthetic_v1/final/attempt-001/synthetic_tests.log)记录九模块 157 项、各类非通过计数及受限调用均为零。这是作者既有运行证据，不是本轮独立重跑结果。
+
+[协议校验:143](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/scripts/run_msb_role_mechanism.py:143)保持显式执行身份 v2；[身份回归:640](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/tests/test_msb_execution_safety.py:640)拒绝旧执行合同 v1，[新增许可回归:492](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/tests/test_run_msb_role_mechanism.py:492)拒绝此次已知文档/复查/开发许可。旧目录不续跑、注册与源码闭包检查仍在。冻结 diff 未改变网络、损失、公式、实验矩阵或源码闭包定义。
+
+**未作判断**
+- **磁盘撤销与崩溃一致性：** 成功候选已写盘、随后过期且失败记录写不出时，旧候选可能残留。本补丁修复诊断和返回路径，不能证明撤销已持久化；不能单凭该文件认定交付。
+- **原生行为：** 真实句柄继承、Job、管道/EOF、线程竞争、父硬退出、阻塞清理、电源连续性及 OS 时钟均未独立验证；fake 不替代这些证据。
+- **精确退出时刻与硬实时：** R1证明的是父接收时点检查，不证明 OS 物理退出时间，也不覆盖任意异步中断窗口。
+- **更多组合覆盖：** main 集成反例直接覆盖 skip；空/expected/unexpected 等由纯门测试及唯一接线支持，没有逐一执行 main 组合。未发现由此产生的具体缺陷。
+- **协议与诊断范围：** ProbeControl 不证明八帧合法协议序列；failed_state 是浅快照，不是深度不可变对象；握手标志为真不覆盖失败 status，调用方先检查 status。
+- **授权语义：** ID 黑名单不是任意字符串的真实性认证，本轮复查许可也不是运行许可。任何实际实验仍需新的明确人类许可、协议和完整源码登记。
+- **广域兼容性与资产身份：** 未作全库兼容性验收；完整哈希及归档核验由父会话负责。未读取六张脏 PNG、正式 DOCX 或真实实验资产。
+- **科学效果：** 真实数据质量、泄漏、泛化、网络收益、原创性及报告质量均未检验，工程修复不能支持科学提升主张。
+
+**最终判断**
+**合成工程修复：APPROVE。** 四项要求在生产接线、定向反例及既有红绿证据之间形成一致支持，未发现需要阻止接收的具体回归。
+
+**原生验收：INSUFFICIENT_EVIDENCE。科学效果：未测试。** torch/sklearn 数值 bootstrap 位于守卫外，合成数学确实执行；不能声称没有原生库加载或没有计算。本轮没有独立执行任何项目代码、测试或原生验收。
