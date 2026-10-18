@@ -316,6 +316,8 @@ C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独�
 
 2026-10-17独立只读复查更新：[复查及接收判断](docs/experiment_records/2026-10-17_msb_terminal_boundary_repair_independent_review.md)为CHANGES_REQUIRED，发现2项P2（退出接收漏查冻结租约、跳过测试仍可通过）及1项P3（双重写入失败诊断原因丢失），另有排空额度反例覆盖缺口。既有146项零跳过日志不改写；本轮仅归档，不修代码、不重跑验收、不读真实数据或修改正式报告。原生证据仍不足，不能放行真实实验，后续修复与运行分别另批。
 
+2026-10-18修复文档更新（保留2026-10-17起草文件名）：已按另行文档授权起草[完成接收修复规格](docs/superpowers/specs/2026-10-17-msb-completion-acceptance-repair-design.md)、[实施计划](docs/superpowers/plans/2026-10-17-msb-completion-acceptance-repair.md)和[作者文档记录](docs/experiment_records/2026-10-17_msb_completion_acceptance_repair_planning.md)。仅DOCUMENTED_NOT_IMPLEMENTED_NOT_RUN，CHANGES_REQUIRED不变；新目录/反例/严格门均未实施或运行，网络、公式、矩阵及正式报告不变，工程设计不计作论文创新效果。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.
