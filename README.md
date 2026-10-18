@@ -318,6 +318,8 @@ C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独�
 
 2026-10-18修复文档更新（保留2026-10-17起草文件名）：已按另行文档授权起草[完成接收修复规格](docs/superpowers/specs/2026-10-17-msb-completion-acceptance-repair-design.md)、[实施计划](docs/superpowers/plans/2026-10-17-msb-completion-acceptance-repair.md)和[作者文档记录](docs/experiment_records/2026-10-17_msb_completion_acceptance_repair_planning.md)。仅DOCUMENTED_NOT_IMPLEMENTED_NOT_RUN，CHANGES_REQUIRED不变；新目录/反例/严格门均未实施或运行，网络、公式、矩阵及正式报告不变，工程设计不计作论文创新效果。
 
+2026-10-18实施更新：按另批的原生Tasks1--4完成[最小修复与合成验收](docs/experiment_records/2026-10-17_msb_completion_acceptance_repair_acceptance.md)，新固定目录final/attempt-001为157/157通过，0失败/错误/跳过/预期失败/意外成功/受限未模拟调用；七阶段原始红绿证据和身份保护均保留。状态为AUTHOR_REPAIR_SYNTHETIC_ACCEPTED_INDEPENDENT_REVIEW_PENDING，不能将原独立复查自动改为APPROVE。未开展新的独立复查、原生验收或真实实验，网络/公式/矩阵/正式报告不变，不是理论创新已验证。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.
