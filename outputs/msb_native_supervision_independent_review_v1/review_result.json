@@ -1,0 +1,136 @@
+{
+  "scope": "LIMITED_SOURCE_ENGINEERING_REVIEW_ONLY",
+  "authorization": "call_7f515c71f122488da5242db3dc69dd60",
+  "reviewed_head": "c092f1cae59fc4187670bf4bff655375309d83b0",
+  "base": "a71d54821a482d50eb1fd182d4a5bcafe9219700",
+  "verdict": "REQUEST_CHANGES",
+  "dispatch_count": 1,
+  "reviewer": {
+    "agent_id": "01a14f8e-4be0-71c1-be51-dd7324bffd49",
+    "nickname": "Gibbs"
+  },
+  "reviewer_closed": true,
+  "parent_verification": "ALL_FIVE_STATIC_FINDINGS_CONFIRMED_WITHOUT_EXECUTION",
+  "findings": [
+    {
+      "id": "R1",
+      "priority": "P1",
+      "file": "scripts/check_msb_native_supervision.py",
+      "lines": [
+        538,
+        651,
+        655,
+        658
+      ],
+      "title": "N4 may accept a pre-fault worker exit",
+      "disposition": "ACCEPTED_UNFIXED"
+    },
+    {
+      "id": "R2",
+      "priority": "P1",
+      "file": "scripts/check_msb_native_supervision.py",
+      "lines": [
+        359,
+        364,
+        744,
+        258,
+        829
+      ],
+      "title": "Registered root is not bound to actual executing source/import origins",
+      "disposition": "ACCEPTED_UNFIXED"
+    },
+    {
+      "id": "R3",
+      "priority": "P2",
+      "file": "scripts/check_msb_native_supervision.py",
+      "lines": [
+        764,
+        765,
+        769
+      ],
+      "related_sources": [
+        {
+          "file": "scripts/lc_execution_safety.py",
+          "lines": [
+            73,
+            100
+          ]
+        },
+        {
+          "file": "scripts/check_lc_native_environment.py",
+          "lines": [
+            65,
+            83
+          ]
+        }
+      ],
+      "title": "Postflight AC and guard continuity not checked",
+      "disposition": "ACCEPTED_UNFIXED"
+    },
+    {
+      "id": "R4",
+      "priority": "P2",
+      "file": "scripts/check_msb_native_supervision.py",
+      "lines": [
+        726,
+        767,
+        769,
+        779
+      ],
+      "related_sources": [
+        {
+          "file": "scripts/lc_execution_safety.py",
+          "lines": [
+            100,
+            107
+          ]
+        }
+      ],
+      "title": "Guard release exception skips terminal receipt publication",
+      "disposition": "ACCEPTED_UNFIXED"
+    },
+    {
+      "id": "R5",
+      "priority": "P2",
+      "file": "scripts/check_msb_native_supervision.py",
+      "lines": [
+        277,
+        283,
+        313,
+        565
+      ],
+      "title": "N3 zero-work classifier confuses clock sampling overhead with work",
+      "disposition": "ACCEPTED_UNFIXED"
+    }
+  ],
+  "existing_synthetic_evidence": {
+    "tests_run": 202,
+    "passed": 202,
+    "new_tests": 45,
+    "legacy_tests": 157,
+    "rerun_during_review": false,
+    "does_not_cover_five_findings": true
+  },
+  "protection": {
+    "old_sources_and_tests": 53,
+    "new_code": 3,
+    "protected_file_records": 20,
+    "accepted_document_records": 2,
+    "hash_records_matched": 78,
+    "formal_report_modified": false
+  },
+  "no_actions": {
+    "repairs": true,
+    "additional_review": true,
+    "tests": true,
+    "project_imports": true,
+    "forwards": true,
+    "fits": true,
+    "native_probes": true,
+    "real_data_reads": true,
+    "report_content_reads": true,
+    "protocol_registration": true
+  },
+  "next_gate": "No native acceptance or real mechanism experiment may proceed on this verdict. Any repair design/implementation requires new human authorization.",
+  "scientific_effect_established": false
+}
