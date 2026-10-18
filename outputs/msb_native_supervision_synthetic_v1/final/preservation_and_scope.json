@@ -1,0 +1,439 @@
+{
+  "scope": "AUTHOR_SYNTHETIC_ACCEPTANCE_AND_PROTECTION_NOT_NATIVE_PASS",
+  "date": "2026-10-18",
+  "authorization": "call_6961d4dac6b64d7aba8e538f01c5e097",
+  "status": "AUTHOR_SYNTHETIC_ACCEPTED_NATIVE_NOT_RUN",
+  "baseline": "a71d54821a482d50eb1fd182d4a5bcafe9219700",
+  "attempts": [
+    {
+      "phase": "contract-red",
+      "attempt": 1,
+      "status": "FAILED",
+      "tests": 9,
+      "failures": 7,
+      "errors": 0,
+      "skipped": 0,
+      "expected_failures": 0,
+      "unexpected_successes": 0,
+      "unmocked_calls": 0,
+      "real_fits": 0,
+      "native_os_exercised": false
+    },
+    {
+      "phase": "contract-green",
+      "attempt": 1,
+      "status": "PASSED",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "expected_failures": 0,
+      "unexpected_successes": 0,
+      "unmocked_calls": 0,
+      "real_fits": 0,
+      "native_os_exercised": false
+    },
+    {
+      "phase": "worker-red",
+      "attempt": 1,
+      "status": "FAILED",
+      "tests": 19,
+      "failures": 10,
+      "errors": 0,
+      "skipped": 0,
+      "expected_failures": 0,
+      "unexpected_successes": 0,
+      "unmocked_calls": 0,
+      "real_fits": 0,
+      "native_os_exercised": false
+    },
+    {
+      "phase": "worker-red",
+      "attempt": 2,
+      "status": "FAILED",
+      "tests": 21,
+      "failures": 1,
+      "errors": 3,
+      "skipped": 0,
+      "expected_failures": 0,
+      "unexpected_successes": 0,
+      "unmocked_calls": 0,
+      "real_fits": 0,
+      "native_os_exercised": false
+    },
+    {
+      "phase": "worker-red",
+      "attempt": 3,
+      "status": "FAILED",
+      "tests": 21,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "expected_failures": 0,
+      "unexpected_successes": 0,
+      "unmocked_calls": 0,
+      "real_fits": 0,
+      "native_os_exercised": false
+    },
+    {
+      "phase": "worker-green",
+      "attempt": 1,
+      "status": "PASSED",
+      "tests": 21,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "expected_failures": 0,
+      "unexpected_successes": 0,
+      "unmocked_calls": 0,
+      "real_fits": 0,
+      "native_os_exercised": false
+    },
+    {
+      "phase": "collector-red",
+      "attempt": 1,
+      "status": "FAILED",
+      "tests": 34,
+      "failures": 13,
+      "errors": 0,
+      "skipped": 0,
+      "expected_failures": 0,
+      "unexpected_successes": 0,
+      "unmocked_calls": 0,
+      "real_fits": 0,
+      "native_os_exercised": false
+    },
+    {
+      "phase": "collector-red",
+      "attempt": 2,
+      "status": "FAILED",
+      "tests": 38,
+      "failures": 17,
+      "errors": 0,
+      "skipped": 0,
+      "expected_failures": 0,
+      "unexpected_successes": 0,
+      "unmocked_calls": 0,
+      "real_fits": 0,
+      "native_os_exercised": false
+    },
+    {
+      "phase": "collector-red",
+      "attempt": 3,
+      "status": "FAILED",
+      "tests": 41,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "expected_failures": 0,
+      "unexpected_successes": 0,
+      "unmocked_calls": 0,
+      "real_fits": 0,
+      "native_os_exercised": false
+    },
+    {
+      "phase": "collector-green",
+      "attempt": 1,
+      "status": "PASSED",
+      "tests": 41,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "expected_failures": 0,
+      "unexpected_successes": 0,
+      "unmocked_calls": 0,
+      "real_fits": 0,
+      "native_os_exercised": false
+    },
+    {
+      "phase": "collector-green",
+      "attempt": 2,
+      "status": "FAILED",
+      "tests": 44,
+      "failures": 3,
+      "errors": 0,
+      "skipped": 0,
+      "expected_failures": 0,
+      "unexpected_successes": 0,
+      "unmocked_calls": 0,
+      "real_fits": 0,
+      "native_os_exercised": false
+    },
+    {
+      "phase": "collector-green",
+      "attempt": 3,
+      "status": "PASSED",
+      "tests": 44,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "expected_failures": 0,
+      "unexpected_successes": 0,
+      "unmocked_calls": 0,
+      "real_fits": 0,
+      "native_os_exercised": false
+    },
+    {
+      "phase": "final",
+      "attempt": 1,
+      "status": "FAILED",
+      "tests": 202,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "expected_failures": 0,
+      "unexpected_successes": 0,
+      "unmocked_calls": 0,
+      "real_fits": 0,
+      "native_os_exercised": false
+    },
+    {
+      "phase": "final",
+      "attempt": 2,
+      "status": "PASSED",
+      "tests": 202,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "expected_failures": 0,
+      "unexpected_successes": 0,
+      "unmocked_calls": 0,
+      "real_fits": 0,
+      "native_os_exercised": false
+    }
+  ],
+  "final_summary": {
+    "scope": "SYNTHETIC_CONTRACT_ONLY",
+    "phase": "final",
+    "attempt": 2,
+    "bootstrap": {
+      "torch": "2.12.1+cu130",
+      "sklearn": "1.9.0"
+    },
+    "unused_dependency_stubs": [
+      "torchvision.models",
+      "torchvision.transforms"
+    ],
+    "status": "PASSED",
+    "modules": [
+      "test_msb_execution_safety",
+      "test_msb_role_data",
+      "test_msb_role_model",
+      "test_msb_role_controls",
+      "test_msb_role_audit",
+      "test_msb_role_training",
+      "test_run_msb_role_mechanism",
+      "test_analyze_msb_role_mechanism",
+      "test_generate_msb_role_figure",
+      "test_check_msb_native_supervision"
+    ],
+    "tests_run": 202,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "expected_failures": 0,
+    "unexpected_successes": 0,
+    "unmocked_boundary_calls": [],
+    "native_os_exercised": false,
+    "real_data_opened": false,
+    "real_fits": 0,
+    "temporary_synthetic_tensor_reads": 2,
+    "source_snapshot": "DIRECT_PRE_RUN_CAPTURE",
+    "harness_error": null
+  },
+  "module_counts": [
+    {
+      "module": "test_analyze_msb_role_mechanism",
+      "count": 17
+    },
+    {
+      "module": "test_check_msb_native_supervision",
+      "count": 45
+    },
+    {
+      "module": "test_generate_msb_role_figure",
+      "count": 4
+    },
+    {
+      "module": "test_msb_execution_safety",
+      "count": 49
+    },
+    {
+      "module": "test_msb_role_audit",
+      "count": 13
+    },
+    {
+      "module": "test_msb_role_controls",
+      "count": 10
+    },
+    {
+      "module": "test_msb_role_data",
+      "count": 12
+    },
+    {
+      "module": "test_msb_role_model",
+      "count": 9
+    },
+    {
+      "module": "test_msb_role_training",
+      "count": 9
+    },
+    {
+      "module": "test_run_msb_role_mechanism",
+      "count": 34
+    }
+  ],
+  "original_157_names_retained": true,
+  "new_test_count": 45,
+  "protected_files": [
+    {
+      "path": "scripts/msb_execution_safety.py",
+      "sha256": "aaf8f808805c0ce470e645757b625a6951f35e8bc362c628278ab97635dba41f",
+      "matched": true
+    },
+    {
+      "path": "scripts/run_msb_role_mechanism.py",
+      "sha256": "ed73b97a52f2a653c9f36decc557a1198eadf126e122f5e23b94ba91c0405fd8",
+      "matched": true
+    },
+    {
+      "path": "tests/run_msb_terminal_repair_acceptance.py",
+      "sha256": "83ca6162c6d98ac508cb16f71c10039ec738a702bf2ed70a1a625c0f0b4dcff9",
+      "matched": true
+    },
+    {
+      "path": "tests/test_msb_execution_safety.py",
+      "sha256": "6a84667090df3730e11f08377d6bb3b649604fd3767c34e97feffa8a286afcad",
+      "matched": true
+    },
+    {
+      "path": "tests/test_run_msb_role_mechanism.py",
+      "sha256": "29938f4db303e9092cb72a68ae15eb7688c44f943a22f22d34dbb98b42cc83c2",
+      "matched": true
+    },
+    {
+      "path": "docs/superpowers/specs/2026-10-17-msb-completion-acceptance-repair-design.md",
+      "sha256": "9f44de00ee9774529b03bd5ef2e3cf4daef1918602ba691ae957c84e9673d5bf",
+      "matched": true
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-17-msb-completion-acceptance-repair.md",
+      "sha256": "0d3ba26bd60ace6916b9f0f883f8fb3f847940d4605545f6afb836243c1e1d27",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_completion_repair_synthetic_v1/final/attempt-001/acceptance_summary.json",
+      "sha256": "3a84840b32abd6fb86a62f8fa54f8ef416b5235f96f463e2acc490a28802b7a6",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_completion_repair_synthetic_v1/final/attempt-001/source_snapshot.json",
+      "sha256": "ee0af8d44fe8ec9cf40d9a00f9eb934d4601dbb73ea1e8b9594cd195da060ec2",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_completion_repair_synthetic_v1/final/attempt-001/synthetic_tests.log",
+      "sha256": "9fa684798611c181a5ad657a6f1e5101f5589dcc2ba0aa3ea9e3fb8b07d0824c",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_completion_repair_synthetic_v1/final/source_identity.json",
+      "sha256": "e30b7a0b0025683c94b4100ac7723e1ecb3db771e280ddc05e29a54be59f6484",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_completion_repair_synthetic_v1/final/preservation_and_scope.json",
+      "sha256": "d20478c471aaddb420872f68953458550e175881a09476c3a1727a0cbff98fba",
+      "matched": true
+    },
+    {
+      "path": "outputs/report_assets_v9/cgdc_decomposition.png",
+      "sha256": "f142c749e41a5d3a027a0b0c8571d7358fbfe01e738b3a418adb443e388d7123",
+      "matched": true
+    },
+    {
+      "path": "outputs/report_assets_v9/mrpg_identity.png",
+      "sha256": "6a8d9f993400a621b699d5579e7bb6acd742bcaac8939dd7fab98b1fff247519",
+      "matched": true
+    },
+    {
+      "path": "outputs/report_assets_v9/mrpg_monotone_gate.png",
+      "sha256": "bbdd9f1671bfaf007292512e3c9cea7845d3e195b984349fe489a7beffe18d9c",
+      "matched": true
+    },
+    {
+      "path": "outputs/report_assets_v9/rpg_entropy.png",
+      "sha256": "5251d7a1548b715f98eff21969bbf93dbf77f2f38b862a98887492afe1aba90e",
+      "matched": true
+    },
+    {
+      "path": "outputs/report_assets_v9/rpg_fusion.png",
+      "sha256": "9723e900e48cd60f84be038afed3bcd3c9c524fc8c0706604e7583956389996c",
+      "matched": true
+    },
+    {
+      "path": "outputs/report_assets_v9/rpg_gate.png",
+      "sha256": "a0ba1106c2b734a75c379c959040feb8735aa5172079e1c076fd2f7190ef971a",
+      "matched": true
+    },
+    {
+      "path": "结题/基于深度学习的钒钛矿相关矿物图像识别方法研究_技术报告（正式版）.docx",
+      "sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+      "matched": true
+    },
+    {
+      "path": "D:/成信工科研/人工智能选矿/结题/基于深度学习的钒钛矿相关矿物图像识别方法研究_技术报告（正式版）.docx",
+      "sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+      "matched": true
+    }
+  ],
+  "accepted_documents": [
+    {
+      "path": "docs/superpowers/specs/2026-10-18-msb-native-supervision-acceptance-design.md",
+      "sha256": "93d7a4998886ba7ec147752b5dcbf95f05c87fa4015e49c6991dc600c0dd6330"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-18-msb-native-supervision-acceptance.md",
+      "sha256": "411b9efbfc98af36009d4936b8650ac16eed502a0ca34015c7e1b5bc761dc016"
+    }
+  ],
+  "new_code_direct_snapshot_matches": [
+    {
+      "path": "scripts/check_msb_native_supervision.py",
+      "sha256": "44ff1f0902971e8dcde863053526d56084c96c5f67fff8bd814f575a76697d48",
+      "direct_pre_run_snapshot_match": true
+    },
+    {
+      "path": "tests/test_check_msb_native_supervision.py",
+      "sha256": "e59d9a9b035bd2c3c3961438f915089ead0f130cab878e21664529aa41928492",
+      "direct_pre_run_snapshot_match": true
+    },
+    {
+      "path": "tests/run_msb_native_supervision_synthetic_acceptance.py",
+      "sha256": "e9b3baaf151d12c5edd6bafec8c8d01e0a2da4647fa40511cc1e402f0772c2b7",
+      "direct_pre_run_snapshot_match": true
+    }
+  ],
+  "native_paths_absent": [
+    "docs/experiment_protocols/msb_native_supervision_v1.json",
+    "outputs/msb_native_supervision_v1"
+  ],
+  "historical_documents_and_evidence_diff": [],
+  "only_code_diff": [
+    "scripts/check_msb_native_supervision.py",
+    "tests/run_msb_native_supervision_synthetic_acceptance.py",
+    "tests/test_check_msb_native_supervision.py"
+  ],
+  "agents_dispatched": 0,
+  "independent_review_for_new_driver": "NOT_AUTHORIZED_OR_DISPATCHED",
+  "real_native_acceptance_runs": 0,
+  "formal_report_modified": false,
+  "limitations": [
+    "Fake SystemExit unwinds Python finally; no claim about real no-finally causality or forced power release.",
+    "Actual synthetic tensor math/gradients/solvers in the original nine modules still execute.",
+    "Numerical bootstrap outside guards does not imply no native libraries loaded.",
+    "NativeServices construction and actual native clocks/processes/power/network are not exercised.",
+    "Input-skipped TestResult in the gate fixture is not an outer skipped test or an extra actual phase attempt.",
+    "Late regressions used only remaining fixed green/final quotas; no phase/reset/extra attempt."
+  ]
+}

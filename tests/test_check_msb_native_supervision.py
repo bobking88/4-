@@ -150,7 +150,8 @@ class CaseLauncher(LauncherAPI):
             self.inbox.append(dict(message,kind="ACK"))
             if message["kind"]=="GRANT" and self.case_id=="N2":
                 self.process.returncode=23
-                if self.eof:self.inbox.append(OSError("native pipe EOF"))
+                if self.eof:
+                    error=OSError("native pipe EOF");error.winerror=109;self.inbox.append(error)
             if message["kind"]=="GRANT" and self.case_id=="N3":
                 self.inbox.append(dict(message,kind="CLOSE_REQUEST",power_released=True))
         elif message["kind"]=="CLOSE_GRANT":
@@ -355,3 +356,433 @@ class WorkerTests(unittest.TestCase):
             with self.subTest(mode=mode),tempfile.TemporaryDirectory() as tmp,self.assertRaises(RuntimeError):
                 fault(Path(tmp),ready,services=services)
             self.assertEqual(services.exits,[])
+
+
+def power_record():
+    return dict(power_request_acquired=True,power_request_released=True)
+
+
+def case_record(case_id):
+    index=("N1","N2","N3","N4").index(case_id)
+    def message(kind,tick,sequence=1,lease=31100):
+        return dict(kind=kind,tick_ms=tick,sequence=sequence,lease_until_tick_ms=lease,
+                    direction="parent_to_worker" if kind in ("GRANT","RENEW","CLOSE_GRANT") else "worker_to_parent",
+                    worker_pid=8,parent_pid=7,nonce_sha256="3"*64)
+    events=[dict(kind="spawn",tick_ms=1099,pid=8,created=199),dict(kind="assigned",tick_ms=1100,pid=8),
+            message("GRANT",1100),message("ACK",1101)]
+    ready=dict(pid=8,created=199,case_id=case_id,working=True,job_assigned=True,ready_tick_ms=1102)
+    observation=dict(pid=8,created=199,parent_pid=7,parent_created=99,identity_verified=True,
+                     query_only=True,job_handle_retained=False,job_assignment_observed=True,
+                     exit_observed=True,exit_tick_ms=46110,parent_exit_observed_tick_ms=46105,
+                     exit_code=0,handle_closed=True,fallback_before_exit=False,worker_alive=False,
+                     ready=ready,ack_tick_ms=1103,monitor_stopped=True)
+    outer=dict(status="COMPLETE",exit_code=0,pid=7,attempts=1,alive=False,supervision=power_record())
+    msb=dict(status="COMPLETE",pid=8,exit_code=0,attempts=1,alive=False,
+             start_tick_ms=1000,deadline_tick_ms=7201000,final_tick_ms=46104,
+             cleanup_confirmed=True,exit_confirmed=True,end_handshake_verified=True,lease_sequence=3,error="")
+    closed=dict(worker_power=power_record(),worker_execution=dict(end_handshake_verified=True),work_elapsed_ms=45000)
+    fault=None;parent=power_record()
+    if case_id=="N1":
+        events += [message("RENEW",16100,2,46100),message("ACK",16101,2,46100),
+                   message("RENEW",31100,3,61100),message("ACK",31101,3,61100),
+                   message("CLOSE_REQUEST",46100,3,61100),message("CLOSE_GRANT",46101,3,61100),
+                   message("DONE",46102,3,61100)]
+    elif case_id=="N2":
+        events.append(dict(kind="pipe_error",tick_ms=1104,error="native pipe EOF",winerror=109))
+        msb.update(status="FAILED",exit_code=23,final_tick_ms=1105,end_handshake_verified=False,lease_sequence=1,error="OSError: native pipe EOF")
+        observation.update(exit_code=23,exit_tick_ms=1105,parent_exit_observed_tick_ms=1106);closed=None
+    elif case_id=="N3":
+        events += [message("CLOSE_REQUEST",1102),message("CLOSE_GRANT",1103),message("DONE",1104),
+                   dict(kind="terminate_job",tick_ms=31100)]
+        msb.update(status="SUPERVISION_INTERRUPTED",exit_code=1,final_tick_ms=31101,
+                   lease_sequence=1,error="SUPERVISION_INTERRUPTED: parent lease expired")
+        observation.update(exit_code=1,exit_tick_ms=31102,parent_exit_observed_tick_ms=31103)
+        closed["work_elapsed_ms"]=0
+    elif case_id=="N4":
+        outer.update(status="FAILED",exit_code=31)
+        observation.update(exit_code=1,exit_tick_ms=1110,parent_exit_observed_tick_ms=1109)
+        fault=dict(case_id="N4",pid=7,created=99,exit_code=31,tick_ms=1104,collector_ack_verified=True)
+        msb=None;closed=None;parent=None
+    ready["created"]+=index;observation["created"]+=index;observation["parent_created"]+=index
+    events[0]["created"]+=index
+    if fault is not None:fault["created"]+=index
+    return dict(case_id=case_id,binding=case_binding(),outer=outer,msb=msb,events=events,
+                observation=observation,worker_closed=closed,parent_power=parent,fault=fault)
+
+
+def root_evidence():
+    return dict(binding=case_binding(),elapsed_seconds=100.,root_power=power_record(),
+                initial_settings={"scheme":"same"},final_settings={"scheme":"same"},
+                source_identity_verified=True,registration_verified=True,real_data_opened=False)
+
+
+class FakeCollectorServices(FakeDriverServices):
+    simulated=True
+    def __init__(self,fail_case=None):
+        super().__init__(WorkerAPI());self.calls=[];self.fail_case=fail_case
+        self.registration_ok=True;self.sources_ok=True;self.write_fault=None;self.writes=0
+    def new_run_id(self):return "native-test"
+    def collector_guard(self):return FakeAwake()
+    def power_settings(self):return {"scheme":"same"}
+    def verify_registration(self,root,path,protocol,approval,check):
+        check();self.calls.append(("registration",))
+        if not self.registration_ok:raise ValueError("Remote identity mismatch")
+        return dict(verified=True,commit=approval["registration_commit"])
+    def verify_sources(self,root,protocol):
+        if not self.sources_ok:raise ValueError("Source identity changed")
+        return dict(verified=True)
+    def start_observer(self,case_dir,binding):
+        self.calls.append(("observe",case_dir.name));return SimpleNamespace(case_dir=case_dir,binding=binding)
+    def stop_observer(self,observer):return True
+    def run_outer(self,job,protocol,remaining_seconds):
+        case_id=job["case_id"];self.calls.append(("launch",case_id,protocol["per_fit_seconds"],remaining_seconds,copy.deepcopy(job["binding"])))
+        record=case_record(case_id);record["binding"]=copy.deepcopy(job["binding"])
+        offset=self.api.now-1000
+        def shift(value):
+            if isinstance(value,dict):
+                for key,item in value.items():
+                    if key in ("tick_ms","ready_tick_ms","exit_tick_ms","parent_exit_observed_tick_ms","ack_tick_ms","final_tick_ms","lease_until_tick_ms"):value[key]+=offset
+                    else:shift(item)
+            elif isinstance(value,list):
+                for item in value:shift(item)
+        shift(record)
+        folder=Path(job["case_dir"])/"controller";folder.mkdir()
+        if record["msb"] is not None:
+            (folder/"controller_result.json").write_text(json.dumps(record),encoding="utf-8")
+        if record["worker_closed"] is not None:
+            work=folder/"runs"/case_id;work.mkdir(parents=True)
+            (work/"worker_closed.json").write_text(json.dumps(record["worker_closed"]),encoding="utf-8")
+        (folder/"trace.json").write_text(json.dumps(record["events"]),encoding="utf-8")
+        if record["fault"] is not None:
+            (Path(job["case_dir"])/"parent_fault.json").write_text(json.dumps(record["fault"]),encoding="utf-8")
+        self.api.now+={"N1":45200,"N2":300,"N3":30300,"N4":300}[case_id]
+        self.last_record=copy.deepcopy(record)
+        outer=copy.deepcopy(record["outer"])
+        if self.fail_case==case_id:outer["status"]="TIMED_OUT"
+        return outer
+    def finish_observer(self,observer,outer):
+        self.calls.append(("finish",observer.case_dir.name))
+        return copy.deepcopy(self.last_record["observation"])
+    def write_json(self,path,value,*,exclusive=False):
+        self.writes+=1
+        if self.write_fault is not None:self.write_fault(path,value)
+        native._write_json(path,value,exclusive=exclusive)
+
+
+class CollectorTests(unittest.TestCase):
+    def function(self,name):
+        value=getattr(native,name,None);self.assertTrue(callable(value),"Missing collector implementation: "+name);return value
+
+    def protocol_file(self,tmp):
+        root=Path(tmp);path=root/"docs/experiment_protocols/msb_native_supervision_v1.json"
+        path.parent.mkdir(parents=True);p=fixture_protocol();path.write_text(json.dumps(p),encoding="utf-8")
+        return root,path,p,fixture_approval(p)
+
+    def test_classifier_accepts_only_complete_fixed_four_case_evidence(self):
+        classify=self.function("classify_native_cases")
+        records=[case_record(c) for c in ("N1","N2","N3","N4")]
+        self.assertTrue(classify(records,outer_evidence=root_evidence())["accepted"])
+        for invalid in ([],records[:3],records[::-1],records+[records[0]]):
+            with self.subTest(size=len(invalid)):self.assertFalse(classify(invalid,outer_evidence=root_evidence())["accepted"])
+
+    def test_classifier_rejects_fake_renewal_or_nonexact_ack(self):
+        classify=self.function("classify_native_cases")
+        for mode in ("no_renew","bad_ack","post_done_renew"):
+            records=[case_record(c) for c in ("N1","N2","N3","N4")]
+            if mode=="no_renew":records[0]["events"]=[e for e in records[0]["events"] if e["kind"]!="RENEW"]
+            elif mode=="bad_ack":next(e for e in records[0]["events"] if e["kind"]=="ACK" and e["sequence"]==2)["lease_until_tick_ms"]+=1
+            else:records[2]["events"].append(copy.deepcopy(records[0]["events"][4]))
+            with self.subTest(mode=mode):self.assertFalse(classify(records,outer_evidence=root_evidence())["accepted"])
+
+    def test_classifier_rejects_job_retention_pid_reuse_fallback_and_late_exit(self):
+        classify=self.function("classify_native_cases")
+        changes=[("job_handle_retained",True),("query_only",False),("created",200),("identity_verified",False),
+                 ("job_assignment_observed",False),("fallback_before_exit",True),("exit_observed",False),
+                 ("handle_closed",False),("worker_alive",True),("exit_tick_ms",6109)]
+        for key,value in changes:
+            records=[case_record(c) for c in ("N1","N2","N3","N4")];records[3]["observation"][key]=value
+            with self.subTest(key=key):self.assertFalse(classify(records,outer_evidence=root_evidence())["accepted"])
+
+    def test_classifier_never_uses_outer_timeout_or_false_release_as_native_proof(self):
+        classify=self.function("classify_native_cases")
+        for mode in ("outer_timeout","no_fault","false_parent_release","no_inner","wrong_worker_exit","changed_budget"):
+            r=[case_record(c) for c in ("N1","N2","N3","N4")]
+            if mode=="outer_timeout":r[3]["outer"]["status"]="TIMED_OUT"
+            elif mode=="no_fault":r[3]["fault"]=None
+            elif mode=="false_parent_release":r[3]["parent_power"]=power_record()
+            elif mode=="no_inner":r[0]["msb"]=None
+            elif mode=="wrong_worker_exit":r[1]["msb"]["exit_code"]=1
+            else:r[2]["binding"]["start_tick_ms"]=2000
+            with self.subTest(mode=mode):self.assertFalse(classify(r,outer_evidence=root_evidence())["accepted"])
+
+    def test_classifier_rejects_global_expiry_source_power_or_setting_failure(self):
+        classify=self.function("classify_native_cases");records=[case_record(c) for c in ("N1","N2","N3","N4")]
+        for key,value in (("elapsed_seconds",480.),("source_identity_verified",False),("registration_verified",False),
+                          ("real_data_opened",True),("root_power",{}),("final_settings",{"scheme":"changed"})):
+            evidence=root_evidence();evidence[key]=value
+            with self.subTest(key=key):self.assertFalse(classify(records,outer_evidence=evidence)["accepted"])
+
+    def test_collector_launches_four_once_and_passes_original_binding(self):
+        self.function("classify_native_cases")
+        with tempfile.TemporaryDirectory() as tmp:
+            root,path,p,a=self.protocol_file(tmp);services=FakeCollectorServices()
+            result=native.run_acceptance(root,path,execute_native=True,approval=a,services=services)
+            self.assertEqual(result["status"],"PASS_NATIVE_SUPERVISION_SCOPE")
+            launches=[c for c in services.calls if c[0]=="launch"]
+            self.assertEqual([c[1] for c in launches],["N1","N2","N3","N4"])
+            self.assertEqual([c[2] for c in launches],[90,45,75,45])
+            self.assertEqual({(c[4]["start_tick_ms"],c[4]["deadline_tick_ms"]) for c in launches},{(1000,7201000)})
+            self.assertFalse(result["native_os_exercised"]);self.assertFalse(result["real_data_opened"])
+
+    def test_collector_stops_after_first_unexpected_case_outcome(self):
+        self.function("classify_native_cases")
+        with tempfile.TemporaryDirectory() as tmp:
+            root,path,p,a=self.protocol_file(tmp);services=FakeCollectorServices("N2")
+            result=native.run_acceptance(root,path,execute_native=True,approval=a,services=services)
+            self.assertNotEqual(result["status"],"PASS_NATIVE_SUPERVISION_SCOPE")
+            self.assertEqual([c[1] for c in services.calls if c[0]=="launch"],["N1","N2"])
+
+    def test_collector_remote_mismatch_never_launches_or_creates_run_directory(self):
+        self.function("classify_native_cases")
+        with tempfile.TemporaryDirectory() as tmp:
+            root,path,p,a=self.protocol_file(tmp);services=FakeCollectorServices();services.registration_ok=False
+            with self.assertRaises(ValueError):native.run_acceptance(root,path,execute_native=True,approval=a,services=services)
+            self.assertFalse(any(c[0]=="launch" for c in services.calls))
+            self.assertFalse((root/p["output_relative"]).exists())
+
+    def test_collector_true_flag_with_code_permission_reads_nothing(self):
+        self.function("classify_native_cases")
+        a=dict(call_id="call_6961d4dac6b64d7aba8e538f01c5e097",answer="not-native",
+               scope="NATIVE_SUPERVISION_NO_DATA",confirmed_from_human=True,registration_commit="a"*40)
+        services=Mock()
+        with patch.object(Path,"read_text",side_effect=AssertionError("Unauthorized input")):
+            with self.assertRaises(ValueError):native.run_acceptance(Path("."),Path("never-read"),execute_native=True,approval=a,services=services)
+        self.assertEqual(services.mock_calls,[])
+
+    def test_final_publication_expiry_and_double_failure_preserve_both_errors(self):
+        publish=self.function("publish_acceptance")
+        with tempfile.TemporaryDirectory() as tmp:
+            services=FakeCollectorServices();state=dict(status="PASS_NATIVE_SUPERVISION_SCOPE",delivery_verified=True)
+            first=RuntimeError("TIMED_OUT: post write");second=OSError("failure receipt unavailable")
+            def writer(path,value,**kw):
+                if value["status"]=="PASS_NATIVE_SUPERVISION_SCOPE":services.api.now=481000
+                else:raise second
+            services.write_json=writer
+            with self.assertRaises(RuntimeError) as error:publish(Path(tmp),state,case_binding(),services=services)
+            self.assertIs(error.exception.persistence_error,second)
+            self.assertIn("TIMED_OUT",str(error.exception.primary_error))
+            self.assertFalse(error.exception.failed_state["delivery_verified"])
+
+    def test_observer_rejects_pid_reuse_without_retaining_job_capability(self):
+        observe=self.function("retain_worker_identity")
+        query=SimpleNamespace(opened=[],closed=[])
+        query.open_query=lambda pid:(query.opened.append(pid) or 88)
+        query.query_identity=lambda handle:(8,200)
+        query.close_query=lambda handle:query.closed.append(handle)
+        with self.assertRaises(RuntimeError):observe(dict(pid=8,created=199),services=query)
+        self.assertEqual(query.opened,[8]);self.assertEqual(query.closed,[88])
+
+    def test_native_query_open_uses_only_query_and_sync_rights(self):
+        self.function("retain_worker_identity")
+        service=object.__new__(native.NativeServices)
+        service.api=SimpleNamespace(kernel=SimpleNamespace(OpenProcess=Mock(return_value=88)),_ok=lambda v:v,
+                                    process_identity=lambda h:(8,199))
+        self.assertEqual(service.open_query(8),88)
+        args=service.api.kernel.OpenProcess.call_args.args
+        self.assertEqual(args,(0x100000|0x1000,False,8))
+
+    def test_existing_outer_guard_checks_root_guard_on_same_thread(self):
+        self.function("retain_worker_identity")
+        import lc_execution_safety as lc
+        from run_lc_role_adaptation import run_supervised_job
+        class Env:
+            def __init__(self):self.n=0
+            def set_execution_state(self,flags):return 0x80000000
+            def sample(self):self.n+=1;return (1.+self.n*.001,1.+self.n*.001)
+        env=Env();service=object.__new__(native.NativeServices)
+        process=SimpleNamespace(pid=88,returncode=0,poll=lambda:0,wait=lambda timeout:0)
+        with tempfile.TemporaryDirectory() as tmp,patch.object(lc,"WindowsExecutionAPI",return_value=env):
+            with lc.WindowsAwakeGuard(api=env) as root:
+                before=env.n
+                with patch("subprocess.Popen",return_value=process),patch("run_lc_role_adaptation.time.monotonic",return_value=1.):
+                    row=service.run_outer(dict(job_id="outer",command=["never-launched"],log_path=str(Path(tmp)/"outer.log")),
+                                          dict(per_fit_seconds=90,heartbeat_seconds=10),100.)
+                self.assertEqual(row["status"],"COMPLETE");self.assertGreater(env.n,before+3)
+                self.assertIs(lc._CURRENT_GUARD.get(),root)
+            self.assertTrue(root.evidence()["power_request_released"])
+
+    def test_collector_preparation_expiry_launches_no_case(self):
+        self.function("classify_native_cases")
+        with tempfile.TemporaryDirectory() as tmp:
+            root,path,p,a=self.protocol_file(tmp);services=FakeCollectorServices()
+            def register(*args):
+                services.api.now=481000
+                return dict(verified=True,commit="a"*40)
+            services.verify_registration=register
+            with self.assertRaises(RuntimeError):native.run_acceptance(root,path,execute_native=True,approval=a,services=services)
+            self.assertFalse(any(c[0]=="launch" for c in services.calls))
+            self.assertFalse((root/p["output_relative"]).exists())
+
+    def test_private_controller_cli_uses_registered_active_claim_and_real_parent(self):
+        self.function("classify_native_cases")
+        from contextlib import redirect_stdout,redirect_stderr
+        import io
+        with tempfile.TemporaryDirectory() as tmp:
+            root,path,p,a=self.protocol_file(tmp);out=root/p["output_relative"];case=out/"cases/N1";case.mkdir(parents=True)
+            binding=case_binding();binding["protocol_digest"]=__import__("hashlib").sha256(
+                json.dumps(p,sort_keys=True,separators=(",",":"),allow_nan=False).encode()).hexdigest()
+            claim=dict(status="RUNNING",active_case="N1",binding=binding,
+                       registration_verified=True,source_identity_verified=True,registered_commit="a"*40)
+            (out/"stage_state.json").write_text(json.dumps(claim),encoding="utf-8")
+            services=FakeCollectorServices();services.api=CaseLauncher("N1")
+            flags=["--root",str(root),"--protocol",str(path),"--execute-native",
+                   "--approval-call-id",a["call_id"],"--approval-answer",a["answer"],"--registration-commit","a"*40,
+                   "--controller-case","N1","--case-output",str(case),"--binding-json",json.dumps(binding)]
+            with patch.object(native,"NativeServices",return_value=services),redirect_stdout(io.StringIO()),redirect_stderr(io.StringIO()):
+                try:code=native.main(flags)
+                except SystemExit as error:self.fail("Controller CLI not wired: "+str(error))
+            self.assertEqual(code,0)
+            self.assertEqual(json.loads((case/"controller/controller_result.json").read_text())["msb"]["status"],"COMPLETE")
+
+    def test_active_controller_claim_mismatch_denies_before_native_factory(self):
+        self.function("classify_native_cases")
+        from contextlib import redirect_stderr
+        import io
+        with tempfile.TemporaryDirectory() as tmp:
+            root,path,p,a=self.protocol_file(tmp);out=root/p["output_relative"];case=out/"cases/N1";case.mkdir(parents=True)
+            (out/"stage_state.json").write_text(json.dumps(dict(status="COMPLETE",active_case="N1")))
+            flags=["--root",str(root),"--protocol",str(path),"--execute-native",
+                   "--approval-call-id",a["call_id"],"--approval-answer",a["answer"],"--registration-commit","a"*40,
+                   "--controller-case","N1","--case-output",str(case),"--binding-json",json.dumps(case_binding())]
+            with patch.object(native,"NativeServices",side_effect=AssertionError("Unapproved native")) as factory,redirect_stderr(io.StringIO()):
+                with self.assertRaises((ValueError,RuntimeError,SystemExit)):native.main(flags)
+            self.assertEqual(factory.call_count,0)
+
+    def test_registered_git_tree_and_protocol_bytes_bind_all_sources(self):
+        self.function("retain_worker_identity")
+        import base64
+        import hashlib
+        service=object.__new__(native.NativeServices)
+        with tempfile.TemporaryDirectory() as tmp:
+            root,path,p,a=self.protocol_file(tmp)
+            tree=[]
+            for name in p["source_sha256"]:
+                target=root/name;target.parent.mkdir(parents=True,exist_ok=True);payload=b"synthetic-source\n";target.write_bytes(payload)
+                p["source_sha256"][name]=hashlib.sha256(payload).hexdigest()
+                tree.append(dict(path=name,type="blob",sha=hashlib.sha1(b"blob "+str(len(payload)).encode()+b"\0"+payload).hexdigest()))
+            path.write_text(json.dumps(p),encoding="utf-8");payload=path.read_bytes()
+            tree.append(dict(path="docs/experiment_protocols/msb_native_supervision_v1.json",type="blob",
+                             sha=hashlib.sha1(b"blob "+str(len(payload)).encode()+b"\0"+payload).hexdigest()))
+            def api(endpoint,check):
+                check()
+                if "/git/ref/" in endpoint:return dict(object=dict(sha="a"*40))
+                if "/git/commits/" in endpoint:return dict(sha="a"*40,tree=dict(sha="b"*40))
+                if "/git/trees/" in endpoint:return dict(truncated=False,tree=tree)
+                if "/contents/" in endpoint:return dict(content=base64.b64encode(payload).decode(),encoding="base64")
+                raise AssertionError("Unexpected registration endpoint")
+            service._api=api
+            result=service.verify_registration(root,path,p,a,lambda:None)
+            self.assertTrue(result["verified"])
+            tree[0]["sha"]="0"*40
+            with self.assertRaises(ValueError):service.verify_registration(root,path,p,a,lambda:None)
+
+
+class ObserverTestServices(FakeDriverServices):
+    def __init__(self):
+        super().__init__(WorkerAPI());self.api.now=1103;self.opened=[];self.closed=[];self.identity=(8,202)
+    def open_query(self,pid):self.opened.append(pid);return 88
+    def query_identity(self,handle):return self.identity
+    def close_query(self,handle):self.closed.append(handle)
+    def query_alive(self,handle):return self.api.now<1200
+    def query_exit_code(self,handle):return 1
+
+
+class ObserverTests(unittest.TestCase):
+    def make(self,tmp):
+        record=case_record("N4");case=Path(tmp)/"N4";(case/"controller").mkdir(parents=True)
+        (case/"worker_ready.json").write_text(json.dumps(record["observation"]["ready"]),encoding="utf-8")
+        (case/"controller_ready.json").write_text(json.dumps(dict(pid=7,created=102,binding=case_binding())),encoding="utf-8")
+        (case/"controller/trace.json").write_text(json.dumps(record["events"]),encoding="utf-8")
+        services=ObserverTestServices()
+        return native.NativeObserver(case,case_binding(),services),services,case
+
+    def test_real_observer_retains_query_identity_then_confirms_exit_and_closes(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            observer,services,case=self.make(tmp);observer.sample()
+            self.assertEqual(services.opened,[8])
+            ack=json.loads((case/"collector_ack.json").read_text())
+            self.assertTrue(ack["query_only"]);self.assertFalse(ack["job_handle_retained"])
+            record=observer.finish(dict(pid=7,exit_code=31,alive=False))
+            self.assertTrue(record["exit_observed"]);self.assertTrue(record["handle_closed"])
+            self.assertTrue(record["monitor_stopped"]);self.assertFalse(record["worker_alive"])
+            self.assertEqual(services.closed,[88])
+
+    def test_real_observer_rejects_creation_reuse_before_ack(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            observer,services,case=self.make(tmp);services.identity=(8,203)
+            with self.assertRaises(RuntimeError):observer.sample()
+            observer.close()
+            self.assertEqual(services.closed,[88]);self.assertFalse((case/"collector_ack.json").exists())
+
+    def test_partial_ready_write_is_not_misclassified_as_native_failure(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            observer,services,case=self.make(tmp);ready=case/"worker_ready.json";payload=ready.read_text()
+            ready.write_text('{"pid":',encoding="utf-8")
+            try:observer.sample()
+            except json.JSONDecodeError:self.fail("Transient partial metadata must defer observation without ACK")
+            self.assertEqual(services.opened,[]);self.assertFalse((case/"collector_ack.json").exists())
+            ready.write_text(payload,encoding="utf-8");observer.sample();observer.finish(dict(pid=7,exit_code=31,alive=False))
+            self.assertEqual(services.closed,[88])
+
+    def test_pipe_eof_classification_uses_numeric_cause_not_localized_text(self):
+        for winerror,want in ((109,True),(6,False)):
+            records=[case_record(c) for c in ("N1","N2","N3","N4")]
+            records[1]["msb"]["error"]="OSError: [WinError 109] \u7ba1\u9053\u5df2\u7ed3\u675f"
+            next(e for e in records[1]["events"] if e["kind"]=="pipe_error")["winerror"]=winerror
+            with self.subTest(winerror=winerror):
+                self.assertEqual(native.classify_native_cases(records,outer_evidence=root_evidence())["accepted"],want)
+
+    def test_ack_read_time_counts_toward_the_five_second_cap(self):
+        services=FakeDriverServices(WorkerAPI())
+        ready=dict(pid=8,created=199,working=True,job_assigned=True,case_id="N4",ready_tick_ms=1000)
+        def delayed(case_dir,value):
+            services.api.now=6000
+            return dict(value,collector_verified=True,query_only=True,job_handle_retained=False)
+        services.read_ack=delayed;caught=None
+        with tempfile.TemporaryDirectory() as tmp:
+            try:native.parent_fault_after_ready(Path(tmp),ready,services=services)
+            except BaseException as error:caught=error
+        self.assertIsInstance(caught,RuntimeError)
+        self.assertEqual(services.exits,[])
+
+    def test_close_rejects_a_stuck_observer_lock_without_unsafe_handle_close(self):
+        class Busy:
+            def acquire(self,**kwargs):return False
+            def release(self):raise AssertionError("unowned lock released")
+        with tempfile.TemporaryDirectory() as tmp:
+            observer,services,case=self.make(tmp);observer.sample();original=observer.lock;observer.lock=Busy();caught=None
+            try:observer.close()
+            except BaseException as error:caught=error
+            closed_before_cleanup=list(services.closed)
+            observer.lock=original;observer.close()
+            self.assertIsInstance(caught,RuntimeError)
+            self.assertEqual(closed_before_cleanup,[])
+
+    def test_finish_never_samples_while_an_observer_thread_cannot_stop(self):
+        class Busy:
+            def __init__(self):self.enters=0
+            def __enter__(self):self.enters+=1;raise AssertionError("unbounded sampler lock attempted")
+            def __exit__(self,*args):return False
+            def acquire(self,**kwargs):return False
+            def release(self):raise AssertionError("unowned release")
+        with tempfile.TemporaryDirectory() as tmp:
+            observer,services,case=self.make(tmp);observer.sample()
+            original=observer.lock;busy=Busy();observer.lock=busy;observer.watch=SimpleNamespace(stopped=False)
+            services.stop_fault=lambda watch:False;caught=None
+            try:observer.finish(dict(pid=7,exit_code=31,alive=False))
+            except BaseException as error:caught=error
+            closed_before_cleanup=list(services.closed)
+            observer.lock=original;observer.watch=None;observer.close()
+            self.assertIsInstance(caught,RuntimeError)
+            self.assertEqual(busy.enters,0)
+            self.assertEqual(closed_before_cleanup,[])

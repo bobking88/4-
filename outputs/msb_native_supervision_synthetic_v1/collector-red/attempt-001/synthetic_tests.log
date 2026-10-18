@@ -1,0 +1,189 @@
+test_classifier_accepts_only_complete_fixed_four_case_evidence (test_check_msb_native_supervision.CollectorTests.test_classifier_accepts_only_complete_fixed_four_case_evidence) ... FAIL
+test_classifier_never_uses_outer_timeout_or_false_release_as_native_proof (test_check_msb_native_supervision.CollectorTests.test_classifier_never_uses_outer_timeout_or_false_release_as_native_proof) ... FAIL
+test_classifier_rejects_fake_renewal_or_nonexact_ack (test_check_msb_native_supervision.CollectorTests.test_classifier_rejects_fake_renewal_or_nonexact_ack) ... FAIL
+test_classifier_rejects_global_expiry_source_power_or_setting_failure (test_check_msb_native_supervision.CollectorTests.test_classifier_rejects_global_expiry_source_power_or_setting_failure) ... FAIL
+test_classifier_rejects_job_retention_pid_reuse_fallback_and_late_exit (test_check_msb_native_supervision.CollectorTests.test_classifier_rejects_job_retention_pid_reuse_fallback_and_late_exit) ... FAIL
+test_collector_launches_four_once_and_passes_original_binding (test_check_msb_native_supervision.CollectorTests.test_collector_launches_four_once_and_passes_original_binding) ... FAIL
+test_collector_remote_mismatch_never_launches_or_creates_run_directory (test_check_msb_native_supervision.CollectorTests.test_collector_remote_mismatch_never_launches_or_creates_run_directory) ... FAIL
+test_collector_stops_after_first_unexpected_case_outcome (test_check_msb_native_supervision.CollectorTests.test_collector_stops_after_first_unexpected_case_outcome) ... FAIL
+test_collector_true_flag_with_code_permission_reads_nothing (test_check_msb_native_supervision.CollectorTests.test_collector_true_flag_with_code_permission_reads_nothing) ... FAIL
+test_existing_outer_guard_checks_root_guard_on_same_thread (test_check_msb_native_supervision.CollectorTests.test_existing_outer_guard_checks_root_guard_on_same_thread) ... FAIL
+test_final_publication_expiry_and_double_failure_preserve_both_errors (test_check_msb_native_supervision.CollectorTests.test_final_publication_expiry_and_double_failure_preserve_both_errors) ... FAIL
+test_native_query_open_uses_only_query_and_sync_rights (test_check_msb_native_supervision.CollectorTests.test_native_query_open_uses_only_query_and_sync_rights) ... FAIL
+test_observer_rejects_pid_reuse_without_retaining_job_capability (test_check_msb_native_supervision.CollectorTests.test_observer_rejects_pid_reuse_without_retaining_job_capability) ... FAIL
+test_deadline_equality_backwards_and_nonfinite_rejected (test_check_msb_native_supervision.ContractTests.test_deadline_equality_backwards_and_nonfinite_rejected) ... ok
+test_fixed_protocol_validates_without_reading_assets (test_check_msb_native_supervision.ContractTests.test_fixed_protocol_validates_without_reading_assets) ... ok
+test_no_execute_flag_denies_before_service_or_file_read (test_check_msb_native_supervision.ContractTests.test_no_execute_flag_denies_before_service_or_file_read) ... ok
+test_nonreal_and_unconfirmed_approval_rejected (test_check_msb_native_supervision.ContractTests.test_nonreal_and_unconfirmed_approval_rejected) ... ok
+test_old_output_missing_source_and_extra_source_rejected (test_check_msb_native_supervision.ContractTests.test_old_output_missing_source_and_extra_source_rejected) ... ok
+test_protocol_mutations_and_true_data_fields_rejected (test_check_msb_native_supervision.ContractTests.test_protocol_mutations_and_true_data_fields_rejected) ... ok
+test_remaining_uses_larger_elapsed_including_preparation (test_check_msb_native_supervision.ContractTests.test_remaining_uses_larger_elapsed_including_preparation) ... ok
+test_actual_main_never_passes_a_skipped_input (test_check_msb_native_supervision.HarnessGateTests.test_actual_main_never_passes_a_skipped_input) ... ok
+test_gate_rejects_nonpassing_result_classes (test_check_msb_native_supervision.HarnessGateTests.test_gate_rejects_nonpassing_result_classes) ... ok
+test_controller_reuses_real_parent_and_original_budget (test_check_msb_native_supervision.WorkerTests.test_controller_reuses_real_parent_and_original_budget) ... ok
+test_done_linger_expires_original_frozen_lease_not_outer_timer (test_check_msb_native_supervision.WorkerTests.test_done_linger_expires_original_frozen_lease_not_outer_timer) ... ok
+test_no_done_and_native_eof_remain_fail_closed_with_exit23 (test_check_msb_native_supervision.WorkerTests.test_no_done_and_native_eof_remain_fail_closed_with_exit23) ... ok
+test_parent_fault_case_still_uses_real_launch_and_rejects_assignment_failure (test_check_msb_native_supervision.WorkerTests.test_parent_fault_case_still_uses_real_launch_and_rejects_assignment_failure) ... ok
+test_parent_fault_rejects_job_handle_retention_wrong_identity_and_timeout (test_check_msb_native_supervision.WorkerTests.test_parent_fault_rejects_job_handle_retention_wrong_identity_and_timeout) ... ok
+test_parent_fault_requires_real_ready_identity_and_collector_ack (test_check_msb_native_supervision.WorkerTests.test_parent_fault_requires_real_ready_identity_and_collector_ack) ... ok
+test_private_worker_cli_rejects_missing_handles_and_public_flag_mix (test_check_msb_native_supervision.WorkerTests.test_private_worker_cli_rejects_missing_handles_and_public_flag_mix) ... ok
+test_private_worker_cli_runs_the_real_scope_with_inherited_handles (test_check_msb_native_supervision.WorkerTests.test_private_worker_cli_runs_the_real_scope_with_inherited_handles) ... ok
+test_real_worker_scope_waits45_and_completes_real_close (test_check_msb_native_supervision.WorkerTests.test_real_worker_scope_waits45_and_completes_real_close) ... ok
+test_worker_exit23_never_publishes_result_or_false_release (test_check_msb_native_supervision.WorkerTests.test_worker_exit23_never_publishes_result_or_false_release) ... ok
+test_worker_lingers_only_after_close_and_power_release (test_check_msb_native_supervision.WorkerTests.test_worker_lingers_only_after_close_and_power_release) ... ok
+test_worker_rejects_old_packet_and_missing_live_capability (test_check_msb_native_supervision.WorkerTests.test_worker_rejects_old_packet_and_missing_live_capability) ... ok
+
+======================================================================
+FAIL: test_classifier_accepts_only_complete_fixed_four_case_evidence (test_check_msb_native_supervision.CollectorTests.test_classifier_accepts_only_complete_fixed_four_case_evidence)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 467, in test_classifier_accepts_only_complete_fixed_four_case_evidence
+    classify=self.function("classify_native_cases")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 459, in function
+    value=getattr(native,name,None);self.assertTrue(callable(value),"Missing collector implementation: "+name);return value
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : Missing collector implementation: classify_native_cases
+
+======================================================================
+FAIL: test_classifier_never_uses_outer_timeout_or_false_release_as_native_proof (test_check_msb_native_supervision.CollectorTests.test_classifier_never_uses_outer_timeout_or_false_release_as_native_proof)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 492, in test_classifier_never_uses_outer_timeout_or_false_release_as_native_proof
+    classify=self.function("classify_native_cases")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 459, in function
+    value=getattr(native,name,None);self.assertTrue(callable(value),"Missing collector implementation: "+name);return value
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : Missing collector implementation: classify_native_cases
+
+======================================================================
+FAIL: test_classifier_rejects_fake_renewal_or_nonexact_ack (test_check_msb_native_supervision.CollectorTests.test_classifier_rejects_fake_renewal_or_nonexact_ack)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 474, in test_classifier_rejects_fake_renewal_or_nonexact_ack
+    classify=self.function("classify_native_cases")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 459, in function
+    value=getattr(native,name,None);self.assertTrue(callable(value),"Missing collector implementation: "+name);return value
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : Missing collector implementation: classify_native_cases
+
+======================================================================
+FAIL: test_classifier_rejects_global_expiry_source_power_or_setting_failure (test_check_msb_native_supervision.CollectorTests.test_classifier_rejects_global_expiry_source_power_or_setting_failure)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 504, in test_classifier_rejects_global_expiry_source_power_or_setting_failure
+    classify=self.function("classify_native_cases");records=[case_record(c) for c in ("N1","N2","N3","N4")]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 459, in function
+    value=getattr(native,name,None);self.assertTrue(callable(value),"Missing collector implementation: "+name);return value
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : Missing collector implementation: classify_native_cases
+
+======================================================================
+FAIL: test_classifier_rejects_job_retention_pid_reuse_fallback_and_late_exit (test_check_msb_native_supervision.CollectorTests.test_classifier_rejects_job_retention_pid_reuse_fallback_and_late_exit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 483, in test_classifier_rejects_job_retention_pid_reuse_fallback_and_late_exit
+    classify=self.function("classify_native_cases")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 459, in function
+    value=getattr(native,name,None);self.assertTrue(callable(value),"Missing collector implementation: "+name);return value
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : Missing collector implementation: classify_native_cases
+
+======================================================================
+FAIL: test_collector_launches_four_once_and_passes_original_binding (test_check_msb_native_supervision.CollectorTests.test_collector_launches_four_once_and_passes_original_binding)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 511, in test_collector_launches_four_once_and_passes_original_binding
+    self.function("classify_native_cases")
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 459, in function
+    value=getattr(native,name,None);self.assertTrue(callable(value),"Missing collector implementation: "+name);return value
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : Missing collector implementation: classify_native_cases
+
+======================================================================
+FAIL: test_collector_remote_mismatch_never_launches_or_creates_run_directory (test_check_msb_native_supervision.CollectorTests.test_collector_remote_mismatch_never_launches_or_creates_run_directory)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 531, in test_collector_remote_mismatch_never_launches_or_creates_run_directory
+    self.function("classify_native_cases")
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 459, in function
+    value=getattr(native,name,None);self.assertTrue(callable(value),"Missing collector implementation: "+name);return value
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : Missing collector implementation: classify_native_cases
+
+======================================================================
+FAIL: test_collector_stops_after_first_unexpected_case_outcome (test_check_msb_native_supervision.CollectorTests.test_collector_stops_after_first_unexpected_case_outcome)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 523, in test_collector_stops_after_first_unexpected_case_outcome
+    self.function("classify_native_cases")
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 459, in function
+    value=getattr(native,name,None);self.assertTrue(callable(value),"Missing collector implementation: "+name);return value
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : Missing collector implementation: classify_native_cases
+
+======================================================================
+FAIL: test_collector_true_flag_with_code_permission_reads_nothing (test_check_msb_native_supervision.CollectorTests.test_collector_true_flag_with_code_permission_reads_nothing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 539, in test_collector_true_flag_with_code_permission_reads_nothing
+    self.function("classify_native_cases")
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 459, in function
+    value=getattr(native,name,None);self.assertTrue(callable(value),"Missing collector implementation: "+name);return value
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : Missing collector implementation: classify_native_cases
+
+======================================================================
+FAIL: test_existing_outer_guard_checks_root_guard_on_same_thread (test_check_msb_native_supervision.CollectorTests.test_existing_outer_guard_checks_root_guard_on_same_thread)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 580, in test_existing_outer_guard_checks_root_guard_on_same_thread
+    self.function("retain_worker_identity")
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 459, in function
+    value=getattr(native,name,None);self.assertTrue(callable(value),"Missing collector implementation: "+name);return value
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : Missing collector implementation: retain_worker_identity
+
+======================================================================
+FAIL: test_final_publication_expiry_and_double_failure_preserve_both_errors (test_check_msb_native_supervision.CollectorTests.test_final_publication_expiry_and_double_failure_preserve_both_errors)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 548, in test_final_publication_expiry_and_double_failure_preserve_both_errors
+    publish=self.function("publish_acceptance")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 459, in function
+    value=getattr(native,name,None);self.assertTrue(callable(value),"Missing collector implementation: "+name);return value
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : Missing collector implementation: publish_acceptance
+
+======================================================================
+FAIL: test_native_query_open_uses_only_query_and_sync_rights (test_check_msb_native_supervision.CollectorTests.test_native_query_open_uses_only_query_and_sync_rights)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 571, in test_native_query_open_uses_only_query_and_sync_rights
+    self.function("retain_worker_identity")
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 459, in function
+    value=getattr(native,name,None);self.assertTrue(callable(value),"Missing collector implementation: "+name);return value
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : Missing collector implementation: retain_worker_identity
+
+======================================================================
+FAIL: test_observer_rejects_pid_reuse_without_retaining_job_capability (test_check_msb_native_supervision.CollectorTests.test_observer_rejects_pid_reuse_without_retaining_job_capability)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 562, in test_observer_rejects_pid_reuse_without_retaining_job_capability
+    observe=self.function("retain_worker_identity")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 459, in function
+    value=getattr(native,name,None);self.assertTrue(callable(value),"Missing collector implementation: "+name);return value
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : Missing collector implementation: retain_worker_identity
+
+----------------------------------------------------------------------
+Ran 34 tests in 0.969s
+
+FAILED (failures=13)
