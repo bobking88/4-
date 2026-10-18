@@ -1,0 +1,230 @@
+{
+  "sources": {
+    "scripts/check_msb_native_supervision.py": {
+      "sha256": "1c7a10d429420bdca18f3caf7496320feb0663f1a2e62295d682304d125ecce5",
+      "source": "\"\"\"No-data native acceptance driver; contract implementation follows failing tests.\"\"\"\n"
+    },
+    "tests/test_check_msb_native_supervision.py": {
+      "sha256": "cb39b0b959058c627a0ca48a3fe5c3db1143bb0fac410a95eb639d9257b67e35",
+      "source": "\"\"\"Contracts use scratch metadata and simulated interfaces only.\"\"\"\nimport copy\nimport json\nimport math\nimport os\nfrom pathlib import Path\nimport sys\nimport tempfile\nfrom types import SimpleNamespace\nimport unittest\nfrom unittest.mock import Mock, patch\n\nimport check_msb_native_supervision as native\nimport run_msb_native_supervision_synthetic_acceptance as harness\n\n\ndef fixture_protocol():\n    root = Path(__file__).resolve().parents[1]\n    authority = json.loads((root/\"outputs/msb_completion_repair_synthetic_v1/final/source_identity.json\").read_text(encoding=\"utf-8\"))\n    paths = tuple(authority[\"source_sha256\"]) + (\n        \"scripts/check_msb_native_supervision.py\", \"tests/test_check_msb_native_supervision.py\",\n        \"tests/run_msb_native_supervision_synthetic_acceptance.py\")\n    return dict(protocol=\"msb_native_supervision_v1\", status=\"APPROVED_NATIVE_ONLY\",\n                scope=\"NATIVE_SUPERVISION_NO_DATA\", execution_contract=\"msb_parent_bound_v2\",\n                approval_call_id=\"call_\"+\"f\"*32, approval_answer=\"APPROVED_SINGLE_NATIVE_NO_DATA\",\n                output_relative=\"outputs/msb_native_supervision_v1/acceptance_once\",\n                max_seconds=480, case_order=[\"N1\",\"N2\",\"N3\",\"N4\"],\n                case_limits=[90,45,75,45], require_ac=True, max_attempts=1,\n                real_training_authorized=False, source_sha256={p:\"1\"*64 for p in paths})\n\n\ndef fixture_approval(protocol):\n    return dict(call_id=protocol[\"approval_call_id\"], answer=protocol[\"approval_answer\"],\n                scope=\"NATIVE_SUPERVISION_NO_DATA\", confirmed_from_human=True,\n                registration_commit=\"a\"*40)\n\n\nclass ContractTests(unittest.TestCase):\n    def function(self, name):\n        value = getattr(native, name, None)\n        self.assertTrue(callable(value), \"Missing contract implementation: \"+name)\n        return value\n\n    def test_remaining_uses_larger_elapsed_including_preparation(self):\n        remaining = self.function(\"remaining_acceptance_seconds\")\n        self.assertEqual(remaining(10.,1000,now_monotonic=45.,now_tick_ms=36000),445.)\n        self.assertEqual(remaining(10.,1000,now_monotonic=70.,now_tick_ms=46000),420.)\n\n    def test_deadline_equality_backwards_and_nonfinite_rejected(self):\n        remaining = self.function(\"remaining_acceptance_seconds\")\n        for mono,tick in ((490.,481000),(491.,2000),(9.,2000),(11.,999),(math.nan,2000),(math.inf,2000)):\n            with self.subTest(mono=mono,tick=tick), self.assertRaises((ValueError,RuntimeError)):\n                remaining(10.,1000,now_monotonic=mono,now_tick_ms=tick)\n\n    def test_fixed_protocol_validates_without_reading_assets(self):\n        validate = self.function(\"validate_native_protocol\")\n        with tempfile.TemporaryDirectory() as tmp:\n            protocol=fixture_protocol()\n            with patch.object(Path,\"read_bytes\",side_effect=AssertionError(\"No asset reads in pure validation\")):\n                result=validate(Path(tmp),protocol,approval=fixture_approval(protocol))\n            self.assertEqual(result[\"output_relative\"],\"outputs/msb_native_supervision_v1/acceptance_once\")\n            self.assertEqual(result[\"case_limits\"],[90,45,75,45])\n\n    def test_protocol_mutations_and_true_data_fields_rejected(self):\n        validate = self.function(\"validate_native_protocol\")\n        changes=[(\"max_seconds\",481),(\"case_order\",[\"N2\",\"N1\",\"N3\",\"N4\"]),\n                 (\"case_limits\",[90,45,76,45]),(\"max_attempts\",2),(\"require_ac\",False),\n                 (\"real_training_authorized\",True),(\"execution_contract\",\"msb_parent_bound_v1\"),\n                 (\"prepared_entries\",[\"forbidden.pt\"]),(\"output_relative\",\"../outside\")]\n        with tempfile.TemporaryDirectory() as tmp:\n            for key,value in changes:\n                p=fixture_protocol();p[key]=value\n                with self.subTest(key=key),self.assertRaises(ValueError):\n                    validate(Path(tmp),p,approval=fixture_approval(p))\n\n    def test_nonreal_and_unconfirmed_approval_rejected(self):\n        validate = self.function(\"validate_native_protocol\")\n        with tempfile.TemporaryDirectory() as tmp:\n            for token in (\"call_a42aed1b7bab474bb17246c3df69dc4e\",\"call_6961d4dac6b64d7aba8e538f01c5e097\"):\n                p=fixture_protocol();p[\"approval_call_id\"]=token\n                with self.subTest(token=token),self.assertRaises(ValueError):\n                    validate(Path(tmp),p,approval=fixture_approval(p))\n            p=fixture_protocol();a=fixture_approval(p);a[\"confirmed_from_human\"]=False\n            with self.assertRaises(ValueError): validate(Path(tmp),p,approval=a)\n\n    def test_old_output_missing_source_and_extra_source_rejected(self):\n        validate = self.function(\"validate_native_protocol\")\n        with tempfile.TemporaryDirectory() as tmp:\n            p=fixture_protocol();output=Path(tmp)/p[\"output_relative\"];output.mkdir(parents=True)\n            with self.assertRaises(FileExistsError):validate(Path(tmp),p,approval=fixture_approval(p))\n        with tempfile.TemporaryDirectory() as tmp:\n            for mode in (\"missing\",\"extra\"):\n                p=fixture_protocol()\n                if mode==\"missing\":p[\"source_sha256\"].pop(\"scripts/msb_execution_safety.py\")\n                else:p[\"source_sha256\"][\"unregistered.py\"]=\"1\"*64\n                with self.subTest(mode=mode),self.assertRaises(ValueError):\n                    validate(Path(tmp),p,approval=fixture_approval(p))\n\n    def test_no_execute_flag_denies_before_service_or_file_read(self):\n        run=self.function(\"run_acceptance\")\n        services=Mock()\n        with patch.object(Path,\"read_text\",side_effect=AssertionError(\"Unauthorized read\")):\n            with self.assertRaises(ValueError):\n                run(Path(\".\"),Path(\"never-read.json\"),execute_native=False,approval={},services=services)\n        self.assertEqual(services.mock_calls,[])\n\n\nclass HarnessGateTests(unittest.TestCase):\n    def test_gate_rejects_nonpassing_result_classes(self):\n        for outcome in (\"empty\",\"skip\",\"expected\",\"unexpected\",\"failure\",\"error\",\"pass\"):\n            r=unittest.TestResult()\n            if outcome!=\"empty\":r.testsRun=1\n            if outcome==\"skip\":r.skipped=[(\"test\",\"reason\")]\n            if outcome==\"expected\":r.expectedFailures=[(\"test\",\"trace\")]\n            if outcome==\"unexpected\":r.unexpectedSuccesses=[\"test\"]\n            if outcome==\"failure\":r.failures=[(\"test\",\"trace\")]\n            if outcome==\"error\":r.errors=[(\"test\",\"trace\")]\n            with self.subTest(outcome=outcome):\n                self.assertEqual(harness._acceptance_passed(r,forbidden_calls=[],harness_error=None),outcome==\"pass\")\n        self.assertFalse(harness._acceptance_passed(r,forbidden_calls=[\"native\"],harness_error=None))\n        self.assertFalse(harness._acceptance_passed(r,forbidden_calls=[],harness_error=\"trace\"))\n\n    def test_actual_main_never_passes_a_skipped_input(self):\n        r=unittest.TestResult();r.testsRun=1;r.skipped=[(\"injected\",\"fixture\")]\n        previous=(Path.cwd(),tempfile.tempdir,list(sys.path))\n        with tempfile.TemporaryDirectory() as tmp:\n            try:\n                with patch.object(harness,\"ROOT\",Path(tmp)),patch.object(harness,\"_snapshot_sources\",return_value={}),patch.object(harness,\"_run_modules\",return_value=r):\n                    code=harness.main([\"--phase\",\"contract-green\"])\n                summary=json.loads((Path(tmp)/\"outputs/msb_native_supervision_synthetic_v1/contract-green/attempt-001/acceptance_summary.json\").read_text())\n                self.assertEqual((code,summary[\"status\"],summary[\"skipped\"]),(1,\"FAILED\",1))\n            finally:\n                os.chdir(previous[0]);tempfile.tempdir=previous[1];sys.path[:]=previous[2]\n"
+    },
+    "tests/run_msb_native_supervision_synthetic_acceptance.py": {
+      "sha256": "e9b3baaf151d12c5edd6bafec8c8d01e0a2da4647fa40511cc1e402f0772c2b7",
+      "source": "\"\"\"Fixed all-fake acceptance for the MSB native no-data driver; never runs native.\"\"\"\nfrom contextlib import ExitStack, nullcontext\nimport argparse\nimport ctypes\nimport hashlib\nimport importlib\nimport io\nimport json\nimport os\nimport socket\nfrom pathlib import Path\nimport subprocess\nimport sys\nimport tempfile\nimport threading\nimport time\nimport traceback\nfrom types import ModuleType\nimport unittest\nfrom unittest.mock import patch\n\nROOT = Path(__file__).resolve().parents[1]\nALL_MODULES = (\n    \"test_msb_execution_safety\", \"test_msb_role_data\", \"test_msb_role_model\",\n    \"test_msb_role_controls\", \"test_msb_role_audit\", \"test_msb_role_training\",\n    \"test_run_msb_role_mechanism\", \"test_analyze_msb_role_mechanism\", \"test_generate_msb_role_figure\",\n    \"test_check_msb_native_supervision\",\n)\nPHASES = {f\"{stage}-{color}\": (\"test_check_msb_native_supervision\",)\n          for stage in (\"contract\", \"worker\", \"collector\") for color in (\"red\", \"green\")}\nPHASES[\"final\"] = ALL_MODULES\nSNAPSHOTS = (\n    \"scripts/check_msb_native_supervision.py\",\n    \"tests/test_check_msb_native_supervision.py\",\n    \"tests/run_msb_native_supervision_synthetic_acceptance.py\",\n)\n\n\ndef _snapshot_sources(root):\n    identity = json.loads((root/\"outputs/msb_completion_repair_synthetic_v1/final/source_identity.json\").read_text(encoding=\"utf-8\"))\n    baseline = {}\n    for group in (\"source_sha256\", \"tests_and_harness_sha256\"):\n        for path, expected in identity[group].items():\n            actual = hashlib.sha256((root/path).read_bytes()).hexdigest()\n            if actual != expected: raise ValueError(\"Protected source changed: \"+path)\n            baseline[path] = dict(sha256=actual, matched=True)\n    return dict(sources={p: dict(sha256=hashlib.sha256((root/p).read_bytes()).hexdigest(),\n                                source=(root/p).read_text(encoding=\"utf-8\")) for p in SNAPSHOTS},\n                protected_identity=baseline)\n\n\ndef _run_modules(names, log):\n    modules = [importlib.import_module(n) for n in names]\n    suite = unittest.TestSuite(unittest.defaultTestLoader.loadTestsFromModule(m) for m in modules)\n    return unittest.TextTestRunner(stream=log, verbosity=2).run(suite)\n\n\ndef _acceptance_passed(result, *, forbidden_calls: list, harness_error: str | None) -> bool:\n    return (result is not None and result.wasSuccessful() and result.testsRun > 0\n            and not result.skipped and not result.expectedFailures and not result.unexpectedSuccesses\n            and not forbidden_calls and harness_error is None)\n\n\ndef main(argv=None):\n    parser = argparse.ArgumentParser()\n    parser.add_argument(\"--phase\", required=True, choices=tuple(PHASES))\n    args = parser.parse_args(argv)\n    phase_root = ROOT/\"outputs/msb_native_supervision_synthetic_v1\"/args.phase\n    phase_root.mkdir(parents=True, exist_ok=True)\n    legacy_attempt = (phase_root/\"acceptance_summary.json\").exists()\n    for attempt in range(1, 4):\n        if legacy_attempt and attempt == 1: continue\n        output = phase_root/f\"attempt-{attempt:03d}\"\n        try:\n            output.mkdir(exist_ok=False)\n            break\n        except FileExistsError:\n            continue\n    else:\n        raise FileExistsError(\"Three synthetic attempts consumed; retain all evidence and stop\")\n    scratch = ROOT/\".superpowers/sdd/2026-10-18-msb-native-supervision-acceptance/test-tmp\"\n    scratch.mkdir(parents=True, exist_ok=True)\n    tempfile.tempdir = str(scratch)\n    snapshots = _snapshot_sources(ROOT)\n    (output/\"source_snapshot.json\").write_text(json.dumps(snapshots, ensure_ascii=False, indent=2)+\"\\n\", encoding=\"utf-8\")\n    os.chdir(ROOT)\n    sys.path[:0] = [str(ROOT/\"tests\"), str(ROOT/\"scripts\")]\n    forbidden_calls, tensor_reads = [], []\n    log = io.StringIO()\n    result = None\n    error = None\n    bootstrap = {}\n\n    def forbidden(name):\n        def reject(*a, **kw):\n            forbidden_calls.append(name)\n            raise AssertionError(\"UNMOCKED_BOUNDARY_FORBIDDEN: \"+name)\n        return reject\n\n    def temporary_load(file, *a, **kw):\n        if isinstance(file, io.BytesIO): return original_load(file, *a, **kw)\n        path = Path(file if isinstance(file, (str, bytes, os.PathLike)) else file.name).resolve()\n        if not path.is_relative_to(scratch.resolve()):\n            return forbidden(\"torch.load outside synthetic scratch\")()\n        tensor_reads.append(path.relative_to(scratch).as_posix())\n        return original_load(file, *a, **kw)\n\n    try:\n        # Only installed numeric runtimes bootstrap outside the application guards.\n        import torch\n        import sklearn\n        bootstrap = dict(torch=str(torch.__version__), sklearn=str(sklearn.__version__))\n        original_load = torch.load\n        with ExitStack() as stack:\n            for target, name in ((ctypes, \"WinDLL\"), (subprocess, \"Popen\"), (os, \"_exit\"),\n                                 (threading.Thread, \"start\"), (time, \"sleep\"),\n                                 (socket, \"create_connection\"), (socket.socket, \"connect\")):\n                stack.enter_context(patch.object(target, name, side_effect=forbidden(name)))\n            # Frozen-feature MSB tests must not construct or preprocess a CNN.\n            vision = ModuleType(\"torchvision\")\n            vision.__path__ = []\n            vision.__file__ = \"<mocked-unused-torchvision>\"\n            vision.__version__ = \"MOCKED_UNUSED_NOT_LOADED\"\n            stubs = {\"torchvision\": vision}\n            for name in (\"models\", \"transforms\"):\n                module = ModuleType(\"torchvision.\"+name)\n                module.__path__ = []\n                module.__file__ = \"<mocked-unused-torchvision-\"+name+\">\"\n                module.__getattr__ = forbidden(\"unused torchvision.\"+name)\n                setattr(vision, name, module)\n                stubs[\"torchvision.\"+name] = module\n            stack.enter_context(patch.dict(sys.modules, stubs))\n            safety = importlib.import_module(\"msb_execution_safety\")\n            for name in (\"__init__\", \"tick_ms\"):\n                stack.enter_context(patch.object(safety.NativeMSBAPI, name, side_effect=forbidden(name)))\n            stack.enter_context(patch.object(torch, \"load\", side_effect=temporary_load))\n            training = importlib.import_module(\"msb_role_training\")\n            stack.enter_context(patch.object(training, \"threadpool_limits\", side_effect=lambda **kw: nullcontext()))\n            native = importlib.import_module(\"check_msb_native_supervision\")\n            if hasattr(native, \"NativeServices\"):\n                stack.enter_context(patch.object(native.NativeServices, \"__init__\", side_effect=forbidden(\"NativeServices\")))\n            result = _run_modules(PHASES[args.phase], log)\n    except BaseException:\n        error = traceback.format_exc()\n        log.write(error)\n    successful = _acceptance_passed(result, forbidden_calls=forbidden_calls, harness_error=error)\n    summary = dict(scope=\"SYNTHETIC_CONTRACT_ONLY\", phase=args.phase, attempt=attempt,\n                   bootstrap=bootstrap,\n                   unused_dependency_stubs=[\"torchvision.models\", \"torchvision.transforms\"],\n                   status=\"PASSED\" if successful else \"FAILED\", modules=PHASES[args.phase],\n                   tests_run=0 if result is None else result.testsRun,\n                   failures=0 if result is None else len(result.failures),\n                   errors=0 if result is None else len(result.errors),\n                   skipped=0 if result is None else len(result.skipped),\n                   expected_failures=0 if result is None else len(result.expectedFailures),\n                   unexpected_successes=0 if result is None else len(result.unexpectedSuccesses),\n                   unmocked_boundary_calls=forbidden_calls, native_os_exercised=False,\n                   real_data_opened=False, real_fits=0, temporary_synthetic_tensor_reads=len(tensor_reads),\n                   source_snapshot=\"DIRECT_PRE_RUN_CAPTURE\", harness_error=error)\n    (output/\"synthetic_tests.log\").write_text(log.getvalue(), encoding=\"utf-8\")\n    (output/\"acceptance_summary.json\").write_text(json.dumps(summary, indent=2)+\"\\n\", encoding=\"utf-8\")\n    print(json.dumps(summary), flush=True)\n    if not successful: print(log.getvalue()[-10000:], flush=True)\n    return 0 if successful else 1\n\n\nif __name__ == \"__main__\":\n    raise SystemExit(main())\n"
+    }
+  },
+  "protected_identity": {
+    "scripts/analyze_ic_role_mechanism.py": {
+      "sha256": "26fd12997e987c7e71649dd960cb82094d524a5071f6a954fccd4d96fdc2c906",
+      "matched": true
+    },
+    "scripts/analyze_lc_role_adaptation.py": {
+      "sha256": "54b98dbcf1ed1299c05b2bbc3f4722c36d00ba35fb9fc44095f45a59bb4fbc1b",
+      "matched": true
+    },
+    "scripts/analyze_misclassifications.py": {
+      "sha256": "3d2c7f463fe1257ec5a7e2c3571db4ae3cb65ef04bf3dd7b1942464c8ded707c",
+      "matched": true
+    },
+    "scripts/analyze_msb_role_mechanism.py": {
+      "sha256": "af439f8440284b3436a152c079cf8a922618a10a4ab90cbf5e4cbff11b054e59",
+      "matched": true
+    },
+    "scripts/anchor_linear_controls.py": {
+      "sha256": "1a979127c960cfc44c8fc3ef682d790dbb280e2488cfc2440baa2c161ed10192",
+      "matched": true
+    },
+    "scripts/audit_abmp_candidate_capacity.py": {
+      "sha256": "163c224a5ff9f72c2daf1341570c0bc40be76b8593671177c50f7d036b83675c",
+      "matched": true
+    },
+    "scripts/check_lc_native_environment.py": {
+      "sha256": "6ff6bf40cec8c5f0b78ffc61fd11be8aeadf35880b1ebe9e8112be0b298ac161",
+      "matched": true
+    },
+    "scripts/frozen_visual_probe.py": {
+      "sha256": "6e417ea900ed3cbd1c8653898a5bb9849b73958b57c4c50803217d82a4793bfa",
+      "matched": true
+    },
+    "scripts/generate_msb_role_figure.py": {
+      "sha256": "a96cead0999a23b3fb9f462299b0e3c77834c156969642e7c4a92efcc06be0f6",
+      "matched": true
+    },
+    "scripts/hrgv_network.py": {
+      "sha256": "f4c2889b9a129d9f52fd999b189c0888407f9887e1f739cd5e1b55b4d361a0da",
+      "matched": true
+    },
+    "scripts/ic_role_audit.py": {
+      "sha256": "ffadcaa76f8494fbd63080b90a4bd8d4f95d7d4b4ef585aac4847511074729d4",
+      "matched": true
+    },
+    "scripts/ic_role_data.py": {
+      "sha256": "897751bb68c5fb40fc8c186c73041b6ed05990708e57771c403f4d604e7d6d2d",
+      "matched": true
+    },
+    "scripts/ic_role_model.py": {
+      "sha256": "b62462a725e52a67f79d3fdba148bc19195dfe488f15c0ce3137f8a0680377b3",
+      "matched": true
+    },
+    "scripts/ic_role_training.py": {
+      "sha256": "b4102538411b7079d5fcf83587a0b8558141660ed9c5048ca4d1c5acbdda58cd",
+      "matched": true
+    },
+    "scripts/lc_execution_safety.py": {
+      "sha256": "84089e43cb36133d41647b7576c27e4609058b9c087f4979f595452cd37bc029",
+      "matched": true
+    },
+    "scripts/lc_role_adapter.py": {
+      "sha256": "3c02653b5a1aafd1cf452fa029b827baa899ff6a6645986cebc368fbdeecf1aa",
+      "matched": true
+    },
+    "scripts/lc_role_audit.py": {
+      "sha256": "587bdb18a27e897e47064889f9d77869be94b62bf661379e4409d88d2802ec1c",
+      "matched": true
+    },
+    "scripts/lc_role_data.py": {
+      "sha256": "d8639d3035d55ef04b04605b2f565c2cc29a7dcefaba995fd852b396cf489e09",
+      "matched": true
+    },
+    "scripts/lc_role_training.py": {
+      "sha256": "1431e80200a7639aca10493d4d7d4ef91c66eb45bbd1457a9a1cdc52f983adb7",
+      "matched": true
+    },
+    "scripts/mineral_hierarchy.py": {
+      "sha256": "21c485b70d838a9acf1626762b0a643b0e8297e060e8cd7eb3348f807d191384",
+      "matched": true
+    },
+    "scripts/msb_execution_safety.py": {
+      "sha256": "aaf8f808805c0ce470e645757b625a6951f35e8bc362c628278ab97635dba41f",
+      "matched": true
+    },
+    "scripts/msb_role_audit.py": {
+      "sha256": "23eddcb993b3b4584ba67bbbafa94d20c40602bab15b3100a5157f789377bc20",
+      "matched": true
+    },
+    "scripts/msb_role_controls.py": {
+      "sha256": "ef649b352b4f877d60f34dd4f64e80dc98226e587495fadda0fd697b71e7c808",
+      "matched": true
+    },
+    "scripts/msb_role_data.py": {
+      "sha256": "674bde1f7ab1675ea427160e4a8435e9588b1ce198c7c864965ba7f6f7f7c242",
+      "matched": true
+    },
+    "scripts/msb_role_model.py": {
+      "sha256": "752e91afcc368fef0e5b54f6ff4ba5cb4c2d66267532211bfaaa0cab5b35f192",
+      "matched": true
+    },
+    "scripts/msb_role_training.py": {
+      "sha256": "2f16547744b86e5dbc5782111e2cdfe85fc1d0c0b3aef213774a8ed15ff9e04d",
+      "matched": true
+    },
+    "scripts/run_anchor_linear_controls.py": {
+      "sha256": "15beb38c7825a439199b5545bfb5a4d842947d9f107b18ec09ccca759a747735",
+      "matched": true
+    },
+    "scripts/run_frozen_visual_probe.py": {
+      "sha256": "db6db46bd8f046ad0e3ec9c2bc14f138fa2150e297ab4b30eb316d4510a36d2d",
+      "matched": true
+    },
+    "scripts/run_ic_role_mechanism.py": {
+      "sha256": "423fad79bee6d5a351589319cb03b98a8097b958615a9b9e1fd274ef921f302a",
+      "matched": true
+    },
+    "scripts/run_lc_role_adaptation.py": {
+      "sha256": "6c29a9f454e1e445d08aa4f6fabdb61bf0145e6d931dc9c23efe81144ae6b4ff",
+      "matched": true
+    },
+    "scripts/run_msb_role_mechanism.py": {
+      "sha256": "ed73b97a52f2a653c9f36decc557a1198eadf126e122f5e23b94ba91c0405fd8",
+      "matched": true
+    },
+    "scripts/run_seen_unseen_gate_study.py": {
+      "sha256": "b03b1c63aba4a1559e6a1e26797989d2cdac30c0d3bca618b76986613a1cd6bc",
+      "matched": true
+    },
+    "scripts/run_tc_oos_rsg_experiments.py": {
+      "sha256": "7006b72d27942ab29c7b22eaf58cae344fcb8c3c8d30e2930788da9900c4bef1",
+      "matched": true
+    },
+    "scripts/run_verifier_strong_controls.py": {
+      "sha256": "40edbdd576ddc49d0a3f5a27ec71aee944660691ccba955829df4ed99a0599d6",
+      "matched": true
+    },
+    "scripts/run_verifier_trust_development.py": {
+      "sha256": "62ee01068bb6ef6cbb3b464732a9f57f3e2e5bc86aba879f0b2a304d40dbbce3",
+      "matched": true
+    },
+    "scripts/tc_oos_rsg.py": {
+      "sha256": "38445a3f24ccd424e5e6a635f78ef079e73f2139be62d3e974134470c66bcba2",
+      "matched": true
+    },
+    "scripts/train_hierarchical_mineral_classifier.py": {
+      "sha256": "75e1085a66dc70adad45ae41f10d825062a0594e7fa0db1ca6438092a5e0635f",
+      "matched": true
+    },
+    "scripts/train_hrgv_mineral_classifier.py": {
+      "sha256": "0fa4d352c9327ea646cd42e0e267c31e9eb05a7007cfb2298ccbc595a8a94bdc",
+      "matched": true
+    },
+    "scripts/train_mineral_classifier.py": {
+      "sha256": "d81cda1da77076e3dbbdf81fd9969846314187fa8ffd079fb01106c60b80edea",
+      "matched": true
+    },
+    "scripts/train_role_aware_mineral_classifier.py": {
+      "sha256": "63380cc3806d5676312292d6345f7ea6173061a681d3430e59e54063988c0927",
+      "matched": true
+    },
+    "scripts/verifier_risk.py": {
+      "sha256": "a5bc85cccee192479bcf49bddcce4863eac66126636ba7d04b83898b9606dfff",
+      "matched": true
+    },
+    "scripts/verifier_strong_controls.py": {
+      "sha256": "a1adefaef8852bceb85aa22cd42a10609ff904b09a3f8b6dce94787c6a87299b",
+      "matched": true
+    },
+    "scripts/verify_verifier_trust_delivery.py": {
+      "sha256": "daa8be53da3019607946cb4dfdfd9718e2cd43be4221ae5d1d3f30d24659ac09",
+      "matched": true
+    },
+    "tests/test_msb_execution_safety.py": {
+      "sha256": "6a84667090df3730e11f08377d6bb3b649604fd3767c34e97feffa8a286afcad",
+      "matched": true
+    },
+    "tests/test_msb_role_data.py": {
+      "sha256": "3dfb594edf9f683e8f3cfbf22c0763e138905586d2569011dab4722d64276bb1",
+      "matched": true
+    },
+    "tests/test_msb_role_model.py": {
+      "sha256": "abbeb964daee6334faeca184d3b4ad306b48a7fc0b4711b7cd58475673166eb0",
+      "matched": true
+    },
+    "tests/test_msb_role_controls.py": {
+      "sha256": "cecb8bbbcfda318aa042de3c94d6c5b85a20302269555b4f2f24103a66eb0f0c",
+      "matched": true
+    },
+    "tests/test_msb_role_audit.py": {
+      "sha256": "61ba5f62903f7039d8c032ac726d001dedad7772b14af7439d9180684c8af4b0",
+      "matched": true
+    },
+    "tests/test_msb_role_training.py": {
+      "sha256": "8a6f5c331dda085f7730d6d88824194a358b2b2f32faa96e55e1df4fad71244e",
+      "matched": true
+    },
+    "tests/test_run_msb_role_mechanism.py": {
+      "sha256": "29938f4db303e9092cb72a68ae15eb7688c44f943a22f22d34dbb98b42cc83c2",
+      "matched": true
+    },
+    "tests/test_analyze_msb_role_mechanism.py": {
+      "sha256": "6de052f73ae323b939f3d580d71fe8b6709141082035f63046647b98f90edad7",
+      "matched": true
+    },
+    "tests/test_generate_msb_role_figure.py": {
+      "sha256": "835dcd3cc38517cb230f2d679d6b7fb2328ea0798f6afdea94882f8c7ce865bb",
+      "matched": true
+    },
+    "tests/run_msb_terminal_repair_acceptance.py": {
+      "sha256": "83ca6162c6d98ac508cb16f71c10039ec738a702bf2ed70a1a625c0f0b4dcff9",
+      "matched": true
+    }
+  }
+}

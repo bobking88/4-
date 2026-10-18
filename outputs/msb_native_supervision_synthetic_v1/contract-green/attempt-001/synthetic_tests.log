@@ -1,0 +1,14 @@
+test_deadline_equality_backwards_and_nonfinite_rejected (test_check_msb_native_supervision.ContractTests.test_deadline_equality_backwards_and_nonfinite_rejected) ... ok
+test_fixed_protocol_validates_without_reading_assets (test_check_msb_native_supervision.ContractTests.test_fixed_protocol_validates_without_reading_assets) ... ok
+test_no_execute_flag_denies_before_service_or_file_read (test_check_msb_native_supervision.ContractTests.test_no_execute_flag_denies_before_service_or_file_read) ... ok
+test_nonreal_and_unconfirmed_approval_rejected (test_check_msb_native_supervision.ContractTests.test_nonreal_and_unconfirmed_approval_rejected) ... ok
+test_old_output_missing_source_and_extra_source_rejected (test_check_msb_native_supervision.ContractTests.test_old_output_missing_source_and_extra_source_rejected) ... ok
+test_protocol_mutations_and_true_data_fields_rejected (test_check_msb_native_supervision.ContractTests.test_protocol_mutations_and_true_data_fields_rejected) ... ok
+test_remaining_uses_larger_elapsed_including_preparation (test_check_msb_native_supervision.ContractTests.test_remaining_uses_larger_elapsed_including_preparation) ... ok
+test_actual_main_never_passes_a_skipped_input (test_check_msb_native_supervision.HarnessGateTests.test_actual_main_never_passes_a_skipped_input) ... ok
+test_gate_rejects_nonpassing_result_classes (test_check_msb_native_supervision.HarnessGateTests.test_gate_rejects_nonpassing_result_classes) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.038s
+
+OK
