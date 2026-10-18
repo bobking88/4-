@@ -180,7 +180,8 @@ class MSBParentControl:
         self.outstanding,self.last_renew = True,now_tick_ms
         return [self._message("RENEW")]
 
-    def require_complete(self,exit_code: int) -> None:
+    def require_complete(self,exit_code: int,*,now_tick_ms: int) -> None:
+        self._check(now_tick_ms)
         if (exit_code != 0 or not self.done or not self.close_granted or self.phase != "DONE"
                 or self.outstanding or self.last_acked != self.issued):
             raise _interrupted("worker exit lacks exact close handshake")
@@ -520,8 +521,8 @@ class MSBParentSupervisor:
                     if process.poll() is not None:
                         if control is None: raise _interrupted("worker exited before GRANT")
                         self._drain_control(channel,control,binding)
-                        control.require_complete(process.returncode)
                         self.check(); guard.check()
+                        control.require_complete(process.returncode,now_tick_ms=self.api.tick_ms())
                         status = "COMPLETE"; break
                     if control is not None and not control.done:
                         for renewal in control.renew(self.api.tick_ms()):

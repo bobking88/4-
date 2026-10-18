@@ -224,7 +224,7 @@ class CloseControlTests(unittest.TestCase):
         grants=c.accept(self.message(b,"ACK",2,46000),31001)
         self.assertEqual([(m["kind"],m["sequence"],m["lease_until_tick_ms"]) for m in grants],[("CLOSE_GRANT",2,46000)])
         c.accept(self.message(b,"DONE",2,46000),31002)
-        c.require_complete(0)
+        c.require_complete(0,now_tick_ms=31002)
 
     def test_renewal_ack_before_close_request_finishes(self):
         c,b=self.control(); c.accept(self.message(b,"ACK"),1000); c.renew(16000)
@@ -232,7 +232,7 @@ class CloseControlTests(unittest.TestCase):
         grants=c.accept(self.message(b,"CLOSE_REQUEST",2,46000),16002)
         self.assertEqual([(m["kind"],m["sequence"]) for m in grants],[("CLOSE_GRANT",2)])
         self.assertEqual(c.renew(32000),[])
-        c.accept(self.message(b,"DONE",2,46000),32000); c.require_complete(0)
+        c.accept(self.message(b,"DONE",2,46000),32000); c.require_complete(0,now_tick_ms=32000)
 
     def test_old_or_duplicate_close_request_is_rejected(self):
         c,b=self.control(); c.accept(self.message(b,"ACK"),1000); c.renew(16000)
@@ -244,12 +244,12 @@ class CloseControlTests(unittest.TestCase):
     def test_done_before_close_grant_is_rejected(self):
         c,b=self.control(); c.accept(self.message(b,"ACK"),1000)
         with self.assertRaises(RuntimeError): c.accept(self.message(b,"DONE"),1001)
-        with self.assertRaises(RuntimeError): c.require_complete(0)
+        with self.assertRaises(RuntimeError): c.require_complete(0,now_tick_ms=1001)
 
     def test_closing_without_inflight_ack_cannot_complete(self):
         c,b=self.control(); c.accept(self.message(b,"ACK"),1000); c.renew(16000)
         self.assertEqual(c.accept(self.message(b,"CLOSE_REQUEST"),16000),[])
-        with self.assertRaises(RuntimeError): c.require_complete(0)
+        with self.assertRaises(RuntimeError): c.require_complete(0,now_tick_ms=16000)
         with self.assertRaises(RuntimeError): c.accept(self.message(b,"ACK",2,46000),46000)
 
 
@@ -485,6 +485,90 @@ class LauncherTests(unittest.TestCase):
         with safety.open_worker_scope(self.packet,handles,api=api,awake_guard=awake) as scope:
             scope.begin_work(); awake.released=True; scope.begin_publish(awake.evidence())
         self.assertEqual([m["kind"] for m in api.sent],["HELLO","ACK","CLOSE_REQUEST","DONE"])
+
+    def lease_exit(self, offset=0, *, guard_expiry=False):
+        api = LauncherAPI(); api.done_read = False; api.frozen_lease = None
+        guard_count = [0]
+        def awake():
+            guard_count[0] += 1
+            guard = FakeAwake()
+            if guard_count[0] == 2:
+                original = guard.check
+                def check():
+                    result = original()
+                    if guard_expiry and api.process.returncode == 0:
+                        api.now = max(api.now, api.frozen_lease)
+                        api.events.append("final-guard-expiry")
+                    return result
+                guard.check = check
+            return guard
+        api.awake_guard = awake
+        def write(handle, message):
+            FakeAPI.write_message(api, handle, message)
+            if message["kind"] == "GRANT":
+                api.frozen_lease = message["lease_until_tick_ms"]
+                api.inbox.extend([dict(message, kind="ACK"),
+                                  dict(message, kind="CLOSE_REQUEST", power_released=True)])
+            if message["kind"] == "CLOSE_GRANT": api.inbox.append(dict(message, kind="DONE"))
+        api.write_message = write
+        def read(handle, max_bytes=8192):
+            value = FakeAPI.read_message(api, handle, max_bytes)
+            if isinstance(value, dict) and value["kind"] == "DONE":
+                api.now = api.frozen_lease-1
+                api.done_read = True
+                api.events.append("DONE-before-lease")
+            return value
+        api.read_message = read
+        def poll():
+            if api.done_read and api.process.returncode is None:
+                api.now = api.frozen_lease+offset
+                api.process.returncode = 0
+                api.events.append("independent-exit")
+            return api.process.returncode
+        api.process.poll = poll
+        with safety.MSBParentSupervisor(safety.RunBudget(1000,7201000), "run", "1"*64, api=api) as parent:
+            result = parent.run_job(self.job, {})
+        return result, api
+
+    def test_done_before_lease_but_exit_at_lease_is_rejected(self):
+        for offset, expected in ((-1,"COMPLETE"),(0,"SUPERVISION_INTERRUPTED"),(1,"SUPERVISION_INTERRUPTED")):
+            with self.subTest(offset=offset):
+                result, api = self.lease_exit(offset)
+                self.assertLess(api.events.index("DONE-before-lease"), api.events.index("independent-exit"))
+                self.assertEqual(result["status"], expected, result["error"])
+                self.assertTrue(result["end_handshake_verified"])
+                self.assertTrue(result["exit_confirmed"])
+                self.assertLess(api.now, 7201000)
+
+    def test_exit_acceptance_samples_after_guard_check(self):
+        result, api = self.lease_exit(-1, guard_expiry=True)
+        self.assertIn("final-guard-expiry", api.events)
+        self.assertEqual(result["status"], "SUPERVISION_INTERRUPTED", result["error"])
+
+    def test_drain_consumes_eight_and_preserves_ninth(self):
+        _, binding = CloseControlTests.control(self)
+        class ProbeControl:
+            done = False
+            def __init__(self): self.binding = binding; self.count = 0
+            def accept(self, message, now): self.count += 1; return []
+        probe, api = ProbeControl(), LauncherAPI()
+        api.inbox = list(range(1,10)); reads = []
+        def read(handle, max_bytes=8192):
+            reads.append(True)
+            return FakeAPI.read_message(api, handle, max_bytes)
+        api.read_message = read
+        with safety.MSBParentSupervisor(safety.RunBudget(1000,7201000), "run", "1"*64, api=api) as parent:
+            consumed = parent._drain_control(api.create_channel(), probe, binding)
+        self.assertEqual((consumed, len(reads), probe.count), (8,8,8))
+        self.assertEqual(api.inbox, [9])
+        self.assertFalse(probe.done)
+
+    def test_incomplete_real_close_cannot_complete(self):
+        control, binding = CloseControlTests.control(self)
+        control.accept(CloseControlTests.message(self, binding, "ACK"), 1000)
+        control.accept(CloseControlTests.message(self, binding, "CLOSE_REQUEST"), 1001)
+        self.assertTrue(control.close_granted)
+        with self.assertRaises(RuntimeError): control.require_complete(0,now_tick_ms=1001)
 
     def exit_before_read(self,mode="valid"):
         api=LauncherAPI(); api.pending_done=None; api.empty_seen=False; api.exit_ready=False
