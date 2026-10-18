@@ -214,6 +214,69 @@ class RunnerTests(unittest.TestCase):
                 publish(self.root,state,budget=runner.RunBudget(0,7200000),api=api)
         self.assertFalse(state["delivery_verified"])
 
+    def test_terminal_double_write_failure_preserves_both_errors(self):
+        primary, persistence = OSError("primary terminal write"), OSError("secondary failure record")
+        state = dict(status="MECHANISM_COMPLETE", delivery_verified=True, state_history=["RUNNING"])
+        with patch.object(runner, "_json", side_effect=[primary, persistence]) as writes:
+            with self.assertRaises(RuntimeError) as caught:
+                runner._publish_terminal_state(self.root, state, budget=runner.RunBudget(0,7200000), api=FakeAPI())
+        error = caught.exception
+        self.assertIs(getattr(error, "primary_error", None), primary)
+        self.assertIs(getattr(error, "persistence_error", None), persistence)
+        self.assertIs(error.__cause__, persistence)
+        self.assertEqual(type(error).__name__, "MSBTerminalPublicationError")
+        self.assertEqual(error.failed_state["status"], "FAILED")
+        self.assertIs(error.failed_state["delivery_verified"], False)
+        self.assertIs(error.failed_state["failure_record_persisted"], False)
+        self.assertIsNot(error.failed_state, state)
+        self.assertIn("not persisted", str(error))
+        self.assertIn("primary terminal write", str(error))
+        self.assertIn("secondary failure record", str(error))
+        self.assertEqual(writes.call_count, 2)
+
+    def test_timeout_then_failure_record_error_keeps_timed_out(self):
+        api = FakeAPI(); persistence = OSError("record after timeout")
+        calls = []
+        def write(*args, **kwargs):
+            calls.append(True)
+            if len(calls) == 1: api.now = 7200000
+            else: raise persistence
+        state = dict(status="MECHANISM_COMPLETE", delivery_verified=True, state_history=["RUNNING"])
+        with patch.object(runner, "_json", side_effect=write):
+            with self.assertRaises(RuntimeError) as caught:
+                runner._publish_terminal_state(self.root, state, budget=runner.RunBudget(0,7200000), api=api)
+        error = caught.exception
+        self.assertIsInstance(getattr(error, "primary_error", None), RuntimeError)
+        self.assertIn("TIMED_OUT", str(error.primary_error))
+        self.assertEqual(error.failed_state["status"], "TIMED_OUT")
+        self.assertIs(error.persistence_error, persistence)
+        self.assertFalse(error.failed_state["delivery_verified"])
+        self.assertEqual(len(calls), 2)
+
+    def test_existing_failed_state_text_survives_record_error(self):
+        state = dict(status="FAILED", error="upstream failure text", delivery_verified=False, state_history=["RUNNING"])
+        persistence = OSError("record-only failure")
+        with patch.object(runner, "_json", side_effect=persistence):
+            with self.assertRaises(RuntimeError) as caught:
+                runner._publish_terminal_state(self.root, state, budget=runner.RunBudget(0,7200000), api=FakeAPI())
+        error = caught.exception
+        self.assertIsNone(getattr(error, "primary_error", None))
+        self.assertEqual(getattr(error, "failed_state", {}).get("error"), "upstream failure text")
+        self.assertIs(error.persistence_error, persistence)
+        self.assertIn("upstream failure text", str(error))
+
+    def test_cli_cannot_return_zero_after_publication_error(self):
+        state = dict(status="MECHANISM_COMPLETE", delivery_verified=True, state_history=["RUNNING"])
+        def stage(*args):
+            return runner._publish_terminal_state(self.root, state, budget=runner.RunBudget(0,7200000), api=FakeAPI())
+        args = ["run_msb_role_mechanism.py", "--stage", "synthetic", "--output", str(self.root/"unused")]
+        output = io.StringIO()
+        with patch.object(sys, "argv", args), patch.object(sys, "stdout", output), patch.object(
+                runner, "run_stage", side_effect=stage), patch.object(runner, "_json", side_effect=[OSError("primary"), OSError("record")]):
+            with self.assertRaises(RuntimeError) as caught: runner.main()
+        self.assertIs(getattr(caught.exception, "failed_state", {}).get("delivery_verified"), False)
+        self.assertNotIn("COMPLETE", output.getvalue())
+
     def test_terminal_publication_exact_deadline_boundaries(self):
         publish=getattr(runner,"_publish_terminal_state",None)
         self.assertTrue(callable(publish),"No terminal publisher boundary checks")
@@ -425,6 +488,19 @@ class RunnerTests(unittest.TestCase):
             with patch.object(runner,"ROOT",self.root):
                 with self.assertRaisesRegex(ValueError,"approval"):
                     runner.validate_protocol(self.root,protocol,"fit-mechanism")
+
+    def test_completion_review_plan_and_code_ids_are_not_real_approvals(self):
+        protocol = self.real_metadata_fixture()
+        tokens = ("call_a4c9ef81bcea447aa7350f7cd9aff51c", "call_aa6d081524a94817b20cceb8fbd25053",
+                  "call_0e89f2cb80134c049e4ef3aaf697a7b0")
+        with patch.object(runner, "ROOT", self.root), patch.object(runner, "load_prepared_fold") as load:
+            runner.validate_protocol(self.root, protocol, "fit-mechanism")
+            for token in tokens:
+                with self.subTest(token=token):
+                    protocol["authorization"]["user_message_id"] = token
+                    with self.assertRaisesRegex(ValueError, "approval"):
+                        runner.validate_protocol(self.root, protocol, "fit-mechanism")
+            load.assert_not_called()
 
     def test_analysis_scope_is_bound_to_existing_worker_guard(self):
         import analyze_msb_role_mechanism as analysis

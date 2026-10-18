@@ -38,7 +38,9 @@ CODE_ONLY_IDS = ("call_978b15d460804fa2982cb750a1d4b4ad", "call_53a58e64d5ee47fb
                  "call_1690e5bbad7a415f8880b0ff473b9521", "call_3d401d8b809843e0b7103995a772caad",
                  "call_bd72917caf2e42eba5bdca8b34c65841", "call_4ada24f023d34e1e8b2768bba9295873",
                  "call_358af6a530944d5c9a15f0ea8039b545", "call_a697651b584d4fb8b2116607dcc82b52",
-                 "call_2a665eb0bae044b38917a4aa34f5127a", "call_34d91895cd594efe92c80a1bf6f41138")
+                 "call_2a665eb0bae044b38917a4aa34f5127a", "call_34d91895cd594efe92c80a1bf6f41138",
+                 "call_a4c9ef81bcea447aa7350f7cd9aff51c", "call_aa6d081524a94817b20cceb8fbd25053",
+                 "call_0e89f2cb80134c049e4ef3aaf697a7b0")
 KINDS = ("load", "trajectory", "convex", "analysis", "final-verify")
 
 
@@ -75,7 +77,18 @@ def _json(path, value, *, exclusive=False):
     os.replace(temporary, path)
 
 
+class MSBTerminalPublicationError(RuntimeError):
+    def __init__(self, failed_state: dict, *, primary_error: BaseException | None, persistence_error: BaseException):
+        self.failed_state = dict(failed_state)
+        self.primary_error = primary_error
+        self.persistence_error = persistence_error
+        reason = primary_error if primary_error is not None else failed_state.get("error", "unknown prior failure")
+        super().__init__(f"Terminal failure record not persisted; status={failed_state.get('status', 'FAILED')}; "
+                         f"primary={reason}; persistence={persistence_error}; no verified delivery")
+
+
 def _publish_terminal_state(output: Path, state: dict, *, budget: RunBudget, api) -> dict:
+    primary_error = None
     history = state.setdefault("state_history", [])
     if state["status"] in ("SYNTHETIC_COMPLETE", "MECHANISM_COMPLETE"):
         try:
@@ -87,6 +100,7 @@ def _publish_terminal_state(output: Path, state: dict, *, budget: RunBudget, api
             budget.remaining_seconds(api.tick_ms())
             return state
         except BaseException as error:
+            primary_error = error
             state["status"] = terminal_status(error)
             state["error"] = f"{type(error).__name__}: {error}"
             state["delivery_verified"] = False
@@ -98,7 +112,7 @@ def _publish_terminal_state(output: Path, state: dict, *, budget: RunBudget, api
         _json(Path(output)/"stage_state.json", state)
     except BaseException as error:
         state["failure_record_persisted"] = False
-        raise RuntimeError("Terminal failure record not persisted; no verified delivery") from error
+        raise MSBTerminalPublicationError(state, primary_error=primary_error, persistence_error=error) from error
     return state
 
 
