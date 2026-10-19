@@ -330,6 +330,8 @@ C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独�
 
 2026-10-18验收驱动修复文档更新：按另行文档授权归档[五项最小修复规格](docs/superpowers/specs/2026-10-18-msb-native-acceptance-repair-design.md)、[三任务实施计划](docs/superpowers/plans/2026-10-18-msb-native-acceptance-repair.md)及[作者文档记录](docs/experiment_records/2026-10-18_msb_native_acceptance_repair_planning.md)。仅DOCUMENTED_NOT_IMPLEMENTED_NOT_RUN，15项计划步骤未开始；REQUEST_CHANGES不变。源码/测试/网络/正式报告不改，未来固定七阶段全fake验收、独立复查和原生/真实实验均另批，不把工程文档当网络创新证据。
 
+2026-10-19验收驱动修复实施更新：按另批的Tasks1--3完成[作者实施与有限合成验收](docs/experiment_records/2026-10-19_msb_native_acceptance_repair_acceptance.md)，固定十模块final/attempt-002为230/230通过，原202项保留、新增28项。七阶段11次尝试及全部失败原件保留；collector-green/001漏守卫的一次只读monotonic调用已明确披露，之后补正时钟注入及守卫，不能用原0计数掩盖该缺口。仅改三项验收代码，旧43源码/10测试、网络/公式/矩阵及正式报告不变。当前AUTHOR_REPAIR_SYNTHETIC_ACCEPTED_INDEPENDENT_REVIEW_PENDING，不自动覆盖原REQUEST_CHANGES；未开展新独立复查、原生验收或真实实验，不将工程检查作为理论创新效果。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.

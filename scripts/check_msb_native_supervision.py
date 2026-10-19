@@ -309,8 +309,9 @@ class N4FaultGate:
             self.invalid=True
             raise RuntimeError("SUPERVISION_INTERRUPTED: "+str(error)) from error
         finally:
-            if handle is not None:self.services.close_query(handle)
-            self.lock.release()
+            try:
+                if handle is not None:self.services.close_query(handle)
+            finally:self.lock.release()
 
 
 class TraceAPI:
@@ -454,6 +455,7 @@ class NativeServices:
         from lc_execution_safety import WindowsAwakeGuard
         return WindowsAwakeGuard(api=self.environment)
     def power_settings(self):return self.environment.power_settings()
+    def postflight_sample(self):return self.environment.sample()
     def write_json(self,path,value,*,exclusive=False):_write_json(path,value,exclusive=exclusive)
     def run_outer(self,job,protocol,remaining_seconds):
         from run_lc_role_adaptation import run_supervised_job
@@ -704,6 +706,7 @@ def classify_native_cases(case_records: list[dict], *, outer_evidence: dict) -> 
         elapsed=outer_evidence["elapsed_seconds"]
         _require(type(elapsed) in (int,float) and math.isfinite(elapsed) and 0<=elapsed<480,"root deadline")
         _require(outer_evidence["initial_settings"]==outer_evidence["final_settings"],"power settings changed")
+        _check_final_continuity(outer_evidence["final_continuity"])
         for key in ("source_identity_verified","registration_verified"):
             _require(outer_evidence.get(key) is True,"missing "+key)
         _require(outer_evidence.get("real_data_opened") is False,"real input boundary")
@@ -718,20 +721,70 @@ def classify_native_cases(case_records: list[dict], *, outer_evidence: dict) -> 
     return dict(accepted=not errors,errors=errors,scope="FOUR_NATIVE_PATHS_ONLY_NOT_SCIENTIFIC_EFFECT")
 
 
+def _clock_pair(sample):
+    if (not isinstance(sample,(tuple,list)) or len(sample)!=2
+            or any(type(v) not in (int,float) or not math.isfinite(v) or v<0 for v in sample)):
+        raise ValueError("Invalid postflight clock sample")
+    return tuple(sample)
+
+
+def _check_final_continuity(record):
+    _require(isinstance(record,dict) and record.get("verified") is True,"missing final continuity")
+    _clock_pair(record["sample"])
+    for name in ("gap_seconds","suspend_delta_seconds","elapsed_seconds"):
+        value=record[name]
+        _require(type(value) in (int,float) and math.isfinite(value),"invalid final continuity: "+name)
+    _require(0<=record["gap_seconds"]<=30 and abs(record["suspend_delta_seconds"])<=2
+             and 0<=record["elapsed_seconds"]<480,"postflight continuity limit")
+
+
+class FinalContinuity:
+    """Continue the released root guard's last sample without acquiring a new request."""
+    def __init__(self,binding,last_sample,*,services):
+        _binding_budget(binding)
+        self.binding,self.last,self.services=copy.deepcopy(binding),_clock_pair(last_sample),services
+    def check(self):
+        _remaining(self.binding,self.services)
+        sample=_clock_pair(self.services.postflight_sample())
+        wall,active=(sample[i]-self.last[i] for i in (0,1))
+        if wall<0 or active<0 or wall>30 or abs(wall-active)>2:
+            raise RuntimeError("SUPERVISION_INTERRUPTED: postflight clock discontinuity")
+        remaining=_remaining(self.binding,self.services)
+        record=dict(verified=True,sample=list(sample),gap_seconds=wall,
+                    suspend_delta_seconds=wall-active,elapsed_seconds=480.-remaining)
+        _check_final_continuity(record);self.last=sample
+        return record
+
+
 class AcceptancePublicationError(RuntimeError):
-    def __init__(self,state,primary,persistence):
-        self.failed_state=copy.deepcopy(state);self.primary_error=primary;self.persistence_error=persistence
+    def __init__(self,state,primary,persistence,*,primary_errors=None):
+        self.failed_state=copy.deepcopy(state)
+        self.primary_errors=list(primary_errors) if primary_errors is not None else [primary]
+        self.primary_error=self.primary_errors[0];self.persistence_error=persistence
         super().__init__(f"Native receipt not persisted: primary={primary}; persistence={persistence}; no verified delivery")
 
 
-def publish_acceptance(output,state,binding,*,services):
+def publish_acceptance(output,state,binding,*,services,final_check=None):
+    was_pass=state["status"]=="PASS_NATIVE_SUPERVISION_SCOPE"
     try:
-        if state["status"]=="PASS_NATIVE_SUPERVISION_SCOPE":_remaining(binding,services)
+        if was_pass:
+            if not callable(final_check):raise RuntimeError("Postflight final_check required for PASS")
+            _remaining(binding,services)
+            observed=final_check();_check_final_continuity(observed)
+            state.setdefault("postflight_checks",[]).append(observed)
         services.write_json(Path(output)/"stage_state.json",state)
-        if state["status"]=="PASS_NATIVE_SUPERVISION_SCOPE":_remaining(binding,services)
+        if was_pass:
+            _remaining(binding,services)
+            observed=final_check();_check_final_continuity(observed)
+            state["postflight_checks"].append(observed)
         return state
     except BaseException as primary:
+        if not was_pass:
+            previous=RuntimeError(state.get("error","Native acceptance was not accepted"))
+            state.update(status="FAILED_NATIVE_SUPERVISION",delivery_verified=False,failure_record_persisted=False)
+            raise AcceptancePublicationError(state,previous,primary) from primary
         state.update(status="FAILED_NATIVE_SUPERVISION",delivery_verified=False,error=f"{type(primary).__name__}: {primary}")
+        state.setdefault("errors",[]).append(dict(phase="publication",type=type(primary).__name__,message=str(primary)))
         try:services.write_json(Path(output)/"stage_state.json",state)
         except BaseException as secondary:
             state["failure_record_persisted"]=False
@@ -845,14 +898,13 @@ def _load_case_record(case_dir,binding,outer,observation):
 
 
 def run_acceptance(root: Path, protocol_path: Path, *, execute_native: bool, approval: dict, services=None) -> dict:
-    if execute_native is not True:
-        raise ValueError("Explicit native execution permission required before any service or input")
+    if execute_native is not True:raise ValueError("Native execution requires a separate explicit approval")
     _check_approval(approval)
-    root=Path(root).resolve();origin=_execution_root(root);protocol_path=_protocol_path(root,protocol_path)
     if services is None:
         import time
         started=time.monotonic()
     else:started=services.monotonic()
+    root=Path(root).resolve();_execution_root(root);protocol_path=_protocol_path(root,protocol_path)
     protocol=json.loads(protocol_path.read_text(encoding="utf-8"))
     validate_native_protocol(root,protocol,approval=approval)
     services=NativeServices(root) if services is None else services
@@ -860,64 +912,89 @@ def run_acceptance(root: Path, protocol_path: Path, *, execute_native: bool, app
     binding=dict(run_id=services.new_run_id(),protocol_digest=_protocol_digest(protocol),
                  start_monotonic=started,start_tick_ms=tick,deadline_tick_ms=tick+7200000,
                  case_limits=[90,45,75,45])
-    check=lambda:_remaining(binding,services)
     guard=services.collector_guard();output=root/protocol["output_relative"];state=None
-    initial=None;registration=None
-    with guard:
-        check()
-        initial=services.power_settings()
-        registration=services.verify_registration(root,protocol_path,protocol,approval,check)
-        _require(registration.get("verified") is True and registration.get("commit")==approval["registration_commit"],"registration not verified")
-        services.verify_sources(root,protocol);check()
-        output.mkdir(parents=True,exist_ok=False)
-        state=dict(status="RUNNING",active_case=None,binding=binding,registered_commit=registration["commit"],
-                   registration_verified=True,source_identity_verified=True,case_records=[],
-                   real_data_opened=False,real_fits=0,model_forwards=0,
-                   native_os_exercised=not getattr(services,"simulated",False),delivery_verified=False)
-        services.write_json(output/"registered_protocol.json",protocol,exclusive=True)
-        services.write_json(output/"stage_state.json",state,exclusive=True)
-        try:
-            for case in CASES:
-                check();services.verify_sources(root,protocol)
-                case_dir=output/"cases"/case["case_id"];case_dir.mkdir(parents=True,exist_ok=False)
-                state["active_case"]=case["case_id"];services.write_json(output/"stage_state.json",state)
-                origin=_execution_root(root)
-                command=[sys.executable,origin["driver"],"--root",str(root),
-                         "--protocol",str(protocol_path),"--execute-native",
-                         "--approval-call-id",approval["call_id"],"--approval-answer",approval["answer"],
-                         "--registration-commit",approval["registration_commit"],
-                         "--controller-case",case["case_id"],"--case-output",str(case_dir),
-                         "--binding-json",json.dumps(binding)]
-                job=dict(job_id=case["case_id"],case_id=case["case_id"],case_dir=str(case_dir),
-                         binding=copy.deepcopy(binding),command=command,log_path=str(case_dir/"controller.log"))
-                observer=services.start_observer(case_dir,binding)
-                try:
-                    remaining=check()
-                    outer=services.run_outer(job,dict(per_fit_seconds=min(case["limit"],remaining),heartbeat_seconds=10),remaining)
-                    observation=services.finish_observer(observer,outer)
-                except BaseException:
-                    services.stop_observer(observer);raise
-                record=_load_case_record(case_dir,binding,outer,observation)
-                state["case_records"].append(record)
-                _check_case(record,case["case_id"],binding)
+    initial=None;errors=[];continuity=None
+    def check():
+        _remaining(binding,services)
+        guard.check()
+        return _remaining(binding,services)
+    try:
+        with guard:
+            check();initial=services.power_settings();check()
+            registration=services.verify_registration(root,protocol_path,protocol,approval,check)
+            _require(registration.get("verified") is True and registration.get("commit")==approval["registration_commit"],"registration not verified")
+            services.verify_sources(root,protocol);check()
+            output.mkdir(parents=True,exist_ok=False)
+            state=dict(status="RUNNING",active_case=None,binding=binding,registered_commit=registration["commit"],
+                       registration_verified=True,source_identity_verified=True,case_records=[],
+                       real_data_opened=False,real_fits=0,model_forwards=0,
+                       native_os_exercised=not getattr(services,"simulated",False),delivery_verified=False)
+            services.write_json(output/"registered_protocol.json",protocol,exclusive=True)
+            services.write_json(output/"stage_state.json",state,exclusive=True);check()
+            try:
+                for case in CASES:
+                    check();services.verify_sources(root,protocol);check()
+                    case_dir=output/"cases"/case["case_id"];case_dir.mkdir(parents=True,exist_ok=False)
+                    state["active_case"]=case["case_id"];services.write_json(output/"stage_state.json",state);check()
+                    origin=_execution_root(root)
+                    command=[sys.executable,origin["driver"],"--root",str(root),
+                             "--protocol",str(protocol_path),"--execute-native",
+                             "--approval-call-id",approval["call_id"],"--approval-answer",approval["answer"],
+                             "--registration-commit",approval["registration_commit"],
+                             "--controller-case",case["case_id"],"--case-output",str(case_dir),
+                             "--binding-json",json.dumps(binding)]
+                    job=dict(job_id=case["case_id"],case_id=case["case_id"],case_dir=str(case_dir),
+                             binding=copy.deepcopy(binding),command=command,log_path=str(case_dir/"controller.log"))
+                    observer=services.start_observer(case_dir,binding)
+                    try:
+                        remaining=check()
+                        outer=services.run_outer(job,dict(per_fit_seconds=min(case["limit"],remaining),heartbeat_seconds=10),remaining)
+                        observation=services.finish_observer(observer,outer)
+                    except BaseException:
+                        services.stop_observer(observer);raise
+                    check();record=_load_case_record(case_dir,binding,outer,observation);check()
+                    state["case_records"].append(record)
+                    _check_case(record,case["case_id"],binding);check()
+                    services.write_json(output/"stage_state.json",state);check()
+                check();services.verify_sources(root,protocol);check()
+                state["final_settings"]=services.power_settings();check()
+                _require(initial==state["final_settings"],"Power settings changed")
                 check()
-                services.write_json(output/"stage_state.json",state)
-            check();services.verify_sources(root,protocol)
-            state["final_settings"]=services.power_settings()
-            _require(initial==state["final_settings"],"Power settings changed")
-        except BaseException as error:
-            state.update(status="FAILED_NATIVE_SUPERVISION",error=f"{type(error).__name__}: {error}",delivery_verified=False)
-    state["root_power"]=guard.evidence()
-    state["initial_settings"]=initial
-    state["elapsed_seconds"]=max(services.monotonic()-started,(services.tick_ms()-tick)/1000.)
-    if state["status"]=="RUNNING":
-        evidence=dict(binding=binding,elapsed_seconds=state["elapsed_seconds"],root_power=state["root_power"],
-                      initial_settings=initial,final_settings=state["final_settings"],registration_verified=True,
-                      source_identity_verified=True,real_data_opened=False)
-        state["assessment"]=classify_native_cases(state["case_records"],outer_evidence=evidence)
-        state["status"]="PASS_NATIVE_SUPERVISION_SCOPE" if state["assessment"]["accepted"] else "INSUFFICIENT_EVIDENCE"
-        state["delivery_verified"]=state["assessment"]["accepted"]
-    return publish_acceptance(output,state,binding,services=services)
+            except BaseException as error:
+                errors.append(("body",error))
+    except BaseException as error:
+        if state is None:raise
+        errors.append(("collector_scope_or_release",error))
+    try:
+        state["root_power"]=guard.evidence()
+        state["initial_settings"]=initial
+        elapsed=max(services.monotonic()-started,(services.tick_ms()-tick)/1000.)
+        if not math.isfinite(elapsed) or elapsed<0:raise ValueError("Invalid collector elapsed time")
+        state["elapsed_seconds"]=elapsed
+        if not errors:
+            continuity=FinalContinuity(binding,guard.last,services=services)
+            state["final_continuity"]=continuity.check()
+            state["elapsed_seconds"]=state["final_continuity"]["elapsed_seconds"]
+            evidence=dict(binding=binding,elapsed_seconds=state["elapsed_seconds"],root_power=state["root_power"],
+                          initial_settings=initial,final_settings=state["final_settings"],registration_verified=True,
+                          source_identity_verified=True,real_data_opened=False,final_continuity=state["final_continuity"])
+            state["assessment"]=classify_native_cases(state["case_records"],outer_evidence=evidence)
+            state["status"]="PASS_NATIVE_SUPERVISION_SCOPE" if state["assessment"]["accepted"] else "INSUFFICIENT_EVIDENCE"
+            state["delivery_verified"]=state["assessment"]["accepted"]
+    except BaseException as error:
+        errors.append(("postflight",error))
+    if errors:
+        state.update(status="FAILED_NATIVE_SUPERVISION",delivery_verified=False,
+                     error="; ".join(f"{type(e).__name__}: {e}" for _,e in errors),
+                     errors=[dict(phase=p,type=type(e).__name__,message=str(e)) for p,e in errors])
+    try:
+        return publish_acceptance(output,state,binding,services=services,
+                                  final_check=None if continuity is None else continuity.check)
+    except AcceptancePublicationError as error:
+        if not errors:raise
+        primary=[e for _,e in errors]
+        raise AcceptancePublicationError(error.failed_state,primary[0],error.persistence_error,
+                                         primary_errors=primary) from error
 
 
 def main(argv=None):

@@ -113,7 +113,7 @@ def main(argv=None):
         original_load = torch.load
         with ExitStack() as stack:
             for target, name in ((ctypes, "WinDLL"), (subprocess, "Popen"), (os, "_exit"),
-                                 (threading.Thread, "start"), (time, "sleep"),
+                                 (threading.Thread, "start"), (time, "sleep"), (time, "monotonic"),
                                  (socket, "create_connection"), (socket.socket, "connect")):
                 stack.enter_context(patch.object(target, name, side_effect=forbidden(name)))
             # Frozen-feature MSB tests must not construct or preprocess a CNN.

@@ -419,7 +419,26 @@ def case_record(case_id):
 def root_evidence():
     return dict(binding=case_binding(),elapsed_seconds=100.,root_power=power_record(),
                 initial_settings={"scheme":"same"},final_settings={"scheme":"same"},
-                source_identity_verified=True,registration_verified=True,real_data_opened=False)
+                source_identity_verified=True,registration_verified=True,real_data_opened=False,
+                final_continuity=dict(verified=True,sample=[100.,100.],gap_seconds=0.,
+                                      suspend_delta_seconds=0.,elapsed_seconds=100.))
+
+
+class CollectorEnvironment:
+    def __init__(self,service):
+        self.service=service;self.ac=True;self.requests=[];self.samples=[];self.release_error=False
+    def set_execution_state(self,flags):
+        self.requests.append(flags)
+        if len(self.requests)==2:
+            if self.release_error:return 0
+            mode=self.service.postflight_fault
+            if mode=="released_ac":self.ac=False
+            if mode=="released_gap":self.service.api.now+=31000
+        return 1
+    def sample(self):
+        if not self.ac:raise RuntimeError("SUPERVISION_INTERRUPTED: synthetic AC disconnected")
+        sample=(self.service.api.now/1000.,self.service.api.now/1000.)
+        self.samples.append(sample);return sample
 
 
 class FakeCollectorServices(FakeDriverServices):
@@ -427,15 +446,24 @@ class FakeCollectorServices(FakeDriverServices):
     def __init__(self,fail_case=None):
         super().__init__(WorkerAPI());self.calls=[];self.fail_case=fail_case
         self.registration_ok=True;self.sources_ok=True;self.write_fault=None;self.writes=0
+        self.postflight_fault=None;self.last_case_completed=False;self.environment=CollectorEnvironment(self)
     def new_run_id(self):return "native-test"
-    def collector_guard(self):return FakeAwake()
-    def power_settings(self):return {"scheme":"same"}
+    def collector_guard(self):
+        from lc_execution_safety import WindowsAwakeGuard
+        self.guard=WindowsAwakeGuard(api=self.environment);return self.guard
+    def power_settings(self):
+        if self.last_case_completed:
+            if self.postflight_fault=="settings_ac":self.environment.ac=False
+            if self.postflight_fault=="settings_gap":self.api.now+=31000
+        return {"scheme":"same"}
+    def postflight_sample(self):return self.environment.sample()
     def verify_registration(self,root,path,protocol,approval,check):
         check();self.calls.append(("registration",))
         if not self.registration_ok:raise ValueError("Remote identity mismatch")
         return dict(verified=True,commit=approval["registration_commit"])
     def verify_sources(self,root,protocol):
         if not self.sources_ok:raise ValueError("Source identity changed")
+        if self.last_case_completed and self.postflight_fault=="source_ac":self.environment.ac=False
         return dict(verified=True)
     def start_observer(self,case_dir,binding):
         self.calls.append(("observe",case_dir.name));return SimpleNamespace(case_dir=case_dir,binding=binding)
@@ -463,7 +491,10 @@ class FakeCollectorServices(FakeDriverServices):
         if record["fault"] is not None:
             (Path(job["case_dir"])/"parent_fault.json").write_text(json.dumps(record["fault"]),encoding="utf-8")
             (Path(job["case_dir"])/"fault_trace.json").write_text(json.dumps(record["fault"]["pre_fault_trace"]),encoding="utf-8")
-        self.api.now+={"N1":45200,"N2":300,"N3":30300,"N4":300}[case_id]
+        elapsed={"N1":45200,"N2":300,"N3":30300,"N4":300}[case_id]
+        while elapsed:
+            step=min(10000,elapsed);self.api.now+=step;elapsed-=step;self.guard.check()
+        if case_id=="N4":self.last_case_completed=True
         self.last_record=copy.deepcopy(record)
         outer=copy.deepcopy(record["outer"])
         if self.fail_case==case_id:outer["status"]="TIMED_OUT"
@@ -577,7 +608,8 @@ class CollectorTests(unittest.TestCase):
                 if value["status"]=="PASS_NATIVE_SUPERVISION_SCOPE":services.api.now=481000
                 else:raise second
             services.write_json=writer
-            with self.assertRaises(RuntimeError) as error:publish(Path(tmp),state,case_binding(),services=services)
+            continuity=native.FinalContinuity(case_binding(),(1.,1.),services=services)
+            with self.assertRaises(RuntimeError) as error:publish(Path(tmp),state,case_binding(),services=services,final_check=continuity.check)
             self.assertIs(error.exception.persistence_error,second)
             self.assertIn("TIMED_OUT",str(error.exception.primary_error))
             self.assertFalse(error.exception.failed_state["delivery_verified"])
@@ -919,6 +951,7 @@ class N4RepairTests(unittest.TestCase):
             with self.subTest(mode=mode):
                 self.assertFalse(native.classify_native_cases(records,outer_evidence=root_evidence())["accepted"])
 
+
     def test_n4_allows_child_observed_before_parent(self):
         records=[case_record(c) for c in ("N1","N2","N3","N4")]
         records[-1]["observation"].update(exit_tick_ms=1110,parent_exit_observed_tick_ms=1120)
@@ -1023,3 +1056,123 @@ class N4RepairTests(unittest.TestCase):
             del records[-1]["fault"][field]
             with self.subTest(field=field):
                 self.assertFalse(native.classify_native_cases(records,outer_evidence=root_evidence())["accepted"])
+
+    def test_n4_query_close_failure_still_releases_fault_gate(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            gate,services,case,ready=self.gate(tmp)
+            services.query_alive=Mock(return_value=False)
+            services.close_query=Mock(side_effect=OSError("query close failed"))
+            caught=None
+            try:native.parent_fault_after_ready(case,ready,services=services,gate=gate)
+            except Exception as error:caught=error
+            self.assertIsInstance(caught,OSError);self.assertEqual(services.exits,[])
+            acquired=gate.lock.acquire(blocking=False)
+            if acquired:gate.lock.release()
+            self.assertTrue(acquired,"Query-close failure must not retain the fault gate")
+
+
+class FinalRepairTests(unittest.TestCase):
+    protocol_file=CollectorTests.protocol_file
+
+    def continuity(self,services,last=(1.,1.)):
+        cls=getattr(native,"FinalContinuity",None)
+        self.assertTrue(callable(cls),"Missing FinalContinuity")
+        return cls(case_binding(),last,services=services)
+
+    def test_postflight_ac_and_gap_failure_never_publish_pass(self):
+        for mode in ("source_ac","settings_ac","settings_gap","released_ac","released_gap","after_write_ac","after_write_gap"):
+            with self.subTest(mode=mode),tempfile.TemporaryDirectory() as tmp:
+                root,path,p,a=self.protocol_file(tmp);service=FakeCollectorServices();service.postflight_fault=mode
+                if mode.startswith("after_write"):
+                    def write_fault(path,value):
+                        if value["status"]=="PASS_NATIVE_SUPERVISION_SCOPE":
+                            if mode=="after_write_ac":service.environment.ac=False
+                            else:service.api.now+=31000
+                    service.write_fault=write_fault
+                result=native.run_acceptance(root,path,execute_native=True,approval=a,services=service)
+                self.assertNotEqual(result["status"],"PASS_NATIVE_SUPERVISION_SCOPE")
+                self.assertFalse(result["delivery_verified"])
+                self.assertEqual(len([x for x in service.calls if x[0]=="launch"]),4)
+
+    def test_classifier_requires_final_continuity(self):
+        records=[case_record(c) for c in ("N1","N2","N3","N4")]
+        for value in (None,dict(verified=True),dict(verified=False,sample=[1.,1.],gap_seconds=0.,suspend_delta_seconds=0.,elapsed_seconds=1.)):
+            evidence=root_evidence()
+            if value is None:del evidence["final_continuity"]
+            else:evidence["final_continuity"]=value
+            with self.subTest(value=value):
+                self.assertFalse(native.classify_native_cases(records,outer_evidence=evidence)["accepted"])
+
+    def test_guard_release_failure_finalizes_and_cli_nonzero(self):
+        from contextlib import redirect_stdout
+        import io
+        with tempfile.TemporaryDirectory() as tmp:
+            root,path,p,a=self.protocol_file(tmp);service=FakeCollectorServices();service.environment.release_error=True
+            flags=["--root",str(root),"--protocol",str(path),"--execute-native",
+                   "--approval-call-id",a["call_id"],"--approval-answer",a["answer"],"--registration-commit","a"*40]
+            caught=None;code=None
+            with patch.object(native,"NativeServices",return_value=service),patch("time.monotonic",side_effect=service.monotonic) as clock,redirect_stdout(io.StringIO()):
+                try:code=native.main(flags)
+                except Exception as error:caught=error
+            self.assertIsNone(caught,str(caught));self.assertEqual(code,1)
+            self.assertEqual(clock.call_count,1)
+            state=json.loads((root/p["output_relative"]/"stage_state.json").read_text())
+            self.assertEqual(state["status"],"FAILED_NATIVE_SUPERVISION")
+            self.assertFalse(state["delivery_verified"])
+            self.assertFalse(state["root_power"]["power_request_released"])
+
+    def test_body_release_and_write_failure_keep_all_errors(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root,path,p,a=self.protocol_file(tmp);service=FakeCollectorServices(fail_case="N1")
+            service.environment.release_error=True
+            def fail(path,value):
+                if value["status"]=="FAILED_NATIVE_SUPERVISION":raise OSError("failure receipt unavailable")
+            service.write_fault=fail;caught=None
+            try:native.run_acceptance(root,path,execute_native=True,approval=a,services=service)
+            except Exception as error:caught=error
+            self.assertIsInstance(caught,native.AcceptancePublicationError)
+            errors=getattr(caught,"primary_errors",[]);self.assertEqual(len(errors),2)
+            self.assertIs(caught.primary_error,errors[0]);self.assertIsInstance(caught.persistence_error,OSError)
+            self.assertFalse(caught.failed_state["delivery_verified"])
+            self.assertIn("POWER_RELEASE_FAILED",str(errors[1]))
+
+    def test_final_check_is_required_for_pass(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            state=dict(status="PASS_NATIVE_SUPERVISION_SCOPE",delivery_verified=True)
+            result=native.publish_acceptance(Path(tmp),state,case_binding(),services=FakeCollectorServices())
+            self.assertNotEqual(result["status"],"PASS_NATIVE_SUPERVISION_SCOPE")
+            self.assertFalse(result["delivery_verified"])
+
+    def test_final_check_runs_before_and_after_pass_write(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            service=FakeCollectorServices();continuity=self.continuity(service);events=[]
+            service.write_fault=lambda path,value:events.append("write")
+            def check():events.append("check");return continuity.check()
+            caught=None;result=None
+            try:result=native.publish_acceptance(Path(tmp),dict(status="PASS_NATIVE_SUPERVISION_SCOPE",delivery_verified=True),case_binding(),services=service,final_check=check)
+            except Exception as error:caught=error
+            self.assertIsNone(caught,str(caught));self.assertEqual(result["status"],"PASS_NATIVE_SUPERVISION_SCOPE")
+            self.assertEqual(events,["check","write","check"])
+            self.assertEqual(len(result["postflight_checks"]),2)
+
+    def test_final_continuity_bounds_and_invalid_samples(self):
+        for sample,valid in (((31.,29.),True),((31.001,31.001),False),((3.001,1.),False),
+                             ((.9,1.),False),((1.,math.nan),False),((1.,math.inf),False)):
+            service=FakeCollectorServices();continuity=self.continuity(service)
+            service.postflight_sample=Mock(return_value=sample);caught=None;result=None
+            try:result=continuity.check()
+            except Exception as error:caught=error
+            with self.subTest(sample=sample):
+                if valid:self.assertIsNone(caught,str(caught));self.assertTrue(result["verified"])
+                else:self.assertIsNotNone(caught)
+        service=FakeCollectorServices();continuity=self.continuity(service);service.api.now=481000
+        with self.assertRaises(RuntimeError):continuity.check()
+
+    def test_guard_is_not_reentered_for_postflight(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root,path,p,a=self.protocol_file(tmp);service=FakeCollectorServices()
+            result=native.run_acceptance(root,path,execute_native=True,approval=a,services=service)
+            self.assertEqual(result["status"],"PASS_NATIVE_SUPERVISION_SCOPE",result.get("error"))
+            self.assertEqual(len(service.environment.requests),2)
+            self.assertTrue(result.get("final_continuity",{}).get("verified"))
+            self.assertEqual(len(result.get("postflight_checks",[])),2)
