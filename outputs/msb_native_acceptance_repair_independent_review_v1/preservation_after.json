@@ -1,0 +1,880 @@
+{
+  "scope": "PARENT_READ_ONLY_REVIEW_PRESERVATION_AUDIT",
+  "date": "2026-10-20",
+  "authorization": "call_29684c57aed94222832ace218cd392be",
+  "reviewed_head": "90c017a931fc1c4f858194502b8cfb28ddf054b8",
+  "files": [
+    {
+      "path": "scripts/analyze_ic_role_mechanism.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "26fd12997e987c7e71649dd960cb82094d524a5071f6a954fccd4d96fdc2c906",
+      "after_sha256": "26fd12997e987c7e71649dd960cb82094d524a5071f6a954fccd4d96fdc2c906",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/analyze_lc_role_adaptation.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "54b98dbcf1ed1299c05b2bbc3f4722c36d00ba35fb9fc44095f45a59bb4fbc1b",
+      "after_sha256": "54b98dbcf1ed1299c05b2bbc3f4722c36d00ba35fb9fc44095f45a59bb4fbc1b",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/analyze_misclassifications.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "3d2c7f463fe1257ec5a7e2c3571db4ae3cb65ef04bf3dd7b1942464c8ded707c",
+      "after_sha256": "3d2c7f463fe1257ec5a7e2c3571db4ae3cb65ef04bf3dd7b1942464c8ded707c",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/analyze_msb_role_mechanism.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "af439f8440284b3436a152c079cf8a922618a10a4ab90cbf5e4cbff11b054e59",
+      "after_sha256": "af439f8440284b3436a152c079cf8a922618a10a4ab90cbf5e4cbff11b054e59",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/anchor_linear_controls.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "1a979127c960cfc44c8fc3ef682d790dbb280e2488cfc2440baa2c161ed10192",
+      "after_sha256": "1a979127c960cfc44c8fc3ef682d790dbb280e2488cfc2440baa2c161ed10192",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/audit_abmp_candidate_capacity.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "163c224a5ff9f72c2daf1341570c0bc40be76b8593671177c50f7d036b83675c",
+      "after_sha256": "163c224a5ff9f72c2daf1341570c0bc40be76b8593671177c50f7d036b83675c",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/check_lc_native_environment.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "6ff6bf40cec8c5f0b78ffc61fd11be8aeadf35880b1ebe9e8112be0b298ac161",
+      "after_sha256": "6ff6bf40cec8c5f0b78ffc61fd11be8aeadf35880b1ebe9e8112be0b298ac161",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/frozen_visual_probe.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "6e417ea900ed3cbd1c8653898a5bb9849b73958b57c4c50803217d82a4793bfa",
+      "after_sha256": "6e417ea900ed3cbd1c8653898a5bb9849b73958b57c4c50803217d82a4793bfa",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/generate_msb_role_figure.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "a96cead0999a23b3fb9f462299b0e3c77834c156969642e7c4a92efcc06be0f6",
+      "after_sha256": "a96cead0999a23b3fb9f462299b0e3c77834c156969642e7c4a92efcc06be0f6",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/hrgv_network.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "f4c2889b9a129d9f52fd999b189c0888407f9887e1f739cd5e1b55b4d361a0da",
+      "after_sha256": "f4c2889b9a129d9f52fd999b189c0888407f9887e1f739cd5e1b55b4d361a0da",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/ic_role_audit.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "ffadcaa76f8494fbd63080b90a4bd8d4f95d7d4b4ef585aac4847511074729d4",
+      "after_sha256": "ffadcaa76f8494fbd63080b90a4bd8d4f95d7d4b4ef585aac4847511074729d4",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/ic_role_data.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "897751bb68c5fb40fc8c186c73041b6ed05990708e57771c403f4d604e7d6d2d",
+      "after_sha256": "897751bb68c5fb40fc8c186c73041b6ed05990708e57771c403f4d604e7d6d2d",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/ic_role_model.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "b62462a725e52a67f79d3fdba148bc19195dfe488f15c0ce3137f8a0680377b3",
+      "after_sha256": "b62462a725e52a67f79d3fdba148bc19195dfe488f15c0ce3137f8a0680377b3",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/ic_role_training.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "b4102538411b7079d5fcf83587a0b8558141660ed9c5048ca4d1c5acbdda58cd",
+      "after_sha256": "b4102538411b7079d5fcf83587a0b8558141660ed9c5048ca4d1c5acbdda58cd",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/lc_execution_safety.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "84089e43cb36133d41647b7576c27e4609058b9c087f4979f595452cd37bc029",
+      "after_sha256": "84089e43cb36133d41647b7576c27e4609058b9c087f4979f595452cd37bc029",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/lc_role_adapter.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "3c02653b5a1aafd1cf452fa029b827baa899ff6a6645986cebc368fbdeecf1aa",
+      "after_sha256": "3c02653b5a1aafd1cf452fa029b827baa899ff6a6645986cebc368fbdeecf1aa",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/lc_role_audit.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "587bdb18a27e897e47064889f9d77869be94b62bf661379e4409d88d2802ec1c",
+      "after_sha256": "587bdb18a27e897e47064889f9d77869be94b62bf661379e4409d88d2802ec1c",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/lc_role_data.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "d8639d3035d55ef04b04605b2f565c2cc29a7dcefaba995fd852b396cf489e09",
+      "after_sha256": "d8639d3035d55ef04b04605b2f565c2cc29a7dcefaba995fd852b396cf489e09",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/lc_role_training.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "1431e80200a7639aca10493d4d7d4ef91c66eb45bbd1457a9a1cdc52f983adb7",
+      "after_sha256": "1431e80200a7639aca10493d4d7d4ef91c66eb45bbd1457a9a1cdc52f983adb7",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/mineral_hierarchy.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "21c485b70d838a9acf1626762b0a643b0e8297e060e8cd7eb3348f807d191384",
+      "after_sha256": "21c485b70d838a9acf1626762b0a643b0e8297e060e8cd7eb3348f807d191384",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/msb_execution_safety.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "aaf8f808805c0ce470e645757b625a6951f35e8bc362c628278ab97635dba41f",
+      "after_sha256": "aaf8f808805c0ce470e645757b625a6951f35e8bc362c628278ab97635dba41f",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/msb_role_audit.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "23eddcb993b3b4584ba67bbbafa94d20c40602bab15b3100a5157f789377bc20",
+      "after_sha256": "23eddcb993b3b4584ba67bbbafa94d20c40602bab15b3100a5157f789377bc20",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/msb_role_controls.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "ef649b352b4f877d60f34dd4f64e80dc98226e587495fadda0fd697b71e7c808",
+      "after_sha256": "ef649b352b4f877d60f34dd4f64e80dc98226e587495fadda0fd697b71e7c808",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/msb_role_data.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "674bde1f7ab1675ea427160e4a8435e9588b1ce198c7c864965ba7f6f7f7c242",
+      "after_sha256": "674bde1f7ab1675ea427160e4a8435e9588b1ce198c7c864965ba7f6f7f7c242",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/msb_role_model.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "752e91afcc368fef0e5b54f6ff4ba5cb4c2d66267532211bfaaa0cab5b35f192",
+      "after_sha256": "752e91afcc368fef0e5b54f6ff4ba5cb4c2d66267532211bfaaa0cab5b35f192",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/msb_role_training.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "2f16547744b86e5dbc5782111e2cdfe85fc1d0c0b3aef213774a8ed15ff9e04d",
+      "after_sha256": "2f16547744b86e5dbc5782111e2cdfe85fc1d0c0b3aef213774a8ed15ff9e04d",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/run_anchor_linear_controls.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "15beb38c7825a439199b5545bfb5a4d842947d9f107b18ec09ccca759a747735",
+      "after_sha256": "15beb38c7825a439199b5545bfb5a4d842947d9f107b18ec09ccca759a747735",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/run_frozen_visual_probe.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "db6db46bd8f046ad0e3ec9c2bc14f138fa2150e297ab4b30eb316d4510a36d2d",
+      "after_sha256": "db6db46bd8f046ad0e3ec9c2bc14f138fa2150e297ab4b30eb316d4510a36d2d",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/run_ic_role_mechanism.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "423fad79bee6d5a351589319cb03b98a8097b958615a9b9e1fd274ef921f302a",
+      "after_sha256": "423fad79bee6d5a351589319cb03b98a8097b958615a9b9e1fd274ef921f302a",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/run_lc_role_adaptation.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "6c29a9f454e1e445d08aa4f6fabdb61bf0145e6d931dc9c23efe81144ae6b4ff",
+      "after_sha256": "6c29a9f454e1e445d08aa4f6fabdb61bf0145e6d931dc9c23efe81144ae6b4ff",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/run_msb_role_mechanism.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "ed73b97a52f2a653c9f36decc557a1198eadf126e122f5e23b94ba91c0405fd8",
+      "after_sha256": "ed73b97a52f2a653c9f36decc557a1198eadf126e122f5e23b94ba91c0405fd8",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/run_seen_unseen_gate_study.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "b03b1c63aba4a1559e6a1e26797989d2cdac30c0d3bca618b76986613a1cd6bc",
+      "after_sha256": "b03b1c63aba4a1559e6a1e26797989d2cdac30c0d3bca618b76986613a1cd6bc",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/run_tc_oos_rsg_experiments.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "7006b72d27942ab29c7b22eaf58cae344fcb8c3c8d30e2930788da9900c4bef1",
+      "after_sha256": "7006b72d27942ab29c7b22eaf58cae344fcb8c3c8d30e2930788da9900c4bef1",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/run_verifier_strong_controls.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "40edbdd576ddc49d0a3f5a27ec71aee944660691ccba955829df4ed99a0599d6",
+      "after_sha256": "40edbdd576ddc49d0a3f5a27ec71aee944660691ccba955829df4ed99a0599d6",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/run_verifier_trust_development.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "62ee01068bb6ef6cbb3b464732a9f57f3e2e5bc86aba879f0b2a304d40dbbce3",
+      "after_sha256": "62ee01068bb6ef6cbb3b464732a9f57f3e2e5bc86aba879f0b2a304d40dbbce3",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/tc_oos_rsg.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "38445a3f24ccd424e5e6a635f78ef079e73f2139be62d3e974134470c66bcba2",
+      "after_sha256": "38445a3f24ccd424e5e6a635f78ef079e73f2139be62d3e974134470c66bcba2",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/train_hierarchical_mineral_classifier.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "75e1085a66dc70adad45ae41f10d825062a0594e7fa0db1ca6438092a5e0635f",
+      "after_sha256": "75e1085a66dc70adad45ae41f10d825062a0594e7fa0db1ca6438092a5e0635f",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/train_hrgv_mineral_classifier.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "0fa4d352c9327ea646cd42e0e267c31e9eb05a7007cfb2298ccbc595a8a94bdc",
+      "after_sha256": "0fa4d352c9327ea646cd42e0e267c31e9eb05a7007cfb2298ccbc595a8a94bdc",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/train_mineral_classifier.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "d81cda1da77076e3dbbdf81fd9969846314187fa8ffd079fb01106c60b80edea",
+      "after_sha256": "d81cda1da77076e3dbbdf81fd9969846314187fa8ffd079fb01106c60b80edea",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/train_role_aware_mineral_classifier.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "63380cc3806d5676312292d6345f7ea6173061a681d3430e59e54063988c0927",
+      "after_sha256": "63380cc3806d5676312292d6345f7ea6173061a681d3430e59e54063988c0927",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/verifier_risk.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "a5bc85cccee192479bcf49bddcce4863eac66126636ba7d04b83898b9606dfff",
+      "after_sha256": "a5bc85cccee192479bcf49bddcce4863eac66126636ba7d04b83898b9606dfff",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/verifier_strong_controls.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "a1adefaef8852bceb85aa22cd42a10609ff904b09a3f8b6dce94787c6a87299b",
+      "after_sha256": "a1adefaef8852bceb85aa22cd42a10609ff904b09a3f8b6dce94787c6a87299b",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/verify_verifier_trust_delivery.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "daa8be53da3019607946cb4dfdfd9718e2cd43be4221ae5d1d3f30d24659ac09",
+      "after_sha256": "daa8be53da3019607946cb4dfdfd9718e2cd43be4221ae5d1d3f30d24659ac09",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "tests/test_msb_execution_safety.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "6a84667090df3730e11f08377d6bb3b649604fd3767c34e97feffa8a286afcad",
+      "after_sha256": "6a84667090df3730e11f08377d6bb3b649604fd3767c34e97feffa8a286afcad",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "tests/test_msb_role_data.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "3dfb594edf9f683e8f3cfbf22c0763e138905586d2569011dab4722d64276bb1",
+      "after_sha256": "3dfb594edf9f683e8f3cfbf22c0763e138905586d2569011dab4722d64276bb1",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "tests/test_msb_role_model.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "abbeb964daee6334faeca184d3b4ad306b48a7fc0b4711b7cd58475673166eb0",
+      "after_sha256": "abbeb964daee6334faeca184d3b4ad306b48a7fc0b4711b7cd58475673166eb0",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "tests/test_msb_role_controls.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "cecb8bbbcfda318aa042de3c94d6c5b85a20302269555b4f2f24103a66eb0f0c",
+      "after_sha256": "cecb8bbbcfda318aa042de3c94d6c5b85a20302269555b4f2f24103a66eb0f0c",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "tests/test_msb_role_audit.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "61ba5f62903f7039d8c032ac726d001dedad7772b14af7439d9180684c8af4b0",
+      "after_sha256": "61ba5f62903f7039d8c032ac726d001dedad7772b14af7439d9180684c8af4b0",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "tests/test_msb_role_training.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "8a6f5c331dda085f7730d6d88824194a358b2b2f32faa96e55e1df4fad71244e",
+      "after_sha256": "8a6f5c331dda085f7730d6d88824194a358b2b2f32faa96e55e1df4fad71244e",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "tests/test_run_msb_role_mechanism.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "29938f4db303e9092cb72a68ae15eb7688c44f943a22f22d34dbb98b42cc83c2",
+      "after_sha256": "29938f4db303e9092cb72a68ae15eb7688c44f943a22f22d34dbb98b42cc83c2",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "tests/test_analyze_msb_role_mechanism.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "6de052f73ae323b939f3d580d71fe8b6709141082035f63046647b98f90edad7",
+      "after_sha256": "6de052f73ae323b939f3d580d71fe8b6709141082035f63046647b98f90edad7",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "tests/test_generate_msb_role_figure.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "835dcd3cc38517cb230f2d679d6b7fb2328ea0798f6afdea94882f8c7ce865bb",
+      "after_sha256": "835dcd3cc38517cb230f2d679d6b7fb2328ea0798f6afdea94882f8c7ce865bb",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "tests/run_msb_terminal_repair_acceptance.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "83ca6162c6d98ac508cb16f71c10039ec738a702bf2ed70a1a625c0f0b4dcff9",
+      "after_sha256": "83ca6162c6d98ac508cb16f71c10039ec738a702bf2ed70a1a625c0f0b4dcff9",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/msb_execution_safety.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "aaf8f808805c0ce470e645757b625a6951f35e8bc362c628278ab97635dba41f",
+      "after_sha256": "aaf8f808805c0ce470e645757b625a6951f35e8bc362c628278ab97635dba41f",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/run_msb_role_mechanism.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "ed73b97a52f2a653c9f36decc557a1198eadf126e122f5e23b94ba91c0405fd8",
+      "after_sha256": "ed73b97a52f2a653c9f36decc557a1198eadf126e122f5e23b94ba91c0405fd8",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "tests/run_msb_terminal_repair_acceptance.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "83ca6162c6d98ac508cb16f71c10039ec738a702bf2ed70a1a625c0f0b4dcff9",
+      "after_sha256": "83ca6162c6d98ac508cb16f71c10039ec738a702bf2ed70a1a625c0f0b4dcff9",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "tests/test_msb_execution_safety.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "6a84667090df3730e11f08377d6bb3b649604fd3767c34e97feffa8a286afcad",
+      "after_sha256": "6a84667090df3730e11f08377d6bb3b649604fd3767c34e97feffa8a286afcad",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "tests/test_run_msb_role_mechanism.py",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "29938f4db303e9092cb72a68ae15eb7688c44f943a22f22d34dbb98b42cc83c2",
+      "after_sha256": "29938f4db303e9092cb72a68ae15eb7688c44f943a22f22d34dbb98b42cc83c2",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "docs/superpowers/specs/2026-10-17-msb-completion-acceptance-repair-design.md",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "9f44de00ee9774529b03bd5ef2e3cf4daef1918602ba691ae957c84e9673d5bf",
+      "after_sha256": "9f44de00ee9774529b03bd5ef2e3cf4daef1918602ba691ae957c84e9673d5bf",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-17-msb-completion-acceptance-repair.md",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "0d3ba26bd60ace6916b9f0f883f8fb3f847940d4605545f6afb836243c1e1d27",
+      "after_sha256": "0d3ba26bd60ace6916b9f0f883f8fb3f847940d4605545f6afb836243c1e1d27",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "outputs/msb_completion_repair_synthetic_v1/final/attempt-001/acceptance_summary.json",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "3a84840b32abd6fb86a62f8fa54f8ef416b5235f96f463e2acc490a28802b7a6",
+      "after_sha256": "3a84840b32abd6fb86a62f8fa54f8ef416b5235f96f463e2acc490a28802b7a6",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "outputs/msb_completion_repair_synthetic_v1/final/attempt-001/source_snapshot.json",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "ee0af8d44fe8ec9cf40d9a00f9eb934d4601dbb73ea1e8b9594cd195da060ec2",
+      "after_sha256": "ee0af8d44fe8ec9cf40d9a00f9eb934d4601dbb73ea1e8b9594cd195da060ec2",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "outputs/msb_completion_repair_synthetic_v1/final/attempt-001/synthetic_tests.log",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "9fa684798611c181a5ad657a6f1e5101f5589dcc2ba0aa3ea9e3fb8b07d0824c",
+      "after_sha256": "9fa684798611c181a5ad657a6f1e5101f5589dcc2ba0aa3ea9e3fb8b07d0824c",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "outputs/msb_completion_repair_synthetic_v1/final/source_identity.json",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "e30b7a0b0025683c94b4100ac7723e1ecb3db771e280ddc05e29a54be59f6484",
+      "after_sha256": "e30b7a0b0025683c94b4100ac7723e1ecb3db771e280ddc05e29a54be59f6484",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "outputs/msb_completion_repair_synthetic_v1/final/preservation_and_scope.json",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "d20478c471aaddb420872f68953458550e175881a09476c3a1727a0cbff98fba",
+      "after_sha256": "d20478c471aaddb420872f68953458550e175881a09476c3a1727a0cbff98fba",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "outputs/report_assets_v9/cgdc_decomposition.png",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "f142c749e41a5d3a027a0b0c8571d7358fbfe01e738b3a418adb443e388d7123",
+      "after_sha256": "f142c749e41a5d3a027a0b0c8571d7358fbfe01e738b3a418adb443e388d7123",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "outputs/report_assets_v9/mrpg_identity.png",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "6a8d9f993400a621b699d5579e7bb6acd742bcaac8939dd7fab98b1fff247519",
+      "after_sha256": "6a8d9f993400a621b699d5579e7bb6acd742bcaac8939dd7fab98b1fff247519",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "outputs/report_assets_v9/mrpg_monotone_gate.png",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "bbdd9f1671bfaf007292512e3c9cea7845d3e195b984349fe489a7beffe18d9c",
+      "after_sha256": "bbdd9f1671bfaf007292512e3c9cea7845d3e195b984349fe489a7beffe18d9c",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "outputs/report_assets_v9/rpg_entropy.png",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "5251d7a1548b715f98eff21969bbf93dbf77f2f38b862a98887492afe1aba90e",
+      "after_sha256": "5251d7a1548b715f98eff21969bbf93dbf77f2f38b862a98887492afe1aba90e",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "outputs/report_assets_v9/rpg_fusion.png",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "9723e900e48cd60f84be038afed3bcd3c9c524fc8c0706604e7583956389996c",
+      "after_sha256": "9723e900e48cd60f84be038afed3bcd3c9c524fc8c0706604e7583956389996c",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "outputs/report_assets_v9/rpg_gate.png",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "a0ba1106c2b734a75c379c959040feb8735aa5172079e1c076fd2f7190ef971a",
+      "after_sha256": "a0ba1106c2b734a75c379c959040feb8735aa5172079e1c076fd2f7190ef971a",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "结题/基于深度学习的钒钛矿相关矿物图像识别方法研究_技术报告（正式版）.docx",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+      "after_sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "D:/成信工科研/人工智能选矿/结题/基于深度学习的钒钛矿相关矿物图像识别方法研究_技术报告（正式版）.docx",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+      "after_sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "docs/superpowers/specs/2026-10-18-msb-native-supervision-acceptance-design.md",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "93d7a4998886ba7ec147752b5dcbf95f05c87fa4015e49c6991dc600c0dd6330",
+      "after_sha256": "93d7a4998886ba7ec147752b5dcbf95f05c87fa4015e49c6991dc600c0dd6330",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-18-msb-native-supervision-acceptance.md",
+      "kind": "PRIOR_PROTECTED_RECORD",
+      "before_sha256": "411b9efbfc98af36009d4936b8650ac16eed502a0ca34015c7e1b5bc761dc016",
+      "after_sha256": "411b9efbfc98af36009d4936b8650ac16eed502a0ca34015c7e1b5bc761dc016",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "docs/superpowers/specs/2026-10-18-msb-native-acceptance-repair-design.md",
+      "kind": "ACCEPTED_REPAIR_DOCUMENT",
+      "before_sha256": "7b5634296525ca73c0809a6dab01addf5bf6451be0b45570ca212935f5a71bed",
+      "after_sha256": "7b5634296525ca73c0809a6dab01addf5bf6451be0b45570ca212935f5a71bed",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-18-msb-native-acceptance-repair.md",
+      "kind": "ACCEPTED_REPAIR_DOCUMENT",
+      "before_sha256": "d1f9217f60c73f4da396ac6dab694c68c4db67d320571f56fdce05adf11dcb9c",
+      "after_sha256": "d1f9217f60c73f4da396ac6dab694c68c4db67d320571f56fdce05adf11dcb9c",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "docs/experiment_records/2026-10-18_msb_native_acceptance_repair_planning.md",
+      "kind": "ACCEPTED_REPAIR_DOCUMENT",
+      "before_sha256": "c7e3669bdae061a0488415ed4590b7784b6df801405e6db70f0df5ea02bdd60a",
+      "after_sha256": "c7e3669bdae061a0488415ed4590b7784b6df801405e6db70f0df5ea02bdd60a",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "scripts/check_msb_native_supervision.py",
+      "kind": "REVIEWED_CODE",
+      "before_sha256": "5bd672c25bad1895f051a866c87fbead366d39982201dd52df84d77fe0b44da9",
+      "after_sha256": "5bd672c25bad1895f051a866c87fbead366d39982201dd52df84d77fe0b44da9",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "tests/test_check_msb_native_supervision.py",
+      "kind": "REVIEWED_CODE",
+      "before_sha256": "4d7bcf51b00174ab5f40bdd2e04b4cf3334cdc477eeca6c999126f5877696b52",
+      "after_sha256": "4d7bcf51b00174ab5f40bdd2e04b4cf3334cdc477eeca6c999126f5877696b52",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "tests/run_msb_native_supervision_synthetic_acceptance.py",
+      "kind": "REVIEWED_CODE",
+      "before_sha256": "3a4cc71c76f18efd42b88f3657838a034954df3f324885f66fa70797795573d9",
+      "after_sha256": "3a4cc71c76f18efd42b88f3657838a034954df3f324885f66fa70797795573d9",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "docs/experiment_records/2026-10-19_msb_native_acceptance_repair_acceptance.md",
+      "kind": "REVIEWED_AUTHOR_RECORD",
+      "before_sha256": "7eb7230d95ce9dbb433d7ec6f2532a04ead61df7aa402975e8d70bf86775142a",
+      "after_sha256": "7eb7230d95ce9dbb433d7ec6f2532a04ead61df7aa402975e8d70bf86775142a",
+      "matched": true,
+      "intentional_review_readme_append": false
+    },
+    {
+      "path": "README.md",
+      "kind": "REVIEWED_AUTHOR_RECORD",
+      "before_sha256": "751d401eb7d4c4fa8db0209adcf168008703bd163bfdc5f269c40f9da6f81130",
+      "after_sha256": "37551a865d456017bac47218ba5b9dfafeb18edb74e3feeeda057499b00f209c",
+      "matched": false,
+      "intentional_review_readme_append": true
+    }
+  ],
+  "matched_records": 82,
+  "intentional_readme_appends": 1,
+  "synthetic_evidence": [
+    {
+      "path": "outputs/msb_native_acceptance_repair_synthetic_v1/collector-green/attempt-001/acceptance_summary.json",
+      "sha256": "80684971f657583b7483ac38bf97a686f1c0a86bda6005c4a502fd16626c8890",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_native_acceptance_repair_synthetic_v1/collector-green/attempt-001/source_snapshot.json",
+      "sha256": "111c2ea41d48889ab4b8c26aed594dae8b95f2f1dd6273c76a15153b415a05e0",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_native_acceptance_repair_synthetic_v1/collector-green/attempt-001/synthetic_tests.log",
+      "sha256": "e6381fb348ca5708b6345756a33bf6f55350324343cb24f44e82390c8f7c6edd",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_native_acceptance_repair_synthetic_v1/collector-green/attempt-002/acceptance_summary.json",
+      "sha256": "787089070362a1e6a16489427117ce9d29e9e465f3367a24eb17a430d6247066",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_native_acceptance_repair_synthetic_v1/collector-green/attempt-002/source_snapshot.json",
+      "sha256": "946c64b91feee04933534c930907599a3e8a70a680974c2e5e3c910cd98c47e8",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_native_acceptance_repair_synthetic_v1/collector-green/attempt-002/synthetic_tests.log",
+      "sha256": "2a7cde576ca3f6ecc091af93036e84463367d695ee6a51257a56e41295feb4ed",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_native_acceptance_repair_synthetic_v1/collector-red/attempt-001/acceptance_summary.json",
+      "sha256": "c9bab6728115835a6d552cd4b1e60014b7bca387807b9d782957a53edb3a7150",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_native_acceptance_repair_synthetic_v1/collector-red/attempt-001/source_snapshot.json",
+      "sha256": "4fdce6120a6727b0990eb5c690fe0fd7d871d6f63bce9b510b511e16845b90cc",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_native_acceptance_repair_synthetic_v1/collector-red/attempt-001/synthetic_tests.log",
+      "sha256": "1cfc8973f76f48120eabe948f00951e3e1ae0e8ac0297bdf12622d0907d413a2",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_native_acceptance_repair_synthetic_v1/contract-green/attempt-001/acceptance_summary.json",
+      "sha256": "1d306b3fe5fe1448017bd9d94fa2df9274fd513e7f5604bb81f7e1c1f7a63345",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_native_acceptance_repair_synthetic_v1/contract-green/attempt-001/source_snapshot.json",
+      "sha256": "3047dce2fba276f06a303283e616170b5e06b5248d0b98f483a3621bfb775dd3",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_native_acceptance_repair_synthetic_v1/contract-green/attempt-001/synthetic_tests.log",
+      "sha256": "d6fc1cc002905063a50952332b448134311f492c9542f0bfa642644aaee75a3e",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_native_acceptance_repair_synthetic_v1/contract-red/attempt-001/acceptance_summary.json",
+      "sha256": "3b502fa8f7f8e83940fe0c107e7e9ce5cc997123018368b620ae7fec05a90401",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_native_acceptance_repair_synthetic_v1/contract-red/attempt-001/source_snapshot.json",
+      "sha256": "b3228cf490b327a9e154e336b7e043731390cbc46bd4fe342c793873b6ef69f5",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_native_acceptance_repair_synthetic_v1/contract-red/attempt-001/synthetic_tests.log",
+      "sha256": "c99b958fa8861d69ebdb9ee3b074d081370b8d3cc9424641be5d6c7c436407af",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_native_acceptance_repair_synthetic_v1/contract-red/attempt-002/acceptance_summary.json",
+      "sha256": "12d365f208efca5374092090d1772086fcd60829d71627c8d950bacd795756c7",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_native_acceptance_repair_synthetic_v1/contract-red/attempt-002/source_snapshot.json",
+      "sha256": "fa747b8aa23b776400c750901e66dc3e4a1b77266daf32f6d582c11e7b186f13",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_native_acceptance_repair_synthetic_v1/contract-red/attempt-002/synthetic_tests.log",
+      "sha256": "fc1d0406787e312e6787386d45fbc4fc0313a975a7375d336933f4f11949826f",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_native_acceptance_repair_synthetic_v1/final/preservation_and_scope.json",
+      "sha256": "9189f9d9a1aa81343c30ac6601605e2311a43b9975a616eee931545df2f1686b",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_native_acceptance_repair_synthetic_v1/final/source_identity.json",
+      "sha256": "4419ae00788cea495319b63a5a541e0da5431a1555d7670444aac2c9149b06e4",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_native_acceptance_repair_synthetic_v1/final/attempt-001/acceptance_summary.json",
+      "sha256": "0f107dae85c2b4e17e39db1a7f4247aa0278ff4bde8b3dbc201ecc8ca712c91f",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_native_acceptance_repair_synthetic_v1/final/attempt-001/source_snapshot.json",
+      "sha256": "548ae23058553bee96f18d440b61f8534042e3320eda6179d34eab0c2c14402d",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_native_acceptance_repair_synthetic_v1/final/attempt-001/synthetic_tests.log",
+      "sha256": "2a3c91623aa08d69960050026cb1e1b1c09b37ce37fe33dd79aef038e6e6e237",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_native_acceptance_repair_synthetic_v1/final/attempt-002/acceptance_summary.json",
+      "sha256": "31c6c1ce0607e6a05e14d0118e686b685a4559d3146b690eb4ba9e2f652a744b",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_native_acceptance_repair_synthetic_v1/final/attempt-002/source_snapshot.json",
+      "sha256": "008a46d185b1ea584ca2bd786446a669a93773a08312ac4899e7b5257dee7800",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_native_acceptance_repair_synthetic_v1/final/attempt-002/synthetic_tests.log",
+      "sha256": "eec7192326a09cb5aff4789954bb13ffd031ff42441f06f4a13799586d7b2fea",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_native_acceptance_repair_synthetic_v1/worker-green/attempt-001/acceptance_summary.json",
+      "sha256": "cfd92ceb129589e0f28eaaec283d04698122e8f3eaf5afb7380c55b04b6523ba",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_native_acceptance_repair_synthetic_v1/worker-green/attempt-001/source_snapshot.json",
+      "sha256": "7e5a212f285338a6c190c95e95e9e385800561529d69dc9d7199a16274aef7fe",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_native_acceptance_repair_synthetic_v1/worker-green/attempt-001/synthetic_tests.log",
+      "sha256": "6c854d7087553ba91f4b14627504219b19e018ee5993cd0b2771bcab16600e8e",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_native_acceptance_repair_synthetic_v1/worker-green/attempt-002/acceptance_summary.json",
+      "sha256": "966aa337cc3203535548f2698137db49d058e5e38785f9fb964c64a1260a6d18",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_native_acceptance_repair_synthetic_v1/worker-green/attempt-002/source_snapshot.json",
+      "sha256": "55a9d03bd1c0ea3049247854d291f5d1ed27d6c08c23a7df351191bfb0b3b638",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_native_acceptance_repair_synthetic_v1/worker-green/attempt-002/synthetic_tests.log",
+      "sha256": "7fe6f1cce84dceb26e05f5564c668622a658416706c9336cfd0356311dd3cf2e",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_native_acceptance_repair_synthetic_v1/worker-red/attempt-001/acceptance_summary.json",
+      "sha256": "81d406dfdcbee3b6b019670f006a1ee9ed5e7fee85a8f43f4defd2f551deb002",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_native_acceptance_repair_synthetic_v1/worker-red/attempt-001/source_snapshot.json",
+      "sha256": "49ca5624421482457ee4fafcb2eace0811db266adec9c4f5f6e80c611f68f75b",
+      "matched": true
+    },
+    {
+      "path": "outputs/msb_native_acceptance_repair_synthetic_v1/worker-red/attempt-001/synthetic_tests.log",
+      "sha256": "09dc58ef180f856891996b47eaa17e7b15379b8af40c812050a1f5288fbcafb4",
+      "matched": true
+    }
+  ],
+  "historical_references": [
+    {
+      "path": "outputs/msb_native_supervision_synthetic_v1/final/attempt-002/synthetic_tests.log",
+      "sha256": "cb663548d67185ececb02620de2ea230e52274ef733382ce370e1f25da1a86aa",
+      "matched": true
+    },
+    {
+      "path": "docs/experiment_records/2026-10-18_msb_native_supervision_independent_review.md",
+      "sha256": "bafdd0ff5ab47aed25a236eb43192d340d0ee126667424dcb82ff841fc39662e",
+      "matched": true
+    }
+  ],
+  "runtime_diff": [],
+  "readme_numstat": [
+    "2\t0\tREADME.md"
+  ],
+  "raw_reviewer_text_and_json_match": true,
+  "review_dispatches": 1,
+  "reviewer_terminal": "COMPLETED",
+  "reviewer_closed": true,
+  "tests_rerun": 0,
+  "real_fits": 0,
+  "native_runs": 0,
+  "formal_report_modified": false,
+  "scientific_effect": "NOT_TESTED",
+  "native_paths_absent": [
+    "docs/experiment_protocols/msb_native_supervision_v1.json",
+    "outputs/msb_native_supervision_v1"
+  ]
+}

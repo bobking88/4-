@@ -1,0 +1,48 @@
+You are the single independent read-only engineering reviewer authorized by human approval call_29684c57aed94222832ace218cd392be. Review once, return a substantive verdict. You MUST NOT spawn any agents, ask another reviewer, edit/write any file (including scratch), change Git/index/HEAD, create a worktree, run tests, import project modules, execute Python, run a forward/fit/timing/native/power/idle/network probe, or read real prepared/fit/stop/image/cache/weight/report content. Use only read-only source/log/document inspection (Get-Content, rg scoped to named code/docs/logs, git show/diff/log) and metadata/hash reads. No retry of review or test execution. If tools unavailable/no conclusion, report it and stop. Do not browse literature. User wants independent engineering review, not invented scientific validation.
+
+Checkout: D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report
+Frozen HEAD 90c017a931fc1c4f858194502b8cfb28ddf054b8
+BASE 2b8604a82ac052d383684e5cce59a8309f323b48
+Three implementation commits: 4b851bd6151fc79ccec1a7fb65dba2a3113f37e2, 43fe0430ed747030a81ff0fc5c784df818d5cf24, 90c017a931fc1c4f858194502b8cfb28ddf054b8.
+Only 3 code files changed:
+scripts/check_msb_native_supervision.py
+tests/test_check_msb_native_supervision.py
+tests/run_msb_native_supervision_synthetic_acceptance.py
+Six preexisting dirty PNGs are unrelated, do not open or touch them. Formal reports are excluded.
+Parent agent handles preservation/archive metadata locally, so focus your effort on the independent code/spec/evidence judgment.
+
+Authoritative requirements:
+docs/superpowers/specs/2026-10-18-msb-native-acceptance-repair-design.md
+docs/superpowers/plans/2026-10-18-msb-native-acceptance-repair.md
+Prior review and defects:
+docs/experiment_records/2026-10-18_msb_native_supervision_independent_review.md
+outputs/msb_native_supervision_independent_review_v1/ (read only as needed)
+Author implementation disclosure:
+docs/experiment_records/2026-10-19_msb_native_acceptance_repair_acceptance.md
+Raw finite synthetic evidence:
+outputs/msb_native_acceptance_repair_synthetic_v1/
+Fixed 7 phases, cap3 each including failures, actual11 attempts. Final/attempt-002 is 230/230 (202 old full test names retained +28 new); final/attempt-001 has one legitimate late close_query/lock-release RED. Old logs/evidence remain immutable.
+final/source_identity.json identifies original 43 execution source and 10 test/harness files: you may inspect needed ORIGINAL SOURCE CODE contracts (e.g. guard, supervisor, scope) read-only, not actual datasets, protocols that lead to inputs, weights or experiment outputs outside specified engineering evidence.
+final/preservation_and_scope.json describes protection and limits.
+Old 202 reference: outputs/msb_native_supervision_synthetic_v1/final/attempt-002/synthetic_tests.log.
+
+Judge five original defects and integration, not merely fixture pass counts:
+R1/P1 N4 pre-fault dead worker/explicit cleanup falsely qualifying; identity/live before ACK and fault, cleanup intent/fault gate ordering, standalone full snapshot/trace, strict fault<childexit<fault+5000ms. Parent observation may be after child observation, do NOT incorrectly require reverse observation order.
+R2/P1 registered root vs actual executing driver/loaded project module file/spec origin, checks before/after import and CLI/direct/private worker capability boundaries. Content equality of wrong checkouts insufficient.
+R3/P2 final AC/clock/deadline continuity: original active root guard through I/O, release then continue original last sample without reenter/reset; 30s sample-gap, 2s drift, total480s, PASS pre/post real callbacks.
+R4/P2 release failure must be caught after RUNNING; nonPASS terminal persistence attempted, body/release/persist causes retained and actual CLI nonzero. No output creation for denied pre-RUNNING attempts.
+R5/P2 zero-work N3 returns0 without treating sample overhead as work; surrounding checks and positive duration behavior intact.
+
+Known failed-attempt instrumentation exception: collector-green/attempt-001 called one unguarded read-only stdlib time.monotonic in the CLI positive fixture before RUNNING. Summary's raw counter0 did NOT capture it; never interpret it as fully mocked. Author disclosed it; subsequent fixture injects initial clock and harness guards global monotonic after agreed torch/sklearn numeric bootstrap. Check actual scope/instrumentation and disclosure, including final. Framework/numeric library loading and synthetic numeric compute intentionally real, native operations fake/guarded.
+Task1 raw RED logs contain 5 trailing whitespace instances, preserved. Don't recommend rewriting evidence for style. One blank EOF later removed by normal test append.
+PASS post-write check is evidence in actual return/CLI stdout, not prefilled disk success; disk PASS alone not enough. No crash-consistent revocation guarantee intended.
+Fake SystemExit unwinds finally, unlike native os._exit. Limited fake scheduling/locks cannot prove arbitrary Windows concurrency/IPC/Job/power behavior. Actual native protocol/output currently absent; no native acceptance or science effect tested.
+
+Output in Chinese, as a self-contained final message for verbatim archival:
+1. Reviewed commit/base and actual inspected files/evidence (no claiming unread items).
+2. R1-R5 disposition table: ADDRESSED/PARTIAL/UNRESOLVED, rationale and exact one-based file:line references.
+3. Findings first ranked P0/P1/P2/P3, with concrete reachable trigger, consequence, minimum direction; distinguish code defects, coverage gaps, and native evidence limitations. Do not assert a bug without checking surrounding contracts.
+4. Verify no reruns/forward/fits/native probes/real-data reads/file writes occurred by your own actions; state limits instead of fabricated proof.
+5. Declined-to-judge: every considered-but-set-aside behavior with reason; don't silently discard risk.
+6. Clear limited-synthetic engineering verdict APPROVE or REQUEST_CHANGES or INSUFFICIENT_EVIDENCE; separately native acceptance readiness and scientific effect NOT_TESTED.
+If no actionable issues, say so plainly; native unknowns remain unknown. An engineering APPROVE does not authorize real training or establish network/theoretical innovation.

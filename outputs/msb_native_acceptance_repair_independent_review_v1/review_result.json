@@ -1,0 +1,101 @@
+{
+  "date": "2026-10-20",
+  "authorization": "call_29684c57aed94222832ace218cd392be",
+  "base": "2b8604a82ac052d383684e5cce59a8309f323b48",
+  "head": "90c017a931fc1c4f858194502b8cfb28ddf054b8",
+  "reviewer": {
+    "agent_id": "01a154ef-f310-75f2-aea7-854590001d7a",
+    "nickname": "Boole"
+  },
+  "review_dispatches": 1,
+  "reviewer_terminal": "COMPLETED_WITH_SUBSTANTIVE_VERDICT",
+  "reviewer_closed": true,
+  "engineering_verdict": "REQUEST_CHANGES",
+  "native_readiness": "INSUFFICIENT_EVIDENCE",
+  "native_run": "NOT_TESTED",
+  "scientific_effect": "NOT_TESTED",
+  "dispositions": {
+    "R1": "ADDRESSED",
+    "R2": "ADDRESSED",
+    "R3": "ADDRESSED",
+    "R4": "PARTIAL",
+    "R5": "ADDRESSED"
+  },
+  "findings": [
+    {
+      "id": "R4-INIT-ERROR",
+      "priority": "P2",
+      "type": "CODE_DEFECT_AND_COVERAGE_GAP",
+      "status": "CONFIRMED_UNFIXED",
+      "file": "scripts/check_msb_native_supervision.py",
+      "line": 933,
+      "related": [
+        {
+          "file": "scripts/check_msb_native_supervision.py",
+          "line": 934
+        },
+        {
+          "file": "scripts/check_msb_native_supervision.py",
+          "line": 965
+        },
+        {
+          "file": "scripts/lc_execution_safety.py",
+          "line": 100
+        },
+        {
+          "file": "tests/test_check_msb_native_supervision.py",
+          "line": 1124
+        }
+      ],
+      "trigger": "Initial RUNNING publication succeeds; immediately following check raises, then root guard release also raises",
+      "consequence": "FAILED/nonzero remains, but original initialization check error omitted from structured errors/primary_errors",
+      "parent_validation": "READ_ONLY_SOURCE_AND_REQUIREMENT_INSPECTION_NO_EXECUTION",
+      "fix_performed": false
+    }
+  ],
+  "declined_rulings": [
+    {
+      "id": "D1",
+      "topic": "Parent observation after child observation",
+      "ruling": "Accept legal observation order; no added defect"
+    },
+    {
+      "id": "D2",
+      "topic": "run_outer transitive import; malicious interpreter, TOCTOU, bytecode, arbitrary forged records",
+      "ruling": "Retain reviewer contract-based dismissal and exclude generalized security proof; no broader source coverage claimed"
+    },
+    {
+      "id": "D3",
+      "topic": "N4 finite fake scheduling and query/journal/synchronization failures",
+      "ruling": "Accept finite evidence boundary; arbitrary Windows scheduling/blocking remains unproven"
+    },
+    {
+      "id": "D4",
+      "topic": "fake SystemExit vs os._exit and actual IPC/Job/thread/power",
+      "ruling": "Native behavior unknown; native run NOT_TESTED"
+    },
+    {
+      "id": "D5",
+      "topic": "Disk PASS, crash revocation, instantaneous unsampled AC change",
+      "ruling": "Disk PASS alone insufficient; preserve actual return/stdout requirement; no crash/continuous-observation guarantee"
+    },
+    {
+      "id": "D6",
+      "topic": "Raw RED whitespace and scientific/formal-report content",
+      "ruling": "Preserve raw evidence; scientific effects and formal report outside review and unchanged"
+    }
+  ],
+  "known_failed_clock_guard_gap": "collector-green/001 one unguarded read-only monotonic call disclosed and raw failed record retained; no reinterpretation of counter0",
+  "tests_rerun": 0,
+  "model_forwards": 0,
+  "real_fits": 0,
+  "native_runs": 0,
+  "formal_report_modified": false,
+  "runtime_edits": 0,
+  "network_edits": 0,
+  "formula_edits": 0,
+  "experiment_matrix_edits": 0,
+  "independent_review_of_all_83_protection_records": false,
+  "parent_handles_protection_audit": true,
+  "next_gate": "Separate human authorization for minimal repair specification/plan; no automatic development or native/real run"
+}

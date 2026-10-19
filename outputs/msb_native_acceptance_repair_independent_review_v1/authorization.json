@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-20",
+  "approval": "call_29684c57aed94222832ace218cd392be",
+  "human_answer": "批准一次只读复查并归档（推荐）",
+  "scope": "ONE_INDEPENDENT_READ_ONLY_ENGINEERING_REVIEW_AND_GITHUB_ARCHIVE",
+  "base": "2b8604a82ac052d383684e5cce59a8309f323b48",
+  "head": "90c017a931fc1c4f858194502b8cfb28ddf054b8",
+  "review_dispatch_limit": 1,
+  "review_dispatches": 1,
+  "reviewer": {
+    "agent_id": "01a154ef-f310-75f2-aea7-854590001d7a",
+    "nickname": "Boole"
+  },
+  "allowed": [
+    "read named source, requirements, existing synthetic logs and metadata",
+    "archive raw review and author disposition to existing GitHub branch"
+  ],
+  "forbidden": [
+    "tests/forward/fitting/timing/native/power/idle probes",
+    "real prepared/fit/stop/image/cache/weight or formal-report content",
+    "runtime code/network/formula/loss/experiment-matrix/formal-report changes",
+    "reviewer file writes or nested agents",
+    "redispatch or automatic repair"
+  ],
+  "status": "REVIEW_DISPATCHED_NO_VERDICT_YET"
+}
