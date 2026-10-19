@@ -127,7 +127,7 @@ class HarnessGateTests(unittest.TestCase):
             try:
                 with patch.object(harness,"ROOT",Path(tmp)),patch.object(harness,"_snapshot_sources",return_value={}),patch.object(harness,"_run_modules",return_value=r):
                     code=harness.main(["--phase","contract-green"])
-                summary=json.loads((Path(tmp)/"outputs/msb_native_supervision_synthetic_v1/contract-green/attempt-001/acceptance_summary.json").read_text())
+                summary=json.loads((Path(tmp)/"outputs/msb_native_acceptance_repair_synthetic_v1/contract-green/attempt-001/acceptance_summary.json").read_text())
                 self.assertEqual((code,summary["status"],summary["skipped"]),(1,"FAILED",1))
             finally:
                 os.chdir(previous[0]);tempfile.tempdir=previous[1];sys.path[:]=previous[2]
@@ -214,6 +214,7 @@ class WorkerTests(unittest.TestCase):
         return value
 
     def case_root(self,root,case_id):
+        self.enterContext(patch.object(native,"execution_origins",return_value=observed_origins(root)))
         return Path(root)/"outputs/msb_native_supervision_v1/acceptance_once/cases"/case_id
 
     def test_controller_reuses_real_parent_and_original_budget(self):
@@ -474,6 +475,7 @@ class CollectorTests(unittest.TestCase):
         value=getattr(native,name,None);self.assertTrue(callable(value),"Missing collector implementation: "+name);return value
 
     def protocol_file(self,tmp):
+        self.enterContext(patch.object(native,"execution_origins",return_value=observed_origins(tmp)))
         root=Path(tmp);path=root/"docs/experiment_protocols/msb_native_supervision_v1.json"
         path.parent.mkdir(parents=True);p=fixture_protocol();path.write_text(json.dumps(p),encoding="utf-8")
         return root,path,p,fixture_approval(p)
@@ -768,6 +770,7 @@ class ObserverTests(unittest.TestCase):
             self.assertIsInstance(caught,RuntimeError)
             self.assertEqual(closed_before_cleanup,[])
 
+
     def test_finish_never_samples_while_an_observer_thread_cannot_stop(self):
         class Busy:
             def __init__(self):self.enters=0
@@ -786,3 +789,89 @@ class ObserverTests(unittest.TestCase):
             self.assertIsInstance(caught,RuntimeError)
             self.assertEqual(busy.enters,0)
             self.assertEqual(closed_before_cleanup,[])
+
+
+def observed_origins(root):
+    root=Path(root).resolve()
+    return {"driver":str(root/"scripts/check_msb_native_supervision.py"),
+            "module:msb_execution_safety:file":str(root/"scripts/msb_execution_safety.py"),
+            "module:msb_execution_safety:spec":str(root/"scripts/msb_execution_safety.py")}
+
+
+class OriginRepairTests(unittest.TestCase):
+    def function(self,name):
+        value=getattr(native,name,None)
+        self.assertTrue(callable(value),"Missing origin repair: "+name)
+        return value
+
+    def test_origin_rejects_other_checkout_and_import_alias(self):
+        validate=self.function("validate_execution_origins")
+        with tempfile.TemporaryDirectory() as tmp:
+            a,b=Path(tmp)/"A",Path(tmp)/"B"
+            with self.assertRaises(ValueError):validate(b,observed_origins(a))
+            for key in ("module:msb_execution_safety:file","module:msb_execution_safety:spec"):
+                origins=observed_origins(a);origins[key]=str(b/"scripts/msb_execution_safety.py")
+                with self.subTest(key=key),self.assertRaises(ValueError):validate(a,origins)
+            origins=observed_origins(a);del origins["module:msb_execution_safety:file"]
+            with self.assertRaises(ValueError):validate(a,origins)
+
+    def test_origin_accepts_same_resolved_root_only(self):
+        validate=self.function("validate_execution_origins")
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);origins=observed_origins(root)
+            result=validate(root/"scripts/..",origins)
+            self.assertEqual(Path(result["root"]),root.resolve())
+            self.assertEqual(result["driver"],origins["driver"])
+            self.assertEqual(result["module_origins"],{k:v for k,v in origins.items() if k!="driver"})
+
+    def test_execution_origins_reports_actual_driver_and_modules(self):
+        capture=self.function("execution_origins");origins=capture()
+        self.assertEqual(Path(origins["driver"]),Path(native.__file__).resolve())
+        self.assertEqual(Path(origins["module:msb_execution_safety:file"]),Path(safety.__file__).resolve())
+        self.assertEqual(Path(origins["module:msb_execution_safety:spec"]),Path(safety.__spec__.origin).resolve())
+
+    def test_zero_wait_does_not_turn_tick_overhead_into_work(self):
+        services=FakeDriverServices(WorkerAPI());calls=[]
+        def tick():services.api.now+=1;return services.api.now
+        services.tick_ms=tick;services.pause=lambda seconds:calls.append(seconds)
+        self.assertEqual(native._wait_work(0,case_binding(),services),0)
+        self.assertEqual(calls,[])
+
+    def test_wait_work_rejects_negative_boolean_or_noninteger(self):
+        services=FakeDriverServices(WorkerAPI())
+        for value in (-1,True,0.,None):
+            with self.subTest(value=value):
+                caught=None
+                try:native._wait_work(value,case_binding(),services)
+                except Exception as error:caught=error
+                self.assertIsInstance(caught,ValueError)
+
+    def test_three_entrypoints_reject_wrong_origins_before_native(self):
+        from contextlib import redirect_stderr
+        import io
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);protocol=fixture_protocol();approval=fixture_approval(protocol)
+            path=root/"docs/experiment_protocols/msb_native_supervision_v1.json"
+            flags=["--root",str(root),"--protocol",str(path),"--execute-native",
+                   "--approval-call-id",approval["call_id"],"--approval-answer",approval["answer"],
+                   "--registration-commit","a"*40,"--controller-case","N1",
+                   "--case-output",str(root/protocol["output_relative"]/"cases/N1"),
+                   "--binding-json",json.dumps(case_binding())]
+            with patch.object(native,"NativeServices",side_effect=AssertionError("Wrong-root native factory")) as factory:
+                with patch.object(Path,"read_text",side_effect=AssertionError("Wrong-root protocol read")):
+                    with self.subTest(entry="collector"),self.assertRaises(ValueError):
+                        native.run_acceptance(root,path,execute_native=True,approval=approval,services=FakeCollectorServices())
+                    with self.subTest(entry="controller"),redirect_stderr(io.StringIO()),self.assertRaises(ValueError):native.main(flags)
+                packet=root/"packet.json";packet.write_text(json.dumps(dict(root=str(root))),encoding="utf-8")
+                handles=dict(read_handle=10,write_handle=11,parent_handle=12,nonce="a"*64)
+                with self.subTest(entry="worker"),self.assertRaises(ValueError):
+                    native.main(["--worker-packet",str(packet),"--worker-handles",json.dumps(handles)])
+                self.assertEqual(factory.call_count,0)
+
+    def test_current_document_and_development_permissions_are_not_native(self):
+        for token in ("call_03a86c6e5b064586b7bb980fa04b2a53","call_d538a55e3a7b401fa4709a0d3914bb24",
+                      "call_7f515c71f122488da5242db3dc69dd60"):
+            protocol=fixture_protocol();protocol["approval_call_id"]=token
+            with self.subTest(token=token),self.assertRaises(ValueError):
+                native._validate_protocol_fields(protocol,approval=fixture_approval(protocol))
+

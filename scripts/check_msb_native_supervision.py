@@ -65,6 +65,8 @@ CASES = (
     dict(case_id="N4", limit=45, exit_code=31),
 )
 NON_NATIVE_IDS = {
+    "call_03a86c6e5b064586b7bb980fa04b2a53", "call_d538a55e3a7b401fa4709a0d3914bb24",
+    "call_7f515c71f122488da5242db3dc69dd60",
     "call_a42aed1b7bab474bb17246c3df69dc4e", "call_6961d4dac6b64d7aba8e538f01c5e097",
     "call_5101ffc4ea2a44459043052c470036ce", "call_0e89f2cb80134c049e4ef3aaf697a7b0",
     "call_aa6d081524a94817b20cceb8fbd25053", "call_a4c9ef81bcea447aa7350f7cd9aff51c",
@@ -75,6 +77,60 @@ FIXED = dict(protocol="msb_native_supervision_v1", status="APPROVED_NATIVE_ONLY"
              max_seconds=480, case_order=["N1","N2","N3","N4"],
              case_limits=[90,45,75,45], require_ac=True, max_attempts=1,
              real_training_authorized=False)
+
+
+def execution_origins() -> dict[str,str]:
+    origins={"driver":str(Path(__file__).resolve())}
+    for relative in SOURCE_FILES:
+        if not relative.startswith("scripts/"):continue
+        name=Path(relative).stem;module=sys.modules.get(name)
+        if module is None:continue
+        source=getattr(module,"__file__",None)
+        origins[f"module:{name}:file"]="" if source is None else str(Path(source).resolve())
+        spec=getattr(module,"__spec__",None);origin=getattr(spec,"origin",None)
+        if origin is not None:origins[f"module:{name}:spec"]=str(Path(origin).resolve())
+    return origins
+
+
+def validate_execution_origins(root: Path, origins: dict[str,str]) -> dict:
+    root=Path(root).resolve();driver=root/"scripts/check_msb_native_supervision.py"
+    if (not isinstance(origins,dict) or not isinstance(origins.get("driver"),str)
+            or not origins["driver"] or Path(origins["driver"]).resolve()!=driver):
+        raise ValueError("Executing driver differs from the registered root")
+    project={Path(p).stem:root/p for p in SOURCE_FILES if p.startswith("scripts/")}
+    checked={}
+    for key,value in origins.items():
+        if key=="driver":continue
+        match=re.fullmatch(r"module:([A-Za-z0-9_]+):(file|spec)",key)
+        if (match is None or match[1] not in project or not isinstance(value,str) or not value
+                or Path(value).resolve()!=project[match[1]]
+                or f"module:{match[1]}:file" not in origins):
+            raise ValueError("Loaded project source differs from registered root: "+str(key))
+        checked[key]=str(Path(value).resolve())
+    return dict(root=str(root),driver=str(driver),module_origins=checked)
+
+
+def _execution_root(root):
+    return validate_execution_origins(root,execution_origins())
+
+
+def _worker_packet(packet_path,handles):
+    if (not isinstance(handles,dict) or set(handles)!={"read_handle","write_handle","parent_handle","nonce"}
+            or any(type(handles[k]) is not int or handles[k]<=0 for k in ("read_handle","write_handle","parent_handle"))
+            or not re.fullmatch(r"[a-f0-9]{64}",str(handles["nonce"]))):
+        raise ValueError("Exact live inherited capability required before metadata")
+    origins=execution_origins();root=Path(origins["driver"]).resolve().parents[1]
+    validate_execution_origins(root,origins)
+    path=Path(packet_path).resolve();prefix=root/FIXED["output_relative"]/"cases"
+    if not path.is_relative_to(prefix):raise ValueError("Worker packet outside executing root")
+    parts=path.relative_to(prefix).parts
+    if (len(parts)!=5 or parts[0] not in FIXED["case_order"]
+            or parts[1:3]!=("controller","runs") or parts[3]!=parts[0] or parts[4]!="packet.json"):
+        raise ValueError("Only the fixed no-data worker packet may be read")
+    metadata=json.loads(path.read_text(encoding="utf-8"));_execution_root(metadata["root"])
+    import msb_execution_safety as safety
+    _execution_root(root)
+    return safety._published(path)
 
 
 def remaining_acceptance_seconds(start_monotonic: float, start_tick_ms: int, *,
@@ -240,7 +296,9 @@ class TraceAPI:
 
 
 def run_controller(root: Path, output: Path, case_id: str, binding: dict, *, services) -> dict:
+    origin=_execution_root(root)
     import msb_execution_safety as safety
+    _execution_root(root)
     case_dir=_case_output(root,output,case_id);budget=_binding_budget(binding)
     _remaining(binding,services)
     folder=case_dir/"controller";folder.mkdir(exist_ok=False)
@@ -255,7 +313,7 @@ def run_controller(root: Path, output: Path, case_id: str, binding: dict, *, ser
                packets={case_id:hashlib.sha256(packet_path.read_bytes()).hexdigest()})
     _write_json(folder/"stage_state.json",state,exclusive=True)
     events=[];trace=TraceAPI(services.api,events,folder/"trace.json",services)
-    command=[sys.executable,str(Path(__file__).resolve()),"--worker-packet",str(packet_path)]
+    command=[sys.executable,origin["driver"],"--worker-packet",str(packet_path)]
     job=dict(job_id=case_id,packet_path=str(packet_path),log_path=str(work/"worker.log"),command=command)
     watch=None;parent=None;stopped=True
     try:
@@ -275,6 +333,8 @@ def run_controller(root: Path, output: Path, case_id: str, binding: dict, *, ser
 
 
 def _wait_work(milliseconds,packet,services,scope=None):
+    if type(milliseconds) is not int or milliseconds<0:raise ValueError("Nonnegative integer work duration required")
+    if milliseconds==0:return 0
     started=services.tick_ms()
     while services.tick_ms()-started<milliseconds:
         _remaining(packet,services)
@@ -284,10 +344,9 @@ def _wait_work(milliseconds,packet,services,scope=None):
 
 
 def run_no_data_worker(packet_path: Path, handles: dict, *, services) -> dict:
+    packet=_worker_packet(packet_path,handles)
     import msb_execution_safety as safety
-    if not isinstance(handles,dict) or set(handles)!={"read_handle","write_handle","parent_handle","nonce"}:
-        raise ValueError("Live inherited capability required before metadata")
-    packet=safety._published(packet_path)
+    _execution_root(packet["root"])
     case_id=packet.get("case_id")
     if packet.get("stage")!="native-supervision-no-data":raise ValueError("No scientific stage allowed")
     case_dir=_case_output(Path(packet["root"]),Path(packet["output"]).parent,case_id)
@@ -357,6 +416,7 @@ class NativeServices:
     def finish_observer(self,observer,outer):return observer.finish(outer)
     def stop_observer(self,observer):return observer.close()
     def verify_sources(self,root,protocol):
+        _execution_root(root)
         for relative,expected in protocol["source_sha256"].items():
             path=(Path(root)/relative).resolve()
             if not path.is_relative_to(Path(root).resolve()) or path.is_symlink():
@@ -402,9 +462,11 @@ class NativeServices:
             raise ValueError("Registered native protocol content differs")
         self.verify_sources(root,protocol);check()
         return dict(verified=True,commit=commit_id,tree=commit["tree"]["sha"])
-    def __init__(self):
+    def __init__(self,root: Path):
+        self.root=Path(_execution_root(root)["root"])
         import msb_execution_safety as safety
         from check_lc_native_environment import NativeEnvironmentAPI
+        _execution_root(self.root)
         self.api=safety.NativeMSBAPI()
         self.environment=NativeEnvironmentAPI()
     def tick_ms(self):return self.api.tick_ms()
@@ -708,14 +770,14 @@ def run_acceptance(root: Path, protocol_path: Path, *, execute_native: bool, app
     if execute_native is not True:
         raise ValueError("Explicit native execution permission required before any service or input")
     _check_approval(approval)
-    root=Path(root).resolve();protocol_path=_protocol_path(root,protocol_path)
+    root=Path(root).resolve();origin=_execution_root(root);protocol_path=_protocol_path(root,protocol_path)
     if services is None:
         import time
         started=time.monotonic()
     else:started=services.monotonic()
     protocol=json.loads(protocol_path.read_text(encoding="utf-8"))
     validate_native_protocol(root,protocol,approval=approval)
-    services=NativeServices() if services is None else services
+    services=NativeServices(root) if services is None else services
     tick=services.tick_ms()
     binding=dict(run_id=services.new_run_id(),protocol_digest=_protocol_digest(protocol),
                  start_monotonic=started,start_tick_ms=tick,deadline_tick_ms=tick+7200000,
@@ -741,7 +803,8 @@ def run_acceptance(root: Path, protocol_path: Path, *, execute_native: bool, app
                 check();services.verify_sources(root,protocol)
                 case_dir=output/"cases"/case["case_id"];case_dir.mkdir(parents=True,exist_ok=False)
                 state["active_case"]=case["case_id"];services.write_json(output/"stage_state.json",state)
-                command=[sys.executable,str(Path(__file__).resolve()),"--root",str(root),
+                origin=_execution_root(root)
+                command=[sys.executable,origin["driver"],"--root",str(root),
                          "--protocol",str(protocol_path),"--execute-native",
                          "--approval-call-id",approval["call_id"],"--approval-answer",approval["answer"],
                          "--registration-commit",approval["registration_commit"],
@@ -803,7 +866,8 @@ def main(argv=None):
                 or any(type(handles[k]) is not int or handles[k]<=0 for k in ("read_handle","write_handle","parent_handle"))
                 or not re.fullmatch(r"[a-f0-9]{64}",str(handles["nonce"]))):
             raise ValueError("Exact positive inherited capability required before service construction")
-        result=run_no_data_worker(args.worker_packet,handles,services=NativeServices())
+        packet=_worker_packet(args.worker_packet,handles)
+        result=run_no_data_worker(args.worker_packet,handles,services=NativeServices(Path(packet["root"])))
         print(json.dumps(result),flush=True)
         return 0
     if args.worker_handles is not None or args.protocol is None:
@@ -815,7 +879,7 @@ def main(argv=None):
         if not args.execute_native or args.root is None or args.case_output is None or args.binding_json is None:
             parser.error("Internal controller requires the exact approved collector claim")
         _check_approval(approval)
-        root=args.root.resolve();path=_protocol_path(root,args.protocol)
+        root=args.root.resolve();_execution_root(root);path=_protocol_path(root,args.protocol)
         protocol=json.loads(path.read_text(encoding="utf-8"))
         _validate_protocol_fields(protocol,approval=approval)
         binding=json.loads(args.binding_json);_binding_budget(binding)
@@ -826,7 +890,7 @@ def main(argv=None):
                 or claim.get("registration_verified") is not True or claim.get("source_identity_verified") is not True
                 or claim.get("registered_commit")!=approval["registration_commit"]):
             raise ValueError("Controller lacks the active registered collector claim")
-        services=NativeServices();services.verify_sources(root,protocol)
+        services=NativeServices(root);services.verify_sources(root,protocol)
         result=run_controller(root,args.case_output,args.controller_case,binding,services=services)
         if args.controller_case=="N4":raise RuntimeError("Parent hard-exit scenario returned instead of exiting31")
         inner=result["msb"]
