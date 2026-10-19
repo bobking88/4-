@@ -230,21 +230,19 @@ def _wait_ack(case_dir,ready,services):
         services.pause(.05)
 
 
-def parent_fault_after_ready(case_dir: Path, ready: dict, *, services):
+def parent_fault_after_ready(case_dir: Path, ready: dict, *, services, gate=None):
     if (not isinstance(ready,dict) or ready.get("working") is not True
             or ready.get("job_assigned") is not True or ready.get("case_id")!="N4"
             or any(type(ready.get(k)) is not int or ready[k]<=0 for k in ("pid","created"))
             or type(ready.get("ready_tick_ms")) is not int):
         raise RuntimeError("SUPERVISION_INTERRUPTED: parent fault lacks bound working child")
-    _wait_ack(case_dir,ready,services)
-    pid,created=services.api.current_identity()
-    _write_json(Path(case_dir)/"parent_fault.json",dict(case_id="N4",pid=pid,created=created,
-        exit_code=31,tick_ms=services.tick_ms(),collector_ack_verified=True),exclusive=True)
-    services.exit_process(31)
-    raise RuntimeError("Parent fault did not terminate current process")
+    ack=_wait_ack(case_dir,ready,services)
+    if not isinstance(gate,N4FaultGate) or gate.case_dir!=Path(case_dir):
+        raise RuntimeError("SUPERVISION_INTERRUPTED: live N4 fault gate required")
+    gate.commit_fault(ready,ack,gate.events)
 
 
-def _watch_parent_fault(case_dir,binding,services,stopped):
+def _watch_parent_fault(case_dir,binding,services,stopped,gate=None):
     while not stopped.is_set():
         _remaining(binding,services)
         path=case_dir/"worker_ready.json"
@@ -252,15 +250,74 @@ def _watch_parent_fault(case_dir,binding,services,stopped):
             try:ready=json.loads(path.read_text(encoding="utf-8"))
             except json.JSONDecodeError:
                 services.pause(.05);continue
-            parent_fault_after_ready(case_dir,ready,services=services)
+            parent_fault_after_ready(case_dir,ready,services=services,gate=gate)
             return
         services.pause(.05)
 
 
+class N4FaultGate:
+    """Order explicit cleanup intent before the bounded parent-fault checkpoint."""
+    def __init__(self,case_dir,binding,*,services,events):
+        import threading
+        self.case_dir,self.binding,self.services=Path(case_dir),copy.deepcopy(binding),services
+        self.events=events;self.lock=threading.Lock();self.cleanup_requested=False;self.invalid=False;self.errors=[]
+
+    def _acquire(self):
+        if not self.lock.acquire(timeout=min(1.,_remaining(self.binding,self.services))):
+            self.invalid=True
+            raise RuntimeError("SUPERVISION_INTERRUPTED: bounded N4 gate unavailable")
+
+    def note_cleanup(self,kind,pid=None):
+        self.cleanup_requested=True;acquired=False
+        try:
+            self._acquire();acquired=True
+            event=dict(kind="cleanup_intent",action=kind,pid=pid,tick_ms=self.services.tick_ms())
+            self.events.append(event)
+            _write_json(self.case_dir/"cleanup_intent.json",dict(event,binding=self.binding),exclusive=True)
+        except BaseException as error:
+            self.invalid=True;self.errors.append(f"{type(error).__name__}: {error}")
+        finally:
+            if acquired:self.lock.release()
+
+    def commit_fault(self,ready,ack,trace_events):
+        self._acquire();handle=None
+        try:
+            _require(not self.cleanup_requested and not self.invalid,"N4 cleanup intent or gate failure")
+            _require(ack.get("alive_at_ack") is True and type(ack.get("ack_tick_ms")) is int,"N4 ACK lacks live observation")
+            handle=retain_worker_identity(ready,services=self.services)
+            _require(self.services.query_alive(handle) is True,"N4 worker dead before fault")
+            alive_tick=self.services.tick_ms();pid,created=self.services.api.current_identity()
+            _require(pid!=ready["pid"],"N4 parent/worker identity collision")
+            obs=dict(pid=ready["pid"],created=ready["created"],parent_pid=pid,parent_created=created)
+            snapshot=copy.deepcopy(trace_events);_check_trace(snapshot,obs)
+            _require(not any(e["kind"] in ("cleanup_intent","terminate_job","kill_process") for e in snapshot),"N4 explicit cleanup trace")
+            _require(ready["ready_tick_ms"]<=ack["ack_tick_ms"]<=alive_tick,"N4 live ACK ordering")
+            _write_json(self.case_dir/"fault_trace.json",snapshot,exclusive=True)
+            tick=self.services.tick_ms()
+            fault=dict(case_id="N4",pid=pid,created=created,exit_code=31,tick_ms=tick,
+                worker_pid=ready["pid"],worker_created=ready["created"],collector_ack_verified=True,
+                alive_before_fault=True,alive_tick_ms=alive_tick,gate_state="FAULT_COMMITTED",
+                cleanup_before_fault=False,trace_complete=True,binding=self.binding,pre_fault_trace=snapshot)
+            _write_json(self.case_dir/"parent_fault.json",fault,exclusive=True)
+            _remaining(self.binding,self.services)
+            _require(self.services.tick_ms()-ready["ready_tick_ms"]<5000,"N4 fault preparation exceeded ACK window")
+            _require(not self.cleanup_requested and not self.invalid,"N4 cleanup raced fault publication")
+            _require(self.services.query_alive(handle) is True,"N4 worker exited during fault preparation")
+            self.services.exit_process(31)
+            raise RuntimeError("Parent fault did not terminate current process")
+        except ValueError as error:
+            self.invalid=True
+            raise RuntimeError("SUPERVISION_INTERRUPTED: "+str(error)) from error
+        finally:
+            if handle is not None:self.services.close_query(handle)
+            self.lock.release()
+
+
 class TraceAPI:
     """Record genuine API returns without fabricating transport or time."""
-    def __init__(self,api,events,path,services):
+    def __init__(self,api,events,path,services,fault_gate=None):
         self.api,self.events,self.path,self.services=api,events,path,services
+        self.fault_gate=fault_gate
     def __getattr__(self,name):return getattr(self.api,name)
     def _event(self,kind,**fields):
         self.events.append(dict(kind=kind,tick_ms=self.api.tick_ms(),**fields))
@@ -290,8 +347,10 @@ class TraceAPI:
         self.services.persist_trace(self.path,self.events)
         self.api.pause(seconds)
     def terminate_job(self,handle):
+        if self.fault_gate is not None:self.fault_gate.note_cleanup("terminate_job")
         self.api.terminate_job(handle);self._event("terminate_job")
     def kill_process(self,process):
+        if self.fault_gate is not None:self.fault_gate.note_cleanup("kill_process",process.pid)
         self.api.kill_process(process);self._event("kill_process",pid=process.pid)
 
 
@@ -312,13 +371,15 @@ def run_controller(root: Path, output: Path, case_id: str, binding: dict, *, ser
     state=dict(packet,status="RUNNING",active_job=case_id,
                packets={case_id:hashlib.sha256(packet_path.read_bytes()).hexdigest()})
     _write_json(folder/"stage_state.json",state,exclusive=True)
-    events=[];trace=TraceAPI(services.api,events,folder/"trace.json",services)
+    events=[]
+    gate=N4FaultGate(case_dir,binding,services=services,events=events) if case_id=="N4" else None
+    trace=TraceAPI(services.api,events,folder/"trace.json",services,fault_gate=gate)
     command=[sys.executable,origin["driver"],"--worker-packet",str(packet_path)]
     job=dict(job_id=case_id,packet_path=str(packet_path),log_path=str(work/"worker.log"),command=command)
     watch=None;parent=None;stopped=True
     try:
         if case_id=="N4":
-            watch=services.start_fault(lambda stop:_watch_parent_fault(case_dir,binding,services,stop))
+            watch=services.start_fault(lambda stop:_watch_parent_fault(case_dir,binding,services,stop,gate))
         with safety.MSBParentSupervisor(budget,binding["run_id"],binding["protocol_digest"],api=trace) as parent:
             row=parent.run_job(job,{})
     finally:
@@ -596,8 +657,14 @@ def _check_case(record,case_id,binding):
         _require(isinstance(fault,dict) and fault.get("case_id")=="N4" and fault.get("exit_code")==31
                  and fault.get("collector_ack_verified") is True,"parent fault evidence")
         _require((fault["pid"],fault["created"])==(obs["parent_pid"],obs["parent_created"]),"parent creation identity")
-        _require(ready["ready_tick_ms"]<=obs["ack_tick_ms"]<=fault["tick_ms"],"parent fault before identity ACK")
-        _require(max(0,obs["exit_tick_ms"]-obs["parent_exit_observed_tick_ms"])<5000,"child exit observation too late")
+        _require(obs.get("alive_at_ack") is True and fault.get("alive_before_fault") is True,"N4 live observations missing")
+        _require((fault["worker_pid"],fault["worker_created"])==(obs["pid"],obs["created"]),"N4 fault worker identity")
+        _require(fault.get("binding")==binding and fault.get("gate_state")=="FAULT_COMMITTED"
+                 and fault.get("trace_complete") is True and fault.get("cleanup_before_fault") is False,"N4 fault gate evidence")
+        _require(fault.get("pre_fault_trace")==record["events"],"N4 incomplete fault trace")
+        _require(record.get("cleanup_intent") is None and not any(e["kind"] in ("cleanup_intent","terminate_job","kill_process") for e in record["events"]),"N4 explicit cleanup before fault")
+        _require(ready["ready_tick_ms"]<=obs["ack_tick_ms"]<=fault["alive_tick_ms"]<=fault["tick_ms"]
+                 <obs["exit_tick_ms"]<fault["tick_ms"]+5000,"N4 fault/live/exit order or five-second bound")
         _require(trace["done"] is None,"hard exit has DONE")
         return
     _require(isinstance(inner,dict) and inner.get("attempts")==1 and inner.get("alive") is False,"inner attempt/alive")
@@ -711,11 +778,15 @@ class NativeObserver:
                 spawn=any(e["kind"]=="spawn" and (e.get("pid"),e.get("created"))==(ready["pid"],ready["created"]) for e in trace)
                 if not (assigned and ack and spawn):return
                 self.handle=retain_worker_identity(ready,services=self.services)
+                if self.services.query_alive(self.handle) is not True:
+                    raise RuntimeError("SUPERVISION_INTERRUPTED: observer worker already dead before ACK")
+                tick=self.services.tick_ms()
+                _require(ready["ready_tick_ms"]<=tick<ready["ready_tick_ms"]+5000,"observer ACK outside ready window")
                 self.evidence.update(ready=ready,pid=ready["pid"],created=ready["created"],
                     parent_pid=controller["pid"],parent_created=controller["created"],
-                    identity_verified=True,job_assignment_observed=True,ack_tick_ms=self.services.tick_ms())
+                    identity_verified=True,job_assignment_observed=True,alive_at_ack=True,ack_tick_ms=tick)
                 _write_json(self.case_dir/"collector_ack.json",dict(ready,collector_verified=True,
-                    query_only=True,job_handle_retained=False),exclusive=True)
+                    query_only=True,job_handle_retained=False,alive_at_ack=True,ack_tick_ms=tick),exclusive=True)
             if self.handle is not None and not self.evidence["exit_observed"]:
                 alive=self.services.query_alive(self.handle);self.evidence["worker_alive"]=alive
                 if not alive:self.evidence.update(exit_observed=True,exit_tick_ms=self.services.tick_ms(),
@@ -758,12 +829,19 @@ class NativeObserver:
 
 def _load_case_record(case_dir,binding,outer,observation):
     inner=_read_json_if_present(case_dir/"controller/controller_result.json")
+    fault=_read_json_if_present(case_dir/"parent_fault.json")
+    events=_read_json_if_present(case_dir/"controller/trace.json") or []
+    if case_dir.name=="N4":
+        snapshot=_read_json_if_present(case_dir/"fault_trace.json")
+        _require(isinstance(fault,dict) and isinstance(snapshot,list) and snapshot==fault.get("pre_fault_trace"),"N4 missing persisted fault snapshot")
+        _require(bool(events) and events==snapshot[:len(events)],"N4 raw trace differs from fault snapshot")
+        events=snapshot
     return dict(case_id=case_dir.name,binding=copy.deepcopy(binding),outer=outer,observation=observation,
         msb=None if inner is None else inner.get("msb"),
         parent_power=None if inner is None else inner.get("parent_power"),
-        events=_read_json_if_present(case_dir/"controller/trace.json") or [],
+        events=events,cleanup_intent=_read_json_if_present(case_dir/"cleanup_intent.json"),
         worker_closed=_read_json_if_present(case_dir/"controller/runs"/case_dir.name/"worker_closed.json"),
-        fault=_read_json_if_present(case_dir/"parent_fault.json"))
+        fault=fault)
 
 
 def run_acceptance(root: Path, protocol_path: Path, *, execute_native: bool, approval: dict, services=None) -> dict:

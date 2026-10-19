@@ -196,7 +196,8 @@ class FakeDriverServices:
     def persist_trace(self,path,events):
         self.traces.append(copy.deepcopy(events))
         path.write_text(json.dumps(events),encoding="utf-8")
-    def read_ack(self,case_dir,ready):return dict(ready,collector_verified=True,query_only=True,job_handle_retained=False)
+    def read_ack(self,case_dir,ready):return dict(ready,collector_verified=True,query_only=True,job_handle_retained=False,
+                                               alive_at_ack=True,ack_tick_ms=self.tick_ms())
     def write_ready(self,case_dir,ready):
         self.acks.append(copy.deepcopy(ready))
         (case_dir/"worker_ready.json").write_text(json.dumps(ready),encoding="utf-8")
@@ -315,11 +316,9 @@ class WorkerTests(unittest.TestCase):
 
     def test_parent_fault_requires_real_ready_identity_and_collector_ack(self):
         fault=self.function("parent_fault_after_ready")
-        services=FakeDriverServices(WorkerAPI())
         with tempfile.TemporaryDirectory() as tmp:
-            ready=dict(pid=8,created=199,working=True,job_assigned=True,case_id="N4",ready_tick_ms=1000)
-            services.read_ack=lambda d,r:dict(r,collector_verified=True,query_only=True,job_handle_retained=False)
-            with self.assertRaises(SystemExit) as error:fault(Path(tmp),ready,services=services)
+            gate,services,case,ready=n4_gate_fixture(tmp)
+            with self.assertRaises(SystemExit) as error:fault(case,ready,services=services,gate=gate)
             self.assertEqual(error.exception.code,31);self.assertEqual(services.exits,[31])
 
     def test_private_worker_cli_runs_the_real_scope_with_inherited_handles(self):
@@ -407,6 +406,12 @@ def case_record(case_id):
     ready["created"]+=index;observation["created"]+=index;observation["parent_created"]+=index
     events[0]["created"]+=index
     if fault is not None:fault["created"]+=index
+    if case_id=="N4":
+        observation["alive_at_ack"]=True
+        fault.update(worker_pid=observation["pid"],worker_created=observation["created"],
+                     alive_before_fault=True,alive_tick_ms=1103,gate_state="FAULT_COMMITTED",
+                     cleanup_before_fault=False,trace_complete=True,
+                     binding=case_binding(),pre_fault_trace=copy.deepcopy(events))
     return dict(case_id=case_id,binding=case_binding(),outer=outer,msb=msb,events=events,
                 observation=observation,worker_closed=closed,parent_power=parent,fault=fault)
 
@@ -438,11 +443,12 @@ class FakeCollectorServices(FakeDriverServices):
     def run_outer(self,job,protocol,remaining_seconds):
         case_id=job["case_id"];self.calls.append(("launch",case_id,protocol["per_fit_seconds"],remaining_seconds,copy.deepcopy(job["binding"])))
         record=case_record(case_id);record["binding"]=copy.deepcopy(job["binding"])
+        if record["fault"] is not None:record["fault"]["binding"]=copy.deepcopy(job["binding"])
         offset=self.api.now-1000
         def shift(value):
             if isinstance(value,dict):
                 for key,item in value.items():
-                    if key in ("tick_ms","ready_tick_ms","exit_tick_ms","parent_exit_observed_tick_ms","ack_tick_ms","final_tick_ms","lease_until_tick_ms"):value[key]+=offset
+                    if key in ("tick_ms","ready_tick_ms","exit_tick_ms","parent_exit_observed_tick_ms","ack_tick_ms","alive_tick_ms","final_tick_ms","lease_until_tick_ms"):value[key]+=offset
                     else:shift(item)
             elif isinstance(value,list):
                 for item in value:shift(item)
@@ -456,6 +462,7 @@ class FakeCollectorServices(FakeDriverServices):
         (folder/"trace.json").write_text(json.dumps(record["events"]),encoding="utf-8")
         if record["fault"] is not None:
             (Path(job["case_dir"])/"parent_fault.json").write_text(json.dumps(record["fault"]),encoding="utf-8")
+            (Path(job["case_dir"])/"fault_trace.json").write_text(json.dumps(record["fault"]["pre_fault_trace"]),encoding="utf-8")
         self.api.now+={"N1":45200,"N2":300,"N3":30300,"N4":300}[case_id]
         self.last_record=copy.deepcopy(record)
         outer=copy.deepcopy(record["outer"])
@@ -529,7 +536,7 @@ class CollectorTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             root,path,p,a=self.protocol_file(tmp);services=FakeCollectorServices()
             result=native.run_acceptance(root,path,execute_native=True,approval=a,services=services)
-            self.assertEqual(result["status"],"PASS_NATIVE_SUPERVISION_SCOPE")
+            self.assertEqual(result["status"],"PASS_NATIVE_SUPERVISION_SCOPE",result.get("error",result.get("assessment")))
             launches=[c for c in services.calls if c[0]=="launch"]
             self.assertEqual([c[1] for c in launches],["N1","N2","N3","N4"])
             self.assertEqual([c[2] for c in launches],[90,45,75,45])
@@ -875,3 +882,144 @@ class OriginRepairTests(unittest.TestCase):
             with self.subTest(token=token),self.assertRaises(ValueError):
                 native._validate_protocol_fields(protocol,approval=fixture_approval(protocol))
 
+
+def n4_gate_fixture(tmp):
+    record=case_record("N4");case=Path(tmp)/"N4";(case/"controller").mkdir(parents=True)
+    services=FakeDriverServices(WorkerAPI());services.api.now=1103
+    services.api.current_identity=lambda:(7,102)
+    services.open_query=Mock(return_value=88);services.query_identity=Mock(return_value=(8,202))
+    services.query_alive=Mock(return_value=True);services.close_query=Mock()
+    gate=native.N4FaultGate(case,case_binding(),services=services,events=record["events"])
+    return gate,services,case,record["observation"]["ready"]
+
+
+class N4RepairTests(unittest.TestCase):
+    def gate(self,tmp):
+        self.assertTrue(callable(getattr(native,"N4FaultGate",None)),"Missing N4FaultGate")
+        return n4_gate_fixture(tmp)
+
+    def test_n4_dead_at_ack_is_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            observer,services,case=ObserverTests().make(tmp);services.api.now=1300
+            caught=None
+            try:observer.sample()
+            except Exception as error:caught=error
+            finally:observer.close()
+            self.assertIsInstance(caught,RuntimeError)
+            self.assertFalse((case/"collector_ack.json").exists())
+
+    def test_n4_rejects_pre_fault_exit_and_cleanup(self):
+        for mode in ("early_exit","terminate_job","kill_process","cleanup_intent","declared_cleanup"):
+            records=[case_record(c) for c in ("N1","N2","N3","N4")];r=records[-1]
+            if mode=="early_exit":r["observation"]["exit_tick_ms"]=r["fault"]["tick_ms"]-1
+            elif mode=="declared_cleanup":r["fault"]["cleanup_before_fault"]=True
+            else:
+                r["events"].append(dict(kind=mode,tick_ms=1103,pid=8))
+                r["fault"]["pre_fault_trace"]=copy.deepcopy(r["events"])
+            with self.subTest(mode=mode):
+                self.assertFalse(native.classify_native_cases(records,outer_evidence=root_evidence())["accepted"])
+
+    def test_n4_allows_child_observed_before_parent(self):
+        records=[case_record(c) for c in ("N1","N2","N3","N4")]
+        records[-1]["observation"].update(exit_tick_ms=1110,parent_exit_observed_tick_ms=1120)
+        self.assertTrue(native.classify_native_cases(records,outer_evidence=root_evidence())["accepted"])
+
+    def test_n4_fault_exit_same_tick_and_five_second_equality_rejected(self):
+        for delta in (0,5000):
+            records=[case_record(c) for c in ("N1","N2","N3","N4")]
+            r=records[-1];r["observation"]["exit_tick_ms"]=r["fault"]["tick_ms"]+delta
+            with self.subTest(delta=delta):
+                self.assertFalse(native.classify_native_cases(records,outer_evidence=root_evidence())["accepted"])
+
+    def test_n4_fault_gate_commits_live_identity_snapshot_before_exit31(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            gate,services,case,ready=self.gate(tmp)
+            with self.assertRaises(SystemExit) as caught:
+                native.parent_fault_after_ready(case,ready,services=services,gate=gate)
+            self.assertEqual(caught.exception.code,31)
+            fault=json.loads((case/"parent_fault.json").read_text())
+            self.assertTrue(fault["alive_before_fault"])
+            self.assertTrue(fault["trace_complete"])
+            self.assertEqual(fault["pre_fault_trace"],gate.events)
+            self.assertFalse(fault["cleanup_before_fault"])
+            self.assertEqual(fault["binding"],case_binding())
+
+    def test_n4_cleanup_fault_race_never_qualifies(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            gate,services,case,ready=self.gate(tmp)
+            calls=[];services.api.terminate_job=lambda handle:calls.append("terminate")
+            trace=native.TraceAPI(services.api,gate.events,case/"controller/trace.json",services,fault_gate=gate)
+            trace.terminate_job(9)
+            self.assertEqual(calls,["terminate"])
+            self.assertTrue((case/"cleanup_intent.json").exists())
+            with self.assertRaises(RuntimeError):native.parent_fault_after_ready(case,ready,services=services,gate=gate)
+            self.assertEqual(services.exits,[])
+
+    def test_n4_trace_write_failure_never_suppresses_cleanup(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            gate,services,case,ready=self.gate(tmp)
+            calls=[];services.api.kill_process=lambda process:calls.append(process.pid)
+            trace=native.TraceAPI(services.api,gate.events,case/"controller/trace.json",services,fault_gate=gate)
+            with patch.object(native,"_write_json",side_effect=OSError("journal failed")):
+                trace.kill_process(SimpleNamespace(pid=8))
+            self.assertEqual(calls,[8])
+            with self.assertRaises(RuntimeError):native.parent_fault_after_ready(case,ready,services=services,gate=gate)
+            self.assertEqual(services.exits,[])
+
+    def test_n4_busy_fault_gate_is_bounded_and_fails_closed(self):
+        class Busy:
+            def __init__(self):self.timeouts=[]
+            def acquire(self,*,timeout):self.timeouts.append(timeout);return False
+            def release(self):raise AssertionError("Unowned gate release")
+        with tempfile.TemporaryDirectory() as tmp:
+            gate,services,case,ready=self.gate(tmp);busy=Busy();gate.lock=busy
+            with self.assertRaises(RuntimeError):native.parent_fault_after_ready(case,ready,services=services,gate=gate)
+            self.assertTrue(busy.timeouts);self.assertTrue(all(0<t<=1 for t in busy.timeouts))
+            self.assertEqual(services.exits,[])
+
+    def test_n4_parent_live_query_and_trace_failure_never_exit31(self):
+        for mode in ("dead","query_error","journal_error"):
+            with self.subTest(mode=mode),tempfile.TemporaryDirectory() as tmp:
+                gate,services,case,ready=self.gate(tmp)
+                if mode=="dead":services.query_alive=Mock(return_value=False)
+                if mode=="query_error":services.query_alive=Mock(side_effect=OSError("query failed"))
+                manager=patch.object(native,"_write_json",side_effect=OSError("fault journal failed")) if mode=="journal_error" else __import__("contextlib").nullcontext()
+                caught=None
+                with manager:
+                    try:native.parent_fault_after_ready(case,ready,services=services,gate=gate)
+                    except Exception as error:caught=error
+                self.assertIsNotNone(caught);self.assertEqual(services.exits,[])
+
+    def test_controller_rechecks_loaded_module_origins_before_launch(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);good=observed_origins(root);bad=observed_origins(root/"other")
+            api=CaseLauncher("N1");services=FakeDriverServices(api)
+            with patch.object(native,"execution_origins",side_effect=[good,bad]),self.assertRaises(ValueError):
+                native.run_controller(root,root/"outputs/msb_native_supervision_v1/acceptance_once/cases/N1","N1",case_binding(),services=services)
+            self.assertEqual(api.events,[])
+
+    def test_n4_cleanup_during_fault_snapshot_cannot_commit(self):
+        class GateLock:
+            def __init__(self):self.held=False
+            def acquire(self,*,timeout):
+                if self.held:return False
+                self.held=True;return True
+            def release(self):self.held=False
+        with tempfile.TemporaryDirectory() as tmp:
+            gate,services,case,ready=self.gate(tmp);gate.lock=GateLock();calls=[]
+            services.api.terminate_job=lambda handle:calls.append("terminate")
+            trace=native.TraceAPI(services.api,gate.events,case/"controller/trace.json",services,fault_gate=gate)
+            original=native._write_json
+            def write(path,value,**kw):
+                if Path(path).name=="fault_trace.json":trace.terminate_job(9)
+                original(path,value,**kw)
+            with patch.object(native,"_write_json",side_effect=write),self.assertRaises(RuntimeError):
+                native.parent_fault_after_ready(case,ready,services=services,gate=gate)
+            self.assertEqual(calls,["terminate"]);self.assertEqual(services.exits,[])
+
+    def test_n4_missing_live_or_snapshot_evidence_is_rejected(self):
+        for field in ("alive_before_fault","trace_complete","pre_fault_trace"):
+            records=[case_record(c) for c in ("N1","N2","N3","N4")]
+            del records[-1]["fault"][field]
+            with self.subTest(field=field):
+                self.assertFalse(native.classify_native_cases(records,outer_evidence=root_evidence())["accepted"])
