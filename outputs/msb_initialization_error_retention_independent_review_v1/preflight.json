@@ -1,0 +1,16 @@
+{
+  "head": "599643fbdc6782bc9f3c8827d4ac3587e788fc24",
+  "base": "d158b178d42ba996c017be15e11b2504e6136d56",
+  "index_empty": true,
+  "tracking_ahead": 0,
+  "tracking_behind": 0,
+  "protection_records": 143,
+  "protection_all_match": true,
+  "formal_reports_sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+  "preexisting_dirty_tracked_pngs": 6,
+  "preexisting_untracked_files": "present; untouched; excluded from archive whitelist",
+  "new_archive_destination_was_absent": true,
+  "agent_dispatches": 1,
+  "independent_review_status": "PENDING",
+  "no_runtime_execution": true
+}

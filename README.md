@@ -338,6 +338,8 @@ C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独�
 
 2026-10-20初始化异常保留实施更新：按另批的Task1完成[作者实施与有限合成验收](docs/experiment_records/2026-10-20_msb_initialization_error_retention_acceptance.md)。新固定根collector-red/green/final各一次：有效RED为78项9处断言失败，GREEN为78/78，final为235/235，原230个完整名保留、新增五方法，0失败/错误/跳过/预期失败/意外成功/受限未模拟调用。仅三原验收文件作最小捕获/许可/路径及测试变更，历史原件、网络/公式/矩阵和正式报告不变。当前AUTHOR_REPAIR_SYNTHETIC_ACCEPTED_INDEPENDENT_REVIEW_PENDING，不自动把旧独立REQUEST_CHANGES改为APPROVE；未开展新独立复查、原生验收或真实实验，不计为网络理论创新效果。
 
+2026-10-20初始化异常保留复查尝试更新：按单次授权冻结`599643f`，仅派发一个新上下文只读审查代理；代理因额度限制返回errored终态，未取得实质结论，已关闭且未重派。见[未取得结论的归档记录](docs/experiment_records/2026-10-20_msb_initialization_error_retention_independent_review.md)。当前仍为AUTHOR_REPAIR_SYNTHETIC_ACCEPTED_INDEPENDENT_REVIEW_PENDING，R4未获新独立裁定，不自动覆盖历史REQUEST_CHANGES。仅保存请求、错误原文和保护核对，不重跑235项日志、不改受审代码、网络、公式、矩阵或正式报告；原生和真实科学效果未验证，未放行任何新运行。后续独立复查须重新单次授权，额度终止归档不计为理论创新效果。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.

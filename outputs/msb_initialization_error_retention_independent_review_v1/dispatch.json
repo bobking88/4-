@@ -1,0 +1,23 @@
+{
+  "approval": "call_ebaa90568c544aec9169cb405e412507",
+  "frozen_head": "599643fbdc6782bc9f3c8827d4ac3587e788fc24",
+  "base": "d158b178d42ba996c017be15e11b2504e6136d56",
+  "agent_id": "01a157b1-6ddc-7881-8b72-e7c04466a583",
+  "nickname": "Herschel",
+  "fork_context": false,
+  "model_override": null,
+  "dispatch_count": 1,
+  "redispatch_allowed": false,
+  "terminal_conclusion_required": true,
+  "author_role": "protection and archive only; no duplicate independent review",
+  "scope": {
+    "read_only": true,
+    "tests_rerun": 0,
+    "forward": 0,
+    "fits": 0,
+    "timing_native_runs": 0,
+    "real_data_reads": 0,
+    "runtime_edits": 0,
+    "formal_report_edits": 0
+  }
+}
