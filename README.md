@@ -342,6 +342,8 @@ C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独�
 
 2026-10-20初始化异常保留新一次复查更新：按新单次授权，对固定`d158b178..599643f`取得[限定独立工程APPROVE](docs/experiment_records/2026-10-20_msb_initialization_error_retention_independent_review_v2.md)，R4为ADDRESSED，无新发现；既有235项日志只读核对，未重跑。一个新上下文代理、同一handle等待至终结后关闭，前次额度终止及历史REQUEST_CHANGES保持原件。七项未裁定事项均留存作者处置；源码、网络、公式、矩阵、正式报告及历史证据不改。原生准备度仍NOT_TESTED/证据不足，真实机制效果未验证；不放行新运行、不计为网络理论创新成果，原生协议/验收与真实科学实验仍分别另批。
 
+2026-10-20原生无数据验收协议登记更新：按仅文档/登记授权归档[待运行协议](docs/experiment_protocols/msb_native_supervision_v1.json)与[登记记录](docs/experiment_records/2026-10-20_msb_native_supervision_registration.md)，绑定既有43+3项源码及独立GitHub基线身份，固定N1--N4/480秒/每例一次/接电/失败即停。状态REGISTERED_AWAITING_NATIVE_APPROVAL，许可字段明确NOT_GRANTED，刻意不满足原生执行门；本次登记ID不是运行许可。原生输出目录未创建，不改代码、不运行测试/验收、不读真实数据、不训练、不改网络/公式/矩阵或正式报告，不派代理。当前仅登记，原生与真实机制效果仍NOT_TESTED；以后新原生批准需补真实许可并重新登记，真实科学实验亦另批，工程登记不计为理论创新验证。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.

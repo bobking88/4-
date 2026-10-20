@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-20",
+  "approval_call_id": "call_409c008b909c4a259fbd54f3c0ca6d87",
+  "question": "本次限定独立复查已APPROVE并归档b6a4ebd，R4为ADDRESSED；原生与真实科学效果仍未验证。是否批准下一步仅编写并在GitHub登记MSB-RRE原生无数据监督验收协议？绑定已复查源码身份及新的独立输出目录，遵循既有N1–N4四场景、480秒累计上限、接电和失败即停要求。仅登记，不改代码、不运行验收或测试、不读取真实数据、不训练、不改网络/公式/实验矩阵或正式报告；实际原生验收及真实机制实验仍另行批准。",
+  "answer": "批准仅编写与登记协议（推荐）",
+  "scope": "PROTOCOL_DOCUMENTATION_AND_GITHUB_REGISTRATION_ONLY",
+  "native_execution_authorized": false,
+  "scientific_execution_authorized": false,
+  "approved_baseline": "b6a4ebd287f66391d69357efea238372839d7d70",
+  "code_review_head": "599643fbdc6782bc9f3c8827d4ac3587e788fc24",
+  "agents_authorized": false,
+  "tests_authorized": false,
+  "protocol_approval_fields": "NOT_GRANTED sentinels; this documentation approval must not be inserted as native permission"
+}
