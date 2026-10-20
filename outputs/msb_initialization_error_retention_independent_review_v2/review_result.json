@@ -1,0 +1,110 @@
+{
+  "date": "2026-10-20",
+  "approval": "call_abc05649de6c4a29a47489b19a41b00c",
+  "review_base": "d158b178d42ba996c017be15e11b2504e6136d56",
+  "review_head": "599643fbdc6782bc9f3c8827d4ac3587e788fc24",
+  "checkout_head_before_archive": "0376efb009e5b21d7ed84e2c42052a1b13b45354",
+  "agent_id": "01a15869-1c05-7872-94a7-117c56fa3357",
+  "nickname": "Carver",
+  "dispatch_count": 1,
+  "redispatch_count": 0,
+  "wait_observation_timeouts": 3,
+  "terminal_status": "COMPLETED_WITH_SUBSTANTIVE_REVIEW",
+  "independent_review_verdict": "APPROVE",
+  "verdict_scope": "R4 initialization error retention minimum repair and frozen existing synthetic evidence only",
+  "r4_disposition": "ADDRESSED",
+  "new_findings": [],
+  "author_disposition": "ACCEPT_LIMITED_ENGINEERING_APPROVAL_NO_RUNTIME_PROMOTION",
+  "previous_request_changes": "PRESERVED_HISTORICAL_NOT_REWRITTEN",
+  "previous_no_conclusion_archive": "v1 preserved verbatim; not retroactively approved",
+  "existing_evidence_reviewed": {
+    "collector_red": {
+      "attempt": 1,
+      "tests": 78,
+      "failures": 9,
+      "errors": 0
+    },
+    "collector_green": {
+      "attempt": 1,
+      "tests": 78,
+      "failures": 0,
+      "errors": 0
+    },
+    "final": {
+      "attempt": 1,
+      "tests": 235,
+      "failures": 0,
+      "errors": 0
+    },
+    "old_qualified_names_retained": 230,
+    "added_methods": 5,
+    "fixed_modules": 10,
+    "raw_red_whitespace_lines": [
+      35,
+      41,
+      65
+    ],
+    "full_original_diff_check": "NONZERO_DISCLOSED_RAW_LOG_ONLY",
+    "code_and_author_docs_diff_check": "CLEAN_LIMITED",
+    "historic_clock_guard_gap": "PRESERVED_NOT_RETROACTIVELY_CLEARED"
+  },
+  "author_static_followup": {
+    "read": "approved specification and driver lines896-1014 only to scope received verdict; not duplicate full review",
+    "no_new_tests": true
+  },
+  "declined_item_rulings": [
+    {
+      "id": 1,
+      "behavior": "Windows IPC, Job, thread, power and hard-exit behavior",
+      "disposition": "ACCEPT_LIMITATION_NATIVE_NOT_TESTED",
+      "reason": "Synthetic evidence is not native causal evidence; no native acceptance or run approved."
+    },
+    {
+      "id": 2,
+      "behavior": "Arbitrary scheduling/blocking deadlines",
+      "disposition": "ACCEPT_LIMITATION_NO_UNIVERSAL_TIMELINESS_CLAIM",
+      "reason": "Only finite fake traces and existing contracts were reviewed; no new guarantee or repair inferred."
+    },
+    {
+      "id": 3,
+      "behavior": "Crash consistency and disk terminal revocation",
+      "disposition": "ACCEPT_CONTRACT_LIMITATION",
+      "reason": "No crash-consistency promise; disk RUNNING/PASS alone insufficient; actual return/stdout requirement retained."
+    },
+    {
+      "id": 4,
+      "behavior": "Transient AC loss between samples",
+      "disposition": "ACCEPT_LIMITATION_NO_CONTINUOUS_OBSERVATION_CLAIM",
+      "reason": "No extrapolation from sampled evidence to uninterrupted physical AC."
+    },
+    {
+      "id": 5,
+      "behavior": "Multiple errors before successful state creation plus release failure",
+      "disposition": "ACCEPT_NARROW_SCOPE_NOT_NEWLY_ADJUDICATED",
+      "reason": "Approved repair starts after state initialization; pre-state no-output contract retained. Full aggregation for compound pre-state faults not proved or newly promised; any expansion requires separate requirements review."
+    },
+    {
+      "id": 6,
+      "behavior": "Remote registration and current native run eligibility",
+      "disposition": "ARCHIVE_REMOTE_ONLY_NATIVE_NOT_AUTHORIZED",
+      "reason": "Parent verifies archival Git objects separately; archival readback neither native protocol registration nor run permission."
+    },
+    {
+      "id": 7,
+      "behavior": "Dirty PNGs, untracked files and formal-report physical integrity",
+      "disposition": "PARENT_HASH_PROTECTION_ONLY",
+      "reason": "153 scoped records protected, README intentional status append; two formal report hashes checked without reading body. Untracked artifacts not manipulated or exhaustively audited."
+    }
+  ],
+  "native_readiness": "NOT_TESTED_INSUFFICIENT_EVIDENCE",
+  "scientific_effect": "NOT_TESTED",
+  "author_tests_rerun": 0,
+  "author_forward": 0,
+  "author_fits": 0,
+  "author_timing_native_runs": 0,
+  "author_real_data_reads": 0,
+  "code_edits": 0,
+  "formal_report_edits": 0,
+  "reviewer_no_execution_or_writes": "ATTESTED_IN_RAW_REVIEW_AND_NO_PROTECTED_DRIFT",
+  "next_action": "STOP_AFTER_ARCHIVE; native protocol registration, native run, real mechanism protocol and real experiments require separate approvals"
+}

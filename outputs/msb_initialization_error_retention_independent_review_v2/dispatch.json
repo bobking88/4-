@@ -1,0 +1,22 @@
+{
+  "approval": "call_abc05649de6c4a29a47489b19a41b00c",
+  "checkout_head": "0376efb009e5b21d7ed84e2c42052a1b13b45354",
+  "review_base": "d158b178d42ba996c017be15e11b2504e6136d56",
+  "review_head": "599643fbdc6782bc9f3c8827d4ac3587e788fc24",
+  "agent_id": "01a15869-1c05-7872-94a7-117c56fa3357",
+  "nickname": "Carver",
+  "fork_context": false,
+  "model_override": null,
+  "dispatch_count": 1,
+  "redispatch_allowed": false,
+  "previous_attempt": "v1 preserved; terminal errored; no verdict",
+  "author_role": "protection and archive only; no duplicate review",
+  "restrictions": {
+    "read_only": true,
+    "no_tests": true,
+    "no_forward_fit_timing_native": true,
+    "no_real_data": true,
+    "no_code_network_formula_matrix_report_edits": true,
+    "no_nested_agents": true
+  }
+}

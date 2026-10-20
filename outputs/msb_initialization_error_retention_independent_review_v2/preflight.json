@@ -1,0 +1,28 @@
+{
+  "approval": "call_abc05649de6c4a29a47489b19a41b00c",
+  "checkout_head": "0376efb009e5b21d7ed84e2c42052a1b13b45354",
+  "review_head": "599643fbdc6782bc9f3c8827d4ac3587e788fc24",
+  "code_drift_since_review_head": false,
+  "only_prior_archive_paths_changed": [
+    "README.md",
+    "docs/experiment_records/2026-10-20_msb_initialization_error_retention_independent_review.md",
+    "outputs/msb_initialization_error_retention_independent_review_v1/dispatch.json",
+    "outputs/msb_initialization_error_retention_independent_review_v1/preflight.json",
+    "outputs/msb_initialization_error_retention_independent_review_v1/protection_after.json",
+    "outputs/msb_initialization_error_retention_independent_review_v1/protection_before.json",
+    "outputs/msb_initialization_error_retention_independent_review_v1/review_prompt.md",
+    "outputs/msb_initialization_error_retention_independent_review_v1/review_result.json",
+    "outputs/msb_initialization_error_retention_independent_review_v1/reviewer_close.json",
+    "outputs/msb_initialization_error_retention_independent_review_v1/reviewer_status.txt",
+    "outputs/msb_initialization_error_retention_independent_review_v1/reviewer_terminal.json"
+  ],
+  "protected_records": 153,
+  "all_protected_match": true,
+  "index_empty": true,
+  "remote_matches_checkout": true,
+  "dispatch_count": 1,
+  "author_tests_rerun": 0,
+  "author_real_data_reads": 0,
+  "author_native_runs": 0,
+  "previous_attempt_preserved": true
+}

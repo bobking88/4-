@@ -1,0 +1,52 @@
+**限定结论**
+`APPROVE`，仅限固定区间 `d158b178..599643f` 的 R4 最小修复及既有合成证据。**无新发现。**
+
+当前 HEAD 确为 `0376efb`；其后续差异仅属前次无结论归档，没有把 quota 终态视为缺陷或通过依据。
+
+**R4 处置**
+`ADDRESSED`，限本次初始化异常保留合同。
+
+- [驱动第933行](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/scripts/check_msb_native_supervision.py:933)已将两次初始化写入及首次 check 纳入 body catch；body 原始对象先保存，guard 退出异常随后独立保存。
+- [五个新增方法及夹具](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/tests/test_check_msb_native_supervision.py:1184)先实际写入并读回合成 `RUNNING`，再注入 AC、31秒 gap、480秒等号故障；调用原 guard/check/remaining/exit，不是直接 mock 成功聚合。
+- 三异常方法用 `is` 核对两个 primary 对象及顺序、`primary_error` 别名和独立 `persistence_error`；失败收据仅尝试一次，并承认磁盘可能仍为旧 `RUNNING`。
+- 两种初始化写前失败均保留前因；pre-state 三种拒绝保持无输出、零写入及无 launch/observe。
+- CLI 使用真实 main 控制路径，显式注入入口 `monotonic` 并断言一次，返回1，stdout 包含两因。
+
+**日志与身份**
+以下为既有记录核对，未重跑：
+
+| 阶段 | attempt | tests / failures / errors | 已读证据 |
+|---|---|---|---|
+| collector-red | 001 | 78 / 9 / 0 | [summary](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/outputs/msb_initialization_error_retention_synthetic_v1/collector-red/attempt-001/acceptance_summary.json)、[log](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/outputs/msb_initialization_error_retention_synthetic_v1/collector-red/attempt-001/synthetic_tests.log)、[snapshot](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/outputs/msb_initialization_error_retention_synthetic_v1/collector-red/attempt-001/source_snapshot.json) |
+| collector-green | 001 | 78 / 0 / 0 | [summary](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/outputs/msb_initialization_error_retention_synthetic_v1/collector-green/attempt-001/acceptance_summary.json)、[log](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/outputs/msb_initialization_error_retention_synthetic_v1/collector-green/attempt-001/synthetic_tests.log)、[snapshot](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/outputs/msb_initialization_error_retention_synthetic_v1/collector-green/attempt-001/source_snapshot.json) |
+| final | 001 | 235 / 0 / 0 | [summary](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/outputs/msb_initialization_error_retention_synthetic_v1/final/attempt-001/acceptance_summary.json)、[log](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/outputs/msb_initialization_error_retention_synthetic_v1/final/attempt-001/synthetic_tests.log)、[snapshot](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/outputs/msb_initialization_error_retention_synthetic_v1/final/attempt-001/source_snapshot.json) |
+
+另已读 [source_identity](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/outputs/msb_initialization_error_retention_synthetic_v1/final/source_identity.json) 与 [preservation_and_scope](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/outputs/msb_initialization_error_retention_synthetic_v1/final/preservation_and_scope.json)，合计指定11份证据。
+
+- 冻结树仅有上述三阶段，各一个 attempt。RED 九处均为功能断言失败：三种检查原因、CLI、三异常长度、两种初始化写入、两个新增许可子例；不是导入错误。
+- 与[旧230名称日志](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/outputs/msb_native_acceptance_repair_synthetic_v1/final/attempt-002/synthetic_tests.log)逐名比较：缺失0，新增恰为指定五方法；final 固定十模块、235个唯一完整名，全部 `ok`。
+- 三阶段 skipped、expected failures、unexpected successes、受守卫未模拟调用均为0；final 记录两次合成 scratch 张量回读。**这些计数不表示框架 bootstrap 或合成数值计算也被模拟。**
+- RED 快照中的驱动正文匹配 Base；GREEN/final 三文件正文匹配 Head，记录哈希与 final 身份清单一致；各快照53项保护身份一致。
+- 完整 `diff --check` 非零，仅报 RED 日志35、41、65行尾空格；代码与作者文档限定检查为 clean。披露准确，不要求清洗原始证据。
+- 另读了旧 collector-green/001 失败尾段；历史 monotonic 守卫缺口继续保留，不能倒推为原生成功或完全模拟证明。
+
+**读取与计划**
+已完整阅读三个受审源码、[规格](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/docs/superpowers/specs/2026-10-20-msb-initialization-error-retention-design.md)、[计划](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/docs/superpowers/plans/2026-10-20-msb-initialization-error-retention.md)、[作者验收记录](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/docs/experiment_records/2026-10-20_msb_initialization_error_retention_acceptance.md)、[原独立复查](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/docs/experiment_records/2026-10-20_msb_native_acceptance_repair_independent_review.md)，以及 README 本次差异；补读 [guard合同](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/scripts/lc_execution_safety.py:40)和[原生环境API段](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/scripts/check_lc_native_environment.py:41)。
+
+实施与计划对齐：[验收器](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/tests/run_msb_native_supervision_synthetic_acceptance.py)只改两处路径；两个 NON_NATIVE_IDS、五方法和隔离夹具路径同步均在约定范围。480秒、30秒、2秒及7200秒边界未改。
+
+保护清单记载131条基线记录扣除三项获准代码后，128条保护记录中127条匹配、README仅追加；这是记录数，不是去重文件数。本轮未重复父会话的实物保护核验。
+
+**考虑但不判断**
+1. Windows真实IPC、Job、线程、电源及硬退出行为：合成接口不能替代原生证据。
+2. 任意调度、阻塞下的实际时限保证：有限fake轨迹不足以证明。
+3. 崩溃一致性及磁盘终态撤销：合同未承诺；磁盘 `RUNNING` 或 PASS 均不能单独证明交付。
+4. 采样间隙瞬时断电：现有采样证据不支持连续观测保证。
+5. state建立前再叠加释放失败的完整原因聚合：本次捕获边界刻意不覆盖，只确认指定拒绝场景无输出。
+6. 远端登记及当前原生运行资格：未联网核验，也未获本轮运行授权。
+7. 六张脏PNG、其他未跟踪文件及正式报告的物理完整性：依授权由父会话保护核对，本轮未打开或重新哈希。
+
+**运行与科学边界**
+原生准备度：`NOT_TESTED / 证据不足`。科学效果：`NOT_TESTED`。235项合成通过不证明神经网络创新有效，不批准真实运行或科学实验。
+
+本次未执行测试、Python导入、前向、拟合、计时、原生/电源/空闲验收或网络探查；未写入任何文件、索引、HEAD或worktree，未派发代理。归档由父会话负责。
