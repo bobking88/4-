@@ -1,0 +1,169 @@
+{
+  "date": "2026-10-20",
+  "status": "OFFLINE_DIAGNOSIS_COMPLETED_NO_FIX_OR_RUNTIME_VALIDATION",
+  "base_commit": "950d3c9237fe68f10361355c094f93f7f42e249b",
+  "author_diagnosis_not_independent_review": true,
+  "failed_run": {
+    "status": "FAILED_NATIVE_SUPERVISION",
+    "registration_commit": "6b32e84322b63a50d2e877590425858e64c4318e",
+    "active_case": "N1",
+    "accepted_cases": 0,
+    "later_cases_started": false,
+    "elapsed_seconds": 35.7809999999954,
+    "exit_code": 1
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "certainty": "CONFIRMED_CONTRACT_MISMATCH",
+      "title": "Launched process identity is not the HELLO self identity in this trace",
+      "observed": {
+        "tracked_worker_pid": 11680,
+        "tracked_worker_created": "134369819644636078",
+        "hello_worker_pid": 23980,
+        "hello_parent_pid": 21844,
+        "outer_progress_pid": 35876,
+        "controller_ready_pid": 21844
+      },
+      "source_anchors": [
+        "scripts/check_msb_native_supervision.py:326",
+        "scripts/check_msb_native_supervision.py:379",
+        "scripts/check_msb_native_supervision.py:941",
+        "scripts/msb_execution_safety.py:377",
+        "scripts/msb_execution_safety.py:500",
+        "scripts/msb_execution_safety.py:512",
+        "scripts/check_msb_native_supervision.py:651"
+      ],
+      "evidence": [
+        "outputs/msb_native_supervision_v1/acceptance_once/cases/N1/controller/trace.json",
+        "outputs/msb_native_supervision_v1/acceptance_once/cases/N1/controller_ready.json",
+        "outputs/msb_native_supervision_native_result_v1/collector_stdout.log"
+      ],
+      "conclusion": "Parent binds process.pid while worker binds current_pid. These differ in the preserved trace, so strict HELLO equality must reject. The outer identity equality would also be incompatible with its recorded PID pair, but that acceptance gate was not reached.",
+      "not_proven": [
+        "That only worker_pid differed in the full HELLO",
+        "Actual sender creation time or authenticated sender identity",
+        "The exact installed launcher/descendant relationship",
+        "Actual worker Job membership or complete cleanup causality"
+      ]
+    },
+    {
+      "id": "F2",
+      "certainty": "CONFIRMED_DIAGNOSTIC_AMBIGUITY_UNRESOLVED_RUNTIME_CAUSE",
+      "title": "Observer stop boolean conflates callback failure and a live thread",
+      "source_anchors": [
+        "scripts/check_msb_native_supervision.py:552",
+        "scripts/check_msb_native_supervision.py:562",
+        "scripts/check_msb_native_supervision.py:867"
+      ],
+      "evidence": [
+        "outputs/msb_native_supervision_v1/acceptance_once/stage_state.json",
+        "outputs/msb_native_supervision_native_result_v1/collector_stdout.log"
+      ],
+      "conclusion": "stop_fault returns (not thread.is_alive()) AND (watch.error is None). finish emits the same stop error for either false case. watch.error is not persisted in these originals.",
+      "unknowns": [
+        "Whether join actually timed out",
+        "Whether callback terminated with an exception",
+        "The callback exception, stack and originating sample if any",
+        "A causal connection from the PID mismatch to the observer failure"
+      ]
+    },
+    {
+      "id": "F3",
+      "certainty": "CONFIRMED_READ_ONLY_COVERAGE_LIMIT",
+      "title": "Existing inspected fake paths do not establish native launcher or real-thread equivalence",
+      "source_anchors": [
+        "tests/test_msb_execution_safety.py:256",
+        "tests/test_msb_execution_safety.py:270",
+        "tests/test_check_msb_native_supervision.py:188",
+        "tests/test_check_msb_native_supervision.py:733",
+        "tests/test_check_msb_native_supervision.py:815"
+      ],
+      "conclusion": "The inspected launch fake uses matching PID 8 for process and HELLO; fake services return stop success, and one negative case injects False. These are valid bounded checks, not proof of native wrapper identity or callback-error diagnostics.",
+      "existing_synthetic_logs_rerun": false
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "status": "STRONGLY_SUPPORTED_BUT_LOCAL_CAUSALITY_UNVERIFIED",
+      "statement": "A Windows venv redirector launches a distinct Python interpreter, explaining both PID pairs.",
+      "supports": [
+        "F1",
+        "PY-VENV-311",
+        "CPY-LAUNCHER-3119",
+        "CPY-MP-3119"
+      ],
+      "missing_evidence": [
+        "Installed interpreter/venv identity",
+        "OS-derived exact launcher-to-interpreter chain and retained creation identities"
+      ],
+      "not_authorized_now": [
+        "Inspect interpreter configuration or binaries",
+        "New process/launch probe"
+      ]
+    },
+    {
+      "id": "H2",
+      "status": "UNRESOLVED_ALTERNATIVES",
+      "statement": "Observer callback failure and actual join timeout both remain possible because the persisted boolean loses their distinction.",
+      "supports": [
+        "F2"
+      ],
+      "no_specific_callback_exception_inferred": true
+    }
+  ],
+  "excluded_explanations": [
+    {
+      "claim": "A missing pause adapter caused this error",
+      "assessment": "Not supported: NativeMSBAPI.pause exists at scripts/msb_execution_safety.py:702 and NativeServices delegates at :540."
+    },
+    {
+      "claim": "The code mistook Thread.join returning None for a failed stop",
+      "assessment": "Contradicted by source: it ignores join's return and tests is_alive plus watch.error."
+    },
+    {
+      "claim": "The run exhausted the 480-second acceptance limit",
+      "assessment": "Contradicted by the existing 35.7809999999954-second root record."
+    },
+    {
+      "claim": "The currently registered source changed",
+      "assessment": "All 46 current raw SHA-256 values match the run protocol; no source edits made here."
+    }
+  ],
+  "minimum_repair_recommendations_not_implemented": [
+    {
+      "id": "R1",
+      "target": "Launch identity boundary shared by collector/controller/worker",
+      "recommendation": "Specify a launch path whose owned process is the actual interpreter, preserving the exact venv context. Otherwise a separately designed authenticated launcher/descendant identity chain is required. Do not adopt an untrusted HELLO PID or relax identity checks.",
+      "reference": "CPY-MP-3119",
+      "implementation_and_validation_require_new_approval": true
+    },
+    {
+      "id": "R2",
+      "target": "NativeServices start_fault/stop_fault and observer terminal evidence",
+      "recommendation": "Record thread_terminated, join_timed_out and callback failure separately; preserve typed primary and cleanup errors. Both abnormal cases remain failure, without claiming that callback failure means a live thread.",
+      "implementation_and_validation_require_new_approval": true
+    },
+    {
+      "id": "R3",
+      "target": "Future bounded counterexamples",
+      "recommendation": "Cover wrapper/interpreter PID mismatch at both launch levels, wrong HELLO rejection, callback failure after termination, still-alive join timeout, missing readiness and simultaneous cleanup failure. These tests are proposed, not authored or run.",
+      "implementation_and_validation_require_new_approval": true
+    }
+  ],
+  "scope_accounting": {
+    "source_edits": 0,
+    "project_imports": 0,
+    "synthetic_tests": 0,
+    "model_forwards": 0,
+    "fits": 0,
+    "new_native_entries": 0,
+    "new_process_or_timing_probes": 0,
+    "real_data_reads": 0,
+    "agents": 0,
+    "formal_report_edits": 0
+  },
+  "scientific_interpretation": "Engineering failure and offline diagnosis do not validate or refute MSB-RRE scientific benefit. Original network, loss, formulas, matrix and formal report stay unchanged.",
+  "next_gate": "Separate approval for a minimal written repair specification and implementation plan. No implementation or experiment is authorized by this diagnosis."
+}

@@ -1,0 +1,39 @@
+{
+  "access_date": "2026-10-20",
+  "status": "PRIMARY_OFFICIAL_REFERENCES_NOT_LOCAL_RUNTIME_VERIFICATION",
+  "sources": [
+    {
+      "id": "PY-VENV-311",
+      "url": "https://docs.python.org/3.11/library/venv.html",
+      "section": "EnvBuilder.post_setup, Windows changes in 3.7.2 and 3.7.3",
+      "claim": "Windows venv may use redirector executables; symlink configurations differ.",
+      "limit": "Does not identify the installed local interpreter version, binary or venv configuration."
+    },
+    {
+      "id": "CPY-LAUNCHER-3119",
+      "url": "https://github.com/python/cpython/blob/v3.11.9/PC/launcher.c",
+      "revision": "v3.11.9",
+      "section": "VENV_REDIRECT and run_child",
+      "claim": "The redirector variant locates the original Python; run_child creates a separate process and waits for it.",
+      "limit": "Historical upstream mechanism, not proof that this local binary took this path."
+    },
+    {
+      "id": "CPY-MP-3119",
+      "url": "https://github.com/python/cpython/blob/v3.11.9/Lib/multiprocessing/popen_spawn_win32.py",
+      "revision": "v3.11.9",
+      "section": "Popen.__init__, bpo-35797 branch",
+      "claim": "The standard library handles Windows venv redirection specially using the base executable plus venv-launcher environment context.",
+      "limit": "An implementation reference, not a drop-in repair or authorization to change this executor."
+    },
+    {
+      "id": "PY-THREAD-311",
+      "url": "https://docs.python.org/3.11/library/threading.html#threading.Thread.join",
+      "section": "Thread.join and Thread.is_alive",
+      "claim": "join may finish after normal or exceptional termination; is_alive distinguishes timeout after a timed join.",
+      "limit": "Does not establish the failed observer's final thread state or callback exception."
+    }
+  ],
+  "unavailable_source_note": "PC/venvlauncher.c URLs for the historical 3.11 tag did not provide usable evidence. The accessible historical source is PC/launcher.c. Unavailable pages, search snippets and current-main source are not proof of the installed runtime.",
+  "local_runtime_configuration_or_binary_opened": false,
+  "downloaded_runtime_source_files": false
+}

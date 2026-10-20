@@ -348,6 +348,8 @@ C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独�
 
 2026-10-20原生单次验收结果：按登记`6b32e84`只调用一次既有collector，结果[FAILED_NATIVE_SUPERVISION，实际退出1](docs/experiment_records/2026-10-20_msb_native_supervision_result.md)，在N1停止、N2--N4未启动，无重试。内层记录spawn PID与HELLO worker PID不一致、身份握手拒绝；外层记录observer未按要求停止，两项原件均保留，不猜测根因或放宽门限。记录根/父guard释放及受跟踪PID清理，但不宣称全部实际worker身份、线程或Job因果已证明；相关PID后续只读核对未见残留也不当通过证据。源码/网络/公式/矩阵和正式报告不变，无真实数据/前向/拟合；原生目录与授权已消费，未放行科学实验，这不是网络创新有效或无效的证据。后续离线定位、修复及任何新运行均另批，不续跑旧目录。
 
+2026-10-20原生N1失败离线定位更新：按新离线授权形成[根因定位与最小修复建议](docs/experiment_records/2026-10-20_msb_native_failure_offline_diagnosis.md)。确认父侧Popen身份与HELLO自报身份不匹配，外层controller也有同类PID差异；Windows venv重定向是有官方依据但本机因果未验证的解释。另确认观察器把“回调异常”与“线程未结束”合并为同一停止失败，原件未保存具体回调异常，不能断言线程卡死或二者因果。只归档作者离线诊断及保护证据，不改源码、不导入项目、不重跑测试或原生验收、不探查进程/计时、不读真实数据、不派代理、不改正式报告；旧失败目录/授权已消费，科学效果仍未验证，任何修复或新实验另批。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.

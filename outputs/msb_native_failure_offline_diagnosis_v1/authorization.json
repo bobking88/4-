@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-20",
+  "scope": "OFFLINE_NATIVE_FAILURE_ROOT_CAUSE_DIAGNOSIS_AND_ARCHIVE_ONLY",
+  "approval_call_id": "call_0ed0a8dae29d4d6aaa949f2752ff89ce",
+  "approval_answer": "批准离线定位及结论归档（推荐）",
+  "confirmed_from_human": true,
+  "base_commit": "950d3c9237fe68f10361355c094f93f7f42e249b",
+  "failed_native_registration_commit": "6b32e84322b63a50d2e877590425858e64c4318e",
+  "failed_native_output": "outputs/msb_native_supervision_v1/acceptance_once",
+  "allowed": [
+    "Read existing failed native originals and registered source as text",
+    "Read necessary primary official documentation",
+    "Write offline diagnosis and archive records; append README status",
+    "Scoped GitHub synchronization and content readback"
+  ],
+  "prohibited": [
+    "Source edits or project imports",
+    "Synthetic tests, model forwards or fits",
+    "New timing, process or native acceptance probes",
+    "Real prepared/fit/stop, images, cache or weights reads",
+    "Agents",
+    "Formal report edits",
+    "Retry, resume or deletion of consumed native output"
+  ],
+  "new_runtime_authorization": false,
+  "independent_review": false
+}
