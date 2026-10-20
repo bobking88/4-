@@ -336,6 +336,8 @@ C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独�
 
 2026-10-20初始化异常保留文档更新：按另行文档授权起草[单项最小修复规格](docs/superpowers/specs/2026-10-20-msb-initialization-error-retention-design.md)、[单任务实施计划](docs/superpowers/plans/2026-10-20-msb-initialization-error-retention.md)及[作者文档记录](docs/experiment_records/2026-10-20_msb_initialization_error_retention_planning.md)。仅DOCUMENTED_NOT_IMPLEMENTED_NOT_RUN，R4仍PARTIAL/UNFIXED、REQUEST_CHANGES不变。未来拟用新根collector-red/green/final三阶段有限合成验收，当前未创建或运行；源码/测试、网络/公式/矩阵、正式报告及历史230项证据不改。书面文件待审，开发、独立复查、原生验收及真实科学实验仍另批，文档不计为网络理论创新验证。
 
+2026-10-20初始化异常保留实施更新：按另批的Task1完成[作者实施与有限合成验收](docs/experiment_records/2026-10-20_msb_initialization_error_retention_acceptance.md)。新固定根collector-red/green/final各一次：有效RED为78项9处断言失败，GREEN为78/78，final为235/235，原230个完整名保留、新增五方法，0失败/错误/跳过/预期失败/意外成功/受限未模拟调用。仅三原验收文件作最小捕获/许可/路径及测试变更，历史原件、网络/公式/矩阵和正式报告不变。当前AUTHOR_REPAIR_SYNTHETIC_ACCEPTED_INDEPENDENT_REVIEW_PENDING，不自动把旧独立REQUEST_CHANGES改为APPROVE；未开展新独立复查、原生验收或真实实验，不计为网络理论创新效果。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.

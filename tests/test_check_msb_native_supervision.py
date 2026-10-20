@@ -1,5 +1,7 @@
 """Contracts use scratch metadata and simulated interfaces only."""
 import copy
+from contextlib import contextmanager, redirect_stdout
+import io
 import json
 import math
 import os
@@ -127,7 +129,7 @@ class HarnessGateTests(unittest.TestCase):
             try:
                 with patch.object(harness,"ROOT",Path(tmp)),patch.object(harness,"_snapshot_sources",return_value={}),patch.object(harness,"_run_modules",return_value=r):
                     code=harness.main(["--phase","contract-green"])
-                summary=json.loads((Path(tmp)/"outputs/msb_native_acceptance_repair_synthetic_v1/contract-green/attempt-001/acceptance_summary.json").read_text())
+                summary=json.loads((Path(tmp)/"outputs/msb_initialization_error_retention_synthetic_v1/contract-green/attempt-001/acceptance_summary.json").read_text())
                 self.assertEqual((code,summary["status"],summary["skipped"]),(1,"FAILED",1))
             finally:
                 os.chdir(previous[0]);tempfile.tempdir=previous[1];sys.path[:]=previous[2]
@@ -909,7 +911,8 @@ class OriginRepairTests(unittest.TestCase):
 
     def test_current_document_and_development_permissions_are_not_native(self):
         for token in ("call_03a86c6e5b064586b7bb980fa04b2a53","call_d538a55e3a7b401fa4709a0d3914bb24",
-                      "call_7f515c71f122488da5242db3dc69dd60"):
+                      "call_7f515c71f122488da5242db3dc69dd60",
+                      "call_29684c57aed94222832ace218cd392be","call_754f23a7456b4c5cbe8e744ba0dd6114"):
             protocol=fixture_protocol();protocol["approval_call_id"]=token
             with self.subTest(token=token),self.assertRaises(ValueError):
                 native._validate_protocol_fields(protocol,approval=fixture_approval(protocol))
@@ -1176,3 +1179,134 @@ class FinalRepairTests(unittest.TestCase):
             self.assertEqual(len(service.environment.requests),2)
             self.assertTrue(result.get("final_continuity",{}).get("verified"))
             self.assertEqual(len(result.get("postflight_checks",[])),2)
+
+
+class InitializationErrorRetentionTests(unittest.TestCase):
+    protocol_file=CollectorTests.protocol_file
+
+    @contextmanager
+    def _initial_fault(self,service,*,mode=None,write_name=None,write_error=None,persistence_error=None):
+        from lc_execution_safety import WindowsAwakeGuard
+        observed=dict(running=None,check_errors=[],release_errors=[],failure_writes=0,write_failed=False)
+        original_factory=service.collector_guard
+        original_remaining=native._remaining
+        original_exit=WindowsAwakeGuard.__exit__
+        original_write=service.write_json
+        def remaining(*args):
+            try:return original_remaining(*args)
+            except BaseException as error:
+                if observed["running"] is not None:observed["check_errors"].append(error)
+                raise
+        def factory():
+            guard=original_factory();original_check=guard.check
+            def check():
+                try:return original_check()
+                except BaseException as error:
+                    if observed["running"] is not None:observed["check_errors"].append(error)
+                    raise
+            guard.check=check
+            return guard
+        def release(guard,*args):
+            try:return original_exit(guard,*args)
+            except BaseException as error:
+                observed["release_errors"].append(error)
+                raise
+        def write(path,value,*,exclusive=False):
+            path=Path(path)
+            if value.get("status")=="FAILED_NATIVE_SUPERVISION":
+                observed["failure_writes"]+=1
+                if persistence_error is not None:raise persistence_error
+            if path.name==write_name and not observed["write_failed"]:
+                observed["write_failed"]=True
+                raise write_error
+            original_write(path,value,exclusive=exclusive)
+            if (path.name=="stage_state.json" and value.get("status")=="RUNNING"
+                    and value.get("active_case") is None and observed["running"] is None):
+                observed["running"]=json.loads(path.read_text())
+                if mode=="ac":service.environment.ac=False
+                elif mode=="gap":service.api.now+=31000
+                elif mode=="deadline":service.api.now=value["binding"]["start_tick_ms"]+480000
+        with patch.object(service,"collector_guard",side_effect=factory),patch.object(native,"_remaining",side_effect=remaining),\
+                patch.object(WindowsAwakeGuard,"__exit__",release),patch.object(service,"write_json",side_effect=write):
+            yield observed
+
+    def test_initial_running_check_failure_and_release_preserve_both_causes(self):
+        for mode in ("ac","gap","deadline"):
+            with self.subTest(mode=mode),tempfile.TemporaryDirectory() as tmp:
+                root,path,p,a=self.protocol_file(tmp);service=FakeCollectorServices();service.environment.release_error=True
+                with self._initial_fault(service,mode=mode) as seen:
+                    result=native.run_acceptance(root,path,execute_native=True,approval=a,services=service)
+                self.assertEqual(seen["running"]["status"],"RUNNING")
+                self.assertIsNone(seen["running"]["active_case"])
+                self.assertEqual((len(seen["check_errors"]),len(seen["release_errors"])),(1,1))
+                self.assertEqual([e["phase"] for e in result["errors"]],["body","collector_scope_or_release"])
+                for row,error in zip(result["errors"],seen["check_errors"]+seen["release_errors"]):
+                    self.assertEqual((row["type"],row["message"]),(type(error).__name__,str(error)))
+                self.assertEqual(result["status"],"FAILED_NATIVE_SUPERVISION");self.assertFalse(result["delivery_verified"])
+                self.assertEqual(result["case_records"],[])
+                self.assertFalse(any(c[0] in ("launch","observe") for c in service.calls))
+                self.assertFalse(result["root_power"]["power_request_released"])
+                self.assertEqual(seen["failure_writes"],1)
+
+    def test_initial_running_triple_failure_preserves_exception_objects(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root,path,p,a=self.protocol_file(tmp);service=FakeCollectorServices();service.environment.release_error=True
+            persistence=OSError("synthetic failure receipt unavailable");caught=None
+            with self._initial_fault(service,mode="ac",persistence_error=persistence) as seen:
+                try:native.run_acceptance(root,path,execute_native=True,approval=a,services=service)
+                except BaseException as error:caught=error
+            self.assertIsInstance(caught,native.AcceptancePublicationError)
+            self.assertEqual(len(caught.primary_errors),2)
+            self.assertIs(caught.primary_errors[0],seen["check_errors"][0])
+            self.assertIs(caught.primary_errors[1],seen["release_errors"][0])
+            self.assertIs(caught.primary_error,caught.primary_errors[0]);self.assertIs(caught.persistence_error,persistence)
+            self.assertEqual(seen["failure_writes"],1)
+            self.assertEqual(caught.failed_state["status"],"FAILED_NATIVE_SUPERVISION")
+            self.assertFalse(caught.failed_state["delivery_verified"])
+            self.assertFalse(caught.failed_state["failure_record_persisted"])
+            self.assertEqual(json.loads((root/p["output_relative"]/"stage_state.json").read_text())["status"],"RUNNING")
+
+    def test_initial_write_failure_and_release_preserve_both_causes(self):
+        for name in ("registered_protocol.json","stage_state.json"):
+            with self.subTest(name=name),tempfile.TemporaryDirectory() as tmp:
+                root,path,p,a=self.protocol_file(tmp);service=FakeCollectorServices();service.environment.release_error=True
+                original=OSError("synthetic initialization write failed: "+name)
+                with self._initial_fault(service,write_name=name,write_error=original) as seen:
+                    result=native.run_acceptance(root,path,execute_native=True,approval=a,services=service)
+                self.assertTrue(seen["write_failed"]);self.assertIsNone(seen["running"])
+                self.assertEqual([e["phase"] for e in result["errors"]],["body","collector_scope_or_release"])
+                self.assertEqual((result["errors"][0]["type"],result["errors"][0]["message"]),("OSError",str(original)))
+                self.assertEqual(result["errors"][1]["message"],str(seen["release_errors"][0]))
+                self.assertEqual(result["case_records"],[]);self.assertFalse(result["delivery_verified"])
+                self.assertFalse(any(c[0] in ("launch","observe") for c in service.calls))
+                self.assertEqual(seen["failure_writes"],1)
+                self.assertEqual(json.loads((root/p["output_relative"]/"stage_state.json").read_text())["status"],"FAILED_NATIVE_SUPERVISION")
+
+    def test_initial_running_failure_cli_is_nonzero_and_clock_injected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root,path,p,a=self.protocol_file(tmp);service=FakeCollectorServices();service.environment.release_error=True
+            flags=["--root",str(root),"--protocol",str(path),"--execute-native",
+                   "--approval-call-id",a["call_id"],"--approval-answer",a["answer"],"--registration-commit","a"*40]
+            stdout=io.StringIO()
+            with self._initial_fault(service,mode="ac") as seen,patch.object(native,"NativeServices",return_value=service),\
+                    patch("time.monotonic",side_effect=service.monotonic) as clock,redirect_stdout(stdout):
+                code=native.main(flags)
+            self.assertEqual(code,1);self.assertEqual(clock.call_count,1)
+            result=json.loads(stdout.getvalue())
+            self.assertEqual([e["phase"] for e in result["errors"]],["body","collector_scope_or_release"])
+            self.assertEqual(result["errors"][0]["message"],str(seen["check_errors"][0]))
+            self.assertFalse(any(c[0] in ("launch","observe") for c in service.calls))
+
+    def test_pre_state_rejection_preserves_no_output_contract(self):
+        for mode in ("registration","sources","guard_entry"):
+            with self.subTest(mode=mode),tempfile.TemporaryDirectory() as tmp:
+                root,path,p,a=self.protocol_file(tmp);service=FakeCollectorServices()
+                if mode=="registration":service.registration_ok=False
+                elif mode=="sources":service.sources_ok=False
+                else:service.environment.ac=False
+                caught=None
+                try:native.run_acceptance(root,path,execute_native=True,approval=a,services=service)
+                except BaseException as error:caught=error
+                self.assertIsInstance(caught,RuntimeError if mode=="guard_entry" else ValueError)
+                self.assertFalse((root/p["output_relative"]).exists());self.assertEqual(service.writes,0)
+                self.assertFalse(any(c[0] in ("launch","observe") for c in service.calls))

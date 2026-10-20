@@ -65,6 +65,7 @@ CASES = (
     dict(case_id="N4", limit=45, exit_code=31),
 )
 NON_NATIVE_IDS = {
+    "call_29684c57aed94222832ace218cd392be", "call_754f23a7456b4c5cbe8e744ba0dd6114",
     "call_03a86c6e5b064586b7bb980fa04b2a53", "call_d538a55e3a7b401fa4709a0d3914bb24",
     "call_7f515c71f122488da5242db3dc69dd60",
     "call_a42aed1b7bab474bb17246c3df69dc4e", "call_6961d4dac6b64d7aba8e538f01c5e097",
@@ -929,9 +930,9 @@ def run_acceptance(root: Path, protocol_path: Path, *, execute_native: bool, app
                        registration_verified=True,source_identity_verified=True,case_records=[],
                        real_data_opened=False,real_fits=0,model_forwards=0,
                        native_os_exercised=not getattr(services,"simulated",False),delivery_verified=False)
-            services.write_json(output/"registered_protocol.json",protocol,exclusive=True)
-            services.write_json(output/"stage_state.json",state,exclusive=True);check()
             try:
+                services.write_json(output/"registered_protocol.json",protocol,exclusive=True)
+                services.write_json(output/"stage_state.json",state,exclusive=True);check()
                 for case in CASES:
                     check();services.verify_sources(root,protocol);check()
                     case_dir=output/"cases"/case["case_id"];case_dir.mkdir(parents=True,exist_ok=False)
