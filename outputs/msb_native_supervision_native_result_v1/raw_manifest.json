@@ -1,0 +1,124 @@
+{
+  "date": "2026-10-20",
+  "scope": "FAILED_SINGLE_NATIVE_NO_DATA_RUN_RAW_EVIDENCE",
+  "registration_commit": "6b32e84322b63a50d2e877590425858e64c4318e",
+  "approval": "call_3f51cdd2cc0040929106824e0c335950",
+  "original_native_files": 9,
+  "entry_log_files": 2,
+  "total_files": 11,
+  "all_175_pre_entry_records_unchanged_before_archive": true,
+  "capability_review": "All9 native metadata/log outputs and two entry logs inspected; only nonce_sha256 digest, no raw nonce or inherited handle values; not a general security proof",
+  "raw_vs_git": "Raw local bytes retained; Git normalizes CRLF to LF, so raw SHA256 and LF/blob identities recorded separately",
+  "files": [
+    {
+      "source_path": "outputs/msb_native_supervision_v1/acceptance_once/registered_protocol.json",
+      "archive_path": "outputs/msb_native_supervision_v1/acceptance_once/registered_protocol.json",
+      "kind": "ORIGINAL_NATIVE_DRIVER_OUTPUT",
+      "bytes": 5424,
+      "raw_sha256": "caea9cb9d425551ebd602e3eaf58d910114318a87f4742e566e8953a33de1ca7",
+      "normalized_lf_sha256": "ede165dead45b87ff4d81fe549707f6370273f9061d2aa821ce643914ff70947",
+      "git_blob_sha1": "18b6bffaecd9106704039b9e2ae7b3cc2da6c86c",
+      "raw_nonce_or_inherited_handle_fields_found": false
+    },
+    {
+      "source_path": "outputs/msb_native_supervision_v1/acceptance_once/stage_state.json",
+      "archive_path": "outputs/msb_native_supervision_v1/acceptance_once/stage_state.json",
+      "kind": "ORIGINAL_NATIVE_DRIVER_OUTPUT",
+      "bytes": 1264,
+      "raw_sha256": "a1e8d17559f2ffdb2a124506bc634ddf62b0fdf28cd554c9c7f49239d3f61a83",
+      "normalized_lf_sha256": "b9bb6d09173280aef26d785357bf6aa93ec2d9a8d2fcecf094641a59c8b83db0",
+      "git_blob_sha1": "2d41fd37c692107203547ff3d9a538c6fa6e8ef6",
+      "raw_nonce_or_inherited_handle_fields_found": false
+    },
+    {
+      "source_path": "outputs/msb_native_supervision_v1/acceptance_once/cases/N1/controller_ready.json",
+      "archive_path": "outputs/msb_native_supervision_v1/acceptance_once/cases/N1/controller_ready.json",
+      "kind": "ORIGINAL_NATIVE_DRIVER_OUTPUT",
+      "bytes": 313,
+      "raw_sha256": "623b996ad292798bea3a6170d1c98a1427faa577f44cfdd8285c81368ecd6b5c",
+      "normalized_lf_sha256": "e0c67f717a3f5403d132804a779de394a3b65c10c5e055341e24fb0bb8dcc61f",
+      "git_blob_sha1": "b2b03fe8b1fc2905fe1602521de2ec1948d70023",
+      "raw_nonce_or_inherited_handle_fields_found": false
+    },
+    {
+      "source_path": "outputs/msb_native_supervision_v1/acceptance_once/cases/N1/controller.log",
+      "archive_path": "outputs/msb_native_supervision_v1/acceptance_once/cases/N1/controller.log",
+      "kind": "ORIGINAL_NATIVE_DRIVER_OUTPUT",
+      "bytes": 562,
+      "raw_sha256": "8e4a16c2e25e376ba0e749d59c624a3c1c6e6ad943c850e3a1350937a9284d48",
+      "normalized_lf_sha256": "cb6eaaface31155175a411957761c3f65e47cd22675c1bfb49740afc8aa800a1",
+      "git_blob_sha1": "5700dfef34e8440152517ef9d9619f75a2c0b449",
+      "raw_nonce_or_inherited_handle_fields_found": false
+    },
+    {
+      "source_path": "outputs/msb_native_supervision_v1/acceptance_once/cases/N1/controller/controller_result.json",
+      "archive_path": "outputs/msb_native_supervision_v1/acceptance_once/cases/N1/controller/controller_result.json",
+      "kind": "ORIGINAL_NATIVE_DRIVER_OUTPUT",
+      "bytes": 1638,
+      "raw_sha256": "690ea87612d1a0e087b68d1029a9607d718af489e29fc1aa67aadcef80a71e50",
+      "normalized_lf_sha256": "906ed240e8320ea08a2acca57d409f5394a915e2791630eab88f2e7d6edb3425",
+      "git_blob_sha1": "2f17a12709205b22fc8242d4c231a3c25a2706bc",
+      "raw_nonce_or_inherited_handle_fields_found": false
+    },
+    {
+      "source_path": "outputs/msb_native_supervision_v1/acceptance_once/cases/N1/controller/stage_state.json",
+      "archive_path": "outputs/msb_native_supervision_v1/acceptance_once/cases/N1/controller/stage_state.json",
+      "kind": "ORIGINAL_NATIVE_DRIVER_OUTPUT",
+      "bytes": 826,
+      "raw_sha256": "527177e8ea935e0e3b1b541b4db602141068f86a46544c3083ff588142831998",
+      "normalized_lf_sha256": "9038b6a43e26f7de37ba210d428970f323957c76af441374c591414d2c4ad8bd",
+      "git_blob_sha1": "e5feca2a07211988a5624f89a3c9bb862de9d30d",
+      "raw_nonce_or_inherited_handle_fields_found": false
+    },
+    {
+      "source_path": "outputs/msb_native_supervision_v1/acceptance_once/cases/N1/controller/trace.json",
+      "archive_path": "outputs/msb_native_supervision_v1/acceptance_once/cases/N1/controller/trace.json",
+      "kind": "ORIGINAL_NATIVE_DRIVER_OUTPUT",
+      "bytes": 432,
+      "raw_sha256": "955731e09270bc4407c586e1aeffb0cfa323fd8f484cb2a51f4cb1ca47dfafb7",
+      "normalized_lf_sha256": "0fec3a4239b39e31f1b41c986cf57b77342ac1a5f2a8dcc8560b0e0e46b1f9e4",
+      "git_blob_sha1": "53928bfe9e5b2a83316e9bd4715b88f3c2d90462",
+      "raw_nonce_or_inherited_handle_fields_found": false
+    },
+    {
+      "source_path": "outputs/msb_native_supervision_v1/acceptance_once/cases/N1/controller/runs/N1/packet.json",
+      "archive_path": "outputs/msb_native_supervision_v1/acceptance_once/cases/N1/controller/runs/N1/packet.json",
+      "kind": "ORIGINAL_NATIVE_DRIVER_OUTPUT",
+      "bytes": 698,
+      "raw_sha256": "7131019bd42eea5a2577c12e752c5df2f450c2773f0137881bf2d603a3a78cc8",
+      "normalized_lf_sha256": "99e2c771361c2c6cea1446eba1421478e170f9c51070252552ff1d0c162646a8",
+      "git_blob_sha1": "3e12c488a7936ddd8cd98144e3afc0312fd53c11",
+      "raw_nonce_or_inherited_handle_fields_found": false
+    },
+    {
+      "source_path": "outputs/msb_native_supervision_v1/acceptance_once/cases/N1/controller/runs/N1/worker.log",
+      "archive_path": "outputs/msb_native_supervision_v1/acceptance_once/cases/N1/controller/runs/N1/worker.log",
+      "kind": "ORIGINAL_NATIVE_DRIVER_OUTPUT",
+      "bytes": 0,
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "normalized_lf_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob_sha1": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "raw_nonce_or_inherited_handle_fields_found": false
+    },
+    {
+      "source_path": ".superpowers/sdd/2026-10-20-msb-native-supervision-execution/collector_stdout.log",
+      "archive_path": "outputs/msb_native_supervision_native_result_v1/collector_stdout.log",
+      "kind": "EXACT_COPY_OF_ENTRY_STDOUT",
+      "bytes": 1350,
+      "raw_sha256": "fad60e986b0aa0b3e296a59489d9ab2f6b90e0611a4ff2d949bf356bcb2f407b",
+      "normalized_lf_sha256": "237c9b40c6e488de059f394c7d3f056c2c991269625911a4abbe86b5463aea9e",
+      "git_blob_sha1": "732bec275978fd00bf8b34ce79f294a557897859",
+      "raw_nonce_or_inherited_handle_fields_found": false
+    },
+    {
+      "source_path": ".superpowers/sdd/2026-10-20-msb-native-supervision-execution/collector_stderr.log",
+      "archive_path": "outputs/msb_native_supervision_native_result_v1/collector_stderr.log",
+      "kind": "EXACT_COPY_OF_ENTRY_STDERR",
+      "bytes": 0,
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "normalized_lf_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob_sha1": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "raw_nonce_or_inherited_handle_fields_found": false
+    }
+  ]
+}

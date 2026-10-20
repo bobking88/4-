@@ -1,0 +1,33 @@
+{
+  "approval": "call_3f51cdd2cc0040929106824e0c335950",
+  "registration_commit": "6b32e84322b63a50d2e877590425858e64c4318e",
+  "launch_tool_result": {
+    "chunk_id": "8b59e8",
+    "wall_time_seconds": 10.0079052,
+    "session_id": 98223,
+    "original_token_count": 0,
+    "output": ""
+  },
+  "terminal_tool_result": {
+    "chunk_id": "aeff78",
+    "wall_time_seconds": 8.8417364,
+    "exit_code": 1,
+    "original_token_count": 15,
+    "output": "NATIVE_COLLECTOR_EXIT_CODE=1\r\nCOLLECTOR_STDOUT_BYTES=1350\r\n"
+  },
+  "post_failure_safety_check": {
+    "purpose": "ONE_READ_ONLY_POST_FAILURE_SAFETY_CHECK_OF_EXACT_RECORDED_PIDS_NOT_A_NEW_TEST",
+    "recorded_pids": [
+      35876,
+      21844,
+      11680,
+      23980
+    ],
+    "currently_present": [],
+    "any_kill_performed": false,
+    "identity_limit": "PID absence is not retained-handle or Job-causality proof; no process was terminated by PID"
+  },
+  "postprocessing_disclosure": "Initial whole-file ConvertFrom-Json rejected extra text because actual stdout contains progress JSON plus terminal JSON. Raw file preserved; later read each nonempty line as JSON and matched terminal to disk. This was not a second native entry or code change.",
+  "independent_review_of_native_result": false,
+  "source_code_unchanged": true
+}

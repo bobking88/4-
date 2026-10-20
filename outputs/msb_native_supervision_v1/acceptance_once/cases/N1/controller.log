@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 1067, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 1056, in main
+    if not valid:raise RuntimeError("Unexpected inner case outcome")
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Unexpected inner case outcome

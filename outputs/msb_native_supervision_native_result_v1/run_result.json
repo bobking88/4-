@@ -1,0 +1,96 @@
+{
+  "date": "2026-10-20",
+  "scope": "ONE_FIXED_NATIVE_SUPERVISION_NO_DATA_ACCEPTANCE",
+  "approval": "call_3f51cdd2cc0040929106824e0c335950",
+  "registration_commit": "6b32e84322b63a50d2e877590425858e64c4318e",
+  "reviewed_source_commit": "599643fbdc6782bc9f3c8827d4ac3587e788fc24",
+  "status": "FAILED_NATIVE_SUPERVISION",
+  "actual_collector_exit_code": 1,
+  "actual_entry_dispatches": 1,
+  "retries": 0,
+  "authorization_consumed": true,
+  "output_consumed": true,
+  "active_case": "N1",
+  "case_directories": [
+    "N1"
+  ],
+  "accepted_case_count": 0,
+  "later_cases_status": {
+    "N2": "NOT_STARTED",
+    "N3": "NOT_STARTED",
+    "N4": "NOT_STARTED"
+  },
+  "registration_verified": true,
+  "source_identity_verified": true,
+  "registered_protocol_copy_matches": true,
+  "elapsed_seconds": 35.7809999999954,
+  "acceptance_limit_seconds": 480,
+  "delivery_verified": false,
+  "stdout_terminal_matches_disk": true,
+  "stdout_framing": {
+    "records": 2,
+    "first": "LC outer progress JSON",
+    "last": "collector terminal JSON",
+    "whole_file_is_single_json": false
+  },
+  "observed_failures": [
+    {
+      "layer": "N1 inner MSB worker identity handshake",
+      "status": "SUPERVISION_INTERRUPTED",
+      "error": "RuntimeError: SUPERVISION_INTERRUPTED: worker HELLO identity differs",
+      "tracked_spawn_pid": 11680,
+      "hello_worker_pid": 23980,
+      "hello_parent_pid": 21844,
+      "parent_binding_verified": false,
+      "job_assignment_recorded": true,
+      "end_handshake_verified": false,
+      "confirmed": "The recorded spawn PID and received HELLO worker PID differ; handshake rejected before normal N1 work acceptance."
+    },
+    {
+      "layer": "collector observer finalization",
+      "error": "SUPERVISION_INTERRUPTED: observer did not stop before final sample",
+      "phase": "body",
+      "confirmed": "Collector reports observer did not stop before final sample; case_records remains empty."
+    }
+  ],
+  "root_cause_status": "NOT_ESTABLISHED_NO_FURTHER_PROBES_OR_CODE_CHANGES",
+  "error_causality_limit": "Both observed errors retained; no unverified operating-system or launcher cause asserted.",
+  "cleanup_evidence": {
+    "tracked_worker_pid": 11680,
+    "tracked_worker_alive": false,
+    "tracked_worker_exit_code": 1,
+    "tracked_worker_exit_confirmed": true,
+    "tracked_worker_cleanup_confirmed": true,
+    "terminate_job_recorded": true,
+    "creation_uncertain": false,
+    "parent_power_request_released": true,
+    "root_power_request_released": true,
+    "collector_observer_stop_unconfirmed": true,
+    "additional_author_process_kills": 0,
+    "post_failure_exact_pid_presence_check": {
+      "purpose": "ONE_READ_ONLY_POST_FAILURE_SAFETY_CHECK_OF_EXACT_RECORDED_PIDS_NOT_A_NEW_TEST",
+      "recorded_pids": [
+        35876,
+        21844,
+        11680,
+        23980
+      ],
+      "currently_present": [],
+      "any_kill_performed": false,
+      "identity_limit": "PID absence is not retained-handle or Job-causality proof; no process was terminated by PID"
+    },
+    "limitations": "Inner cleanup receipt is for tracked spawn PID; failed identity binding prevents claiming fully verified actual worker identity/Job cleanup, all-thread or all-handle proof. PID absence does not repair that evidence gap."
+  },
+  "real_data_opened": false,
+  "real_fits": 0,
+  "model_forwards": 0,
+  "scientific_effect": "NOT_TESTED_NOT_A_MODEL_FAILURE_RESULT",
+  "all_175_pre_entry_protection_records_unchanged_before_archive": true,
+  "source_edits": 0,
+  "formal_report_edits": 0,
+  "synthetic_tests_run": 0,
+  "additional_timing_idle_probes": 0,
+  "agents_dispatched": 0,
+  "raw_manifest": "raw_manifest.json",
+  "followup": "STOP_NO_RETRY_NO_CONTINUATION_NO_CODE_FIX. Offline cause analysis/specification and any future run require separate authorization and a new single-use protocol/destination. No scientific run released."
+}

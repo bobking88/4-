@@ -1,0 +1,1 @@
+{"pid": 21844, "created": 134369819590203162, "binding": {"run_id": "af6f19d0b7bf4025a5ed048fbd77299f", "protocol_digest": "3739abc4af810e3b8e81ff79d65888c8508cf78297c7263bea1b129f52dafddf", "start_monotonic": 43722.828, "start_tick_ms": 43739218, "deadline_tick_ms": 50939218, "case_limits": [90, 45, 75, 45]}}
