@@ -1,0 +1,60 @@
+{
+  "date": "2026-10-20",
+  "status": "AUTHOR_DOCUMENT_SELF_CHECK_ONLY",
+  "base_commit": "73bf05bb9668aa0ead6e9244be6d9334a3d5df34",
+  "spec": "docs/superpowers/specs/2026-10-20-msb-python-launch-observer-repair-design.md",
+  "plan": "docs/superpowers/plans/2026-10-20-msb-python-launch-observer-repair.md",
+  "future_code_whitelist": [
+    "scripts/msb_execution_safety.py",
+    "scripts/run_lc_role_adaptation.py",
+    "scripts/check_msb_native_supervision.py",
+    "tests/test_msb_execution_safety.py",
+    "tests/test_check_msb_native_supervision.py",
+    "tests/run_msb_native_supervision_synthetic_acceptance.py"
+  ],
+  "planned_tasks": 3,
+  "planned_steps": 15,
+  "implemented_steps": 0,
+  "planned_new_test_methods": 12,
+  "existing_test_method_names_to_preserve": 235,
+  "expected_future_final_methods": 247,
+  "expected_count_not_executed": true,
+  "future_phase_order": [
+    "contract-red",
+    "contract-green",
+    "worker-red",
+    "worker-green",
+    "collector-red",
+    "collector-green",
+    "final"
+  ],
+  "max_future_attempts_per_phase": 3,
+  "future_execution_order": [
+    "Task3 Step1 harness support",
+    "Task1",
+    "Task2",
+    "Task3 Steps2-5"
+  ],
+  "interfaces_consistent": true,
+  "new_methods_have_red_green_placement": true,
+  "native_api_buffer_wchars": 32768,
+  "official_api_documents": [
+    "https://learn.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-getmodulefilenamew",
+    "https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-queryfullprocessimagenamew"
+  ],
+  "legacy_native_output_consumed": true,
+  "old_native_protocol_unchanged": true,
+  "new_native_protocol_created": false,
+  "new_synthetic_output_created": false,
+  "original_failure_causality_uncertainty_retained": true,
+  "scientific_effect_not_tested": true,
+  "source_edits": 0,
+  "project_imports": 0,
+  "tests_run": 0,
+  "model_forwards": 0,
+  "fits": 0,
+  "new_native_or_timing_or_process_probes": 0,
+  "agents": 0,
+  "real_data_reads": 0,
+  "formal_report_edits": 0
+}

@@ -350,6 +350,8 @@ C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独�
 
 2026-10-20原生N1失败离线定位更新：按新离线授权形成[根因定位与最小修复建议](docs/experiment_records/2026-10-20_msb_native_failure_offline_diagnosis.md)。确认父侧Popen身份与HELLO自报身份不匹配，外层controller也有同类PID差异；Windows venv重定向是有官方依据但本机因果未验证的解释。另确认观察器把“回调异常”与“线程未结束”合并为同一停止失败，原件未保存具体回调异常，不能断言线程卡死或二者因果。只归档作者离线诊断及保护证据，不改源码、不导入项目、不重跑测试或原生验收、不探查进程/计时、不读真实数据、不派代理、不改正式报告；旧失败目录/授权已消费，科学效果仍未验证，任何修复或新实验另批。
 
+2026-10-20身份与观察器修复文档更新：按仅文档授权形成[最小修复规格](docs/superpowers/specs/2026-10-20-msb-python-launch-observer-repair-design.md)、[三任务实施计划](docs/superpowers/plans/2026-10-20-msb-python-launch-observer-repair.md)及[作者文档记录](docs/experiment_records/2026-10-20_msb_python_launch_observer_repair_planning.md)。拟采用实际解释器直接启动并保留venv上下文，保留两层严格身份/Job校验；类型化停止结果区分回调异常、线程未退和预算不足，并保留首发/清理错误。未来六文件、12新增方法、七阶段全fake为待审方案，旧235保留、247只是预计；新v2仅预留命名，不创建协议或运行。当前DOCUMENTED_NOT_IMPLEMENTED_NOT_RUN，无代码/项目导入/测试/探查/真实数据/代理/正式报告变更；原生失败与科学未验证状态不变。开发、合成、独立复查、原生及科学实验仍分别另批，不以工程设计冒充网络创新效果。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.

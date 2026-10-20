@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-20",
+  "status": "DOCUMENTS_ONLY_NOT_IMPLEMENTED_NOT_RUN",
+  "approval_call_id": "call_15418f42581f439da850f0e8cfa0c004",
+  "approval_answer": "批准仅编写修复规格与实施计划（推荐）",
+  "confirmed_from_human": true,
+  "base_commit": "73bf05bb9668aa0ead6e9244be6d9334a3d5df34",
+  "allowed": [
+    "Write minimal repair specification, implementation plan, author documentation record and evidence",
+    "Append README status",
+    "Scoped GitHub archive and content readback"
+  ],
+  "prohibited": [
+    "Source edits and project imports",
+    "Any tests, forwards, fits, timing/process/runtime probes or native acceptance",
+    "Real data or image reads",
+    "Agents",
+    "Network/loss/formula/matrix/formal report edits",
+    "Create or run real native v2 protocol"
+  ],
+  "future_code_authorized": false,
+  "future_tests_authorized": false,
+  "native_or_scientific_run_authorized": false
+}
