@@ -344,6 +344,8 @@ C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独�
 
 2026-10-20原生无数据验收协议登记更新：按仅文档/登记授权归档[待运行协议](docs/experiment_protocols/msb_native_supervision_v1.json)与[登记记录](docs/experiment_records/2026-10-20_msb_native_supervision_registration.md)，绑定既有43+3项源码及独立GitHub基线身份，固定N1--N4/480秒/每例一次/接电/失败即停。状态REGISTERED_AWAITING_NATIVE_APPROVAL，许可字段明确NOT_GRANTED，刻意不满足原生执行门；本次登记ID不是运行许可。原生输出目录未创建，不改代码、不运行测试/验收、不读真实数据、不训练、不改网络/公式/矩阵或正式报告，不派代理。当前仅登记，原生与真实机制效果仍NOT_TESTED；以后新原生批准需补真实许可并重新登记，真实科学实验亦另批，工程登记不计为理论创新验证。
 
+2026-10-20原生单次验收授权重登记：按新的真实人类许可归档[执行授权登记](docs/experiment_records/2026-10-20_msb_native_supervision_execution_registration.md)，只补协议三个授权字段，46项源码不变。当前AUTHORIZED_NOT_STARTED_PENDING_REREGISTRATION_READBACK，完成远端回读后才可调用一次既有collector；固定四场景、480秒、最多4+4工作进程，持续接电但不要求键鼠空闲，非预期失败或证据不足即停且不重试。此条是运行前登记，不是验收通过；不改代码、不重跑合成测试、不做计时/空闲探查、不派代理，不读真实数据、不训练、不模型前向、不改正式报告。真实科学实验仍另批，网络创新效果仍未验证。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.
