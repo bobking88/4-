@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-21",
+  "approval_call_id": "call_2790965a504c46dea799f87f8e9be324",
+  "approval_answer": "认可文件，批准代码与有限合成验收（推荐）",
+  "confirmed_from_human": true,
+  "approved_commit": "7d42505c300dd19258b72b505b917771833d62fb",
+  "scope": "SIX_FILE_IMPLEMENTATION_AND_BOUNDED_ALL_FAKE_ACCEPTANCE_ONLY",
+  "code_whitelist": [
+    "scripts/msb_execution_safety.py",
+    "scripts/run_lc_role_adaptation.py",
+    "scripts/check_msb_native_supervision.py",
+    "tests/test_msb_execution_safety.py",
+    "tests/test_check_msb_native_supervision.py",
+    "tests/run_msb_native_supervision_synthetic_acceptance.py"
+  ],
+  "phases": [
+    "contract-red",
+    "contract-green",
+    "worker-red",
+    "worker-green",
+    "collector-red",
+    "collector-green",
+    "final"
+  ],
+  "max_attempts_per_phase": 3,
+  "agents_allowed": false,
+  "native_acceptance_allowed": false,
+  "real_data_allowed": false,
+  "scientific_training_allowed": false,
+  "formal_report_edits_allowed": false
+}

@@ -1,0 +1,31 @@
+{
+  "scope": "SYNTHETIC_CONTRACT_ONLY",
+  "phase": "contract-green",
+  "attempt": 1,
+  "bootstrap": {
+    "torch": "2.12.1+cu130",
+    "sklearn": "1.9.0"
+  },
+  "unused_dependency_stubs": [
+    "torchvision.models",
+    "torchvision.transforms"
+  ],
+  "status": "PASSED",
+  "modules": [
+    "test_msb_execution_safety",
+    "test_check_msb_native_supervision"
+  ],
+  "tests_run": 133,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "expected_failures": 0,
+  "unexpected_successes": 0,
+  "unmocked_boundary_calls": [],
+  "native_os_exercised": false,
+  "real_data_opened": false,
+  "real_fits": 0,
+  "temporary_synthetic_tensor_reads": 0,
+  "source_snapshot": "DIRECT_PRE_RUN_CAPTURE",
+  "harness_error": null
+}

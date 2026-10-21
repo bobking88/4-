@@ -22,10 +22,11 @@ def fixture_protocol():
     paths = tuple(authority["source_sha256"]) + (
         "scripts/check_msb_native_supervision.py", "tests/test_check_msb_native_supervision.py",
         "tests/run_msb_native_supervision_synthetic_acceptance.py")
-    return dict(protocol="msb_native_supervision_v1", status="APPROVED_NATIVE_ONLY",
+    return dict(protocol="msb_native_supervision_v2", status="APPROVED_NATIVE_ONLY",
                 scope="NATIVE_SUPERVISION_NO_DATA", execution_contract="msb_parent_bound_v2",
+                python_launch_contract="DIRECT_CPYTHON311_VENV_V1", runtime_venv_root=r"C:\synthetic\venv",
                 approval_call_id="call_"+"f"*32, approval_answer="APPROVED_SINGLE_NATIVE_NO_DATA",
-                output_relative="outputs/msb_native_supervision_v1/acceptance_once",
+                output_relative="outputs/msb_native_supervision_v2/acceptance_once",
                 max_seconds=480, case_order=["N1","N2","N3","N4"],
                 case_limits=[90,45,75,45], require_ac=True, max_attempts=1,
                 real_training_authorized=False, source_sha256={p:"1"*64 for p in paths})
@@ -60,7 +61,7 @@ class ContractTests(unittest.TestCase):
             protocol=fixture_protocol()
             with patch.object(Path,"read_bytes",side_effect=AssertionError("No asset reads in pure validation")):
                 result=validate(Path(tmp),protocol,approval=fixture_approval(protocol))
-            self.assertEqual(result["output_relative"],"outputs/msb_native_supervision_v1/acceptance_once")
+            self.assertEqual(result["output_relative"],"outputs/msb_native_supervision_v2/acceptance_once")
             self.assertEqual(result["case_limits"],[90,45,75,45])
 
     def test_protocol_mutations_and_true_data_fields_rejected(self):
@@ -129,13 +130,13 @@ class HarnessGateTests(unittest.TestCase):
             try:
                 with patch.object(harness,"ROOT",Path(tmp)),patch.object(harness,"_snapshot_sources",return_value={}),patch.object(harness,"_run_modules",return_value=r):
                     code=harness.main(["--phase","contract-green"])
-                summary=json.loads((Path(tmp)/"outputs/msb_initialization_error_retention_synthetic_v1/contract-green/attempt-001/acceptance_summary.json").read_text())
+                summary=json.loads((Path(tmp)/"outputs/msb_python_launch_observer_repair_synthetic_v1/contract-green/attempt-001/acceptance_summary.json").read_text())
                 self.assertEqual((code,summary["status"],summary["skipped"]),(1,"FAILED",1))
             finally:
                 os.chdir(previous[0]);tempfile.tempdir=previous[1];sys.path[:]=previous[2]
 
 import msb_execution_safety as safety
-from test_msb_execution_safety import FakeAPI, FakeAwake, LauncherAPI
+from test_msb_execution_safety import FakeAPI, FakeAwake, LauncherAPI, synthetic_python_runtime
 
 
 class CaseLauncher(LauncherAPI):
@@ -186,6 +187,7 @@ class WorkerAPI(FakeAPI):
 
 
 class FakeDriverServices:
+    capture_runtime=native.NativeServices.capture_runtime
     def __init__(self,api):
         self.api=api;self.exits=[];self.callbacks=[];self.acks=[];self.traces=[]
     def tick_ms(self):return self.api.tick_ms()
@@ -194,7 +196,11 @@ class FakeDriverServices:
     def awake_guard(self):return FakeAwake()
     def exit_process(self,code):self.exits.append(code);raise SystemExit(code)
     def start_fault(self,callback):self.callbacks.append(callback);return SimpleNamespace(stopped=False)
-    def stop_fault(self,watch):watch.stopped=True;return True
+    def stop_fault(self,watch,*,remaining_seconds):
+        watch.stopped=True
+        if getattr(watch,"stop_result",None) is None:
+            watch.stop_result=native.FaultStopResult(True,True,False,remaining_seconds<=0,None)
+        return watch.stop_result
     def persist_trace(self,path,events):
         self.traces.append(copy.deepcopy(events))
         path.write_text(json.dumps(events),encoding="utf-8")
@@ -218,7 +224,7 @@ class WorkerTests(unittest.TestCase):
 
     def case_root(self,root,case_id):
         self.enterContext(patch.object(native,"execution_origins",return_value=observed_origins(root)))
-        return Path(root)/"outputs/msb_native_supervision_v1/acceptance_once/cases"/case_id
+        return Path(root)/"outputs/msb_native_supervision_v2/acceptance_once/cases"/case_id
 
     def test_controller_reuses_real_parent_and_original_budget(self):
         run=self.function("run_controller")
@@ -516,7 +522,7 @@ class CollectorTests(unittest.TestCase):
 
     def protocol_file(self,tmp):
         self.enterContext(patch.object(native,"execution_origins",return_value=observed_origins(tmp)))
-        root=Path(tmp);path=root/"docs/experiment_protocols/msb_native_supervision_v1.json"
+        root=Path(tmp);path=root/"docs/experiment_protocols/msb_native_supervision_v2.json"
         path.parent.mkdir(parents=True);p=fixture_protocol();path.write_text(json.dumps(p),encoding="utf-8")
         return root,path,p,fixture_approval(p)
 
@@ -714,7 +720,7 @@ class CollectorTests(unittest.TestCase):
                 p["source_sha256"][name]=hashlib.sha256(payload).hexdigest()
                 tree.append(dict(path=name,type="blob",sha=hashlib.sha1(b"blob "+str(len(payload)).encode()+b"\0"+payload).hexdigest()))
             path.write_text(json.dumps(p),encoding="utf-8");payload=path.read_bytes()
-            tree.append(dict(path="docs/experiment_protocols/msb_native_supervision_v1.json",type="blob",
+            tree.append(dict(path="docs/experiment_protocols/msb_native_supervision_v2.json",type="blob",
                              sha=hashlib.sha1(b"blob "+str(len(payload)).encode()+b"\0"+payload).hexdigest()))
             def api(endpoint,check):
                 check()
@@ -822,7 +828,7 @@ class ObserverTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             observer,services,case=self.make(tmp);observer.sample()
             original=observer.lock;busy=Busy();observer.lock=busy;observer.watch=SimpleNamespace(stopped=False)
-            services.stop_fault=lambda watch:False;caught=None
+            services.stop_fault=lambda watch,**kwargs:native.FaultStopResult(False,True,True,False,None);caught=None
             try:observer.finish(dict(pid=7,exit_code=31,alive=False))
             except BaseException as error:caught=error
             closed_before_cleanup=list(services.closed)
@@ -892,7 +898,7 @@ class OriginRepairTests(unittest.TestCase):
         import io
         with tempfile.TemporaryDirectory() as tmp:
             root=Path(tmp);protocol=fixture_protocol();approval=fixture_approval(protocol)
-            path=root/"docs/experiment_protocols/msb_native_supervision_v1.json"
+            path=root/"docs/experiment_protocols/msb_native_supervision_v2.json"
             flags=["--root",str(root),"--protocol",str(path),"--execute-native",
                    "--approval-call-id",approval["call_id"],"--approval-answer",approval["answer"],
                    "--registration-commit","a"*40,"--controller-case","N1",
@@ -1031,7 +1037,7 @@ class N4RepairTests(unittest.TestCase):
             root=Path(tmp);good=observed_origins(root);bad=observed_origins(root/"other")
             api=CaseLauncher("N1");services=FakeDriverServices(api)
             with patch.object(native,"execution_origins",side_effect=[good,bad]),self.assertRaises(ValueError):
-                native.run_controller(root,root/"outputs/msb_native_supervision_v1/acceptance_once/cases/N1","N1",case_binding(),services=services)
+                native.run_controller(root,root/"outputs/msb_native_supervision_v2/acceptance_once/cases/N1","N1",case_binding(),services=services)
             self.assertEqual(api.events,[])
 
     def test_n4_cleanup_during_fault_snapshot_cannot_commit(self):
@@ -1310,3 +1316,216 @@ class InitializationErrorRetentionTests(unittest.TestCase):
                 self.assertIsInstance(caught,RuntimeError if mode=="guard_entry" else ValueError)
                 self.assertFalse((root/p["output_relative"]).exists());self.assertEqual(service.writes,0)
                 self.assertFalse(any(c[0] in ("launch","observe") for c in service.calls))
+
+class DirectLaunchBoundaryTests(unittest.TestCase):
+    def fault_watch(self,*,error=None,alive=False):
+        import threading
+        class Event:
+            def __init__(self):self.value=False
+            def set(self):self.value=True
+            def is_set(self):return self.value
+        class Thread:
+            def __init__(self,*,target,**kw):self.target=target;self.joins=[]
+            def start(self):
+                if not alive:self.target()
+            def join(self,timeout):self.joins.append(timeout)
+            def is_alive(self):return alive
+        service=object.__new__(native.NativeServices);service.api=FakeAPI()
+        service.monotonic=lambda:service.api.now/1000.
+        def callback(stop):
+            if error is not None:raise error
+        with patch.object(threading,"Thread",Thread),patch.object(threading,"Event",Event):
+            watch=service.start_fault(callback)
+        return service,watch
+
+    def stop_type(self):
+        value=getattr(native,"FaultStopResult",None)
+        self.assertTrue(callable(value),"Missing typed fault stop result")
+        return value
+
+    def test_stopped_fault_with_callback_error_is_not_join_timeout(self):
+        self.stop_type();error=ValueError("synthetic callback")
+        service,watch=self.fault_watch(error=error)
+        result=service.stop_fault(watch,remaining_seconds=2.)
+        self.assertTrue(result.thread_terminated);self.assertFalse(result.join_timed_out)
+        self.assertIs(result.callback_error,error);self.assertFalse(result.stop_ok)
+        self.assertIs(watch.error,error)
+        self.assertFalse(result.record()["callback_error_unknown"])
+
+    def test_live_fault_after_join_is_timeout_and_closes_nothing(self):
+        self.stop_type();service,watch=self.fault_watch(alive=True)
+        with tempfile.TemporaryDirectory() as tmp:
+            observer,services,case=ObserverTests().make(tmp);observer.sample()
+            services.stop_fault=service.stop_fault;observer.watch=watch
+            caught=None
+            try:observer.finish(dict(pid=7,exit_code=1,alive=False))
+            except BaseException as error:caught=error
+            self.assertIsInstance(caught,native.ObserverTerminationError)
+            self.assertFalse(caught.stop_result.thread_terminated)
+            self.assertTrue(caught.stop_result.join_timed_out)
+            self.assertTrue(caught.stop_result.record()["callback_error_unknown"])
+            self.assertEqual(services.closed,[])
+            self.assertFalse(observer.evidence["monitor_stopped"])
+
+    def test_fault_stop_is_once_and_bounded_by_remaining(self):
+        self.stop_type()
+        for remaining,waits in ((0.,[]),(.25,[.25]),(2.,[1.])):
+            with self.subTest(remaining=remaining):
+                service,watch=self.fault_watch()
+                first=service.stop_fault(watch,remaining_seconds=remaining)
+                again=service.stop_fault(watch,remaining_seconds=100.)
+                self.assertIs(first,again);self.assertEqual(watch.thread.joins,waits)
+                self.assertEqual(first.deadline_exhausted,remaining==0.)
+                if remaining==0.:self.assertFalse(first.join_attempted)
+                self.assertEqual(service.api.now,1000)
+                expired,expired_watch=self.fault_watch();expired.api.now=481000
+                stopped,errors=native._bounded_fault_stop(expired_watch,case_binding(),expired)
+                self.assertFalse(stopped.stop_ok);self.assertEqual(expired_watch.thread.joins,[])
+                self.assertEqual(len(errors),1);self.assertIn("TIMED_OUT",str(errors[0]))
+                with tempfile.TemporaryDirectory() as tmp:
+                    observer,services,case=ObserverTests().make(tmp)
+                    services.stop_fault=service.stop_fault;observer.watch=watch
+                    observer.close();observer.close()
+                    self.assertEqual(watch.thread.joins,waits)
+
+    def test_observer_callback_cleanup_release_and_publication_causes_survive(self):
+        self.stop_type();self.assertTrue(callable(getattr(native,"ObserverTerminationError",None)))
+        for write_failure in (True,False):
+            with self.subTest(write_failure=write_failure),tempfile.TemporaryDirectory() as tmp:
+                fixture=CollectorTests();self.addCleanup(fixture.doCleanups)
+                root,path,p,a=fixture.protocol_file(tmp);service=FakeCollectorServices()
+                callback=ValueError("nonce="+"a"*64);cleanup=OSError("handle=12345")
+                persistence=OSError("synthetic receipt unavailable")
+                fault,watch=self.fault_watch(error=callback)
+                fault.api=service.api;service.stop_fault=fault.stop_fault
+                def start(case,binding):
+                    observer=native.NativeObserver(case,binding,service)
+                    observer.watch=watch;observer.handle=88
+                    return observer
+                service.start_observer=start
+                service.finish_observer=native.NativeServices.finish_observer.__get__(service)
+                service.stop_observer=native.NativeServices.stop_observer.__get__(service)
+                service.close_query=Mock(side_effect=cleanup);service.environment.release_error=True
+                if write_failure:
+                    def reject(path,value):
+                        if value.get("status")=="FAILED_NATIVE_SUPERVISION":raise persistence
+                    service.write_fault=reject;caught=None
+                    try:native.run_acceptance(root,path,execute_native=True,approval=a,services=service)
+                    except BaseException as error:caught=error
+                    self.assertIsInstance(caught,native.AcceptancePublicationError)
+                    self.assertIs(caught.primary_errors[0],callback)
+                    self.assertIs(caught.primary_errors[1],cleanup)
+                    self.assertEqual(len(caught.primary_errors),3)
+                    self.assertIs(caught.persistence_error,persistence)
+                    state=caught.failed_state
+                else:
+                    flags=["--root",str(root),"--protocol",str(path),"--execute-native",
+                           "--approval-call-id",a["call_id"],"--approval-answer",a["answer"],"--registration-commit","a"*40]
+                    with patch.object(native,"NativeServices",return_value=service),patch("time.monotonic",side_effect=service.monotonic),redirect_stdout(io.StringIO()):
+                        code=native.main(flags)
+                    self.assertEqual(code,1)
+                    state=json.loads((root/p["output_relative"]/"stage_state.json").read_text())
+                self.assertEqual(state["status"],"FAILED_NATIVE_SUPERVISION")
+                self.assertEqual(service.close_query.call_count,1)
+                record=state["observer_diagnostics"]
+                self.assertEqual(record["callback_error"]["type"],"ValueError")
+                self.assertEqual(record["cleanup_errors"][0]["type"],"OSError")
+                self.assertNotIn("a"*64,json.dumps(record))
+                self.assertNotIn("12345",json.dumps(record))
+
+    def test_direct_controller_launch_uses_shared_helper_and_actual_identity(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            fixture=CollectorTests();self.addCleanup(fixture.doCleanups)
+            root,path,p,a=fixture.protocol_file(tmp);service=FakeCollectorServices();jobs=[]
+            original=service.run_outer
+            def run(job,*args):jobs.append(copy.deepcopy(job));return original(job,*args)
+            service.run_outer=run
+            result=native.run_acceptance(root,path,execute_native=True,approval=a,services=service)
+            self.assertEqual(result["status"],"PASS_NATIVE_SUPERVISION_SCOPE")
+            self.assertTrue(jobs)
+            self.assertEqual(jobs[0].get("python_launch_contract"),"DIRECT_CPYTHON311_VENV_V1")
+        import run_lc_role_adaptation as lc
+        runtime=synthetic_python_runtime();process=Mock(pid=7,_handle=80,returncode=0)
+        process.poll.return_value=0
+        api=SimpleNamespace(current_python_runtime=lambda:runtime,process_identity=lambda h:(7,99),
+                            process_executable_path=lambda h:runtime.base_executable)
+        with tempfile.TemporaryDirectory() as tmp,patch.object(lc,"WindowsAwakeGuard",FakeAwake),patch.object(lc.time,"monotonic",return_value=1.),patch.object(lc.time,"sleep"),patch.object(safety,"NativeMSBAPI",return_value=api) as factory,patch.object(lc.subprocess,"Popen",return_value=process) as spawn:
+            job=dict(job_id="N1",command=[runtime.venv_executable,"registered.py"],
+                     log_path=str(Path(tmp)/"direct.log"),python_launch_contract="DIRECT_CPYTHON311_VENV_V1")
+            row=lc.run_supervised_job(job,dict(per_fit_seconds=90,heartbeat_seconds=10),90)
+            self.assertEqual((row["status"],row["pid"],row["python_launch"]["created"]),("COMPLETE",7,"99"))
+            self.assertEqual(spawn.call_args.kwargs["executable"],runtime.base_executable)
+            self.assertEqual(spawn.call_args.args[0][0],runtime.base_executable)
+            ordinary=dict(job,command=["ordinary"],log_path=str(Path(tmp)/"ordinary.log"))
+            del ordinary["python_launch_contract"]
+            row=lc.run_supervised_job(ordinary,dict(per_fit_seconds=90,heartbeat_seconds=10),90)
+            self.assertEqual(row["status"],"COMPLETE");self.assertEqual(factory.call_count,1)
+            self.assertNotIn("executable",spawn.call_args.kwargs)
+            self.assertEqual(spawn.call_args.args[0],["ordinary"])
+
+    def test_child_runtime_context_mismatch_never_reaches_ready_or_work(self):
+        for kind in ("controller","worker"):
+            for bad in ("",json.dumps(dict(implementation="pypy"))):
+                with self.subTest(kind=kind,bad=bad),tempfile.TemporaryDirectory() as tmp:
+                    fixture=WorkerTests();self.addCleanup(fixture.doCleanups)
+                    api=CaseLauncher("N1") if kind=="controller" else WorkerAPI()
+                    api.current_python_runtime=lambda:synthetic_python_runtime()
+                    api.expected_python_runtime=lambda:bad
+                    service=FakeDriverServices(api)
+                    if kind=="controller":
+                        out=fixture.case_root(tmp,"N1");out.mkdir(parents=True)
+                        with self.assertRaises(RuntimeError):native.run_controller(Path(tmp),out,"N1",case_binding(),services=service)
+                        self.assertFalse((out/"controller_ready.json").exists())
+                    else:
+                        path,handles=fixture.packet(tmp,"N1")
+                        with self.assertRaises(RuntimeError):native.run_no_data_worker(path,handles,services=service)
+                        self.assertFalse(path.with_name("task_started.json").exists())
+                        self.assertEqual(service.acks,[])
+
+    def test_missing_ready_and_old_permission_never_pass_native_v2(self):
+        self.assertEqual(native.FIXED["protocol"],"msb_native_supervision_v2")
+        for token in ("call_15418f42581f439da850f0e8cfa0c004",
+                      "call_0ed0a8dae29d4d6aaa949f2752ff89ce",
+                      "call_3f51cdd2cc0040929106824e0c335950",
+                      "call_2790965a504c46dea799f87f8e9be324"):
+            p=fixture_protocol();p["approval_call_id"]=token
+            with tempfile.TemporaryDirectory() as tmp,self.assertRaises(ValueError):
+                native.validate_native_protocol(Path(tmp),p,approval=fixture_approval(p))
+                self.fail("Consumed or non-native permission accepted")
+        with tempfile.TemporaryDirectory() as tmp:
+            old=fixture_protocol();old["protocol"]="msb_native_supervision_v1"
+            with self.assertRaises(ValueError):native.validate_native_protocol(Path(tmp),old,approval=fixture_approval(old))
+            service=ObserverTestServices();service.api.now=1103
+            observer=native.NativeObserver(Path(tmp)/"N1",case_binding(),service)
+            record=observer.finish(dict(pid=7,exit_code=1,alive=False))
+            self.assertFalse(record["identity_verified"])
+            self.assertFalse(record["exit_observed"])
+
+    def test_synthetic_scope_covers_runtime_and_thread_adapters(self):
+        expected=("current_python_runtime","current_module_executable","process_executable_path")
+        self.assertEqual(getattr(harness,"RUNTIME_BOUNDARIES",None),expected)
+        import threading
+        import time
+        import socket
+        targets=[lambda:object.__new__(safety.NativeMSBAPI).current_python_runtime(),
+                 lambda:object.__new__(safety.NativeMSBAPI).current_module_executable(),
+                 lambda:object.__new__(safety.NativeMSBAPI).process_executable_path(80),
+                 lambda:threading.Thread(target=lambda:None).start(),
+                 lambda:threading.Thread(target=lambda:None).join(),
+                 lambda:time.monotonic(),
+                 lambda:socket.create_connection(("never-connect.invalid",1))]
+        previous=(Path.cwd(),tempfile.tempdir,list(sys.path))
+        for invoke in targets+[None]:
+            with self.subTest(invoke=invoke),tempfile.TemporaryDirectory() as tmp:
+                r=unittest.TestResult();r.testsRun=1
+                def modules(names,log):
+                    if invoke is not None:invoke()
+                    return r
+                try:
+                    with patch.object(harness,"ROOT",Path(tmp)),patch.object(harness,"_snapshot_sources",return_value={}),patch.object(harness,"_run_modules",side_effect=modules),redirect_stdout(io.StringIO()):
+                        code=harness.main(["--phase","contract-green"])
+                    data=json.loads((Path(tmp)/"outputs/msb_python_launch_observer_repair_synthetic_v1/contract-green/attempt-001/acceptance_summary.json").read_text())
+                    self.assertEqual(code,0 if invoke is None else 1)
+                    self.assertEqual(bool(data["unmocked_boundary_calls"]),invoke is not None)
+                finally:
+                    os.chdir(previous[0]);tempfile.tempdir=previous[1];sys.path[:]=previous[2]

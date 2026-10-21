@@ -2,11 +2,12 @@
 from __future__ import annotations
 
 from contextvars import ContextVar
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 import ctypes
 from ctypes import wintypes
 import hashlib
 import json
+import ntpath
 import os
 from pathlib import Path
 import re
@@ -28,6 +29,90 @@ _FIELDS = {"kind", "run_id", "job_id", "protocol_digest", "packet_digest", "nonc
 
 def _interrupted(reason):
     return RuntimeError("SUPERVISION_INTERRUPTED: "+reason)
+
+
+PYTHON_LAUNCH_CONTRACT = "DIRECT_CPYTHON311_VENV_V1"
+PYTHON_RUNTIME_ENV = "MSB_EXPECTED_PYTHON_RUNTIME"
+
+
+def _windows_path(value):
+    if (not isinstance(value,str) or not value or "\0" in value
+            or not ntpath.isabs(value) or not ntpath.splitdrive(value)[0]):
+        raise _interrupted("absolute Windows runtime path required")
+    return ntpath.normcase(ntpath.normpath(value))
+
+
+@dataclass(frozen=True)
+class PythonRuntimeIdentity:
+    implementation: str
+    version: tuple[int,int,int]
+    venv_executable: str
+    base_executable: str
+    module_executable: str
+    venv_prefix: str
+    base_prefix: str
+
+    def __post_init__(self):
+        if (self.implementation != "cpython" or not isinstance(self.version,(tuple,list))
+                or len(self.version)!=3 or any(type(v) is not int or v<0 for v in self.version)
+                or tuple(self.version[:2])!=(3,11)):
+            raise _interrupted("standard Windows CPython 3.11 venv required")
+        object.__setattr__(self,"version",tuple(self.version))
+        for name in ("venv_executable","base_executable","module_executable","venv_prefix","base_prefix"):
+            _windows_path(getattr(self,name))
+        if (_windows_path(self.venv_prefix)==_windows_path(self.base_prefix)
+                or _windows_path(self.venv_executable)!=_windows_path(ntpath.join(self.venv_prefix,"Scripts","python.exe"))
+                or _windows_path(self.base_executable)!=_windows_path(ntpath.join(self.base_prefix,"python.exe"))
+                or _windows_path(self.module_executable)!=_windows_path(self.base_executable)):
+            raise _interrupted("runtime executable/prefix identity differs")
+
+
+@dataclass(frozen=True)
+class PythonLaunch:
+    argv: tuple[str,...]
+    executable: str
+    env: dict[str,str]
+    runtime_digest: str
+
+
+def build_python_launch(command: list[str], runtime: PythonRuntimeIdentity, parent_env: dict[str,str]) -> PythonLaunch:
+    if (not isinstance(runtime,PythonRuntimeIdentity) or not isinstance(command,list) or not command
+            or any(not isinstance(v,str) or "\0" in v for v in command)
+            or _windows_path(command[0])!=_windows_path(runtime.venv_executable)
+            or not isinstance(parent_env,dict) or any(not isinstance(k,str) or not isinstance(v,str) for k,v in parent_env.items())):
+        raise _interrupted("verified Python command and environment required")
+    payload=json.dumps(asdict(runtime),sort_keys=True,separators=(",",":"),allow_nan=False)
+    env={k:v for k,v in parent_env.items() if k.upper() not in {"PYTHONHOME","PYTHONPATH","__PYVENV_LAUNCHER__",PYTHON_RUNTIME_ENV}}
+    env.update(__PYVENV_LAUNCHER__=runtime.venv_executable)
+    env[PYTHON_RUNTIME_ENV]=payload
+    return PythonLaunch(tuple([runtime.base_executable,*command[1:]]),runtime.base_executable,env,
+                        hashlib.sha256(payload.encode("utf-8")).hexdigest())
+
+
+def verify_python_process(process, launch, *, api) -> dict:
+    pid,created=api.process_identity(int(process._handle))
+    image=api.process_executable_path(int(process._handle))
+    if (type(pid) is not int or type(created) is not int or pid<=0 or created<=0
+            or type(process.pid) is not int or process.pid!=pid
+            or _windows_path(image)!=_windows_path(launch.executable)):
+        raise _interrupted("launched interpreter process identity differs")
+    return dict(pid=pid,created=str(created),image=image,runtime_digest=launch.runtime_digest)
+
+
+def validate_inherited_python_runtime(api):
+    actual=api.current_python_runtime()
+    try:
+        expected=PythonRuntimeIdentity(**json.loads(api.expected_python_runtime()))
+    except (ValueError,TypeError):
+        raise _interrupted("missing or invalid inherited Python context") from None
+    if actual!=expected:
+        raise _interrupted("inherited Python runtime differs")
+    return actual
+
+
+def python_runtime_record(runtime):
+    record=asdict(runtime);record["version"]=list(runtime.version)
+    return record
 
 
 @dataclass(frozen=True)
@@ -373,7 +458,10 @@ def open_worker_scope(packet_path: Path, handles: dict, *, api=None, awake_guard
     api = NativeMSBAPI() if api is None else api
     binding = None
     try:
+        runtime=validate_inherited_python_runtime(api)
         packet = _published(packet_path)
+        if "python_runtime" in packet and packet["python_runtime"]!=python_runtime_record(runtime):
+            raise _interrupted("packet Python context differs")
         binding = _binding_from_metadata(packet,packet_path,handles,api.current_pid(),api)
         started = api.tick_ms()
         binding.budget.remaining_seconds(started)
@@ -594,6 +682,8 @@ class NativeMSBAPI:
             "OpenProcess": ([wintypes.DWORD,wintypes.BOOL,wintypes.DWORD],wintypes.HANDLE),
             "GetProcessId": ([wintypes.HANDLE],wintypes.DWORD),
             "GetProcessTimes": ([wintypes.HANDLE]+[ctypes.POINTER(wintypes.FILETIME)]*4,wintypes.BOOL),
+            "GetModuleFileNameW": ([wintypes.HMODULE,wintypes.LPWSTR,wintypes.DWORD],wintypes.DWORD),
+            "QueryFullProcessImageNameW": ([wintypes.HANDLE,wintypes.DWORD,wintypes.LPWSTR,ctypes.POINTER(wintypes.DWORD)],wintypes.BOOL),
             "WaitForSingleObject": ([wintypes.HANDLE,wintypes.DWORD],wintypes.DWORD),
             "CreatePipe": ([ctypes.POINTER(wintypes.HANDLE),ctypes.POINTER(wintypes.HANDLE),ctypes.c_void_p,wintypes.DWORD],wintypes.BOOL),
             "CreateJobObjectW": ([ctypes.c_void_p,wintypes.LPCWSTR],wintypes.HANDLE),
@@ -614,6 +704,25 @@ class NativeMSBAPI:
 
     def tick_ms(self): return int(self.kernel.GetTickCount64())
     def current_pid(self): return int(self.kernel.GetCurrentProcessId())
+
+    def current_module_executable(self):
+        buffer=ctypes.create_unicode_buffer(32768)
+        count=int(self.kernel.GetModuleFileNameW(None,buffer,32768))
+        if not 0<count<32768:raise _interrupted("current executable path unavailable or truncated")
+        return buffer.value
+
+    def process_executable_path(self,handle):
+        buffer=ctypes.create_unicode_buffer(32768);size=wintypes.DWORD(32768)
+        if not self.kernel.QueryFullProcessImageNameW(handle,0,buffer,ctypes.byref(size)) or not 0<size.value<32768:
+            raise _interrupted("process executable path unavailable or truncated")
+        return buffer.value
+
+    def current_python_runtime(self):
+        if os.name!="nt" or getattr(sys,"frozen",False):raise _interrupted("unsupported Python runtime profile")
+        return PythonRuntimeIdentity(sys.implementation.name,tuple(sys.version_info[:3]),sys.executable,
+            getattr(sys,"_base_executable",None),self.current_module_executable(),sys.prefix,sys.base_prefix)
+
+    def expected_python_runtime(self):return os.environ.get(PYTHON_RUNTIME_ENV,"")
 
     def current_identity(self):
         handle=self._ok(self.kernel.OpenProcess(0x100000|0x1000,False,self.current_pid()))
@@ -657,15 +766,17 @@ class NativeMSBAPI:
         startup=subprocess.STARTUPINFO(); startup.lpAttributeList={"handle_list":inherited}
         env=dict(os.environ,OMP_NUM_THREADS="1",MKL_NUM_THREADS="1",OPENBLAS_NUM_THREADS="1",
                  NUMEXPR_NUM_THREADS="1",PYTHONUNBUFFERED="1",PYTHONUTF8="1")
+        launch=build_python_launch(job["command"],self.current_python_runtime(),env)
         process, primary_error, restoration_errors = None, None, []
         try:
             for handle in inherited: os.set_handle_inheritable(handle,True)
             with Path(job["log_path"]).open("x",encoding="utf-8") as log:
                 ownership.note_attempt()
-                process = subprocess.Popen([*job["command"],"--worker-handles",json.dumps(child_handles)],
+                process = subprocess.Popen([*launch.argv,"--worker-handles",json.dumps(child_handles)],executable=launch.executable,
                                            stdout=log,stderr=subprocess.STDOUT,stdin=subprocess.DEVNULL,
-                                           env=env,close_fds=True,startupinfo=startup,creationflags=subprocess.CREATE_NO_WINDOW)
+                                           env=launch.env,close_fds=True,startupinfo=startup,creationflags=subprocess.CREATE_NO_WINDOW)
                 ownership.note_process(process)
+                verify_python_process(process,launch,api=self)
         except BaseException as error:
             primary_error = error
         finally:

@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import copy
+from dataclasses import dataclass
 import hashlib
 import json
 import math
@@ -65,6 +66,8 @@ CASES = (
     dict(case_id="N4", limit=45, exit_code=31),
 )
 NON_NATIVE_IDS = {
+    "call_15418f42581f439da850f0e8cfa0c004", "call_0ed0a8dae29d4d6aaa949f2752ff89ce",
+    "call_3f51cdd2cc0040929106824e0c335950", "call_2790965a504c46dea799f87f8e9be324",
     "call_29684c57aed94222832ace218cd392be", "call_754f23a7456b4c5cbe8e744ba0dd6114",
     "call_03a86c6e5b064586b7bb980fa04b2a53", "call_d538a55e3a7b401fa4709a0d3914bb24",
     "call_7f515c71f122488da5242db3dc69dd60",
@@ -72,12 +75,56 @@ NON_NATIVE_IDS = {
     "call_5101ffc4ea2a44459043052c470036ce", "call_0e89f2cb80134c049e4ef3aaf697a7b0",
     "call_aa6d081524a94817b20cceb8fbd25053", "call_a4c9ef81bcea447aa7350f7cd9aff51c",
 }
-FIXED = dict(protocol="msb_native_supervision_v1", status="APPROVED_NATIVE_ONLY",
+FIXED = dict(protocol="msb_native_supervision_v2", status="APPROVED_NATIVE_ONLY",
              scope="NATIVE_SUPERVISION_NO_DATA", execution_contract="msb_parent_bound_v2",
-             output_relative="outputs/msb_native_supervision_v1/acceptance_once",
+             python_launch_contract="DIRECT_CPYTHON311_VENV_V1",
+             output_relative="outputs/msb_native_supervision_v2/acceptance_once",
              max_seconds=480, case_order=["N1","N2","N3","N4"],
              case_limits=[90,45,75,45], require_ac=True, max_attempts=1,
              real_training_authorized=False)
+
+
+def _fault_error_record(error):
+    message=re.sub(r"(?i)\b(?:nonce|handles?|environment|env)\b.*", "<redacted context>",str(error))
+    message=re.sub(r"(?i)\b[a-f0-9]{64}\b|\b0x[a-f0-9]+\b|\b[0-9]+\b","<redacted>",message)[:256]
+    frames=[];trace=error.__traceback__
+    while trace is not None:
+        frames.append(dict(file=trace.tb_frame.f_code.co_filename,function=trace.tb_frame.f_code.co_name,line=trace.tb_lineno))
+        trace=trace.tb_next
+    return dict(type=type(error).__name__,message=message,frames=frames[-8:])
+
+
+@dataclass(frozen=True)
+class FaultStopResult:
+    thread_terminated: bool
+    join_attempted: bool
+    join_timed_out: bool
+    deadline_exhausted: bool
+    callback_error: BaseException | None
+
+    @property
+    def stop_ok(self):
+        return self.thread_terminated and self.callback_error is None and not self.deadline_exhausted
+
+    def __bool__(self):raise TypeError("Inspect FaultStopResult.stop_ok explicitly")
+
+    def record(self):
+        return dict(thread_terminated=self.thread_terminated,join_attempted=self.join_attempted,
+                    join_timed_out=self.join_timed_out,deadline_exhausted=self.deadline_exhausted,
+                    callback_error=None if self.callback_error is None else _fault_error_record(self.callback_error),
+                    callback_error_unknown=not self.thread_terminated,stop_ok=self.stop_ok)
+
+
+class ObserverTerminationError(RuntimeError):
+    def __init__(self,stop_result,primary_errors,cleanup_errors=()):
+        self.stop_result=stop_result;self.primary_errors=list(primary_errors);self.cleanup_errors=list(cleanup_errors)
+        super().__init__("SUPERVISION_INTERRUPTED: observer callback, termination or cleanup failed")
+
+    def record(self):
+        record={} if self.stop_result is None else self.stop_result.record()
+        record.update(primary_errors=[_fault_error_record(e) for e in self.primary_errors],
+                      cleanup_errors=[_fault_error_record(e) for e in self.cleanup_errors])
+        return record
 
 
 def execution_origins() -> dict[str,str]:
@@ -149,8 +196,12 @@ def remaining_acceptance_seconds(start_monotonic: float, start_tick_ms: int, *,
 def _validate_protocol_fields(protocol: dict, *, approval: dict) -> dict:
     if not isinstance(protocol,dict) or not isinstance(approval,dict):
         raise ValueError("Explicit native protocol and human approval required")
-    if set(protocol)!=set(FIXED)|{"approval_call_id","approval_answer","source_sha256"}:
+    if set(protocol)!=set(FIXED)|{"approval_call_id","approval_answer","source_sha256","runtime_venv_root"}:
         raise ValueError("No extra input, experiment or execution fields")
+    import ntpath
+    if (not isinstance(protocol["runtime_venv_root"],str) or "\0" in protocol["runtime_venv_root"]
+            or not ntpath.isabs(protocol["runtime_venv_root"]) or not ntpath.splitdrive(protocol["runtime_venv_root"])[0]):
+        raise ValueError("Registered Windows venv root required")
     for key,value in FIXED.items():
         if type(protocol[key]) is not type(value) or protocol[key]!=value:
             raise ValueError("Fixed native acceptance field differs: "+key)
@@ -193,7 +244,7 @@ def _write_json(path: Path, value: dict, *, exclusive=False):
 
 def _case_output(root,case_dir,case_id):
     if case_id not in {c["case_id"] for c in CASES}:raise ValueError("Unknown native case")
-    expected=Path(root).resolve()/"outputs/msb_native_supervision_v1/acceptance_once/cases"/case_id
+    expected=Path(root).resolve()/"outputs/msb_native_supervision_v2/acceptance_once/cases"/case_id
     if Path(case_dir).resolve()!=expected:raise ValueError("Fixed exclusive native case path required")
     return expected
 
@@ -211,6 +262,18 @@ def _binding_budget(binding):
 def _remaining(binding,services):
     return remaining_acceptance_seconds(binding["start_monotonic"],binding["start_tick_ms"],
         now_monotonic=services.monotonic(),now_tick_ms=services.tick_ms())
+
+
+def _bounded_fault_stop(watch,binding,services):
+    errors=[]
+    try:remaining=_remaining(binding,services)
+    except BaseException as error:
+        errors.append(error);remaining=0.
+    result=services.stop_fault(watch,remaining_seconds=remaining)
+    if not errors:
+        try:_remaining(binding,services)
+        except BaseException as error:errors.append(error)
+    return result,errors
 
 
 def _wait_ack(case_dir,ready,services):
@@ -360,15 +423,17 @@ def run_controller(root: Path, output: Path, case_id: str, binding: dict, *, ser
     origin=_execution_root(root)
     import msb_execution_safety as safety
     _execution_root(root)
+    runtime=safety.validate_inherited_python_runtime(services.api)
     case_dir=_case_output(root,output,case_id);budget=_binding_budget(binding)
     _remaining(binding,services)
     folder=case_dir/"controller";folder.mkdir(exist_ok=False)
     work=folder/"runs"/case_id;work.mkdir(parents=True,exist_ok=False)
     parent_pid,parent_created=services.api.current_identity()
-    _write_json(case_dir/"controller_ready.json",dict(pid=parent_pid,created=parent_created,binding=binding),exclusive=True)
+    _write_json(case_dir/"controller_ready.json",dict(pid=parent_pid,created=parent_created,binding=binding,
+                python_runtime=safety.python_runtime_record(runtime)),exclusive=True)
     packet=dict(binding,root=str(Path(root).resolve()),output=str(folder),
                 stage="native-supervision-no-data",case_id=case_id,job_id=case_id,
-                parent_pid=parent_pid,parent_created=parent_created)
+                parent_pid=parent_pid,parent_created=parent_created,python_runtime=safety.python_runtime_record(runtime))
     packet_path=work/"packet.json";_write_json(packet_path,packet,exclusive=True)
     state=dict(packet,status="RUNNING",active_job=case_id,
                packets={case_id:hashlib.sha256(packet_path.read_bytes()).hexdigest()})
@@ -378,16 +443,21 @@ def run_controller(root: Path, output: Path, case_id: str, binding: dict, *, ser
     trace=TraceAPI(services.api,events,folder/"trace.json",services,fault_gate=gate)
     command=[sys.executable,origin["driver"],"--worker-packet",str(packet_path)]
     job=dict(job_id=case_id,packet_path=str(packet_path),log_path=str(work/"worker.log"),command=command)
-    watch=None;parent=None;stopped=True
+    watch=None;parent=None;stopped=True;stop_result=None;stop_errors=[]
     try:
         if case_id=="N4":
             watch=services.start_fault(lambda stop:_watch_parent_fault(case_dir,binding,services,stop,gate))
         with safety.MSBParentSupervisor(budget,binding["run_id"],binding["protocol_digest"],api=trace) as parent:
             row=parent.run_job(job,{})
     finally:
-        if watch is not None:stopped=services.stop_fault(watch)
+        if watch is not None:
+            stop_result,stop_errors=_bounded_fault_stop(watch,binding,services)
+            stopped=stop_result.stop_ok and not stop_errors
         services.persist_trace(folder/"trace.json",events)
-    if not stopped:raise RuntimeError("SUPERVISION_INTERRUPTED: parent fault monitor not stopped")
+    if not stopped:
+        primary=([stop_result.callback_error] if stop_result.callback_error is not None else [])+stop_errors
+        if not primary:primary=[RuntimeError("SUPERVISION_INTERRUPTED: parent fault monitor termination not confirmed")]
+        raise ObserverTerminationError(stop_result,primary)
     result=dict(case_id=case_id,msb=row,events=events,parent_power=parent.evidence(),
                 fault_monitor_stopped=stopped,real_data_opened=False)
     _remaining(binding,services)
@@ -452,6 +522,12 @@ class NativeServices:
     def new_run_id(self):
         import uuid
         return uuid.uuid4().hex
+    def capture_runtime(self,venv_root):
+        import msb_execution_safety as safety
+        runtime=self.api.current_python_runtime()
+        if safety._windows_path(runtime.venv_prefix)!=safety._windows_path(venv_root):
+            raise RuntimeError("SUPERVISION_INTERRUPTED: registered venv root differs")
+        return safety.python_runtime_record(runtime)
     def collector_guard(self):
         from lc_execution_safety import WindowsAwakeGuard
         return WindowsAwakeGuard(api=self.environment)
@@ -516,7 +592,7 @@ class NativeServices:
             check()
             if blobs.get(relative)!=blob((Path(root)/relative).read_bytes()):
                 raise ValueError("Registered source blob differs: "+relative)
-        relative="docs/experiment_protocols/msb_native_supervision_v1.json"
+        relative="docs/experiment_protocols/msb_native_supervision_v2.json"
         payload=Path(path).read_bytes()
         if blobs.get(relative)!=blob(payload):raise ValueError("Registered native protocol blob differs")
         content=self._api(base+"/contents/"+relative+"?ref="+commit_id,check)
@@ -552,16 +628,25 @@ class NativeServices:
     def start_fault(self,callback):
         import threading
         from types import SimpleNamespace
-        stopped=threading.Event();watch=SimpleNamespace(stopped=stopped,error=None,thread=None)
+        stopped=threading.Event();watch=SimpleNamespace(stopped=stopped,error=None,thread=None,stop_result=None)
         def body():
             try:callback(stopped)
-            except BaseException as error:watch.error=repr(error)
+            except BaseException as error:watch.error=error
         watch.thread=threading.Thread(target=body,name="msb-native-parent-fault",daemon=True)
         watch.thread.start()
         return watch
-    def stop_fault(self,watch):
-        watch.stopped.set();watch.thread.join(timeout=1.)
-        return not watch.thread.is_alive() and watch.error is None
+    def stop_fault(self,watch,*,remaining_seconds):
+        previous=getattr(watch,"stop_result",None)
+        if previous is not None:return previous
+        if type(remaining_seconds) not in (int,float) or not math.isfinite(remaining_seconds):
+            raise ValueError("Finite inherited stop budget required")
+        before=self.monotonic();watch.stopped.set()
+        attempted=remaining_seconds>0
+        if attempted:watch.thread.join(timeout=min(1.,remaining_seconds))
+        terminated=not watch.thread.is_alive();elapsed=self.monotonic()-before
+        expired=remaining_seconds<=0 or not math.isfinite(elapsed) or elapsed<0 or elapsed>=remaining_seconds
+        watch.stop_result=FaultStopResult(terminated,attempted,attempted and not terminated,expired,watch.error)
+        return watch.stop_result
 
 
 def _protocol_digest(protocol):
@@ -579,7 +664,7 @@ def _check_approval(approval):
 
 
 def _protocol_path(root,path):
-    expected=Path(root).resolve()/"docs/experiment_protocols/msb_native_supervision_v1.json"
+    expected=Path(root).resolve()/"docs/experiment_protocols/msb_native_supervision_v2.json"
     if Path(path).resolve()!=expected:raise ValueError("Only the fixed native protocol path may be read")
     return expected
 
@@ -762,7 +847,7 @@ class AcceptancePublicationError(RuntimeError):
         self.failed_state=copy.deepcopy(state)
         self.primary_errors=list(primary_errors) if primary_errors is not None else [primary]
         self.primary_error=self.primary_errors[0];self.persistence_error=persistence
-        super().__init__(f"Native receipt not persisted: primary={primary}; persistence={persistence}; no verified delivery")
+        super().__init__(f"Native receipt not persisted: primary_type={type(primary).__name__}; persistence_type={type(persistence).__name__}; no verified delivery")
 
 
 def publish_acceptance(output,state,binding,*,services,final_check=None):
@@ -810,6 +895,7 @@ class NativeObserver:
         import threading
         self.case_dir,self.binding,self.services=case_dir,binding,services
         self.lock=threading.RLock();self.handle=None;self.watch=None;self.closed=False
+        self.stop_result=None;self.stop_errors=[];self.close_error=None
         self.evidence=dict(identity_verified=False,query_only=True,job_handle_retained=False,
                            job_assignment_observed=False,exit_observed=False,handle_closed=False,
                            fallback_before_exit=False,worker_alive=True,monitor_stopped=False)
@@ -849,35 +935,47 @@ class NativeObserver:
         while not stopped.is_set():
             self.sample();self.services.pause(.05)
     def close(self):
-        stopped=True
-        if self.watch is not None:stopped=self.services.stop_fault(self.watch)
+        result=self._stop()
+        stopped=result is None or result.stop_ok
+        if result is not None and not result.thread_terminated:
+            self.evidence["monitor_stopped"]=False
+            return False
+        if self.close_error is not None:raise self.close_error
         if not self.lock.acquire(timeout=1.):
             self.evidence["monitor_stopped"]=False
             raise RuntimeError("SUPERVISION_INTERRUPTED: observer sampler lock did not release")
         try:
             if self.handle is not None:
-                self.services.close_query(self.handle);self.handle=None;self.evidence["handle_closed"]=True
+                try:self.services.close_query(self.handle)
+                except BaseException as error:
+                    self.close_error=error
+                    raise
+                self.handle=None;self.evidence["handle_closed"]=True
             self.evidence["monitor_stopped"]=stopped;self.closed=True
         finally:self.lock.release()
         return stopped
+    def _stop(self):
+        if self.watch is None:return None
+        if self.stop_result is not None:return self.stop_result
+        self.stop_result,self.stop_errors=_bounded_fault_stop(self.watch,self.binding,self.services)
+        return self.stop_result
     def finish(self,outer):
         observed=self.services.tick_ms()
         self.evidence["parent_exit_observed_tick_ms"]=observed
-        if self.watch is not None:
-            stopped=self.services.stop_fault(self.watch)
-            if not stopped:
-                try:self.close()
-                except BaseException as error:
-                    raise RuntimeError("SUPERVISION_INTERRUPTED: observer did not stop before final sample") from error
-                raise RuntimeError("SUPERVISION_INTERRUPTED: observer did not stop before final sample")
-            self.watch=None
+        result=self._stop();primary=list(self.stop_errors);cleanup=[]
+        if result is not None and not result.stop_ok:
+            if result.callback_error is not None:primary.insert(0,result.callback_error)
+            if not primary:primary.append(RuntimeError("SUPERVISION_INTERRUPTED: observer termination not confirmed"))
         try:
-            while True:
+            while not primary:
                 self.sample()
                 if self.evidence["exit_observed"]:break
                 if self.services.tick_ms()-observed>=5000:break
                 self.services.pause(.05)
-        finally:self.close()
+        except BaseException as error:primary.append(error)
+        try:self.close()
+        except BaseException as error:cleanup.append(error)
+        if primary or cleanup:raise ObserverTerminationError(result,primary,cleanup)
         return copy.deepcopy(self.evidence)
 
 
@@ -925,11 +1023,13 @@ def run_acceptance(root: Path, protocol_path: Path, *, execute_native: bool, app
             registration=services.verify_registration(root,protocol_path,protocol,approval,check)
             _require(registration.get("verified") is True and registration.get("commit")==approval["registration_commit"],"registration not verified")
             services.verify_sources(root,protocol);check()
+            runtime=services.capture_runtime(protocol["runtime_venv_root"]);check()
             output.mkdir(parents=True,exist_ok=False)
             state=dict(status="RUNNING",active_case=None,binding=binding,registered_commit=registration["commit"],
                        registration_verified=True,source_identity_verified=True,case_records=[],
                        real_data_opened=False,real_fits=0,model_forwards=0,
-                       native_os_exercised=not getattr(services,"simulated",False),delivery_verified=False)
+                        native_os_exercised=not getattr(services,"simulated",False),delivery_verified=False,
+                        python_runtime=runtime)
             try:
                 services.write_json(output/"registered_protocol.json",protocol,exclusive=True)
                 services.write_json(output/"stage_state.json",state,exclusive=True);check()
@@ -945,14 +1045,23 @@ def run_acceptance(root: Path, protocol_path: Path, *, execute_native: bool, app
                              "--controller-case",case["case_id"],"--case-output",str(case_dir),
                              "--binding-json",json.dumps(binding)]
                     job=dict(job_id=case["case_id"],case_id=case["case_id"],case_dir=str(case_dir),
-                             binding=copy.deepcopy(binding),command=command,log_path=str(case_dir/"controller.log"))
+                             binding=copy.deepcopy(binding),command=command,log_path=str(case_dir/"controller.log"),
+                             python_launch_contract=protocol["python_launch_contract"])
                     observer=services.start_observer(case_dir,binding)
                     try:
                         remaining=check()
                         outer=services.run_outer(job,dict(per_fit_seconds=min(case["limit"],remaining),heartbeat_seconds=10),remaining)
                         observation=services.finish_observer(observer,outer)
-                    except BaseException:
-                        services.stop_observer(observer);raise
+                    except BaseException as primary:
+                        if isinstance(primary,ObserverTerminationError):
+                            state["observer_diagnostics"]=primary.record()
+                            raise
+                        try:services.stop_observer(observer)
+                        except BaseException as cleanup:
+                            combined=ObserverTerminationError(getattr(observer,"stop_result",None),[primary],[cleanup])
+                            state["observer_diagnostics"]=combined.record()
+                            raise combined from None
+                        raise
                     check();record=_load_case_record(case_dir,binding,outer,observation);check()
                     state["case_records"].append(record)
                     _check_case(record,case["case_id"],binding);check()
@@ -962,7 +1071,10 @@ def run_acceptance(root: Path, protocol_path: Path, *, execute_native: bool, app
                 _require(initial==state["final_settings"],"Power settings changed")
                 check()
             except BaseException as error:
-                errors.append(("body",error))
+                if isinstance(error,ObserverTerminationError):
+                    errors.extend(("observer_primary",e) for e in error.primary_errors)
+                    errors.extend(("observer_cleanup",e) for e in error.cleanup_errors)
+                else:errors.append(("body",error))
     except BaseException as error:
         if state is None:raise
         errors.append(("collector_scope_or_release",error))
@@ -985,9 +1097,11 @@ def run_acceptance(root: Path, protocol_path: Path, *, execute_native: bool, app
     except BaseException as error:
         errors.append(("postflight",error))
     if errors:
+        def error_message(phase,error):
+            return _fault_error_record(error)["message"] if phase.startswith("observer_") else str(error)
         state.update(status="FAILED_NATIVE_SUPERVISION",delivery_verified=False,
-                     error="; ".join(f"{type(e).__name__}: {e}" for _,e in errors),
-                     errors=[dict(phase=p,type=type(e).__name__,message=str(e)) for p,e in errors])
+                     error="; ".join(f"{type(e).__name__}: {error_message(p,e)}" for p,e in errors),
+                     errors=[dict(phase=p,type=type(e).__name__,message=error_message(p,e)) for p,e in errors])
     try:
         return publish_acceptance(output,state,binding,services=services,
                                   final_check=None if continuity is None else continuity.check)

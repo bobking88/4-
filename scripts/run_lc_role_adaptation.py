@@ -198,14 +198,25 @@ def run_supervised_job(job: dict, protocol: dict, remaining_seconds: float) -> d
     start = time.monotonic()
     budget = min(float(protocol["per_fit_seconds"]), remaining_seconds)
     heartbeats, process, guard = [], None, None
+    python_identity=None
     status, failure = "COMPLETE", ""
     next_heartbeat = float(protocol["heartbeat_seconds"])
     try:
         with log_path.open("x", encoding="utf-8") as log, WindowsAwakeGuard() as guard:
             guard.check()
             try:
-                process = subprocess.Popen(job["command"], stdout=log, stderr=subprocess.STDOUT, env=env,
-                                           creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0)
+                command,launch,launch_api=job["command"],None,None
+                options={}
+                if "python_launch_contract" in job:
+                    from msb_execution_safety import PYTHON_LAUNCH_CONTRACT, NativeMSBAPI, build_python_launch, verify_python_process
+                    if job["python_launch_contract"]!=PYTHON_LAUNCH_CONTRACT:
+                        raise RuntimeError("SUPERVISION_INTERRUPTED: unknown Python launch contract")
+                    launch_api=NativeMSBAPI()
+                    launch=build_python_launch(command,launch_api.current_python_runtime(),env)
+                    command=list(launch.argv);env=launch.env;options["executable"]=launch.executable
+                process = subprocess.Popen(command, stdout=log, stderr=subprocess.STDOUT, env=env,
+                                           creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0,**options)
+                if launch is not None:python_identity=verify_python_process(process,launch,api=launch_api)
                 while True:
                     # Check time continuity before poll, including an already-exited worker.
                     now = max(time.monotonic()-start, guard.check())
@@ -235,7 +246,8 @@ def run_supervised_job(job: dict, protocol: dict, remaining_seconds: float) -> d
                 pid=None if process is None else process.pid,
                 exit_code=None if process is None else process.returncode,
                 alive=process is not None and process.poll() is None, elapsed_seconds=elapsed,
-                log_tail=tail, error=failure, supervision=evidence, heartbeats=heartbeats)
+                log_tail=tail, error=failure, supervision=evidence, heartbeats=heartbeats,
+                **({} if python_identity is None else {"python_launch":python_identity}))
 
 
 def run_job_batch(jobs: list[dict], protocol: dict, ledger: Path, *, consumed_seconds: float) -> list[dict]:

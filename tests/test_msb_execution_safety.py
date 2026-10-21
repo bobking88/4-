@@ -36,6 +36,8 @@ class FakeAPI:
         self.inbox = []; self.sent = []; self.closed = []; self.aborted = False
         self.auto_close = True
     def tick_ms(self): return self.now
+    def current_python_runtime(self):return synthetic_python_runtime()
+    def expected_python_runtime(self):return json.dumps(safety.asdict(self.current_python_runtime()))
     def process_identity(self, handle): return self.identity
     def process_alive(self, handle): return self.alive
     def read_message(self, handle, max_bytes=8192):
@@ -255,6 +257,7 @@ class CloseControlTests(unittest.TestCase):
 
 class FakeProcess:
     pid = 8
+    _handle = 80
     returncode = None
     def poll(self): return self.returncode
 
@@ -335,6 +338,14 @@ class LauncherTests(unittest.TestCase):
         if event=="unknown": spawn.side_effect=KeyboardInterrupt("primary Popen interrupted")
         def start(job,handles,**kwargs):
             native=object.__new__(safety.NativeMSBAPI)
+            runtime=synthetic_python_runtime()
+            native.current_python_runtime=lambda:runtime
+            native.process_identity=lambda handle:(process.pid,199)
+            def image(handle):
+                if event=="image":raise OSError("primary image query failed")
+                return runtime.base_executable
+            native.process_executable_path=image
+            job=dict(job,command=[runtime.venv_executable,"registered.py"])
             with patch.object(safety.subprocess,"STARTUPINFO",return_value=SimpleNamespace()),patch.object(
                     safety.os,"set_handle_inheritable",side_effect=inherit),patch.object(
                     safety.subprocess,"Popen",spawn),patch.object(Path,"open",return_value=Log()):
@@ -686,12 +697,14 @@ class NativeAdapterTests(unittest.TestCase):
 
     def test_native_spawn_explicit_handles_and_restore_without_os_spawn(self):
         api=object.__new__(safety.NativeMSBAPI)
+        runtime=synthetic_python_runtime();api.current_python_runtime=lambda:runtime
+        api.process_identity=lambda handle:(8,199);api.process_executable_path=lambda handle:runtime.base_executable
         handles=dict(read_handle=11,write_handle=12,parent_handle=10,nonce="3"*64)
         with tempfile.TemporaryDirectory() as directory:
             startup=SimpleNamespace()
             with patch.object(safety.subprocess,"STARTUPINFO",return_value=startup),patch.object(
                     safety.os,"set_handle_inheritable") as inherit,patch.object(safety.subprocess,"Popen",return_value=FakeProcess()) as spawn:
-                api.start_worker(dict(log_path=str(Path(directory)/"log"),command=["python","runner"]),handles,
+                api.start_worker(dict(log_path=str(Path(directory)/"log"),command=[runtime.venv_executable,"runner"]),handles,
                                  ownership=safety.WorkerLaunchOwnership())
             self.assertEqual(startup.lpAttributeList,{"handle_list":[11,12,10]})
             self.assertEqual(inherit.call_args_list[-3:],[((11,False),),((12,False),),((10,False),)])
@@ -709,6 +722,8 @@ class NativeAdapterTests(unittest.TestCase):
 
     def test_native_restore_error_retains_spawned_process_for_cleanup(self):
         api=object.__new__(safety.NativeMSBAPI)
+        runtime=synthetic_python_runtime();api.current_python_runtime=lambda:runtime
+        api.process_identity=lambda handle:(8,199);api.process_executable_path=lambda handle:runtime.base_executable
         process=FakeProcess()
         handles=dict(read_handle=11,write_handle=12,parent_handle=10,nonce="3"*64)
         def inherit(handle,flag):
@@ -716,8 +731,87 @@ class NativeAdapterTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             with patch.object(safety.subprocess,"STARTUPINFO",return_value=SimpleNamespace()),patch.object(
                     safety.os,"set_handle_inheritable",side_effect=inherit),patch.object(safety.subprocess,"Popen",return_value=process):
-                try: api.start_worker(dict(command=["python"],log_path=str(Path(folder)/"log")),handles,
+                try: api.start_worker(dict(command=[runtime.venv_executable,"runner"],log_path=str(Path(folder)/"log")),handles,
                                       ownership=safety.WorkerLaunchOwnership())
                 except BaseException as error:
                     self.assertIs(getattr(error,"spawned_process",None),process)
                 else: self.fail("restore failure was swallowed")
+
+def synthetic_python_runtime(**changes):
+    values=dict(implementation="cpython", version=(3,11,9),
+                venv_executable=r"C:\synthetic\venv\Scripts\python.exe",
+                base_executable=r"C:\synthetic\base\python.exe",
+                module_executable=r"C:\synthetic\base\python.exe",
+                venv_prefix=r"C:\synthetic\venv",base_prefix=r"C:\synthetic\base")
+    values.update(changes)
+    return safety.PythonRuntimeIdentity(**values)
+
+
+class DirectPythonLaunchTests(unittest.TestCase):
+    def function(self,name):
+        value=getattr(safety,name,None)
+        self.assertTrue(callable(value),"Missing direct launch implementation: "+name)
+        return value
+
+    def test_direct_python_launch_preserves_venv_context(self):
+        build=self.function("build_python_launch")
+        runtime=synthetic_python_runtime()
+        env={"PYTHONHOME":"wrong","PYTHONPATH":"injected","KEEP":"yes"}
+        original=dict(env);command=[runtime.venv_executable,"registered.py","--x","spaces here"]
+        result=build(command,runtime,env)
+        self.assertEqual(list(result.argv),[runtime.base_executable,*command[1:]])
+        self.assertEqual(result.executable,runtime.base_executable)
+        self.assertEqual(result.env["__PYVENV_LAUNCHER__"],runtime.venv_executable)
+        self.assertEqual(result.env["KEEP"],"yes")
+        self.assertNotIn("PYTHONHOME",result.env);self.assertNotIn("PYTHONPATH",result.env)
+        self.assertEqual(env,original)
+        self.assertEqual(len(result.runtime_digest),64)
+
+    def test_direct_python_launch_rejects_unsupported_runtime(self):
+        build=self.function("build_python_launch")
+        changes=({"implementation":"pypy"},{"version":(3,12,0)},{"venv_prefix":r"C:\other"},
+                 {"module_executable":r"C:\wrong\python.exe"},{"base_prefix":r"C:\synthetic\venv"},
+                 {"venv_prefix":r"\synthetic\venv","venv_executable":r"\synthetic\venv\Scripts\python.exe"})
+        for change in changes:
+            with self.subTest(change=change),self.assertRaises((ValueError,RuntimeError)):
+                runtime=synthetic_python_runtime(**change)
+                build([runtime.venv_executable,"worker.py"],runtime,{})
+        runtime=synthetic_python_runtime()
+        for command in ([],["python","worker.py"],"python worker.py"):
+            with self.subTest(command=command),self.assertRaises((ValueError,RuntimeError)):
+                build(command,runtime,{})
+
+    def test_direct_worker_process_identity_and_wrong_hello(self):
+        verify=self.function("verify_python_process")
+        runtime=synthetic_python_runtime()
+        launch=safety.build_python_launch([runtime.venv_executable,"worker.py"],runtime,{})
+        process=SimpleNamespace(pid=11680,_handle=80)
+        api=SimpleNamespace(process_identity=lambda h:(23980,134369819644636078),
+                            process_executable_path=lambda h:runtime.base_executable)
+        with self.assertRaises(RuntimeError):verify(process,launch,api=api)
+        process.pid=23980
+        record=verify(process,launch,api=api)
+        self.assertEqual((record["pid"],str(record["created"])),(23980,"134369819644636078"))
+        fixture=LauncherTests();fixture.setUp();self.addCleanup(fixture.doCleanups)
+        for field in ("worker_pid","nonce","parent_created"):
+            api=LauncherAPI();old=api.start_worker
+            def start(job,handles,*,ownership):
+                p=old(job,handles,ownership=ownership)
+                api.inbox[0][field]=9 if field!="nonce" else "f"*64
+                return p
+            api.start_worker=start
+            with safety.MSBParentSupervisor(safety.RunBudget(1000,7201000),"run","1"*64,api=api) as parent:
+                result=parent.run_job(fixture.job,{})
+            self.assertNotEqual(result["status"],"COMPLETE")
+            self.assertFalse(any(m["kind"]=="GRANT" for m in api.sent))
+        good,_=fixture.run_fake()
+        self.assertEqual(good["status"],"COMPLETE")
+
+    def test_direct_launch_post_spawn_failure_keeps_owned_cleanup(self):
+        self.function("verify_python_process")
+        fixture=LauncherTests();fixture.setUp();self.addCleanup(fixture.doCleanups)
+        result,api,count=fixture.run_native_failure("image")
+        self.assertEqual(count,1)
+        self.assertEqual(result["attempts"],1)
+        self.assertIn("killed",api.events);self.assertIn("waited",api.events)
+        self.assertTrue(result["cleanup_confirmed"])

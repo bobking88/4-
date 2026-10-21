@@ -1,0 +1,215 @@
+test_active_controller_claim_mismatch_denies_before_native_factory (test_check_msb_native_supervision.CollectorTests.test_active_controller_claim_mismatch_denies_before_native_factory) ... ok
+test_classifier_accepts_only_complete_fixed_four_case_evidence (test_check_msb_native_supervision.CollectorTests.test_classifier_accepts_only_complete_fixed_four_case_evidence) ... ok
+test_classifier_never_uses_outer_timeout_or_false_release_as_native_proof (test_check_msb_native_supervision.CollectorTests.test_classifier_never_uses_outer_timeout_or_false_release_as_native_proof) ... ok
+test_classifier_rejects_fake_renewal_or_nonexact_ack (test_check_msb_native_supervision.CollectorTests.test_classifier_rejects_fake_renewal_or_nonexact_ack) ... ok
+test_classifier_rejects_global_expiry_source_power_or_setting_failure (test_check_msb_native_supervision.CollectorTests.test_classifier_rejects_global_expiry_source_power_or_setting_failure) ... ok
+test_classifier_rejects_job_retention_pid_reuse_fallback_and_late_exit (test_check_msb_native_supervision.CollectorTests.test_classifier_rejects_job_retention_pid_reuse_fallback_and_late_exit) ... ok
+test_collector_launches_four_once_and_passes_original_binding (test_check_msb_native_supervision.CollectorTests.test_collector_launches_four_once_and_passes_original_binding) ... ok
+test_collector_preparation_expiry_launches_no_case (test_check_msb_native_supervision.CollectorTests.test_collector_preparation_expiry_launches_no_case) ... ok
+test_collector_remote_mismatch_never_launches_or_creates_run_directory (test_check_msb_native_supervision.CollectorTests.test_collector_remote_mismatch_never_launches_or_creates_run_directory) ... ok
+test_collector_stops_after_first_unexpected_case_outcome (test_check_msb_native_supervision.CollectorTests.test_collector_stops_after_first_unexpected_case_outcome) ... ok
+test_collector_true_flag_with_code_permission_reads_nothing (test_check_msb_native_supervision.CollectorTests.test_collector_true_flag_with_code_permission_reads_nothing) ... ok
+test_existing_outer_guard_checks_root_guard_on_same_thread (test_check_msb_native_supervision.CollectorTests.test_existing_outer_guard_checks_root_guard_on_same_thread) ... ok
+test_final_publication_expiry_and_double_failure_preserve_both_errors (test_check_msb_native_supervision.CollectorTests.test_final_publication_expiry_and_double_failure_preserve_both_errors) ... ok
+test_native_query_open_uses_only_query_and_sync_rights (test_check_msb_native_supervision.CollectorTests.test_native_query_open_uses_only_query_and_sync_rights) ... ok
+test_observer_rejects_pid_reuse_without_retaining_job_capability (test_check_msb_native_supervision.CollectorTests.test_observer_rejects_pid_reuse_without_retaining_job_capability) ... ok
+test_private_controller_cli_uses_registered_active_claim_and_real_parent (test_check_msb_native_supervision.CollectorTests.test_private_controller_cli_uses_registered_active_claim_and_real_parent) ... ok
+test_registered_git_tree_and_protocol_bytes_bind_all_sources (test_check_msb_native_supervision.CollectorTests.test_registered_git_tree_and_protocol_bytes_bind_all_sources) ... ok
+test_deadline_equality_backwards_and_nonfinite_rejected (test_check_msb_native_supervision.ContractTests.test_deadline_equality_backwards_and_nonfinite_rejected) ... ok
+test_fixed_protocol_validates_without_reading_assets (test_check_msb_native_supervision.ContractTests.test_fixed_protocol_validates_without_reading_assets) ... ok
+test_no_execute_flag_denies_before_service_or_file_read (test_check_msb_native_supervision.ContractTests.test_no_execute_flag_denies_before_service_or_file_read) ... ok
+test_nonreal_and_unconfirmed_approval_rejected (test_check_msb_native_supervision.ContractTests.test_nonreal_and_unconfirmed_approval_rejected) ... ok
+test_old_output_missing_source_and_extra_source_rejected (test_check_msb_native_supervision.ContractTests.test_old_output_missing_source_and_extra_source_rejected) ... ok
+test_protocol_mutations_and_true_data_fields_rejected (test_check_msb_native_supervision.ContractTests.test_protocol_mutations_and_true_data_fields_rejected) ... ok
+test_remaining_uses_larger_elapsed_including_preparation (test_check_msb_native_supervision.ContractTests.test_remaining_uses_larger_elapsed_including_preparation) ... ok
+test_child_runtime_context_mismatch_never_reaches_ready_or_work (test_check_msb_native_supervision.DirectLaunchBoundaryTests.test_child_runtime_context_mismatch_never_reaches_ready_or_work) ... ok
+test_direct_controller_launch_uses_shared_helper_and_actual_identity (test_check_msb_native_supervision.DirectLaunchBoundaryTests.test_direct_controller_launch_uses_shared_helper_and_actual_identity) ... ok
+test_fault_stop_is_once_and_bounded_by_remaining (test_check_msb_native_supervision.DirectLaunchBoundaryTests.test_fault_stop_is_once_and_bounded_by_remaining) ... 
+  test_fault_stop_is_once_and_bounded_by_remaining (test_check_msb_native_supervision.DirectLaunchBoundaryTests.test_fault_stop_is_once_and_bounded_by_remaining) (remaining=0.0) ... FAIL
+  test_fault_stop_is_once_and_bounded_by_remaining (test_check_msb_native_supervision.DirectLaunchBoundaryTests.test_fault_stop_is_once_and_bounded_by_remaining) (remaining=0.25) ... FAIL
+  test_fault_stop_is_once_and_bounded_by_remaining (test_check_msb_native_supervision.DirectLaunchBoundaryTests.test_fault_stop_is_once_and_bounded_by_remaining) (remaining=2.0) ... FAIL
+test_live_fault_after_join_is_timeout_and_closes_nothing (test_check_msb_native_supervision.DirectLaunchBoundaryTests.test_live_fault_after_join_is_timeout_and_closes_nothing) ... FAIL
+test_missing_ready_and_old_permission_never_pass_native_v2 (test_check_msb_native_supervision.DirectLaunchBoundaryTests.test_missing_ready_and_old_permission_never_pass_native_v2) ... ok
+test_observer_callback_cleanup_release_and_publication_causes_survive (test_check_msb_native_supervision.DirectLaunchBoundaryTests.test_observer_callback_cleanup_release_and_publication_causes_survive) ... 
+  test_observer_callback_cleanup_release_and_publication_causes_survive (test_check_msb_native_supervision.DirectLaunchBoundaryTests.test_observer_callback_cleanup_release_and_publication_causes_survive) (write_failure=True) ... FAIL
+test_stopped_fault_with_callback_error_is_not_join_timeout (test_check_msb_native_supervision.DirectLaunchBoundaryTests.test_stopped_fault_with_callback_error_is_not_join_timeout) ... FAIL
+test_synthetic_scope_covers_runtime_and_thread_adapters (test_check_msb_native_supervision.DirectLaunchBoundaryTests.test_synthetic_scope_covers_runtime_and_thread_adapters) ... ok
+test_body_release_and_write_failure_keep_all_errors (test_check_msb_native_supervision.FinalRepairTests.test_body_release_and_write_failure_keep_all_errors) ... ok
+test_classifier_requires_final_continuity (test_check_msb_native_supervision.FinalRepairTests.test_classifier_requires_final_continuity) ... ok
+test_final_check_is_required_for_pass (test_check_msb_native_supervision.FinalRepairTests.test_final_check_is_required_for_pass) ... ok
+test_final_check_runs_before_and_after_pass_write (test_check_msb_native_supervision.FinalRepairTests.test_final_check_runs_before_and_after_pass_write) ... ok
+test_final_continuity_bounds_and_invalid_samples (test_check_msb_native_supervision.FinalRepairTests.test_final_continuity_bounds_and_invalid_samples) ... ok
+test_guard_is_not_reentered_for_postflight (test_check_msb_native_supervision.FinalRepairTests.test_guard_is_not_reentered_for_postflight) ... ok
+test_guard_release_failure_finalizes_and_cli_nonzero (test_check_msb_native_supervision.FinalRepairTests.test_guard_release_failure_finalizes_and_cli_nonzero) ... ok
+test_postflight_ac_and_gap_failure_never_publish_pass (test_check_msb_native_supervision.FinalRepairTests.test_postflight_ac_and_gap_failure_never_publish_pass) ... ok
+test_actual_main_never_passes_a_skipped_input (test_check_msb_native_supervision.HarnessGateTests.test_actual_main_never_passes_a_skipped_input) ... ok
+test_gate_rejects_nonpassing_result_classes (test_check_msb_native_supervision.HarnessGateTests.test_gate_rejects_nonpassing_result_classes) ... ok
+test_initial_running_check_failure_and_release_preserve_both_causes (test_check_msb_native_supervision.InitializationErrorRetentionTests.test_initial_running_check_failure_and_release_preserve_both_causes) ... ok
+test_initial_running_failure_cli_is_nonzero_and_clock_injected (test_check_msb_native_supervision.InitializationErrorRetentionTests.test_initial_running_failure_cli_is_nonzero_and_clock_injected) ... ok
+test_initial_running_triple_failure_preserves_exception_objects (test_check_msb_native_supervision.InitializationErrorRetentionTests.test_initial_running_triple_failure_preserves_exception_objects) ... ok
+test_initial_write_failure_and_release_preserve_both_causes (test_check_msb_native_supervision.InitializationErrorRetentionTests.test_initial_write_failure_and_release_preserve_both_causes) ... ok
+test_pre_state_rejection_preserves_no_output_contract (test_check_msb_native_supervision.InitializationErrorRetentionTests.test_pre_state_rejection_preserves_no_output_contract) ... ok
+test_controller_rechecks_loaded_module_origins_before_launch (test_check_msb_native_supervision.N4RepairTests.test_controller_rechecks_loaded_module_origins_before_launch) ... ok
+test_n4_allows_child_observed_before_parent (test_check_msb_native_supervision.N4RepairTests.test_n4_allows_child_observed_before_parent) ... ok
+test_n4_busy_fault_gate_is_bounded_and_fails_closed (test_check_msb_native_supervision.N4RepairTests.test_n4_busy_fault_gate_is_bounded_and_fails_closed) ... ok
+test_n4_cleanup_during_fault_snapshot_cannot_commit (test_check_msb_native_supervision.N4RepairTests.test_n4_cleanup_during_fault_snapshot_cannot_commit) ... ok
+test_n4_cleanup_fault_race_never_qualifies (test_check_msb_native_supervision.N4RepairTests.test_n4_cleanup_fault_race_never_qualifies) ... ok
+test_n4_dead_at_ack_is_rejected (test_check_msb_native_supervision.N4RepairTests.test_n4_dead_at_ack_is_rejected) ... ok
+test_n4_fault_exit_same_tick_and_five_second_equality_rejected (test_check_msb_native_supervision.N4RepairTests.test_n4_fault_exit_same_tick_and_five_second_equality_rejected) ... ok
+test_n4_fault_gate_commits_live_identity_snapshot_before_exit31 (test_check_msb_native_supervision.N4RepairTests.test_n4_fault_gate_commits_live_identity_snapshot_before_exit31) ... ok
+test_n4_missing_live_or_snapshot_evidence_is_rejected (test_check_msb_native_supervision.N4RepairTests.test_n4_missing_live_or_snapshot_evidence_is_rejected) ... ok
+test_n4_parent_live_query_and_trace_failure_never_exit31 (test_check_msb_native_supervision.N4RepairTests.test_n4_parent_live_query_and_trace_failure_never_exit31) ... ok
+test_n4_query_close_failure_still_releases_fault_gate (test_check_msb_native_supervision.N4RepairTests.test_n4_query_close_failure_still_releases_fault_gate) ... ok
+test_n4_rejects_pre_fault_exit_and_cleanup (test_check_msb_native_supervision.N4RepairTests.test_n4_rejects_pre_fault_exit_and_cleanup) ... ok
+test_n4_trace_write_failure_never_suppresses_cleanup (test_check_msb_native_supervision.N4RepairTests.test_n4_trace_write_failure_never_suppresses_cleanup) ... ok
+test_ack_read_time_counts_toward_the_five_second_cap (test_check_msb_native_supervision.ObserverTests.test_ack_read_time_counts_toward_the_five_second_cap) ... ok
+test_close_rejects_a_stuck_observer_lock_without_unsafe_handle_close (test_check_msb_native_supervision.ObserverTests.test_close_rejects_a_stuck_observer_lock_without_unsafe_handle_close) ... ok
+test_finish_never_samples_while_an_observer_thread_cannot_stop (test_check_msb_native_supervision.ObserverTests.test_finish_never_samples_while_an_observer_thread_cannot_stop) ... ok
+test_partial_ready_write_is_not_misclassified_as_native_failure (test_check_msb_native_supervision.ObserverTests.test_partial_ready_write_is_not_misclassified_as_native_failure) ... ok
+test_pipe_eof_classification_uses_numeric_cause_not_localized_text (test_check_msb_native_supervision.ObserverTests.test_pipe_eof_classification_uses_numeric_cause_not_localized_text) ... ok
+test_real_observer_rejects_creation_reuse_before_ack (test_check_msb_native_supervision.ObserverTests.test_real_observer_rejects_creation_reuse_before_ack) ... ok
+test_real_observer_retains_query_identity_then_confirms_exit_and_closes (test_check_msb_native_supervision.ObserverTests.test_real_observer_retains_query_identity_then_confirms_exit_and_closes) ... ok
+test_current_document_and_development_permissions_are_not_native (test_check_msb_native_supervision.OriginRepairTests.test_current_document_and_development_permissions_are_not_native) ... ok
+test_execution_origins_reports_actual_driver_and_modules (test_check_msb_native_supervision.OriginRepairTests.test_execution_origins_reports_actual_driver_and_modules) ... ok
+test_origin_accepts_same_resolved_root_only (test_check_msb_native_supervision.OriginRepairTests.test_origin_accepts_same_resolved_root_only) ... ok
+test_origin_rejects_other_checkout_and_import_alias (test_check_msb_native_supervision.OriginRepairTests.test_origin_rejects_other_checkout_and_import_alias) ... ok
+test_three_entrypoints_reject_wrong_origins_before_native (test_check_msb_native_supervision.OriginRepairTests.test_three_entrypoints_reject_wrong_origins_before_native) ... ok
+test_wait_work_rejects_negative_boolean_or_noninteger (test_check_msb_native_supervision.OriginRepairTests.test_wait_work_rejects_negative_boolean_or_noninteger) ... ok
+test_zero_wait_does_not_turn_tick_overhead_into_work (test_check_msb_native_supervision.OriginRepairTests.test_zero_wait_does_not_turn_tick_overhead_into_work) ... ok
+test_controller_reuses_real_parent_and_original_budget (test_check_msb_native_supervision.WorkerTests.test_controller_reuses_real_parent_and_original_budget) ... ok
+test_done_linger_expires_original_frozen_lease_not_outer_timer (test_check_msb_native_supervision.WorkerTests.test_done_linger_expires_original_frozen_lease_not_outer_timer) ... ok
+test_no_done_and_native_eof_remain_fail_closed_with_exit23 (test_check_msb_native_supervision.WorkerTests.test_no_done_and_native_eof_remain_fail_closed_with_exit23) ... ok
+test_parent_fault_case_still_uses_real_launch_and_rejects_assignment_failure (test_check_msb_native_supervision.WorkerTests.test_parent_fault_case_still_uses_real_launch_and_rejects_assignment_failure) ... ok
+test_parent_fault_rejects_job_handle_retention_wrong_identity_and_timeout (test_check_msb_native_supervision.WorkerTests.test_parent_fault_rejects_job_handle_retention_wrong_identity_and_timeout) ... ok
+test_parent_fault_requires_real_ready_identity_and_collector_ack (test_check_msb_native_supervision.WorkerTests.test_parent_fault_requires_real_ready_identity_and_collector_ack) ... ok
+test_private_worker_cli_rejects_missing_handles_and_public_flag_mix (test_check_msb_native_supervision.WorkerTests.test_private_worker_cli_rejects_missing_handles_and_public_flag_mix) ... ok
+test_private_worker_cli_runs_the_real_scope_with_inherited_handles (test_check_msb_native_supervision.WorkerTests.test_private_worker_cli_runs_the_real_scope_with_inherited_handles) ... ok
+test_real_worker_scope_waits45_and_completes_real_close (test_check_msb_native_supervision.WorkerTests.test_real_worker_scope_waits45_and_completes_real_close) ... ok
+test_worker_exit23_never_publishes_result_or_false_release (test_check_msb_native_supervision.WorkerTests.test_worker_exit23_never_publishes_result_or_false_release) ... ok
+test_worker_lingers_only_after_close_and_power_release (test_check_msb_native_supervision.WorkerTests.test_worker_lingers_only_after_close_and_power_release) ... ok
+test_worker_rejects_old_packet_and_missing_live_capability (test_check_msb_native_supervision.WorkerTests.test_worker_rejects_old_packet_and_missing_live_capability) ... ok
+
+======================================================================
+FAIL: test_fault_stop_is_once_and_bounded_by_remaining (test_check_msb_native_supervision.DirectLaunchBoundaryTests.test_fault_stop_is_once_and_bounded_by_remaining) (remaining=0.0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 1374, in test_fault_stop_is_once_and_bounded_by_remaining
+    first=service.stop_fault(watch,remaining_seconds=remaining)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 625, in stop_fault
+    before=self.monotonic();watch.stopped.set()
+           ^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 597, in monotonic
+    return time.monotonic()
+           ^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1124, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1128, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1189, in _execute_mock_call
+    result = effect(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\run_msb_native_supervision_synthetic_acceptance.py", line 106, in reject
+    raise AssertionError("UNMOCKED_BOUNDARY_FORBIDDEN: "+name)
+AssertionError: UNMOCKED_BOUNDARY_FORBIDDEN: monotonic
+
+======================================================================
+FAIL: test_fault_stop_is_once_and_bounded_by_remaining (test_check_msb_native_supervision.DirectLaunchBoundaryTests.test_fault_stop_is_once_and_bounded_by_remaining) (remaining=0.25)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 1374, in test_fault_stop_is_once_and_bounded_by_remaining
+    first=service.stop_fault(watch,remaining_seconds=remaining)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 625, in stop_fault
+    before=self.monotonic();watch.stopped.set()
+           ^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 597, in monotonic
+    return time.monotonic()
+           ^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1124, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1128, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1189, in _execute_mock_call
+    result = effect(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\run_msb_native_supervision_synthetic_acceptance.py", line 106, in reject
+    raise AssertionError("UNMOCKED_BOUNDARY_FORBIDDEN: "+name)
+AssertionError: UNMOCKED_BOUNDARY_FORBIDDEN: monotonic
+
+======================================================================
+FAIL: test_fault_stop_is_once_and_bounded_by_remaining (test_check_msb_native_supervision.DirectLaunchBoundaryTests.test_fault_stop_is_once_and_bounded_by_remaining) (remaining=2.0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 1374, in test_fault_stop_is_once_and_bounded_by_remaining
+    first=service.stop_fault(watch,remaining_seconds=remaining)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 625, in stop_fault
+    before=self.monotonic();watch.stopped.set()
+           ^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 597, in monotonic
+    return time.monotonic()
+           ^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1124, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1128, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1189, in _execute_mock_call
+    result = effect(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\run_msb_native_supervision_synthetic_acceptance.py", line 106, in reject
+    raise AssertionError("UNMOCKED_BOUNDARY_FORBIDDEN: "+name)
+AssertionError: UNMOCKED_BOUNDARY_FORBIDDEN: monotonic
+
+======================================================================
+FAIL: test_live_fault_after_join_is_timeout_and_closes_nothing (test_check_msb_native_supervision.DirectLaunchBoundaryTests.test_live_fault_after_join_is_timeout_and_closes_nothing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 1362, in test_live_fault_after_join_is_timeout_and_closes_nothing
+    self.assertIsInstance(caught,native.ObserverTerminationError)
+AssertionError: AssertionError('UNMOCKED_BOUNDARY_FORBIDDEN: monotonic') is not an instance of <class 'check_msb_native_supervision.ObserverTerminationError'>
+
+======================================================================
+FAIL: test_observer_callback_cleanup_release_and_publication_causes_survive (test_check_msb_native_supervision.DirectLaunchBoundaryTests.test_observer_callback_cleanup_release_and_publication_causes_survive) (write_failure=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 1411, in test_observer_callback_cleanup_release_and_publication_causes_survive
+    self.assertIs(caught.primary_errors[0],callback)
+AssertionError: AssertionError('UNMOCKED_BOUNDARY_FORBIDDEN: monotonic') is not ValueError('nonce=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+
+======================================================================
+FAIL: test_stopped_fault_with_callback_error_is_not_join_timeout (test_check_msb_native_supervision.DirectLaunchBoundaryTests.test_stopped_fault_with_callback_error_is_not_join_timeout)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 1348, in test_stopped_fault_with_callback_error_is_not_join_timeout
+    result=service.stop_fault(watch,remaining_seconds=2.)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 625, in stop_fault
+    before=self.monotonic();watch.stopped.set()
+           ^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 597, in monotonic
+    return time.monotonic()
+           ^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1124, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1128, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1189, in _execute_mock_call
+    result = effect(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\run_msb_native_supervision_synthetic_acceptance.py", line 106, in reject
+    raise AssertionError("UNMOCKED_BOUNDARY_FORBIDDEN: "+name)
+AssertionError: UNMOCKED_BOUNDARY_FORBIDDEN: monotonic
+
+----------------------------------------------------------------------
+Ran 86 tests in 3.840s
+
+FAILED (failures=6)

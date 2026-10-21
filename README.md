@@ -352,6 +352,8 @@ C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独�
 
 2026-10-20身份与观察器修复文档更新：按仅文档授权形成[最小修复规格](docs/superpowers/specs/2026-10-20-msb-python-launch-observer-repair-design.md)、[三任务实施计划](docs/superpowers/plans/2026-10-20-msb-python-launch-observer-repair.md)及[作者文档记录](docs/experiment_records/2026-10-20_msb_python_launch_observer_repair_planning.md)。拟采用实际解释器直接启动并保留venv上下文，保留两层严格身份/Job校验；类型化停止结果区分回调异常、线程未退和预算不足，并保留首发/清理错误。未来六文件、12新增方法、七阶段全fake为待审方案，旧235保留、247只是预计；新v2仅预留命名，不创建协议或运行。当前DOCUMENTED_NOT_IMPLEMENTED_NOT_RUN，无代码/项目导入/测试/探查/真实数据/代理/正式报告变更；原生失败与科学未验证状态不变。开发、合成、独立复查、原生及科学实验仍分别另批，不以工程设计冒充网络创新效果。
 
+2026-10-21身份与观察器修复实施更新：按另批的六文件Tasks1--3完成[作者实施与有限合成验收](docs/experiment_records/2026-10-21_msb_python_launch_observer_repair_acceptance.md)。七阶段9次尝试，final/attempt-001为247/247，保留原235全名、新增12名，0失败/错误/跳过/未模拟调用。两次非预期失败原件不改：一次源码插入位置NameError、一次夹具缺fake clock导致7次调用被守卫拦截；后者未实际执行时钟接口。最终2次仅scratch合成张量读取，无真实数据/训练/前向、原生验收或代理。采用实际解释器+venv上下文、两层严格身份与类型化停止，六文件之外、网络/公式/矩阵/正式报告和旧v1原件不变；v2仅代码命名，无实际协议/目录。当前AUTHOR_SYNTHETIC_ACCEPTED_INDEPENDENT_REVIEW_PENDING，原生兼容性与科学效果均未验证，后续独立复查、原生和科学实验仍分别另批，不把工程通过当理论创新成果。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.
