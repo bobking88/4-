@@ -354,6 +354,8 @@ C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独�
 
 2026-10-21身份与观察器修复实施更新：按另批的六文件Tasks1--3完成[作者实施与有限合成验收](docs/experiment_records/2026-10-21_msb_python_launch_observer_repair_acceptance.md)。七阶段9次尝试，final/attempt-001为247/247，保留原235全名、新增12名，0失败/错误/跳过/未模拟调用。两次非预期失败原件不改：一次源码插入位置NameError、一次夹具缺fake clock导致7次调用被守卫拦截；后者未实际执行时钟接口。最终2次仅scratch合成张量读取，无真实数据/训练/前向、原生验收或代理。采用实际解释器+venv上下文、两层严格身份与类型化停止，六文件之外、网络/公式/矩阵/正式报告和旧v1原件不变；v2仅代码命名，无实际协议/目录。当前AUTHOR_SYNTHETIC_ACCEPTED_INDEPENDENT_REVIEW_PENDING，原生兼容性与科学效果均未验证，后续独立复查、原生和科学实验仍分别另批，不把工程通过当理论创新成果。
 
+2026-10-22身份与观察器修复独立复查：对固定提交`16fb16d`只派发一次[只读工程复查](docs/experiment_records/2026-10-22_msb_python_launch_observer_repair_review.md)，结论REQUEST_CHANGES，发现单项P2：异常回收忽略observer.close的False停止结果，可能漏存原始callback/stop-budget原因与observer_diagnostics；作者静态核对认可，未修复。247项为既有合成记录，本轮不重跑；全部失败原件、源码/网络/公式/矩阵/正式报告和旧v1原件不变，无真实数据/前向/拟合或原生验收。当前INDEPENDENT_REVIEW_REQUEST_CHANGES_NO_FIX，不放行原生或科学实验；最小修复规格、开发及任何新实验仍另批。观察等待中断后只继续同一代理，未重派；不把工程复查当理论创新效果。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.

@@ -1,0 +1,87 @@
+{
+  "date": "2026-10-22",
+  "timezone": "Asia/Shanghai",
+  "approval_id": "call_9831ed712c9348a19b4a71960443c76d",
+  "status": "INDEPENDENT_REVIEW_REQUEST_CHANGES_NO_FIX",
+  "reviewed_commit": "16fb16d6c9293e9c37c700d5e5f28e081993ac67",
+  "reviewed_tree": "37549ab790022385df073285f70fbe8815c85569",
+  "reviewer_agent_id": "01a161d1-dbab-7290-af17-f1054dc67418",
+  "dispatch_count": 1,
+  "completed_conclusions": 1,
+  "redispatches": 0,
+  "agent_closed": true,
+  "verdict": "REQUEST_CHANGES",
+  "p1_count": 0,
+  "p2_count": 1,
+  "p3_count": 0,
+  "open_finding": "R1",
+  "parent_disposition": "ACCEPTED_OPEN_NOT_FIXED",
+  "reviewer_inspection_basis": "Returned independent static review; raw response retained in reviewer_result.json. No repeat review or tests performed by parent.",
+  "parent_verification": {
+    "finding_lines_checked": [
+      557,
+      937,
+      965,
+      1059,
+      1061,
+      1075
+    ],
+    "code_diff_empty": true,
+    "protected_records_unchanged": 204,
+    "protected_readme_status_insertion": 1,
+    "reviewed_commit_files_unchanged": 40,
+    "reviewed_commit_readme_status_insertion": 1,
+    "all_other_protected_records_match": true,
+    "source_network_formula_matrix_report_edits": 0,
+    "reviewer_result_sha256": "7dacb352cf9ce37415c64f8be26fd448f94735a1657faff8a47b96f4a070c2e5"
+  },
+  "existing_synthetic_evidence": {
+    "actual_new_test_runs": 0,
+    "prior_final_methods": 247,
+    "retained_original_names": 235,
+    "new_names_in_prior_run": 12,
+    "prior_attempts": 9,
+    "prior_raw_originals": 27,
+    "independent_reviewer_verified": true,
+    "proof_scope": "Recorded synthetic runs only; R1 exceptional-recovery path remains uncovered. Not a native or scientific success."
+  },
+  "postprocessing": {
+    "first_author_capture": "JSON parse failed because a Git CRLF warning prefixed the capture; no code/test/native operation was executed.",
+    "repeated_capture": "Read-only hashes/diff only; stdout/stderr separated and warning retained in protection_after.json.",
+    "observer_wait": "Observation timeout/stale code-mode host; same known agent re-observed, never restarted or re-dispatched."
+  },
+  "deferred_judgments": [
+    {
+      "scope": "Actual Windows CPython/venv, WinAPI and process ownership",
+      "disposition": "NOT_VERIFIED_NO_NATIVE_PERMISSION"
+    },
+    {
+      "scope": "Actual thread scheduling, join and handle cleanup",
+      "disposition": "NOT_VERIFIED_NO_NATIVE_PERMISSION"
+    },
+    {
+      "scope": "Universal exception redaction",
+      "disposition": "NOT_PROVED_BY_FINITE_RULES_OR_TESTS"
+    },
+    {
+      "scope": "Network/theory/model/scientific effects",
+      "disposition": "NOT_VERIFIED_OUTSIDE_REVIEW"
+    },
+    {
+      "scope": "Remote archive",
+      "disposition": "REVIEWER_DID_NOT_CHECK_REMOTE_PARENT_SEPARATE_POSTCOMMIT_READBACK_REQUIRED"
+    }
+  ],
+  "boundary_attestations": {
+    "project_imports": 0,
+    "tests": 0,
+    "forwards": 0,
+    "fits": 0,
+    "native_acceptance_runs": 0,
+    "real_data_reads": 0,
+    "formal_report_edits": 0,
+    "source_repairs": 0
+  },
+  "grants_followon_execution": false,
+  "next_step": "Request fresh approval only for minimum R1 repair specification and implementation plan; no code or experiment automatically authorized."
+}

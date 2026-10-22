@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-22",
+  "timezone": "Asia/Shanghai",
+  "approval_id": "call_9831ed712c9348a19b4a71960443c76d",
+  "human_answer": "批准一次只读复查并归档（推荐）",
+  "scope": "ONE_INDEPENDENT_READ_ONLY_ENGINEERING_REVIEW_AND_GITHUB_ARCHIVE",
+  "reviewed_commit": "16fb16d6c9293e9c37c700d5e5f28e081993ac67",
+  "reviewed_tree": "37549ab790022385df073285f70fbe8815c85569",
+  "base_commit": "7d42505c300dd19258b72b505b917771833d62fb",
+  "dispatch_count": 1,
+  "reviewer": {
+    "agent_id": "01a161d1-dbab-7290-af17-f1054dc67418",
+    "nickname": "Leibniz"
+  },
+  "no_redispatch": true,
+  "unavailable_or_no_conclusion": "STOP_AND_RECORD_NO_REPLACEMENT",
+  "permitted": [
+    "Read fixed six-file diff, registered source dependencies as necessary, frozen spec/plan, existing 247-method evidence and retained failure originals",
+    "Read-only text/JSON/Git/hash inspection",
+    "Archive authorization, request, returned review and protection checks to existing GitHub branch"
+  ],
+  "prohibited": [
+    "Source/network/loss/formula/matrix/formal report edits",
+    "New tests, imports, forwards, fitting or training",
+    "Native/process/thread/time/power/idle acceptance or probes",
+    "Real images/weights/cache/prepared/fit/stop/tensor reads",
+    "Subdelegation or replacement reviewer"
+  ],
+  "later_steps_require_new_approval": [
+    "Repairs",
+    "Native protocol registration and native acceptance",
+    "Real scientific mechanism experiments"
+  ]
+}

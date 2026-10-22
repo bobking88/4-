@@ -1,0 +1,53 @@
+{
+  "date": "2026-10-22",
+  "timezone": "Asia/Shanghai",
+  "approval_id": "call_9831ed712c9348a19b4a71960443c76d",
+  "reviewed_commit": "16fb16d6c9293e9c37c700d5e5f28e081993ac67",
+  "reviewed_tree": "37549ab790022385df073285f70fbe8815c85569",
+  "base_commit": "7d42505c300dd19258b72b505b917771833d62fb",
+  "reviewer_agent_id": "01a161d1-dbab-7290-af17-f1054dc67418",
+  "reviewer_nickname": "Leibniz",
+  "dispatch_count": 1,
+  "replacement_dispatches": 0,
+  "status": "COMPLETED_REQUEST_CHANGES",
+  "verdict": "REQUEST_CHANGES",
+  "findings": [
+    {
+      "id": "R1",
+      "priority": "P2",
+      "file": "scripts/check_msb_native_supervision.py",
+      "lines": [
+        557,
+        937,
+        1059,
+        1061
+      ],
+      "test_file": "tests/test_check_msb_native_supervision.py",
+      "test_line": 1391,
+      "summary": "Exceptional observer recovery ignores a false stop result and can lose the original callback/budget cause and observer_diagnostics.",
+      "evidence_kind": "STATIC_COUNTEREXAMPLE_NOT_RUN",
+      "parent_disposition": "ACCEPTED_OPEN_NOT_FIXED",
+      "parent_verification": "Read lines557,937-978,1050-1077 at fixed HEAD: stop_observer returns close bool; recovery discards it, and its cleanup exception wrapper includes only primary/cleanup, not the cached stop reasons. No test or probe was run."
+    }
+  ],
+  "observation": {
+    "first_wait_cell": "222",
+    "first_wait_outcome": "observation connection timeout then stale host generation; not treated as terminal",
+    "same_agent_reobserved": true,
+    "final_outcome": "COMPLETED_WITH_CONCLUSION",
+    "agent_closed_after_receipt": true,
+    "no_redispatch": true
+  },
+  "raw_reviewer_text": "**Findings**\n**P2：异常回收分支遗漏观察器停止失败及原始回调原因。** 固定 HEAD 的 [driver:1059](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/scripts/check_msb_native_supervision.py:1059) 调用 `stop_observer()`，但忽略返回值；后者直接返回 [close():937](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/scripts/check_msb_native_supervision.py:937) 的布尔结果。\n\n静态反例，未运行：观察器已发生回调异常 A，随后 `check()` 或 `run_outer()` 抛出 B。回收时，即使停止结果包含 A、超时或期限耗尽，`close()` 返回 `False` 后仍仅重新抛出 B，不生成 `observer_diagnostics`。若关闭句柄又抛出 C，当前组合异常也只把 B/C 加入原因列表，遗漏停止快照中的原始 A；后续发布失败时，`primary_errors` 因而不完整。流程仍失败关闭，但违反本轮原始原因与停止诊断保留合同。\n\n最小修复建议：异常回收也消费已缓存的停止快照，将 callback、stop-budget、原始主错误及 close 错误合并后发布；不要再次 join。现有 [T10:1391](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/tests/test_check_msb_native_supervision.py:1391) 覆盖正常进入 `finish_observer()` 的组合失败，未覆盖上述提前异常分支。\n\n**审查范围**\n审查提交：`16fb16d6c9293e9c37c700d5e5f28e081993ac67`；树：`37549ab790022385df073285f70fbe8815c85569`；父提交与指定 BASE 一致。\n\n实际检查了六文件完整差异、相关启动/ownership/HELLO/停止/发布调用链、T1–T12 正文、harness 全文、三份权威文档及私有 ledger；读取九份 summary/log，解析九份 snapshot 的源码与保护绑定，并核对指定 final JSON、授权及历史方法名日志。其余闭包源码只做身份哈希核对，未评模型设计。\n\n**Review Focus**\n1. **T1/T2：静态满足。** [启动转换:78](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/scripts/msb_execution_safety.py:78) 构造独立子环境、移除污染变量、保留 venv launcher，上游 runtime 验证先于 spawn。[测试:756](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/tests/test_msb_execution_safety.py:756) 与 contract-green/001 的 133 项通过记录一致。\n2. **T3/T4：静态满足所审路径。** [worker 启动:760](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/scripts/msb_execution_safety.py:760) 在映像核验前记录 process owner，失败进入原清理链；HELLO/PID/nonce/父创建时间比较未放宽。[测试:784](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/tests/test_msb_execution_safety.py:784) 覆盖身份拒绝及映像查询失败后的清理。\n3. **T5/T6：静态满足。** [LC:210](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/scripts/run_lc_role_adaptation.py:210) 仅显式标记 job 启用 helper；两个子入口在 ready/WORKING 前校验上下文。[测试:1436](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/tests/test_check_msb_native_supervision.py:1436) 与 worker-green/002 的 135 项通过记录一致；未运行 LC 整模块。\n4. **T7/T8/T9：正常停止链静态满足，异常回收诊断有上述 P2。** [stop_fault:638](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/scripts/check_msb_native_supervision.py:638) 保留异常对象、缓存一次结果、限制 join 预算；存活线程不关闭 query handle。[测试:1346](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/tests/test_check_msb_native_supervision.py:1346) 记录支持这些限定结论。\n5. **T10/T11/T12：未完全满足。** T10 存在上述覆盖缺口；T11 的旧授权/v1/缺 ready 拒绝路径成立。 [harness:123](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/tests/run_msb_native_supervision_synthetic_acceptance.py:123) 与 [T12:1504](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/tests/test_check_msb_native_supervision.py:1504) 显示 runtime、线程、时钟和网络守卫接线及负例；T12 初次 RED 已通过，不能声称全部新方法经历同样 RED。\n\n**证据核对**\n九次 summary 与日志一致，无额外 attempt，各阶段不超过三次：\n\n| 阶段/attempt | 方法数 | 记录结果 |\n|---|---:|---|\n| contract-red/001 | 133 | 5 assertions |\n| contract-green/001 | 133 | 通过 |\n| worker-red/001 | 135 | 5 assertions |\n| worker-green/001 | 135 | 15 NameErrors，保留 |\n| worker-green/002 | 135 | 通过 |\n| collector-red/001 | 86 | 4 assertions |\n| collector-green/001 | 86 | 6 assertions、7 次 monotonic 守卫拦截，保留 |\n| collector-green/002 | 86 | 通过 |\n| final/001 | 247 | 全通过 |\n\n- 独立比较历史日志和最终日志，确认 **235 个原完整名称全部保留，新增恰为指定 12 名**；最终无失败、错误、跳过、预期失败或意外成功。\n- 46 项源码集合、哈希及固定 HEAD blob 匹配；九份 snapshot 各六份源码文本的 SHA-256 与记录一致，53 项历史保护绑定亦一致。额外 safety 测试摘要匹配。\n- [27 份原件清单](D:/成信工科研/人工智能选矿/.worktrees/theory-aware-report/outputs/msb_python_launch_observer_repair_synthetic_v1/final/raw_evidence_manifest.json) 的字节数、原始 SHA-256、LF SHA-256、Git blob 全部复核一致。\n- 205 条保护记录逐项核对为 **196 不变、8 条批准代码变更记录、1 条 README 状态追加**；六张既有脏 PNG、两份正式报告仅核验哈希，均匹配。旧 v1 原件保持不变；未发现实际 v2 协议或输出目录。\n- 嵌套 fake-root 严格门/skip 输出不计作根 attempt 或 final skip。最终两次 scratch 合成张量读取仅核对记录，未读取张量。零未模拟调用只支持已布置守卫及已执行测试路径，不是任意行为的全面证明。\n\n**Declined to judge**\n- 实际 Windows venv/base 互操作、WinAPI 返回与进程归属：禁止原生运行，故不能确认本机根因或兼容性。\n- 真实线程调度、join、锁释放与句柄清理：仅静态和 fake 证据，不能确认实际线程收敛。\n- 任意异常内容的完整脱敏：现有规则及测试不能提供普遍保证。\n- 模型效果、数学创新、真实数据/训练/前向、科学可复现性：授权范围之外，创新仍未证明。\n- GitHub 远端归档状态：本次仅核验本地固定 Git 对象，未独立读取远端。\n\n**Verdict**\n**REQUEST_CHANGES**，仅针对本次有限工程范围的 P2 诊断保留缺口；不是原生运行、科学实验或合并许可。\n\n本次未编辑或写入文件，未导入项目代码，未运行 Python、测试、原生探测或真实输入处理；未分派代理，未创建 worktree，未改变 checkout、index 或 refs。",
+  "boundaries": {
+    "project_imports": 0,
+    "test_runs": 0,
+    "new_model_forwards": 0,
+    "fits": 0,
+    "native_acceptance_runs": 0,
+    "real_data_reads": 0,
+    "source_edits": 0,
+    "network_formula_matrix_report_edits": 0
+  },
+  "next_step": "Fresh approval required even for repair specification/implementation plan. No native or real scientific work authorized."
+}
