@@ -360,6 +360,8 @@ C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独�
 
 2026-10-22观察器异常回收实施更新：按新授权完成精确三文件的[作者实施与有限合成验收](docs/experiment_records/2026-10-22_msb_observer_abort_retention_acceptance.md)。collector-red/attempt-001有效复现15项新断言失败，collector-green/attempt-001为92/92，final/attempt-001为253/253，完整保留原247加固定六名，零错误/跳过/未模拟调用；三个阶段各一次，无额外重试。纯汇总保留原B/A/D及独立C，原F/P发布链、一次停止、活句柄和累计预算不变。全部新旧原件保留，无真实数据、训练、原生验收或代理，网络/公式/矩阵/正式报告不变。当前AUTHOR_SYNTHETIC_ACCEPTED_INDEPENDENT_REVIEW_PENDING，原生兼容性及MSB-RRE科学效果仍未验证；独立复查与实际实验仍分别另批，不把工程合成通过当论文理论创新效果。
 
+2026-10-22观察器异常回收独立复查更新：对固定提交35fed93完成一次[独立只读工程复查](docs/experiment_records/2026-10-22_msb_observer_abort_retention_review.md)，结论APPROVE（仅限工程修复），此前R1/P2为ADDRESSED，无新增待整改问题。复查独立核对253项既有日志、原247加固定六名及280条保护记录，不重跑测试；保留持久化失败CLI仅作静态传播确认的覆盖边界。两次观察超时后只等待同一代理，未重派，完成后关闭。当前INDEPENDENT_REVIEW_APPROVED_ENGINEERING_ONLY，无代码、网络/公式/矩阵/正式报告变更，无真实数据或原生/科学运行；原生兼容性与网络创新效果仍未验证。仅新原生协议登记及实际实验分别另批，不将复查APPROVE当作运行许可或论文阳性结果。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.

@@ -1,0 +1,98 @@
+{
+  "date": "2026-10-22",
+  "status": "INDEPENDENT_REVIEW_APPROVED_ENGINEERING_ONLY",
+  "approval_id": "call_b7c247344b84483a92f3cdaa4490086b",
+  "reviewed_commit": "35fed93746ae380578d54dd89183235d67b886e4",
+  "reviewed_tree": "cf7acbc07811872f8f724755aabaa51bd0df31f3",
+  "base_commit": "c6ed89bf2189d948d68fede72cf87a0ddd6de19c",
+  "reviewer_verdict": "APPROVE",
+  "prior_R1": "ADDRESSED",
+  "actionable_findings": [],
+  "agent": {
+    "id": "01a163e8-1e78-7703-9e84-334b0aab0ae1",
+    "nickname": "Mendel",
+    "dispatches": 1,
+    "redispatches": 0,
+    "observation_timeouts": 2,
+    "terminal_state": "COMPLETED",
+    "closed": true
+  },
+  "original_reviewer_text_round_trip_exact": true,
+  "protection": {
+    "records": 280,
+    "unchanged_records": 275,
+    "changed_records": 5,
+    "unique_changed_existing_paths": [
+      "README.md"
+    ],
+    "all_non_readme_unchanged": true,
+    "reviewed_code_matches_snapshots": true,
+    "original_logs_unchanged": true,
+    "formal_report_count": 2,
+    "formal_reports_unchanged": true,
+    "preexisting_dirty_png_count": 6,
+    "preexisting_dirty_pngs_unchanged": true
+  },
+  "existing_evidence_reviewed_not_rerun": {
+    "red": {
+      "tests": 92,
+      "assertion_failures": 15,
+      "errors": 0,
+      "skipped": 0,
+      "unmocked_calls": 0
+    },
+    "green": {
+      "tests": 92,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "unmocked_calls": 0
+    },
+    "final": {
+      "tests": 253,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "unmocked_calls": 0
+    },
+    "exact_existing_methods": "old247 + fixed6, no duplicate/missing/extra; checked by independent reviewer",
+    "source_protection_unique_paths": 56,
+    "source_files_literal_count": 46
+  },
+  "new_activity": {
+    "source_changes": 0,
+    "project_imports": 0,
+    "test_runs": 0,
+    "model_forwards": 0,
+    "fits": 0,
+    "real_data_reads": 0,
+    "native_validation_runs": 0,
+    "clock_or_process_or_power_probes": 0,
+    "formal_report_edits": 0
+  },
+  "coverage_limitation": "Persistence-failure CLI behavior is statically traced; actual main return=1 test covers successfully persisted failure receipt.",
+  "declined_to_judge": [
+    "Original Windows/native compatibility and actual scheduling/cleanup convergence",
+    "Universal exception sanitization",
+    "Unavailable lower-level D cause",
+    "Scientific, network or theoretical efficacy"
+  ],
+  "remote_preflight": {
+    "ref": "refs/heads/codex/theory-aware-report",
+    "sha": "35fed93746ae380578d54dd89183235d67b886e4",
+    "tree": "cf7acbc07811872f8f724755aabaa51bd0df31f3",
+    "parent": "c6ed89bf2189d948d68fede72cf87a0ddd6de19c",
+    "verified_by": "INDEPENDENT_GITHUB_CONNECTOR"
+  },
+  "archive_paths": [
+    "README.md",
+    "docs/experiment_records/2026-10-22_msb_observer_abort_retention_review.md",
+    "outputs/msb_observer_abort_retention_independent_review_v1/authorization.json",
+    "outputs/msb_observer_abort_retention_independent_review_v1/protection_before.json",
+    "outputs/msb_observer_abort_retention_independent_review_v1/review_request.md",
+    "outputs/msb_observer_abort_retention_independent_review_v1/reviewer_result.json",
+    "outputs/msb_observer_abort_retention_independent_review_v1/review_check.json",
+    "outputs/msb_observer_abort_retention_independent_review_v1/protection_after.json"
+  ],
+  "next_step": "Only a new native no-data acceptance protocol registration is suggested; separate human approval required. No actual run authorized."
+}

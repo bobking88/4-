@@ -1,0 +1,112 @@
+{
+  "date": "2026-10-22",
+  "reviewed_commit": "35fed93746ae380578d54dd89183235d67b886e4",
+  "before_manifest_sha256": "37b86f5feaad9e21958bcc1c50660b29c5a0f8cd160b8355a37cd6ef1db61680",
+  "checked_records": 280,
+  "unchanged_records": 275,
+  "changed_records": [
+    {
+      "path": "README.md",
+      "sha256": "3cdab09ae9fefc5a0f6379c6e8dd47dfd559c37a54a7fd6f6b67b0f99ac6d4d7",
+      "before_sha256": "75e74af0e36012b67ec5b80c8d49e92f640c923ed5781b7f1b56b9d7e8c48e3d",
+      "unchanged": false,
+      "allowed_readme_update": true
+    },
+    {
+      "path": "README.md",
+      "sha256": "3cdab09ae9fefc5a0f6379c6e8dd47dfd559c37a54a7fd6f6b67b0f99ac6d4d7",
+      "before_sha256": "75e74af0e36012b67ec5b80c8d49e92f640c923ed5781b7f1b56b9d7e8c48e3d",
+      "unchanged": false,
+      "allowed_readme_update": true
+    },
+    {
+      "path": "README.md",
+      "sha256": "3cdab09ae9fefc5a0f6379c6e8dd47dfd559c37a54a7fd6f6b67b0f99ac6d4d7",
+      "before_sha256": "75e74af0e36012b67ec5b80c8d49e92f640c923ed5781b7f1b56b9d7e8c48e3d",
+      "unchanged": false,
+      "allowed_readme_update": true
+    },
+    {
+      "path": "README.md",
+      "sha256": "3cdab09ae9fefc5a0f6379c6e8dd47dfd559c37a54a7fd6f6b67b0f99ac6d4d7",
+      "before_sha256": "75e74af0e36012b67ec5b80c8d49e92f640c923ed5781b7f1b56b9d7e8c48e3d",
+      "unchanged": false,
+      "allowed_readme_update": true
+    },
+    {
+      "path": "README.md",
+      "sha256": "3cdab09ae9fefc5a0f6379c6e8dd47dfd559c37a54a7fd6f6b67b0f99ac6d4d7",
+      "before_sha256": "75e74af0e36012b67ec5b80c8d49e92f640c923ed5781b7f1b56b9d7e8c48e3d",
+      "unchanged": false,
+      "allowed_readme_update": true
+    }
+  ],
+  "all_non_readme_records_unchanged": true,
+  "sources_match_final_snapshots": true,
+  "original_logs_unchanged": true,
+  "formal_reports": [
+    {
+      "path": "结题/基于深度学习的钒钛矿相关矿物图像识别方法研究_技术报告（正式版）.docx",
+      "sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+      "before_sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+      "unchanged": true,
+      "allowed_readme_update": false
+    },
+    {
+      "path": "D:/成信工科研/人工智能选矿/结题/基于深度学习的钒钛矿相关矿物图像识别方法研究_技术报告（正式版）.docx",
+      "sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+      "before_sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+      "unchanged": true,
+      "allowed_readme_update": false
+    }
+  ],
+  "preexisting_dirty_pngs": [
+    {
+      "path": "outputs/report_assets_v9/cgdc_decomposition.png",
+      "sha256": "f142c749e41a5d3a027a0b0c8571d7358fbfe01e738b3a418adb443e388d7123",
+      "before_sha256": "f142c749e41a5d3a027a0b0c8571d7358fbfe01e738b3a418adb443e388d7123",
+      "unchanged": true,
+      "allowed_readme_update": false
+    },
+    {
+      "path": "outputs/report_assets_v9/mrpg_identity.png",
+      "sha256": "6a8d9f993400a621b699d5579e7bb6acd742bcaac8939dd7fab98b1fff247519",
+      "before_sha256": "6a8d9f993400a621b699d5579e7bb6acd742bcaac8939dd7fab98b1fff247519",
+      "unchanged": true,
+      "allowed_readme_update": false
+    },
+    {
+      "path": "outputs/report_assets_v9/mrpg_monotone_gate.png",
+      "sha256": "bbdd9f1671bfaf007292512e3c9cea7845d3e195b984349fe489a7beffe18d9c",
+      "before_sha256": "bbdd9f1671bfaf007292512e3c9cea7845d3e195b984349fe489a7beffe18d9c",
+      "unchanged": true,
+      "allowed_readme_update": false
+    },
+    {
+      "path": "outputs/report_assets_v9/rpg_entropy.png",
+      "sha256": "5251d7a1548b715f98eff21969bbf93dbf77f2f38b862a98887492afe1aba90e",
+      "before_sha256": "5251d7a1548b715f98eff21969bbf93dbf77f2f38b862a98887492afe1aba90e",
+      "unchanged": true,
+      "allowed_readme_update": false
+    },
+    {
+      "path": "outputs/report_assets_v9/rpg_fusion.png",
+      "sha256": "9723e900e48cd60f84be038afed3bcd3c9c524fc8c0706604e7583956389996c",
+      "before_sha256": "9723e900e48cd60f84be038afed3bcd3c9c524fc8c0706604e7583956389996c",
+      "unchanged": true,
+      "allowed_readme_update": false
+    },
+    {
+      "path": "outputs/report_assets_v9/rpg_gate.png",
+      "sha256": "a0ba1106c2b734a75c379c959040feb8735aa5172079e1c076fd2f7190ef971a",
+      "before_sha256": "a0ba1106c2b734a75c379c959040feb8735aa5172079e1c076fd2f7190ef971a",
+      "unchanged": true,
+      "allowed_readme_update": false
+    }
+  ],
+  "actual_native_v2_protocol_created": false,
+  "actual_native_v2_output_created": false,
+  "tests_run_this_review": 0,
+  "code_changes_this_review": 0,
+  "real_data_reads_this_review": 0
+}
