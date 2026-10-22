@@ -1,6 +1,6 @@
 {
   "protocol": "msb_native_supervision_v2",
-  "status": "REGISTERED_AWAITING_NATIVE_APPROVAL",
+  "status": "APPROVED_NATIVE_ONLY",
   "scope": "NATIVE_SUPERVISION_NO_DATA",
   "execution_contract": "msb_parent_bound_v2",
   "python_launch_contract": "DIRECT_CPYTHON311_VENV_V1",
@@ -21,8 +21,8 @@
   "require_ac": true,
   "max_attempts": 1,
   "real_training_authorized": false,
-  "approval_call_id": "NOT_GRANTED",
-  "approval_answer": "NOT_GRANTED",
+  "approval_call_id": "call_cdd31dd8986040fb8bd90d6e311f95fc",
+  "approval_answer": "批准一次固定协议原生验收（推荐）",
   "source_sha256": {
     "scripts/analyze_ic_role_mechanism.py": "26fd12997e987c7e71649dd960cb82094d524a5071f6a954fccd4d96fdc2c906",
     "scripts/analyze_lc_role_adaptation.py": "54b98dbcf1ed1299c05b2bbc3f4722c36d00ba35fb9fc44095f45a59bb4fbc1b",

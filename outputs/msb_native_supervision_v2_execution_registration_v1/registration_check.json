@@ -1,0 +1,65 @@
+{
+  "date": "2026-10-22",
+  "status": "AUTHORIZED_NOT_STARTED_PENDING_REREGISTRATION_READBACK",
+  "approval_id": "call_cdd31dd8986040fb8bd90d6e311f95fc",
+  "approval_answer": "批准一次固定协议原生验收（推荐）",
+  "base_commit": "4918610f470644e1c2f2d567fd305fbf53b16bb6",
+  "protocol_path": "docs/experiment_protocols/msb_native_supervision_v2.json",
+  "protocol_raw_sha256": "058daf30a08d2f251a2f144bb9220ba5f804559c012611660083b3c325d38a0b",
+  "only_protocol_fields_changed": [
+    "status",
+    "approval_call_id",
+    "approval_answer"
+  ],
+  "other_protocol_fields_unchanged": true,
+  "source_count": 46,
+  "source_hashes_unchanged": true,
+  "max_collector_invocations": 1,
+  "max_controllers": 4,
+  "max_workers": 4,
+  "max_acceptance_seconds": 480,
+  "case_order": [
+    "N1",
+    "N2",
+    "N3",
+    "N4"
+  ],
+  "case_limits": [
+    90,
+    45,
+    75,
+    45
+  ],
+  "require_ac": true,
+  "keyboard_mouse_idle_required": false,
+  "no_retries_or_resumes": true,
+  "existing_native_output": false,
+  "existing_private_entry_output": false,
+  "collector_invoked": false,
+  "validator_or_runtime_queried": false,
+  "new_synthetic_tests": 0,
+  "new_real_data_reads": 0,
+  "new_scientific_experiments": 0,
+  "code_changes": 0,
+  "formal_report_edits": 0,
+  "protection": {
+    "records": 296,
+    "unchanged_records": 288,
+    "changed_records": 8,
+    "unique_existing_changes": [
+      "README.md",
+      "docs/experiment_protocols/msb_native_supervision_v2.json"
+    ],
+    "all_unapproved_unchanged": true
+  },
+  "archive_paths": [
+    "README.md",
+    "docs/experiment_protocols/msb_native_supervision_v2.json",
+    "docs/experiment_records/2026-10-22_msb_native_supervision_v2_execution_registration.md",
+    "outputs/msb_native_supervision_v2_execution_registration_v1/authorization.json",
+    "outputs/msb_native_supervision_v2_execution_registration_v1/protection_before.json",
+    "outputs/msb_native_supervision_v2_execution_registration_v1/protection_after.json",
+    "outputs/msb_native_supervision_v2_execution_registration_v1/registration_check.json"
+  ],
+  "next_step": "Only after this authorization re-registration is committed and independently read back may the single registered collector public entry be invoked. Its invocation consumes the authorization, including entry rejection."
+}

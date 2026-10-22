@@ -364,6 +364,8 @@ C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独�
 
 2026-10-22原生监督验收v2协议登记：按仅文档授权形成[待运行协议](docs/experiment_protocols/msb_native_supervision_v2.json)及[登记记录](docs/experiment_records/2026-10-22_msb_native_supervision_v2_registration.md)，绑定已复查35fed93源码、487af61归档基线和46项原始SHA-256/规范化LF/Git blob身份；固定N1--N4、480秒累计接收上限、接电与失败即停。当前REGISTERED_AWAITING_NATIVE_APPROVAL、NOT_RUN，授权两字段明确NOT_GRANTED，待运行稿刻意不满足执行授权门。拟用全新v2独占目录，本轮不创建运行输出；旧v1协议/失败原件不动。无代码、测试、原生/真实数据/训练/代理或正式报告变更，科学效果仍未验证；实际原生运行须另批、补授权并重新登记及远端核验，后续真实机制实验仍另批。
 
+2026-10-22原生监督验收v2单次执行授权重登记：按新的真实许可call_cdd31dd8986040fb8bd90d6e311f95fc形成[执行授权登记](docs/experiment_records/2026-10-22_msb_native_supervision_v2_execution_registration.md)，仅补协议三个授权/状态字段，其余13字段及46项源码身份不变。登记时AUTHORIZED_NOT_STARTED_PENDING_REREGISTRATION_READBACK；先提交并远端实际内容核验，再调用唯一collector。固定N1--N4、480秒累计接收上限、持续接电及失败即停；键鼠可正常使用。任何入口调用即消费许可，不重试/续跑/扩场景、不改代码或报告、不读真实数据、不训练；实际结果另行原样归档，真实机制实验仍未授权。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.

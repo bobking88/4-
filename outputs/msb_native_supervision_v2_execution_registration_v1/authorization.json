@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-22",
+  "approval_id": "call_cdd31dd8986040fb8bd90d6e311f95fc",
+  "question": "是否批准按 GitHub 提交4918610登记的v2协议执行一次原生无数据监督验收？仅补本次真实授权和状态，重新登记并远端核验后运行；固定N1–N4、一次collector、最多4个controller和4个worker，累计480秒接收上限，包含入口准备、核验、清理和最终发布。要求全程接电，键鼠可正常使用；任例意外失败或证据不足即停，不重试、不续跑、不扩场景。不重做空闲或计时探查、不重跑合成测试、不派代理，不读真实prepared/fit/stop或矿物原图，不训练或模型前向，不改代码、网络、公式、矩阵或正式报告；真实机制实验仍另批。",
+  "answer": "批准一次固定协议原生验收（推荐）",
+  "pending_protocol_commit": "4918610f470644e1c2f2d567fd305fbf53b16bb6",
+  "scope": "NATIVE_SUPERVISION_NO_DATA",
+  "confirmed_from_human": true,
+  "max_collector_invocations": 1,
+  "max_controller_processes": 4,
+  "max_worker_processes": 4,
+  "max_acceptance_seconds": 480,
+  "require_ac": true,
+  "keyboard_mouse_idle_required": false,
+  "retries_allowed": false,
+  "resume_allowed": false,
+  "real_training_authorized": false,
+  "model_forwards_authorized": false,
+  "synthetic_test_runs_authorized": false,
+  "scientific_experiments_authorized": false,
+  "code_changes_authorized": false,
+  "formal_report_edits_authorized": false
+}
