@@ -1,0 +1,163 @@
+{
+  "date": "2026-10-22",
+  "checkpoint": "POST_AUTHOR_ARCHIVE_PRE_COMMIT",
+  "before_manifest_sha256": "5698395f61b2a1a05b0e751c469a4ff36896433ee30a64156658866df90c6e24",
+  "checked_records": 262,
+  "unchanged_records": 252,
+  "changed_records": [
+    {
+      "path": "README.md",
+      "kind": "PRIOR_PLANNING_PROTECTED",
+      "before_sha256": "93bb81cccbecee2770631f09c69ef1a41bc6e64cab1069f36590859e8ca2a3b2",
+      "sha256": "75e74af0e36012b67ec5b80c8d49e92f640c923ed5781b7f1b56b9d7e8c48e3d",
+      "unchanged": false,
+      "approved_change": true
+    },
+    {
+      "path": "scripts/check_msb_native_supervision.py",
+      "kind": "PRIOR_PLANNING_PROTECTED",
+      "before_sha256": "a52797a2766fdd4eacf18db7dee1c64e487030fc5e3769ef30d508cf2cca84e3",
+      "sha256": "557574eb6f0924096bcc880393c32c767c10da094df39ffe4d3979649f11b429",
+      "unchanged": false,
+      "approved_change": true
+    },
+    {
+      "path": "tests/test_check_msb_native_supervision.py",
+      "kind": "PRIOR_PLANNING_PROTECTED",
+      "before_sha256": "5bc6cc80d59cfa87e2e6ada95cce0f6bcdd5411d12332511bca00fd10398d4be",
+      "sha256": "d2de225bbd659314109826ede1e5917455f841f95db21f138422e8f957bf22ad",
+      "unchanged": false,
+      "approved_change": true
+    },
+    {
+      "path": "tests/run_msb_native_supervision_synthetic_acceptance.py",
+      "kind": "PRIOR_PLANNING_PROTECTED",
+      "before_sha256": "2d246d0dfa2ca03ef1871a3dfd28513fed15067dde785244f1b2d6527a5c5cc4",
+      "sha256": "1a91b6b96f3fe342ee873cf14ef128b6a169142f31c92fa30de7f51a0a3339fb",
+      "unchanged": false,
+      "approved_change": true
+    },
+    {
+      "path": "README.md",
+      "kind": "PRIOR_PLANNING_PROTECTED",
+      "before_sha256": "93bb81cccbecee2770631f09c69ef1a41bc6e64cab1069f36590859e8ca2a3b2",
+      "sha256": "75e74af0e36012b67ec5b80c8d49e92f640c923ed5781b7f1b56b9d7e8c48e3d",
+      "unchanged": false,
+      "approved_change": true
+    },
+    {
+      "path": "scripts/check_msb_native_supervision.py",
+      "kind": "PRIOR_PLANNING_PROTECTED",
+      "before_sha256": "a52797a2766fdd4eacf18db7dee1c64e487030fc5e3769ef30d508cf2cca84e3",
+      "sha256": "557574eb6f0924096bcc880393c32c767c10da094df39ffe4d3979649f11b429",
+      "unchanged": false,
+      "approved_change": true
+    },
+    {
+      "path": "tests/run_msb_native_supervision_synthetic_acceptance.py",
+      "kind": "PRIOR_PLANNING_PROTECTED",
+      "before_sha256": "2d246d0dfa2ca03ef1871a3dfd28513fed15067dde785244f1b2d6527a5c5cc4",
+      "sha256": "1a91b6b96f3fe342ee873cf14ef128b6a169142f31c92fa30de7f51a0a3339fb",
+      "unchanged": false,
+      "approved_change": true
+    },
+    {
+      "path": "tests/test_check_msb_native_supervision.py",
+      "kind": "PRIOR_PLANNING_PROTECTED",
+      "before_sha256": "5bc6cc80d59cfa87e2e6ada95cce0f6bcdd5411d12332511bca00fd10398d4be",
+      "sha256": "d2de225bbd659314109826ede1e5917455f841f95db21f138422e8f957bf22ad",
+      "unchanged": false,
+      "approved_change": true
+    },
+    {
+      "path": "README.md",
+      "kind": "PRIOR_PLANNING_PROTECTED",
+      "before_sha256": "93bb81cccbecee2770631f09c69ef1a41bc6e64cab1069f36590859e8ca2a3b2",
+      "sha256": "75e74af0e36012b67ec5b80c8d49e92f640c923ed5781b7f1b56b9d7e8c48e3d",
+      "unchanged": false,
+      "approved_change": true
+    },
+    {
+      "path": "README.md",
+      "kind": "APPROVED_PLANNING_ARCHIVE",
+      "before_sha256": "93bb81cccbecee2770631f09c69ef1a41bc6e64cab1069f36590859e8ca2a3b2",
+      "sha256": "75e74af0e36012b67ec5b80c8d49e92f640c923ed5781b7f1b56b9d7e8c48e3d",
+      "unchanged": false,
+      "approved_change": true
+    }
+  ],
+  "all_unapproved_records_unchanged": true,
+  "source_files_count": 46,
+  "source_files_literal_unchanged": true,
+  "formal_reports": [
+    {
+      "path": "结题/基于深度学习的钒钛矿相关矿物图像识别方法研究_技术报告（正式版）.docx",
+      "kind": "PRIOR_PLANNING_PROTECTED",
+      "before_sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+      "sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+      "unchanged": true,
+      "approved_change": false
+    },
+    {
+      "path": "D:/成信工科研/人工智能选矿/结题/基于深度学习的钒钛矿相关矿物图像识别方法研究_技术报告（正式版）.docx",
+      "kind": "PRIOR_PLANNING_PROTECTED",
+      "before_sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+      "sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+      "unchanged": true,
+      "approved_change": false
+    }
+  ],
+  "preexisting_dirty_pngs": [
+    {
+      "path": "outputs/report_assets_v9/cgdc_decomposition.png",
+      "kind": "PRIOR_PLANNING_PROTECTED",
+      "before_sha256": "f142c749e41a5d3a027a0b0c8571d7358fbfe01e738b3a418adb443e388d7123",
+      "sha256": "f142c749e41a5d3a027a0b0c8571d7358fbfe01e738b3a418adb443e388d7123",
+      "unchanged": true,
+      "approved_change": false
+    },
+    {
+      "path": "outputs/report_assets_v9/mrpg_identity.png",
+      "kind": "PRIOR_PLANNING_PROTECTED",
+      "before_sha256": "6a8d9f993400a621b699d5579e7bb6acd742bcaac8939dd7fab98b1fff247519",
+      "sha256": "6a8d9f993400a621b699d5579e7bb6acd742bcaac8939dd7fab98b1fff247519",
+      "unchanged": true,
+      "approved_change": false
+    },
+    {
+      "path": "outputs/report_assets_v9/mrpg_monotone_gate.png",
+      "kind": "PRIOR_PLANNING_PROTECTED",
+      "before_sha256": "bbdd9f1671bfaf007292512e3c9cea7845d3e195b984349fe489a7beffe18d9c",
+      "sha256": "bbdd9f1671bfaf007292512e3c9cea7845d3e195b984349fe489a7beffe18d9c",
+      "unchanged": true,
+      "approved_change": false
+    },
+    {
+      "path": "outputs/report_assets_v9/rpg_entropy.png",
+      "kind": "PRIOR_PLANNING_PROTECTED",
+      "before_sha256": "5251d7a1548b715f98eff21969bbf93dbf77f2f38b862a98887492afe1aba90e",
+      "sha256": "5251d7a1548b715f98eff21969bbf93dbf77f2f38b862a98887492afe1aba90e",
+      "unchanged": true,
+      "approved_change": false
+    },
+    {
+      "path": "outputs/report_assets_v9/rpg_fusion.png",
+      "kind": "PRIOR_PLANNING_PROTECTED",
+      "before_sha256": "9723e900e48cd60f84be038afed3bcd3c9c524fc8c0706604e7583956389996c",
+      "sha256": "9723e900e48cd60f84be038afed3bcd3c9c524fc8c0706604e7583956389996c",
+      "unchanged": true,
+      "approved_change": false
+    },
+    {
+      "path": "outputs/report_assets_v9/rpg_gate.png",
+      "kind": "PRIOR_PLANNING_PROTECTED",
+      "before_sha256": "a0ba1106c2b734a75c379c959040feb8735aa5172079e1c076fd2f7190ef971a",
+      "sha256": "a0ba1106c2b734a75c379c959040feb8735aa5172079e1c076fd2f7190ef971a",
+      "unchanged": true,
+      "approved_change": false
+    }
+  ],
+  "independent_review": "NOT_DISPATCHED",
+  "native_acceptance": "NOT_RUN",
+  "scientific_effect": "NOT_VALIDATED"
+}

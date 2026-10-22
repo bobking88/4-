@@ -26,17 +26,11 @@ ALL_MODULES = (
     "test_run_msb_role_mechanism", "test_analyze_msb_role_mechanism", "test_generate_msb_role_figure",
     "test_check_msb_native_supervision",
 )
-PHASES = {f"{stage}-{color}": ("test_check_msb_native_supervision",)
-          for stage in ("contract", "worker", "collector") for color in ("red", "green")}
+PHASES = {f"collector-{color}": ("test_check_msb_native_supervision",)
+          for color in ("red", "green")}
 PHASES["final"] = ALL_MODULES
-for _stage in ("contract", "worker"):
-    for _color in ("red", "green"):
-        PHASES[f"{_stage}-{_color}"] = ("test_msb_execution_safety", "test_check_msb_native_supervision")
 RUNTIME_BOUNDARIES = ("current_python_runtime", "current_module_executable", "process_executable_path")
 SNAPSHOTS = (
-    "scripts/msb_execution_safety.py",
-    "scripts/run_lc_role_adaptation.py",
-    "tests/test_msb_execution_safety.py",
     "scripts/check_msb_native_supervision.py",
     "tests/test_check_msb_native_supervision.py",
     "tests/run_msb_native_supervision_synthetic_acceptance.py",
@@ -44,15 +38,21 @@ SNAPSHOTS = (
 
 
 def _snapshot_sources(root):
-    identity = json.loads((root/"outputs/msb_completion_repair_synthetic_v1/final/source_identity.json").read_text(encoding="utf-8"))
+    identity = json.loads((root/"outputs/msb_python_launch_observer_repair_synthetic_v1/final/attempt-001/source_snapshot.json").read_text(encoding="utf-8"))
+    expected = {p: item["sha256"] for p, item in identity["protected_identity"].items()}
+    for path, item in identity["sources"].items():
+        if path in expected and expected[path] != item["sha256"]:
+            raise ValueError("Historical source identities disagree: "+path)
+        expected[path] = item["sha256"]
+    if len(expected) != 56 or not set(SNAPSHOTS).issubset(expected):
+        raise ValueError("Exact historical 56-path protection required")
     baseline = {}
-    for group in ("source_sha256", "tests_and_harness_sha256"):
-        for path, expected in identity[group].items():
-            actual = hashlib.sha256((root/path).read_bytes()).hexdigest()
-            permitted = path in SNAPSHOTS
-            if actual != expected and not permitted: raise ValueError("Protected source changed: "+path)
-            baseline[path] = dict(sha256=actual, previous_sha256=expected,
-                                  matched=actual == expected, approved_six_file_change=permitted)
+    for path, previous in expected.items():
+        actual = hashlib.sha256((root/path).read_bytes()).hexdigest()
+        permitted = path in SNAPSHOTS
+        if actual != previous and not permitted: raise ValueError("Protected source changed: "+path)
+        baseline[path] = dict(sha256=actual, previous_sha256=previous,
+                              matched=actual == previous, approved_three_file_change=permitted)
     return dict(sources={p: dict(sha256=hashlib.sha256((root/p).read_bytes()).hexdigest(),
                                 source=(root/p).read_text(encoding="utf-8")) for p in SNAPSHOTS},
                 protected_identity=baseline)
@@ -74,7 +74,7 @@ def main(argv=None):
     parser = argparse.ArgumentParser()
     parser.add_argument("--phase", required=True, choices=tuple(PHASES))
     args = parser.parse_args(argv)
-    phase_root = ROOT/"outputs/msb_python_launch_observer_repair_synthetic_v1"/args.phase
+    phase_root = ROOT/"outputs/msb_observer_abort_retention_synthetic_v1"/args.phase
     phase_root.mkdir(parents=True, exist_ok=True)
     legacy_attempt = (phase_root/"acceptance_summary.json").exists()
     for attempt in range(1, 4):
@@ -87,7 +87,7 @@ def main(argv=None):
             continue
     else:
         raise FileExistsError("Three synthetic attempts consumed; retain all evidence and stop")
-    scratch = ROOT/".superpowers/sdd/2026-10-20-msb-python-launch-observer-repair/test-tmp"
+    scratch = ROOT/".superpowers/sdd/2026-10-22-msb-observer-abort-retention/test-tmp"
     scratch.mkdir(parents=True, exist_ok=True)
     tempfile.tempdir = str(scratch)
     snapshots = _snapshot_sources(ROOT)

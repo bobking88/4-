@@ -358,6 +358,8 @@ C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独�
 
 2026-10-22观察器异常回收修复文档更新：按仅文档授权起草[最小规格](docs/superpowers/specs/2026-10-22-msb-observer-abort-retention-design.md)、[单工作包实施计划](docs/superpowers/plans/2026-10-22-msb-observer-abort-retention.md)及[作者登记](docs/experiment_records/2026-10-22_msb_observer_abort_retention_planning.md)。拟在原一次close后用纯函数汇总B/A/D和独立C，再沿原发布保留F/P；不新增采样/join/预算。未来仅三文件、六个新方法、collector-red/green/final三阶段各最多3次，保留247全名、253仅预计。当前DOCUMENTED_NOT_IMPLEMENTED_NOT_RUN，R1未修复、REQUEST_CHANGES不变，无代码/导入/测试/探查/真实数据/代理/正式报告变化，无新合成或原生运行目录；开发与实际实验均另批，不以诊断设计冒充网络创新证据。
 
+2026-10-22观察器异常回收实施更新：按新授权完成精确三文件的[作者实施与有限合成验收](docs/experiment_records/2026-10-22_msb_observer_abort_retention_acceptance.md)。collector-red/attempt-001有效复现15项新断言失败，collector-green/attempt-001为92/92，final/attempt-001为253/253，完整保留原247加固定六名，零错误/跳过/未模拟调用；三个阶段各一次，无额外重试。纯汇总保留原B/A/D及独立C，原F/P发布链、一次停止、活句柄和累计预算不变。全部新旧原件保留，无真实数据、训练、原生验收或代理，网络/公式/矩阵/正式报告不变。当前AUTHOR_SYNTHETIC_ACCEPTED_INDEPENDENT_REVIEW_PENDING，原生兼容性及MSB-RRE科学效果仍未验证；独立复查与实际实验仍分别另批，不把工程合成通过当论文理论创新效果。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.

@@ -1,0 +1,140 @@
+{
+  "date": "2026-10-22",
+  "scope": "AUTHOR_LIMITED_SYNTHETIC_ACCEPTANCE_ONLY",
+  "base_commit": "c6ed89bf2189d948d68fede72cf87a0ddd6de19c",
+  "approval_id": "call_1772c2605a3d40fabe5266d3b37ba35f",
+  "phase_checks": [
+    {
+      "phase": "collector-red",
+      "attempts": 1,
+      "tests_run": 92,
+      "status": "FAILED",
+      "failures": 15,
+      "errors": 0,
+      "skipped": 0,
+      "expected_failures": 0,
+      "unexpected_successes": 0,
+      "unmocked_calls": 0,
+      "harness_error": null,
+      "synthetic_tensor_reads": 0,
+      "log_sha256": "4f19300c1bf1cb98af3250bdb7e98f25731f7ca5477acdea0440f4c2938b24d1"
+    },
+    {
+      "phase": "collector-green",
+      "attempts": 1,
+      "tests_run": 92,
+      "status": "PASSED",
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "expected_failures": 0,
+      "unexpected_successes": 0,
+      "unmocked_calls": 0,
+      "harness_error": null,
+      "synthetic_tensor_reads": 0,
+      "log_sha256": "c6fd004268e6375cb3f68829774f5f7c4a2c569609b8b23fe43ea3bf4c0d6801"
+    },
+    {
+      "phase": "final",
+      "attempts": 1,
+      "tests_run": 253,
+      "status": "PASSED",
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "expected_failures": 0,
+      "unexpected_successes": 0,
+      "unmocked_calls": 0,
+      "harness_error": null,
+      "synthetic_tensor_reads": 2,
+      "log_sha256": "aec100a185cabd742cff01db04293f9fb4e114d5c2d24d60e9d093673da276b7"
+    }
+  ],
+  "methods": {
+    "baseline_count": 247,
+    "new_count": 6,
+    "actual_count": 253,
+    "exact_set_match": true,
+    "missing": [],
+    "unexpected": [],
+    "duplicate_count": 0,
+    "new_methods": [
+      "test_check_msb_native_supervision.ObserverAbortRetentionTests.test_abort_before_finish_retains_callback_and_body_errors",
+      "test_check_msb_native_supervision.ObserverAbortRetentionTests.test_abort_retains_callback_budget_and_cleanup_objects",
+      "test_check_msb_native_supervision.ObserverAbortRetentionTests.test_abort_live_or_expired_observer_never_rejoins_or_closes_live_handle",
+      "test_check_msb_native_supervision.ObserverAbortRetentionTests.test_abort_missing_snapshot_and_clean_close_still_fail_closed",
+      "test_check_msb_native_supervision.ObserverAbortRetentionTests.test_abort_errors_survive_release_publication_and_cli",
+      "test_check_msb_native_supervision.ObserverAbortRetentionTests.test_abort_aggregation_deduplicates_identity_without_sampling"
+    ]
+  },
+  "sources": [
+    {
+      "path": "scripts/check_msb_native_supervision.py",
+      "sha256": "557574eb6f0924096bcc880393c32c767c10da094df39ffe4d3979649f11b429",
+      "matched_final_snapshot": true
+    },
+    {
+      "path": "tests/test_check_msb_native_supervision.py",
+      "sha256": "d2de225bbd659314109826ede1e5917455f841f95db21f138422e8f957bf22ad",
+      "matched_final_snapshot": true
+    },
+    {
+      "path": "tests/run_msb_native_supervision_synthetic_acceptance.py",
+      "sha256": "1a91b6b96f3fe342ee873cf14ef128b6a169142f31c92fa30de7f51a0a3339fb",
+      "matched_final_snapshot": true
+    }
+  ],
+  "protected_source_count": 56,
+  "changed_sources": [
+    "scripts/check_msb_native_supervision.py",
+    "tests/test_check_msb_native_supervision.py",
+    "tests/run_msb_native_supervision_synthetic_acceptance.py"
+  ],
+  "protection_record_count": 262,
+  "all_other_protection_records_unchanged": true,
+  "changed_protection_records": [
+    {
+      "path": "scripts/check_msb_native_supervision.py",
+      "sha256": "557574eb6f0924096bcc880393c32c767c10da094df39ffe4d3979649f11b429",
+      "matched": false,
+      "approved_code_change": true
+    },
+    {
+      "path": "tests/test_check_msb_native_supervision.py",
+      "sha256": "d2de225bbd659314109826ede1e5917455f841f95db21f138422e8f957bf22ad",
+      "matched": false,
+      "approved_code_change": true
+    },
+    {
+      "path": "tests/run_msb_native_supervision_synthetic_acceptance.py",
+      "sha256": "1a91b6b96f3fe342ee873cf14ef128b6a169142f31c92fa30de7f51a0a3339fb",
+      "matched": false,
+      "approved_code_change": true
+    },
+    {
+      "path": "scripts/check_msb_native_supervision.py",
+      "sha256": "557574eb6f0924096bcc880393c32c767c10da094df39ffe4d3979649f11b429",
+      "matched": false,
+      "approved_code_change": true
+    },
+    {
+      "path": "tests/run_msb_native_supervision_synthetic_acceptance.py",
+      "sha256": "1a91b6b96f3fe342ee873cf14ef128b6a169142f31c92fa30de7f51a0a3339fb",
+      "matched": false,
+      "approved_code_change": true
+    },
+    {
+      "path": "tests/test_check_msb_native_supervision.py",
+      "sha256": "d2de225bbd659314109826ede1e5917455f841f95db21f138422e8f957bf22ad",
+      "matched": false,
+      "approved_code_change": true
+    }
+  ],
+  "native_os_exercised": false,
+  "real_data_opened": false,
+  "real_fits": 0,
+  "independent_review": "PENDING_SEPARATE_APPROVAL",
+  "native_validation": "NOT_RUN",
+  "scientific_effect": "NOT_VALIDATED",
+  "checkpoint": "POST_FINAL_PRE_ARCHIVE_README_UPDATE"
+}

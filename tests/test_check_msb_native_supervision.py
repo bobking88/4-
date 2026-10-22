@@ -129,8 +129,8 @@ class HarnessGateTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             try:
                 with patch.object(harness,"ROOT",Path(tmp)),patch.object(harness,"_snapshot_sources",return_value={}),patch.object(harness,"_run_modules",return_value=r):
-                    code=harness.main(["--phase","contract-green"])
-                summary=json.loads((Path(tmp)/"outputs/msb_python_launch_observer_repair_synthetic_v1/contract-green/attempt-001/acceptance_summary.json").read_text())
+                    code=harness.main(["--phase","collector-green"])
+                summary=json.loads((Path(tmp)/"outputs/msb_observer_abort_retention_synthetic_v1/collector-green/attempt-001/acceptance_summary.json").read_text())
                 self.assertEqual((code,summary["status"],summary["skipped"]),(1,"FAILED",1))
             finally:
                 os.chdir(previous[0]);tempfile.tempdir=previous[1];sys.path[:]=previous[2]
@@ -1317,6 +1317,201 @@ class InitializationErrorRetentionTests(unittest.TestCase):
                 self.assertFalse((root/p["output_relative"]).exists());self.assertEqual(service.writes,0)
                 self.assertFalse(any(c[0] in ("launch","observe") for c in service.calls))
 
+class ObserverAbortRetentionTests(unittest.TestCase):
+    def setup_abort(self,tmp,body,*,callback=None,cached=None,stop_errors=(),cleanup=None,where="outer",alive=False):
+        fixture=CollectorTests();self.addCleanup(fixture.doCleanups)
+        root,path,protocol,approval=fixture.protocol_file(tmp)
+        service=FakeCollectorServices();holder={}
+        fault,watch=DirectLaunchBoundaryTests().fault_watch(error=callback,alive=alive)
+        fault.api=service.api;service.stop_fault=fault.stop_fault
+        def start(case,binding):
+            observer=native.NativeObserver(case,binding,service)
+            observer.watch=watch;observer.handle=88
+            if cached is not None:observer.stop_result=cached;observer.stop_errors=list(stop_errors)
+            holder["observer"]=observer
+            if where=="check":
+                check=service.guard.check
+                def fail_check():
+                    service.guard.check=check
+                    raise body
+                service.guard.check=fail_check
+            return observer
+        service.start_observer=start
+        service.stop_observer=Mock(wraps=native.NativeServices.stop_observer.__get__(service))
+        service.finish_observer=Mock(side_effect=AssertionError("Abort must not call finish"))
+        service.run_outer=Mock(side_effect=body)
+        service.close_query=Mock(side_effect=cleanup)
+        return SimpleNamespace(root=root,path=path,protocol=protocol,approval=approval,
+                               service=service,holder=holder,watch=watch)
+
+    def failed_receipt(self,case):
+        persistence=OSError("synthetic receipt unavailable")
+        def fail(path,value):
+            if value.get("status")=="FAILED_NATIVE_SUPERVISION":raise persistence
+        case.service.write_fault=fail
+        with self.assertRaises(native.AcceptancePublicationError) as caught:
+            native.run_acceptance(case.root,case.path,execute_native=True,
+                                  approval=case.approval,services=case.service)
+        self.assertIs(caught.exception.persistence_error,persistence)
+        return caught.exception
+
+    def test_abort_before_finish_retains_callback_and_body_errors(self):
+        for where in ("check","outer"):
+            with self.subTest(where=where),tempfile.TemporaryDirectory() as tmp:
+                body=RuntimeError("synthetic body");callback=ValueError("synthetic callback")
+                case=self.setup_abort(tmp,body,callback=callback,where=where)
+                error=self.failed_receipt(case)
+                self.assertEqual(len(error.primary_errors),2)
+                self.assertIs(error.primary_errors[0],body)
+                self.assertIs(error.primary_errors[1],callback)
+                self.assertEqual(case.service.stop_observer.call_count,1)
+                case.service.finish_observer.assert_not_called()
+                self.assertEqual(case.service.run_outer.call_count,int(where=="outer"))
+                self.assertEqual(case.watch.thread.joins,[1.])
+                observer=case.holder["observer"]
+                self.assertIs(observer.stop_result.callback_error,callback)
+                record=error.failed_state["observer_diagnostics"]
+                self.assertEqual(record["callback_error"]["type"],"ValueError")
+                self.assertEqual([e["type"] for e in record["primary_errors"]],["RuntimeError","ValueError"])
+                self.assertEqual(error.failed_state["status"],"FAILED_NATIVE_SUPERVISION")
+
+    def test_abort_retains_callback_budget_and_cleanup_objects(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            body=RuntimeError("synthetic body");callback=ValueError("synthetic callback")
+            budget=TimeoutError("synthetic budget");cleanup=OSError("synthetic close")
+            snapshot=native.FaultStopResult(True,True,False,True,callback)
+            case=self.setup_abort(tmp,body,cached=snapshot,stop_errors=[budget],cleanup=cleanup)
+            error=self.failed_receipt(case)
+            self.assertEqual(len(error.primary_errors),4)
+            for actual,expected in zip(error.primary_errors,[body,callback,budget,cleanup]):self.assertIs(actual,expected)
+            observer=case.holder["observer"]
+            self.assertIs(observer.stop_result,snapshot);self.assertIs(observer.stop_errors[0],budget)
+            self.assertEqual(case.watch.thread.joins,[])
+            self.assertEqual(case.service.close_query.call_count,1)
+            self.assertEqual(case.service.stop_observer.call_count,1)
+            case.service.finish_observer.assert_not_called()
+            record=error.failed_state["observer_diagnostics"]
+            self.assertEqual([e["type"] for e in record["primary_errors"]],["RuntimeError","ValueError","TimeoutError"])
+            self.assertEqual([e["type"] for e in record["cleanup_errors"]],["OSError"])
+
+    def test_abort_live_or_expired_observer_never_rejoins_or_closes_live_handle(self):
+        for remaining,waits in ((0.,[]),(.25,[.25]),(2.,[1.])):
+            with self.subTest(remaining=remaining),tempfile.TemporaryDirectory() as tmp:
+                body=RuntimeError("synthetic outer abort")
+                case=self.setup_abort(tmp,body,alive=True)
+                def abort(*args):
+                    case.service.api.now=int(481000-remaining*1000)
+                    raise body
+                case.service.run_outer.side_effect=abort
+                error=self.failed_receipt(case);observer=case.holder["observer"]
+                self.assertEqual(case.watch.thread.joins,waits)
+                self.assertIs(error.primary_errors[0],body)
+                self.assertFalse(observer.stop_result.thread_terminated)
+                self.assertFalse(observer.stop_result.stop_ok)
+                self.assertEqual(observer.stop_result.deadline_exhausted,remaining==0.)
+                self.assertEqual(observer.stop_result.join_timed_out,remaining>0.)
+                self.assertFalse(observer.close());self.assertFalse(observer.close())
+                self.assertEqual(case.watch.thread.joins,waits)
+                case.service.close_query.assert_not_called();self.assertEqual(observer.handle,88)
+                case.service.finish_observer.assert_not_called()
+                self.assertEqual(case.service.stop_observer.call_count,1)
+                self.assertIn("observer_diagnostics",error.failed_state)
+                self.assertFalse(error.failed_state["observer_diagnostics"]["stop_ok"])
+
+    def test_abort_missing_snapshot_and_clean_close_still_fail_closed(self):
+        for mode in ("missing","healthy","false"):
+            with self.subTest(mode=mode),tempfile.TemporaryDirectory() as tmp:
+                body=RuntimeError("synthetic body")
+                snapshot=None if mode=="missing" else native.FaultStopResult(True,True,False,False,None)
+                case=self.setup_abort(tmp,body,cached=snapshot)
+                start=case.service.start_observer
+                def no_watch(*args):
+                    observer=start(*args);observer.watch=None;return observer
+                if mode=="missing":case.service.start_observer=no_watch
+                if mode=="false":case.service.stop_observer=Mock(return_value=False)
+                error=self.failed_receipt(case)
+                self.assertIs(error.primary_errors[0],body)
+                self.assertEqual(error.failed_state["status"],"FAILED_NATIVE_SUPERVISION")
+                self.assertFalse(error.failed_state["delivery_verified"])
+                self.assertIn("observer_diagnostics",error.failed_state)
+                record=error.failed_state["observer_diagnostics"]
+                if mode=="missing":
+                    self.assertIsNone(case.holder["observer"].stop_result)
+                    self.assertNotIn("thread_terminated",record)
+                    self.assertIn("observer stop snapshot missing",str(error.primary_errors[1]))
+                elif mode=="false":self.assertIn("observer close not confirmed",str(error.primary_errors[1]))
+                else:self.assertEqual(error.primary_errors,[body]);self.assertTrue(record["stop_ok"])
+                self.assertEqual(case.service.stop_observer.call_count,1)
+                case.service.finish_observer.assert_not_called()
+        for token in ("call_a6f6d55427584c8da99bbba75fef5a29","call_9831ed712c9348a19b4a71960443c76d",
+                      "call_1772c2605a3d40fabe5266d3b37ba35f"):
+            p=fixture_protocol();p["approval_call_id"]=token
+            with self.subTest(token=token),tempfile.TemporaryDirectory() as tmp,self.assertRaises(ValueError):
+                native.validate_native_protocol(Path(tmp),p,approval=fixture_approval(p))
+
+    def test_abort_errors_survive_release_publication_and_cli(self):
+        for write_failure in (True,False):
+            with self.subTest(write_failure=write_failure),tempfile.TemporaryDirectory() as tmp:
+                body=RuntimeError("synthetic body");callback=ValueError("nonce="+"a"*64)
+                budget=TimeoutError("synthetic budget");cleanup=OSError("handle=12345")
+                release=OSError("synthetic release")
+                snapshot=native.FaultStopResult(True,True,False,True,callback)
+                case=self.setup_abort(tmp,body,cached=snapshot,stop_errors=[budget],cleanup=cleanup)
+                set_state=case.service.environment.set_execution_state
+                def fail_release(flags):
+                    if case.service.environment.requests:raise release
+                    return set_state(flags)
+                case.service.environment.set_execution_state=fail_release
+                if write_failure:
+                    error=self.failed_receipt(case)
+                    self.assertEqual(len(error.primary_errors),5)
+                    for actual,expected in zip(error.primary_errors,[body,callback,budget,cleanup,release]):self.assertIs(actual,expected)
+                    state=error.failed_state
+                else:
+                    flags=["--root",str(case.root),"--protocol",str(case.path),"--execute-native",
+                           "--approval-call-id",case.approval["call_id"],"--approval-answer",case.approval["answer"],
+                           "--registration-commit","a"*40]
+                    with patch.object(native,"NativeServices",return_value=case.service),patch("time.monotonic",side_effect=case.service.monotonic),redirect_stdout(io.StringIO()):
+                        code=native.main(flags)
+                    self.assertEqual(code,1)
+                    state=json.loads((case.root/case.protocol["output_relative"]/"stage_state.json").read_text())
+                self.assertEqual(state["status"],"FAILED_NATIVE_SUPERVISION")
+                self.assertFalse(state["delivery_verified"])
+                self.assertEqual([e["phase"] for e in state["errors"]],
+                                 ["observer_primary"]*3+["observer_cleanup","collector_scope_or_release"])
+                record=state["observer_diagnostics"]
+                self.assertEqual(len(record["primary_errors"]),3);self.assertEqual(len(record["cleanup_errors"]),1)
+                self.assertNotIn("a"*64,json.dumps(record));self.assertNotIn("12345",json.dumps(record))
+                self.assertEqual(case.service.stop_observer.call_count,1)
+                case.service.finish_observer.assert_not_called()
+
+    def test_abort_aggregation_deduplicates_identity_without_sampling(self):
+        helper=getattr(native,"_observer_abort_error",None)
+        self.assertTrue(callable(helper),"Missing pure observer abort aggregator")
+        body=RuntimeError("same message");other=RuntimeError("same message");budget=TimeoutError("budget")
+        errors=[body,budget,budget,other];original=list(errors)
+        snapshot=native.FaultStopResult(True,True,False,True,body)
+        with patch.object(native,"_remaining",side_effect=AssertionError("No clock")),\
+             patch.object(native.NativeObserver,"sample",side_effect=AssertionError("No sample")),\
+             patch.object(native.NativeObserver,"close",side_effect=AssertionError("No close")),\
+             patch.object(native.NativeObserver,"finish",side_effect=AssertionError("No finish")),\
+             patch.object(native.NativeServices,"stop_fault",side_effect=AssertionError("No stop")):
+            result=helper(body,stop_result=snapshot,stop_errors=errors,close_returned=None,close_error=body)
+        self.assertIs(result.stop_result,snapshot)
+        self.assertEqual(len(result.primary_errors),3)
+        for actual,expected in zip(result.primary_errors,[body,budget,other]):self.assertIs(actual,expected)
+        self.assertEqual(len(result.cleanup_errors),1);self.assertIs(result.cleanup_errors[0],body)
+        self.assertEqual(len(errors),len(original))
+        for actual,expected in zip(errors,original):self.assertIs(actual,expected)
+        failed=native.FaultStopResult(False,True,True,False,None)
+        result=helper(body,stop_result=failed,stop_errors=[],close_returned=False,close_error=None)
+        self.assertIn("observer termination not confirmed",str(result.primary_errors[1]))
+        result=helper(body,stop_result=None,stop_errors=[],close_returned=None,close_error=other)
+        self.assertIsNone(result.stop_result);self.assertIs(result.cleanup_errors[0],other)
+        self.assertEqual(len(result.primary_errors),2)
+        self.assertIn("observer stop snapshot missing",str(result.primary_errors[1]))
+
+
 class DirectLaunchBoundaryTests(unittest.TestCase):
     def fault_watch(self,*,error=None,alive=False):
         import threading
@@ -1523,8 +1718,8 @@ class DirectLaunchBoundaryTests(unittest.TestCase):
                     return r
                 try:
                     with patch.object(harness,"ROOT",Path(tmp)),patch.object(harness,"_snapshot_sources",return_value={}),patch.object(harness,"_run_modules",side_effect=modules),redirect_stdout(io.StringIO()):
-                        code=harness.main(["--phase","contract-green"])
-                    data=json.loads((Path(tmp)/"outputs/msb_python_launch_observer_repair_synthetic_v1/contract-green/attempt-001/acceptance_summary.json").read_text())
+                        code=harness.main(["--phase","collector-green"])
+                    data=json.loads((Path(tmp)/"outputs/msb_observer_abort_retention_synthetic_v1/collector-green/attempt-001/acceptance_summary.json").read_text())
                     self.assertEqual(code,0 if invoke is None else 1)
                     self.assertEqual(bool(data["unmocked_boundary_calls"]),invoke is not None)
                 finally:

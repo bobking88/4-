@@ -74,6 +74,8 @@ NON_NATIVE_IDS = {
     "call_a42aed1b7bab474bb17246c3df69dc4e", "call_6961d4dac6b64d7aba8e538f01c5e097",
     "call_5101ffc4ea2a44459043052c470036ce", "call_0e89f2cb80134c049e4ef3aaf697a7b0",
     "call_aa6d081524a94817b20cceb8fbd25053", "call_a4c9ef81bcea447aa7350f7cd9aff51c",
+    "call_a6f6d55427584c8da99bbba75fef5a29", "call_9831ed712c9348a19b4a71960443c76d",
+    "call_1772c2605a3d40fabe5266d3b37ba35f",
 }
 FIXED = dict(protocol="msb_native_supervision_v2", status="APPROVED_NATIVE_ONLY",
              scope="NATIVE_SUPERVISION_NO_DATA", execution_contract="msb_parent_bound_v2",
@@ -125,6 +127,31 @@ class ObserverTerminationError(RuntimeError):
         record.update(primary_errors=[_fault_error_record(e) for e in self.primary_errors],
                       cleanup_errors=[_fault_error_record(e) for e in self.cleanup_errors])
         return record
+
+
+def _observer_abort_error(
+    primary: BaseException,
+    *,
+    stop_result: FaultStopResult | None,
+    stop_errors: list[BaseException],
+    close_returned: bool | None,
+    close_error: BaseException | None,
+) -> ObserverTerminationError:
+    snapshot=stop_result if isinstance(stop_result,FaultStopResult) else None
+    candidates=[primary]
+    if snapshot is not None and snapshot.callback_error is not None:
+        candidates.append(snapshot.callback_error)
+    candidates.extend(stop_errors)
+    errors=[]
+    for error in candidates:
+        if not any(error is previous for previous in errors):errors.append(error)
+    if snapshot is None:
+        errors.append(RuntimeError("SUPERVISION_INTERRUPTED: observer stop snapshot missing"))
+    elif not snapshot.stop_ok and snapshot.callback_error is None and not stop_errors:
+        errors.append(RuntimeError("SUPERVISION_INTERRUPTED: observer termination not confirmed"))
+    elif snapshot.stop_ok and close_error is None and close_returned is not True:
+        errors.append(RuntimeError("SUPERVISION_INTERRUPTED: observer close not confirmed"))
+    return ObserverTerminationError(snapshot,errors,[] if close_error is None else [close_error])
 
 
 def execution_origins() -> dict[str,str]:
@@ -1056,12 +1083,15 @@ def run_acceptance(root: Path, protocol_path: Path, *, execute_native: bool, app
                         if isinstance(primary,ObserverTerminationError):
                             state["observer_diagnostics"]=primary.record()
                             raise
-                        try:services.stop_observer(observer)
-                        except BaseException as cleanup:
-                            combined=ObserverTerminationError(getattr(observer,"stop_result",None),[primary],[cleanup])
-                            state["observer_diagnostics"]=combined.record()
-                            raise combined from None
-                        raise
+                        close_returned=None;close_error=None
+                        try:close_returned=services.stop_observer(observer)
+                        except BaseException as cleanup:close_error=cleanup
+                        combined=_observer_abort_error(primary,
+                            stop_result=getattr(observer,"stop_result",None),
+                            stop_errors=getattr(observer,"stop_errors",[]),
+                            close_returned=close_returned,close_error=close_error)
+                        state["observer_diagnostics"]=combined.record()
+                        raise combined from None
                     check();record=_load_case_record(case_dir,binding,outer,observation);check()
                     state["case_records"].append(record)
                     _check_case(record,case["case_id"],binding);check()
