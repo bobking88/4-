@@ -356,6 +356,8 @@ C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独�
 
 2026-10-22身份与观察器修复独立复查：对固定提交`16fb16d`只派发一次[只读工程复查](docs/experiment_records/2026-10-22_msb_python_launch_observer_repair_review.md)，结论REQUEST_CHANGES，发现单项P2：异常回收忽略observer.close的False停止结果，可能漏存原始callback/stop-budget原因与observer_diagnostics；作者静态核对认可，未修复。247项为既有合成记录，本轮不重跑；全部失败原件、源码/网络/公式/矩阵/正式报告和旧v1原件不变，无真实数据/前向/拟合或原生验收。当前INDEPENDENT_REVIEW_REQUEST_CHANGES_NO_FIX，不放行原生或科学实验；最小修复规格、开发及任何新实验仍另批。观察等待中断后只继续同一代理，未重派；不把工程复查当理论创新效果。
 
+2026-10-22观察器异常回收修复文档更新：按仅文档授权起草[最小规格](docs/superpowers/specs/2026-10-22-msb-observer-abort-retention-design.md)、[单工作包实施计划](docs/superpowers/plans/2026-10-22-msb-observer-abort-retention.md)及[作者登记](docs/experiment_records/2026-10-22_msb_observer_abort_retention_planning.md)。拟在原一次close后用纯函数汇总B/A/D和独立C，再沿原发布保留F/P；不新增采样/join/预算。未来仅三文件、六个新方法、collector-red/green/final三阶段各最多3次，保留247全名、253仅预计。当前DOCUMENTED_NOT_IMPLEMENTED_NOT_RUN，R1未修复、REQUEST_CHANGES不变，无代码/导入/测试/探查/真实数据/代理/正式报告变化，无新合成或原生运行目录；开发与实际实验均另批，不以诊断设计冒充网络创新证据。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.

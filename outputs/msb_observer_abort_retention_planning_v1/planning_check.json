@@ -1,0 +1,86 @@
+{
+  "date": "2026-10-22",
+  "timezone": "Asia/Shanghai",
+  "approval_id": "call_a6f6d55427584c8da99bbba75fef5a29",
+  "base_commit": "c555dba71e03e0307f59b8de890a882a71b18bac",
+  "status": "DOCUMENTED_NOT_IMPLEMENTED_NOT_RUN",
+  "issue": {
+    "id": "R1",
+    "priority": "P2",
+    "status": "ACCEPTED_OPEN_NOT_FIXED",
+    "independent_review_verdict": "REQUEST_CHANGES"
+  },
+  "documents": {
+    "spec": "docs/superpowers/specs/2026-10-22-msb-observer-abort-retention-design.md",
+    "plan": "docs/superpowers/plans/2026-10-22-msb-observer-abort-retention.md",
+    "author_record": "docs/experiment_records/2026-10-22_msb_observer_abort_retention_planning.md"
+  },
+  "self_review": {
+    "spec_plan_written_together_by_explicit_authorization": true,
+    "approaches_compared": [
+      "Pure aggregation after one existing close (recommended)",
+      "Reuse finish (rejected: can sample/pause)",
+      "Repeat join/restart (prohibited)"
+    ],
+    "interface": "_observer_abort_error(primary: BaseException, *, stop_result: FaultStopResult | None, stop_errors: list[BaseException], close_returned: bool | None, close_error: BaseException | None) -> ObserverTerminationError",
+    "returns_object_caller_records_and_raises": true,
+    "ordering": "primary B, callback A, cached stop_errors D; primary identity-only dedup; cleanup C keeps its role; root F and persistence P unchanged",
+    "missing_snapshot_not_fabricated": true,
+    "review_focus_mapped_to_six_tests": true,
+    "static_baseline_check": {
+      "baseline_unique_paths": 56,
+      "future_allowed_paths": [
+        "scripts/check_msb_native_supervision.py",
+        "tests/test_check_msb_native_supervision.py",
+        "tests/run_msb_native_supervision_synthetic_acceptance.py"
+      ],
+      "future_immutable_paths": 53,
+      "new_method_names": [
+        "test_abort_before_finish_retains_callback_and_body_errors",
+        "test_abort_retains_callback_budget_and_cleanup_objects",
+        "test_abort_live_or_expired_observer_never_rejoins_or_closes_live_handle",
+        "test_abort_missing_snapshot_and_clean_close_still_fail_closed",
+        "test_abort_errors_survive_release_publication_and_cli",
+        "test_abort_aggregation_deduplicates_identity_without_sampling"
+      ],
+      "expected_driver_methods": 92,
+      "expected_final_methods": 253,
+      "plan_steps": 6,
+      "unresolved_placeholders": false,
+      "source_diff_empty": true,
+      "current_test_runs": 0
+    },
+    "planned_phases": [
+      "collector-red",
+      "collector-green",
+      "final"
+    ],
+    "max_attempts_per_phase": 3,
+    "all_steps_unstarted": true,
+    "signature_ellipsis_is_interface_only": true,
+    "independent_review_or_dynamic_validation_performed": false
+  },
+  "protection": {
+    "record_count": 254,
+    "unchanged_records": 251,
+    "readme_only_records": 3,
+    "contains_duplicate_paths": true,
+    "source_diff_empty": true,
+    "all_other_records_match": true,
+    "future_runtime_paths_absent": true
+  },
+  "executed": {
+    "project_imports": 0,
+    "tests": 0,
+    "forwards": 0,
+    "fits": 0,
+    "native_acceptance": 0,
+    "real_data_reads": 0,
+    "agents": 0,
+    "source_edits": 0,
+    "formal_report_edits": 0
+  },
+  "future_execution_authorized": false,
+  "original_theory_network_effect": "NOT_VERIFIED",
+  "handoff": "Human review of both documents and fresh approval required for native-in-session code and finite all-fake acceptance; independent review/native/scientific work separately approved."
+}

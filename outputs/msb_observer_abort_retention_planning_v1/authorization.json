@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-22",
+  "timezone": "Asia/Shanghai",
+  "approval_id": "call_a6f6d55427584c8da99bbba75fef5a29",
+  "human_answer": "批准仅编写修复规格与计划（推荐）",
+  "scope": "DOCUMENT_MINIMUM_R1_REPAIR_SPEC_AND_IMPLEMENTATION_PLAN_AND_GITHUB_ARCHIVE",
+  "base_commit": "c555dba71e03e0307f59b8de890a882a71b18bac",
+  "review_record_commit": "c555dba71e03e0307f59b8de890a882a71b18bac",
+  "reviewed_code_commit": "16fb16d6c9293e9c37c700d5e5f28e081993ac67",
+  "issue": {
+    "id": "R1",
+    "priority": "P2",
+    "status": "ACCEPTED_OPEN_NOT_FIXED"
+  },
+  "permitted": [
+    "Read existing source/review evidence without importing or running it",
+    "Write minimum repair design and implementation plan together for human review",
+    "Archive planning record, authorization, protection evidence and README status to existing GitHub branch"
+  ],
+  "prohibited": [
+    "Code changes",
+    "Project imports, tests, forwards, fitting, training, timing or native/process/idle acceptance",
+    "Real images/weights/cache/prepared/fit/stop/tensor reads",
+    "Agent dispatch",
+    "Network/loss/formula/matrix/formal report modifications"
+  ],
+  "grants_development": false,
+  "grants_native_or_scientific_execution": false
+}
