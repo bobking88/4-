@@ -1,0 +1,102 @@
+{
+  "date": "2026-10-22",
+  "status": "REGISTERED_AWAITING_NATIVE_APPROVAL",
+  "execution_status": "NOT_RUN",
+  "documentation_approval_id": "call_be3d89be53b944ec8acf9cd1e30a0058",
+  "documentation_approval_is_not_native_permission": true,
+  "base_commit": "487af614ad4ee0a70870cb39e8b00b34e9beb3b7",
+  "reviewed_code_commit": "35fed93746ae380578d54dd89183235d67b886e4",
+  "independent_approval_archive_commit": "487af614ad4ee0a70870cb39e8b00b34e9beb3b7",
+  "protocol": {
+    "path": "docs/experiment_protocols/msb_native_supervision_v2.json",
+    "raw_file_sha256": "192a8673e5f1481cb27f7217ff522b0e5bda2f5ed3f0bcd08875b5df065236aa",
+    "raw_file_hash_not_runtime_protocol_digest": true,
+    "field_count": 16,
+    "fields_and_types_checked_statically": true,
+    "validator_imported_or_called": false,
+    "status": "REGISTERED_AWAITING_NATIVE_APPROVAL",
+    "approval_call_id": "NOT_GRANTED",
+    "approval_answer": "NOT_GRANTED",
+    "deliberately_not_execution_acceptable": true,
+    "execution_blockers": [
+      "status differs from APPROVED_NATIVE_ONLY",
+      "NOT_GRANTED is not a native human call_ approval ID",
+      "No actual native approval or externally bound registration commit granted"
+    ],
+    "fixed_cases": [
+      "N1",
+      "N2",
+      "N3",
+      "N4"
+    ],
+    "case_limits": [
+      90,
+      45,
+      75,
+      45
+    ],
+    "max_seconds": 480,
+    "max_attempts": 1,
+    "require_ac": true,
+    "real_training_authorized": false,
+    "output_relative": "outputs/msb_native_supervision_v2/acceptance_once",
+    "output_created": false,
+    "runtime_venv_root": "D:\\成信工科研\\人工智能选矿\\.venv-training",
+    "runtime_queried": false
+  },
+  "source_identity": {
+    "path": "outputs/msb_native_supervision_v2_registration_v1/source_identity.json",
+    "raw_file_sha256": "564790620c013fcec5360c0ed5d4092fda0937e47cf09f035a1161362f6513a1",
+    "source_count": 46,
+    "source_files_literal_count": 46,
+    "current_raw_hashes_match": true,
+    "normalized_LF_hashes_separate": true,
+    "git_blobs_separate": true,
+    "remote_verification": {
+      "verified_by": "INDEPENDENT_GITHUB_CONNECTOR_TREE_BLOBS",
+      "base_commit": "487af614ad4ee0a70870cb39e8b00b34e9beb3b7",
+      "tree": "6bfa158d38af4eb286a0d9de1f1e3bec089996ce",
+      "subtrees": {
+        "scripts": "37b654da1f886c411f781a8f2e86f18c657a98b3",
+        "tests": "5102f4adbddfcd2f33de465b8962d01a42a49d74"
+      },
+      "source_blobs_verified": 46,
+      "raw_hash_not_conflated_with_git_blob": true
+    }
+  },
+  "protection": {
+    "records": 288,
+    "unchanged_records": 282,
+    "changed_records": 6,
+    "unique_changed_existing_paths": [
+      "README.md"
+    ],
+    "all_non_readme_unchanged": true,
+    "formal_reports_unchanged": true,
+    "preexisting_dirty_pngs_unchanged": true
+  },
+  "new_activity": {
+    "code_changes": 0,
+    "project_imports": 0,
+    "test_runs": 0,
+    "native_runs": 0,
+    "process_thread_clock_power_runtime_probes": 0,
+    "model_forwards": 0,
+    "fits": 0,
+    "real_data_reads": 0,
+    "formal_report_edits": 0,
+    "agents": 0
+  },
+  "archive_paths": [
+    "README.md",
+    "docs/experiment_protocols/msb_native_supervision_v2.json",
+    "docs/experiment_records/2026-10-22_msb_native_supervision_v2_registration.md",
+    "outputs/msb_native_supervision_v2_registration_v1/authorization.json",
+    "outputs/msb_native_supervision_v2_registration_v1/source_identity.json",
+    "outputs/msb_native_supervision_v2_registration_v1/protection_before.json",
+    "outputs/msb_native_supervision_v2_registration_v1/protection_after.json",
+    "outputs/msb_native_supervision_v2_registration_v1/registration_check.json"
+  ],
+  "next_step": "A separate human authorization is required for one native run; only then update the three native authorization/status fields, re-register and verify remote contents before running. Scientific mechanism experiments require another separate approval.",
+  "scientific_effect": "NOT_VALIDATED"
+}

@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-22",
+  "approval_id": "call_be3d89be53b944ec8acf9cd1e30a0058",
+  "answer": "批准仅编写与登记协议（推荐）",
+  "scope": "MSB_NATIVE_SUPERVISION_V2_PROTOCOL_DOCUMENT_AND_REGISTRATION_ONLY",
+  "base_commit": "487af614ad4ee0a70870cb39e8b00b34e9beb3b7",
+  "reviewed_code_commit": "35fed93746ae380578d54dd89183235d67b886e4",
+  "independent_review_commit": "487af614ad4ee0a70870cb39e8b00b34e9beb3b7",
+  "native_runtime_approval": "NOT_GRANTED",
+  "max_native_runs_authorized": 0,
+  "code_changes": false,
+  "test_runs": false,
+  "real_data_reads": false,
+  "training": false,
+  "network_or_formula_changes": false,
+  "formal_report_changes": false,
+  "agents": false
+}

@@ -1,0 +1,438 @@
+{
+  "date": "2026-10-22",
+  "base_commit": "487af614ad4ee0a70870cb39e8b00b34e9beb3b7",
+  "reviewed_code_commit": "35fed93746ae380578d54dd89183235d67b886e4",
+  "source_count": 46,
+  "source_files_literal_count": 46,
+  "hash_contract": "Raw SHA256 for runtime identity; normalized LF SHA256 and Git blob SHA1 recorded separately",
+  "runtime_venv_root": "D:\\成信工科研\\人工智能选矿\\.venv-training",
+  "runtime_queried": false,
+  "project_imported": false,
+  "files": [
+    {
+      "path": "scripts/analyze_ic_role_mechanism.py",
+      "raw_sha256": "26fd12997e987c7e71649dd960cb82094d524a5071f6a954fccd4d96fdc2c906",
+      "normalized_lf_sha256": "26fd12997e987c7e71649dd960cb82094d524a5071f6a954fccd4d96fdc2c906",
+      "git_blob_sha1": "471cab8ea1db0b508d2263adf9277c4e6298cedc",
+      "byte_count": 22827,
+      "normalized_byte_count": 22827,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/analyze_lc_role_adaptation.py",
+      "raw_sha256": "54b98dbcf1ed1299c05b2bbc3f4722c36d00ba35fb9fc44095f45a59bb4fbc1b",
+      "normalized_lf_sha256": "54b98dbcf1ed1299c05b2bbc3f4722c36d00ba35fb9fc44095f45a59bb4fbc1b",
+      "git_blob_sha1": "3af341a230259e867aa26bf86a1b66a91b78a429",
+      "byte_count": 28708,
+      "normalized_byte_count": 28708,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/analyze_misclassifications.py",
+      "raw_sha256": "3d2c7f463fe1257ec5a7e2c3571db4ae3cb65ef04bf3dd7b1942464c8ded707c",
+      "normalized_lf_sha256": "8e89596cb8e5411095ff6312c162afa9c3479047debb2e27a171e02e528ce8ae",
+      "git_blob_sha1": "50f5051f9bfd2b4e9e876ba95b6ae854039f8a81",
+      "byte_count": 8001,
+      "normalized_byte_count": 7806,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/analyze_msb_role_mechanism.py",
+      "raw_sha256": "af439f8440284b3436a152c079cf8a922618a10a4ab90cbf5e4cbff11b054e59",
+      "normalized_lf_sha256": "af439f8440284b3436a152c079cf8a922618a10a4ab90cbf5e4cbff11b054e59",
+      "git_blob_sha1": "2bb201e7cd080d8f824278b70e2c3146274b7ebf",
+      "byte_count": 25975,
+      "normalized_byte_count": 25975,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/anchor_linear_controls.py",
+      "raw_sha256": "1a979127c960cfc44c8fc3ef682d790dbb280e2488cfc2440baa2c161ed10192",
+      "normalized_lf_sha256": "1a979127c960cfc44c8fc3ef682d790dbb280e2488cfc2440baa2c161ed10192",
+      "git_blob_sha1": "63110d0a5af8d4fa42c0afdf8af43d99775a7dee",
+      "byte_count": 8022,
+      "normalized_byte_count": 8022,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/audit_abmp_candidate_capacity.py",
+      "raw_sha256": "163c224a5ff9f72c2daf1341570c0bc40be76b8593671177c50f7d036b83675c",
+      "normalized_lf_sha256": "163c224a5ff9f72c2daf1341570c0bc40be76b8593671177c50f7d036b83675c",
+      "git_blob_sha1": "f5b0a9c163083a62fc72e37fcf2d133cccb1db24",
+      "byte_count": 21310,
+      "normalized_byte_count": 21310,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/check_lc_native_environment.py",
+      "raw_sha256": "6ff6bf40cec8c5f0b78ffc61fd11be8aeadf35880b1ebe9e8112be0b298ac161",
+      "normalized_lf_sha256": "6ff6bf40cec8c5f0b78ffc61fd11be8aeadf35880b1ebe9e8112be0b298ac161",
+      "git_blob_sha1": "c8940b7a176c13aed904da17fb2d2fd8aa5d82e1",
+      "byte_count": 13501,
+      "normalized_byte_count": 13501,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/frozen_visual_probe.py",
+      "raw_sha256": "6e417ea900ed3cbd1c8653898a5bb9849b73958b57c4c50803217d82a4793bfa",
+      "normalized_lf_sha256": "6e417ea900ed3cbd1c8653898a5bb9849b73958b57c4c50803217d82a4793bfa",
+      "git_blob_sha1": "0ae29b70fb19d7e78217d84fc6c7b1b4e92c2fdc",
+      "byte_count": 7677,
+      "normalized_byte_count": 7677,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/generate_msb_role_figure.py",
+      "raw_sha256": "a96cead0999a23b3fb9f462299b0e3c77834c156969642e7c4a92efcc06be0f6",
+      "normalized_lf_sha256": "a96cead0999a23b3fb9f462299b0e3c77834c156969642e7c4a92efcc06be0f6",
+      "git_blob_sha1": "6c74b5b5a272e8495ee5e7caa77cb380bc776668",
+      "byte_count": 10574,
+      "normalized_byte_count": 10574,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/hrgv_network.py",
+      "raw_sha256": "f4c2889b9a129d9f52fd999b189c0888407f9887e1f739cd5e1b55b4d361a0da",
+      "normalized_lf_sha256": "f4c2889b9a129d9f52fd999b189c0888407f9887e1f739cd5e1b55b4d361a0da",
+      "git_blob_sha1": "999f9d1d13e9b2a48457084ce85923de0442205e",
+      "byte_count": 59050,
+      "normalized_byte_count": 59050,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/ic_role_audit.py",
+      "raw_sha256": "ffadcaa76f8494fbd63080b90a4bd8d4f95d7d4b4ef585aac4847511074729d4",
+      "normalized_lf_sha256": "ffadcaa76f8494fbd63080b90a4bd8d4f95d7d4b4ef585aac4847511074729d4",
+      "git_blob_sha1": "6819a075365cf8e5ce88004009327b0472051f12",
+      "byte_count": 14583,
+      "normalized_byte_count": 14583,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/ic_role_data.py",
+      "raw_sha256": "897751bb68c5fb40fc8c186c73041b6ed05990708e57771c403f4d604e7d6d2d",
+      "normalized_lf_sha256": "897751bb68c5fb40fc8c186c73041b6ed05990708e57771c403f4d604e7d6d2d",
+      "git_blob_sha1": "48f13abbddda5dae25481378ba2ac77a9df0a649",
+      "byte_count": 6505,
+      "normalized_byte_count": 6505,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/ic_role_model.py",
+      "raw_sha256": "b62462a725e52a67f79d3fdba148bc19195dfe488f15c0ce3137f8a0680377b3",
+      "normalized_lf_sha256": "b62462a725e52a67f79d3fdba148bc19195dfe488f15c0ce3137f8a0680377b3",
+      "git_blob_sha1": "c470ec38c4aa9caaca3107185e16073f847250a0",
+      "byte_count": 9529,
+      "normalized_byte_count": 9529,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/ic_role_training.py",
+      "raw_sha256": "b4102538411b7079d5fcf83587a0b8558141660ed9c5048ca4d1c5acbdda58cd",
+      "normalized_lf_sha256": "b4102538411b7079d5fcf83587a0b8558141660ed9c5048ca4d1c5acbdda58cd",
+      "git_blob_sha1": "c20a9ce729a40c666008f369d9078873d6bdb3c8",
+      "byte_count": 10700,
+      "normalized_byte_count": 10700,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/lc_execution_safety.py",
+      "raw_sha256": "84089e43cb36133d41647b7576c27e4609058b9c087f4979f595452cd37bc029",
+      "normalized_lf_sha256": "84089e43cb36133d41647b7576c27e4609058b9c087f4979f595452cd37bc029",
+      "git_blob_sha1": "cadf7a2114bf58dd5fad49da8e6a63557d3166dc",
+      "byte_count": 5198,
+      "normalized_byte_count": 5198,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/lc_role_adapter.py",
+      "raw_sha256": "3c02653b5a1aafd1cf452fa029b827baa899ff6a6645986cebc368fbdeecf1aa",
+      "normalized_lf_sha256": "3c02653b5a1aafd1cf452fa029b827baa899ff6a6645986cebc368fbdeecf1aa",
+      "git_blob_sha1": "b7edbd1f5adcd374d17e2ff052c608aaaaa83d2c",
+      "byte_count": 7795,
+      "normalized_byte_count": 7795,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/lc_role_audit.py",
+      "raw_sha256": "587bdb18a27e897e47064889f9d77869be94b62bf661379e4409d88d2802ec1c",
+      "normalized_lf_sha256": "587bdb18a27e897e47064889f9d77869be94b62bf661379e4409d88d2802ec1c",
+      "git_blob_sha1": "8180c7fb2ea93e21ea2cf28a265bcf966a31d9fc",
+      "byte_count": 7851,
+      "normalized_byte_count": 7851,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/lc_role_data.py",
+      "raw_sha256": "d8639d3035d55ef04b04605b2f565c2cc29a7dcefaba995fd852b396cf489e09",
+      "normalized_lf_sha256": "d8639d3035d55ef04b04605b2f565c2cc29a7dcefaba995fd852b396cf489e09",
+      "git_blob_sha1": "9f40477df858bd11e697c76dbe1367161803397b",
+      "byte_count": 6970,
+      "normalized_byte_count": 6970,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/lc_role_training.py",
+      "raw_sha256": "1431e80200a7639aca10493d4d7d4ef91c66eb45bbd1457a9a1cdc52f983adb7",
+      "normalized_lf_sha256": "1431e80200a7639aca10493d4d7d4ef91c66eb45bbd1457a9a1cdc52f983adb7",
+      "git_blob_sha1": "1cccdb904ee8e312e4a3c02d141913c84d9aa9f5",
+      "byte_count": 11723,
+      "normalized_byte_count": 11723,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/mineral_hierarchy.py",
+      "raw_sha256": "21c485b70d838a9acf1626762b0a643b0e8297e060e8cd7eb3348f807d191384",
+      "normalized_lf_sha256": "aefbd9943eecdee575840c3f2b69815e9e5a2e39f559e808f249c0f7eff3b3a8",
+      "git_blob_sha1": "f9db4438eee504b1f5d7e1a2d3451b396659ef1e",
+      "byte_count": 2588,
+      "normalized_byte_count": 2529,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/msb_execution_safety.py",
+      "raw_sha256": "6a7ed68e4a36aaf4a95f327bd7dc989514784bafd3a05b6b6848864ca846ab44",
+      "normalized_lf_sha256": "6a7ed68e4a36aaf4a95f327bd7dc989514784bafd3a05b6b6848864ca846ab44",
+      "git_blob_sha1": "314a8f8e33101079671af4d4d34350ca511b9f3e",
+      "byte_count": 44977,
+      "normalized_byte_count": 44977,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/msb_role_audit.py",
+      "raw_sha256": "23eddcb993b3b4584ba67bbbafa94d20c40602bab15b3100a5157f789377bc20",
+      "normalized_lf_sha256": "23eddcb993b3b4584ba67bbbafa94d20c40602bab15b3100a5157f789377bc20",
+      "git_blob_sha1": "a95453f14a3c6fe2e1e2efb268554bade8f2e7dd",
+      "byte_count": 12529,
+      "normalized_byte_count": 12529,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/msb_role_controls.py",
+      "raw_sha256": "ef649b352b4f877d60f34dd4f64e80dc98226e587495fadda0fd697b71e7c808",
+      "normalized_lf_sha256": "ef649b352b4f877d60f34dd4f64e80dc98226e587495fadda0fd697b71e7c808",
+      "git_blob_sha1": "3b309c7b3e923ae9d234430e7aff5ec9dcd0e6ba",
+      "byte_count": 8863,
+      "normalized_byte_count": 8863,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/msb_role_data.py",
+      "raw_sha256": "674bde1f7ab1675ea427160e4a8435e9588b1ce198c7c864965ba7f6f7f7c242",
+      "normalized_lf_sha256": "674bde1f7ab1675ea427160e4a8435e9588b1ce198c7c864965ba7f6f7f7c242",
+      "git_blob_sha1": "cc506361d29bded6216853a96d2222e6ab867914",
+      "byte_count": 11348,
+      "normalized_byte_count": 11348,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/msb_role_model.py",
+      "raw_sha256": "752e91afcc368fef0e5b54f6ff4ba5cb4c2d66267532211bfaaa0cab5b35f192",
+      "normalized_lf_sha256": "752e91afcc368fef0e5b54f6ff4ba5cb4c2d66267532211bfaaa0cab5b35f192",
+      "git_blob_sha1": "2515a1ed7c0435d886fdace31db111d8b423d895",
+      "byte_count": 8943,
+      "normalized_byte_count": 8943,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/msb_role_training.py",
+      "raw_sha256": "2f16547744b86e5dbc5782111e2cdfe85fc1d0c0b3aef213774a8ed15ff9e04d",
+      "normalized_lf_sha256": "2f16547744b86e5dbc5782111e2cdfe85fc1d0c0b3aef213774a8ed15ff9e04d",
+      "git_blob_sha1": "fba225842d907e246a8ebeb31f92e3872b716b4c",
+      "byte_count": 9937,
+      "normalized_byte_count": 9937,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/run_anchor_linear_controls.py",
+      "raw_sha256": "15beb38c7825a439199b5545bfb5a4d842947d9f107b18ec09ccca759a747735",
+      "normalized_lf_sha256": "15beb38c7825a439199b5545bfb5a4d842947d9f107b18ec09ccca759a747735",
+      "git_blob_sha1": "48b5f962dad332d41e265a92903607d4648dc15f",
+      "byte_count": 20970,
+      "normalized_byte_count": 20970,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/run_frozen_visual_probe.py",
+      "raw_sha256": "db6db46bd8f046ad0e3ec9c2bc14f138fa2150e297ab4b30eb316d4510a36d2d",
+      "normalized_lf_sha256": "db6db46bd8f046ad0e3ec9c2bc14f138fa2150e297ab4b30eb316d4510a36d2d",
+      "git_blob_sha1": "3a34bae5a44c98ce885ab358ebf466913123a1e8",
+      "byte_count": 23657,
+      "normalized_byte_count": 23657,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/run_ic_role_mechanism.py",
+      "raw_sha256": "423fad79bee6d5a351589319cb03b98a8097b958615a9b9e1fd274ef921f302a",
+      "normalized_lf_sha256": "423fad79bee6d5a351589319cb03b98a8097b958615a9b9e1fd274ef921f302a",
+      "git_blob_sha1": "3ec1f66cdaefbcffaf2b796ad67a054eb7ddabe9",
+      "byte_count": 15560,
+      "normalized_byte_count": 15560,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/run_lc_role_adaptation.py",
+      "raw_sha256": "c0fa18017ebe181b09b54371eb8f0cdbdd9def8ce5c498240a3b98f8b7840296",
+      "normalized_lf_sha256": "c0fa18017ebe181b09b54371eb8f0cdbdd9def8ce5c498240a3b98f8b7840296",
+      "git_blob_sha1": "b82e015bbd3e9a9cb7a6c100a3bd06399ca5e2b2",
+      "byte_count": 35493,
+      "normalized_byte_count": 35493,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/run_msb_role_mechanism.py",
+      "raw_sha256": "ed73b97a52f2a653c9f36decc557a1198eadf126e122f5e23b94ba91c0405fd8",
+      "normalized_lf_sha256": "ed73b97a52f2a653c9f36decc557a1198eadf126e122f5e23b94ba91c0405fd8",
+      "git_blob_sha1": "848418a053df659a8bb6dd06b15855dfd3da5763",
+      "byte_count": 29616,
+      "normalized_byte_count": 29616,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/run_seen_unseen_gate_study.py",
+      "raw_sha256": "b03b1c63aba4a1559e6a1e26797989d2cdac30c0d3bca618b76986613a1cd6bc",
+      "normalized_lf_sha256": "b03b1c63aba4a1559e6a1e26797989d2cdac30c0d3bca618b76986613a1cd6bc",
+      "git_blob_sha1": "92dc8ae4d7927222fd059535371aa241e17d19db",
+      "byte_count": 17995,
+      "normalized_byte_count": 17995,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/run_tc_oos_rsg_experiments.py",
+      "raw_sha256": "7006b72d27942ab29c7b22eaf58cae344fcb8c3c8d30e2930788da9900c4bef1",
+      "normalized_lf_sha256": "7006b72d27942ab29c7b22eaf58cae344fcb8c3c8d30e2930788da9900c4bef1",
+      "git_blob_sha1": "5c05fd74b11b7eb34130a8c96ec992cb14cf3874",
+      "byte_count": 44227,
+      "normalized_byte_count": 44227,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/run_verifier_strong_controls.py",
+      "raw_sha256": "40edbdd576ddc49d0a3f5a27ec71aee944660691ccba955829df4ed99a0599d6",
+      "normalized_lf_sha256": "40edbdd576ddc49d0a3f5a27ec71aee944660691ccba955829df4ed99a0599d6",
+      "git_blob_sha1": "c524f8c6e8ec1434d08a6c85d00cb5e7cd68c536",
+      "byte_count": 12291,
+      "normalized_byte_count": 12291,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/run_verifier_trust_development.py",
+      "raw_sha256": "62ee01068bb6ef6cbb3b464732a9f57f3e2e5bc86aba879f0b2a304d40dbbce3",
+      "normalized_lf_sha256": "62ee01068bb6ef6cbb3b464732a9f57f3e2e5bc86aba879f0b2a304d40dbbce3",
+      "git_blob_sha1": "7773f341d5ee211c8e48caad91cbb7bdffb8d86f",
+      "byte_count": 20370,
+      "normalized_byte_count": 20370,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/tc_oos_rsg.py",
+      "raw_sha256": "38445a3f24ccd424e5e6a635f78ef079e73f2139be62d3e974134470c66bcba2",
+      "normalized_lf_sha256": "38445a3f24ccd424e5e6a635f78ef079e73f2139be62d3e974134470c66bcba2",
+      "git_blob_sha1": "a898fcf50477a81da4d4b14a6ba49ec93e0236a4",
+      "byte_count": 8752,
+      "normalized_byte_count": 8752,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/train_hierarchical_mineral_classifier.py",
+      "raw_sha256": "75e1085a66dc70adad45ae41f10d825062a0594e7fa0db1ca6438092a5e0635f",
+      "normalized_lf_sha256": "8bae63309bc06a14242dc776a270c178e95547e5d931e1f0f4f556d555816b37",
+      "git_blob_sha1": "27cb966d14ed3aabc713dd22a8c92ebe18770c54",
+      "byte_count": 17999,
+      "normalized_byte_count": 17656,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/train_hrgv_mineral_classifier.py",
+      "raw_sha256": "0fa4d352c9327ea646cd42e0e267c31e9eb05a7007cfb2298ccbc595a8a94bdc",
+      "normalized_lf_sha256": "0fa4d352c9327ea646cd42e0e267c31e9eb05a7007cfb2298ccbc595a8a94bdc",
+      "git_blob_sha1": "06c8471ed1c569b16e8e51d695f64cf186c01eb8",
+      "byte_count": 66653,
+      "normalized_byte_count": 66653,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/train_mineral_classifier.py",
+      "raw_sha256": "d81cda1da77076e3dbbdf81fd9969846314187fa8ffd079fb01106c60b80edea",
+      "normalized_lf_sha256": "3d665f3fdcb596117ee7180c83d62083b83279860d484822e958353aa71a20ea",
+      "git_blob_sha1": "17742c99fe055866c6281f48c2d583bf2f9b6c4f",
+      "byte_count": 19802,
+      "normalized_byte_count": 19317,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/train_role_aware_mineral_classifier.py",
+      "raw_sha256": "63380cc3806d5676312292d6345f7ea6173061a681d3430e59e54063988c0927",
+      "normalized_lf_sha256": "bb2afd6b909c735e4ef15c5c4158912d3ddb9de311a3e3c0fa9cf63911afe7b7",
+      "git_blob_sha1": "ccea3114ef71bcb585fbedaf535a7677bede223d",
+      "byte_count": 18138,
+      "normalized_byte_count": 17738,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/verifier_risk.py",
+      "raw_sha256": "a5bc85cccee192479bcf49bddcce4863eac66126636ba7d04b83898b9606dfff",
+      "normalized_lf_sha256": "a5bc85cccee192479bcf49bddcce4863eac66126636ba7d04b83898b9606dfff",
+      "git_blob_sha1": "84af4a4ff0e2d85f9089705ec0d59e92c5a83b17",
+      "byte_count": 4067,
+      "normalized_byte_count": 4067,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/verifier_strong_controls.py",
+      "raw_sha256": "a1adefaef8852bceb85aa22cd42a10609ff904b09a3f8b6dce94787c6a87299b",
+      "normalized_lf_sha256": "a1adefaef8852bceb85aa22cd42a10609ff904b09a3f8b6dce94787c6a87299b",
+      "git_blob_sha1": "f4bcd4d5095ff14045df60b780bf27b90e831306",
+      "byte_count": 10523,
+      "normalized_byte_count": 10523,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/verify_verifier_trust_delivery.py",
+      "raw_sha256": "daa8be53da3019607946cb4dfdfd9718e2cd43be4221ae5d1d3f30d24659ac09",
+      "normalized_lf_sha256": "daa8be53da3019607946cb4dfdfd9718e2cd43be4221ae5d1d3f30d24659ac09",
+      "git_blob_sha1": "e425b448d7553727098f37e039d40a54ef56148f",
+      "byte_count": 10509,
+      "normalized_byte_count": 10509,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "scripts/check_msb_native_supervision.py",
+      "raw_sha256": "557574eb6f0924096bcc880393c32c767c10da094df39ffe4d3979649f11b429",
+      "normalized_lf_sha256": "557574eb6f0924096bcc880393c32c767c10da094df39ffe4d3979649f11b429",
+      "git_blob_sha1": "e1d070a4dbd1a54bb00f9c9928e3a94614804341",
+      "byte_count": 70903,
+      "normalized_byte_count": 70903,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "tests/test_check_msb_native_supervision.py",
+      "raw_sha256": "d2de225bbd659314109826ede1e5917455f841f95db21f138422e8f957bf22ad",
+      "normalized_lf_sha256": "d2de225bbd659314109826ede1e5917455f841f95db21f138422e8f957bf22ad",
+      "git_blob_sha1": "0c29e0aa929edadd13502014ed35161414fabe7d",
+      "byte_count": 110845,
+      "normalized_byte_count": 110845,
+      "matches_registered_commit_blob": true
+    },
+    {
+      "path": "tests/run_msb_native_supervision_synthetic_acceptance.py",
+      "raw_sha256": "1a91b6b96f3fe342ee873cf14ef128b6a169142f31c92fa30de7f51a0a3339fb",
+      "normalized_lf_sha256": "1a91b6b96f3fe342ee873cf14ef128b6a169142f31c92fa30de7f51a0a3339fb",
+      "git_blob_sha1": "18534a82ede272b995927f79d9e7446eb4aa46d0",
+      "byte_count": 9335,
+      "normalized_byte_count": 9335,
+      "matches_registered_commit_blob": true
+    }
+  ],
+  "remote_identity": {
+    "verified_by": "INDEPENDENT_GITHUB_CONNECTOR_TREE_BLOBS",
+    "base_commit": "487af614ad4ee0a70870cb39e8b00b34e9beb3b7",
+    "tree": "6bfa158d38af4eb286a0d9de1f1e3bec089996ce",
+    "subtrees": {
+      "scripts": "37b654da1f886c411f781a8f2e86f18c657a98b3",
+      "tests": "5102f4adbddfcd2f33de465b8962d01a42a49d74"
+    },
+    "source_blobs_verified": 46,
+    "raw_hash_not_conflated_with_git_blob": true
+  }
+}

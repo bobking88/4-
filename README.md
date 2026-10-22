@@ -362,6 +362,8 @@ C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独�
 
 2026-10-22观察器异常回收独立复查更新：对固定提交35fed93完成一次[独立只读工程复查](docs/experiment_records/2026-10-22_msb_observer_abort_retention_review.md)，结论APPROVE（仅限工程修复），此前R1/P2为ADDRESSED，无新增待整改问题。复查独立核对253项既有日志、原247加固定六名及280条保护记录，不重跑测试；保留持久化失败CLI仅作静态传播确认的覆盖边界。两次观察超时后只等待同一代理，未重派，完成后关闭。当前INDEPENDENT_REVIEW_APPROVED_ENGINEERING_ONLY，无代码、网络/公式/矩阵/正式报告变更，无真实数据或原生/科学运行；原生兼容性与网络创新效果仍未验证。仅新原生协议登记及实际实验分别另批，不将复查APPROVE当作运行许可或论文阳性结果。
 
+2026-10-22原生监督验收v2协议登记：按仅文档授权形成[待运行协议](docs/experiment_protocols/msb_native_supervision_v2.json)及[登记记录](docs/experiment_records/2026-10-22_msb_native_supervision_v2_registration.md)，绑定已复查35fed93源码、487af61归档基线和46项原始SHA-256/规范化LF/Git blob身份；固定N1--N4、480秒累计接收上限、接电与失败即停。当前REGISTERED_AWAITING_NATIVE_APPROVAL、NOT_RUN，授权两字段明确NOT_GRANTED，待运行稿刻意不满足执行授权门。拟用全新v2独占目录，本轮不创建运行输出；旧v1协议/失败原件不动。无代码、测试、原生/真实数据/训练/代理或正式报告变更，科学效果仍未验证；实际原生运行须另批、补授权并重新登记及远端核验，后续真实机制实验仍另批。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.
