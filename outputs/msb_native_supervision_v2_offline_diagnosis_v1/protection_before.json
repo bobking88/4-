@@ -1,0 +1,130 @@
+{
+  "date": "2026-10-23",
+  "baseline_commit": "beb3e218b3721b5f26a12c979137618bbebc84e9",
+  "approval_id": "call_a491933e40b140d3becdb5aecd12e7e5",
+  "scope": "OFFLINE_SAVED_EVIDENCE_AND_REGISTERED_SOURCE_ONLY",
+  "record_count": 324,
+  "duplicates_retained": true,
+  "inherited_records": {
+    "count": 303,
+    "path": "outputs/msb_native_supervision_v2_native_result_v1/protection_before.json",
+    "raw_sha256": "3571e008620bdb8960545a001d6942a1a4fd23439a11de926d9744a7989f8efc",
+    "readme_sha256_at_this_baseline": "bb0a17e9b67d93276befede33f7a27a6d36147f3b3785ce43384dd615aa87d1d",
+    "note": "Use the historical file list but replace every README hash by the stated post-result baseline hash; all other historical hashes remain required."
+  },
+  "additional_records": [
+    {
+      "path": "README.md",
+      "sha256": "bb0a17e9b67d93276befede33f7a27a6d36147f3b3785ce43384dd615aa87d1d",
+      "kind": "NATIVE_V2_FAILURE_ARCHIVE"
+    },
+    {
+      "path": "docs/experiment_records/2026-10-22_msb_native_supervision_v2_result.md",
+      "sha256": "942f32cb0a457fdb19661033c9ca4d27abd1355dd4e4ebef0f35e2bf2ed907ba",
+      "kind": "NATIVE_V2_FAILURE_ARCHIVE"
+    },
+    {
+      "path": "outputs/msb_native_supervision_v2/acceptance_once/registered_protocol.json",
+      "sha256": "6e488b635afafa0056440b7aa818a46234b89a209fb7c4067fcf90ab8f175207",
+      "kind": "NATIVE_V2_FAILURE_ARCHIVE"
+    },
+    {
+      "path": "outputs/msb_native_supervision_v2/acceptance_once/stage_state.json",
+      "sha256": "dfc42da191c0f9992f18c197cef0ccdb33d1512b57470b824fd79e02734ed2bb",
+      "kind": "NATIVE_V2_FAILURE_ARCHIVE"
+    },
+    {
+      "path": "outputs/msb_native_supervision_v2/acceptance_once/cases/N1/collector_ack.json",
+      "sha256": "96d0e4d2af642ee12a33b144aa567e448feea9ddfdbf18060b2568943c8397f8",
+      "kind": "NATIVE_V2_FAILURE_ARCHIVE"
+    },
+    {
+      "path": "outputs/msb_native_supervision_v2/acceptance_once/cases/N1/controller_ready.json",
+      "sha256": "ae77ed71854cd6c5ce8dc40dd1a241b96a30a9fa6929febc08aed72f8471ed16",
+      "kind": "NATIVE_V2_FAILURE_ARCHIVE"
+    },
+    {
+      "path": "outputs/msb_native_supervision_v2/acceptance_once/cases/N1/controller.log",
+      "sha256": "aacb96f725a016b0cd1508cb96a7a2c60470dd2703482a0228d7b626eef55e1c",
+      "kind": "NATIVE_V2_FAILURE_ARCHIVE"
+    },
+    {
+      "path": "outputs/msb_native_supervision_v2/acceptance_once/cases/N1/worker_ready.json",
+      "sha256": "9ae6eeede1cec5a5107dd80357fc78006cd212c362a393d8b044d6e215a73f86",
+      "kind": "NATIVE_V2_FAILURE_ARCHIVE"
+    },
+    {
+      "path": "outputs/msb_native_supervision_v2/acceptance_once/cases/N1/controller/stage_state.json",
+      "sha256": "7856d31e21e6deadf9479733b9c32d4a48361f358ab8e9e2f599ba42e08488f0",
+      "kind": "NATIVE_V2_FAILURE_ARCHIVE"
+    },
+    {
+      "path": "outputs/msb_native_supervision_v2/acceptance_once/cases/N1/controller/trace.json",
+      "sha256": "0a9db7a39b56d7c5f16d26fd6f36ee78449ce101461d93bdbae024309c1979da",
+      "kind": "NATIVE_V2_FAILURE_ARCHIVE"
+    },
+    {
+      "path": "outputs/msb_native_supervision_v2/acceptance_once/cases/N1/controller/trace.json.pending",
+      "sha256": "0a9db7a39b56d7c5f16d26fd6f36ee78449ce101461d93bdbae024309c1979da",
+      "kind": "NATIVE_V2_FAILURE_ARCHIVE"
+    },
+    {
+      "path": "outputs/msb_native_supervision_v2/acceptance_once/cases/N1/controller/runs/N1/packet.json",
+      "sha256": "859e8cc694ac7156a0f019ab48a2aef5a32378efc5e78c9b8af47e39297742c5",
+      "kind": "NATIVE_V2_FAILURE_ARCHIVE"
+    },
+    {
+      "path": "outputs/msb_native_supervision_v2/acceptance_once/cases/N1/controller/runs/N1/task_started.json",
+      "sha256": "4209fd0d36bc764404805ff87cf00318db61421d4044e88bab80d0c6d40d887e",
+      "kind": "NATIVE_V2_FAILURE_ARCHIVE"
+    },
+    {
+      "path": "outputs/msb_native_supervision_v2/acceptance_once/cases/N1/controller/runs/N1/worker.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "kind": "NATIVE_V2_FAILURE_ARCHIVE"
+    },
+    {
+      "path": "outputs/msb_native_supervision_v2_native_result_v1/collector_stdout.log",
+      "sha256": "20e79da33c5177461a8f9f4cfdfeba9c43ebf076f7c9a04666ca242cee227d8d",
+      "kind": "NATIVE_V2_FAILURE_ARCHIVE"
+    },
+    {
+      "path": "outputs/msb_native_supervision_v2_native_result_v1/collector_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "kind": "NATIVE_V2_FAILURE_ARCHIVE"
+    },
+    {
+      "path": "outputs/msb_native_supervision_v2_native_result_v1/raw_manifest.json",
+      "sha256": "77844bc2c17e56fa620d0f9b17056d8bdde2c3d90c405d7e8df15b4544270cbb",
+      "kind": "NATIVE_V2_FAILURE_ARCHIVE"
+    },
+    {
+      "path": "outputs/msb_native_supervision_v2_native_result_v1/entry_observation.json",
+      "sha256": "7b9655edb38dcafd5c47c7bc936ff51e158328204f642fee57d8bd09fe5de0a4",
+      "kind": "NATIVE_V2_FAILURE_ARCHIVE"
+    },
+    {
+      "path": "outputs/msb_native_supervision_v2_native_result_v1/run_result.json",
+      "sha256": "b14a7160e20dac6fd9304b893d47f5bf95582ce39016a2ef0c7ace3273ca4b93",
+      "kind": "NATIVE_V2_FAILURE_ARCHIVE"
+    },
+    {
+      "path": "outputs/msb_native_supervision_v2_native_result_v1/protection_before.json",
+      "sha256": "3571e008620bdb8960545a001d6942a1a4fd23439a11de926d9744a7989f8efc",
+      "kind": "NATIVE_V2_FAILURE_ARCHIVE"
+    },
+    {
+      "path": "outputs/msb_native_supervision_v2_native_result_v1/protection_after.json",
+      "sha256": "a72c4d04565e52ffd212ec640c2b5710536e2a896aec1e5e742668b820aead9b",
+      "kind": "NATIVE_V2_FAILURE_ARCHIVE"
+    }
+  ],
+  "allowed_existing_changes": [
+    "README.md"
+  ],
+  "code_or_protocol_changes_allowed": false,
+  "formal_report_changes_allowed": false,
+  "tests_or_native_runs_allowed": false,
+  "diagnostic_method": "STATIC_TEXT_REVIEW_AND_FILE_HASHING_NO_PROJECT_IMPORTS",
+  "baseline_verification": "AUTHOR_HASH_CHECK_MATCHED_324_RECORDS_46_SOURCES_14_RAW_FILES"
+}

@@ -368,6 +368,8 @@ C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独�
 
 2026-10-22授权工作包原生v2执行结果更新（实际入口日志时间见原件）：运行前重登记732da9e已回读7文件后，仅调用一次collector，实际exit1、FAILED_NATIVE_SUPERVISION、delivery_verified=False，约33.547秒，仅N1、N2--N4未启动。[结果与失败原件](docs/experiment_records/2026-10-22_msb_native_supervision_v2_result.md)确认controller在trace.json.pending上触发FileExistsError；已有HELLO/GRANT/ACK及观察器退出/句柄关闭记录，但N1未完成，无内层MSB结果，不是外层90秒超时，也未定位文件存在的根因。12份原生原件及2份入口日志保留，303条执行前保护匹配；不重试、续跑或改源码，无真实数据/训练/前向、代理或正式报告变更。当前FAILED_NATIVE_SUPERVISION_NOT_RELEASED_FOR_SCIENCE，本许可和v2目录已消费；离线定位、任何修复或新实验仍另批，不把本失败当网络或理论创新正负效果证据。
 
+2026-10-23原生v2失败离线定位：按新授权完成[仅原件与登记源码的诊断](docs/experiment_records/2026-10-23_msb_native_supervision_v2_offline_diagnosis.md)。确认固定.pending残留使finally再次独占创建失败，且最终trace错误会阻断内层row.error与parent回执落盘；未恢复第一次OS错误，Windows读取共享冲突仅为候选，登记N1调用图不支持两个内部trace写线程的断言。现有控制器替身直写trace，不能代表原生pending/replace链已获覆盖。仅归档分级结论与最小修复建议，未改代码、不导入项目、不重跑253项测试或原生验收、不探查进程/计时、不读真实数据、不派代理、不改正式报告；保留14份原件，科学效果仍未验证。旧许可/目录已消费，任何修复或新实验仍须另批。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.

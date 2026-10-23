@@ -1,0 +1,106 @@
+{
+  "date": "2026-10-23",
+  "status": "OFFLINE_DIAGNOSIS_RECORDED_NOT_FIXED_NOT_RETESTED",
+  "approval_id": "call_a491933e40b140d3becdb5aecd12e7e5",
+  "evidence_commit": "beb3e218b3721b5f26a12c979137618bbebc84e9",
+  "registration_commit": "732da9ea2355685649e97b74707c2d066aa9dd2f",
+  "source_implementation_commit": "35fed93746ae380578d54dd89183235d67b886e4",
+  "facts": [
+    {
+      "id": "F1",
+      "statement": "N1 controller terminal exception was FileExistsError at trace.json.pending exclusive creation in final trace publication.",
+      "source": "controller.log; driver lines 479-483, 648, 259-270"
+    },
+    {
+      "id": "F2",
+      "statement": "trace.json and trace.json.pending are byte-identical complete five-event JSON lists.",
+      "sha256": "0a9db7a39b56d7c5f16d26fd6f36ee78449ce101461d93bdbae024309c1979da",
+      "bytes_each": 883,
+      "events": [
+        "spawn",
+        "assigned",
+        "HELLO",
+        "GRANT",
+        "ACK"
+      ]
+    },
+    {
+      "id": "F3",
+      "statement": "Driver uses a fixed temporary filename, no local exception cleanup, and a mandatory final persist before controller_result.json.",
+      "source": "driver lines 259-270, 479-496"
+    },
+    {
+      "id": "F4",
+      "statement": "Inner run_job catches BaseException into a returned row.error, but failed final trace persistence prevents that row and parent evidence from reaching controller_result.json.",
+      "source": "safety lines 620-656; driver lines 479-496",
+      "classification": "STATIC_CONTROL_FLOW_FINDING_NOT_OBSERVED_FIRST_ERROR"
+    },
+    {
+      "id": "F5",
+      "statement": "N1 registered execution has one controller trace writer path on the controller thread; observer reads trace, worker does not write that trace.",
+      "source": "driver TraceAPI.pause/run_controller/run_no_data_worker/NativeObserver.sample",
+      "limit": "Does not rule out unrecorded external writers or filesystem activity."
+    },
+    {
+      "id": "F6",
+      "statement": "Controller test double writes trace directly using Path.write_text, bypassing native pending/replace behavior.",
+      "source": "tests/test_check_msb_native_supervision.py lines 186-206"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "statement": "An earlier successful pending create/write was followed by unsuccessful close or replace; later final publication encountered the leftover.",
+      "status": "STRONG_STATIC_INFERENCE_CONDITIONAL_ON_REGISTERED_WRITER_AND_NO_EXTERNAL_MUTATION",
+      "missing": "First failing stage, original exception type, errno/winerror and row.error are not saved."
+    },
+    {
+      "id": "H2",
+      "statement": "A Windows sharing conflict, potentially involving the observer trace read or another external reader, caused the first replace failure.",
+      "status": "PLAUSIBLE_NOT_CONFIRMED",
+      "missing": "No original PermissionError/sharing-violation receipt or handle-sharing capture exists."
+    },
+    {
+      "id": "H3",
+      "statement": "Two internal N1 trace writer threads collided.",
+      "status": "NOT_SUPPORTED_BY_REGISTERED_N1_CALL_GRAPH",
+      "missing": "No second registered N1 writer found; final publication is sequential after run_job."
+    },
+    {
+      "id": "H4",
+      "statement": "Old-directory reuse, malformed trace JSON, outer 90-second timeout or HELLO mismatch caused this observed terminal failure.",
+      "status": "NOT_SUPPORTED_BY_SAVED_EVIDENCE",
+      "missing": "Consumed directory was newly claimed; both trace files parse; elapsed is below limit; HELLO/GRANT/ACK and identity observation exist."
+    }
+  ],
+  "minimal_repair_suggestions": [
+    "First-error retention: preserve inner row.error and body/guard errors separately from final trace-publication errors, without relying solely on implicit exception context.",
+    "Trace publication ownership: stop after the first publication failure; preserve the original pending bytes; never blindly delete or overwrite a stale pending file and retry.",
+    "Define a Windows-aware trace read/publication contract before implementation; unique temporary names alone do not solve destination sharing failure.",
+    "Add narrowly scoped mocked create/write/close/replace and final-publication counterexamples through the actual trace helper, with no new native probes."
+  ],
+  "suggestions_are_not_approved_spec_or_implementation": true,
+  "previous_native_status": "FAILED_NATIVE_SUPERVISION",
+  "native_permission_and_directory_consumed": true,
+  "accepted_cases": [],
+  "not_started_cases": [
+    "N2",
+    "N3",
+    "N4"
+  ],
+  "inner_cleanup_completeness": "NOT_PROVEN_NO_INNER_RECEIPT",
+  "first_os_error": "UNRECOVERABLE_FROM_AVAILABLE_SAVED_RECORDS",
+  "new_project_imports": 0,
+  "tests_run": 0,
+  "reproductions": 0,
+  "new_native_runs": 0,
+  "process_clock_power_probes": 0,
+  "model_forwards": 0,
+  "real_fits": 0,
+  "agents_dispatched": 0,
+  "real_data_opened": false,
+  "code_changed": false,
+  "formal_report_changed": false,
+  "scientific_effect_validated": false,
+  "next_step_requires_separate_approval": "Only a minimal repair specification and implementation plan; no automatic fix or new experiment."
+}

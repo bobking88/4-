@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-23",
+  "approval_id": "call_a491933e40b140d3becdb5aecd12e7e5",
+  "answer": "批准离线定位及结论归档（推荐）",
+  "confirmed_from_human": true,
+  "scope": "OFFLINE_DIAGNOSIS_AND_GITHUB_ARCHIVE_ONLY",
+  "baseline_commit": "beb3e218b3721b5f26a12c979137618bbebc84e9",
+  "allowed": [
+    "Read saved v2 failure originals and registered source as text",
+    "Consult necessary official documentation",
+    "Record proven facts, static inferences, unresolved hypotheses and minimal repair suggestions",
+    "Hash-only preservation checks and GitHub archival"
+  ],
+  "forbidden": [
+    "Project imports or code changes",
+    "Tests or reproductions",
+    "Native process, clock, power or file-sharing probes",
+    "Real data, images, model forwards or fits",
+    "Agents",
+    "Formal report changes",
+    "Retry or resume of consumed v2 output"
+  ],
+  "repair_authorized": false,
+  "new_experiment_authorized": false
+}

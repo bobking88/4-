@@ -1,0 +1,51 @@
+{
+  "date": "2026-10-23",
+  "scope": "NECESSARY_PRIMARY_DOCUMENTATION_ONLY",
+  "verbatim_quotes": 0,
+  "entries": [
+    {
+      "id": "P1",
+      "url": "https://docs.python.org/3.11/library/functions.html#open",
+      "title": "Python 3.11 open",
+      "supports": "x exclusively creates a file and fails when it already exists.",
+      "does_not_prove": "Who created the pending file or why an earlier replacement failed."
+    },
+    {
+      "id": "P2",
+      "url": "https://docs.python.org/3.11/library/pathlib.html#pathlib.Path.replace",
+      "title": "Python 3.11 pathlib",
+      "supports": "Path.replace replaces an existing file; read_text opens then closes its file.",
+      "does_not_prove": "Replacement cannot fail on this machine."
+    },
+    {
+      "id": "P3",
+      "url": "https://raw.githubusercontent.com/python/cpython/v3.11.0/Modules/posixmodule.c",
+      "title": "CPython v3.11.0 internal_rename",
+      "supports": "This pinned source uses MoveFileExW with MOVEFILE_REPLACE_EXISTING on Windows and propagates failure.",
+      "does_not_prove": "Exact installed patch binary contents or the first error from this run."
+    },
+    {
+      "id": "M1",
+      "url": "https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-movefileexw",
+      "title": "Microsoft MoveFileExW",
+      "supports": "Replacement is an OS move option, not an assurance that every invocation succeeds.",
+      "does_not_prove": "A sharing violation occurred in the saved run."
+    },
+    {
+      "id": "M2",
+      "url": "https://learn.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-createfilew",
+      "title": "Microsoft CreateFileW sharing modes",
+      "supports": "Existing handles impose compatible sharing requirements; FILE_SHARE_DELETE concerns rename/delete access.",
+      "does_not_prove": "The observer or another process held a conflicting handle during this run."
+    },
+    {
+      "id": "P4",
+      "url": "https://docs.python.org/3.11/reference/compound_stmts.html#finally-clause",
+      "title": "Python 3.11 finally clause",
+      "supports": "A new exception raised in finally propagates with a still-pending exception as context.",
+      "does_not_prove": "The earlier error survived: run_job can already have converted it to a returned row."
+    }
+  ],
+  "unusable_initial_url": "https://learn.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-movefileexw",
+  "replacement_official_url_used": "https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-movefileexw"
+}
