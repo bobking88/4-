@@ -1,0 +1,73 @@
+{
+  "date": "2026-10-23",
+  "approval_id": "call_b95bed45520f49c4841956cf3c512ad7",
+  "status": "DOCUMENTED_NOT_IMPLEMENTED_NOT_RUN",
+  "verification_scope": "AUTHOR_STATIC_DOCUMENT_SELF_REVIEW_ONLY",
+  "baseline_commit": "05727007209422c488a9ecdd8107018f883087fa",
+  "documents": {
+    "spec": "docs/superpowers/specs/2026-10-23-msb-trace-publication-retention-design.md",
+    "spec_raw_sha256": "929f111920e97e90073175d995c954e7825348600e5cdfff01372cbb0b45f4f0",
+    "plan": "docs/superpowers/plans/2026-10-23-msb-trace-publication-retention.md",
+    "plan_raw_sha256": "cbc3e5564b3ae585d5e51f99a7de67414eb7b0c631d898bf337bb8c86029b112"
+  },
+  "self_review": {
+    "scope_and_interfaces_checked": true,
+    "first_vs_secondary_error_order_checked": true,
+    "close_once_and_no_replace_after_error_checked": true,
+    "failed_receipt_and_collector_rejection_checked": true,
+    "normal_case_contract_preservation_checked": true,
+    "original_deadline_and_bounded_checks_checked": true,
+    "placeholder_count": 0,
+    "unchecked_future_steps": 9,
+    "completed_execution_steps": 0,
+    "new_method_names_unique": true
+  },
+  "future_implementation_files": [
+    "scripts/check_msb_native_supervision.py",
+    "tests/test_check_msb_native_supervision.py",
+    "tests/run_msb_native_supervision_synthetic_acceptance.py"
+  ],
+  "future_test_class": "TracePublicationRetentionTests",
+  "future_new_methods": [
+    "test_trace_helper_records_create_failure_and_preserves_existing_pending",
+    "test_trace_helper_records_write_close_replace_and_short_write_failures",
+    "test_trace_helper_retains_write_and_close_errors_in_order",
+    "test_trace_failure_latch_prevents_second_io_and_preserves_pending",
+    "test_native_persist_trace_uses_real_helper_with_only_fake_file_io",
+    "test_trace_success_preserves_serialize_write_close_replace_order",
+    "test_controller_first_trace_failure_survives_inner_row_conversion",
+    "test_controller_final_trace_failure_keeps_inner_row_and_body_errors",
+    "test_controller_failure_receipt_error_is_distinct_and_fail_closed",
+    "test_collector_retains_controller_failure_but_never_qualifies_case",
+    "test_controller_trace_failure_keeps_existing_cleanup_and_deadline",
+    "test_controller_failure_record_redacts_capabilities_and_whitelists_os_codes",
+    "test_trace_serialization_failure_opens_no_file",
+    "test_normal_and_expected_fault_controller_contracts_remain_unchanged"
+  ],
+  "future_phases": [
+    "collector-red",
+    "collector-green",
+    "final"
+  ],
+  "max_future_attempts_per_phase": 3,
+  "future_target_final_count": 267,
+  "target_count_is_not_observed_result": true,
+  "old_253_names_must_be_retained": true,
+  "windows_first_error_confirmed": false,
+  "implementation_started": false,
+  "future_output_or_scratch_created": false,
+  "baseline_records_matched_before_readme_update": 331,
+  "registered_sources_unchanged": 46,
+  "raw_originals_preserved": 14,
+  "project_imports": 0,
+  "tests_run": 0,
+  "native_runs": 0,
+  "probes": 0,
+  "real_data_opened": false,
+  "model_forwards": 0,
+  "real_fits": 0,
+  "agents_dispatched": 0,
+  "formal_report_edits": 0,
+  "scientific_effect_validated": false,
+  "next_gate": "Human review of written spec and plan; implementation and any tests require separate approval."
+}

@@ -1,0 +1,89 @@
+{
+  "date": "2026-10-23",
+  "baseline_commit": "05727007209422c488a9ecdd8107018f883087fa",
+  "approval_id": "call_b95bed45520f49c4841956cf3c512ad7",
+  "checked_records": 331,
+  "unchanged_records": 321,
+  "changed_records": [
+    {
+      "path": "README.md",
+      "before_sha256": "52239ee40ffe3fb0b0da4a055c5ca461cdc80472f42f0a44d947923fe0e7ff64",
+      "sha256": "28569816f05e9293de0931a6863f0b246c1bb6a4cf3622afc61167aa4ae26c2f",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "52239ee40ffe3fb0b0da4a055c5ca461cdc80472f42f0a44d947923fe0e7ff64",
+      "sha256": "28569816f05e9293de0931a6863f0b246c1bb6a4cf3622afc61167aa4ae26c2f",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "52239ee40ffe3fb0b0da4a055c5ca461cdc80472f42f0a44d947923fe0e7ff64",
+      "sha256": "28569816f05e9293de0931a6863f0b246c1bb6a4cf3622afc61167aa4ae26c2f",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "52239ee40ffe3fb0b0da4a055c5ca461cdc80472f42f0a44d947923fe0e7ff64",
+      "sha256": "28569816f05e9293de0931a6863f0b246c1bb6a4cf3622afc61167aa4ae26c2f",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "52239ee40ffe3fb0b0da4a055c5ca461cdc80472f42f0a44d947923fe0e7ff64",
+      "sha256": "28569816f05e9293de0931a6863f0b246c1bb6a4cf3622afc61167aa4ae26c2f",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "52239ee40ffe3fb0b0da4a055c5ca461cdc80472f42f0a44d947923fe0e7ff64",
+      "sha256": "28569816f05e9293de0931a6863f0b246c1bb6a4cf3622afc61167aa4ae26c2f",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "52239ee40ffe3fb0b0da4a055c5ca461cdc80472f42f0a44d947923fe0e7ff64",
+      "sha256": "28569816f05e9293de0931a6863f0b246c1bb6a4cf3622afc61167aa4ae26c2f",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "52239ee40ffe3fb0b0da4a055c5ca461cdc80472f42f0a44d947923fe0e7ff64",
+      "sha256": "28569816f05e9293de0931a6863f0b246c1bb6a4cf3622afc61167aa4ae26c2f",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "52239ee40ffe3fb0b0da4a055c5ca461cdc80472f42f0a44d947923fe0e7ff64",
+      "sha256": "28569816f05e9293de0931a6863f0b246c1bb6a4cf3622afc61167aa4ae26c2f",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "52239ee40ffe3fb0b0da4a055c5ca461cdc80472f42f0a44d947923fe0e7ff64",
+      "sha256": "28569816f05e9293de0931a6863f0b246c1bb6a4cf3622afc61167aa4ae26c2f",
+      "allowed": true
+    }
+  ],
+  "unique_changed_existing_paths": [
+    "README.md"
+  ],
+  "all_non_readme_records_unchanged": true,
+  "source_count": 46,
+  "all_sources_unchanged": true,
+  "raw_evidence_files_verified": 14,
+  "raw_originals_rewritten": false,
+  "formal_reports_unchanged": true,
+  "code_changes": 0,
+  "project_imports": 0,
+  "tests_run": 0,
+  "new_native_runs": 0,
+  "new_native_probes": 0,
+  "real_fits": 0,
+  "model_forwards": 0,
+  "agents_dispatched": 0,
+  "formal_report_edits": 0,
+  "scientific_gate_promoted": false,
+  "verification_method": "STATIC_DOCUMENT_AND_HASH_CHECKS_NOT_TESTS"
+}

@@ -370,6 +370,8 @@ C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独�
 
 2026-10-23原生v2失败离线定位：按新授权完成[仅原件与登记源码的诊断](docs/experiment_records/2026-10-23_msb_native_supervision_v2_offline_diagnosis.md)。确认固定.pending残留使finally再次独占创建失败，且最终trace错误会阻断内层row.error与parent回执落盘；未恢复第一次OS错误，Windows读取共享冲突仅为候选，登记N1调用图不支持两个内部trace写线程的断言。现有控制器替身直写trace，不能代表原生pending/replace链已获覆盖。仅归档分级结论与最小修复建议，未改代码、不导入项目、不重跑253项测试或原生验收、不探查进程/计时、不读真实数据、不派代理、不改正式报告；保留14份原件，科学效果仍未验证。旧许可/目录已消费，任何修复或新实验仍须另批。
 
+2026-10-23 trace发布修复文档更新：按仅文档授权形成[最小规格](docs/superpowers/specs/2026-10-23-msb-trace-publication-retention-design.md)、[单工作包计划](docs/superpowers/plans/2026-10-23-msb-trace-publication-retention.md)与[作者记录](docs/experiment_records/2026-10-23_msb_trace_publication_retention_planning.md)。拟采用trace专用五阶段helper、首发失败锁存和独立失败回执，保留通用JSON及原监督契约；固定三文件、十四新方法、三阶段各最多三次，原253保留、267仅未来目标。当前DOCUMENTED_NOT_IMPLEMENTED_NOT_RUN，书面文件待审；未改代码、不导入项目、不运行测试/探查/原生验收、不读真实数据、不派代理、不改网络/公式/矩阵或正式报告。331条保护记录及旧失败原件保留，首次Windows错误仍未知、科学效果仍未验证。开发合成、独立复查及任何实际实验仍分别另批。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.

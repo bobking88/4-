@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-23",
+  "baseline_commit": "05727007209422c488a9ecdd8107018f883087fa",
+  "approval_id": "call_b95bed45520f49c4841956cf3c512ad7",
+  "scope": "TRACE_PUBLICATION_REPAIR_SPEC_AND_PLAN_ONLY",
+  "record_count": 331,
+  "duplicates_retained": true,
+  "inherited_records": {
+    "count": 324,
+    "path": "outputs/msb_native_supervision_v2_offline_diagnosis_v1/protection_before.json",
+    "raw_sha256": "dbdbe11f3982752ef2076b0d37338ce9581cc076b7207a9370dc9ac8bff23b8d",
+    "readme_sha256_at_this_baseline": "52239ee40ffe3fb0b0da4a055c5ca461cdc80472f42f0a44d947923fe0e7ff64",
+    "note": "Expand the inherited 303+21 records, then replace every inherited README hash with this post-diagnosis baseline hash; retain all other hashes."
+  },
+  "additional_records": [
+    {
+      "path": "README.md",
+      "sha256": "52239ee40ffe3fb0b0da4a055c5ca461cdc80472f42f0a44d947923fe0e7ff64",
+      "kind": "OFFLINE_DIAGNOSIS_ARCHIVE_0572700"
+    },
+    {
+      "path": "docs/experiment_records/2026-10-23_msb_native_supervision_v2_offline_diagnosis.md",
+      "sha256": "4a42fa456af320af06aab5b2bef84525b716cfd1763b023e6e08fc73f5c9671b",
+      "kind": "OFFLINE_DIAGNOSIS_ARCHIVE_0572700"
+    },
+    {
+      "path": "outputs/msb_native_supervision_v2_offline_diagnosis_v1/authorization.json",
+      "sha256": "6f89f4a2e368b9f04b2e3652f6421013935ba59045caa960ecb5e316970b9795",
+      "kind": "OFFLINE_DIAGNOSIS_ARCHIVE_0572700"
+    },
+    {
+      "path": "outputs/msb_native_supervision_v2_offline_diagnosis_v1/official_sources.json",
+      "sha256": "e735406f22c5eb521ae61dae2c36bc18535659e953d6a5b3ee25c634cdac0266",
+      "kind": "OFFLINE_DIAGNOSIS_ARCHIVE_0572700"
+    },
+    {
+      "path": "outputs/msb_native_supervision_v2_offline_diagnosis_v1/diagnosis.json",
+      "sha256": "2b5815828b717ac17e2e33ae74f2b10172c4e712d39c990033b0c30810e14c36",
+      "kind": "OFFLINE_DIAGNOSIS_ARCHIVE_0572700"
+    },
+    {
+      "path": "outputs/msb_native_supervision_v2_offline_diagnosis_v1/protection_before.json",
+      "sha256": "dbdbe11f3982752ef2076b0d37338ce9581cc076b7207a9370dc9ac8bff23b8d",
+      "kind": "OFFLINE_DIAGNOSIS_ARCHIVE_0572700"
+    },
+    {
+      "path": "outputs/msb_native_supervision_v2_offline_diagnosis_v1/protection_after.json",
+      "sha256": "fe6404907a07f33e604f67a8358139b429a67c613b1df08265293621e6fc0cdf",
+      "kind": "OFFLINE_DIAGNOSIS_ARCHIVE_0572700"
+    }
+  ],
+  "allowed_existing_changes": [
+    "README.md"
+  ],
+  "code_or_protocol_changes_allowed": false,
+  "tests_or_native_runs_allowed": false,
+  "formal_report_changes_allowed": false
+}

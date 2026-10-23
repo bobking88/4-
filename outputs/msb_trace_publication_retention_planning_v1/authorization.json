@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-23",
+  "approval_id": "call_b95bed45520f49c4841956cf3c512ad7",
+  "answer": "批准仅编写修复规格与计划（推荐）",
+  "confirmed_from_human": true,
+  "scope": "TRACE_PUBLICATION_REPAIR_SPEC_PLAN_AND_GITHUB_ARCHIVE_ONLY",
+  "baseline_commit": "05727007209422c488a9ecdd8107018f883087fa",
+  "status": "DOCUMENTED_NOT_IMPLEMENTED_NOT_RUN",
+  "paired_draft_documents_explicitly_requested": true,
+  "written_spec_approved": false,
+  "implementation_authorized": false,
+  "synthetic_acceptance_authorized": false,
+  "native_acceptance_authorized": false,
+  "real_experiment_authorized": false,
+  "agents_authorized": false,
+  "formal_report_changes_authorized": false,
+  "forbidden": [
+    "Code edits or project imports",
+    "Tests, forwards, fits or timing/process/native probes",
+    "Real data or images",
+    "Agents",
+    "Network, formula or scientific matrix edits",
+    "Formal report edits"
+  ]
+}
