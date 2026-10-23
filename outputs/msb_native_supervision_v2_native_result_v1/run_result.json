@@ -1,0 +1,123 @@
+{
+  "authorization_package_date": "2026-10-22",
+  "entry_stdout_file_last_write_utc": "2026-10-23T03:02:14.6116710Z",
+  "entry_stderr_file_last_write_utc": "2026-10-23T03:01:39.8381659Z",
+  "approval_id": "call_cdd31dd8986040fb8bd90d6e311f95fc",
+  "registration_commit": "732da9ea2355685649e97b74707c2d066aa9dd2f",
+  "status": "FAILED_NATIVE_SUPERVISION",
+  "collector_exit_code": 1,
+  "collector_invocations": 1,
+  "retries": 0,
+  "resumes": 0,
+  "permission_consumed": true,
+  "exclusive_output": "outputs/msb_native_supervision_v2/acceptance_once",
+  "active_case": "N1",
+  "started_case_directories": [
+    "N1"
+  ],
+  "loaded_case_records": 1,
+  "case_record_count_is_not_accepted_case_count": true,
+  "accepted_cases": [],
+  "not_started_cases": [
+    "N2",
+    "N3",
+    "N4"
+  ],
+  "elapsed_acceptance_seconds": 33.54700000002049,
+  "max_acceptance_seconds": 480,
+  "outer_timeout_observed": false,
+  "registration_verified": true,
+  "source_identity_verified": true,
+  "native_os_exercised": true,
+  "delivery_verified": false,
+  "stdout_final_status": "FAILED_NATIVE_SUPERVISION",
+  "stdout_final_matches_disk": true,
+  "stdout_lines": 2,
+  "stderr_bytes": 0,
+  "root_errors": [
+    {
+      "phase": "body",
+      "type": "ValueError",
+      "message": "outer timeout or wrong controller exit"
+    }
+  ],
+  "N1": {
+    "controller": {
+      "pid": 23272,
+      "created_filetime_string": "134371981206204411",
+      "exit_code": 1,
+      "alive": false
+    },
+    "worker": {
+      "pid": 15516,
+      "created_filetime_string": "134371981263841447",
+      "parent_pid": 23272,
+      "parent_created_filetime_string": "134371981206204411",
+      "identity_verified": true,
+      "job_assignment_observed": true,
+      "exit_observed": true,
+      "exit_code": 1,
+      "worker_alive": false,
+      "handle_closed": true,
+      "monitor_stopped": true
+    },
+    "outer_status": "FAILED",
+    "outer_elapsed_seconds": 12.969000000011874,
+    "events_observed": [
+      "spawn",
+      "assigned",
+      "HELLO",
+      "GRANT",
+      "ACK"
+    ],
+    "inner_receipt_available": false,
+    "inner_parent_power_available": false,
+    "controller_child_stage_status": "RUNNING",
+    "recorded_exception": "FileExistsError: trace.json.pending already exists",
+    "recorded_stack_location": "run_controller -> persist_trace -> _write_json -> temporary.open('x')",
+    "pending_file_preserved": true,
+    "pending_and_trace_original_hashes_equal": true,
+    "normal_45_second_work_and_renew_close_not_proven": true
+  },
+  "identity_metadata_note": "Creation FILETIME values are stored as strings in this summary to avoid JSON/JavaScript integer precision loss. Raw originals are unmodified.",
+  "run_id": "64bdea2ddb1b4ca5a7ef835dbe3a14e6",
+  "protocol_digest": "342bea1fe1c533f37a460f8bb425760540eb909edade542f601b71534a145a00",
+  "packet_stage": "native-supervision-no-data",
+  "root_power": {
+    "wall_elapsed_seconds": 17.51600000000326,
+    "max_poll_gap_seconds": 2.1719999999913853,
+    "max_suspend_delta_seconds": 0.01286190000246279,
+    "poll_gap_limit_seconds": 30,
+    "suspend_tolerance_seconds": 2,
+    "power_request_acquired": true,
+    "power_request_released": true
+  },
+  "outer_guard_power": {
+    "wall_elapsed_seconds": 12.969000000011874,
+    "max_poll_gap_seconds": 0.0629999999946449,
+    "max_suspend_delta_seconds": 0.01286190000246279,
+    "poll_gap_limit_seconds": 30,
+    "suspend_tolerance_seconds": 2,
+    "power_request_acquired": true,
+    "power_request_released": true
+  },
+  "cleanup_limits": [
+    "Only recorded controller alive=False and retained worker exit/handle closure/monitor stop are reported.",
+    "No inner MSB receipt or inner parent power receipt exists; do not infer complete inner cleanup or all-handle leak freedom.",
+    "No external process queries or termination probes were added after failure."
+  ],
+  "protection_pre_archive_records_unchanged": 303,
+  "raw_evidence_count": 14,
+  "limited_capability_signals": 0,
+  "raw_originals_rewritten": false,
+  "real_data_opened": false,
+  "real_fits": 0,
+  "model_forwards": 0,
+  "scientific_experiment_authorized": false,
+  "scientific_gate_promoted": false,
+  "code_changed": false,
+  "network_or_formula_changed": false,
+  "formal_report_changed": false,
+  "root_cause_status": "Not diagnosed in this run. Concurrent writes, leftover temporary publication or other reasons remain hypotheses; this result only records the observed exception and files.",
+  "next_step": "Only a separately approved offline diagnosis using these saved artifacts and registered source is suggested; no fix, test, native retry or scientific run is authorized."
+}

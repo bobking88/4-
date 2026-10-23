@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 1211, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 1194, in main
+    result=run_controller(root,args.case_output,args.controller_case,binding,services=services)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 483, in run_controller
+    services.persist_trace(folder/"trace.json",events)
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 648, in persist_trace
+    def persist_trace(self,path,events):_write_json(path,events)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 267, in _write_json
+    with temporary.open("x",encoding="utf-8") as stream:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileExistsError: [Errno 17] File exists: 'D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\outputs\\msb_native_supervision_v2\\acceptance_once\\cases\\N1\\controller\\trace.json.pending'

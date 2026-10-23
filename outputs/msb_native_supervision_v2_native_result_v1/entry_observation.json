@@ -1,0 +1,91 @@
+{
+  "document_date": "2026-10-22",
+  "approval_id": "call_cdd31dd8986040fb8bd90d6e311f95fc",
+  "registration_commit": "732da9ea2355685649e97b74707c2d066aa9dd2f",
+  "registration_readback": {
+    "commit": "732da9ea2355685649e97b74707c2d066aa9dd2f",
+    "tree": "fca6b9d4a6e69df2b51825526ecf532a4312fdc1",
+    "files": [
+      {
+        "path": "README.md",
+        "blob": "55c5fa00c70f05fa5c7bfa0050a189671a62f63b",
+        "actual_content_match": true
+      },
+      {
+        "path": "docs/experiment_protocols/msb_native_supervision_v2.json",
+        "blob": "ee8057e87b5e7213245ecc0972908afe4fbddfa7",
+        "actual_content_match": true
+      },
+      {
+        "path": "docs/experiment_records/2026-10-22_msb_native_supervision_v2_execution_registration.md",
+        "blob": "c7d8e9816d5838e24163ca374e6c1b3ca6851968",
+        "actual_content_match": true
+      },
+      {
+        "path": "outputs/msb_native_supervision_v2_execution_registration_v1/authorization.json",
+        "blob": "2a5d2c738fef98304fe920948807c357fa5b9020",
+        "actual_content_match": true
+      },
+      {
+        "path": "outputs/msb_native_supervision_v2_execution_registration_v1/protection_after.json",
+        "blob": "f722773c36969f865043aacb5f6d763878e0cef5",
+        "actual_content_match": true
+      },
+      {
+        "path": "outputs/msb_native_supervision_v2_execution_registration_v1/protection_before.json",
+        "blob": "4a19e9e2db43b3e800fa2112785e6f7b51a2b5ba",
+        "actual_content_match": true
+      },
+      {
+        "path": "outputs/msb_native_supervision_v2_execution_registration_v1/registration_check.json",
+        "blob": "d3e625137e1da6f3dadeab135624ddaae19c6c03",
+        "actual_content_match": true
+      }
+    ],
+    "source_trees_unchanged": true,
+    "approval_verified": true
+  },
+  "max_invocations": 1,
+  "actual_invocations": 1,
+  "retries": 0,
+  "resumes": 0,
+  "initial_exec_tool_result": {
+    "chunk_id": "873549",
+    "wall_time_seconds": 10.0010724,
+    "session_id": 68067,
+    "original_token_count": 0,
+    "output": ""
+  },
+  "terminal_tool_observation": {
+    "session_id": 68067,
+    "exit_code": 1,
+    "output": "COLLECTOR_EXIT_CODE=1\r\n",
+    "observed_via": "write_stdin",
+    "terminal_confirmed": true
+  },
+  "terminal_tool_chunk_id": "9b91e4",
+  "terminal_observation_method": "Exit code, session and exact COLLECTOR_EXIT_CODE output transcribed from terminal write_stdin tool result; no invented timing or process probe.",
+  "same_session_observed": true,
+  "tool_session_confirmed_terminal": true,
+  "stdout_public_path": "outputs/msb_native_supervision_v2_native_result_v1/collector_stdout.log",
+  "stderr_public_path": "outputs/msb_native_supervision_v2_native_result_v1/collector_stderr.log",
+  "entry_env": {
+    "PYTHONDONTWRITEBYTECODE": "1 temporarily, parent value restored in finally",
+    "PYTHONUTF8": "1 temporarily, parent value restored in finally"
+  },
+  "post_run_read_only_check": {
+    "post_run_pre_archive_records_unchanged": 303,
+    "capture_copies_byte_exact": true,
+    "actual_registered_protocol_matches": true,
+    "stdout_last_write_utc": "2026-10-23T03:02:14.6116710Z",
+    "stderr_last_write_utc": "2026-10-23T03:01:39.8381659Z",
+    "native_case_directories": [
+      "N1"
+    ],
+    "project_sources_unchanged": true,
+    "formal_reports_unchanged": true,
+    "additional_native_queries": 0,
+    "reruns": 0
+  },
+  "run_command": "$ErrorActionPreference='Stop'\n$PSNativeCommandUseErrorActionPreference=$false\n$registration='732da9ea2355685649e97b74707c2d066aa9dd2f'\nif((git rev-parse HEAD).Trim() -ne $registration){throw 'Registered HEAD drifted'}\nif(Test-Path -LiteralPath 'outputs/msb_native_supervision_v2'){throw 'Native output already consumed'}\n$entry='.superpowers/sdd/2026-10-22-msb-native-supervision-v2-execution'\nforeach($name in @('collector_stdout.log','collector_stderr.log')){if(Test-Path -LiteralPath \"$entry/$name\"){throw 'Single entry log already exists'}}\n$p=Get-Content -LiteralPath 'docs/experiment_protocols/msb_native_supervision_v2.json' -Raw | ConvertFrom-Json\nif($p.approval_call_id -cne 'call_cdd31dd8986040fb8bd90d6e311f95fc' -or $p.status -cne 'APPROVED_NATIVE_ONLY'){throw 'Exact authorization drifted'}\nforeach($s in $p.source_sha256.PSObject.Properties){if((Get-FileHash -LiteralPath $s.Name -Algorithm SHA256).Hash.ToLowerInvariant() -cne $s.Value){throw 'Registered source drifted'}}\n$savedBytecode=$env:PYTHONDONTWRITEBYTECODE\n$savedUtf8=$env:PYTHONUTF8\n$env:PYTHONDONTWRITEBYTECODE='1'\n$env:PYTHONUTF8='1'\n$code=$null\ntry{\n & 'D:\\成信工科研\\人工智能选矿\\.venv-training\\Scripts\\python.exe' '.\\scripts\\check_msb_native_supervision.py' --root 'D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report' --protocol 'D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\docs\\experiment_protocols\\msb_native_supervision_v2.json' --execute-native --approval-call-id 'call_cdd31dd8986040fb8bd90d6e311f95fc' --approval-answer '批准一次固定协议原生验收（推荐）' --registration-commit $registration 1> \"$entry/collector_stdout.log\" 2> \"$entry/collector_stderr.log\"\n $code=$LASTEXITCODE\n}finally{\n $env:PYTHONDONTWRITEBYTECODE=$savedBytecode\n $env:PYTHONUTF8=$savedUtf8\n}\nWrite-Output (\"COLLECTOR_EXIT_CODE=\"+$code)\nif($null -eq $code){throw 'Collector exit code unavailable; stop without retry'}\nexit $code"
+}

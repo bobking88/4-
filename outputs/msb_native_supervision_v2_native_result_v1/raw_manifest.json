@@ -1,0 +1,143 @@
+{
+  "document_date": "2026-10-22",
+  "registration_commit": "732da9ea2355685649e97b74707c2d066aa9dd2f",
+  "approval_id": "call_cdd31dd8986040fb8bd90d6e311f95fc",
+  "scope": "ONE_NATIVE_NO_DATA_ACCEPTANCE_RAW_EVIDENCE",
+  "raw_file_count": 14,
+  "native_file_count": 12,
+  "entry_capture_count": 2,
+  "files": [
+    {
+      "path": "outputs/msb_native_supervision_v2/acceptance_once/registered_protocol.json",
+      "bytes": 5592,
+      "raw_sha256": "6e488b635afafa0056440b7aa818a46234b89a209fb7c4067fcf90ab8f175207",
+      "normalized_lf_sha256": "e5280fd37c84a5bfc32b4d624e95ec9c573420bc32e37d6bfe1f597f7d6b3002",
+      "git_blob_sha1": "b2c0cdf0d957bfbb3af5312ce9b6fdbbdf7eb26c",
+      "json_state": "PARSED",
+      "public_path": "outputs/msb_native_supervision_v2/acceptance_once/registered_protocol.json"
+    },
+    {
+      "path": "outputs/msb_native_supervision_v2/acceptance_once/stage_state.json",
+      "bytes": 6349,
+      "raw_sha256": "dfc42da191c0f9992f18c197cef0ccdb33d1512b57470b824fd79e02734ed2bb",
+      "normalized_lf_sha256": "476cd6d57537e99b7ee784959cd7e322cb00c1ce04ada00b9358a46734027ba7",
+      "git_blob_sha1": "2725876b4fcc54e24f3c8c59de3f638f0a16eaec",
+      "json_state": "PARSED",
+      "public_path": "outputs/msb_native_supervision_v2/acceptance_once/stage_state.json"
+    },
+    {
+      "path": "outputs/msb_native_supervision_v2/acceptance_once/cases/N1/collector_ack.json",
+      "bytes": 257,
+      "raw_sha256": "96d0e4d2af642ee12a33b144aa567e448feea9ddfdbf18060b2568943c8397f8",
+      "normalized_lf_sha256": "05af417fc4e16c55d715ea5b7a1ecb7d28153e872cf820d105b8e0f28f0c6a77",
+      "git_blob_sha1": "d39d9316ccb62203e7dc5b5d67acf124536b79b9",
+      "json_state": "PARSED",
+      "public_path": "outputs/msb_native_supervision_v2/acceptance_once/cases/N1/collector_ack.json"
+    },
+    {
+      "path": "outputs/msb_native_supervision_v2/acceptance_once/cases/N1/controller_ready.json",
+      "bytes": 802,
+      "raw_sha256": "ae77ed71854cd6c5ce8dc40dd1a241b96a30a9fa6929febc08aed72f8471ed16",
+      "normalized_lf_sha256": "05c545324aed65a1290e526ea91a87c9a0ff044e2e4fd79d3d74630ed4566e70",
+      "git_blob_sha1": "02fecbaa264e9ec243319c868aab0ebed800dbf4",
+      "json_state": "PARSED",
+      "public_path": "outputs/msb_native_supervision_v2/acceptance_once/cases/N1/controller_ready.json"
+    },
+    {
+      "path": "outputs/msb_native_supervision_v2/acceptance_once/cases/N1/controller.log",
+      "bytes": 1729,
+      "raw_sha256": "aacb96f725a016b0cd1508cb96a7a2c60470dd2703482a0228d7b626eef55e1c",
+      "normalized_lf_sha256": "749ba37e0639709b21d9509674f3e655bf9f5c41a088853b946e2fce7e544890",
+      "git_blob_sha1": "d466b55cd2ea1d47b0b33cbfc931339a71fdb186",
+      "json_state": "NOT_JSON_LOG",
+      "public_path": "outputs/msb_native_supervision_v2/acceptance_once/cases/N1/controller.log"
+    },
+    {
+      "path": "outputs/msb_native_supervision_v2/acceptance_once/cases/N1/worker_ready.json",
+      "bytes": 131,
+      "raw_sha256": "9ae6eeede1cec5a5107dd80357fc78006cd212c362a393d8b044d6e215a73f86",
+      "normalized_lf_sha256": "30243533ffbdc13d329b6f76ebaecd988c67e8f32365abf824be94c7aeb58495",
+      "git_blob_sha1": "c46863826ebc359a1f5a9ac093c3647362a2c1cc",
+      "json_state": "PARSED",
+      "public_path": "outputs/msb_native_supervision_v2/acceptance_once/cases/N1/worker_ready.json"
+    },
+    {
+      "path": "outputs/msb_native_supervision_v2/acceptance_once/cases/N1/controller/stage_state.json",
+      "bytes": 1315,
+      "raw_sha256": "7856d31e21e6deadf9479733b9c32d4a48361f358ab8e9e2f599ba42e08488f0",
+      "normalized_lf_sha256": "67c8be9c81ef23925483455be4ecce0fda1055a94daaa38eecee60a40234ff8f",
+      "git_blob_sha1": "459e549f66526d03a11e124ffdeb42df08dd3445",
+      "json_state": "PARSED",
+      "public_path": "outputs/msb_native_supervision_v2/acceptance_once/cases/N1/controller/stage_state.json"
+    },
+    {
+      "path": "outputs/msb_native_supervision_v2/acceptance_once/cases/N1/controller/trace.json",
+      "bytes": 883,
+      "raw_sha256": "0a9db7a39b56d7c5f16d26fd6f36ee78449ce101461d93bdbae024309c1979da",
+      "normalized_lf_sha256": "941159c9dec410ede74b69d3fdef0e6fe560e7fb838818df58485755d72ee91b",
+      "git_blob_sha1": "fad636d3987f439239d111aae22fb7523d8e07d4",
+      "json_state": "PARSED",
+      "public_path": "outputs/msb_native_supervision_v2/acceptance_once/cases/N1/controller/trace.json"
+    },
+    {
+      "path": "outputs/msb_native_supervision_v2/acceptance_once/cases/N1/controller/trace.json.pending",
+      "bytes": 883,
+      "raw_sha256": "0a9db7a39b56d7c5f16d26fd6f36ee78449ce101461d93bdbae024309c1979da",
+      "normalized_lf_sha256": "941159c9dec410ede74b69d3fdef0e6fe560e7fb838818df58485755d72ee91b",
+      "git_blob_sha1": "fad636d3987f439239d111aae22fb7523d8e07d4",
+      "json_state": "PARSED",
+      "public_path": "outputs/msb_native_supervision_v2/acceptance_once/cases/N1/controller/trace.json.pending"
+    },
+    {
+      "path": "outputs/msb_native_supervision_v2/acceptance_once/cases/N1/controller/runs/N1/packet.json",
+      "bytes": 1187,
+      "raw_sha256": "859e8cc694ac7156a0f019ab48a2aef5a32378efc5e78c9b8af47e39297742c5",
+      "normalized_lf_sha256": "b1a11edbabb70b138ee16a4b50cbd6d743e9c4c8bed7c10030fa3a1ae3b58962",
+      "git_blob_sha1": "6d2196b009c1c83948bb639dc4bb440dfaaff097",
+      "json_state": "PARSED",
+      "public_path": "outputs/msb_native_supervision_v2/acceptance_once/cases/N1/controller/runs/N1/packet.json"
+    },
+    {
+      "path": "outputs/msb_native_supervision_v2/acceptance_once/cases/N1/controller/runs/N1/task_started.json",
+      "bytes": 32,
+      "raw_sha256": "4209fd0d36bc764404805ff87cf00318db61421d4044e88bab80d0c6d40d887e",
+      "normalized_lf_sha256": "70d9356512d21613c80cf55eaa08f94afd53ea38ee8735b3c8cdfe569ee52327",
+      "git_blob_sha1": "853a256ae3e9d9aa6d7d5fb6395c183b900ddbed",
+      "json_state": "PARSED",
+      "public_path": "outputs/msb_native_supervision_v2/acceptance_once/cases/N1/controller/runs/N1/task_started.json"
+    },
+    {
+      "path": "outputs/msb_native_supervision_v2/acceptance_once/cases/N1/controller/runs/N1/worker.log",
+      "bytes": 0,
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "normalized_lf_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob_sha1": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "json_state": "NOT_JSON_LOG",
+      "public_path": "outputs/msb_native_supervision_v2/acceptance_once/cases/N1/controller/runs/N1/worker.log"
+    },
+    {
+      "path": ".superpowers/sdd/2026-10-22-msb-native-supervision-v2-execution/collector_stdout.log",
+      "bytes": 6421,
+      "raw_sha256": "20e79da33c5177461a8f9f4cfdfeba9c43ebf076f7c9a04666ca242cee227d8d",
+      "normalized_lf_sha256": "b5728c9c8bb95d6169a3870c4342a277192e7f6351448b4fb11920fc9a177636",
+      "git_blob_sha1": "a060d988c72f7f9654f1860916bb7fbf4c5dc883",
+      "json_state": "NOT_JSON_LOG",
+      "public_path": "outputs/msb_native_supervision_v2_native_result_v1/collector_stdout.log"
+    },
+    {
+      "path": ".superpowers/sdd/2026-10-22-msb-native-supervision-v2-execution/collector_stderr.log",
+      "bytes": 0,
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "normalized_lf_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob_sha1": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "json_state": "NOT_JSON_LOG",
+      "public_path": "outputs/msb_native_supervision_v2_native_result_v1/collector_stderr.log"
+    }
+  ],
+  "limited_capability_signal_count": 0,
+  "capability_check_scope": "JSON exact capability-key scan, command/environment capability-text pattern scan, and inspection of current N1/root/controller/worker logs. nonce_sha256 and protocol/runtime hashes are not live capabilities.",
+  "not_a_general_sanitization_proof": true,
+  "originals_rewritten": false,
+  "capture_copies_byte_exact": true,
+  "git_canonicalization_note": "Raw SHA256 identifies original bytes; normalized LF SHA256 and Git blob SHA1 identify separate canonical representations. Git publication can normalize CRLF without rewriting local originals."
+}

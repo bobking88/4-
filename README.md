@@ -366,6 +366,8 @@ C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独�
 
 2026-10-22原生监督验收v2单次执行授权重登记：按新的真实许可call_cdd31dd8986040fb8bd90d6e311f95fc形成[执行授权登记](docs/experiment_records/2026-10-22_msb_native_supervision_v2_execution_registration.md)，仅补协议三个授权/状态字段，其余13字段及46项源码身份不变。登记时AUTHORIZED_NOT_STARTED_PENDING_REREGISTRATION_READBACK；先提交并远端实际内容核验，再调用唯一collector。固定N1--N4、480秒累计接收上限、持续接电及失败即停；键鼠可正常使用。任何入口调用即消费许可，不重试/续跑/扩场景、不改代码或报告、不读真实数据、不训练；实际结果另行原样归档，真实机制实验仍未授权。
 
+2026-10-22授权工作包原生v2执行结果更新（实际入口日志时间见原件）：运行前重登记732da9e已回读7文件后，仅调用一次collector，实际exit1、FAILED_NATIVE_SUPERVISION、delivery_verified=False，约33.547秒，仅N1、N2--N4未启动。[结果与失败原件](docs/experiment_records/2026-10-22_msb_native_supervision_v2_result.md)确认controller在trace.json.pending上触发FileExistsError；已有HELLO/GRANT/ACK及观察器退出/句柄关闭记录，但N1未完成，无内层MSB结果，不是外层90秒超时，也未定位文件存在的根因。12份原生原件及2份入口日志保留，303条执行前保护匹配；不重试、续跑或改源码，无真实数据/训练/前向、代理或正式报告变更。当前FAILED_NATIVE_SUPERVISION_NOT_RELEASED_FOR_SCIENCE，本许可和v2目录已消费；离线定位、任何修复或新实验仍另批，不把本失败当网络或理论创新正负效果证据。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.
