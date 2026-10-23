@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-23",
+  "approval_id": "call_13470536c5a3431aad88e4688fee8725",
+  "answer": "认可文件，批准代码与有限合成验收（推荐）",
+  "confirmed_from_human": true,
+  "scope": "THREE_FILE_CODE_AND_BOUNDED_SYNTHETIC_ACCEPTANCE_ONLY",
+  "baseline_commit": "78000c9f929222e843692200bc66283f86f5b0dc",
+  "approved_spec": "docs/superpowers/specs/2026-10-23-msb-trace-publication-retention-design.md",
+  "approved_plan": "docs/superpowers/plans/2026-10-23-msb-trace-publication-retention.md",
+  "source_files": [
+    "scripts/check_msb_native_supervision.py",
+    "tests/test_check_msb_native_supervision.py",
+    "tests/run_msb_native_supervision_synthetic_acceptance.py"
+  ],
+  "phases": [
+    "collector-red",
+    "collector-green",
+    "final"
+  ],
+  "max_attempts_per_phase": 3,
+  "all_attempts_preserved": true,
+  "all_native_interfaces_and_trace_io_mocked": true,
+  "real_data_allowed": false,
+  "real_training_allowed": false,
+  "scientific_model_forwards_allowed": false,
+  "existing_ten_module_synthetic_tensor_contracts_preserved": true,
+  "native_acceptance_allowed": false,
+  "agents_allowed": false,
+  "formal_report_changes_allowed": false,
+  "network_formula_scientific_matrix_changes_allowed": false,
+  "independent_review_requires_separate_approval": true
+}

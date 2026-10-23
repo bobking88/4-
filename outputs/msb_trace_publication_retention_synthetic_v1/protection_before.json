@@ -1,0 +1,62 @@
+{
+  "date": "2026-10-23",
+  "baseline_commit": "78000c9f929222e843692200bc66283f86f5b0dc",
+  "approval_id": "call_13470536c5a3431aad88e4688fee8725",
+  "record_count": 339,
+  "duplicates_retained": true,
+  "inherited_records": {
+    "count": 331,
+    "path": "outputs/msb_trace_publication_retention_planning_v1/protection_before.json",
+    "raw_sha256": "007f03595534c0fcade82d3adc56d68d7c282eabedc08d004ef035cf98b61c4f",
+    "readme_sha256_at_this_baseline": "28569816f05e9293de0931a6863f0b246c1bb6a4cf3622afc61167aa4ae26c2f"
+  },
+  "additional_records": [
+    {
+      "path": "README.md",
+      "sha256": "28569816f05e9293de0931a6863f0b246c1bb6a4cf3622afc61167aa4ae26c2f",
+      "kind": "APPROVED_PLANNING_BASELINE_78000C9"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-10-23-msb-trace-publication-retention-design.md",
+      "sha256": "929f111920e97e90073175d995c954e7825348600e5cdfff01372cbb0b45f4f0",
+      "kind": "APPROVED_PLANNING_BASELINE_78000C9"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-23-msb-trace-publication-retention.md",
+      "sha256": "cbc3e5564b3ae585d5e51f99a7de67414eb7b0c631d898bf337bb8c86029b112",
+      "kind": "APPROVED_PLANNING_BASELINE_78000C9"
+    },
+    {
+      "path": "docs/experiment_records/2026-10-23_msb_trace_publication_retention_planning.md",
+      "sha256": "3464e08f84c6ed5cf706da69db178eeaec772920b4820551589af2c140ce9210",
+      "kind": "APPROVED_PLANNING_BASELINE_78000C9"
+    },
+    {
+      "path": "outputs/msb_trace_publication_retention_planning_v1/authorization.json",
+      "sha256": "214d438b8c83d3a1966b9ea17f68075b6ec72ef35b44b441e234948e2afb661a",
+      "kind": "APPROVED_PLANNING_BASELINE_78000C9"
+    },
+    {
+      "path": "outputs/msb_trace_publication_retention_planning_v1/planning_check.json",
+      "sha256": "0481eb5be630d8ca0fd517f43d6b044d274cc8ca841c0224e454f8b473618557",
+      "kind": "APPROVED_PLANNING_BASELINE_78000C9"
+    },
+    {
+      "path": "outputs/msb_trace_publication_retention_planning_v1/protection_before.json",
+      "sha256": "007f03595534c0fcade82d3adc56d68d7c282eabedc08d004ef035cf98b61c4f",
+      "kind": "APPROVED_PLANNING_BASELINE_78000C9"
+    },
+    {
+      "path": "outputs/msb_trace_publication_retention_planning_v1/protection_after.json",
+      "sha256": "0a1cfb78e0660e383ec9502aa4ec7add208c724732736e01c3557c98ecc2242e",
+      "kind": "APPROVED_PLANNING_BASELINE_78000C9"
+    }
+  ],
+  "allowed_existing_changes": [
+    "README.md",
+    "scripts/check_msb_native_supervision.py",
+    "tests/test_check_msb_native_supervision.py",
+    "tests/run_msb_native_supervision_synthetic_acceptance.py"
+  ],
+  "formal_report_changes_allowed": false
+}

@@ -269,6 +269,107 @@ def _write_json(path: Path, value: dict, *, exclusive=False):
         temporary.replace(path)
 
 
+class TracePublicationError(RuntimeError):
+    def __init__(self,errors: tuple[tuple[str,BaseException],...]):
+        if not errors:raise ValueError("Trace publication requires a first error")
+        self.errors=tuple(errors)
+        super().__init__("Trace publication failed; inspect redacted diagnostics")
+
+    @property
+    def first_error(self):return self.errors[0][1]
+
+    def record(self):
+        records=[]
+        for phase,error in self.errors:
+            item=dict(phase=phase,**_fault_error_record(error))
+            for name,maximum in (("errno",4095),("winerror",65535)):
+                value=getattr(error,name,None) if isinstance(error,OSError) else None
+                item[name]=value if type(value) is int and 0<=value<=maximum else None
+            records.append(item)
+        return dict(first_phase=self.errors[0][0],errors=records)
+
+
+class _TraceFileIO:
+    def open_exclusive(self,path):return path.open("x",encoding="utf-8")
+    def replace(self,source,target):source.replace(target)
+
+
+def _write_trace_json(path: Path, events: list, *, file_io=None) -> None:
+    try:payload=json.dumps(events,ensure_ascii=True,allow_nan=False)+"\n"
+    except BaseException as error:raise TracePublicationError((("SERIALIZE",error),)) from None
+    path=Path(path);temporary=path.with_name(path.name+".pending")
+    adapter=_TraceFileIO() if file_io is None else file_io
+    try:stream=adapter.open_exclusive(temporary)
+    except BaseException as error:raise TracePublicationError((("CREATE",error),)) from None
+    errors=[]
+    try:
+        count=stream.write(payload)
+        if type(count) is not int or count!=len(payload):raise OSError("Trace write length differs")
+    except BaseException as error:errors.append(("WRITE",error))
+    try:stream.close()
+    except BaseException as error:errors.append(("CLOSE",error))
+    if errors:raise TracePublicationError(tuple(errors)) from None
+    try:adapter.replace(temporary,path)
+    except BaseException as error:raise TracePublicationError((("REPLACE",error),)) from None
+
+
+class TracePublicationState:
+    """Latch publication failure before the supervisor turns it into a row."""
+    def __init__(self):
+        self.first_failure=None;self.attempts=0;self.successful_publications=0
+        self.final_attempted=False;self.final_skipped_after_error=False
+
+    def persist(self,path,events,*,services) -> None:
+        if self.first_failure is not None:raise self.first_failure from None
+        self.attempts+=1
+        try:services.persist_trace(path,events)
+        except BaseException as error:
+            self.first_failure=(error if isinstance(error,TracePublicationError)
+                                else TracePublicationError((("ADAPTER_UNKNOWN",error),)))
+            raise self.first_failure from None
+        self.successful_publications+=1
+
+    def finish(self,path,events,*,services) -> None:
+        if self.final_attempted or self.final_skipped_after_error:return
+        if self.first_failure is not None:
+            self.final_skipped_after_error=True;return
+        self.final_attempted=True
+        try:self.persist(path,events,services=services)
+        except TracePublicationError:pass
+
+    def record(self):
+        return dict(state="FAILED" if self.first_failure is not None else "HEALTHY",attempts=self.attempts,
+                    successful_publications=self.successful_publications,
+                    first_failure=None if self.first_failure is None else self.first_failure.record(),
+                    final_attempted=self.final_attempted,final_skipped_after_error=self.final_skipped_after_error)
+
+
+class ControllerTracePublicationError(RuntimeError):
+    def __init__(self,case_id,binding,*,inner_row,parent_power,body_errors,fault_stop,trace_publication):
+        self.case_id,self.binding=case_id,copy.deepcopy(binding)
+        self.inner_row,self.parent_power=inner_row,parent_power
+        self.body_errors=list(body_errors);self.fault_stop=fault_stop;self.trace_publication=trace_publication
+        self.receipt_error=None;self.receipt_publication=dict(status="NOT_ATTEMPTED",error=None)
+        super().__init__("Controller failed trace publication; inspect redacted diagnostics")
+
+    def record(self):
+        row=self.inner_row;summary=None
+        if isinstance(row,dict):
+            summary={k:row[k] for k in ("status","exit_code","cleanup_confirmed","exit_confirmed",
+                                       "end_handshake_verified","lease_sequence") if k in row}
+            summary["error"]=_fault_error_record(RuntimeError(str(row.get("error",""))))["message"]
+        power=None
+        if isinstance(self.parent_power,dict):
+            names=("wall_elapsed_seconds","max_poll_gap_seconds","max_suspend_delta_seconds",
+                   "poll_gap_limit_seconds","suspend_tolerance_seconds","power_request_acquired","power_request_released")
+            power={k:v for k,v in self.parent_power.items() if k in names and type(v) in (bool,int,float)
+                   and (type(v) is not float or math.isfinite(v))}
+        return dict(status="FAILED_CONTROLLER_TRACE_PUBLICATION",case_id=self.case_id,binding=copy.deepcopy(self.binding),
+                    inner_summary=summary,parent_power=power,body_errors=[_fault_error_record(e) for e in self.body_errors],
+                    fault_stop=copy.deepcopy(self.fault_stop),trace_publication=self.trace_publication.record(),
+                    receipt_publication=copy.deepcopy(self.receipt_publication))
+
+
 def _case_output(root,case_dir,case_id):
     if case_id not in {c["case_id"] for c in CASES}:raise ValueError("Unknown native case")
     expected=Path(root).resolve()/"outputs/msb_native_supervision_v2/acceptance_once/cases"/case_id
@@ -407,9 +508,10 @@ class N4FaultGate:
 
 class TraceAPI:
     """Record genuine API returns without fabricating transport or time."""
-    def __init__(self,api,events,path,services,fault_gate=None):
+    def __init__(self,api,events,path,services,fault_gate=None,publication=None):
         self.api,self.events,self.path,self.services=api,events,path,services
         self.fault_gate=fault_gate
+        self.publication=TracePublicationState() if publication is None else publication
     def __getattr__(self,name):return getattr(self.api,name)
     def _event(self,kind,**fields):
         self.events.append(dict(kind=kind,tick_ms=self.api.tick_ms(),**fields))
@@ -436,7 +538,7 @@ class TraceAPI:
                     nonce_sha256=hashlib.sha256(message["nonce"].encode()).hexdigest(),
                     worker_pid=message["worker_pid"],parent_pid=message["parent_pid"])
     def pause(self,seconds):
-        self.services.persist_trace(self.path,self.events)
+        self.publication.persist(self.path,self.events,services=self.services)
         self.api.pause(seconds)
     def terminate_job(self,handle):
         if self.fault_gate is not None:self.fault_gate.note_cleanup("terminate_job")
@@ -467,20 +569,60 @@ def run_controller(root: Path, output: Path, case_id: str, binding: dict, *, ser
     _write_json(folder/"stage_state.json",state,exclusive=True)
     events=[]
     gate=N4FaultGate(case_dir,binding,services=services,events=events) if case_id=="N4" else None
-    trace=TraceAPI(services.api,events,folder/"trace.json",services,fault_gate=gate)
+    publication=TracePublicationState()
+    trace=TraceAPI(services.api,events,folder/"trace.json",services,fault_gate=gate,publication=publication)
     command=[sys.executable,origin["driver"],"--worker-packet",str(packet_path)]
     job=dict(job_id=case_id,packet_path=str(packet_path),log_path=str(work/"worker.log"),command=command)
     watch=None;parent=None;stopped=True;stop_result=None;stop_errors=[]
+    row=None;body_error=None;stop_exception=None
     try:
         if case_id=="N4":
             watch=services.start_fault(lambda stop:_watch_parent_fault(case_dir,binding,services,stop,gate))
         with safety.MSBParentSupervisor(budget,binding["run_id"],binding["protocol_digest"],api=trace) as parent:
             row=parent.run_job(job,{})
+    except BaseException as error:body_error=error
     finally:
         if watch is not None:
-            stop_result,stop_errors=_bounded_fault_stop(watch,binding,services)
-            stopped=stop_result.stop_ok and not stop_errors
-        services.persist_trace(folder/"trace.json",events)
+            try:
+                stop_result,stop_errors=_bounded_fault_stop(watch,binding,services)
+                stopped=stop_result.stop_ok and not stop_errors
+            except BaseException as error:stop_exception=error;stopped=False
+        publication.finish(folder/"trace.json",events,services=services)
+    if publication.first_failure is not None:
+        body_errors=[];current=body_error
+        while current is not None and len(body_errors)<8 and not any(current is e for e in body_errors):
+            body_errors.append(current)
+            current=current.__cause__ if current.__cause__ is not None else current.__context__
+        body_errors.reverse();parent_power=None
+        if parent is not None:
+            try:parent_power=parent.evidence()
+            except BaseException as error:body_errors.append(error)
+        fault_stop=None
+        if watch is not None:
+            fault_stop=dict(result=None if stop_result is None else stop_result.record(),
+                errors=[_fault_error_record(e) for e in stop_errors],
+                exception=None if stop_exception is None else _fault_error_record(stop_exception),stopped=stopped)
+        failure=ControllerTracePublicationError(case_id,binding,inner_row=row,parent_power=parent_power,
+            body_errors=body_errors,fault_stop=fault_stop,trace_publication=publication)
+        try:_remaining(binding,services)
+        except BaseException as error:
+            failure.receipt_error=error
+            failure.receipt_publication=dict(status="SKIPPED_BUDGET_EXHAUSTED",error=_fault_error_record(error))
+        else:
+            failure.receipt_publication=dict(status="ATTEMPTED",error=None)
+            try:_write_json(folder/"controller_failure.json",failure.record(),exclusive=True)
+            except BaseException as error:
+                failure.receipt_error=error
+                failure.receipt_publication=dict(status="FAILED",error=_fault_error_record(error))
+            else:
+                try:_remaining(binding,services)
+                except BaseException as error:
+                    failure.receipt_error=error
+                    failure.receipt_publication=dict(status="FAILED_POSTCHECK",error=_fault_error_record(error))
+                else:failure.receipt_publication=dict(status="PERSISTED",error=None)
+        raise failure from None
+    if stop_exception is not None:raise stop_exception.with_traceback(stop_exception.__traceback__)
+    if body_error is not None:raise body_error.with_traceback(body_error.__traceback__)
     if not stopped:
         primary=([stop_result.callback_error] if stop_result.callback_error is not None else [])+stop_errors
         if not primary:primary=[RuntimeError("SUPERVISION_INTERRUPTED: parent fault monitor termination not confirmed")]
@@ -645,7 +787,7 @@ class NativeServices:
     def exit_process(self,code):
         import os
         os._exit(code)
-    def persist_trace(self,path,events):_write_json(path,events)
+    def persist_trace(self,path,events):_write_trace_json(path,events)
     def write_ready(self,case_dir,ready):_write_json(case_dir/"worker_ready.json",ready,exclusive=True)
     def read_ack(self,case_dir,ready):
         path=case_dir/"collector_ack.json"
@@ -751,6 +893,7 @@ def _check_trace(events,observation):
 
 
 def _check_case(record,case_id,binding):
+    _require(record.get("controller_failure") is None,"controller trace publication failure")
     _require(record.get("case_id")==case_id and record.get("binding")==binding,"case/original binding")
     obs=record["observation"];ready=obs["ready"];outer=record["outer"]
     _require(ready["case_id"]==case_id and ready.get("working") is True and ready.get("job_assigned") is True,"no verified WORKING")
@@ -1020,7 +1163,7 @@ def _load_case_record(case_dir,binding,outer,observation):
         parent_power=None if inner is None else inner.get("parent_power"),
         events=events,cleanup_intent=_read_json_if_present(case_dir/"cleanup_intent.json"),
         worker_closed=_read_json_if_present(case_dir/"controller/runs"/case_dir.name/"worker_closed.json"),
-        fault=fault)
+        fault=fault,controller_failure=_read_json_if_present(case_dir/"controller/controller_failure.json"))
 
 
 def run_acceptance(root: Path, protocol_path: Path, *, execute_native: bool, approval: dict, services=None) -> dict:
@@ -1191,7 +1334,11 @@ def main(argv=None):
                 or claim.get("registered_commit")!=approval["registration_commit"]):
             raise ValueError("Controller lacks the active registered collector claim")
         services=NativeServices(root);services.verify_sources(root,protocol)
-        result=run_controller(root,args.case_output,args.controller_case,binding,services=services)
+        try:result=run_controller(root,args.case_output,args.controller_case,binding,services=services)
+        except ControllerTracePublicationError as error:
+            try:print(json.dumps(error.record(),allow_nan=False),flush=True)
+            except BaseException:return 1
+            return 1
         if args.controller_case=="N4":raise RuntimeError("Parent hard-exit scenario returned instead of exiting31")
         inner=result["msb"]
         valid=(inner["status"]=="COMPLETE" if args.controller_case=="N1" else

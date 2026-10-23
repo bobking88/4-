@@ -1,0 +1,42 @@
+{
+  "baseline_commit": "78000c9f929222e843692200bc66283f86f5b0dc",
+  "sources": [
+    {
+      "path": "scripts/check_msb_native_supervision.py",
+      "sha256": "16577cdf8a32e11503c43c1c92856e90d26f04095ccfcf095c67c0636455af86",
+      "red_sha256": "557574eb6f0924096bcc880393c32c767c10da094df39ffe4d3979649f11b429",
+      "green_and_final_match": true
+    },
+    {
+      "path": "tests/test_check_msb_native_supervision.py",
+      "sha256": "03068ccb2421199231e9703edaac57fc0caab44ae78d73de7295472084f35009",
+      "red_sha256": "03068ccb2421199231e9703edaac57fc0caab44ae78d73de7295472084f35009",
+      "green_and_final_match": true
+    },
+    {
+      "path": "tests/run_msb_native_supervision_synthetic_acceptance.py",
+      "sha256": "dbe464bdf12bbada279918ec4df2fbd0f8bb157772d78703e391c5c8b24ce72e",
+      "red_sha256": "dbe464bdf12bbada279918ec4df2fbd0f8bb157772d78703e391c5c8b24ce72e",
+      "green_and_final_match": true
+    }
+  ],
+  "protected_paths": 56,
+  "unchanged_protected_paths": 53,
+  "changed_protected_paths": [
+    "scripts/check_msb_native_supervision.py",
+    "tests/test_check_msb_native_supervision.py",
+    "tests/run_msb_native_supervision_synthetic_acceptance.py"
+  ],
+  "registered_sources": 46,
+  "registered_unchanged": 43,
+  "registered_changed": [
+    "scripts/check_msb_native_supervision.py",
+    "tests/test_check_msb_native_supervision.py",
+    "tests/run_msb_native_supervision_synthetic_acceptance.py"
+  ],
+  "generic_json_helper_unchanged": true,
+  "red_driver_was_baseline": true,
+  "tdd_test_and_harness_sources_unchanged_since_red": true,
+  "native_protocol_changed": false,
+  "network_formula_matrix_changed": false
+}

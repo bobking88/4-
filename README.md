@@ -372,6 +372,8 @@ C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独�
 
 2026-10-23 trace发布修复文档更新：按仅文档授权形成[最小规格](docs/superpowers/specs/2026-10-23-msb-trace-publication-retention-design.md)、[单工作包计划](docs/superpowers/plans/2026-10-23-msb-trace-publication-retention.md)与[作者记录](docs/experiment_records/2026-10-23_msb_trace_publication_retention_planning.md)。拟采用trace专用五阶段helper、首发失败锁存和独立失败回执，保留通用JSON及原监督契约；固定三文件、十四新方法、三阶段各最多三次，原253保留、267仅未来目标。当前DOCUMENTED_NOT_IMPLEMENTED_NOT_RUN，书面文件待审；未改代码、不导入项目、不运行测试/探查/原生验收、不读真实数据、不派代理、不改网络/公式/矩阵或正式报告。331条保护记录及旧失败原件保留，首次Windows错误仍未知、科学效果仍未验证。开发合成、独立复查及任何实际实验仍分别另批。
 
+2026-10-23 trace首发错误保留实施更新：按另批三文件工作包完成[作者实施与有限合成验收](docs/experiment_records/2026-10-23_msb_trace_publication_retention_acceptance.md)。collector-red/001为106项14处有效缺行为断言失败，green/001为106/106，final/001为267/267，原253全名保留、新增固定14名；三阶段各一次，零错误/跳过/未模拟调用，全部原件保留。trace实际helper通过内存文件适配层验证五阶段与双异常、锁存后无二次I/O、独立失败回执及拒收；通用JSON和底层监督不变。339条保护记录仅允许三源码和索引变化，旧14份原生失败原件、网络/公式/矩阵与正式报告不改；两次scratch合成张量读取不等于真实训练或前向。当前AUTHOR_SYNTHETIC_ACCEPTED_INDEPENDENT_REVIEW_PENDING，未派代理、未做新原生或真实实验，首次Windows原因和网络科学效果仍未验证；旧v2登记不匹配新源码且许可已消费。独立复查、新原生及真实实验仍分别另批，不把工程通过当论文理论创新结果。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.

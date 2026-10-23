@@ -1,0 +1,159 @@
+{
+  "date": "2026-10-23",
+  "approval_id": "call_13470536c5a3431aad88e4688fee8725",
+  "baseline_commit": "78000c9f929222e843692200bc66283f86f5b0dc",
+  "checked_records": 339,
+  "unchanged_records": 319,
+  "changed_records": [
+    {
+      "path": "README.md",
+      "before_sha256": "28569816f05e9293de0931a6863f0b246c1bb6a4cf3622afc61167aa4ae26c2f",
+      "sha256": "8194113f9dea600815948ca33dd123a7be8a6b6291df1f8a666eef02a67b960b",
+      "allowed": true
+    },
+    {
+      "path": "scripts/check_msb_native_supervision.py",
+      "before_sha256": "557574eb6f0924096bcc880393c32c767c10da094df39ffe4d3979649f11b429",
+      "sha256": "16577cdf8a32e11503c43c1c92856e90d26f04095ccfcf095c67c0636455af86",
+      "allowed": true
+    },
+    {
+      "path": "tests/test_check_msb_native_supervision.py",
+      "before_sha256": "d2de225bbd659314109826ede1e5917455f841f95db21f138422e8f957bf22ad",
+      "sha256": "03068ccb2421199231e9703edaac57fc0caab44ae78d73de7295472084f35009",
+      "allowed": true
+    },
+    {
+      "path": "tests/run_msb_native_supervision_synthetic_acceptance.py",
+      "before_sha256": "1a91b6b96f3fe342ee873cf14ef128b6a169142f31c92fa30de7f51a0a3339fb",
+      "sha256": "dbe464bdf12bbada279918ec4df2fbd0f8bb157772d78703e391c5c8b24ce72e",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "28569816f05e9293de0931a6863f0b246c1bb6a4cf3622afc61167aa4ae26c2f",
+      "sha256": "8194113f9dea600815948ca33dd123a7be8a6b6291df1f8a666eef02a67b960b",
+      "allowed": true
+    },
+    {
+      "path": "scripts/check_msb_native_supervision.py",
+      "before_sha256": "557574eb6f0924096bcc880393c32c767c10da094df39ffe4d3979649f11b429",
+      "sha256": "16577cdf8a32e11503c43c1c92856e90d26f04095ccfcf095c67c0636455af86",
+      "allowed": true
+    },
+    {
+      "path": "tests/run_msb_native_supervision_synthetic_acceptance.py",
+      "before_sha256": "1a91b6b96f3fe342ee873cf14ef128b6a169142f31c92fa30de7f51a0a3339fb",
+      "sha256": "dbe464bdf12bbada279918ec4df2fbd0f8bb157772d78703e391c5c8b24ce72e",
+      "allowed": true
+    },
+    {
+      "path": "tests/test_check_msb_native_supervision.py",
+      "before_sha256": "d2de225bbd659314109826ede1e5917455f841f95db21f138422e8f957bf22ad",
+      "sha256": "03068ccb2421199231e9703edaac57fc0caab44ae78d73de7295472084f35009",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "28569816f05e9293de0931a6863f0b246c1bb6a4cf3622afc61167aa4ae26c2f",
+      "sha256": "8194113f9dea600815948ca33dd123a7be8a6b6291df1f8a666eef02a67b960b",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "28569816f05e9293de0931a6863f0b246c1bb6a4cf3622afc61167aa4ae26c2f",
+      "sha256": "8194113f9dea600815948ca33dd123a7be8a6b6291df1f8a666eef02a67b960b",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "28569816f05e9293de0931a6863f0b246c1bb6a4cf3622afc61167aa4ae26c2f",
+      "sha256": "8194113f9dea600815948ca33dd123a7be8a6b6291df1f8a666eef02a67b960b",
+      "allowed": true
+    },
+    {
+      "path": "scripts/check_msb_native_supervision.py",
+      "before_sha256": "557574eb6f0924096bcc880393c32c767c10da094df39ffe4d3979649f11b429",
+      "sha256": "16577cdf8a32e11503c43c1c92856e90d26f04095ccfcf095c67c0636455af86",
+      "allowed": true
+    },
+    {
+      "path": "tests/run_msb_native_supervision_synthetic_acceptance.py",
+      "before_sha256": "1a91b6b96f3fe342ee873cf14ef128b6a169142f31c92fa30de7f51a0a3339fb",
+      "sha256": "dbe464bdf12bbada279918ec4df2fbd0f8bb157772d78703e391c5c8b24ce72e",
+      "allowed": true
+    },
+    {
+      "path": "tests/test_check_msb_native_supervision.py",
+      "before_sha256": "d2de225bbd659314109826ede1e5917455f841f95db21f138422e8f957bf22ad",
+      "sha256": "03068ccb2421199231e9703edaac57fc0caab44ae78d73de7295472084f35009",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "28569816f05e9293de0931a6863f0b246c1bb6a4cf3622afc61167aa4ae26c2f",
+      "sha256": "8194113f9dea600815948ca33dd123a7be8a6b6291df1f8a666eef02a67b960b",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "28569816f05e9293de0931a6863f0b246c1bb6a4cf3622afc61167aa4ae26c2f",
+      "sha256": "8194113f9dea600815948ca33dd123a7be8a6b6291df1f8a666eef02a67b960b",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "28569816f05e9293de0931a6863f0b246c1bb6a4cf3622afc61167aa4ae26c2f",
+      "sha256": "8194113f9dea600815948ca33dd123a7be8a6b6291df1f8a666eef02a67b960b",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "28569816f05e9293de0931a6863f0b246c1bb6a4cf3622afc61167aa4ae26c2f",
+      "sha256": "8194113f9dea600815948ca33dd123a7be8a6b6291df1f8a666eef02a67b960b",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "28569816f05e9293de0931a6863f0b246c1bb6a4cf3622afc61167aa4ae26c2f",
+      "sha256": "8194113f9dea600815948ca33dd123a7be8a6b6291df1f8a666eef02a67b960b",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "28569816f05e9293de0931a6863f0b246c1bb6a4cf3622afc61167aa4ae26c2f",
+      "sha256": "8194113f9dea600815948ca33dd123a7be8a6b6291df1f8a666eef02a67b960b",
+      "allowed": true
+    }
+  ],
+  "unique_changed_existing_paths": [
+    "README.md",
+    "scripts/check_msb_native_supervision.py",
+    "tests/run_msb_native_supervision_synthetic_acceptance.py",
+    "tests/test_check_msb_native_supervision.py"
+  ],
+  "all_changes_within_approved_scope": true,
+  "old_native_raw_files_verified": 14,
+  "old_native_originals_rewritten": false,
+  "formal_reports": [
+    {
+      "path": "结题/基于深度学习的钒钛矿相关矿物图像识别方法研究_技术报告（正式版）.docx",
+      "sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+      "unchanged": true
+    },
+    {
+      "path": "D:/成信工科研/人工智能选矿/结题/基于深度学习的钒钛矿相关矿物图像识别方法研究_技术报告（正式版）.docx",
+      "sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+      "unchanged": true
+    }
+  ],
+  "preexisting_pngs_preserved": true,
+  "native_protocol_unchanged": true,
+  "network_formula_scientific_matrix_unchanged": true,
+  "new_native_runs": 0,
+  "real_data_opened": false,
+  "real_fits": 0,
+  "scientific_model_forwards": 0,
+  "agents_dispatched": 0,
+  "formal_report_edits": 0
+}

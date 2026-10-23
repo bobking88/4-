@@ -130,7 +130,7 @@ class HarnessGateTests(unittest.TestCase):
             try:
                 with patch.object(harness,"ROOT",Path(tmp)),patch.object(harness,"_snapshot_sources",return_value={}),patch.object(harness,"_run_modules",return_value=r):
                     code=harness.main(["--phase","collector-green"])
-                summary=json.loads((Path(tmp)/"outputs/msb_observer_abort_retention_synthetic_v1/collector-green/attempt-001/acceptance_summary.json").read_text())
+                summary=json.loads((Path(tmp)/"outputs/msb_trace_publication_retention_synthetic_v1/collector-green/attempt-001/acceptance_summary.json").read_text())
                 self.assertEqual((code,summary["status"],summary["skipped"]),(1,"FAILED",1))
             finally:
                 os.chdir(previous[0]);tempfile.tempdir=previous[1];sys.path[:]=previous[2]
@@ -1719,8 +1719,267 @@ class DirectLaunchBoundaryTests(unittest.TestCase):
                 try:
                     with patch.object(harness,"ROOT",Path(tmp)),patch.object(harness,"_snapshot_sources",return_value={}),patch.object(harness,"_run_modules",side_effect=modules),redirect_stdout(io.StringIO()):
                         code=harness.main(["--phase","collector-green"])
-                    data=json.loads((Path(tmp)/"outputs/msb_observer_abort_retention_synthetic_v1/collector-green/attempt-001/acceptance_summary.json").read_text())
+                    data=json.loads((Path(tmp)/"outputs/msb_trace_publication_retention_synthetic_v1/collector-green/attempt-001/acceptance_summary.json").read_text())
                     self.assertEqual(code,0 if invoke is None else 1)
                     self.assertEqual(bool(data["unmocked_boundary_calls"]),invoke is not None)
                 finally:
                     os.chdir(previous[0]);tempfile.tempdir=previous[1];sys.path[:]=previous[2]
+
+
+class TraceMemoryIO:
+    def __init__(self,failures=None,*,short_write=False):
+        self.files={};self.calls=[];self.failures=failures or {};self.short_write=short_write
+        self.on_failure=None
+
+    def fail(self,phase):
+        if phase in self.failures:
+            if self.on_failure is not None:self.on_failure()
+            raise self.failures[phase]
+
+    def open_exclusive(self,path):
+        key=str(path);self.calls.append("CREATE");self.fail("CREATE")
+        if key in self.files:raise FileExistsError(17,"existing synthetic pending")
+        self.files[key]=""
+        owner=self
+        class Stream:
+            def write(self,text):
+                owner.calls.append("WRITE");owner.fail("WRITE")
+                count=len(text)-1 if owner.short_write else len(text)
+                owner.files[key]=text[:count]
+                return count
+            def close(self):
+                owner.calls.append("CLOSE");owner.fail("CLOSE")
+        return Stream()
+
+    def replace(self,source,target):
+        self.calls.append("REPLACE");self.fail("REPLACE")
+        self.files[str(target)]=self.files.pop(str(source))
+
+
+class TracePublicationRetentionTests(unittest.TestCase):
+    def required(self,name):
+        value=getattr(native,name,None)
+        self.assertTrue(callable(value),"Missing trace-retention behavior: "+name)
+        return value
+
+    def helper(self):
+        self.required("TracePublicationError")
+        return self.required("_write_trace_json")
+
+    def controller(self,tmp,filesystem,case_id="N1"):
+        self.required("ControllerTracePublicationError");self.required("TracePublicationState")
+        fixture=WorkerTests();self.addCleanup(fixture.doCleanups)
+        output=fixture.case_root(tmp,case_id);output.mkdir(parents=True)
+        service=FakeDriverServices(CaseLauncher(case_id))
+        service.persist_trace=native.NativeServices.persist_trace.__get__(service)
+        self.enterContext(patch.object(native,"_TraceFileIO",return_value=filesystem))
+        return Path(tmp),output,service
+
+    def test_trace_helper_records_create_failure_and_preserves_existing_pending(self):
+        write=self.helper();failure=FileExistsError(17,"synthetic existing")
+        fs=TraceMemoryIO({"CREATE":failure});fs.files["trace.json.pending"]="original"
+        with self.assertRaises(native.TracePublicationError) as caught:write(Path("trace.json"),[],file_io=fs)
+        self.assertIs(caught.exception.first_error,failure)
+        self.assertEqual(caught.exception.record()["first_phase"],"CREATE")
+        self.assertEqual(fs.files,{"trace.json.pending":"original"});self.assertEqual(fs.calls,["CREATE"])
+
+    def test_trace_helper_records_write_close_replace_and_short_write_failures(self):
+        write=self.helper()
+        for phase,want in (("WRITE",["CREATE","WRITE","CLOSE"]),("CLOSE",["CREATE","WRITE","CLOSE"]),
+                           ("REPLACE",["CREATE","WRITE","CLOSE","REPLACE"]),("SHORT",["CREATE","WRITE","CLOSE"])):
+            with self.subTest(phase=phase):
+                failure=OSError(5,"synthetic failure");failure.winerror=32
+                fs=TraceMemoryIO({phase:failure} if phase!="SHORT" else {},short_write=phase=="SHORT")
+                fs.files["trace.json"]="last-good"
+                with self.assertRaises(native.TracePublicationError) as caught:write(Path("trace.json"),[],file_io=fs)
+                self.assertEqual(caught.exception.record()["first_phase"],"WRITE" if phase=="SHORT" else phase)
+                if phase!="SHORT":self.assertIs(caught.exception.first_error,failure)
+                self.assertEqual(fs.calls,want);self.assertEqual(fs.files["trace.json"],"last-good")
+                self.assertIn("trace.json.pending",fs.files)
+
+    def test_trace_helper_retains_write_and_close_errors_in_order(self):
+        write=self.helper();first=OSError("synthetic write");second=OSError("synthetic close")
+        fs=TraceMemoryIO({"WRITE":first,"CLOSE":second})
+        with self.assertRaises(native.TracePublicationError) as caught:write(Path("trace.json"),[],file_io=fs)
+        self.assertEqual([p for p,e in caught.exception.errors],["WRITE","CLOSE"])
+        self.assertIs(caught.exception.errors[0][1],first);self.assertIs(caught.exception.errors[1][1],second)
+        self.assertIs(caught.exception.first_error,first);self.assertEqual(fs.calls,["CREATE","WRITE","CLOSE"])
+
+    def test_trace_failure_latch_prevents_second_io_and_preserves_pending(self):
+        cls=self.required("TracePublicationState");self.helper()
+        first=PermissionError(13,"synthetic replacement");fs=TraceMemoryIO({"REPLACE":first})
+        def persist(path,events):native._write_trace_json(path,events,file_io=fs)
+        service=SimpleNamespace(persist_trace=Mock(side_effect=persist));state=cls()
+        with self.assertRaises(native.TracePublicationError) as caught:state.persist(Path("trace.json"),[],services=service)
+        original=dict(fs.files);calls=list(fs.calls)
+        with self.assertRaises(native.TracePublicationError) as again:state.persist(Path("trace.json"),[{"new":True}],services=service)
+        state.finish(Path("trace.json"),[],services=service)
+        self.assertIs(again.exception,caught.exception);self.assertIs(state.first_failure.first_error,first)
+        self.assertEqual(fs.calls,calls);self.assertEqual(fs.files,original);self.assertEqual(service.persist_trace.call_count,1)
+        self.assertEqual(state.record(),dict(state="FAILED",attempts=1,successful_publications=0,
+            first_failure=state.first_failure.record(),final_attempted=False,final_skipped_after_error=True))
+        unknown=RuntimeError("synthetic adapter")
+        other=cls();service.persist_trace.side_effect=unknown
+        with self.assertRaises(native.TracePublicationError):other.persist(Path("trace.json"),[],services=service)
+        self.assertIs(other.first_failure.first_error,unknown)
+        self.assertEqual(other.first_failure.record()["first_phase"],"ADAPTER_UNKNOWN")
+
+    def test_native_persist_trace_uses_real_helper_with_only_fake_file_io(self):
+        self.helper();self.required("_TraceFileIO")
+        fs=TraceMemoryIO();service=SimpleNamespace()
+        with patch.object(native,"_TraceFileIO",return_value=fs),patch.object(Path,"open",side_effect=AssertionError("Live trace I/O")):
+            native.NativeServices.persist_trace(service,Path("trace.json"),[])
+        self.assertEqual(fs.files,{"trace.json":"[]\n"})
+        self.assertEqual(fs.calls,["CREATE","WRITE","CLOSE","REPLACE"])
+
+    def test_trace_success_preserves_serialize_write_close_replace_order(self):
+        write=self.helper();fs=TraceMemoryIO()
+        events=[{"kind":"spawn"},{"kind":"assigned"},{"kind":"HELLO"},{"kind":"GRANT"},{"kind":"ACK"}]
+        write(Path("trace.json"),events,file_io=fs)
+        literal='[{"kind": "spawn"}, {"kind": "assigned"}, {"kind": "HELLO"}, {"kind": "GRANT"}, {"kind": "ACK"}]\n'
+        self.assertEqual(fs.files,{"trace.json":literal});self.assertEqual(fs.calls,["CREATE","WRITE","CLOSE","REPLACE"])
+
+    def test_controller_first_trace_failure_survives_inner_row_conversion(self):
+        self.required("ControllerTracePublicationError")
+        first=PermissionError(13,"synthetic trace");first.winerror=32;fs=TraceMemoryIO({"REPLACE":first})
+        with tempfile.TemporaryDirectory() as tmp:
+            root,output,service=self.controller(tmp,fs)
+            with self.assertRaises(native.ControllerTracePublicationError) as caught:
+                native.run_controller(root,output,"N1",case_binding(),services=service)
+            error=caught.exception;record=error.record()
+            self.assertIs(error.trace_publication.first_failure.first_error,first)
+            self.assertEqual(record["inner_summary"]["status"],"FAILED")
+            self.assertIn("TracePublicationError",record["inner_summary"]["error"])
+            self.assertEqual(record["trace_publication"]["first_failure"]["first_phase"],"REPLACE")
+            self.assertTrue(record["trace_publication"]["final_skipped_after_error"])
+            self.assertEqual(fs.calls,["CREATE","WRITE","CLOSE","REPLACE"])
+            self.assertFalse((output/"controller/controller_result.json").exists())
+            saved=json.loads((output/"controller/controller_failure.json").read_text())
+            self.assertEqual(saved["status"],"FAILED_CONTROLLER_TRACE_PUBLICATION")
+            self.assertEqual(saved["inner_summary"],record["inner_summary"])
+
+    def test_controller_final_trace_failure_keeps_inner_row_and_body_errors(self):
+        self.required("ControllerTracePublicationError")
+        for body in (None,ValueError("synthetic body")):
+            with self.subTest(body=body),tempfile.TemporaryDirectory() as tmp:
+                fs=TraceMemoryIO({"REPLACE":OSError(5,"synthetic final")});root,output,service=self.controller(tmp,fs)
+                row=case_record("N1")["msb"]
+                with patch.object(safety.MSBParentSupervisor,"run_job",side_effect=body,return_value=row):
+                    with self.assertRaises(native.ControllerTracePublicationError) as caught:
+                        native.run_controller(root,output,"N1",case_binding(),services=service)
+                error=caught.exception;record=error.record()
+                self.assertTrue(record["trace_publication"]["final_attempted"])
+                self.assertFalse(record["trace_publication"]["final_skipped_after_error"])
+                self.assertEqual(record["parent_power"],dict(power_request_acquired=True,power_request_released=True))
+                if body is None:self.assertIs(error.inner_row,row);self.assertEqual(record["inner_summary"]["status"],"COMPLETE")
+                else:self.assertIs(error.body_errors[0],body);self.assertIsNone(record["inner_summary"])
+                self.assertEqual(fs.calls,["CREATE","WRITE","CLOSE","REPLACE"])
+
+    def test_controller_failure_receipt_error_is_distinct_and_fail_closed(self):
+        self.required("ControllerTracePublicationError")
+        with tempfile.TemporaryDirectory() as tmp:
+            first=OSError(5,"synthetic trace");receipt=OSError("nonce="+"b"*64)
+            fs=TraceMemoryIO({"REPLACE":first});root,output,service=self.controller(tmp,fs)
+            original=native._write_json;writes=[]
+            def write(path,value,**kw):
+                if Path(path).name=="controller_failure.json":writes.append(str(path));raise receipt
+                return original(path,value,**kw)
+            with patch.object(native,"_write_json",side_effect=write):
+                with self.assertRaises(native.ControllerTracePublicationError) as caught:
+                    native.run_controller(root,output,"N1",case_binding(),services=service)
+            error=caught.exception
+            self.assertIs(error.receipt_error,receipt);self.assertIs(error.trace_publication.first_failure.first_error,first)
+            self.assertEqual(len(writes),1);self.assertEqual(error.record()["receipt_publication"]["status"],"FAILED")
+            protocol=fixture_protocol();approval=fixture_approval(protocol)
+            protocol_path=root/"docs/experiment_protocols/msb_native_supervision_v2.json"
+            protocol_path.parent.mkdir(parents=True);protocol_path.write_text(json.dumps(protocol))
+            binding=dict(case_binding(),protocol_digest=native._protocol_digest(protocol))
+            claim=dict(status="RUNNING",active_case="N1",binding=binding,registration_verified=True,
+                       source_identity_verified=True,registered_commit=approval["registration_commit"])
+            (root/protocol["output_relative"]/"stage_state.json").write_text(json.dumps(claim))
+            service.verify_sources=Mock();out=io.StringIO()
+            flags=["--root",str(root),"--protocol",str(protocol_path),"--execute-native",
+                   "--approval-call-id",approval["call_id"],"--approval-answer",approval["answer"],
+                   "--registration-commit",approval["registration_commit"],"--controller-case","N1",
+                   "--case-output",str(output),"--binding-json",json.dumps(binding)]
+            with patch.object(native,"NativeServices",return_value=service),patch.object(native,"run_controller",side_effect=error),redirect_stdout(out):
+                code=native.main(flags)
+            self.assertEqual(code,1);self.assertEqual(json.loads(out.getvalue())["status"],"FAILED_CONTROLLER_TRACE_PUBLICATION")
+            self.assertNotIn("b"*64,out.getvalue());self.assertNotIn("Traceback",out.getvalue())
+
+    def test_collector_retains_controller_failure_but_never_qualifies_case(self):
+        self.required("ControllerTracePublicationError")
+        record=case_record("N1")
+        native._check_case(record,"N1",case_binding())
+        failure=dict(status="FAILED_CONTROLLER_TRACE_PUBLICATION")
+        with tempfile.TemporaryDirectory() as tmp:
+            case=Path(tmp)/"N1";folder=case/"controller";folder.mkdir(parents=True)
+            (folder/"trace.json").write_text(json.dumps(record["events"]))
+            (folder/"controller_failure.json").write_text(json.dumps(failure))
+            loaded=native._load_case_record(case,case_binding(),record["outer"],record["observation"])
+            self.assertEqual(loaded["controller_failure"],failure)
+        forged=dict(record,controller_failure=failure)
+        with self.assertRaisesRegex(ValueError,"trace publication"):native._check_case(forged,"N1",case_binding())
+
+    def test_controller_trace_failure_keeps_existing_cleanup_and_deadline(self):
+        self.required("ControllerTracePublicationError")
+        for expired in (False,True):
+            with self.subTest(expired=expired),tempfile.TemporaryDirectory() as tmp:
+                fs=TraceMemoryIO({"REPLACE":OSError("synthetic replacement")});root,output,service=self.controller(tmp,fs)
+                if expired:fs.on_failure=lambda:setattr(service.api,"now",481000)
+                service.api.failure="wait"
+                with patch.object(service.api,"awake_guard",wraps=service.api.awake_guard) as awake,patch.object(native,"_remaining",wraps=native._remaining) as remaining:
+                    with self.assertRaises(native.ControllerTracePublicationError) as caught:
+                        native.run_controller(root,output,"N1",case_binding(),services=service)
+                record=caught.exception.record()
+                self.assertFalse(record["inner_summary"]["cleanup_confirmed"])
+                self.assertEqual(service.api.events.count("terminated"),1);self.assertEqual(awake.call_count,2)
+                self.assertEqual(service.callbacks,[]);self.assertEqual(service.api.closed,[11,12,30,21,22,10])
+                self.assertEqual(remaining.call_count,2 if expired else 3)
+                self.assertEqual(record["binding"],case_binding())
+                self.assertEqual(record["receipt_publication"]["status"],"SKIPPED_BUDGET_EXHAUSTED" if expired else "PERSISTED")
+                self.assertEqual((output/"controller/controller_failure.json").exists(),not expired)
+
+    def test_controller_failure_record_redacts_capabilities_and_whitelists_os_codes(self):
+        cls=self.required("TracePublicationError");state_cls=self.required("TracePublicationState")
+        controller_cls=self.required("ControllerTracePublicationError")
+        for errno,winerror,want_errno,want_win in ((5,32,5,32),(0,0,0,0),(4095,65535,4095,65535),
+                (True,True,None,None),(4096,65536,None,None),(-1,-1,None,None),(None,None,None,None)):
+            with self.subTest(errno=errno,winerror=winerror):
+                original=OSError("nonce="+"c"*64+" handles=12345 environment=SECRET")
+                original.errno=errno;original.winerror=winerror
+                failure=cls((("REPLACE",original),));entry=failure.record()["errors"][0]
+                self.assertEqual((entry["errno"],entry["winerror"]),(want_errno,want_win))
+                self.assertIs(failure.first_error,original)
+                state=state_cls();service=SimpleNamespace(persist_trace=Mock(side_effect=failure))
+                with self.assertRaises(cls):state.persist(Path("trace.json"),[],services=service)
+                body=RuntimeError("handles=12345 environment=SECRET")
+                row=dict(case_record("N1")["msb"],error="nonce="+"c"*64,nonce="hidden")
+                error=controller_cls("N1",case_binding(),inner_row=row,parent_power=None,body_errors=[body],
+                    fault_stop=None,trace_publication=state)
+                text=json.dumps(error.record())
+                for secret in ("c"*64,"12345","SECRET","hidden"):self.assertNotIn(secret,text)
+                self.assertNotIn("nonce",error.record()["inner_summary"]);self.assertIs(error.body_errors[0],body)
+                self.assertNotIn("c"*64,str(error));self.assertNotIn("c"*64,str(failure))
+
+    def test_trace_serialization_failure_opens_no_file(self):
+        write=self.helper()
+        for events in ([{"bad":math.nan}],[{"bad":object()}]):
+            with self.subTest(events=events):
+                fs=TraceMemoryIO();fs.files["trace.json.pending"]="original"
+                with self.assertRaises(native.TracePublicationError) as caught:write(Path("trace.json"),events,file_io=fs)
+                self.assertEqual(caught.exception.record()["first_phase"],"SERIALIZE")
+                self.assertEqual(fs.calls,[]);self.assertEqual(fs.files,{"trace.json.pending":"original"})
+
+    def test_normal_and_expected_fault_controller_contracts_remain_unchanged(self):
+        self.required("TracePublicationState")
+        for case_id,want,exit_code in (("N1","COMPLETE",0),("N2","SUPERVISION_INTERRUPTED",23),("N3","SUPERVISION_INTERRUPTED",1)):
+            with self.subTest(case_id=case_id),tempfile.TemporaryDirectory() as tmp:
+                fs=TraceMemoryIO();root,output,service=self.controller(tmp,fs,case_id)
+                row=native.run_controller(root,output,case_id,case_binding(),services=service)
+                self.assertEqual((row["msb"]["status"],row["msb"]["exit_code"]),(want,exit_code))
+                self.assertEqual(set(row),{"case_id","msb","events","parent_power","fault_monitor_stopped","real_data_opened"})
+                self.assertTrue((output/"controller/controller_result.json").exists())
+                self.assertFalse((output/"controller/controller_failure.json").exists())
+                self.assertTrue(row["parent_power"]["power_request_released"])
+                self.assertFalse(row["real_data_opened"])

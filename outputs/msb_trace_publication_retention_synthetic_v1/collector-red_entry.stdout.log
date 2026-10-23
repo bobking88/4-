@@ -1,0 +1,124 @@
+{"scope": "SYNTHETIC_CONTRACT_ONLY", "phase": "collector-green", "attempt": 1, "bootstrap": {"torch": "2.12.1+cu130", "sklearn": "1.9.0"}, "unused_dependency_stubs": ["torchvision.models", "torchvision.transforms"], "status": "FAILED", "modules": ["test_check_msb_native_supervision"], "tests_run": 1, "failures": 0, "errors": 0, "skipped": 1, "expected_failures": 0, "unexpected_successes": 0, "unmocked_boundary_calls": [], "native_os_exercised": false, "real_data_opened": false, "real_fits": 0, "temporary_synthetic_tensor_reads": 0, "source_snapshot": "DIRECT_PRE_RUN_CAPTURE", "harness_error": null}
+
+{"scope": "SYNTHETIC_CONTRACT_ONLY", "phase": "collector-red", "attempt": 1, "bootstrap": {"torch": "2.12.1+cu130", "sklearn": "1.9.0"}, "unused_dependency_stubs": ["torchvision.models", "torchvision.transforms"], "status": "FAILED", "modules": ["test_check_msb_native_supervision"], "tests_run": 106, "failures": 14, "errors": 0, "skipped": 0, "expected_failures": 0, "unexpected_successes": 0, "unmocked_boundary_calls": [], "native_os_exercised": false, "real_data_opened": false, "real_fits": 0, "temporary_synthetic_tensor_reads": 0, "source_snapshot": "DIRECT_PRE_RUN_CAPTURE", "harness_error": null}
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 1843, in test_controller_first_trace_failure_survives_inner_row_conversion
+    self.required("ControllerTracePublicationError")
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 1762, in required
+    self.assertTrue(callable(value),"Missing trace-retention behavior: "+name)
+AssertionError: False is not true : Missing trace-retention behavior: ControllerTracePublicationError
+
+======================================================================
+FAIL: test_controller_trace_failure_keeps_existing_cleanup_and_deadline (test_check_msb_native_supervision.TracePublicationRetentionTests.test_controller_trace_failure_keeps_existing_cleanup_and_deadline)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 1925, in test_controller_trace_failure_keeps_existing_cleanup_and_deadline
+    self.required("ControllerTracePublicationError")
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 1762, in required
+    self.assertTrue(callable(value),"Missing trace-retention behavior: "+name)
+AssertionError: False is not true : Missing trace-retention behavior: ControllerTracePublicationError
+
+======================================================================
+FAIL: test_native_persist_trace_uses_real_helper_with_only_fake_file_io (test_check_msb_native_supervision.TracePublicationRetentionTests.test_native_persist_trace_uses_real_helper_with_only_fake_file_io)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 1828, in test_native_persist_trace_uses_real_helper_with_only_fake_file_io
+    self.helper();self.required("_TraceFileIO")
+    ^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 1766, in helper
+    self.required("TracePublicationError")
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 1762, in required
+    self.assertTrue(callable(value),"Missing trace-retention behavior: "+name)
+AssertionError: False is not true : Missing trace-retention behavior: TracePublicationError
+
+======================================================================
+FAIL: test_normal_and_expected_fault_controller_contracts_remain_unchanged (test_check_msb_native_supervision.TracePublicationRetentionTests.test_normal_and_expected_fault_controller_contracts_remain_unchanged)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 1975, in test_normal_and_expected_fault_controller_contracts_remain_unchanged
+    self.required("TracePublicationState")
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 1762, in required
+    self.assertTrue(callable(value),"Missing trace-retention behavior: "+name)
+AssertionError: False is not true : Missing trace-retention behavior: TracePublicationState
+
+======================================================================
+FAIL: test_trace_failure_latch_prevents_second_io_and_preserves_pending (test_check_msb_native_supervision.TracePublicationRetentionTests.test_trace_failure_latch_prevents_second_io_and_preserves_pending)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 1809, in test_trace_failure_latch_prevents_second_io_and_preserves_pending
+    cls=self.required("TracePublicationState");self.helper()
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 1762, in required
+    self.assertTrue(callable(value),"Missing trace-retention behavior: "+name)
+AssertionError: False is not true : Missing trace-retention behavior: TracePublicationState
+
+======================================================================
+FAIL: test_trace_helper_records_create_failure_and_preserves_existing_pending (test_check_msb_native_supervision.TracePublicationRetentionTests.test_trace_helper_records_create_failure_and_preserves_existing_pending)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 1779, in test_trace_helper_records_create_failure_and_preserves_existing_pending
+    write=self.helper();failure=FileExistsError(17,"synthetic existing")
+          ^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 1766, in helper
+    self.required("TracePublicationError")
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 1762, in required
+    self.assertTrue(callable(value),"Missing trace-retention behavior: "+name)
+AssertionError: False is not true : Missing trace-retention behavior: TracePublicationError
+
+======================================================================
+FAIL: test_trace_helper_records_write_close_replace_and_short_write_failures (test_check_msb_native_supervision.TracePublicationRetentionTests.test_trace_helper_records_write_close_replace_and_short_write_failures)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 1787, in test_trace_helper_records_write_close_replace_and_short_write_failures
+    write=self.helper()
+          ^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 1766, in helper
+    self.required("TracePublicationError")
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 1762, in required
+    self.assertTrue(callable(value),"Missing trace-retention behavior: "+name)
+AssertionError: False is not true : Missing trace-retention behavior: TracePublicationError
+
+======================================================================
+FAIL: test_trace_helper_retains_write_and_close_errors_in_order (test_check_msb_native_supervision.TracePublicationRetentionTests.test_trace_helper_retains_write_and_close_errors_in_order)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 1801, in test_trace_helper_retains_write_and_close_errors_in_order
+    write=self.helper();first=OSError("synthetic write");second=OSError("synthetic close")
+          ^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 1766, in helper
+    self.required("TracePublicationError")
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 1762, in required
+    self.assertTrue(callable(value),"Missing trace-retention behavior: "+name)
+AssertionError: False is not true : Missing trace-retention behavior: TracePublicationError
+
+======================================================================
+FAIL: test_trace_serialization_failure_opens_no_file (test_check_msb_native_supervision.TracePublicationRetentionTests.test_trace_serialization_failure_opens_no_file)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 1966, in test_trace_serialization_failure_opens_no_file
+    write=self.helper()
+          ^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 1766, in helper
+    self.required("TracePublicationError")
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 1762, in required
+    self.assertTrue(callable(value),"Missing trace-retention behavior: "+name)
+AssertionError: False is not true : Missing trace-retention behavior: TracePublicationError
+
+======================================================================
+FAIL: test_trace_success_preserves_serialize_write_close_replace_order (test_check_msb_native_supervision.TracePublicationRetentionTests.test_trace_success_preserves_serialize_write_close_replace_order)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 1836, in test_trace_success_preserves_serialize_write_close_replace_order
+    write=self.helper();fs=TraceMemoryIO()
+          ^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 1766, in helper
+    self.required("TracePublicationError")
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 1762, in required
+    self.assertTrue(callable(value),"Missing trace-retention behavior: "+name)
+AssertionError: False is not true : Missing trace-retention behavior: TracePublicationError
+
+----------------------------------------------------------------------
+Ran 106 tests in 3.587s
+
+FAILED (failures=14)
+
