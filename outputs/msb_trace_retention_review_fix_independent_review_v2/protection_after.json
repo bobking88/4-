@@ -1,0 +1,139 @@
+{
+  "date": "2026-10-24",
+  "approval_id": "call_19bef93a8b4c46389e70fa248d5be7fc",
+  "review_head": "dee2be4045d325b417995da6d56943ccf06d1ee1",
+  "checked_records": 420,
+  "unchanged_records": 404,
+  "changed_records": [
+    {
+      "path": "README.md",
+      "before_sha256": "a126bf478d146cc32000335649ba656868537601503284760efb215a7a6099b1",
+      "sha256": "a0f4007488f9ca8ec04466baf032a6449064e2cf3efac4d7e8901ab6ec39256a",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "a126bf478d146cc32000335649ba656868537601503284760efb215a7a6099b1",
+      "sha256": "a0f4007488f9ca8ec04466baf032a6449064e2cf3efac4d7e8901ab6ec39256a",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "a126bf478d146cc32000335649ba656868537601503284760efb215a7a6099b1",
+      "sha256": "a0f4007488f9ca8ec04466baf032a6449064e2cf3efac4d7e8901ab6ec39256a",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "a126bf478d146cc32000335649ba656868537601503284760efb215a7a6099b1",
+      "sha256": "a0f4007488f9ca8ec04466baf032a6449064e2cf3efac4d7e8901ab6ec39256a",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "a126bf478d146cc32000335649ba656868537601503284760efb215a7a6099b1",
+      "sha256": "a0f4007488f9ca8ec04466baf032a6449064e2cf3efac4d7e8901ab6ec39256a",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "a126bf478d146cc32000335649ba656868537601503284760efb215a7a6099b1",
+      "sha256": "a0f4007488f9ca8ec04466baf032a6449064e2cf3efac4d7e8901ab6ec39256a",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "a126bf478d146cc32000335649ba656868537601503284760efb215a7a6099b1",
+      "sha256": "a0f4007488f9ca8ec04466baf032a6449064e2cf3efac4d7e8901ab6ec39256a",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "a126bf478d146cc32000335649ba656868537601503284760efb215a7a6099b1",
+      "sha256": "a0f4007488f9ca8ec04466baf032a6449064e2cf3efac4d7e8901ab6ec39256a",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "a126bf478d146cc32000335649ba656868537601503284760efb215a7a6099b1",
+      "sha256": "a0f4007488f9ca8ec04466baf032a6449064e2cf3efac4d7e8901ab6ec39256a",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "a126bf478d146cc32000335649ba656868537601503284760efb215a7a6099b1",
+      "sha256": "a0f4007488f9ca8ec04466baf032a6449064e2cf3efac4d7e8901ab6ec39256a",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "a126bf478d146cc32000335649ba656868537601503284760efb215a7a6099b1",
+      "sha256": "a0f4007488f9ca8ec04466baf032a6449064e2cf3efac4d7e8901ab6ec39256a",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "a126bf478d146cc32000335649ba656868537601503284760efb215a7a6099b1",
+      "sha256": "a0f4007488f9ca8ec04466baf032a6449064e2cf3efac4d7e8901ab6ec39256a",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "a126bf478d146cc32000335649ba656868537601503284760efb215a7a6099b1",
+      "sha256": "a0f4007488f9ca8ec04466baf032a6449064e2cf3efac4d7e8901ab6ec39256a",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "a126bf478d146cc32000335649ba656868537601503284760efb215a7a6099b1",
+      "sha256": "a0f4007488f9ca8ec04466baf032a6449064e2cf3efac4d7e8901ab6ec39256a",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "a126bf478d146cc32000335649ba656868537601503284760efb215a7a6099b1",
+      "sha256": "a0f4007488f9ca8ec04466baf032a6449064e2cf3efac4d7e8901ab6ec39256a",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "a126bf478d146cc32000335649ba656868537601503284760efb215a7a6099b1",
+      "sha256": "a0f4007488f9ca8ec04466baf032a6449064e2cf3efac4d7e8901ab6ec39256a",
+      "allowed": true
+    }
+  ],
+  "unique_changed_existing_paths": [
+    "README.md"
+  ],
+  "all_changes_within_approved_scope": true,
+  "old_native_raw_files_verified": 14,
+  "old_native_originals_rewritten": false,
+  "formal_reports": [
+    {
+      "path": "结题/基于深度学习的钒钛矿相关矿物图像识别方法研究_技术报告（正式版）.docx",
+      "sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+      "unchanged": true
+    },
+    {
+      "path": "D:/成信工科研/人工智能选矿/结题/基于深度学习的钒钛矿相关矿物图像识别方法研究_技术报告（正式版）.docx",
+      "sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+      "unchanged": true
+    }
+  ],
+  "preexisting_pngs_preserved": true,
+  "native_protocol_unchanged": true,
+  "network_formula_matrix_unchanged": true,
+  "agents_dispatched": 1,
+  "nested_agents_dispatched": 0,
+  "actual_new_tests": 0,
+  "project_imports": 0,
+  "new_native_runs_or_probes": 0,
+  "real_data_opened": false,
+  "real_fits": 0,
+  "scientific_model_forwards": 0,
+  "code_edits": 0,
+  "formal_report_edits": 0,
+  "operation_counters_scope": "PARENT_AND_REVIEWER_DECLARATION_NOT_COMPLETE_HISTORY_PROOF",
+  "engineering_review_conclusion_received": true,
+  "native_or_scientific_gate_promoted": false
+}

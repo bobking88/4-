@@ -382,6 +382,8 @@ C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独�
 
 2026-10-24 trace复查修复独立审查未获结论：固定dee2be4按授权仅派发一次[独立只读复查](docs/experiment_records/2026-10-24_msb_trace_retention_review_fix_review_unavailable.md)。首次观察超时后只继续等待同一handle，随后代理因额度限制以errored终止，未返回completed技术结论，已关闭；没有重派或作者自检替代。当前INDEPENDENT_REVIEW_UNAVAILABLE_NO_CONCLUSION，不构成APPROVE或REQUEST_CHANGES，原277/277仍仅作者合成结果。410条保护只允许索引变化，未修代码、未重跑测试、未读真实数据、未做原生/科学实验或修改正式报告。原始错误和终态完整保留；未来复查须新授权，本次不自动重试，也不提升原生或网络科学门状态。
 
+2026-10-24 trace复查修复新一次独立复查：按新授权仅派发一次[只读工程复查](docs/experiment_records/2026-10-24_msb_trace_retention_review_fix_review_v2.md)，固定受审dee2be4，返回APPROVE且无可行动P0/P1/P2/P3问题；R1–R3与声明范围内联合/部分回执覆盖均获认可。一次观察超时后继续同一handle，completed后关闭；无重派、测试、真实数据、原生/科学运行或报告修改。旧额度失败原件保留；420条保护只允许索引变化。作者逐项裁定九项未判事项，尤其原生可靠性、Windows首因、穷尽组合与网络理论收益仍未验证；本次工程通过不放行实际实验。新的原生登记路径须另批并先核对源码/独立目录兼容性，旧v2许可和目录不能复用。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.

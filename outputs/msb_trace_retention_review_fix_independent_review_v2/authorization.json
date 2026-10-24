@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-24",
+  "approval_id": "call_19bef93a8b4c46389e70fa248d5be7fc",
+  "answer": "批准新的一次只读复查及归档（推荐）",
+  "confirmed_from_human": true,
+  "scope": "ONE_INDEPENDENT_READ_ONLY_ENGINEERING_REVIEW_AND_GITHUB_ARCHIVE_ONLY",
+  "review_base": "0c3fe0172e41eb1ce66e07f1101af903e1dc8596",
+  "review_head": "dee2be4045d325b417995da6d56943ccf06d1ee1",
+  "max_dispatches": 1,
+  "redispatch_allowed": false,
+  "nested_agents_allowed": false,
+  "allowed": [
+    "Read fixed source/diff, approved paired documents and existing synthetic evidence",
+    "Read-only text/hash/Git verification",
+    "Archive reviewer original and author adjudication"
+  ],
+  "forbidden": [
+    "Code edits or project imports",
+    "Tests, forwards, fits, timing/process/power probes or native acceptance",
+    "Real prepared/fit/stop, images, weights, tensors or caches",
+    "Formal report body reads/edits",
+    "Branch/index/HEAD changes by reviewer",
+    "Repair implementation or additional reviewers"
+  ],
+  "tool_unavailable_or_no_conclusion": "Stop and archive; no retry or substitute.",
+  "archive_baseline": "4fa058ae2d86451b71cfb8e882e8d048cc390463",
+  "new_separate_authorization": true,
+  "prior_review": "UNAVAILABLE_NO_CONCLUSION_DO_NOT_REUSE_AUTHORIZATION"
+}

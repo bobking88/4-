@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-24",
+  "approval_id": "call_19bef93a8b4c46389e70fa248d5be7fc",
+  "archive_baseline": "4fa058ae2d86451b71cfb8e882e8d048cc390463",
+  "review_head": "dee2be4045d325b417995da6d56943ccf06d1ee1",
+  "review_base": "0c3fe0172e41eb1ce66e07f1101af903e1dc8596",
+  "dispatches_under_this_authorization": 1,
+  "agent_id": "01a16e5d-6d13-7283-8afd-4f35a6061ef3",
+  "nickname": "Locke",
+  "fork_context": false,
+  "model_override": null,
+  "dispatch_result": {
+    "agent_id": "01a16e5d-6d13-7283-8afd-4f35a6061ef3",
+    "nickname": "Locke"
+  },
+  "state_at_dispatch": "DISPATCH_RETURNED_ID_AWAITING_CONCLUSION",
+  "before_records_verified": 420,
+  "unchanged_records_before_dispatch": 420,
+  "redispatch_authorized": false,
+  "test_runs_authorized": 0,
+  "native_runs_authorized": 0,
+  "real_input_reads_authorized": false,
+  "code_edits_authorized": false,
+  "review_is_not_scientific_or_native_acceptance": true
+}
