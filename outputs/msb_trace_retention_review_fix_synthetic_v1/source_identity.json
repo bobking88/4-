@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-24",
+  "baseline_commit": "0c3fe0172e41eb1ce66e07f1101af903e1dc8596",
+  "current_sources": [
+    {
+      "path": "scripts/check_msb_native_supervision.py",
+      "sha256": "30ff7c45947108b80fd9c867d6ff8113590dd372fbcdbf4fd143e3d94123ae83"
+    },
+    {
+      "path": "tests/test_check_msb_native_supervision.py",
+      "sha256": "f980f9470f4392968f7cb915b8c91b8ce710f676008ae525e484168ad91517d6"
+    },
+    {
+      "path": "tests/run_msb_native_supervision_synthetic_acceptance.py",
+      "sha256": "838c427470360d4274f203057bc2d3e2ea16a9ec428b3347c1b014bca527379b"
+    }
+  ],
+  "red_driver_baseline_sha256": "16577cdf8a32e11503c43c1c92856e90d26f04095ccfcf095c67c0636455af86",
+  "tests_and_harness_frozen_after_red": true,
+  "green_final_current_identical": true,
+  "protected_source_paths": 56,
+  "unchanged_source_paths": 53,
+  "approved_changed_source_paths": 3,
+  "old_registered_native_closure_paths": 46,
+  "unchanged_registered_native_paths": 43,
+  "old_native_protocol_not_reusable_for_new_code": true,
+  "old_native_approval_consumed": true,
+  "network_formula_matrix_unchanged": true,
+  "formal_report_unchanged": true
+}

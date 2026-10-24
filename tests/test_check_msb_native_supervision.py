@@ -130,7 +130,7 @@ class HarnessGateTests(unittest.TestCase):
             try:
                 with patch.object(harness,"ROOT",Path(tmp)),patch.object(harness,"_snapshot_sources",return_value={}),patch.object(harness,"_run_modules",return_value=r):
                     code=harness.main(["--phase","collector-green"])
-                summary=json.loads((Path(tmp)/"outputs/msb_trace_publication_retention_synthetic_v1/collector-green/attempt-001/acceptance_summary.json").read_text())
+                summary=json.loads((Path(tmp)/"outputs/msb_trace_retention_review_fix_synthetic_v1/collector-green/attempt-001/acceptance_summary.json").read_text())
                 self.assertEqual((code,summary["status"],summary["skipped"]),(1,"FAILED",1))
             finally:
                 os.chdir(previous[0]);tempfile.tempdir=previous[1];sys.path[:]=previous[2]
@@ -1719,7 +1719,7 @@ class DirectLaunchBoundaryTests(unittest.TestCase):
                 try:
                     with patch.object(harness,"ROOT",Path(tmp)),patch.object(harness,"_snapshot_sources",return_value={}),patch.object(harness,"_run_modules",side_effect=modules),redirect_stdout(io.StringIO()):
                         code=harness.main(["--phase","collector-green"])
-                    data=json.loads((Path(tmp)/"outputs/msb_trace_publication_retention_synthetic_v1/collector-green/attempt-001/acceptance_summary.json").read_text())
+                    data=json.loads((Path(tmp)/"outputs/msb_trace_retention_review_fix_synthetic_v1/collector-green/attempt-001/acceptance_summary.json").read_text())
                     self.assertEqual(code,0 if invoke is None else 1)
                     self.assertEqual(bool(data["unmocked_boundary_calls"]),invoke is not None)
                 finally:
@@ -1983,3 +1983,282 @@ class TracePublicationRetentionTests(unittest.TestCase):
                 self.assertFalse((output/"controller/controller_failure.json").exists())
                 self.assertTrue(row["parent_power"]["power_request_released"])
                 self.assertFalse(row["real_data_opened"])
+
+
+class TraceRetentionReviewFixTests(unittest.TestCase):
+    def required(self,name):
+        value=getattr(native,name,None)
+        self.assertTrue(callable(value),"Missing review-fix behavior: "+name)
+        return value
+
+    def controller(self,tmp,fs,case_id="N1"):
+        fixture=TracePublicationRetentionTests();self.addCleanup(fixture.doCleanups)
+        return fixture.controller(tmp,fs,case_id)
+
+    def scope(self,row,exit_error=None):
+        class Scope:
+            def __enter__(self):return self
+            def __exit__(self,*args):
+                if exit_error is not None:raise exit_error
+            def run_job(self,*args):return row
+            def evidence(self):return dict(power_request_acquired=True,power_request_released=True)
+        return Scope()
+
+    def raw_evidence(self,error):
+        self.assertTrue(hasattr(error,"fault_stop_evidence"),"Missing raw fault-stop evidence")
+        return error.fault_stop_evidence
+
+    def cli(self,error,root,output,service,case_id="N1"):
+        protocol=fixture_protocol();approval=fixture_approval(protocol)
+        path=root/"docs/experiment_protocols/msb_native_supervision_v2.json"
+        path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps(protocol))
+        binding=dict(case_binding(),protocol_digest=native._protocol_digest(protocol))
+        claim=dict(status="RUNNING",active_case=case_id,binding=binding,registration_verified=True,
+                   source_identity_verified=True,registered_commit=approval["registration_commit"])
+        (root/protocol["output_relative"]/"stage_state.json").write_text(json.dumps(claim))
+        service.verify_sources=Mock();out=io.StringIO()
+        flags=["--root",str(root),"--protocol",str(path),"--execute-native",
+               "--approval-call-id",approval["call_id"],"--approval-answer",approval["answer"],
+               "--registration-commit",approval["registration_commit"],"--controller-case",case_id,
+               "--case-output",str(output),"--binding-json",json.dumps(binding)]
+        with patch.object(native,"NativeServices",return_value=service),patch.object(native,"run_controller",side_effect=error),redirect_stdout(out):
+            self.assertEqual(native.main(flags),1)
+        self.assertNotIn("Traceback",out.getvalue())
+        return out.getvalue()
+
+    @contextmanager
+    def receipt_io(self,error,mode="write"):
+        original_open=Path.open;original_read=Path.read_text
+        state=SimpleNamespace(files={},calls=[])
+        class Stream:
+            def __init__(self,key):self.key=key
+            def __enter__(self):return self
+            def write(self,text):
+                state.calls.append("WRITE");state.files[self.key]+=text
+                if mode=="write":raise error
+                return len(text)
+            def close(self):
+                state.calls.append("CLOSE")
+                if mode=="close":raise error
+            def __exit__(self,*args):self.close()
+        def opened(path,*args,**kwargs):
+            if path.name!="controller_failure.json":return original_open(path,*args,**kwargs)
+            state.calls.append("OPEN")
+            self.assertEqual(args[0] if args else kwargs.get("mode"),"x")
+            key=str(path)
+            if key in state.files:raise FileExistsError("Existing synthetic receipt")
+            state.files[key]="";return Stream(key)
+        def read(path,*args,**kwargs):
+            if str(path) in state.files:return state.files[str(path)]
+            return original_read(path,*args,**kwargs)
+        with patch.object(Path,"open",new=opened),patch.object(Path,"read_text",new=read):yield state
+
+    def test_error_redaction_drops_multiline_context_without_changing_original(self):
+        for separator in ("\n","\r","\v","\f","\x1c","\x1d","\x1e","\x85","\u2028","\u2029"):
+            for message in ("environment="+separator+"API_KEY=SHORTSECRET", "SHORTSECRET"+separator+"safe", "SHORTSECRET EnViRoNmEnT=value"):
+                with self.subTest(separator=repr(separator),message=message):
+                    error=RuntimeError(message);before=error.args
+                    self.assertEqual(native._fault_error_record(error)["message"],"<redacted context>")
+                    self.assertEqual(error.args,before)
+        self.assertEqual(native._fault_error_record(ValueError(r"safe\ntext"))["message"],r"safe\ntext")
+        self.assertEqual(native._fault_error_record(ValueError("safe 123 0xff "+"a"*64))["message"],"safe <redacted> <redacted> <redacted>")
+        self.assertEqual(len(native._fault_error_record(ValueError("x"*300))["message"]),256)
+
+    def test_controller_diagnostics_and_cli_redact_all_multiline_error_roles(self):
+        state=native.TracePublicationState();trace=OSError("environment=\nTRACESECRET")
+        state.first_failure=native.TracePublicationError((("REPLACE",trace),))
+        body=RuntimeError("BODYSECRET\ncontext");budget=ValueError("env=\nBUDGETSECRET")
+        stop=OSError("STOPSECRET\rcontext");callback=RuntimeError("environment=\nCALLBACKSECRET")
+        snapshot=native.FaultStopResult(True,True,False,False,callback)
+        evidence=dict(returned_result=None,budget_errors=[budget],stop_exception=stop,
+                      cached_result=snapshot,cached_callback_error=callback)
+        import inspect
+        self.assertIn("fault_stop_evidence",inspect.signature(native.ControllerTracePublicationError).parameters,
+                      "Missing raw stop evidence constructor")
+        row=dict(case_record("N1")["msb"],error="ROWSECRET\ncontext")
+        error=native.ControllerTracePublicationError("N1",case_binding(),inner_row=row,parent_power=None,
+            body_errors=[body],fault_stop=None,trace_publication=state,fault_stop_evidence=evidence)
+        error.receipt_error=OSError("env=\nRECEIPTSECRET")
+        error.receipt_publication=dict(status="FAILED",error=native._fault_error_record(error.receipt_error))
+        self.assertIs(error.body_errors[0],body);self.assertIs(error.fault_stop_evidence["budget_errors"][0],budget)
+        with tempfile.TemporaryDirectory() as tmp:
+            root,output,service=self.controller(tmp,TraceMemoryIO())
+            text=json.dumps(error.record())+self.cli(error,root,output,service)
+        for secret in ("TRACESECRET","BODYSECRET","BUDGETSECRET","STOPSECRET","CALLBACKSECRET","ROWSECRET","RECEIPTSECRET"):
+            self.assertNotIn(secret,text)
+        record=error.record()["fault_stop"]
+        self.assertIsNotNone(record["cached_result"]);self.assertIsNotNone(record["cached_callback_error"])
+        self.assertTrue(record["cached_result_diagnostic_only"])
+
+    def test_bounded_fault_stop_retains_caller_errors_when_stop_raises(self):
+        import inspect
+        self.assertIn("errors",inspect.signature(native._bounded_fault_stop).parameters,"Missing caller-owned errors")
+        budget=ValueError("synthetic expired budget");stop=OSError("synthetic stop")
+        errors=[];service=SimpleNamespace(stop_fault=Mock(side_effect=stop))
+        with patch.object(native,"_remaining",side_effect=budget) as remaining:
+            with self.assertRaises(OSError) as caught:
+                native._bounded_fault_stop(SimpleNamespace(),case_binding(),service,errors=errors)
+        self.assertIs(caught.exception,stop);self.assertIs(errors[0],budget)
+        self.assertEqual(remaining.call_count,1);self.assertEqual(service.stop_fault.call_count,1)
+        self.assertEqual(service.stop_fault.call_args.kwargs,{"remaining_seconds":0.})
+        empty=[];snapshot=native.FaultStopResult(True,True,False,False,None)
+        service.stop_fault=Mock(return_value=snapshot)
+        with patch.object(native,"_remaining",return_value=3.) as remaining:
+            result,returned=native._bounded_fault_stop(SimpleNamespace(),case_binding(),service,errors=empty)
+        self.assertIs(result,snapshot);self.assertIs(returned,empty);self.assertEqual(remaining.call_count,2)
+
+    def test_n4_trace_failure_retains_budget_stop_callback_and_cached_snapshot(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            trace=OSError("synthetic trace");budget=ValueError("synthetic budget");stop=OSError("synthetic stop")
+            callback=ValueError("synthetic callback");snapshot=native.FaultStopResult(True,True,False,False,None)
+            watch=SimpleNamespace(error=callback,stop_result=snapshot)
+            fs=TraceMemoryIO({"REPLACE":trace});root,output,service=self.controller(tmp,fs,"N4")
+            service.start_fault=Mock(return_value=watch);service.stop_fault=Mock(side_effect=stop)
+            with patch.object(safety,"MSBParentSupervisor",return_value=self.scope(case_record("N1")["msb"])),patch.object(native,"_remaining",side_effect=[100.,budget,budget]) as remaining:
+                with self.assertRaises(native.ControllerTracePublicationError) as caught:
+                    native.run_controller(root,output,"N4",case_binding(),services=service)
+            error=caught.exception;evidence=self.raw_evidence(error)
+            self.assertIs(evidence["budget_errors"][0],budget);self.assertIs(evidence["stop_exception"],stop)
+            self.assertIs(evidence["cached_result"],snapshot);self.assertIs(evidence["cached_callback_error"],callback)
+            self.assertEqual(service.stop_fault.call_count,1);self.assertEqual(remaining.call_count,3)
+            self.assertEqual(service.stop_fault.call_args.kwargs,{"remaining_seconds":0.})
+            record=error.record();self.assertFalse(record["fault_stop"]["stopped"])
+            self.assertTrue(record["fault_stop"]["cached_result_diagnostic_only"])
+            self.assertEqual(record["receipt_publication"]["status"],"SKIPPED_BUDGET_EXHAUSTED")
+            self.assertFalse((output/"controller/controller_failure.json").exists())
+            self.assertEqual(fs.calls,["CREATE","WRITE","CLOSE","REPLACE"])
+
+    def test_stop_capture_missing_or_conflicting_cache_never_promotes_success(self):
+        for cached in (False,True):
+            with self.subTest(cached=cached),tempfile.TemporaryDirectory() as tmp:
+                returned=native.FaultStopResult(True,True,False,False,ValueError("returned callback"))
+                snapshot=native.FaultStopResult(True,True,False,False,None)
+                callback=ValueError("cached callback")
+                watch=SimpleNamespace(stop_result=snapshot,error=callback) if cached else SimpleNamespace()
+                root,output,service=self.controller(tmp,TraceMemoryIO({"REPLACE":OSError("trace")}),"N4")
+                service.start_fault=Mock(return_value=watch);service.stop_fault=Mock(return_value=returned)
+                with patch.object(safety,"MSBParentSupervisor",return_value=self.scope(case_record("N1")["msb"])):
+                    with self.assertRaises(native.ControllerTracePublicationError) as caught:
+                        native.run_controller(root,output,"N4",case_binding(),services=service)
+                evidence=self.raw_evidence(caught.exception)
+                self.assertIs(evidence["returned_result"],returned)
+                self.assertIs(evidence["cached_result"],snapshot if cached else None)
+                self.assertIs(evidence["cached_callback_error"],callback if cached else None)
+                self.assertFalse(caught.exception.record()["fault_stop"]["stopped"])
+                self.assertEqual(service.stop_fault.call_count,1)
+        stop=OSError("stop wins");body=ValueError("scope exit")
+        with tempfile.TemporaryDirectory() as tmp:
+            root,output,service=self.controller(tmp,TraceMemoryIO(),"N4")
+            service.start_fault=Mock(return_value=SimpleNamespace());service.stop_fault=Mock(side_effect=stop)
+            with patch.object(safety,"MSBParentSupervisor",return_value=self.scope({},body)):
+                with self.assertRaises(OSError) as caught:native.run_controller(root,output,"N4",case_binding(),services=service)
+            self.assertIs(caught.exception,stop);self.assertEqual(service.stop_fault.call_count,1)
+        snapshot=native.FaultStopResult(True,True,False,False,None)
+        with patch.object(native,"_remaining",return_value=2.):
+            result,errors=native._bounded_fault_stop(SimpleNamespace(),case_binding(),SimpleNamespace(stop_fault=Mock(return_value=snapshot)))
+        self.assertIs(result,snapshot);self.assertEqual(errors,[])
+
+    def test_n4_failure_receipt_precedes_snapshot_checks_and_is_rejected(self):
+        failure=dict(status="FAILED_CONTROLLER_TRACE_PUBLICATION",inner_summary={"status":"FAILED"})
+        record=case_record("N4")
+        with patch.object(Path,"read_text",return_value=json.dumps(failure)),patch.object(native,"_read_json_if_present",side_effect=AssertionError("Snapshot must not precede failure")) as other:
+            try:loaded=native._load_case_record(Path("N4"),case_binding(),record["outer"],record["observation"])
+            except (ValueError,AssertionError) as error:self.fail("Missing N4 failure-first diagnostic: "+str(error))
+        self.assertEqual(loaded["controller_failure"],failure);self.assertTrue(loaded["diagnostic_only"])
+        self.assertEqual(other.call_count,0);self.assertEqual(loaded["events"],[]);self.assertIsNone(loaded["fault"])
+        with self.assertRaisesRegex(ValueError,"trace publication"):native._check_case(loaded,"N4",case_binding())
+        for fail_id in ("N1","N4"):
+            with self.subTest(fail_id=fail_id),tempfile.TemporaryDirectory() as tmp:
+                fixture=CollectorTests();self.addCleanup(fixture.doCleanups)
+                root,path,protocol,approval=fixture.protocol_file(tmp);service=FakeCollectorServices();original=service.run_outer
+                def outer(job,protocol,remaining_seconds):
+                    result=original(job,protocol,remaining_seconds)
+                    if job["case_id"]==fail_id:native._write_json(Path(job["case_dir"])/"controller/controller_failure.json",failure,exclusive=True)
+                    return result
+                service.run_outer=outer
+                result=native.run_acceptance(root,path,execute_native=True,approval=approval,services=service)
+                cases=result["case_records"]
+                self.assertTrue(cases[-1]["diagnostic_only"]);self.assertEqual(cases[-1]["controller_failure"],failure)
+                self.assertEqual([x[1] for x in service.calls if x[0]=="launch"],list(("N1","N2","N3","N4")[:("N1","N2","N3","N4").index(fail_id)+1]))
+                self.assertEqual(result["status"],"FAILED_NATIVE_SUPERVISION")
+
+    def test_partial_or_invalid_controller_receipt_remains_nonempty_failure(self):
+        read=self.required("_read_controller_failure");path=Path("N4/controller/controller_failure.json")
+        for text in ('{"status":','null','[]','{}','{"status":"COMPLETE"}'):
+            with self.subTest(text=text),patch.object(Path,"read_text",return_value=text) as io_read:
+                record=read(path)
+            self.assertEqual(record["status"],"INVALID_CONTROLLER_FAILURE");self.assertEqual(io_read.call_count,1)
+            self.assertNotIn('"status":',json.dumps(record.get("error")))
+        for error in (PermissionError("env=\nREADSECRET"),UnicodeError("bad encoding")):
+            with self.subTest(error=type(error).__name__),patch.object(Path,"read_text",side_effect=error):
+                record=read(path)
+            self.assertEqual(record["status"],"INVALID_CONTROLLER_FAILURE");self.assertNotIn("READSECRET",json.dumps(record))
+        with patch.object(Path,"read_text",side_effect=FileNotFoundError):self.assertIsNone(read(path))
+        failure=dict(status="FAILED_CONTROLLER_TRACE_PUBLICATION")
+        with patch.object(Path,"read_text",return_value=json.dumps(failure)):self.assertEqual(read(path),failure)
+
+    def test_actual_receipt_writer_preserves_partial_bytes_without_retry(self):
+        read=self.required("_read_controller_failure")
+        for mode in ("write","close"):
+            with self.subTest(mode=mode),tempfile.TemporaryDirectory() as tmp:
+                trace=OSError("trace");receipt=OSError("env=\nRECEIPTSECRET")
+                root,output,service=self.controller(tmp,TraceMemoryIO({"REPLACE":trace}))
+                with self.receipt_io(receipt,mode) as memory,patch.object(safety,"MSBParentSupervisor",return_value=self.scope(case_record("N1")["msb"])):
+                    with self.assertRaises(native.ControllerTracePublicationError) as caught:
+                        native.run_controller(root,output,"N1",case_binding(),services=service)
+                    path=output/"controller/controller_failure.json";before=memory.files[str(path)]
+                    loaded=read(path)
+                    self.assertIsNotNone(loaded);self.assertEqual(memory.files[str(path)],before)
+                    if mode=="write":self.assertEqual(loaded["status"],"INVALID_CONTROLLER_FAILURE")
+                    self.assertTrue(before.startswith("{"));self.assertEqual(memory.calls.count("OPEN"),1)
+                    self.assertEqual(memory.calls.count("CLOSE"),1)
+                self.assertIs(caught.exception.receipt_error,receipt)
+                self.assertIs(caught.exception.trace_publication.first_failure.first_error,trace)
+                self.assertEqual(caught.exception.record()["receipt_publication"]["status"],"FAILED")
+                self.assertFalse((output/"controller/controller_result.json").exists())
+
+    def test_obtained_row_survives_scope_stop_trace_and_receipt_failures(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            row=case_record("N1")["msb"];body=ValueError("BODYSECRET\nrelease")
+            stop=OSError("STOPSECRET\ncontext");callback=RuntimeError("env=\nCALLBACKSECRET")
+            trace=OSError("env=\nTRACESECRET");receipt=OSError("env=\nRECEIPTSECRET")
+            watch=SimpleNamespace(error=callback,stop_result=native.FaultStopResult(True,True,False,False,callback))
+            root,output,service=self.controller(tmp,TraceMemoryIO({"REPLACE":trace}),"N4")
+            service.start_fault=Mock(return_value=watch);service.stop_fault=Mock(side_effect=stop)
+            with self.receipt_io(receipt) as memory,patch.object(safety,"MSBParentSupervisor",return_value=self.scope(row,body)):
+                with self.assertRaises(native.ControllerTracePublicationError) as caught:
+                    native.run_controller(root,output,"N4",case_binding(),services=service)
+                error=caught.exception;evidence=self.raw_evidence(error)
+                self.assertIs(error.inner_row,row);self.assertTrue(any(e is body for e in error.body_errors))
+                self.assertIs(evidence["stop_exception"],stop);self.assertIs(evidence["cached_callback_error"],callback)
+                self.assertIs(error.trace_publication.first_failure.first_error,trace);self.assertIs(error.receipt_error,receipt)
+                self.assertEqual(memory.calls,["OPEN","WRITE","CLOSE"])
+                self.assertEqual(memory.files[str(output/"controller/controller_failure.json")],"{")
+            text=json.dumps(error.record())+self.cli(error,root,output,service,"N4")
+            for secret in ("BODYSECRET","STOPSECRET","CALLBACKSECRET","TRACESECRET","RECEIPTSECRET"):self.assertNotIn(secret,text)
+            self.assertEqual(service.stop_fault.call_count,1);self.assertFalse((output/"controller/controller_result.json").exists())
+
+    def test_absent_failure_keeps_legacy_case_and_stop_contracts(self):
+        for case_id in ("N1","N2","N3","N4"):
+            with self.subTest(case_id=case_id),tempfile.TemporaryDirectory() as tmp:
+                record=case_record(case_id);case=Path(tmp)/case_id;folder=case/"controller";folder.mkdir(parents=True)
+                (folder/"trace.json").write_text(json.dumps(record["events"]))
+                if record["msb"] is not None:(folder/"controller_result.json").write_text(json.dumps(record))
+                if record["worker_closed"] is not None:
+                    work=folder/"runs"/case_id;work.mkdir(parents=True)
+                    (work/"worker_closed.json").write_text(json.dumps(record["worker_closed"]))
+                if record["fault"] is not None:
+                    (case/"parent_fault.json").write_text(json.dumps(record["fault"]))
+                    (case/"fault_trace.json").write_text(json.dumps(record["events"]))
+                loaded=native._load_case_record(case,case_binding(),record["outer"],record["observation"])
+                self.assertIsNone(loaded["controller_failure"]);self.assertNotIn("diagnostic_only",loaded)
+                native._check_case(loaded,case_id,case_binding())
+                if case_id=="N4":
+                    (case/"fault_trace.json").write_text("[]")
+                    with self.assertRaisesRegex(ValueError,"persisted fault snapshot"):
+                        native._load_case_record(case,case_binding(),record["outer"],record["observation"])
+        for case_id in ("N1","N2","N3"):
+            with self.subTest(controller=case_id),tempfile.TemporaryDirectory() as tmp:
+                root,output,service=self.controller(tmp,TraceMemoryIO(),case_id)
+                result=native.run_controller(root,output,case_id,case_binding(),services=service)
+                self.assertIn("msb",result);self.assertFalse((output/"controller/controller_failure.json").exists())

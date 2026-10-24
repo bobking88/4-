@@ -1,0 +1,51 @@
+{
+  "date": "2026-10-24",
+  "approval_id": "call_d010267bd19d42f0b34c89e9822bd6db",
+  "baseline_commit": "0c3fe0172e41eb1ce66e07f1101af903e1dc8596",
+  "inherited_records": {
+    "path": "outputs/msb_trace_retention_review_fix_plan_v1/protection_before.json",
+    "raw_sha256": "43337479ad8365dd9fa0078aa371ca21224666b055097abee68f5538ee5596c8",
+    "record_count": 376,
+    "path_sha256_overrides": {
+      "README.md": "3ebf876063825badaa4e1e34ef9b25bdd16e8a3825fed866373f463ec35bd07c"
+    }
+  },
+  "additional_records": [
+    {
+      "path": "README.md",
+      "sha256": "3ebf876063825badaa4e1e34ef9b25bdd16e8a3825fed866373f463ec35bd07c"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-10-24-msb-trace-retention-review-fix-design.md",
+      "sha256": "a986c56142d4dd7944fe9daf27f5f80b3ca2e59b3150e6a39af6d02650498ae2"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-24-msb-trace-retention-review-fix.md",
+      "sha256": "fb4f33e1552666a071bffd7d25c52541632d486cba3cdae2e71286982780efde"
+    },
+    {
+      "path": "outputs/msb_trace_retention_review_fix_plan_v1/authorization.json",
+      "sha256": "e997259b125fbb1af27507a633c69df964109845150419b297abcc15b8524e73"
+    },
+    {
+      "path": "outputs/msb_trace_retention_review_fix_plan_v1/protection_before.json",
+      "sha256": "43337479ad8365dd9fa0078aa371ca21224666b055097abee68f5538ee5596c8"
+    },
+    {
+      "path": "outputs/msb_trace_retention_review_fix_plan_v1/protection_after.json",
+      "sha256": "56b53537b333c88c5f9f23b707dc257e4953f56a5b906b2db1ebc10d7b969f05"
+    },
+    {
+      "path": "outputs/msb_trace_retention_review_fix_plan_v1/document_check.json",
+      "sha256": "c3b37c9b660a77aaadc4ab7e6e526d202c74202a8bcb5b3de2478e365352d791"
+    }
+  ],
+  "record_count": 383,
+  "duplicate_records_preserved": true,
+  "allowed_existing_changes": [
+    "scripts/check_msb_native_supervision.py",
+    "tests/test_check_msb_native_supervision.py",
+    "tests/run_msb_native_supervision_synthetic_acceptance.py",
+    "README.md"
+  ]
+}

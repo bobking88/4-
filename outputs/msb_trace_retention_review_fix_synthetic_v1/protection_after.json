@@ -1,0 +1,203 @@
+{
+  "date": "2026-10-24",
+  "approval_id": "call_d010267bd19d42f0b34c89e9822bd6db",
+  "baseline_commit": "0c3fe0172e41eb1ce66e07f1101af903e1dc8596",
+  "checked_records": 383,
+  "unchanged_records": 357,
+  "changed_records": [
+    {
+      "path": "README.md",
+      "before_sha256": "3ebf876063825badaa4e1e34ef9b25bdd16e8a3825fed866373f463ec35bd07c",
+      "sha256": "4f832d3c92aef25ac991a7b1f082167de7ca5b9019cbe0166f066ea94eac4186",
+      "allowed": true
+    },
+    {
+      "path": "scripts/check_msb_native_supervision.py",
+      "before_sha256": "16577cdf8a32e11503c43c1c92856e90d26f04095ccfcf095c67c0636455af86",
+      "sha256": "30ff7c45947108b80fd9c867d6ff8113590dd372fbcdbf4fd143e3d94123ae83",
+      "allowed": true
+    },
+    {
+      "path": "tests/test_check_msb_native_supervision.py",
+      "before_sha256": "03068ccb2421199231e9703edaac57fc0caab44ae78d73de7295472084f35009",
+      "sha256": "f980f9470f4392968f7cb915b8c91b8ce710f676008ae525e484168ad91517d6",
+      "allowed": true
+    },
+    {
+      "path": "tests/run_msb_native_supervision_synthetic_acceptance.py",
+      "before_sha256": "dbe464bdf12bbada279918ec4df2fbd0f8bb157772d78703e391c5c8b24ce72e",
+      "sha256": "838c427470360d4274f203057bc2d3e2ea16a9ec428b3347c1b014bca527379b",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "3ebf876063825badaa4e1e34ef9b25bdd16e8a3825fed866373f463ec35bd07c",
+      "sha256": "4f832d3c92aef25ac991a7b1f082167de7ca5b9019cbe0166f066ea94eac4186",
+      "allowed": true
+    },
+    {
+      "path": "scripts/check_msb_native_supervision.py",
+      "before_sha256": "16577cdf8a32e11503c43c1c92856e90d26f04095ccfcf095c67c0636455af86",
+      "sha256": "30ff7c45947108b80fd9c867d6ff8113590dd372fbcdbf4fd143e3d94123ae83",
+      "allowed": true
+    },
+    {
+      "path": "tests/run_msb_native_supervision_synthetic_acceptance.py",
+      "before_sha256": "dbe464bdf12bbada279918ec4df2fbd0f8bb157772d78703e391c5c8b24ce72e",
+      "sha256": "838c427470360d4274f203057bc2d3e2ea16a9ec428b3347c1b014bca527379b",
+      "allowed": true
+    },
+    {
+      "path": "tests/test_check_msb_native_supervision.py",
+      "before_sha256": "03068ccb2421199231e9703edaac57fc0caab44ae78d73de7295472084f35009",
+      "sha256": "f980f9470f4392968f7cb915b8c91b8ce710f676008ae525e484168ad91517d6",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "3ebf876063825badaa4e1e34ef9b25bdd16e8a3825fed866373f463ec35bd07c",
+      "sha256": "4f832d3c92aef25ac991a7b1f082167de7ca5b9019cbe0166f066ea94eac4186",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "3ebf876063825badaa4e1e34ef9b25bdd16e8a3825fed866373f463ec35bd07c",
+      "sha256": "4f832d3c92aef25ac991a7b1f082167de7ca5b9019cbe0166f066ea94eac4186",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "3ebf876063825badaa4e1e34ef9b25bdd16e8a3825fed866373f463ec35bd07c",
+      "sha256": "4f832d3c92aef25ac991a7b1f082167de7ca5b9019cbe0166f066ea94eac4186",
+      "allowed": true
+    },
+    {
+      "path": "scripts/check_msb_native_supervision.py",
+      "before_sha256": "16577cdf8a32e11503c43c1c92856e90d26f04095ccfcf095c67c0636455af86",
+      "sha256": "30ff7c45947108b80fd9c867d6ff8113590dd372fbcdbf4fd143e3d94123ae83",
+      "allowed": true
+    },
+    {
+      "path": "tests/run_msb_native_supervision_synthetic_acceptance.py",
+      "before_sha256": "dbe464bdf12bbada279918ec4df2fbd0f8bb157772d78703e391c5c8b24ce72e",
+      "sha256": "838c427470360d4274f203057bc2d3e2ea16a9ec428b3347c1b014bca527379b",
+      "allowed": true
+    },
+    {
+      "path": "tests/test_check_msb_native_supervision.py",
+      "before_sha256": "03068ccb2421199231e9703edaac57fc0caab44ae78d73de7295472084f35009",
+      "sha256": "f980f9470f4392968f7cb915b8c91b8ce710f676008ae525e484168ad91517d6",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "3ebf876063825badaa4e1e34ef9b25bdd16e8a3825fed866373f463ec35bd07c",
+      "sha256": "4f832d3c92aef25ac991a7b1f082167de7ca5b9019cbe0166f066ea94eac4186",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "3ebf876063825badaa4e1e34ef9b25bdd16e8a3825fed866373f463ec35bd07c",
+      "sha256": "4f832d3c92aef25ac991a7b1f082167de7ca5b9019cbe0166f066ea94eac4186",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "3ebf876063825badaa4e1e34ef9b25bdd16e8a3825fed866373f463ec35bd07c",
+      "sha256": "4f832d3c92aef25ac991a7b1f082167de7ca5b9019cbe0166f066ea94eac4186",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "3ebf876063825badaa4e1e34ef9b25bdd16e8a3825fed866373f463ec35bd07c",
+      "sha256": "4f832d3c92aef25ac991a7b1f082167de7ca5b9019cbe0166f066ea94eac4186",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "3ebf876063825badaa4e1e34ef9b25bdd16e8a3825fed866373f463ec35bd07c",
+      "sha256": "4f832d3c92aef25ac991a7b1f082167de7ca5b9019cbe0166f066ea94eac4186",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "3ebf876063825badaa4e1e34ef9b25bdd16e8a3825fed866373f463ec35bd07c",
+      "sha256": "4f832d3c92aef25ac991a7b1f082167de7ca5b9019cbe0166f066ea94eac4186",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "3ebf876063825badaa4e1e34ef9b25bdd16e8a3825fed866373f463ec35bd07c",
+      "sha256": "4f832d3c92aef25ac991a7b1f082167de7ca5b9019cbe0166f066ea94eac4186",
+      "allowed": true
+    },
+    {
+      "path": "scripts/check_msb_native_supervision.py",
+      "before_sha256": "16577cdf8a32e11503c43c1c92856e90d26f04095ccfcf095c67c0636455af86",
+      "sha256": "30ff7c45947108b80fd9c867d6ff8113590dd372fbcdbf4fd143e3d94123ae83",
+      "allowed": true
+    },
+    {
+      "path": "tests/run_msb_native_supervision_synthetic_acceptance.py",
+      "before_sha256": "dbe464bdf12bbada279918ec4df2fbd0f8bb157772d78703e391c5c8b24ce72e",
+      "sha256": "838c427470360d4274f203057bc2d3e2ea16a9ec428b3347c1b014bca527379b",
+      "allowed": true
+    },
+    {
+      "path": "tests/test_check_msb_native_supervision.py",
+      "before_sha256": "03068ccb2421199231e9703edaac57fc0caab44ae78d73de7295472084f35009",
+      "sha256": "f980f9470f4392968f7cb915b8c91b8ce710f676008ae525e484168ad91517d6",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "3ebf876063825badaa4e1e34ef9b25bdd16e8a3825fed866373f463ec35bd07c",
+      "sha256": "4f832d3c92aef25ac991a7b1f082167de7ca5b9019cbe0166f066ea94eac4186",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "3ebf876063825badaa4e1e34ef9b25bdd16e8a3825fed866373f463ec35bd07c",
+      "sha256": "4f832d3c92aef25ac991a7b1f082167de7ca5b9019cbe0166f066ea94eac4186",
+      "allowed": true
+    }
+  ],
+  "unique_changed_existing_paths": [
+    "README.md",
+    "scripts/check_msb_native_supervision.py",
+    "tests/run_msb_native_supervision_synthetic_acceptance.py",
+    "tests/test_check_msb_native_supervision.py"
+  ],
+  "all_changes_within_approved_scope": true,
+  "old_native_raw_files_verified": 14,
+  "old_native_originals_rewritten": false,
+  "formal_reports": [
+    {
+      "path": "结题/基于深度学习的钒钛矿相关矿物图像识别方法研究_技术报告（正式版）.docx",
+      "sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+      "unchanged": true
+    },
+    {
+      "path": "D:/成信工科研/人工智能选矿/结题/基于深度学习的钒钛矿相关矿物图像识别方法研究_技术报告（正式版）.docx",
+      "sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+      "unchanged": true
+    }
+  ],
+  "preexisting_pngs_preserved": true,
+  "native_protocol_unchanged": true,
+  "network_formula_scientific_matrix_unchanged": true,
+  "new_native_runs": 0,
+  "real_data_opened": false,
+  "real_fits": 0,
+  "scientific_model_forwards": 0,
+  "agents_dispatched": 0,
+  "nested_agents_dispatched": 0,
+  "actual_new_tests": 10,
+  "test_entry_runs": 3,
+  "project_imports": 0,
+  "code_edits": 3,
+  "formal_report_edits": 0,
+  "scope": "THREE_FILE_CODE_AND_BOUNDED_SYNTHETIC_ACCEPTANCE",
+  "scientific_gate_promoted": false,
+  "independent_review_performed": false
+}

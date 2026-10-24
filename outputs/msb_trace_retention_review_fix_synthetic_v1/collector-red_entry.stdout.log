@@ -1,0 +1,129 @@
+{"scope": "SYNTHETIC_CONTRACT_ONLY", "phase": "collector-green", "attempt": 1, "bootstrap": {"torch": "2.12.1+cu130", "sklearn": "1.9.0"}, "unused_dependency_stubs": ["torchvision.models", "torchvision.transforms"], "status": "FAILED", "modules": ["test_check_msb_native_supervision"], "tests_run": 1, "failures": 0, "errors": 0, "skipped": 1, "expected_failures": 0, "unexpected_successes": 0, "unmocked_boundary_calls": [], "native_os_exercised": false, "real_data_opened": false, "real_fits": 0, "temporary_synthetic_tensor_reads": 0, "source_snapshot": "DIRECT_PRE_RUN_CAPTURE", "harness_error": null}
+
+{"scope": "SYNTHETIC_CONTRACT_ONLY", "phase": "collector-red", "attempt": 1, "bootstrap": {"torch": "2.12.1+cu130", "sklearn": "1.9.0"}, "unused_dependency_stubs": ["torchvision.models", "torchvision.transforms"], "status": "FAILED", "modules": ["test_check_msb_native_supervision"], "tests_run": 116, "failures": 30, "errors": 0, "skipped": 0, "expected_failures": 0, "unexpected_successes": 0, "unmocked_boundary_calls": [], "native_os_exercised": false, "real_data_opened": false, "real_fits": 0, "temporary_synthetic_tensor_reads": 0, "source_snapshot": "DIRECT_PRE_RUN_CAPTURE", "harness_error": null}
+action_drops_multiline_context_without_changing_original
+    self.assertEqual(native._fault_error_record(error)["message"],"<redacted context>")
+AssertionError: 'SHORTSECRET\u2028safe' != '<redacted context>'
++ <redacted context>- SHORTSECRET - safe
+
+======================================================================
+FAIL: test_error_redaction_drops_multiline_context_without_changing_original (test_check_msb_native_supervision.TraceRetentionReviewFixTests.test_error_redaction_drops_multiline_context_without_changing_original) (separator="'\\u2028'", message='SHORTSECRET EnViRoNmEnT=value')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2061, in test_error_redaction_drops_multiline_context_without_changing_original
+    self.assertEqual(native._fault_error_record(error)["message"],"<redacted context>")
+AssertionError: 'SHORTSECRET <redacted context>' != '<redacted context>'
+- SHORTSECRET <redacted context>
+? ------------
++ <redacted context>
+
+
+======================================================================
+FAIL: test_error_redaction_drops_multiline_context_without_changing_original (test_check_msb_native_supervision.TraceRetentionReviewFixTests.test_error_redaction_drops_multiline_context_without_changing_original) (separator="'\\u2029'", message='SHORTSECRET\u2029safe')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2061, in test_error_redaction_drops_multiline_context_without_changing_original
+    self.assertEqual(native._fault_error_record(error)["message"],"<redacted context>")
+AssertionError: 'SHORTSECRET\u2029safe' != '<redacted context>'
++ <redacted context>- SHORTSECRET - safe
+
+======================================================================
+FAIL: test_error_redaction_drops_multiline_context_without_changing_original (test_check_msb_native_supervision.TraceRetentionReviewFixTests.test_error_redaction_drops_multiline_context_without_changing_original) (separator="'\\u2029'", message='SHORTSECRET EnViRoNmEnT=value')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2061, in test_error_redaction_drops_multiline_context_without_changing_original
+    self.assertEqual(native._fault_error_record(error)["message"],"<redacted context>")
+AssertionError: 'SHORTSECRET <redacted context>' != '<redacted context>'
+- SHORTSECRET <redacted context>
+? ------------
++ <redacted context>
+
+
+======================================================================
+FAIL: test_n4_failure_receipt_precedes_snapshot_checks_and_is_rejected (test_check_msb_native_supervision.TraceRetentionReviewFixTests.test_n4_failure_receipt_precedes_snapshot_checks_and_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2165, in test_n4_failure_receipt_precedes_snapshot_checks_and_is_rejected
+    try:loaded=native._load_case_record(Path("N4"),case_binding(),record["outer"],record["observation"])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 1153, in _load_case_record
+    inner=_read_json_if_present(case_dir/"controller/controller_result.json")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1124, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1128, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python311\Lib\unittest\mock.py", line 1183, in _execute_mock_call
+    raise effect
+AssertionError: Snapshot must not precede failure
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2166, in test_n4_failure_receipt_precedes_snapshot_checks_and_is_rejected
+    except (ValueError,AssertionError) as error:self.fail("Missing N4 failure-first diagnostic: "+str(error))
+                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Missing N4 failure-first diagnostic: Snapshot must not precede failure
+
+======================================================================
+FAIL: test_n4_trace_failure_retains_budget_stop_callback_and_cached_snapshot (test_check_msb_native_supervision.TraceRetentionReviewFixTests.test_n4_trace_failure_retains_budget_stop_callback_and_cached_snapshot)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2120, in test_n4_trace_failure_retains_budget_stop_callback_and_cached_snapshot
+    error=caught.exception;evidence=self.raw_evidence(error)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2008, in raw_evidence
+    self.assertTrue(hasattr(error,"fault_stop_evidence"),"Missing raw fault-stop evidence")
+AssertionError: False is not true : Missing raw fault-stop evidence
+
+======================================================================
+FAIL: test_obtained_row_survives_scope_stop_trace_and_receipt_failures (test_check_msb_native_supervision.TraceRetentionReviewFixTests.test_obtained_row_survives_scope_stop_trace_and_receipt_failures)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2231, in test_obtained_row_survives_scope_stop_trace_and_receipt_failures
+    error=caught.exception;evidence=self.raw_evidence(error)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2008, in raw_evidence
+    self.assertTrue(hasattr(error,"fault_stop_evidence"),"Missing raw fault-stop evidence")
+AssertionError: False is not true : Missing raw fault-stop evidence
+
+======================================================================
+FAIL: test_partial_or_invalid_controller_receipt_remains_nonempty_failure (test_check_msb_native_supervision.TraceRetentionReviewFixTests.test_partial_or_invalid_controller_receipt_remains_nonempty_failure)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2186, in test_partial_or_invalid_controller_receipt_remains_nonempty_failure
+    read=self.required("_read_controller_failure");path=Path("N4/controller/controller_failure.json")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 1991, in required
+    self.assertTrue(callable(value),"Missing review-fix behavior: "+name)
+AssertionError: False is not true : Missing review-fix behavior: _read_controller_failure
+
+======================================================================
+FAIL: test_stop_capture_missing_or_conflicting_cache_never_promotes_success (test_check_msb_native_supervision.TraceRetentionReviewFixTests.test_stop_capture_missing_or_conflicting_cache_never_promotes_success) (cached=False)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2143, in test_stop_capture_missing_or_conflicting_cache_never_promotes_success
+    evidence=self.raw_evidence(caught.exception)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2008, in raw_evidence
+    self.assertTrue(hasattr(error,"fault_stop_evidence"),"Missing raw fault-stop evidence")
+AssertionError: False is not true : Missing raw fault-stop evidence
+
+======================================================================
+FAIL: test_stop_capture_missing_or_conflicting_cache_never_promotes_success (test_check_msb_native_supervision.TraceRetentionReviewFixTests.test_stop_capture_missing_or_conflicting_cache_never_promotes_success) (cached=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2143, in test_stop_capture_missing_or_conflicting_cache_never_promotes_success
+    evidence=self.raw_evidence(caught.exception)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2008, in raw_evidence
+    self.assertTrue(hasattr(error,"fault_stop_evidence"),"Missing raw fault-stop evidence")
+AssertionError: False is not true : Missing raw fault-stop evidence
+
+----------------------------------------------------------------------
+Ran 116 tests in 4.350s
+
+FAILED (failures=30)
+

@@ -378,6 +378,8 @@ C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独�
 
 2026-10-24 trace复查修复文档更新：按仅文档授权归档[最小修复规格](docs/superpowers/specs/2026-10-24-msb-trace-retention-review-fix-design.md)与[配套实施计划](docs/superpowers/plans/2026-10-24-msb-trace-retention-review-fix.md)，针对R1多行脱敏、R2停止原因保留、R3 N4失败回执先读，以及联合异常/部分回执覆盖。未来仅原三文件、原生会话内实施，拟保留267全名并增固定10名；277是未来期望，不是本轮结果。376条保护仅允许索引变化；未改源码、未运行测试/前向/拟合/探查/原生验收，未读真实数据、未派代理、未改正式报告。当前DOCUMENTED_NOT_IMPLEMENTED_NOT_RUN；规格/计划尚待审核，开发、独立复查、原生及真实科学实验仍分别另批，网络创新效果仍未验证。
 
+2026-10-24 trace复查修复实施更新：按另批三文件工作包完成[作者实施与有限合成验收](docs/experiment_records/2026-10-24_msb_trace_retention_review_fix_acceptance.md)。RED/001为116项、30个缺行为断言失败，GREEN/001为116/116，final/001为277/277，原267完整名保留、新增固定10名；三阶段各一次，零错误/跳过/未模拟调用。补整消息脱敏、停止双异常/缓存分离、N4失败回执先读，以及实际JSON helper部分写入和联合异常；测试/验收器在RED后冻结。383条保护仅允许三源码和索引变化，旧原件、网络/公式/矩阵与正式报告不改；两次既有scratch合成张量读取不等于真实科学前向或训练。当前AUTHOR_SYNTHETIC_ACCEPTED_INDEPENDENT_REVIEW_PENDING，未派代理、未做新原生/真实实验，Windows首因和网络创新效果仍未验证。独立复查及原生/科学实验分别另批，旧v2许可/目录不能复用。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.

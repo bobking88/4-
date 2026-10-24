@@ -74,7 +74,7 @@ def main(argv=None):
     parser = argparse.ArgumentParser()
     parser.add_argument("--phase", required=True, choices=tuple(PHASES))
     args = parser.parse_args(argv)
-    phase_root = ROOT/"outputs/msb_trace_publication_retention_synthetic_v1"/args.phase
+    phase_root = ROOT/"outputs/msb_trace_retention_review_fix_synthetic_v1"/args.phase
     phase_root.mkdir(parents=True, exist_ok=True)
     legacy_attempt = (phase_root/"acceptance_summary.json").exists()
     for attempt in range(1, 4):
@@ -87,7 +87,7 @@ def main(argv=None):
             continue
     else:
         raise FileExistsError("Three synthetic attempts consumed; retain all evidence and stop")
-    scratch = ROOT/".superpowers/sdd/2026-10-23-msb-trace-publication-retention/test-tmp"
+    scratch = ROOT/".superpowers/sdd/2026-10-24-msb-trace-retention-review-fix/test-tmp"
     scratch.mkdir(parents=True, exist_ok=True)
     tempfile.tempdir = str(scratch)
     snapshots = _snapshot_sources(ROOT)

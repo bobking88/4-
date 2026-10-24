@@ -1,0 +1,121 @@
+{
+  "date": "2026-10-24",
+  "approval_id": "call_d010267bd19d42f0b34c89e9822bd6db",
+  "raw_file_count": 16,
+  "files": [
+    {
+      "path": "outputs/msb_trace_retention_review_fix_synthetic_v1/collector-red/attempt-001/acceptance_summary.json",
+      "bytes": 711,
+      "raw_sha256": "3a334d549c544b96773bc6348ef684ccc1ae877bf0768a5236a16e9703daa44c",
+      "canonical_lf_sha256": "dac9b13eaf7a241f3ba241e7a686237a03e30f9bbe37ab4941693bc4c5c1d474",
+      "git_blob_sha1": "c2b7369201997c1b8cb50034adafc6afe7c6d408"
+    },
+    {
+      "path": "outputs/msb_trace_retention_review_fix_synthetic_v1/collector-red/attempt-001/source_snapshot.json",
+      "bytes": 266162,
+      "raw_sha256": "5ac687ed2d77f3e446778df875bb31454623186850b8137d6219b47ba3591f4f",
+      "canonical_lf_sha256": "1c9ea4c9416a80d6e9df1fbe3360d604acaeeb23678abdecae7f4c19460def59",
+      "git_blob_sha1": "78561ab44ef7699e01458c074c2860b54aa37f93"
+    },
+    {
+      "path": "outputs/msb_trace_retention_review_fix_synthetic_v1/collector-red/attempt-001/synthetic_tests.log",
+      "bytes": 56669,
+      "raw_sha256": "073f1f48277ec2593ad98bb1e07920957d47519104c027fc44cd10b704e7a5ca",
+      "canonical_lf_sha256": "560b698e9080f2c46a2ed76070cadaf979d0b8aa23270bde1f8b6d1990f65f20",
+      "git_blob_sha1": "1387834df941de56cc0210b0bb26a4e7b37ba240"
+    },
+    {
+      "path": "outputs/msb_trace_retention_review_fix_synthetic_v1/collector-red_entry.stdout.log",
+      "bytes": 11700,
+      "raw_sha256": "c957f803c5f001c3a4ac51fdaafbb66a0c96898e3f357fe1c335d5ad04bc5379",
+      "canonical_lf_sha256": "30849403d480409d6b2e3644ada786c9306bdf00b2a6df4c0329c2bd9e45afcc",
+      "git_blob_sha1": "ea4e7e3618176caf9236ac9d8ceff7e481cf9757"
+    },
+    {
+      "path": "outputs/msb_trace_retention_review_fix_synthetic_v1/collector-red_entry.stderr.log",
+      "bytes": 0,
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "canonical_lf_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob_sha1": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": "outputs/msb_trace_retention_review_fix_synthetic_v1/collector-green/attempt-001/acceptance_summary.json",
+      "bytes": 712,
+      "raw_sha256": "38d300dae183af3a83ee07a6b95695ec288eb0dff356e0758507a3645ba2f539",
+      "canonical_lf_sha256": "66491ca69154f5de1d5ff8ce2c36e8692afda3e20cba097148e47ab71e075fe8",
+      "git_blob_sha1": "b5eb6b5fcd45c9c1f2e9ae860e129f278d0b538b"
+    },
+    {
+      "path": "outputs/msb_trace_retention_review_fix_synthetic_v1/collector-green/attempt-001/source_snapshot.json",
+      "bytes": 268896,
+      "raw_sha256": "3f524580ca2a3fdfbf22751a098d79adfb25007466e28ce0595668b5e4054a92",
+      "canonical_lf_sha256": "9fabbfa414ea8cba370f7dfa5f36c0b64c67e69e1de98d13e9489df892d4040a",
+      "git_blob_sha1": "4f20e294033323420ee81f355622a02aafbe64ac"
+    },
+    {
+      "path": "outputs/msb_trace_retention_review_fix_synthetic_v1/collector-green/attempt-001/synthetic_tests.log",
+      "bytes": 21408,
+      "raw_sha256": "2c4683bcf3b7dabd5f423303f552cdb174f06eba61a6569f6e911fe5f403e03e",
+      "canonical_lf_sha256": "c07f924b04df457292aada3f8de4febb914e1aefd6a6e356eacad202adf16db7",
+      "git_blob_sha1": "3e483d6ee503b12e1cdd0b52efbeab92223d33d2"
+    },
+    {
+      "path": "outputs/msb_trace_retention_review_fix_synthetic_v1/collector-green_entry.stdout.log",
+      "bytes": 1218,
+      "raw_sha256": "74bc333e7f2a49ebacca06cf72ef51c7d99d623d2cc244ba6d879795cae72468",
+      "canonical_lf_sha256": "a5345e3efeda191d907d2a27c4665b84b47c26a517d8ad458887830bea4e2233",
+      "git_blob_sha1": "3f4290494493ad05984d22639126856550b9db2c"
+    },
+    {
+      "path": "outputs/msb_trace_retention_review_fix_synthetic_v1/collector-green_entry.stderr.log",
+      "bytes": 0,
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "canonical_lf_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob_sha1": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": "outputs/msb_trace_retention_review_fix_synthetic_v1/final/attempt-001/acceptance_summary.json",
+      "bytes": 995,
+      "raw_sha256": "7a9a91659ee7a69c4d6397d4d78ce0fbc399b6ce9847b6fcf0e6e5fd4c768779",
+      "canonical_lf_sha256": "d749473de8bd6180ba935abe2b3ec2572dee42856647740d9a08b8ba6e96a0f6",
+      "git_blob_sha1": "e9badfdc7040c251ca806c251f21026ebc6772ca"
+    },
+    {
+      "path": "outputs/msb_trace_retention_review_fix_synthetic_v1/final/attempt-001/source_snapshot.json",
+      "bytes": 268896,
+      "raw_sha256": "3f524580ca2a3fdfbf22751a098d79adfb25007466e28ce0595668b5e4054a92",
+      "canonical_lf_sha256": "9fabbfa414ea8cba370f7dfa5f36c0b64c67e69e1de98d13e9489df892d4040a",
+      "git_blob_sha1": "4f20e294033323420ee81f355622a02aafbe64ac"
+    },
+    {
+      "path": "outputs/msb_trace_retention_review_fix_synthetic_v1/final/attempt-001/synthetic_tests.log",
+      "bytes": 45289,
+      "raw_sha256": "5f019b71634238905d535f93efc92f0cf752e67fa8096fba236c500d2ed2f161",
+      "canonical_lf_sha256": "97138339fcc68756c7e37042c102607a31120d4f637548fb7b9914234fba3f9a",
+      "git_blob_sha1": "36de135a5e321309acb85ed5cdbd6d053fdffebe"
+    },
+    {
+      "path": "outputs/msb_trace_retention_review_fix_synthetic_v1/final_entry.stdout.log",
+      "bytes": 1456,
+      "raw_sha256": "d0508fa45cc71bd7229242c3c52e2f4e19b4b4dd67d39b4a4eba6c7cef81b119",
+      "canonical_lf_sha256": "3842009567a3a8cfb69ddb5795f1abe3afd50eabc61e516f68f949183bca3ecb",
+      "git_blob_sha1": "2b7ead31c197fc9be6d21bb1802126ec9e83535f"
+    },
+    {
+      "path": "outputs/msb_trace_retention_review_fix_synthetic_v1/final_entry.stderr.log",
+      "bytes": 0,
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "canonical_lf_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob_sha1": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": "outputs/msb_trace_retention_review_fix_synthetic_v1/execution_ledger.md",
+      "bytes": 2761,
+      "raw_sha256": "eabeabce48ef74605725421250221c2046f95bcc281ece0bfcf9cf89fd014dac",
+      "canonical_lf_sha256": "eabeabce48ef74605725421250221c2046f95bcc281ece0bfcf9cf89fd014dac",
+      "git_blob_sha1": "e535aeaf1c891b4ca3760348a0dd9dce3f311619"
+    }
+  ],
+  "git_text_line_endings": "Git canonical LF may differ from original CRLF; raw and canonical hashes are separate.",
+  "ledger_is_author_record_not_independent_history": true
+}

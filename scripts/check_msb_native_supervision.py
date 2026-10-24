@@ -87,7 +87,10 @@ FIXED = dict(protocol="msb_native_supervision_v2", status="APPROVED_NATIVE_ONLY"
 
 
 def _fault_error_record(error):
-    message=re.sub(r"(?i)\b(?:nonce|handles?|environment|env)\b.*", "<redacted context>",str(error))
+    message=str(error)
+    if (any(c in message for c in "\n\r\v\f\x1c\x1d\x1e\x85\u2028\u2029")
+            or re.search(r"(?i)\b(?:nonce|handles?|environment|env)\b",message)):
+        message="<redacted context>"
     message=re.sub(r"(?i)\b[a-f0-9]{64}\b|\b0x[a-f0-9]+\b|\b[0-9]+\b","<redacted>",message)[:256]
     frames=[];trace=error.__traceback__
     while trace is not None:
@@ -345,10 +348,11 @@ class TracePublicationState:
 
 
 class ControllerTracePublicationError(RuntimeError):
-    def __init__(self,case_id,binding,*,inner_row,parent_power,body_errors,fault_stop,trace_publication):
+    def __init__(self,case_id,binding,*,inner_row,parent_power,body_errors,fault_stop,trace_publication,fault_stop_evidence=None):
         self.case_id,self.binding=case_id,copy.deepcopy(binding)
         self.inner_row,self.parent_power=inner_row,parent_power
         self.body_errors=list(body_errors);self.fault_stop=fault_stop;self.trace_publication=trace_publication
+        self.fault_stop_evidence=fault_stop_evidence
         self.receipt_error=None;self.receipt_publication=dict(status="NOT_ATTEMPTED",error=None)
         super().__init__("Controller failed trace publication; inspect redacted diagnostics")
 
@@ -364,9 +368,23 @@ class ControllerTracePublicationError(RuntimeError):
                    "poll_gap_limit_seconds","suspend_tolerance_seconds","power_request_acquired","power_request_released")
             power={k:v for k,v in self.parent_power.items() if k in names and type(v) in (bool,int,float)
                    and (type(v) is not float or math.isfinite(v))}
+        fault_stop=self.fault_stop
+        if self.fault_stop_evidence is not None:
+            evidence=self.fault_stop_evidence
+            result=evidence["returned_result"];cached=evidence["cached_result"]
+            stop_error=evidence["stop_exception"];callback=evidence["cached_callback_error"]
+            errors=evidence["budget_errors"]
+            stopped=(isinstance(fault_stop,dict) and fault_stop.get("stopped") is True
+                     and stop_error is None and not errors and isinstance(result,FaultStopResult) and result.stop_ok)
+            fault_stop=dict(result=result.record() if isinstance(result,FaultStopResult) else None,
+                errors=[_fault_error_record(e) for e in errors],
+                exception=None if stop_error is None else _fault_error_record(stop_error),stopped=stopped,
+                cached_result=cached.record() if isinstance(cached,FaultStopResult) else None,
+                cached_callback_error=None if callback is None else _fault_error_record(callback),
+                cached_result_diagnostic_only=True)
         return dict(status="FAILED_CONTROLLER_TRACE_PUBLICATION",case_id=self.case_id,binding=copy.deepcopy(self.binding),
                     inner_summary=summary,parent_power=power,body_errors=[_fault_error_record(e) for e in self.body_errors],
-                    fault_stop=copy.deepcopy(self.fault_stop),trace_publication=self.trace_publication.record(),
+                    fault_stop=copy.deepcopy(fault_stop),trace_publication=self.trace_publication.record(),
                     receipt_publication=copy.deepcopy(self.receipt_publication))
 
 
@@ -392,8 +410,8 @@ def _remaining(binding,services):
         now_monotonic=services.monotonic(),now_tick_ms=services.tick_ms())
 
 
-def _bounded_fault_stop(watch,binding,services):
-    errors=[]
+def _bounded_fault_stop(watch,binding,services,*,errors: list[BaseException] | None = None) -> tuple[FaultStopResult,list[BaseException]]:
+    if errors is None:errors=[]
     try:remaining=_remaining(binding,services)
     except BaseException as error:
         errors.append(error);remaining=0.
@@ -584,7 +602,7 @@ def run_controller(root: Path, output: Path, case_id: str, binding: dict, *, ser
     finally:
         if watch is not None:
             try:
-                stop_result,stop_errors=_bounded_fault_stop(watch,binding,services)
+                stop_result,stop_errors=_bounded_fault_stop(watch,binding,services,errors=stop_errors)
                 stopped=stop_result.stop_ok and not stop_errors
             except BaseException as error:stop_exception=error;stopped=False
         publication.finish(folder/"trace.json",events,services=services)
@@ -597,13 +615,16 @@ def run_controller(root: Path, output: Path, case_id: str, binding: dict, *, ser
         if parent is not None:
             try:parent_power=parent.evidence()
             except BaseException as error:body_errors.append(error)
-        fault_stop=None
+        fault_stop=None;fault_stop_evidence=None
         if watch is not None:
             fault_stop=dict(result=None if stop_result is None else stop_result.record(),
                 errors=[_fault_error_record(e) for e in stop_errors],
                 exception=None if stop_exception is None else _fault_error_record(stop_exception),stopped=stopped)
+            fault_stop_evidence=dict(returned_result=stop_result,budget_errors=stop_errors,
+                stop_exception=stop_exception,cached_result=getattr(watch,"stop_result",None),
+                cached_callback_error=getattr(watch,"error",None))
         failure=ControllerTracePublicationError(case_id,binding,inner_row=row,parent_power=parent_power,
-            body_errors=body_errors,fault_stop=fault_stop,trace_publication=publication)
+            body_errors=body_errors,fault_stop=fault_stop,trace_publication=publication,fault_stop_evidence=fault_stop_evidence)
         try:_remaining(binding,services)
         except BaseException as error:
             failure.receipt_error=error
@@ -1149,7 +1170,26 @@ class NativeObserver:
         return copy.deepcopy(self.evidence)
 
 
+def _read_controller_failure(path: Path) -> dict | None:
+    try:raw=path.read_text(encoding="utf-8")
+    except FileNotFoundError:return None
+    except (OSError,UnicodeError) as error:
+        return dict(status="INVALID_CONTROLLER_FAILURE",error=_fault_error_record(error))
+    try:
+        value=json.loads(raw)
+        if not isinstance(value,dict) or value.get("status")!="FAILED_CONTROLLER_TRACE_PUBLICATION":
+            raise ValueError("Invalid controller failure record shape")
+    except ValueError as error:
+        return dict(status="INVALID_CONTROLLER_FAILURE",error=_fault_error_record(error))
+    return value
+
+
 def _load_case_record(case_dir,binding,outer,observation):
+    failure=_read_controller_failure(case_dir/"controller/controller_failure.json")
+    if failure is not None:
+        return dict(case_id=case_dir.name,binding=copy.deepcopy(binding),outer=outer,observation=observation,
+            msb=None,parent_power=None,events=[],cleanup_intent=None,worker_closed=None,fault=None,
+            controller_failure=failure,diagnostic_only=True)
     inner=_read_json_if_present(case_dir/"controller/controller_result.json")
     fault=_read_json_if_present(case_dir/"parent_fault.json")
     events=_read_json_if_present(case_dir/"controller/trace.json") or []
@@ -1163,7 +1203,7 @@ def _load_case_record(case_dir,binding,outer,observation):
         parent_power=None if inner is None else inner.get("parent_power"),
         events=events,cleanup_intent=_read_json_if_present(case_dir/"cleanup_intent.json"),
         worker_closed=_read_json_if_present(case_dir/"controller/runs"/case_dir.name/"worker_closed.json"),
-        fault=fault,controller_failure=_read_json_if_present(case_dir/"controller/controller_failure.json"))
+        fault=fault,controller_failure=None)
 
 
 def run_acceptance(root: Path, protocol_path: Path, *, execute_native: bool, approval: dict, services=None) -> dict:

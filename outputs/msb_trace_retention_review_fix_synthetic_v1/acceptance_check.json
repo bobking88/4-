@@ -1,0 +1,155 @@
+{
+  "date": "2026-10-24",
+  "approval_id": "call_d010267bd19d42f0b34c89e9822bd6db",
+  "status": "AUTHOR_SYNTHETIC_ACCEPTED_INDEPENDENT_REVIEW_PENDING",
+  "baseline_commit": "0c3fe0172e41eb1ce66e07f1101af903e1dc8596",
+  "phases": [
+    {
+      "scope": "SYNTHETIC_CONTRACT_ONLY",
+      "phase": "collector-red",
+      "attempt": 1,
+      "bootstrap": {
+        "torch": "2.12.1+cu130",
+        "sklearn": "1.9.0"
+      },
+      "unused_dependency_stubs": [
+        "torchvision.models",
+        "torchvision.transforms"
+      ],
+      "status": "FAILED",
+      "modules": [
+        "test_check_msb_native_supervision"
+      ],
+      "tests_run": 116,
+      "failures": 30,
+      "errors": 0,
+      "skipped": 0,
+      "expected_failures": 0,
+      "unexpected_successes": 0,
+      "unmocked_boundary_calls": [],
+      "native_os_exercised": false,
+      "real_data_opened": false,
+      "real_fits": 0,
+      "temporary_synthetic_tensor_reads": 0,
+      "source_snapshot": "DIRECT_PRE_RUN_CAPTURE",
+      "harness_error": null
+    },
+    {
+      "scope": "SYNTHETIC_CONTRACT_ONLY",
+      "phase": "collector-green",
+      "attempt": 1,
+      "bootstrap": {
+        "torch": "2.12.1+cu130",
+        "sklearn": "1.9.0"
+      },
+      "unused_dependency_stubs": [
+        "torchvision.models",
+        "torchvision.transforms"
+      ],
+      "status": "PASSED",
+      "modules": [
+        "test_check_msb_native_supervision"
+      ],
+      "tests_run": 116,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "expected_failures": 0,
+      "unexpected_successes": 0,
+      "unmocked_boundary_calls": [],
+      "native_os_exercised": false,
+      "real_data_opened": false,
+      "real_fits": 0,
+      "temporary_synthetic_tensor_reads": 0,
+      "source_snapshot": "DIRECT_PRE_RUN_CAPTURE",
+      "harness_error": null
+    },
+    {
+      "scope": "SYNTHETIC_CONTRACT_ONLY",
+      "phase": "final",
+      "attempt": 1,
+      "bootstrap": {
+        "torch": "2.12.1+cu130",
+        "sklearn": "1.9.0"
+      },
+      "unused_dependency_stubs": [
+        "torchvision.models",
+        "torchvision.transforms"
+      ],
+      "status": "PASSED",
+      "modules": [
+        "test_msb_execution_safety",
+        "test_msb_role_data",
+        "test_msb_role_model",
+        "test_msb_role_controls",
+        "test_msb_role_audit",
+        "test_msb_role_training",
+        "test_run_msb_role_mechanism",
+        "test_analyze_msb_role_mechanism",
+        "test_generate_msb_role_figure",
+        "test_check_msb_native_supervision"
+      ],
+      "tests_run": 277,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "expected_failures": 0,
+      "unexpected_successes": 0,
+      "unmocked_boundary_calls": [],
+      "native_os_exercised": false,
+      "real_data_opened": false,
+      "real_fits": 0,
+      "temporary_synthetic_tensor_reads": 2,
+      "source_snapshot": "DIRECT_PRE_RUN_CAPTURE",
+      "harness_error": null
+    }
+  ],
+  "attempts_each": 1,
+  "total_test_entry_runs": 3,
+  "no_retries": true,
+  "red_missing_behavior_assertions": 30,
+  "red_failed_new_methods": 9,
+  "legacy_driver_methods_passed_red": 106,
+  "compatibility_new_method_passed_red": true,
+  "old_full_names_preserved": 267,
+  "new_fixed_full_names": [
+    "test_check_msb_native_supervision.TraceRetentionReviewFixTests.test_absent_failure_keeps_legacy_case_and_stop_contracts",
+    "test_check_msb_native_supervision.TraceRetentionReviewFixTests.test_actual_receipt_writer_preserves_partial_bytes_without_retry",
+    "test_check_msb_native_supervision.TraceRetentionReviewFixTests.test_bounded_fault_stop_retains_caller_errors_when_stop_raises",
+    "test_check_msb_native_supervision.TraceRetentionReviewFixTests.test_controller_diagnostics_and_cli_redact_all_multiline_error_roles",
+    "test_check_msb_native_supervision.TraceRetentionReviewFixTests.test_error_redaction_drops_multiline_context_without_changing_original",
+    "test_check_msb_native_supervision.TraceRetentionReviewFixTests.test_n4_failure_receipt_precedes_snapshot_checks_and_is_rejected",
+    "test_check_msb_native_supervision.TraceRetentionReviewFixTests.test_n4_trace_failure_retains_budget_stop_callback_and_cached_snapshot",
+    "test_check_msb_native_supervision.TraceRetentionReviewFixTests.test_obtained_row_survives_scope_stop_trace_and_receipt_failures",
+    "test_check_msb_native_supervision.TraceRetentionReviewFixTests.test_partial_or_invalid_controller_receipt_remains_nonempty_failure",
+    "test_check_msb_native_supervision.TraceRetentionReviewFixTests.test_stop_capture_missing_or_conflicting_cache_never_promotes_success"
+  ],
+  "final_unique_full_names": 277,
+  "exact_name_sets_verified": true,
+  "author_static_review": {
+    "R1": "Whole-message suppression for fixed markers/line-breaks; synthetic short secrets stay out of diagnostic/CLI; no universal DLP claim.",
+    "R2": "Caller-owned original budget error list survives stop exception; raw stop/cached callback/snapshot references retained; cache never promotes stopped.",
+    "R3": "Actual failure loader precedes all other case JSON; nonempty or invalid receipt becomes diagnostic-only rejected case; normal N4 checks unchanged.",
+    "joint_and_partial_receipt": "Actual JSON writer with fake target stream writes prefix before error; scope exit/stop/callback/trace/receipt causes and row preserved.",
+    "normal_contracts": "Legacy tests and N1-N4 case snapshot checks remain; no fake normal-returning N4 controller."
+  },
+  "tests_harness_frozen": true,
+  "protected_source_paths": 56,
+  "unchanged_source_paths": 53,
+  "source_changes": 3,
+  "old_native_evidence_preserved": true,
+  "project_real_inputs_read": false,
+  "real_fits": 0,
+  "scientific_model_forwards": 0,
+  "legacy_scratch_synthetic_tensor_reads": 2,
+  "native_runs_or_probes": 0,
+  "agents_dispatched": 0,
+  "formal_report_edits": 0,
+  "network_formula_scientific_matrix_edits": 0,
+  "independent_review_performed": false,
+  "native_readiness_proven": false,
+  "scientific_benefit_validated": false,
+  "first_windows_trace_failure_cause_known": false,
+  "github_sync_status_at_record_creation": "PENDING_EXTERNAL_CONTENT_READBACK",
+  "next_gate": "Separately approved independent read-only review; no automatic native or scientific experiment."
+}
