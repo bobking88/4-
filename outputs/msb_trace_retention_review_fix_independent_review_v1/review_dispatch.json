@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-24",
+  "approval_id": "call_341d21491efa4be9a0f3232e21087b61",
+  "review_head": "dee2be4045d325b417995da6d56943ccf06d1ee1",
+  "review_base": "0c3fe0172e41eb1ce66e07f1101af903e1dc8596",
+  "dispatches": 1,
+  "agent_id": "01a16bf1-2641-7903-8fc0-d54ccb820d68",
+  "nickname": "Fermat",
+  "fork_context": false,
+  "model_override": null,
+  "dispatch_result": {
+    "agent_id": "01a16bf1-2641-7903-8fc0-d54ccb820d68",
+    "nickname": "Fermat"
+  },
+  "state_at_dispatch": "DISPATCH_RETURNED_ID_AWAITING_CONCLUSION",
+  "before_records_verified": 410,
+  "unchanged_records_before_dispatch": 410,
+  "redispatch_authorized": false,
+  "test_runs_authorized": 0,
+  "native_runs_authorized": 0,
+  "real_input_reads_authorized": false,
+  "code_edits_authorized": false,
+  "review_is_not_scientific_or_native_acceptance": true
+}
