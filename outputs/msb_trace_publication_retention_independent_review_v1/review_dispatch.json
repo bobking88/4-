@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-23",
+  "approval_id": "call_54dd8efca964469da2f9a82cb9a5ae57",
+  "review_head": "e2c9cc4a3b82ef41cc7f96442af5d4fda99781a2",
+  "review_base": "78000c9f929222e843692200bc66283f86f5b0dc",
+  "dispatches": 1,
+  "agent_id": "01a16922-0454-7f53-afae-cc43be156638",
+  "nickname": "Epicurus",
+  "fork_context": false,
+  "model_override": null,
+  "dispatch_result": {
+    "agent_id": "01a16922-0454-7f53-afae-cc43be156638",
+    "nickname": "Epicurus"
+  },
+  "state_at_dispatch": "DISPATCH_RETURNED_ID_AWAITING_CONCLUSION",
+  "before_records_verified": 366,
+  "unchanged_records_before_dispatch": 366,
+  "test_runs_authorized": 0,
+  "native_runs_authorized": 0,
+  "real_input_reads_authorized": false,
+  "code_edits_authorized": false,
+  "review_is_not_a_scientific_or_runtime_acceptance": true
+}

@@ -374,6 +374,8 @@ C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独�
 
 2026-10-23 trace首发错误保留实施更新：按另批三文件工作包完成[作者实施与有限合成验收](docs/experiment_records/2026-10-23_msb_trace_publication_retention_acceptance.md)。collector-red/001为106项14处有效缺行为断言失败，green/001为106/106，final/001为267/267，原253全名保留、新增固定14名；三阶段各一次，零错误/跳过/未模拟调用，全部原件保留。trace实际helper通过内存文件适配层验证五阶段与双异常、锁存后无二次I/O、独立失败回执及拒收；通用JSON和底层监督不变。339条保护记录仅允许三源码和索引变化，旧14份原生失败原件、网络/公式/矩阵与正式报告不改；两次scratch合成张量读取不等于真实训练或前向。当前AUTHOR_SYNTHETIC_ACCEPTED_INDEPENDENT_REVIEW_PENDING，未派代理、未做新原生或真实实验，首次Windows原因和网络科学效果仍未验证；旧v2登记不匹配新源码且许可已消费。独立复查、新原生及真实实验仍分别另批，不把工程通过当论文理论创新结果。
 
+2026-10-23 trace首发错误保留独立复查：固定e2c9cc4仅派发一次[只读工程复查](docs/experiment_records/2026-10-23_msb_trace_publication_retention_review.md)，结论REQUEST_CHANGES。静态确认一项P1多行异常信息脱敏缺口、两项P2停止自身异常时原因丢失和N4失败回执加载次序问题；均未修复，不等于已发生原生泄露/故障。独立核对原253全名保留及267项既有日志、16原件和339条作者保护一致，但单行/N1反例及联合异常/部分回执覆盖仍不足。三次观察超时后只等同一代理，实质结论返回后关闭，无重派、无测试/数据/原生或报告变化；本轮366条保护只允许索引变化。当前INDEPENDENT_REVIEW_REQUEST_CHANGES_NO_FIX，不放行运行或科学实验，首次Windows原因和网络创新效果仍未验证。最小修复文档、开发及实际实验继续分别另批。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.

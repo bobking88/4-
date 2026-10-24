@@ -1,0 +1,136 @@
+{
+  "date": "2026-10-23",
+  "approval_id": "call_54dd8efca964469da2f9a82cb9a5ae57",
+  "review_base": "78000c9f929222e843692200bc66283f86f5b0dc",
+  "review_head": "e2c9cc4a3b82ef41cc7f96442af5d4fda99781a2",
+  "record_count": 366,
+  "duplicates_retained": true,
+  "inherited_records": {
+    "count": 339,
+    "path": "outputs/msb_trace_publication_retention_synthetic_v1/protection_before.json",
+    "raw_sha256": "fb6eaa5287afdad55a7c881f35249eaa562d3e28f5bd438221b1a2ab156593c6",
+    "path_sha256_overrides": {
+      "scripts/check_msb_native_supervision.py": "16577cdf8a32e11503c43c1c92856e90d26f04095ccfcf095c67c0636455af86",
+      "tests/test_check_msb_native_supervision.py": "03068ccb2421199231e9703edaac57fc0caab44ae78d73de7295472084f35009",
+      "tests/run_msb_native_supervision_synthetic_acceptance.py": "dbe464bdf12bbada279918ec4df2fbd0f8bb157772d78703e391c5c8b24ce72e",
+      "README.md": "8194113f9dea600815948ca33dd123a7be8a6b6291df1f8a666eef02a67b960b"
+    }
+  },
+  "additional_records": [
+    {
+      "path": "docs/experiment_records/2026-10-23_msb_trace_publication_retention_acceptance.md",
+      "sha256": "47bbb3b9e3dee4c2cd60d866d5c7efafc63d4407e0158af363701f5298bceaec"
+    },
+    {
+      "path": "outputs/msb_trace_publication_retention_synthetic_v1/acceptance_check.json",
+      "sha256": "8271e6fff4e4a554dc5c2209d65a700684569fcf891bb3c585e9408a7b586a1c"
+    },
+    {
+      "path": "outputs/msb_trace_publication_retention_synthetic_v1/authorization.json",
+      "sha256": "8e17ab042ef42471af53a12825f5c74bb5bd3addf183e28d9c8e2f66fcf82409"
+    },
+    {
+      "path": "outputs/msb_trace_publication_retention_synthetic_v1/collector-green_entry.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "outputs/msb_trace_publication_retention_synthetic_v1/collector-green_entry.stdout.log",
+      "sha256": "6c6e8c5598cd6a61482f9041cc14f5048d78961d7ede3e14a6ccb341d4a6ce83"
+    },
+    {
+      "path": "outputs/msb_trace_publication_retention_synthetic_v1/collector-green/attempt-001/acceptance_summary.json",
+      "sha256": "6ae00667bb32488603d559959d0deffbd7f744806dd8d2a6f464fea96cf5c354"
+    },
+    {
+      "path": "outputs/msb_trace_publication_retention_synthetic_v1/collector-green/attempt-001/source_snapshot.json",
+      "sha256": "2e67b00bd849e8ce223221688309deb04bf6d7d586a535973d1f5d07f83d4b83"
+    },
+    {
+      "path": "outputs/msb_trace_publication_retention_synthetic_v1/collector-green/attempt-001/synthetic_tests.log",
+      "sha256": "4cceffce8944e9f4c833ed92428416f1b6cc946ae86511cd563d1f4791f9de3f"
+    },
+    {
+      "path": "outputs/msb_trace_publication_retention_synthetic_v1/collector-red_entry.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "outputs/msb_trace_publication_retention_synthetic_v1/collector-red_entry.stdout.log",
+      "sha256": "cd90e44910e07c509b23f44e2b704a0e302ffef00cc0fcc8980e355e6076c232"
+    },
+    {
+      "path": "outputs/msb_trace_publication_retention_synthetic_v1/collector-red/attempt-001/acceptance_summary.json",
+      "sha256": "c5ba59be6d0c6692e91182f76ebf881ef6c0d1986c6f4a850415e5891d599ebb"
+    },
+    {
+      "path": "outputs/msb_trace_publication_retention_synthetic_v1/collector-red/attempt-001/source_snapshot.json",
+      "sha256": "4fedd264a39f535d4852e8d2f9638a82cae70a2c6c5a2cdc7387d9e57fe28ba8"
+    },
+    {
+      "path": "outputs/msb_trace_publication_retention_synthetic_v1/collector-red/attempt-001/synthetic_tests.log",
+      "sha256": "c4c8a5933b944ceeae7dd4165bf426f8f6900dab9f05d4a409a6fc6b08e968e0"
+    },
+    {
+      "path": "outputs/msb_trace_publication_retention_synthetic_v1/execution_ledger.md",
+      "sha256": "96ab37c938a11eae73a93fdf15dcabe4f31cd3ac1bd1f5b0ecb932ce45374a92"
+    },
+    {
+      "path": "outputs/msb_trace_publication_retention_synthetic_v1/final_entry.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "outputs/msb_trace_publication_retention_synthetic_v1/final_entry.stdout.log",
+      "sha256": "71fc15597c98d8a9fc44f4cb358c3f02ee9e560074bd5aa4a2e9fb2c7e21cef9"
+    },
+    {
+      "path": "outputs/msb_trace_publication_retention_synthetic_v1/final/attempt-001/acceptance_summary.json",
+      "sha256": "092733281efb41eeb573e635ca8853a00c59eb5a2c591b988c8dad5d9e9a24f0"
+    },
+    {
+      "path": "outputs/msb_trace_publication_retention_synthetic_v1/final/attempt-001/source_snapshot.json",
+      "sha256": "2e67b00bd849e8ce223221688309deb04bf6d7d586a535973d1f5d07f83d4b83"
+    },
+    {
+      "path": "outputs/msb_trace_publication_retention_synthetic_v1/final/attempt-001/synthetic_tests.log",
+      "sha256": "ab5b6e9161ba5a61ca2aa1a6b6d6b41d249c331d0dba5e174d974fea871c2d49"
+    },
+    {
+      "path": "outputs/msb_trace_publication_retention_synthetic_v1/protection_after.json",
+      "sha256": "487831fe7e245b8076d3fc41a162dee56dfecf5c57b7c3eb86e7179e0dfb147d"
+    },
+    {
+      "path": "outputs/msb_trace_publication_retention_synthetic_v1/protection_before.json",
+      "sha256": "fb6eaa5287afdad55a7c881f35249eaa562d3e28f5bd438221b1a2ab156593c6"
+    },
+    {
+      "path": "outputs/msb_trace_publication_retention_synthetic_v1/raw_evidence_manifest.json",
+      "sha256": "48baec4cd3c367f76a7305e41cd1e124815a02f13b47a204cdf87b713244f562"
+    },
+    {
+      "path": "outputs/msb_trace_publication_retention_synthetic_v1/source_identity.json",
+      "sha256": "2bf11145d757ae2239397579bc66aabf737af99b0d7dfac8df3a3ac1e24841e7"
+    },
+    {
+      "path": "README.md",
+      "sha256": "8194113f9dea600815948ca33dd123a7be8a6b6291df1f8a666eef02a67b960b"
+    },
+    {
+      "path": "scripts/check_msb_native_supervision.py",
+      "sha256": "16577cdf8a32e11503c43c1c92856e90d26f04095ccfcf095c67c0636455af86"
+    },
+    {
+      "path": "tests/run_msb_native_supervision_synthetic_acceptance.py",
+      "sha256": "dbe464bdf12bbada279918ec4df2fbd0f8bb157772d78703e391c5c8b24ce72e"
+    },
+    {
+      "path": "tests/test_check_msb_native_supervision.py",
+      "sha256": "03068ccb2421199231e9703edaac57fc0caab44ae78d73de7295472084f35009"
+    }
+  ],
+  "allowed_existing_changes": [
+    "README.md"
+  ],
+  "code_changes_allowed": false,
+  "tests_or_native_runs_allowed": false,
+  "real_data_access_allowed": false,
+  "formal_report_changes_allowed": false
+}

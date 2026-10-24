@@ -1,0 +1,114 @@
+{
+  "date": "2026-10-24",
+  "approval_id": "call_54dd8efca964469da2f9a82cb9a5ae57",
+  "review_head": "e2c9cc4a3b82ef41cc7f96442af5d4fda99781a2",
+  "checked_records": 366,
+  "unchanged_records": 354,
+  "changed_records": [
+    {
+      "path": "README.md",
+      "before_sha256": "8194113f9dea600815948ca33dd123a7be8a6b6291df1f8a666eef02a67b960b",
+      "sha256": "eebbdc4ab5060aebc6a3e819fe341f300bf4c8aab6e00906b19b9d79d260c141",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "8194113f9dea600815948ca33dd123a7be8a6b6291df1f8a666eef02a67b960b",
+      "sha256": "eebbdc4ab5060aebc6a3e819fe341f300bf4c8aab6e00906b19b9d79d260c141",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "8194113f9dea600815948ca33dd123a7be8a6b6291df1f8a666eef02a67b960b",
+      "sha256": "eebbdc4ab5060aebc6a3e819fe341f300bf4c8aab6e00906b19b9d79d260c141",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "8194113f9dea600815948ca33dd123a7be8a6b6291df1f8a666eef02a67b960b",
+      "sha256": "eebbdc4ab5060aebc6a3e819fe341f300bf4c8aab6e00906b19b9d79d260c141",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "8194113f9dea600815948ca33dd123a7be8a6b6291df1f8a666eef02a67b960b",
+      "sha256": "eebbdc4ab5060aebc6a3e819fe341f300bf4c8aab6e00906b19b9d79d260c141",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "8194113f9dea600815948ca33dd123a7be8a6b6291df1f8a666eef02a67b960b",
+      "sha256": "eebbdc4ab5060aebc6a3e819fe341f300bf4c8aab6e00906b19b9d79d260c141",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "8194113f9dea600815948ca33dd123a7be8a6b6291df1f8a666eef02a67b960b",
+      "sha256": "eebbdc4ab5060aebc6a3e819fe341f300bf4c8aab6e00906b19b9d79d260c141",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "8194113f9dea600815948ca33dd123a7be8a6b6291df1f8a666eef02a67b960b",
+      "sha256": "eebbdc4ab5060aebc6a3e819fe341f300bf4c8aab6e00906b19b9d79d260c141",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "8194113f9dea600815948ca33dd123a7be8a6b6291df1f8a666eef02a67b960b",
+      "sha256": "eebbdc4ab5060aebc6a3e819fe341f300bf4c8aab6e00906b19b9d79d260c141",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "8194113f9dea600815948ca33dd123a7be8a6b6291df1f8a666eef02a67b960b",
+      "sha256": "eebbdc4ab5060aebc6a3e819fe341f300bf4c8aab6e00906b19b9d79d260c141",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "8194113f9dea600815948ca33dd123a7be8a6b6291df1f8a666eef02a67b960b",
+      "sha256": "eebbdc4ab5060aebc6a3e819fe341f300bf4c8aab6e00906b19b9d79d260c141",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "8194113f9dea600815948ca33dd123a7be8a6b6291df1f8a666eef02a67b960b",
+      "sha256": "eebbdc4ab5060aebc6a3e819fe341f300bf4c8aab6e00906b19b9d79d260c141",
+      "allowed": true
+    }
+  ],
+  "unique_changed_existing_paths": [
+    "README.md"
+  ],
+  "all_changes_within_approved_scope": true,
+  "old_native_raw_files_verified": 14,
+  "old_native_originals_rewritten": false,
+  "formal_reports": [
+    {
+      "path": "结题/基于深度学习的钒钛矿相关矿物图像识别方法研究_技术报告（正式版）.docx",
+      "sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+      "unchanged": true
+    },
+    {
+      "path": "D:/成信工科研/人工智能选矿/结题/基于深度学习的钒钛矿相关矿物图像识别方法研究_技术报告（正式版）.docx",
+      "sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+      "unchanged": true
+    }
+  ],
+  "preexisting_pngs_preserved": true,
+  "native_protocol_unchanged": true,
+  "network_formula_scientific_matrix_unchanged": true,
+  "new_native_runs": 0,
+  "real_data_opened": false,
+  "real_fits": 0,
+  "scientific_model_forwards": 0,
+  "agents_dispatched": 1,
+  "nested_agents_dispatched": 0,
+  "actual_new_tests": 0,
+  "project_imports": 0,
+  "code_edits": 0,
+  "formal_report_edits": 0,
+  "review_original_text_preserved": true,
+  "scope": "READ_ONLY_ENGINEERING_REVIEW_AND_ARCHIVE"
+}

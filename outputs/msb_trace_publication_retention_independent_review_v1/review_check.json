@@ -1,0 +1,118 @@
+{
+  "date": "2026-10-23",
+  "approval_id": "call_54dd8efca964469da2f9a82cb9a5ae57",
+  "review_base": "78000c9f929222e843692200bc66283f86f5b0dc",
+  "review_head": "e2c9cc4a3b82ef41cc7f96442af5d4fda99781a2",
+  "status": "INDEPENDENT_REVIEW_REQUEST_CHANGES_NO_FIX",
+  "verdict": "REQUEST_CHANGES",
+  "single_dispatch": true,
+  "agent_closed_after_completed": true,
+  "findings": [
+    {
+      "id": "R1",
+      "severity": "P1",
+      "kind": "DESIGN_GAP_INHERITED_BY_NEW_DIAGNOSTIC_PATH",
+      "file": "scripts/check_msb_native_supervision.py",
+      "lines": [
+        90,
+        284
+      ],
+      "summary": "Multiline sensitive exception text can survive the existing non-DOTALL redactor and reach failure receipts/CLI.",
+      "author_static_assessment": "ACCEPTED_STATIC_CONDITIONAL_DEFECT",
+      "evidence": "The first substitution's .* does not consume a newline; a second non-numeric short line is not removed by the other substitution or truncation.",
+      "observed_native_leak": false,
+      "fixed": false
+    },
+    {
+      "id": "R2",
+      "severity": "P2",
+      "kind": "IMPLEMENTATION_ERROR_RETENTION_GAP",
+      "file": "scripts/check_msb_native_supervision.py",
+      "lines": [
+        396,
+        400,
+        587,
+        589,
+        602
+      ],
+      "summary": "A stop_fault exception can prevent return of already-caught budget errors, and the controller does not recover existing cached watch.error/stop snapshots.",
+      "author_static_assessment": "ACCEPTED_STATIC_CONDITIONAL_DEFECT",
+      "evidence": "_bounded_fault_stop stores a caught error in a local list before calling stop_fault; if the call raises, tuple assignment never completes and only stop_exception remains.",
+      "observed_native_failure": false,
+      "fixed": false
+    },
+    {
+      "id": "R3",
+      "severity": "P2",
+      "kind": "IMPLEMENTATION_N4_DIAGNOSTIC_LOADING_ORDER",
+      "file": "scripts/check_msb_native_supervision.py",
+      "lines": [
+        1158,
+        1166
+      ],
+      "summary": "N4 snapshot validation can raise before the optional controller_failure receipt is loaded into a case record.",
+      "author_static_assessment": "ACCEPTED_STATIC_CONDITIONAL_DEFECT",
+      "evidence": "The N4 _require path precedes the return expression that reads controller_failure.json.",
+      "fail_closed_preserved": true,
+      "disk_originals_still_preserved": true,
+      "observed_native_failure": false,
+      "fixed": false
+    }
+  ],
+  "coverage_gaps": [
+    {
+      "ids": [
+        "T08",
+        "T09"
+      ],
+      "gap": "No combined obtained-row/scope-exit/final-trace/receipt exception case and no partial receipt write."
+    },
+    {
+      "ids": [
+        "T11"
+      ],
+      "gap": "N1 fixture has no fault watch; N4 stop exception retention/counts are not demonstrated."
+    },
+    {
+      "ids": [
+        "T10",
+        "T12",
+        "T14"
+      ],
+      "gap": "Loading/new helper scenarios omit N4; sensitive text cases are single-line."
+    }
+  ],
+  "author_rulings_on_scope": [
+    {
+      "topic": "WINDOWS_FIRST_ERROR",
+      "decision": "Still unknown; no runtime cause claim or new native run."
+    },
+    {
+      "topic": "NATIVE_TIMING_RELEASE_DELIVERY",
+      "decision": "Not established by read-only review or old synthetic logs; no gate promotion."
+    },
+    {
+      "topic": "NETWORK_THEORY_SCIENTIFIC_BENEFIT",
+      "decision": "Still unvalidated; keep formal report unchanged and require future authorized mechanism experiments."
+    },
+    {
+      "topic": "COMPLETE_OPERATION_HISTORY",
+      "decision": "Author entry/ledger/copy-parser records are not independently conclusive history; retain their attribution."
+    }
+  ],
+  "prior_267_log_status": "PRESERVED_NOT_RERUN_NOT_REVOKED_AS_SCOPED_SYNTHETIC_RESULTS",
+  "prior_267_is_not_complete_exception_coverage": true,
+  "actual_new_tests": 0,
+  "project_imports": 0,
+  "native_probes": 0,
+  "native_runs": 0,
+  "real_data_opened": false,
+  "real_fits": 0,
+  "scientific_model_forwards": 0,
+  "code_edits": 0,
+  "network_formula_matrix_edits": 0,
+  "formal_report_edits": 0,
+  "repair_authorized": false,
+  "scientific_gate_promoted": false,
+  "next_step": "Only separately approved minimal repair specification/plan for R1-R3 and the coverage gaps. No implementation or new experiment."
+}
