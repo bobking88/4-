@@ -1,0 +1,63 @@
+{
+  "date": "2026-10-24",
+  "approval_id": "call_21f6de490d944c7bb9b0116fc5c3dda9",
+  "baseline_commit": "cd9dcb287cbf55a1a960e021130dffde9ba8bf9a",
+  "inherited_records": {
+    "path": "outputs/msb_trace_publication_retention_independent_review_v1/protection_before.json",
+    "raw_sha256": "79840c4b1f398229b2483163f815795b512b14c5d0a54e9aab3156dbc99b8493",
+    "record_count": 366,
+    "path_sha256_overrides": {
+      "README.md": "eebbdc4ab5060aebc6a3e819fe341f300bf4c8aab6e00906b19b9d79d260c141"
+    }
+  },
+  "additional_records": [
+    {
+      "path": "README.md",
+      "sha256": "eebbdc4ab5060aebc6a3e819fe341f300bf4c8aab6e00906b19b9d79d260c141"
+    },
+    {
+      "path": "docs/experiment_records/2026-10-23_msb_trace_publication_retention_review.md",
+      "sha256": "a70b3987f283c877cf333165d7b5799f3188b9255a5b5e3ce213f9f505464631"
+    },
+    {
+      "path": "outputs/msb_trace_publication_retention_independent_review_v1/authorization.json",
+      "sha256": "912e95824fdde146a8278596df415a4c93d9b491781f9d4e9892f7efb9a84eb8"
+    },
+    {
+      "path": "outputs/msb_trace_publication_retention_independent_review_v1/protection_before.json",
+      "sha256": "79840c4b1f398229b2483163f815795b512b14c5d0a54e9aab3156dbc99b8493"
+    },
+    {
+      "path": "outputs/msb_trace_publication_retention_independent_review_v1/protection_after.json",
+      "sha256": "e9934639db76124af0d2caa409a0b01480e27d48a442fc69808af754f7d64ac9"
+    },
+    {
+      "path": "outputs/msb_trace_publication_retention_independent_review_v1/review_request.md",
+      "sha256": "4a3da6a29352a8d6661fdf2d232627813b0b2295152ec705b847ca1e8823ffeb"
+    },
+    {
+      "path": "outputs/msb_trace_publication_retention_independent_review_v1/review_dispatch.json",
+      "sha256": "11f0aa66cd0f7007271360d867b0c2540ca4d8e7da8c87b60a6a8d2c6a89da21"
+    },
+    {
+      "path": "outputs/msb_trace_publication_retention_independent_review_v1/reviewer_result.json",
+      "sha256": "bbe36ee37d89428c470a927895d70c5c5817a24cc314b0ddb206bbadf0eae4f5"
+    },
+    {
+      "path": "outputs/msb_trace_publication_retention_independent_review_v1/reviewer_result.md",
+      "sha256": "e2f97fa1a0396a7fb0acd9cdf3fb9aa48bd6026f14acf4af5d47aa5f3b1c69bb"
+    },
+    {
+      "path": "outputs/msb_trace_publication_retention_independent_review_v1/review_check.json",
+      "sha256": "789454aa0c03070e2017bd80fda79788b8de627f4b34035c12de5258a6b0350b"
+    }
+  ],
+  "record_count": 376,
+  "duplicate_records_preserved": true,
+  "allowed_existing_changes": [
+    "README.md"
+  ],
+  "code_edits_allowed": false,
+  "formal_report_edits_allowed": false,
+  "real_input_reads_allowed": false
+}

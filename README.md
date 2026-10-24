@@ -376,6 +376,8 @@ C阶段条件化路线继续后置；中心化、L2-SP与核缩放不能单独�
 
 2026-10-23 trace首发错误保留独立复查：固定e2c9cc4仅派发一次[只读工程复查](docs/experiment_records/2026-10-23_msb_trace_publication_retention_review.md)，结论REQUEST_CHANGES。静态确认一项P1多行异常信息脱敏缺口、两项P2停止自身异常时原因丢失和N4失败回执加载次序问题；均未修复，不等于已发生原生泄露/故障。独立核对原253全名保留及267项既有日志、16原件和339条作者保护一致，但单行/N1反例及联合异常/部分回执覆盖仍不足。三次观察超时后只等同一代理，实质结论返回后关闭，无重派、无测试/数据/原生或报告变化；本轮366条保护只允许索引变化。当前INDEPENDENT_REVIEW_REQUEST_CHANGES_NO_FIX，不放行运行或科学实验，首次Windows原因和网络创新效果仍未验证。最小修复文档、开发及实际实验继续分别另批。
 
+2026-10-24 trace复查修复文档更新：按仅文档授权归档[最小修复规格](docs/superpowers/specs/2026-10-24-msb-trace-retention-review-fix-design.md)与[配套实施计划](docs/superpowers/plans/2026-10-24-msb-trace-retention-review-fix.md)，针对R1多行脱敏、R2停止原因保留、R3 N4失败回执先读，以及联合异常/部分回执覆盖。未来仅原三文件、原生会话内实施，拟保留267全名并增固定10名；277是未来期望，不是本轮结果。376条保护仅允许索引变化；未改源码、未运行测试/前向/拟合/探查/原生验收，未读真实数据、未派代理、未改正式报告。当前DOCUMENTED_NOT_IMPLEMENTED_NOT_RUN；规格/计划尚待审核，开发、独立复查、原生及真实科学实验仍分别另批，网络创新效果仍未验证。
+
 Run these commands from the repository root with the fixed manifest and a locally
 authorized image directory. The analyses read existing data and prediction outputs;
 they do not alter the frozen split.

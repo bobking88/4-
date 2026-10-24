@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-24",
+  "approval_id": "call_21f6de490d944c7bb9b0116fc5c3dda9",
+  "answer": "批准仅编写修复规格与计划（推荐）",
+  "confirmed_from_human": true,
+  "scope": "MINIMAL_R1_R2_R3_AND_COVERAGE_REPAIR_SPECIFICATION_PLAN_AND_GITHUB_ARCHIVE_ONLY",
+  "baseline_commit": "cd9dcb287cbf55a1a960e021130dffde9ba8bf9a",
+  "reviewed_source_commit": "e2c9cc4a3b82ef41cc7f96442af5d4fda99781a2",
+  "allowed": [
+    "Read registered source and existing review/log evidence",
+    "Write paired specification and unexecuted implementation plan",
+    "Read-only text/hash/Git verification and scoped GitHub archive"
+  ],
+  "forbidden": [
+    "Code edits or project imports",
+    "Tests, forwards, fits, timing/process/power probes or native acceptance",
+    "Real prepared/fit/stop, images, tensors, weights or caches",
+    "Formal report body reads or edits",
+    "Agents or messages to other tasks",
+    "New native or scientific experiment registration or execution"
+  ],
+  "implementation_authorized": false,
+  "scientific_gate_promoted": false
+}

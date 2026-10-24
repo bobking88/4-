@@ -1,0 +1,95 @@
+{
+  "date": "2026-10-24",
+  "approval_id": "call_21f6de490d944c7bb9b0116fc5c3dda9",
+  "baseline_commit": "cd9dcb287cbf55a1a960e021130dffde9ba8bf9a",
+  "status": "DOCUMENTED_NOT_IMPLEMENTED_NOT_RUN",
+  "author_self_review_only": true,
+  "independent_review_performed": false,
+  "documents": [
+    {
+      "path": "docs/superpowers/specs/2026-10-24-msb-trace-retention-review-fix-design.md",
+      "sha256": "a986c56142d4dd7944fe9daf27f5f80b3ca2e59b3150e6a39af6d02650498ae2"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-24-msb-trace-retention-review-fix.md",
+      "sha256": "fb4f33e1552666a071bffd7d25c52541632d486cba3cdae2e71286982780efde"
+    }
+  ],
+  "source_identity_unchanged": [
+    {
+      "path": "scripts/check_msb_native_supervision.py",
+      "sha256": "16577cdf8a32e11503c43c1c92856e90d26f04095ccfcf095c67c0636455af86"
+    },
+    {
+      "path": "tests/test_check_msb_native_supervision.py",
+      "sha256": "03068ccb2421199231e9703edaac57fc0caab44ae78d73de7295472084f35009"
+    },
+    {
+      "path": "tests/run_msb_native_supervision_synthetic_acceptance.py",
+      "sha256": "dbe464bdf12bbada279918ec4df2fbd0f8bb157772d78703e391c5c8b24ce72e"
+    }
+  ],
+  "static_requirement_mapping": {
+    "R1": [
+      "Q01",
+      "Q02"
+    ],
+    "R2": [
+      "Q03",
+      "Q04",
+      "Q05"
+    ],
+    "R3": [
+      "Q06",
+      "Q07"
+    ],
+    "joint_and_partial_receipt": [
+      "Q08",
+      "Q09"
+    ],
+    "compatibility": [
+      "Q10"
+    ]
+  },
+  "fixed_new_method_prefix": "test_check_msb_native_supervision.TraceRetentionReviewFixTests.",
+  "fixed_new_methods": [
+    "test_error_redaction_drops_multiline_context_without_changing_original",
+    "test_controller_diagnostics_and_cli_redact_all_multiline_error_roles",
+    "test_bounded_fault_stop_retains_caller_errors_when_stop_raises",
+    "test_n4_trace_failure_retains_budget_stop_callback_and_cached_snapshot",
+    "test_stop_capture_missing_or_conflicting_cache_never_promotes_success",
+    "test_n4_failure_receipt_precedes_snapshot_checks_and_is_rejected",
+    "test_partial_or_invalid_controller_receipt_remains_nonempty_failure",
+    "test_actual_receipt_writer_preserves_partial_bytes_without_retry",
+    "test_obtained_row_survives_scope_stop_trace_and_receipt_failures",
+    "test_absent_failure_keeps_legacy_case_and_stop_contracts"
+  ],
+  "old_saved_full_names_verified": 267,
+  "proposed_driver_tests": 116,
+  "proposed_final_tests": 277,
+  "proposed_counts_are_not_results": true,
+  "unchecked_implementation_steps": 9,
+  "source_files_currently_edited": 0,
+  "project_imports": 0,
+  "actual_new_test_runs": 0,
+  "model_forwards": 0,
+  "real_fits": 0,
+  "native_runs_or_probes": 0,
+  "real_data_opened": false,
+  "agents_dispatched": 0,
+  "formal_report_reads_or_edits": 0,
+  "future_output_root_created": false,
+  "future_scratch_root_created": false,
+  "implementation_authorized": false,
+  "network_formula_matrix_unchanged": true,
+  "scientific_benefit_validated": false,
+  "self_review": {
+    "source_coverage": "Read current driver, callers, existing tests and harness; no execution.",
+    "signature_consistency": "Optional errors list preserves legacy tuple/exception contract; explicit raw evidence optional constructor tail; loader returns dict or None.",
+    "security_boundary": "Whole-message suppression for fixed markers/line breaks only; no universal secret-detection claim.",
+    "failure_loading": "Diagnostic-only path cannot qualify a case; normal N4 checks remain strict.",
+    "coverage_boundary": "Actual writer and fake stream required; existing 267 full names retained; valid RED must be assertion failures.",
+    "authorization": "No future checklist step executed; no agent-based builder review authorized."
+  },
+  "next_gate": "Human review of paired documents; implementation/synthetic, independent review, native and scientific experiments require separate approvals."
+}
