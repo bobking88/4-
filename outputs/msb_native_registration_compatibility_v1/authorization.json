@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-24",
+  "approval_id": "call_534e0e0b883340e6962aa62dcae97daa",
+  "answer": "批准只读核对与方案编写（推荐）",
+  "scope": "READ_ONLY_NATIVE_REGISTRATION_COMPATIBILITY_AND_SCHEME",
+  "executable_authorization": false,
+  "allowed": [
+    "static source/protocol inspection",
+    "source and protected-original hashing",
+    "directory existence metadata",
+    "documentation and evidence archival",
+    "GitHub synchronization and content readback"
+  ],
+  "forbidden": [
+    "code development",
+    "project imports",
+    "tests or dry runs",
+    "forward or fitting",
+    "timing/process/power/native probes or acceptance",
+    "real data/images/prepared/fit/stop/weights/caches",
+    "agent dispatch",
+    "formal report edits",
+    "executable protocol registration or run permission creation"
+  ],
+  "baseline_commit": "ef62bf9d51a0b4426f98547a52a88dd5705d0958",
+  "reviewed_source_commit": "dee2be4045d325b417995da6d56943ccf06d1ee1"
+}

@@ -1,0 +1,360 @@
+{
+  "date": "2026-10-24",
+  "approval_id": "call_534e0e0b883340e6962aa62dcae97daa",
+  "status": "NOT_COMPATIBLE_FOR_DIRECT_FRESH_REGISTRATION",
+  "method": "Static text/JSON inspection, path-presence metadata and raw SHA256 only; no project import or validation function called.",
+  "evidence": {
+    "baseline_commit": "ef62bf9d51a0b4426f98547a52a88dd5705d0958",
+    "protocol_path": "docs/experiment_protocols/msb_native_supervision_v2.json",
+    "protocol_raw_sha256": "058daf30a08d2f251a2f144bb9220ba5f804559c012611660083b3c325d38a0b",
+    "registered_protocol": "msb_native_supervision_v2",
+    "registered_approval_id": "call_cdd31dd8986040fb8bd90d6e311f95fc",
+    "declared_source_count": 46,
+    "registered_source_count": 46,
+    "source_path_sets_equal": true,
+    "unchanged_source_count": 43,
+    "changed_sources": [
+      {
+        "path": "scripts/check_msb_native_supervision.py",
+        "registered_sha256": "557574eb6f0924096bcc880393c32c767c10da094df39ffe4d3979649f11b429",
+        "current_sha256": "30ff7c45947108b80fd9c867d6ff8113590dd372fbcdbf4fd143e3d94123ae83"
+      },
+      {
+        "path": "tests/test_check_msb_native_supervision.py",
+        "registered_sha256": "d2de225bbd659314109826ede1e5917455f841f95db21f138422e8f957bf22ad",
+        "current_sha256": "f980f9470f4392968f7cb915b8c91b8ce710f676008ae525e484168ad91517d6"
+      },
+      {
+        "path": "tests/run_msb_native_supervision_synthetic_acceptance.py",
+        "registered_sha256": "1a91b6b96f3fe342ee873cf14ef128b6a169142f31c92fa30de7f51a0a3339fb",
+        "current_sha256": "838c427470360d4274f203057bc2d3e2ea16a9ec428b3347c1b014bca527379b"
+      }
+    ],
+    "proposed_namespace_only": "msb_native_supervision_v3",
+    "old_output_relative": "outputs/msb_native_supervision_v2/acceptance_once",
+    "old_output_exists": true,
+    "proposed_output_relative": "outputs/msb_native_supervision_v3/acceptance_once",
+    "proposed_output_exists": false,
+    "proposed_output_parent_exists": false,
+    "proposed_protocol_path": "docs/experiment_protocols/msb_native_supervision_v3.json",
+    "proposed_protocol_exists": false,
+    "scheme_output_exists": false,
+    "scheme_document_exists": false,
+    "source_comparison": [
+      {
+        "path": "scripts/analyze_ic_role_mechanism.py",
+        "registered_sha256": "26fd12997e987c7e71649dd960cb82094d524a5071f6a954fccd4d96fdc2c906",
+        "current_sha256": "26fd12997e987c7e71649dd960cb82094d524a5071f6a954fccd4d96fdc2c906"
+      },
+      {
+        "path": "scripts/analyze_lc_role_adaptation.py",
+        "registered_sha256": "54b98dbcf1ed1299c05b2bbc3f4722c36d00ba35fb9fc44095f45a59bb4fbc1b",
+        "current_sha256": "54b98dbcf1ed1299c05b2bbc3f4722c36d00ba35fb9fc44095f45a59bb4fbc1b"
+      },
+      {
+        "path": "scripts/analyze_misclassifications.py",
+        "registered_sha256": "3d2c7f463fe1257ec5a7e2c3571db4ae3cb65ef04bf3dd7b1942464c8ded707c",
+        "current_sha256": "3d2c7f463fe1257ec5a7e2c3571db4ae3cb65ef04bf3dd7b1942464c8ded707c"
+      },
+      {
+        "path": "scripts/analyze_msb_role_mechanism.py",
+        "registered_sha256": "af439f8440284b3436a152c079cf8a922618a10a4ab90cbf5e4cbff11b054e59",
+        "current_sha256": "af439f8440284b3436a152c079cf8a922618a10a4ab90cbf5e4cbff11b054e59"
+      },
+      {
+        "path": "scripts/anchor_linear_controls.py",
+        "registered_sha256": "1a979127c960cfc44c8fc3ef682d790dbb280e2488cfc2440baa2c161ed10192",
+        "current_sha256": "1a979127c960cfc44c8fc3ef682d790dbb280e2488cfc2440baa2c161ed10192"
+      },
+      {
+        "path": "scripts/audit_abmp_candidate_capacity.py",
+        "registered_sha256": "163c224a5ff9f72c2daf1341570c0bc40be76b8593671177c50f7d036b83675c",
+        "current_sha256": "163c224a5ff9f72c2daf1341570c0bc40be76b8593671177c50f7d036b83675c"
+      },
+      {
+        "path": "scripts/check_lc_native_environment.py",
+        "registered_sha256": "6ff6bf40cec8c5f0b78ffc61fd11be8aeadf35880b1ebe9e8112be0b298ac161",
+        "current_sha256": "6ff6bf40cec8c5f0b78ffc61fd11be8aeadf35880b1ebe9e8112be0b298ac161"
+      },
+      {
+        "path": "scripts/frozen_visual_probe.py",
+        "registered_sha256": "6e417ea900ed3cbd1c8653898a5bb9849b73958b57c4c50803217d82a4793bfa",
+        "current_sha256": "6e417ea900ed3cbd1c8653898a5bb9849b73958b57c4c50803217d82a4793bfa"
+      },
+      {
+        "path": "scripts/generate_msb_role_figure.py",
+        "registered_sha256": "a96cead0999a23b3fb9f462299b0e3c77834c156969642e7c4a92efcc06be0f6",
+        "current_sha256": "a96cead0999a23b3fb9f462299b0e3c77834c156969642e7c4a92efcc06be0f6"
+      },
+      {
+        "path": "scripts/hrgv_network.py",
+        "registered_sha256": "f4c2889b9a129d9f52fd999b189c0888407f9887e1f739cd5e1b55b4d361a0da",
+        "current_sha256": "f4c2889b9a129d9f52fd999b189c0888407f9887e1f739cd5e1b55b4d361a0da"
+      },
+      {
+        "path": "scripts/ic_role_audit.py",
+        "registered_sha256": "ffadcaa76f8494fbd63080b90a4bd8d4f95d7d4b4ef585aac4847511074729d4",
+        "current_sha256": "ffadcaa76f8494fbd63080b90a4bd8d4f95d7d4b4ef585aac4847511074729d4"
+      },
+      {
+        "path": "scripts/ic_role_data.py",
+        "registered_sha256": "897751bb68c5fb40fc8c186c73041b6ed05990708e57771c403f4d604e7d6d2d",
+        "current_sha256": "897751bb68c5fb40fc8c186c73041b6ed05990708e57771c403f4d604e7d6d2d"
+      },
+      {
+        "path": "scripts/ic_role_model.py",
+        "registered_sha256": "b62462a725e52a67f79d3fdba148bc19195dfe488f15c0ce3137f8a0680377b3",
+        "current_sha256": "b62462a725e52a67f79d3fdba148bc19195dfe488f15c0ce3137f8a0680377b3"
+      },
+      {
+        "path": "scripts/ic_role_training.py",
+        "registered_sha256": "b4102538411b7079d5fcf83587a0b8558141660ed9c5048ca4d1c5acbdda58cd",
+        "current_sha256": "b4102538411b7079d5fcf83587a0b8558141660ed9c5048ca4d1c5acbdda58cd"
+      },
+      {
+        "path": "scripts/lc_execution_safety.py",
+        "registered_sha256": "84089e43cb36133d41647b7576c27e4609058b9c087f4979f595452cd37bc029",
+        "current_sha256": "84089e43cb36133d41647b7576c27e4609058b9c087f4979f595452cd37bc029"
+      },
+      {
+        "path": "scripts/lc_role_adapter.py",
+        "registered_sha256": "3c02653b5a1aafd1cf452fa029b827baa899ff6a6645986cebc368fbdeecf1aa",
+        "current_sha256": "3c02653b5a1aafd1cf452fa029b827baa899ff6a6645986cebc368fbdeecf1aa"
+      },
+      {
+        "path": "scripts/lc_role_audit.py",
+        "registered_sha256": "587bdb18a27e897e47064889f9d77869be94b62bf661379e4409d88d2802ec1c",
+        "current_sha256": "587bdb18a27e897e47064889f9d77869be94b62bf661379e4409d88d2802ec1c"
+      },
+      {
+        "path": "scripts/lc_role_data.py",
+        "registered_sha256": "d8639d3035d55ef04b04605b2f565c2cc29a7dcefaba995fd852b396cf489e09",
+        "current_sha256": "d8639d3035d55ef04b04605b2f565c2cc29a7dcefaba995fd852b396cf489e09"
+      },
+      {
+        "path": "scripts/lc_role_training.py",
+        "registered_sha256": "1431e80200a7639aca10493d4d7d4ef91c66eb45bbd1457a9a1cdc52f983adb7",
+        "current_sha256": "1431e80200a7639aca10493d4d7d4ef91c66eb45bbd1457a9a1cdc52f983adb7"
+      },
+      {
+        "path": "scripts/mineral_hierarchy.py",
+        "registered_sha256": "21c485b70d838a9acf1626762b0a643b0e8297e060e8cd7eb3348f807d191384",
+        "current_sha256": "21c485b70d838a9acf1626762b0a643b0e8297e060e8cd7eb3348f807d191384"
+      },
+      {
+        "path": "scripts/msb_execution_safety.py",
+        "registered_sha256": "6a7ed68e4a36aaf4a95f327bd7dc989514784bafd3a05b6b6848864ca846ab44",
+        "current_sha256": "6a7ed68e4a36aaf4a95f327bd7dc989514784bafd3a05b6b6848864ca846ab44"
+      },
+      {
+        "path": "scripts/msb_role_audit.py",
+        "registered_sha256": "23eddcb993b3b4584ba67bbbafa94d20c40602bab15b3100a5157f789377bc20",
+        "current_sha256": "23eddcb993b3b4584ba67bbbafa94d20c40602bab15b3100a5157f789377bc20"
+      },
+      {
+        "path": "scripts/msb_role_controls.py",
+        "registered_sha256": "ef649b352b4f877d60f34dd4f64e80dc98226e587495fadda0fd697b71e7c808",
+        "current_sha256": "ef649b352b4f877d60f34dd4f64e80dc98226e587495fadda0fd697b71e7c808"
+      },
+      {
+        "path": "scripts/msb_role_data.py",
+        "registered_sha256": "674bde1f7ab1675ea427160e4a8435e9588b1ce198c7c864965ba7f6f7f7c242",
+        "current_sha256": "674bde1f7ab1675ea427160e4a8435e9588b1ce198c7c864965ba7f6f7f7c242"
+      },
+      {
+        "path": "scripts/msb_role_model.py",
+        "registered_sha256": "752e91afcc368fef0e5b54f6ff4ba5cb4c2d66267532211bfaaa0cab5b35f192",
+        "current_sha256": "752e91afcc368fef0e5b54f6ff4ba5cb4c2d66267532211bfaaa0cab5b35f192"
+      },
+      {
+        "path": "scripts/msb_role_training.py",
+        "registered_sha256": "2f16547744b86e5dbc5782111e2cdfe85fc1d0c0b3aef213774a8ed15ff9e04d",
+        "current_sha256": "2f16547744b86e5dbc5782111e2cdfe85fc1d0c0b3aef213774a8ed15ff9e04d"
+      },
+      {
+        "path": "scripts/run_anchor_linear_controls.py",
+        "registered_sha256": "15beb38c7825a439199b5545bfb5a4d842947d9f107b18ec09ccca759a747735",
+        "current_sha256": "15beb38c7825a439199b5545bfb5a4d842947d9f107b18ec09ccca759a747735"
+      },
+      {
+        "path": "scripts/run_frozen_visual_probe.py",
+        "registered_sha256": "db6db46bd8f046ad0e3ec9c2bc14f138fa2150e297ab4b30eb316d4510a36d2d",
+        "current_sha256": "db6db46bd8f046ad0e3ec9c2bc14f138fa2150e297ab4b30eb316d4510a36d2d"
+      },
+      {
+        "path": "scripts/run_ic_role_mechanism.py",
+        "registered_sha256": "423fad79bee6d5a351589319cb03b98a8097b958615a9b9e1fd274ef921f302a",
+        "current_sha256": "423fad79bee6d5a351589319cb03b98a8097b958615a9b9e1fd274ef921f302a"
+      },
+      {
+        "path": "scripts/run_lc_role_adaptation.py",
+        "registered_sha256": "c0fa18017ebe181b09b54371eb8f0cdbdd9def8ce5c498240a3b98f8b7840296",
+        "current_sha256": "c0fa18017ebe181b09b54371eb8f0cdbdd9def8ce5c498240a3b98f8b7840296"
+      },
+      {
+        "path": "scripts/run_msb_role_mechanism.py",
+        "registered_sha256": "ed73b97a52f2a653c9f36decc557a1198eadf126e122f5e23b94ba91c0405fd8",
+        "current_sha256": "ed73b97a52f2a653c9f36decc557a1198eadf126e122f5e23b94ba91c0405fd8"
+      },
+      {
+        "path": "scripts/run_seen_unseen_gate_study.py",
+        "registered_sha256": "b03b1c63aba4a1559e6a1e26797989d2cdac30c0d3bca618b76986613a1cd6bc",
+        "current_sha256": "b03b1c63aba4a1559e6a1e26797989d2cdac30c0d3bca618b76986613a1cd6bc"
+      },
+      {
+        "path": "scripts/run_tc_oos_rsg_experiments.py",
+        "registered_sha256": "7006b72d27942ab29c7b22eaf58cae344fcb8c3c8d30e2930788da9900c4bef1",
+        "current_sha256": "7006b72d27942ab29c7b22eaf58cae344fcb8c3c8d30e2930788da9900c4bef1"
+      },
+      {
+        "path": "scripts/run_verifier_strong_controls.py",
+        "registered_sha256": "40edbdd576ddc49d0a3f5a27ec71aee944660691ccba955829df4ed99a0599d6",
+        "current_sha256": "40edbdd576ddc49d0a3f5a27ec71aee944660691ccba955829df4ed99a0599d6"
+      },
+      {
+        "path": "scripts/run_verifier_trust_development.py",
+        "registered_sha256": "62ee01068bb6ef6cbb3b464732a9f57f3e2e5bc86aba879f0b2a304d40dbbce3",
+        "current_sha256": "62ee01068bb6ef6cbb3b464732a9f57f3e2e5bc86aba879f0b2a304d40dbbce3"
+      },
+      {
+        "path": "scripts/tc_oos_rsg.py",
+        "registered_sha256": "38445a3f24ccd424e5e6a635f78ef079e73f2139be62d3e974134470c66bcba2",
+        "current_sha256": "38445a3f24ccd424e5e6a635f78ef079e73f2139be62d3e974134470c66bcba2"
+      },
+      {
+        "path": "scripts/train_hierarchical_mineral_classifier.py",
+        "registered_sha256": "75e1085a66dc70adad45ae41f10d825062a0594e7fa0db1ca6438092a5e0635f",
+        "current_sha256": "75e1085a66dc70adad45ae41f10d825062a0594e7fa0db1ca6438092a5e0635f"
+      },
+      {
+        "path": "scripts/train_hrgv_mineral_classifier.py",
+        "registered_sha256": "0fa4d352c9327ea646cd42e0e267c31e9eb05a7007cfb2298ccbc595a8a94bdc",
+        "current_sha256": "0fa4d352c9327ea646cd42e0e267c31e9eb05a7007cfb2298ccbc595a8a94bdc"
+      },
+      {
+        "path": "scripts/train_mineral_classifier.py",
+        "registered_sha256": "d81cda1da77076e3dbbdf81fd9969846314187fa8ffd079fb01106c60b80edea",
+        "current_sha256": "d81cda1da77076e3dbbdf81fd9969846314187fa8ffd079fb01106c60b80edea"
+      },
+      {
+        "path": "scripts/train_role_aware_mineral_classifier.py",
+        "registered_sha256": "63380cc3806d5676312292d6345f7ea6173061a681d3430e59e54063988c0927",
+        "current_sha256": "63380cc3806d5676312292d6345f7ea6173061a681d3430e59e54063988c0927"
+      },
+      {
+        "path": "scripts/verifier_risk.py",
+        "registered_sha256": "a5bc85cccee192479bcf49bddcce4863eac66126636ba7d04b83898b9606dfff",
+        "current_sha256": "a5bc85cccee192479bcf49bddcce4863eac66126636ba7d04b83898b9606dfff"
+      },
+      {
+        "path": "scripts/verifier_strong_controls.py",
+        "registered_sha256": "a1adefaef8852bceb85aa22cd42a10609ff904b09a3f8b6dce94787c6a87299b",
+        "current_sha256": "a1adefaef8852bceb85aa22cd42a10609ff904b09a3f8b6dce94787c6a87299b"
+      },
+      {
+        "path": "scripts/verify_verifier_trust_delivery.py",
+        "registered_sha256": "daa8be53da3019607946cb4dfdfd9718e2cd43be4221ae5d1d3f30d24659ac09",
+        "current_sha256": "daa8be53da3019607946cb4dfdfd9718e2cd43be4221ae5d1d3f30d24659ac09"
+      },
+      {
+        "path": "scripts/check_msb_native_supervision.py",
+        "registered_sha256": "557574eb6f0924096bcc880393c32c767c10da094df39ffe4d3979649f11b429",
+        "current_sha256": "30ff7c45947108b80fd9c867d6ff8113590dd372fbcdbf4fd143e3d94123ae83"
+      },
+      {
+        "path": "tests/test_check_msb_native_supervision.py",
+        "registered_sha256": "d2de225bbd659314109826ede1e5917455f841f95db21f138422e8f957bf22ad",
+        "current_sha256": "f980f9470f4392968f7cb915b8c91b8ce710f676008ae525e484168ad91517d6"
+      },
+      {
+        "path": "tests/run_msb_native_supervision_synthetic_acceptance.py",
+        "registered_sha256": "1a91b6b96f3fe342ee873cf14ef128b6a169142f31c92fa30de7f51a0a3339fb",
+        "current_sha256": "838c427470360d4274f203057bc2d3e2ea16a9ec428b3347c1b014bca527379b"
+      }
+    ]
+  },
+  "blockers": [
+    {
+      "id": "C1",
+      "source": "scripts/check_msb_native_supervision.py:80",
+      "facts": "FIXED pins v2 protocol identifier and consumed output path; exact field validation rejects a new namespace.",
+      "related_lines": [
+        83,
+        235,
+        256
+      ]
+    },
+    {
+      "id": "C2",
+      "source": "scripts/check_msb_native_supervision.py:202",
+      "facts": "Worker packet path prefix uses FIXED output; _case_output independently hardcodes the v2 case prefix.",
+      "related_lines": [
+        203,
+        393
+      ]
+    },
+    {
+      "id": "C3",
+      "source": "scripts/check_msb_native_supervision.py:785",
+      "facts": "Remote registration binding and local _protocol_path independently hardcode v2 protocol filename.",
+      "related_lines": [
+        857
+      ]
+    },
+    {
+      "id": "C4",
+      "source": "scripts/check_msb_native_supervision.py:748",
+      "facts": "Old registration has three raw SHA256 mismatches; both raw source and canonical Git blob/content checks are mandatory.",
+      "related_lines": [
+        754,
+        781,
+        787,
+        791
+      ]
+    },
+    {
+      "id": "C5",
+      "source": "scripts/check_msb_native_supervision.py:256",
+      "facts": "Old output exists and is consumed. New absent output is only a static candidate, not a reservation or permit.",
+      "related_lines": [
+        258
+      ]
+    }
+  ],
+  "minimum_future_change_needs": [
+    "One fixed new namespace proposal consistent across FIXED, worker packet prefix, case prefix, local protocol path and remote registration path; no arbitrary caller-supplied paths.",
+    "Update affected existing driver fixtures and negative cases; retain old assertions except explicitly superseded namespace expectations.",
+    "Use new fixed synthetic output and scratch locations only after separately approved development; keep all old originals unchanged.",
+    "Register updated exact 46-file raw identities and canonical remote content only after separately approved implementation/review and protocol authorization; do not modify consumed v2 protocol."
+  ],
+  "alternatives": {
+    "recommended_proposal": "Versioned fixed namespace; v3 only an unapproved candidate, supervision contract and model unchanged.",
+    "not_selected": "Generalized configurable namespace is broader than this task needs.",
+    "rejected": "Reuse/delete/rename old output; edit old protocol; root/worktree alias bypass; disable fixed identity checks."
+  },
+  "gates": {
+    "current_engineering_review": "APPROVE for dee2be4, archived at ef62bf9; no new review performed",
+    "direct_fresh_registration": false,
+    "code_development_authorized": false,
+    "executable_protocol_registration_authorized": false,
+    "native_run_authorized": false,
+    "scientific_experiment_authorized": false,
+    "native_verified": false,
+    "scientific_benefit_verified": false
+  },
+  "counts": {
+    "new_project_imports": 0,
+    "new_tests": 0,
+    "new_forwards": 0,
+    "new_fits": 0,
+    "new_native_runs": 0,
+    "new_agent_dispatches": 0,
+    "formal_report_edits": 0
+  },
+  "limitations": [
+    "Static checks do not validate Windows runtime behavior or explain original trace OS failure.",
+    "New paths were absent only when inspected; not reserved.",
+    "Existing 277/277 synthetic evidence is historical, not rerun.",
+    "This author compatibility audit is not a new independent review or user-approved implementation specification."
+  ]
+}
