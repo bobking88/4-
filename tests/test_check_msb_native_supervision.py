@@ -22,11 +22,11 @@ def fixture_protocol():
     paths = tuple(authority["source_sha256"]) + (
         "scripts/check_msb_native_supervision.py", "tests/test_check_msb_native_supervision.py",
         "tests/run_msb_native_supervision_synthetic_acceptance.py")
-    return dict(protocol="msb_native_supervision_v2", status="APPROVED_NATIVE_ONLY",
+    return dict(protocol="msb_native_supervision_v3", status="APPROVED_NATIVE_ONLY",
                 scope="NATIVE_SUPERVISION_NO_DATA", execution_contract="msb_parent_bound_v2",
                 python_launch_contract="DIRECT_CPYTHON311_VENV_V1", runtime_venv_root=r"C:\synthetic\venv",
                 approval_call_id="call_"+"f"*32, approval_answer="APPROVED_SINGLE_NATIVE_NO_DATA",
-                output_relative="outputs/msb_native_supervision_v2/acceptance_once",
+                output_relative="outputs/msb_native_supervision_v3/acceptance_once",
                 max_seconds=480, case_order=["N1","N2","N3","N4"],
                 case_limits=[90,45,75,45], require_ac=True, max_attempts=1,
                 real_training_authorized=False, source_sha256={p:"1"*64 for p in paths})
@@ -61,7 +61,7 @@ class ContractTests(unittest.TestCase):
             protocol=fixture_protocol()
             with patch.object(Path,"read_bytes",side_effect=AssertionError("No asset reads in pure validation")):
                 result=validate(Path(tmp),protocol,approval=fixture_approval(protocol))
-            self.assertEqual(result["output_relative"],"outputs/msb_native_supervision_v2/acceptance_once")
+            self.assertEqual(result["output_relative"],"outputs/msb_native_supervision_v3/acceptance_once")
             self.assertEqual(result["case_limits"],[90,45,75,45])
 
     def test_protocol_mutations_and_true_data_fields_rejected(self):
@@ -130,7 +130,7 @@ class HarnessGateTests(unittest.TestCase):
             try:
                 with patch.object(harness,"ROOT",Path(tmp)),patch.object(harness,"_snapshot_sources",return_value={}),patch.object(harness,"_run_modules",return_value=r):
                     code=harness.main(["--phase","collector-green"])
-                summary=json.loads((Path(tmp)/"outputs/msb_trace_retention_review_fix_synthetic_v1/collector-green/attempt-001/acceptance_summary.json").read_text())
+                summary=json.loads((Path(tmp)/"outputs/msb_native_namespace_v3_synthetic_v1/collector-green/attempt-001/acceptance_summary.json").read_text())
                 self.assertEqual((code,summary["status"],summary["skipped"]),(1,"FAILED",1))
             finally:
                 os.chdir(previous[0]);tempfile.tempdir=previous[1];sys.path[:]=previous[2]
@@ -224,7 +224,7 @@ class WorkerTests(unittest.TestCase):
 
     def case_root(self,root,case_id):
         self.enterContext(patch.object(native,"execution_origins",return_value=observed_origins(root)))
-        return Path(root)/"outputs/msb_native_supervision_v2/acceptance_once/cases"/case_id
+        return Path(root)/"outputs/msb_native_supervision_v3/acceptance_once/cases"/case_id
 
     def test_controller_reuses_real_parent_and_original_budget(self):
         run=self.function("run_controller")
@@ -522,7 +522,7 @@ class CollectorTests(unittest.TestCase):
 
     def protocol_file(self,tmp):
         self.enterContext(patch.object(native,"execution_origins",return_value=observed_origins(tmp)))
-        root=Path(tmp);path=root/"docs/experiment_protocols/msb_native_supervision_v2.json"
+        root=Path(tmp);path=root/"docs/experiment_protocols/msb_native_supervision_v3.json"
         path.parent.mkdir(parents=True);p=fixture_protocol();path.write_text(json.dumps(p),encoding="utf-8")
         return root,path,p,fixture_approval(p)
 
@@ -720,7 +720,7 @@ class CollectorTests(unittest.TestCase):
                 p["source_sha256"][name]=hashlib.sha256(payload).hexdigest()
                 tree.append(dict(path=name,type="blob",sha=hashlib.sha1(b"blob "+str(len(payload)).encode()+b"\0"+payload).hexdigest()))
             path.write_text(json.dumps(p),encoding="utf-8");payload=path.read_bytes()
-            tree.append(dict(path="docs/experiment_protocols/msb_native_supervision_v2.json",type="blob",
+            tree.append(dict(path="docs/experiment_protocols/msb_native_supervision_v3.json",type="blob",
                              sha=hashlib.sha1(b"blob "+str(len(payload)).encode()+b"\0"+payload).hexdigest()))
             def api(endpoint,check):
                 check()
@@ -898,7 +898,7 @@ class OriginRepairTests(unittest.TestCase):
         import io
         with tempfile.TemporaryDirectory() as tmp:
             root=Path(tmp);protocol=fixture_protocol();approval=fixture_approval(protocol)
-            path=root/"docs/experiment_protocols/msb_native_supervision_v2.json"
+            path=root/"docs/experiment_protocols/msb_native_supervision_v3.json"
             flags=["--root",str(root),"--protocol",str(path),"--execute-native",
                    "--approval-call-id",approval["call_id"],"--approval-answer",approval["answer"],
                    "--registration-commit","a"*40,"--controller-case","N1",
@@ -1037,7 +1037,7 @@ class N4RepairTests(unittest.TestCase):
             root=Path(tmp);good=observed_origins(root);bad=observed_origins(root/"other")
             api=CaseLauncher("N1");services=FakeDriverServices(api)
             with patch.object(native,"execution_origins",side_effect=[good,bad]),self.assertRaises(ValueError):
-                native.run_controller(root,root/"outputs/msb_native_supervision_v2/acceptance_once/cases/N1","N1",case_binding(),services=services)
+                native.run_controller(root,root/"outputs/msb_native_supervision_v3/acceptance_once/cases/N1","N1",case_binding(),services=services)
             self.assertEqual(api.events,[])
 
     def test_n4_cleanup_during_fault_snapshot_cannot_commit(self):
@@ -1678,7 +1678,7 @@ class DirectLaunchBoundaryTests(unittest.TestCase):
                         self.assertEqual(service.acks,[])
 
     def test_missing_ready_and_old_permission_never_pass_native_v2(self):
-        self.assertEqual(native.FIXED["protocol"],"msb_native_supervision_v2")
+        self.assertEqual(native.FIXED["protocol"],"msb_native_supervision_v3")
         for token in ("call_15418f42581f439da850f0e8cfa0c004",
                       "call_0ed0a8dae29d4d6aaa949f2752ff89ce",
                       "call_3f51cdd2cc0040929106824e0c335950",
@@ -1719,7 +1719,7 @@ class DirectLaunchBoundaryTests(unittest.TestCase):
                 try:
                     with patch.object(harness,"ROOT",Path(tmp)),patch.object(harness,"_snapshot_sources",return_value={}),patch.object(harness,"_run_modules",side_effect=modules),redirect_stdout(io.StringIO()):
                         code=harness.main(["--phase","collector-green"])
-                    data=json.loads((Path(tmp)/"outputs/msb_trace_retention_review_fix_synthetic_v1/collector-green/attempt-001/acceptance_summary.json").read_text())
+                    data=json.loads((Path(tmp)/"outputs/msb_native_namespace_v3_synthetic_v1/collector-green/attempt-001/acceptance_summary.json").read_text())
                     self.assertEqual(code,0 if invoke is None else 1)
                     self.assertEqual(bool(data["unmocked_boundary_calls"]),invoke is not None)
                 finally:
@@ -1891,7 +1891,7 @@ class TracePublicationRetentionTests(unittest.TestCase):
             self.assertIs(error.receipt_error,receipt);self.assertIs(error.trace_publication.first_failure.first_error,first)
             self.assertEqual(len(writes),1);self.assertEqual(error.record()["receipt_publication"]["status"],"FAILED")
             protocol=fixture_protocol();approval=fixture_approval(protocol)
-            protocol_path=root/"docs/experiment_protocols/msb_native_supervision_v2.json"
+            protocol_path=root/"docs/experiment_protocols/msb_native_supervision_v3.json"
             protocol_path.parent.mkdir(parents=True);protocol_path.write_text(json.dumps(protocol))
             binding=dict(case_binding(),protocol_digest=native._protocol_digest(protocol))
             claim=dict(status="RUNNING",active_case="N1",binding=binding,registration_verified=True,
@@ -2010,7 +2010,7 @@ class TraceRetentionReviewFixTests(unittest.TestCase):
 
     def cli(self,error,root,output,service,case_id="N1"):
         protocol=fixture_protocol();approval=fixture_approval(protocol)
-        path=root/"docs/experiment_protocols/msb_native_supervision_v2.json"
+        path=root/"docs/experiment_protocols/msb_native_supervision_v3.json"
         path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps(protocol))
         binding=dict(case_binding(),protocol_digest=native._protocol_digest(protocol))
         claim=dict(status="RUNNING",active_case=case_id,binding=binding,registration_verified=True,
@@ -2262,3 +2262,255 @@ class TraceRetentionReviewFixTests(unittest.TestCase):
                 root,output,service=self.controller(tmp,TraceMemoryIO(),case_id)
                 result=native.run_controller(root,output,case_id,case_binding(),services=service)
                 self.assertIn("msb",result);self.assertFalse((output/"controller/controller_failure.json").exists())
+
+
+def fixture_v3_protocol():
+    protocol=copy.deepcopy(fixture_protocol())
+    protocol["protocol"]="msb_native_supervision_v3"
+    protocol["output_relative"]="outputs/msb_native_supervision_v3/acceptance_once"
+    return protocol
+
+
+class NativeNamespaceV3Tests(unittest.TestCase):
+    def success(self,operation):
+        try:return operation()
+        except Exception as error:
+            self.fail("Fixed v3 wiring required: "+type(error).__name__+": "+str(error))
+
+    def protocol_file(self,tmp):
+        root=Path(tmp).resolve()
+        self.enterContext(patch.object(native,"execution_origins",return_value=observed_origins(root)))
+        path=root/"docs/experiment_protocols/msb_native_supervision_v3.json"
+        path.parent.mkdir(parents=True)
+        protocol=fixture_v3_protocol()
+        path.write_text(json.dumps(protocol),encoding="utf-8")
+        return root,path,protocol,fixture_approval(protocol)
+
+    def packet(self,root,case_id):
+        fixture=WorkerTests()
+        self.addCleanup(fixture.doCleanups)
+        output=Path(root)/"outputs/msb_native_supervision_v3/acceptance_once/cases"/case_id
+        with patch.object(fixture,"case_root",return_value=output):
+            return fixture.packet(str(root),case_id)
+
+    def flags(self,root,path,approval,case,binding):
+        return ["--root",str(root),"--protocol",str(path),"--execute-native",
+                "--approval-call-id",approval["call_id"],"--approval-answer",approval["answer"],
+                "--registration-commit",approval["registration_commit"],
+                "--controller-case","N1","--case-output",str(case),
+                "--binding-json",json.dumps(binding)]
+
+    def test_fixed_v3_constants_and_protocol_preserve_native_contract(self):
+        self.assertEqual(getattr(native,"NATIVE_PROTOCOL_RELATIVE",None),
+                         "docs/experiment_protocols/msb_native_supervision_v3.json")
+        self.assertEqual(getattr(native,"NATIVE_OUTPUT_RELATIVE",None),
+                         "outputs/msb_native_supervision_v3/acceptance_once")
+        protocol=fixture_v3_protocol()
+        self.assertEqual(len(native.SOURCE_FILES),46)
+        self.assertEqual(set(native.SOURCE_FILES),set(protocol["source_sha256"]))
+        for key,expected in protocol.items():
+            if key not in ("approval_call_id","approval_answer","source_sha256","runtime_venv_root"):
+                with self.subTest(field=key):
+                    self.assertEqual(native.FIXED[key],expected)
+                    self.assertIs(type(native.FIXED[key]),type(expected))
+        with tempfile.TemporaryDirectory() as tmp:
+            with patch.object(Path,"read_bytes",side_effect=AssertionError("No asset reads")):
+                actual=self.success(lambda:native.validate_native_protocol(
+                    Path(tmp),protocol,approval=fixture_approval(protocol)))
+            self.assertEqual(actual,protocol)
+            self.assertIsNot(actual,protocol)
+
+    def test_old_mixed_and_arbitrary_namespaces_are_rejected(self):
+        changes=[dict(protocol="msb_native_supervision_v1"),
+                 dict(protocol="msb_native_supervision_v2",
+                      output_relative="outputs/msb_native_supervision_v2/acceptance_once"),
+                 dict(protocol="unregistered"),
+                 dict(output_relative="outputs/msb_native_supervision_v2/acceptance_once"),
+                 dict(protocol="msb_native_supervision_v2"),
+                 dict(output_relative="../outside"),
+                 dict(output_relative="outputs/arbitrary/acceptance_once"),
+                 dict(namespace="msb_native_supervision_v3")]
+        with tempfile.TemporaryDirectory() as tmp:
+            for change in changes:
+                protocol=fixture_v3_protocol();protocol.update(change)
+                original=copy.deepcopy(protocol)
+                with self.subTest(change=change),self.assertRaises(ValueError):
+                    native.validate_native_protocol(Path(tmp),protocol,approval=fixture_approval(protocol))
+                self.assertEqual(protocol,original)
+
+    def test_case_output_uses_only_fixed_v3_root(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp).resolve()
+            for case_id in ("N1","N2","N3","N4"):
+                expected=root/"outputs/msb_native_supervision_v3/acceptance_once/cases"/case_id
+                self.assertEqual(self.success(lambda:native._case_output(root,expected,case_id)),expected)
+                self.assertFalse(expected.exists())
+                for bad in (root/"outputs/msb_native_supervision_v2/acceptance_once/cases"/case_id,
+                            root/"other/outputs/msb_native_supervision_v3/acceptance_once/cases"/case_id,
+                            expected.parent/("N2" if case_id!="N2" else "N1")):
+                    with self.subTest(case_id=case_id,bad=bad),self.assertRaises(ValueError):
+                        native._case_output(root,bad,case_id)
+            with self.assertRaises(ValueError):
+                native._case_output(root,root/"N5","N5")
+
+    def test_worker_packet_binds_v3_prefix_and_inherited_capability(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp).resolve()
+            with patch.object(native,"execution_origins",return_value=observed_origins(root)):
+                for case_id in ("N1","N2","N3","N4"):
+                    path,handles=self.packet(root,case_id)
+                    packet=self.success(lambda:native._worker_packet(path,handles))
+                    self.assertEqual(packet["case_id"],case_id)
+                    self.assertEqual(Path(packet["root"]).resolve(),root)
+                bad_paths=[root/"outputs/msb_native_supervision_v2/acceptance_once/cases/N1/controller/runs/N1/packet.json",
+                           root/"outputs/msb_native_supervision_v3/acceptance_once/cases/N1/controller/runs/N2/packet.json",
+                           root/"outputs/msb_native_supervision_v3/acceptance_once/cases/N1/runs/N1/packet.json",
+                           root/"other/cases/N1/controller/runs/N1/packet.json"]
+                with patch.object(Path,"read_text",side_effect=AssertionError("Early packet read")) as read, \
+                     patch.object(safety,"_published",side_effect=AssertionError("Early publication read")) as published:
+                    for bad in bad_paths:
+                        with self.subTest(bad=bad),self.assertRaises(ValueError):
+                            native._worker_packet(bad,handles)
+                    with self.assertRaises(ValueError):native._worker_packet(path,{})
+                    read.assert_not_called();published.assert_not_called()
+
+    def test_local_protocol_path_rejects_old_and_unregistered_paths(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp).resolve()
+            expected=root/"docs/experiment_protocols/msb_native_supervision_v3.json"
+            self.assertEqual(self.success(lambda:native._protocol_path(root,expected)),expected)
+            protocol=fixture_v3_protocol();approval=fixture_approval(protocol)
+            with patch.object(native,"execution_origins",return_value=observed_origins(root)), \
+                 patch.object(native,"NativeServices",side_effect=AssertionError("Early native factory")) as factory, \
+                 patch.object(Path,"read_text",side_effect=AssertionError("Early protocol read")) as read:
+                for bad in (root/"docs/experiment_protocols/msb_native_supervision_v2.json",
+                            root/"other/msb_native_supervision_v3.json",
+                            root/"other/docs/experiment_protocols/msb_native_supervision_v3.json"):
+                    with self.subTest(bad=bad),self.assertRaises(ValueError):
+                        native._protocol_path(root,bad)
+                    with self.assertRaises(ValueError):
+                        native.run_acceptance(root,bad,execute_native=True,approval=approval,
+                                              services=FakeCollectorServices())
+                    case=root/protocol["output_relative"]/"cases/N1"
+                    with self.assertRaises(ValueError):
+                        native.main(self.flags(root,bad,approval,case,case_binding()))
+                read.assert_not_called();factory.assert_not_called()
+
+    def test_remote_registration_requires_v3_path_and_exact_identities(self):
+        import base64
+        import hashlib
+        def blob(payload):
+            canonical=payload.replace(b"\r\n",b"\n")
+            return hashlib.sha1(b"blob "+str(len(canonical)).encode()+b"\0"+canonical).hexdigest()
+        with tempfile.TemporaryDirectory() as tmp:
+            root,path,protocol,approval=self.protocol_file(tmp)
+            tree=[]
+            for relative in protocol["source_sha256"]:
+                target=root/relative;target.parent.mkdir(parents=True,exist_ok=True)
+                payload=b"synthetic-source\n";target.write_bytes(payload)
+                protocol["source_sha256"][relative]=hashlib.sha256(payload).hexdigest()
+                tree.append(dict(path=relative,type="blob",sha=blob(payload)))
+            path.write_text(json.dumps(protocol),encoding="utf-8");payload=path.read_bytes()
+            relative="docs/experiment_protocols/msb_native_supervision_v3.json"
+            tree.append(dict(path=relative,type="blob",sha=blob(payload)))
+            mode="valid";requests=[]
+            def api(endpoint,check):
+                check();requests.append(endpoint)
+                if endpoint.endswith("/git/ref/heads/codex/theory-aware-report"):
+                    return dict(object=dict(sha="a"*40))
+                if endpoint.endswith("/git/commits/"+"a"*40):
+                    return dict(sha="a"*40,tree=dict(sha="b"*40))
+                if endpoint.endswith("/git/trees/"+"b"*40+"?recursive=1"):
+                    rows=copy.deepcopy(tree)
+                    if mode=="old_tree":rows[-1]["path"]="docs/experiment_protocols/msb_native_supervision_v2.json"
+                    if mode=="source_blob":rows[0]["sha"]="0"*40
+                    if mode=="protocol_blob":rows[-1]["sha"]="0"*40
+                    return dict(truncated=False,tree=rows)
+                if endpoint.endswith("/contents/"+relative+"?ref="+"a"*40):
+                    content=b'{"different":true}' if mode=="protocol_content" else payload
+                    return dict(content=base64.b64encode(content).decode(),encoding="base64")
+                raise AssertionError("Unregistered endpoint: "+endpoint)
+            service=object.__new__(native.NativeServices);service._api=api
+            result=self.success(lambda:service.verify_registration(root,path,protocol,approval,lambda:None))
+            self.assertTrue(result["verified"])
+            self.assertTrue(any("/contents/"+relative+"?ref=" in q for q in requests))
+            self.assertFalse(any("msb_native_supervision_v2" in q for q in requests))
+            for mode in ("old_tree","source_raw","source_blob","protocol_blob","protocol_content"):
+                changed=copy.deepcopy(protocol)
+                if mode=="source_raw":changed["source_sha256"][next(iter(changed["source_sha256"]))]="0"*64
+                with self.subTest(mode=mode),self.assertRaises(ValueError):
+                    service.verify_registration(root,path,changed,approval,lambda:None)
+            self.assertEqual(path.read_bytes(),payload)
+
+    def test_consumed_v3_output_is_rejected_without_touching_history(self):
+        import hashlib
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp).resolve()
+            old=root/"outputs/msb_native_supervision_v2/acceptance_once"
+            old.mkdir(parents=True);old_marker=old/"history.bin";old_marker.write_bytes(b"old-original")
+            before=hashlib.sha256(old_marker.read_bytes()).hexdigest()
+            protocol=fixture_v3_protocol()
+            self.success(lambda:native.validate_native_protocol(root,protocol,approval=fixture_approval(protocol)))
+            output=root/"outputs/msb_native_supervision_v3/acceptance_once"
+            self.assertFalse(output.exists())
+            output.mkdir(parents=True);new_marker=output/"history.bin";new_marker.write_bytes(b"new-original")
+            with self.assertRaises(FileExistsError):
+                native.validate_native_protocol(root,protocol,approval=fixture_approval(protocol))
+            self.assertEqual(hashlib.sha256(old_marker.read_bytes()).hexdigest(),before)
+            self.assertEqual(new_marker.read_bytes(),b"new-original")
+            self.assertEqual(sorted(p.name for p in output.parent.iterdir()),["acceptance_once"])
+
+    def test_v3_simulated_entries_preserve_claim_budget_and_case_order(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root,path,protocol,approval=self.protocol_file(tmp);services=FakeCollectorServices()
+            services.run_outer=Mock(wraps=services.run_outer)
+            result=self.success(lambda:native.run_acceptance(root,path,execute_native=True,
+                                                            approval=approval,services=services))
+            self.assertEqual(result["status"],"PASS_NATIVE_SUPERVISION_SCOPE")
+            launches=[c for c in services.calls if c[0]=="launch"]
+            self.assertEqual([c[1] for c in launches],["N1","N2","N3","N4"])
+            self.assertEqual([c[2] for c in launches],[90,45,75,45])
+            self.assertEqual({(c[4]["start_tick_ms"],c[4]["deadline_tick_ms"]) for c in launches},
+                             {(1000,7201000)})
+            for call in services.run_outer.call_args_list:
+                job=call.args[0];command=job["command"]
+                self.assertEqual(command[command.index("--protocol")+1],str(path))
+                self.assertTrue(Path(job["case_dir"]).is_relative_to(root/protocol["output_relative"]))
+            self.assertFalse(result["native_os_exercised"]);self.assertFalse(result["real_data_opened"])
+            self.assertEqual(len(services.environment.requests),2)
+        with tempfile.TemporaryDirectory() as tmp:
+            root,path,protocol,approval=self.protocol_file(tmp)
+            out=root/protocol["output_relative"];case=out/"cases/N1";case.mkdir(parents=True)
+            binding=case_binding();binding["protocol_digest"]=native._protocol_digest(protocol)
+            claim=dict(status="RUNNING",active_case="N1",binding=binding,registration_verified=True,
+                       source_identity_verified=True,registered_commit=approval["registration_commit"])
+            (out/"stage_state.json").write_text(json.dumps(claim),encoding="utf-8")
+            services=FakeCollectorServices();services.api=CaseLauncher("N1")
+            flags=self.flags(root,path,approval,case,binding)
+            with patch.object(native,"NativeServices",return_value=services),redirect_stdout(io.StringIO()):
+                self.assertEqual(self.success(lambda:native.main(flags)),0)
+            row=json.loads((case/"controller/controller_result.json").read_text())
+            self.assertTrue(row["msb"]["end_handshake_verified"])
+            self.assertTrue(row["parent_power"]["power_request_released"])
+            self.assertTrue(services.api.close_queued)
+            claim["status"]="COMPLETE"
+            (out/"stage_state.json").write_text(json.dumps(claim),encoding="utf-8")
+            with patch.object(native,"NativeServices",side_effect=AssertionError("Invalid claim")) as factory:
+                with self.assertRaises(ValueError):native.main(flags)
+                factory.assert_not_called()
+            with patch.object(native,"execution_origins",return_value=observed_origins(root/"other")), \
+                 patch.object(native,"NativeServices",side_effect=AssertionError("Invalid origin")) as factory:
+                with self.assertRaises(ValueError):native.main(flags)
+                factory.assert_not_called()
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp).resolve()
+            with patch.object(native,"execution_origins",return_value=observed_origins(root)):
+                path,handles=self.packet(root,"N1");services=FakeDriverServices(WorkerAPI())
+                result=self.success(lambda:native.run_no_data_worker(path,handles,services=services))
+                self.assertTrue(result["worker_execution"]["end_handshake_verified"])
+                self.assertTrue(result["worker_power"]["power_request_released"])
+                self.assertEqual(set(services.api.closed),{10,11,12})
+        for case_id in ("N1","N2","N3","N4"):
+            self.assertFalse(native.classify_native_cases([case_record(case_id)],
+                             outer_evidence=root_evidence())["accepted"])
+

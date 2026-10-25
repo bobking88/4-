@@ -77,10 +77,12 @@ NON_NATIVE_IDS = {
     "call_a6f6d55427584c8da99bbba75fef5a29", "call_9831ed712c9348a19b4a71960443c76d",
     "call_1772c2605a3d40fabe5266d3b37ba35f",
 }
-FIXED = dict(protocol="msb_native_supervision_v2", status="APPROVED_NATIVE_ONLY",
+NATIVE_PROTOCOL_RELATIVE = "docs/experiment_protocols/msb_native_supervision_v3.json"
+NATIVE_OUTPUT_RELATIVE = "outputs/msb_native_supervision_v3/acceptance_once"
+FIXED = dict(protocol="msb_native_supervision_v3", status="APPROVED_NATIVE_ONLY",
              scope="NATIVE_SUPERVISION_NO_DATA", execution_contract="msb_parent_bound_v2",
              python_launch_contract="DIRECT_CPYTHON311_VENV_V1",
-             output_relative="outputs/msb_native_supervision_v2/acceptance_once",
+             output_relative=NATIVE_OUTPUT_RELATIVE,
              max_seconds=480, case_order=["N1","N2","N3","N4"],
              case_limits=[90,45,75,45], require_ac=True, max_attempts=1,
              real_training_authorized=False)
@@ -390,7 +392,7 @@ class ControllerTracePublicationError(RuntimeError):
 
 def _case_output(root,case_dir,case_id):
     if case_id not in {c["case_id"] for c in CASES}:raise ValueError("Unknown native case")
-    expected=Path(root).resolve()/"outputs/msb_native_supervision_v2/acceptance_once/cases"/case_id
+    expected=Path(root).resolve()/NATIVE_OUTPUT_RELATIVE/"cases"/case_id
     if Path(case_dir).resolve()!=expected:raise ValueError("Fixed exclusive native case path required")
     return expected
 
@@ -782,7 +784,7 @@ class NativeServices:
             check()
             if blobs.get(relative)!=blob((Path(root)/relative).read_bytes()):
                 raise ValueError("Registered source blob differs: "+relative)
-        relative="docs/experiment_protocols/msb_native_supervision_v2.json"
+        relative=NATIVE_PROTOCOL_RELATIVE
         payload=Path(path).read_bytes()
         if blobs.get(relative)!=blob(payload):raise ValueError("Registered native protocol blob differs")
         content=self._api(base+"/contents/"+relative+"?ref="+commit_id,check)
@@ -854,7 +856,7 @@ def _check_approval(approval):
 
 
 def _protocol_path(root,path):
-    expected=Path(root).resolve()/"docs/experiment_protocols/msb_native_supervision_v2.json"
+    expected=Path(root).resolve()/NATIVE_PROTOCOL_RELATIVE
     if Path(path).resolve()!=expected:raise ValueError("Only the fixed native protocol path may be read")
     return expected
 

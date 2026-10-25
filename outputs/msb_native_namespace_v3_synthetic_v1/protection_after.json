@@ -1,0 +1,247 @@
+{
+  "date": "2026-10-25",
+  "approval_id": "call_ed3402ece50249469f240dc0b9cb744a",
+  "protected_record_count": 443,
+  "unchanged_records": 409,
+  "changed_records": 34,
+  "changed_paths": [
+    "README.md",
+    "scripts/check_msb_native_supervision.py",
+    "tests/test_check_msb_native_supervision.py",
+    "tests/run_msb_native_supervision_synthetic_acceptance.py"
+  ],
+  "unauthorized_changes": [],
+  "source_identity": [
+    {
+      "path": "scripts/check_msb_native_supervision.py",
+      "sha256": "d09a97dbff082f8081a74a96b84ecb2be1ad2cc16a33f8167b62c490f047ea78"
+    },
+    {
+      "path": "tests/test_check_msb_native_supervision.py",
+      "sha256": "8c973d98742ae074b7fda7d2b74d7a88d1e936d4b62505a0fd7c74879437650d"
+    },
+    {
+      "path": "tests/run_msb_native_supervision_synthetic_acceptance.py",
+      "sha256": "ebc386d2611e373130a2d3e6c1eba2ac9bb2247f8a4b2407198c33b9f0b8e745"
+    }
+  ],
+  "historical_source_closure": {
+    "total": 56,
+    "unchanged": 53,
+    "approved_changed": 3
+  },
+  "old_native_source_closure": {
+    "total": 46,
+    "unchanged": 43,
+    "approved_changed": 3
+  },
+  "new_executable_protocol_exists": false,
+  "new_native_output_exists": false,
+  "formal_report_edits": 0,
+  "changes": [
+    {
+      "path": "README.md",
+      "before_sha256": "29dc6368859955979365275ff8005e7d5f36bb985efa7633fb7ff853fe0540ae",
+      "after_sha256": "9b8a2d6d4e5a3fb28610e814086ed55d72396b642adbaa3113c094e1f669236a",
+      "allowed": true
+    },
+    {
+      "path": "scripts/check_msb_native_supervision.py",
+      "before_sha256": "30ff7c45947108b80fd9c867d6ff8113590dd372fbcdbf4fd143e3d94123ae83",
+      "after_sha256": "d09a97dbff082f8081a74a96b84ecb2be1ad2cc16a33f8167b62c490f047ea78",
+      "allowed": true
+    },
+    {
+      "path": "tests/test_check_msb_native_supervision.py",
+      "before_sha256": "f980f9470f4392968f7cb915b8c91b8ce710f676008ae525e484168ad91517d6",
+      "after_sha256": "8c973d98742ae074b7fda7d2b74d7a88d1e936d4b62505a0fd7c74879437650d",
+      "allowed": true
+    },
+    {
+      "path": "tests/run_msb_native_supervision_synthetic_acceptance.py",
+      "before_sha256": "838c427470360d4274f203057bc2d3e2ea16a9ec428b3347c1b014bca527379b",
+      "after_sha256": "ebc386d2611e373130a2d3e6c1eba2ac9bb2247f8a4b2407198c33b9f0b8e745",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "29dc6368859955979365275ff8005e7d5f36bb985efa7633fb7ff853fe0540ae",
+      "after_sha256": "9b8a2d6d4e5a3fb28610e814086ed55d72396b642adbaa3113c094e1f669236a",
+      "allowed": true
+    },
+    {
+      "path": "scripts/check_msb_native_supervision.py",
+      "before_sha256": "30ff7c45947108b80fd9c867d6ff8113590dd372fbcdbf4fd143e3d94123ae83",
+      "after_sha256": "d09a97dbff082f8081a74a96b84ecb2be1ad2cc16a33f8167b62c490f047ea78",
+      "allowed": true
+    },
+    {
+      "path": "tests/run_msb_native_supervision_synthetic_acceptance.py",
+      "before_sha256": "838c427470360d4274f203057bc2d3e2ea16a9ec428b3347c1b014bca527379b",
+      "after_sha256": "ebc386d2611e373130a2d3e6c1eba2ac9bb2247f8a4b2407198c33b9f0b8e745",
+      "allowed": true
+    },
+    {
+      "path": "tests/test_check_msb_native_supervision.py",
+      "before_sha256": "f980f9470f4392968f7cb915b8c91b8ce710f676008ae525e484168ad91517d6",
+      "after_sha256": "8c973d98742ae074b7fda7d2b74d7a88d1e936d4b62505a0fd7c74879437650d",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "29dc6368859955979365275ff8005e7d5f36bb985efa7633fb7ff853fe0540ae",
+      "after_sha256": "9b8a2d6d4e5a3fb28610e814086ed55d72396b642adbaa3113c094e1f669236a",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "29dc6368859955979365275ff8005e7d5f36bb985efa7633fb7ff853fe0540ae",
+      "after_sha256": "9b8a2d6d4e5a3fb28610e814086ed55d72396b642adbaa3113c094e1f669236a",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "29dc6368859955979365275ff8005e7d5f36bb985efa7633fb7ff853fe0540ae",
+      "after_sha256": "9b8a2d6d4e5a3fb28610e814086ed55d72396b642adbaa3113c094e1f669236a",
+      "allowed": true
+    },
+    {
+      "path": "scripts/check_msb_native_supervision.py",
+      "before_sha256": "30ff7c45947108b80fd9c867d6ff8113590dd372fbcdbf4fd143e3d94123ae83",
+      "after_sha256": "d09a97dbff082f8081a74a96b84ecb2be1ad2cc16a33f8167b62c490f047ea78",
+      "allowed": true
+    },
+    {
+      "path": "tests/run_msb_native_supervision_synthetic_acceptance.py",
+      "before_sha256": "838c427470360d4274f203057bc2d3e2ea16a9ec428b3347c1b014bca527379b",
+      "after_sha256": "ebc386d2611e373130a2d3e6c1eba2ac9bb2247f8a4b2407198c33b9f0b8e745",
+      "allowed": true
+    },
+    {
+      "path": "tests/test_check_msb_native_supervision.py",
+      "before_sha256": "f980f9470f4392968f7cb915b8c91b8ce710f676008ae525e484168ad91517d6",
+      "after_sha256": "8c973d98742ae074b7fda7d2b74d7a88d1e936d4b62505a0fd7c74879437650d",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "29dc6368859955979365275ff8005e7d5f36bb985efa7633fb7ff853fe0540ae",
+      "after_sha256": "9b8a2d6d4e5a3fb28610e814086ed55d72396b642adbaa3113c094e1f669236a",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "29dc6368859955979365275ff8005e7d5f36bb985efa7633fb7ff853fe0540ae",
+      "after_sha256": "9b8a2d6d4e5a3fb28610e814086ed55d72396b642adbaa3113c094e1f669236a",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "29dc6368859955979365275ff8005e7d5f36bb985efa7633fb7ff853fe0540ae",
+      "after_sha256": "9b8a2d6d4e5a3fb28610e814086ed55d72396b642adbaa3113c094e1f669236a",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "29dc6368859955979365275ff8005e7d5f36bb985efa7633fb7ff853fe0540ae",
+      "after_sha256": "9b8a2d6d4e5a3fb28610e814086ed55d72396b642adbaa3113c094e1f669236a",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "29dc6368859955979365275ff8005e7d5f36bb985efa7633fb7ff853fe0540ae",
+      "after_sha256": "9b8a2d6d4e5a3fb28610e814086ed55d72396b642adbaa3113c094e1f669236a",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "29dc6368859955979365275ff8005e7d5f36bb985efa7633fb7ff853fe0540ae",
+      "after_sha256": "9b8a2d6d4e5a3fb28610e814086ed55d72396b642adbaa3113c094e1f669236a",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "29dc6368859955979365275ff8005e7d5f36bb985efa7633fb7ff853fe0540ae",
+      "after_sha256": "9b8a2d6d4e5a3fb28610e814086ed55d72396b642adbaa3113c094e1f669236a",
+      "allowed": true
+    },
+    {
+      "path": "scripts/check_msb_native_supervision.py",
+      "before_sha256": "30ff7c45947108b80fd9c867d6ff8113590dd372fbcdbf4fd143e3d94123ae83",
+      "after_sha256": "d09a97dbff082f8081a74a96b84ecb2be1ad2cc16a33f8167b62c490f047ea78",
+      "allowed": true
+    },
+    {
+      "path": "tests/run_msb_native_supervision_synthetic_acceptance.py",
+      "before_sha256": "838c427470360d4274f203057bc2d3e2ea16a9ec428b3347c1b014bca527379b",
+      "after_sha256": "ebc386d2611e373130a2d3e6c1eba2ac9bb2247f8a4b2407198c33b9f0b8e745",
+      "allowed": true
+    },
+    {
+      "path": "tests/test_check_msb_native_supervision.py",
+      "before_sha256": "f980f9470f4392968f7cb915b8c91b8ce710f676008ae525e484168ad91517d6",
+      "after_sha256": "8c973d98742ae074b7fda7d2b74d7a88d1e936d4b62505a0fd7c74879437650d",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "29dc6368859955979365275ff8005e7d5f36bb985efa7633fb7ff853fe0540ae",
+      "after_sha256": "9b8a2d6d4e5a3fb28610e814086ed55d72396b642adbaa3113c094e1f669236a",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "29dc6368859955979365275ff8005e7d5f36bb985efa7633fb7ff853fe0540ae",
+      "after_sha256": "9b8a2d6d4e5a3fb28610e814086ed55d72396b642adbaa3113c094e1f669236a",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "29dc6368859955979365275ff8005e7d5f36bb985efa7633fb7ff853fe0540ae",
+      "after_sha256": "9b8a2d6d4e5a3fb28610e814086ed55d72396b642adbaa3113c094e1f669236a",
+      "allowed": true
+    },
+    {
+      "path": "scripts/check_msb_native_supervision.py",
+      "before_sha256": "30ff7c45947108b80fd9c867d6ff8113590dd372fbcdbf4fd143e3d94123ae83",
+      "after_sha256": "d09a97dbff082f8081a74a96b84ecb2be1ad2cc16a33f8167b62c490f047ea78",
+      "allowed": true
+    },
+    {
+      "path": "tests/test_check_msb_native_supervision.py",
+      "before_sha256": "f980f9470f4392968f7cb915b8c91b8ce710f676008ae525e484168ad91517d6",
+      "after_sha256": "8c973d98742ae074b7fda7d2b74d7a88d1e936d4b62505a0fd7c74879437650d",
+      "allowed": true
+    },
+    {
+      "path": "tests/run_msb_native_supervision_synthetic_acceptance.py",
+      "before_sha256": "838c427470360d4274f203057bc2d3e2ea16a9ec428b3347c1b014bca527379b",
+      "after_sha256": "ebc386d2611e373130a2d3e6c1eba2ac9bb2247f8a4b2407198c33b9f0b8e745",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "29dc6368859955979365275ff8005e7d5f36bb985efa7633fb7ff853fe0540ae",
+      "after_sha256": "9b8a2d6d4e5a3fb28610e814086ed55d72396b642adbaa3113c094e1f669236a",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "29dc6368859955979365275ff8005e7d5f36bb985efa7633fb7ff853fe0540ae",
+      "after_sha256": "9b8a2d6d4e5a3fb28610e814086ed55d72396b642adbaa3113c094e1f669236a",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "29dc6368859955979365275ff8005e7d5f36bb985efa7633fb7ff853fe0540ae",
+      "after_sha256": "9b8a2d6d4e5a3fb28610e814086ed55d72396b642adbaa3113c094e1f669236a",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "29dc6368859955979365275ff8005e7d5f36bb985efa7633fb7ff853fe0540ae",
+      "after_sha256": "9b8a2d6d4e5a3fb28610e814086ed55d72396b642adbaa3113c094e1f669236a",
+      "allowed": true
+    }
+  ]
+}

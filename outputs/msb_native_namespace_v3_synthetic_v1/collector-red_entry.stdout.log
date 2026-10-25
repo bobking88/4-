@@ -1,0 +1,131 @@
+{"scope": "SYNTHETIC_CONTRACT_ONLY", "phase": "collector-green", "attempt": 1, "bootstrap": {"torch": "2.12.1+cu130", "sklearn": "1.9.0"}, "unused_dependency_stubs": ["torchvision.models", "torchvision.transforms"], "status": "FAILED", "modules": ["test_check_msb_native_supervision"], "tests_run": 1, "failures": 0, "errors": 0, "skipped": 1, "expected_failures": 0, "unexpected_successes": 0, "unmocked_boundary_calls": [], "native_os_exercised": false, "real_data_opened": false, "real_fits": 0, "temporary_synthetic_tensor_reads": 0, "source_snapshot": "DIRECT_PRE_RUN_CAPTURE", "harness_error": null}
+
+{"scope": "SYNTHETIC_CONTRACT_ONLY", "phase": "collector-red", "attempt": 1, "bootstrap": {"torch": "2.12.1+cu130", "sklearn": "1.9.0"}, "unused_dependency_stubs": ["torchvision.models", "torchvision.transforms"], "status": "FAILED", "modules": ["test_check_msb_native_supervision"], "tests_run": 124, "failures": 8, "errors": 0, "skipped": 0, "expected_failures": 0, "unexpected_successes": 0, "unmocked_boundary_calls": [], "native_os_exercised": false, "real_data_opened": false, "real_fits": 0, "temporary_synthetic_tensor_reads": 0, "source_snapshot": "DIRECT_PRE_RUN_CAPTURE", "harness_error": null}
+_check_msb_native_supervision.py", line 2278, in success
+    self.fail("Fixed v3 wiring required: "+type(error).__name__+": "+str(error))
+AssertionError: Fixed v3 wiring required: ValueError: Fixed native acceptance field differs: protocol
+
+======================================================================
+FAIL: test_fixed_v3_constants_and_protocol_preserve_native_contract (test_check_msb_native_supervision.NativeNamespaceV3Tests.test_fixed_v3_constants_and_protocol_preserve_native_contract)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2304, in test_fixed_v3_constants_and_protocol_preserve_native_contract
+    self.assertEqual(getattr(native,"NATIVE_PROTOCOL_RELATIVE",None),
+AssertionError: None != 'docs/experiment_protocols/msb_native_supervision_v3.json'
+
+======================================================================
+FAIL: test_local_protocol_path_rejects_old_and_unregistered_paths (test_check_msb_native_supervision.NativeNamespaceV3Tests.test_local_protocol_path_rejects_old_and_unregistered_paths)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2276, in success
+    try:return operation()
+               ^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2381, in <lambda>
+    self.assertEqual(self.success(lambda:native._protocol_path(root,expected)),expected)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 858, in _protocol_path
+    if Path(path).resolve()!=expected:raise ValueError("Only the fixed native protocol path may be read")
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Only the fixed native protocol path may be read
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2381, in test_local_protocol_path_rejects_old_and_unregistered_paths
+    self.assertEqual(self.success(lambda:native._protocol_path(root,expected)),expected)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2278, in success
+    self.fail("Fixed v3 wiring required: "+type(error).__name__+": "+str(error))
+AssertionError: Fixed v3 wiring required: ValueError: Only the fixed native protocol path may be read
+
+======================================================================
+FAIL: test_old_mixed_and_arbitrary_namespaces_are_rejected (test_check_msb_native_supervision.NativeNamespaceV3Tests.test_old_mixed_and_arbitrary_namespaces_are_rejected) (change={'protocol': 'msb_native_supervision_v2', 'output_relative': 'outputs/msb_native_supervision_v2/acceptance_once'})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2337, in test_old_mixed_and_arbitrary_namespaces_are_rejected
+    with self.subTest(change=change),self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_remote_registration_requires_v3_path_and_exact_identities (test_check_msb_native_supervision.NativeNamespaceV3Tests.test_remote_registration_requires_v3_path_and_exact_identities)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2276, in success
+    try:return operation()
+               ^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2434, in <lambda>
+    result=self.success(lambda:service.verify_registration(root,path,protocol,approval,lambda:None))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 787, in verify_registration
+    if blobs.get(relative)!=blob(payload):raise ValueError("Registered native protocol blob differs")
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Registered native protocol blob differs
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2434, in test_remote_registration_requires_v3_path_and_exact_identities
+    result=self.success(lambda:service.verify_registration(root,path,protocol,approval,lambda:None))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2278, in success
+    self.fail("Fixed v3 wiring required: "+type(error).__name__+": "+str(error))
+AssertionError: Fixed v3 wiring required: ValueError: Registered native protocol blob differs
+
+======================================================================
+FAIL: test_v3_simulated_entries_preserve_claim_budget_and_case_order (test_check_msb_native_supervision.NativeNamespaceV3Tests.test_v3_simulated_entries_preserve_claim_budget_and_case_order)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2276, in success
+    try:return operation()
+               ^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2467, in <lambda>
+    result=self.success(lambda:native.run_acceptance(root,path,execute_native=True,
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 1216, in run_acceptance
+    root=Path(root).resolve();_execution_root(root);protocol_path=_protocol_path(root,protocol_path)
+                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 858, in _protocol_path
+    if Path(path).resolve()!=expected:raise ValueError("Only the fixed native protocol path may be read")
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Only the fixed native protocol path may be read
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2467, in test_v3_simulated_entries_preserve_claim_budget_and_case_order
+    result=self.success(lambda:native.run_acceptance(root,path,execute_native=True,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2278, in success
+    self.fail("Fixed v3 wiring required: "+type(error).__name__+": "+str(error))
+AssertionError: Fixed v3 wiring required: ValueError: Only the fixed native protocol path may be read
+
+======================================================================
+FAIL: test_worker_packet_binds_v3_prefix_and_inherited_capability (test_check_msb_native_supervision.NativeNamespaceV3Tests.test_worker_packet_binds_v3_prefix_and_inherited_capability)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2276, in success
+    try:return operation()
+               ^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2362, in <lambda>
+    packet=self.success(lambda:native._worker_packet(path,handles))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 203, in _worker_packet
+    if not path.is_relative_to(prefix):raise ValueError("Worker packet outside executing root")
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Worker packet outside executing root
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2362, in test_worker_packet_binds_v3_prefix_and_inherited_capability
+    packet=self.success(lambda:native._worker_packet(path,handles))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2278, in success
+    self.fail("Fixed v3 wiring required: "+type(error).__name__+": "+str(error))
+AssertionError: Fixed v3 wiring required: ValueError: Worker packet outside executing root
+
+----------------------------------------------------------------------
+Ran 124 tests in 4.637s
+
+FAILED (failures=8)
+

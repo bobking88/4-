@@ -1,0 +1,171 @@
+{
+  "date": "2026-10-25",
+  "approval_id": "call_ed3402ece50249469f240dc0b9cb744a",
+  "approved_plan_commit": "5ff02a45b547f07410368adce7be0d959b92aa86",
+  "status": "AUTHOR_SYNTHETIC_ACCEPTED_INDEPENDENT_REVIEW_PENDING",
+  "summaries": [
+    {
+      "scope": "SYNTHETIC_CONTRACT_ONLY",
+      "phase": "collector-red",
+      "attempt": 1,
+      "bootstrap": {
+        "torch": "2.12.1+cu130",
+        "sklearn": "1.9.0"
+      },
+      "unused_dependency_stubs": [
+        "torchvision.models",
+        "torchvision.transforms"
+      ],
+      "status": "FAILED",
+      "modules": [
+        "test_check_msb_native_supervision"
+      ],
+      "tests_run": 124,
+      "failures": 8,
+      "errors": 0,
+      "skipped": 0,
+      "expected_failures": 0,
+      "unexpected_successes": 0,
+      "unmocked_boundary_calls": [],
+      "native_os_exercised": false,
+      "real_data_opened": false,
+      "real_fits": 0,
+      "temporary_synthetic_tensor_reads": 0,
+      "source_snapshot": "DIRECT_PRE_RUN_CAPTURE",
+      "harness_error": null
+    },
+    {
+      "scope": "SYNTHETIC_CONTRACT_ONLY",
+      "phase": "collector-green",
+      "attempt": 1,
+      "bootstrap": {
+        "torch": "2.12.1+cu130",
+        "sklearn": "1.9.0"
+      },
+      "unused_dependency_stubs": [
+        "torchvision.models",
+        "torchvision.transforms"
+      ],
+      "status": "PASSED",
+      "modules": [
+        "test_check_msb_native_supervision"
+      ],
+      "tests_run": 124,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "expected_failures": 0,
+      "unexpected_successes": 0,
+      "unmocked_boundary_calls": [],
+      "native_os_exercised": false,
+      "real_data_opened": false,
+      "real_fits": 0,
+      "temporary_synthetic_tensor_reads": 0,
+      "source_snapshot": "DIRECT_PRE_RUN_CAPTURE",
+      "harness_error": null
+    },
+    {
+      "scope": "SYNTHETIC_CONTRACT_ONLY",
+      "phase": "final",
+      "attempt": 1,
+      "bootstrap": {
+        "torch": "2.12.1+cu130",
+        "sklearn": "1.9.0"
+      },
+      "unused_dependency_stubs": [
+        "torchvision.models",
+        "torchvision.transforms"
+      ],
+      "status": "PASSED",
+      "modules": [
+        "test_msb_execution_safety",
+        "test_msb_role_data",
+        "test_msb_role_model",
+        "test_msb_role_controls",
+        "test_msb_role_audit",
+        "test_msb_role_training",
+        "test_run_msb_role_mechanism",
+        "test_analyze_msb_role_mechanism",
+        "test_generate_msb_role_figure",
+        "test_check_msb_native_supervision"
+      ],
+      "tests_run": 285,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "expected_failures": 0,
+      "unexpected_successes": 0,
+      "unmocked_boundary_calls": [],
+      "native_os_exercised": false,
+      "real_data_opened": false,
+      "real_fits": 0,
+      "temporary_synthetic_tensor_reads": 2,
+      "source_snapshot": "DIRECT_PRE_RUN_CAPTURE",
+      "harness_error": null
+    }
+  ],
+  "old_full_names_preserved": 277,
+  "new_full_names": [
+    "test_check_msb_native_supervision.NativeNamespaceV3Tests.test_case_output_uses_only_fixed_v3_root",
+    "test_check_msb_native_supervision.NativeNamespaceV3Tests.test_consumed_v3_output_is_rejected_without_touching_history",
+    "test_check_msb_native_supervision.NativeNamespaceV3Tests.test_fixed_v3_constants_and_protocol_preserve_native_contract",
+    "test_check_msb_native_supervision.NativeNamespaceV3Tests.test_local_protocol_path_rejects_old_and_unregistered_paths",
+    "test_check_msb_native_supervision.NativeNamespaceV3Tests.test_old_mixed_and_arbitrary_namespaces_are_rejected",
+    "test_check_msb_native_supervision.NativeNamespaceV3Tests.test_remote_registration_requires_v3_path_and_exact_identities",
+    "test_check_msb_native_supervision.NativeNamespaceV3Tests.test_v3_simulated_entries_preserve_claim_budget_and_case_order",
+    "test_check_msb_native_supervision.NativeNamespaceV3Tests.test_worker_packet_binds_v3_prefix_and_inherited_capability"
+  ],
+  "final_unique_names": 285,
+  "red_failures_exact_eight_additions": true,
+  "green_final_current_source_equal": true,
+  "source_identity": [
+    {
+      "path": "scripts/check_msb_native_supervision.py",
+      "sha256": "d09a97dbff082f8081a74a96b84ecb2be1ad2cc16a33f8167b62c490f047ea78"
+    },
+    {
+      "path": "tests/test_check_msb_native_supervision.py",
+      "sha256": "8c973d98742ae074b7fda7d2b74d7a88d1e936d4b62505a0fd7c74879437650d"
+    },
+    {
+      "path": "tests/run_msb_native_supervision_synthetic_acceptance.py",
+      "sha256": "ebc386d2611e373130a2d3e6c1eba2ac9bb2247f8a4b2407198c33b9f0b8e745"
+    }
+  ],
+  "attempts_per_phase": 1,
+  "retries": 0,
+  "native_verified": false,
+  "scientific_benefit_verified": false,
+  "author_static_review": {
+    "driver_exact_scope": true,
+    "old_positive_fixtures_only": true,
+    "new_tests_frozen": true,
+    "remote_and_local_protocol_path_unified": true,
+    "case_and_worker_prefix_unified": true,
+    "strict_raw_blob_content_checks_retained": true,
+    "old_namespace_rejected_without_history_mutation": true,
+    "permissions_claims_deadlines_cleanup_unchanged": true,
+    "original_modules_guards_bootstrap_retained": true
+  },
+  "author_rulings": [
+    "Keep the one new blank line at EOF in the frozen test source; default git diff --check reports it. Do not edit/retest frozen sources for formatting. Test-source whitespace check excludes only blank-at-eof; remaining authored files retain default checks."
+  ],
+  "execution_limits": {
+    "actual_attempts_per_phase": 1,
+    "max_approved_attempts_per_phase": 3,
+    "automatic_retries": 0,
+    "independent_review_performed": false,
+    "native_acceptance_performed": false,
+    "real_input_reads": 0,
+    "real_training_fits": 0,
+    "formal_report_edits": 0,
+    "executable_protocol_registered": false
+  },
+  "limitations": [
+    "Author-only engineering assessment, not independent review.",
+    "All native process/thread/clock/power/runtime/network boundaries simulated; no Windows native acceptance result.",
+    "Two historical scratch synthetic tensor reads do not imply access to real data.",
+    "Fixed v3 executable protocol and native output remain absent; registration and any run require separate approval.",
+    "No network/theory improvement or scientific comparative benefit is established."
+  ]
+}

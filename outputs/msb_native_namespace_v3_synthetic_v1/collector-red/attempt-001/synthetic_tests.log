@@ -1,0 +1,300 @@
+test_active_controller_claim_mismatch_denies_before_native_factory (test_check_msb_native_supervision.CollectorTests.test_active_controller_claim_mismatch_denies_before_native_factory) ... ok
+test_classifier_accepts_only_complete_fixed_four_case_evidence (test_check_msb_native_supervision.CollectorTests.test_classifier_accepts_only_complete_fixed_four_case_evidence) ... ok
+test_classifier_never_uses_outer_timeout_or_false_release_as_native_proof (test_check_msb_native_supervision.CollectorTests.test_classifier_never_uses_outer_timeout_or_false_release_as_native_proof) ... ok
+test_classifier_rejects_fake_renewal_or_nonexact_ack (test_check_msb_native_supervision.CollectorTests.test_classifier_rejects_fake_renewal_or_nonexact_ack) ... ok
+test_classifier_rejects_global_expiry_source_power_or_setting_failure (test_check_msb_native_supervision.CollectorTests.test_classifier_rejects_global_expiry_source_power_or_setting_failure) ... ok
+test_classifier_rejects_job_retention_pid_reuse_fallback_and_late_exit (test_check_msb_native_supervision.CollectorTests.test_classifier_rejects_job_retention_pid_reuse_fallback_and_late_exit) ... ok
+test_collector_launches_four_once_and_passes_original_binding (test_check_msb_native_supervision.CollectorTests.test_collector_launches_four_once_and_passes_original_binding) ... ok
+test_collector_preparation_expiry_launches_no_case (test_check_msb_native_supervision.CollectorTests.test_collector_preparation_expiry_launches_no_case) ... ok
+test_collector_remote_mismatch_never_launches_or_creates_run_directory (test_check_msb_native_supervision.CollectorTests.test_collector_remote_mismatch_never_launches_or_creates_run_directory) ... ok
+test_collector_stops_after_first_unexpected_case_outcome (test_check_msb_native_supervision.CollectorTests.test_collector_stops_after_first_unexpected_case_outcome) ... ok
+test_collector_true_flag_with_code_permission_reads_nothing (test_check_msb_native_supervision.CollectorTests.test_collector_true_flag_with_code_permission_reads_nothing) ... ok
+test_existing_outer_guard_checks_root_guard_on_same_thread (test_check_msb_native_supervision.CollectorTests.test_existing_outer_guard_checks_root_guard_on_same_thread) ... ok
+test_final_publication_expiry_and_double_failure_preserve_both_errors (test_check_msb_native_supervision.CollectorTests.test_final_publication_expiry_and_double_failure_preserve_both_errors) ... ok
+test_native_query_open_uses_only_query_and_sync_rights (test_check_msb_native_supervision.CollectorTests.test_native_query_open_uses_only_query_and_sync_rights) ... ok
+test_observer_rejects_pid_reuse_without_retaining_job_capability (test_check_msb_native_supervision.CollectorTests.test_observer_rejects_pid_reuse_without_retaining_job_capability) ... ok
+test_private_controller_cli_uses_registered_active_claim_and_real_parent (test_check_msb_native_supervision.CollectorTests.test_private_controller_cli_uses_registered_active_claim_and_real_parent) ... ok
+test_registered_git_tree_and_protocol_bytes_bind_all_sources (test_check_msb_native_supervision.CollectorTests.test_registered_git_tree_and_protocol_bytes_bind_all_sources) ... ok
+test_deadline_equality_backwards_and_nonfinite_rejected (test_check_msb_native_supervision.ContractTests.test_deadline_equality_backwards_and_nonfinite_rejected) ... ok
+test_fixed_protocol_validates_without_reading_assets (test_check_msb_native_supervision.ContractTests.test_fixed_protocol_validates_without_reading_assets) ... ok
+test_no_execute_flag_denies_before_service_or_file_read (test_check_msb_native_supervision.ContractTests.test_no_execute_flag_denies_before_service_or_file_read) ... ok
+test_nonreal_and_unconfirmed_approval_rejected (test_check_msb_native_supervision.ContractTests.test_nonreal_and_unconfirmed_approval_rejected) ... ok
+test_old_output_missing_source_and_extra_source_rejected (test_check_msb_native_supervision.ContractTests.test_old_output_missing_source_and_extra_source_rejected) ... ok
+test_protocol_mutations_and_true_data_fields_rejected (test_check_msb_native_supervision.ContractTests.test_protocol_mutations_and_true_data_fields_rejected) ... ok
+test_remaining_uses_larger_elapsed_including_preparation (test_check_msb_native_supervision.ContractTests.test_remaining_uses_larger_elapsed_including_preparation) ... ok
+test_child_runtime_context_mismatch_never_reaches_ready_or_work (test_check_msb_native_supervision.DirectLaunchBoundaryTests.test_child_runtime_context_mismatch_never_reaches_ready_or_work) ... ok
+test_direct_controller_launch_uses_shared_helper_and_actual_identity (test_check_msb_native_supervision.DirectLaunchBoundaryTests.test_direct_controller_launch_uses_shared_helper_and_actual_identity) ... ok
+test_fault_stop_is_once_and_bounded_by_remaining (test_check_msb_native_supervision.DirectLaunchBoundaryTests.test_fault_stop_is_once_and_bounded_by_remaining) ... ok
+test_live_fault_after_join_is_timeout_and_closes_nothing (test_check_msb_native_supervision.DirectLaunchBoundaryTests.test_live_fault_after_join_is_timeout_and_closes_nothing) ... ok
+test_missing_ready_and_old_permission_never_pass_native_v2 (test_check_msb_native_supervision.DirectLaunchBoundaryTests.test_missing_ready_and_old_permission_never_pass_native_v2) ... ok
+test_observer_callback_cleanup_release_and_publication_causes_survive (test_check_msb_native_supervision.DirectLaunchBoundaryTests.test_observer_callback_cleanup_release_and_publication_causes_survive) ... ok
+test_stopped_fault_with_callback_error_is_not_join_timeout (test_check_msb_native_supervision.DirectLaunchBoundaryTests.test_stopped_fault_with_callback_error_is_not_join_timeout) ... ok
+test_synthetic_scope_covers_runtime_and_thread_adapters (test_check_msb_native_supervision.DirectLaunchBoundaryTests.test_synthetic_scope_covers_runtime_and_thread_adapters) ... ok
+test_body_release_and_write_failure_keep_all_errors (test_check_msb_native_supervision.FinalRepairTests.test_body_release_and_write_failure_keep_all_errors) ... ok
+test_classifier_requires_final_continuity (test_check_msb_native_supervision.FinalRepairTests.test_classifier_requires_final_continuity) ... ok
+test_final_check_is_required_for_pass (test_check_msb_native_supervision.FinalRepairTests.test_final_check_is_required_for_pass) ... ok
+test_final_check_runs_before_and_after_pass_write (test_check_msb_native_supervision.FinalRepairTests.test_final_check_runs_before_and_after_pass_write) ... ok
+test_final_continuity_bounds_and_invalid_samples (test_check_msb_native_supervision.FinalRepairTests.test_final_continuity_bounds_and_invalid_samples) ... ok
+test_guard_is_not_reentered_for_postflight (test_check_msb_native_supervision.FinalRepairTests.test_guard_is_not_reentered_for_postflight) ... ok
+test_guard_release_failure_finalizes_and_cli_nonzero (test_check_msb_native_supervision.FinalRepairTests.test_guard_release_failure_finalizes_and_cli_nonzero) ... ok
+test_postflight_ac_and_gap_failure_never_publish_pass (test_check_msb_native_supervision.FinalRepairTests.test_postflight_ac_and_gap_failure_never_publish_pass) ... ok
+test_actual_main_never_passes_a_skipped_input (test_check_msb_native_supervision.HarnessGateTests.test_actual_main_never_passes_a_skipped_input) ... ok
+test_gate_rejects_nonpassing_result_classes (test_check_msb_native_supervision.HarnessGateTests.test_gate_rejects_nonpassing_result_classes) ... ok
+test_initial_running_check_failure_and_release_preserve_both_causes (test_check_msb_native_supervision.InitializationErrorRetentionTests.test_initial_running_check_failure_and_release_preserve_both_causes) ... ok
+test_initial_running_failure_cli_is_nonzero_and_clock_injected (test_check_msb_native_supervision.InitializationErrorRetentionTests.test_initial_running_failure_cli_is_nonzero_and_clock_injected) ... ok
+test_initial_running_triple_failure_preserves_exception_objects (test_check_msb_native_supervision.InitializationErrorRetentionTests.test_initial_running_triple_failure_preserves_exception_objects) ... ok
+test_initial_write_failure_and_release_preserve_both_causes (test_check_msb_native_supervision.InitializationErrorRetentionTests.test_initial_write_failure_and_release_preserve_both_causes) ... ok
+test_pre_state_rejection_preserves_no_output_contract (test_check_msb_native_supervision.InitializationErrorRetentionTests.test_pre_state_rejection_preserves_no_output_contract) ... ok
+test_controller_rechecks_loaded_module_origins_before_launch (test_check_msb_native_supervision.N4RepairTests.test_controller_rechecks_loaded_module_origins_before_launch) ... ok
+test_n4_allows_child_observed_before_parent (test_check_msb_native_supervision.N4RepairTests.test_n4_allows_child_observed_before_parent) ... ok
+test_n4_busy_fault_gate_is_bounded_and_fails_closed (test_check_msb_native_supervision.N4RepairTests.test_n4_busy_fault_gate_is_bounded_and_fails_closed) ... ok
+test_n4_cleanup_during_fault_snapshot_cannot_commit (test_check_msb_native_supervision.N4RepairTests.test_n4_cleanup_during_fault_snapshot_cannot_commit) ... ok
+test_n4_cleanup_fault_race_never_qualifies (test_check_msb_native_supervision.N4RepairTests.test_n4_cleanup_fault_race_never_qualifies) ... ok
+test_n4_dead_at_ack_is_rejected (test_check_msb_native_supervision.N4RepairTests.test_n4_dead_at_ack_is_rejected) ... ok
+test_n4_fault_exit_same_tick_and_five_second_equality_rejected (test_check_msb_native_supervision.N4RepairTests.test_n4_fault_exit_same_tick_and_five_second_equality_rejected) ... ok
+test_n4_fault_gate_commits_live_identity_snapshot_before_exit31 (test_check_msb_native_supervision.N4RepairTests.test_n4_fault_gate_commits_live_identity_snapshot_before_exit31) ... ok
+test_n4_missing_live_or_snapshot_evidence_is_rejected (test_check_msb_native_supervision.N4RepairTests.test_n4_missing_live_or_snapshot_evidence_is_rejected) ... ok
+test_n4_parent_live_query_and_trace_failure_never_exit31 (test_check_msb_native_supervision.N4RepairTests.test_n4_parent_live_query_and_trace_failure_never_exit31) ... ok
+test_n4_query_close_failure_still_releases_fault_gate (test_check_msb_native_supervision.N4RepairTests.test_n4_query_close_failure_still_releases_fault_gate) ... ok
+test_n4_rejects_pre_fault_exit_and_cleanup (test_check_msb_native_supervision.N4RepairTests.test_n4_rejects_pre_fault_exit_and_cleanup) ... ok
+test_n4_trace_write_failure_never_suppresses_cleanup (test_check_msb_native_supervision.N4RepairTests.test_n4_trace_write_failure_never_suppresses_cleanup) ... ok
+test_case_output_uses_only_fixed_v3_root (test_check_msb_native_supervision.NativeNamespaceV3Tests.test_case_output_uses_only_fixed_v3_root) ... FAIL
+test_consumed_v3_output_is_rejected_without_touching_history (test_check_msb_native_supervision.NativeNamespaceV3Tests.test_consumed_v3_output_is_rejected_without_touching_history) ... FAIL
+test_fixed_v3_constants_and_protocol_preserve_native_contract (test_check_msb_native_supervision.NativeNamespaceV3Tests.test_fixed_v3_constants_and_protocol_preserve_native_contract) ... FAIL
+test_local_protocol_path_rejects_old_and_unregistered_paths (test_check_msb_native_supervision.NativeNamespaceV3Tests.test_local_protocol_path_rejects_old_and_unregistered_paths) ... FAIL
+test_old_mixed_and_arbitrary_namespaces_are_rejected (test_check_msb_native_supervision.NativeNamespaceV3Tests.test_old_mixed_and_arbitrary_namespaces_are_rejected) ... 
+  test_old_mixed_and_arbitrary_namespaces_are_rejected (test_check_msb_native_supervision.NativeNamespaceV3Tests.test_old_mixed_and_arbitrary_namespaces_are_rejected) (change={'protocol': 'msb_native_supervision_v2', 'output_relative': 'outputs/msb_native_supervision_v2/acceptance_once'}) ... FAIL
+test_remote_registration_requires_v3_path_and_exact_identities (test_check_msb_native_supervision.NativeNamespaceV3Tests.test_remote_registration_requires_v3_path_and_exact_identities) ... FAIL
+test_v3_simulated_entries_preserve_claim_budget_and_case_order (test_check_msb_native_supervision.NativeNamespaceV3Tests.test_v3_simulated_entries_preserve_claim_budget_and_case_order) ... FAIL
+test_worker_packet_binds_v3_prefix_and_inherited_capability (test_check_msb_native_supervision.NativeNamespaceV3Tests.test_worker_packet_binds_v3_prefix_and_inherited_capability) ... FAIL
+test_abort_aggregation_deduplicates_identity_without_sampling (test_check_msb_native_supervision.ObserverAbortRetentionTests.test_abort_aggregation_deduplicates_identity_without_sampling) ... ok
+test_abort_before_finish_retains_callback_and_body_errors (test_check_msb_native_supervision.ObserverAbortRetentionTests.test_abort_before_finish_retains_callback_and_body_errors) ... ok
+test_abort_errors_survive_release_publication_and_cli (test_check_msb_native_supervision.ObserverAbortRetentionTests.test_abort_errors_survive_release_publication_and_cli) ... ok
+test_abort_live_or_expired_observer_never_rejoins_or_closes_live_handle (test_check_msb_native_supervision.ObserverAbortRetentionTests.test_abort_live_or_expired_observer_never_rejoins_or_closes_live_handle) ... ok
+test_abort_missing_snapshot_and_clean_close_still_fail_closed (test_check_msb_native_supervision.ObserverAbortRetentionTests.test_abort_missing_snapshot_and_clean_close_still_fail_closed) ... ok
+test_abort_retains_callback_budget_and_cleanup_objects (test_check_msb_native_supervision.ObserverAbortRetentionTests.test_abort_retains_callback_budget_and_cleanup_objects) ... ok
+test_ack_read_time_counts_toward_the_five_second_cap (test_check_msb_native_supervision.ObserverTests.test_ack_read_time_counts_toward_the_five_second_cap) ... ok
+test_close_rejects_a_stuck_observer_lock_without_unsafe_handle_close (test_check_msb_native_supervision.ObserverTests.test_close_rejects_a_stuck_observer_lock_without_unsafe_handle_close) ... ok
+test_finish_never_samples_while_an_observer_thread_cannot_stop (test_check_msb_native_supervision.ObserverTests.test_finish_never_samples_while_an_observer_thread_cannot_stop) ... ok
+test_partial_ready_write_is_not_misclassified_as_native_failure (test_check_msb_native_supervision.ObserverTests.test_partial_ready_write_is_not_misclassified_as_native_failure) ... ok
+test_pipe_eof_classification_uses_numeric_cause_not_localized_text (test_check_msb_native_supervision.ObserverTests.test_pipe_eof_classification_uses_numeric_cause_not_localized_text) ... ok
+test_real_observer_rejects_creation_reuse_before_ack (test_check_msb_native_supervision.ObserverTests.test_real_observer_rejects_creation_reuse_before_ack) ... ok
+test_real_observer_retains_query_identity_then_confirms_exit_and_closes (test_check_msb_native_supervision.ObserverTests.test_real_observer_retains_query_identity_then_confirms_exit_and_closes) ... ok
+test_current_document_and_development_permissions_are_not_native (test_check_msb_native_supervision.OriginRepairTests.test_current_document_and_development_permissions_are_not_native) ... ok
+test_execution_origins_reports_actual_driver_and_modules (test_check_msb_native_supervision.OriginRepairTests.test_execution_origins_reports_actual_driver_and_modules) ... ok
+test_origin_accepts_same_resolved_root_only (test_check_msb_native_supervision.OriginRepairTests.test_origin_accepts_same_resolved_root_only) ... ok
+test_origin_rejects_other_checkout_and_import_alias (test_check_msb_native_supervision.OriginRepairTests.test_origin_rejects_other_checkout_and_import_alias) ... ok
+test_three_entrypoints_reject_wrong_origins_before_native (test_check_msb_native_supervision.OriginRepairTests.test_three_entrypoints_reject_wrong_origins_before_native) ... ok
+test_wait_work_rejects_negative_boolean_or_noninteger (test_check_msb_native_supervision.OriginRepairTests.test_wait_work_rejects_negative_boolean_or_noninteger) ... ok
+test_zero_wait_does_not_turn_tick_overhead_into_work (test_check_msb_native_supervision.OriginRepairTests.test_zero_wait_does_not_turn_tick_overhead_into_work) ... ok
+test_collector_retains_controller_failure_but_never_qualifies_case (test_check_msb_native_supervision.TracePublicationRetentionTests.test_collector_retains_controller_failure_but_never_qualifies_case) ... ok
+test_controller_failure_receipt_error_is_distinct_and_fail_closed (test_check_msb_native_supervision.TracePublicationRetentionTests.test_controller_failure_receipt_error_is_distinct_and_fail_closed) ... ok
+test_controller_failure_record_redacts_capabilities_and_whitelists_os_codes (test_check_msb_native_supervision.TracePublicationRetentionTests.test_controller_failure_record_redacts_capabilities_and_whitelists_os_codes) ... ok
+test_controller_final_trace_failure_keeps_inner_row_and_body_errors (test_check_msb_native_supervision.TracePublicationRetentionTests.test_controller_final_trace_failure_keeps_inner_row_and_body_errors) ... ok
+test_controller_first_trace_failure_survives_inner_row_conversion (test_check_msb_native_supervision.TracePublicationRetentionTests.test_controller_first_trace_failure_survives_inner_row_conversion) ... ok
+test_controller_trace_failure_keeps_existing_cleanup_and_deadline (test_check_msb_native_supervision.TracePublicationRetentionTests.test_controller_trace_failure_keeps_existing_cleanup_and_deadline) ... ok
+test_native_persist_trace_uses_real_helper_with_only_fake_file_io (test_check_msb_native_supervision.TracePublicationRetentionTests.test_native_persist_trace_uses_real_helper_with_only_fake_file_io) ... ok
+test_normal_and_expected_fault_controller_contracts_remain_unchanged (test_check_msb_native_supervision.TracePublicationRetentionTests.test_normal_and_expected_fault_controller_contracts_remain_unchanged) ... ok
+test_trace_failure_latch_prevents_second_io_and_preserves_pending (test_check_msb_native_supervision.TracePublicationRetentionTests.test_trace_failure_latch_prevents_second_io_and_preserves_pending) ... ok
+test_trace_helper_records_create_failure_and_preserves_existing_pending (test_check_msb_native_supervision.TracePublicationRetentionTests.test_trace_helper_records_create_failure_and_preserves_existing_pending) ... ok
+test_trace_helper_records_write_close_replace_and_short_write_failures (test_check_msb_native_supervision.TracePublicationRetentionTests.test_trace_helper_records_write_close_replace_and_short_write_failures) ... ok
+test_trace_helper_retains_write_and_close_errors_in_order (test_check_msb_native_supervision.TracePublicationRetentionTests.test_trace_helper_retains_write_and_close_errors_in_order) ... ok
+test_trace_serialization_failure_opens_no_file (test_check_msb_native_supervision.TracePublicationRetentionTests.test_trace_serialization_failure_opens_no_file) ... ok
+test_trace_success_preserves_serialize_write_close_replace_order (test_check_msb_native_supervision.TracePublicationRetentionTests.test_trace_success_preserves_serialize_write_close_replace_order) ... ok
+test_absent_failure_keeps_legacy_case_and_stop_contracts (test_check_msb_native_supervision.TraceRetentionReviewFixTests.test_absent_failure_keeps_legacy_case_and_stop_contracts) ... ok
+test_actual_receipt_writer_preserves_partial_bytes_without_retry (test_check_msb_native_supervision.TraceRetentionReviewFixTests.test_actual_receipt_writer_preserves_partial_bytes_without_retry) ... ok
+test_bounded_fault_stop_retains_caller_errors_when_stop_raises (test_check_msb_native_supervision.TraceRetentionReviewFixTests.test_bounded_fault_stop_retains_caller_errors_when_stop_raises) ... ok
+test_controller_diagnostics_and_cli_redact_all_multiline_error_roles (test_check_msb_native_supervision.TraceRetentionReviewFixTests.test_controller_diagnostics_and_cli_redact_all_multiline_error_roles) ... ok
+test_error_redaction_drops_multiline_context_without_changing_original (test_check_msb_native_supervision.TraceRetentionReviewFixTests.test_error_redaction_drops_multiline_context_without_changing_original) ... ok
+test_n4_failure_receipt_precedes_snapshot_checks_and_is_rejected (test_check_msb_native_supervision.TraceRetentionReviewFixTests.test_n4_failure_receipt_precedes_snapshot_checks_and_is_rejected) ... ok
+test_n4_trace_failure_retains_budget_stop_callback_and_cached_snapshot (test_check_msb_native_supervision.TraceRetentionReviewFixTests.test_n4_trace_failure_retains_budget_stop_callback_and_cached_snapshot) ... ok
+test_obtained_row_survives_scope_stop_trace_and_receipt_failures (test_check_msb_native_supervision.TraceRetentionReviewFixTests.test_obtained_row_survives_scope_stop_trace_and_receipt_failures) ... ok
+test_partial_or_invalid_controller_receipt_remains_nonempty_failure (test_check_msb_native_supervision.TraceRetentionReviewFixTests.test_partial_or_invalid_controller_receipt_remains_nonempty_failure) ... ok
+test_stop_capture_missing_or_conflicting_cache_never_promotes_success (test_check_msb_native_supervision.TraceRetentionReviewFixTests.test_stop_capture_missing_or_conflicting_cache_never_promotes_success) ... ok
+test_controller_reuses_real_parent_and_original_budget (test_check_msb_native_supervision.WorkerTests.test_controller_reuses_real_parent_and_original_budget) ... ok
+test_done_linger_expires_original_frozen_lease_not_outer_timer (test_check_msb_native_supervision.WorkerTests.test_done_linger_expires_original_frozen_lease_not_outer_timer) ... ok
+test_no_done_and_native_eof_remain_fail_closed_with_exit23 (test_check_msb_native_supervision.WorkerTests.test_no_done_and_native_eof_remain_fail_closed_with_exit23) ... ok
+test_parent_fault_case_still_uses_real_launch_and_rejects_assignment_failure (test_check_msb_native_supervision.WorkerTests.test_parent_fault_case_still_uses_real_launch_and_rejects_assignment_failure) ... ok
+test_parent_fault_rejects_job_handle_retention_wrong_identity_and_timeout (test_check_msb_native_supervision.WorkerTests.test_parent_fault_rejects_job_handle_retention_wrong_identity_and_timeout) ... ok
+test_parent_fault_requires_real_ready_identity_and_collector_ack (test_check_msb_native_supervision.WorkerTests.test_parent_fault_requires_real_ready_identity_and_collector_ack) ... ok
+test_private_worker_cli_rejects_missing_handles_and_public_flag_mix (test_check_msb_native_supervision.WorkerTests.test_private_worker_cli_rejects_missing_handles_and_public_flag_mix) ... ok
+test_private_worker_cli_runs_the_real_scope_with_inherited_handles (test_check_msb_native_supervision.WorkerTests.test_private_worker_cli_runs_the_real_scope_with_inherited_handles) ... ok
+test_real_worker_scope_waits45_and_completes_real_close (test_check_msb_native_supervision.WorkerTests.test_real_worker_scope_waits45_and_completes_real_close) ... ok
+test_worker_exit23_never_publishes_result_or_false_release (test_check_msb_native_supervision.WorkerTests.test_worker_exit23_never_publishes_result_or_false_release) ... ok
+test_worker_lingers_only_after_close_and_power_release (test_check_msb_native_supervision.WorkerTests.test_worker_lingers_only_after_close_and_power_release) ... ok
+test_worker_rejects_old_packet_and_missing_live_capability (test_check_msb_native_supervision.WorkerTests.test_worker_rejects_old_packet_and_missing_live_capability) ... ok
+
+======================================================================
+FAIL: test_case_output_uses_only_fixed_v3_root (test_check_msb_native_supervision.NativeNamespaceV3Tests.test_case_output_uses_only_fixed_v3_root)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2276, in success
+    try:return operation()
+               ^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2346, in <lambda>
+    self.assertEqual(self.success(lambda:native._case_output(root,expected,case_id)),expected)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 394, in _case_output
+    if Path(case_dir).resolve()!=expected:raise ValueError("Fixed exclusive native case path required")
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Fixed exclusive native case path required
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2346, in test_case_output_uses_only_fixed_v3_root
+    self.assertEqual(self.success(lambda:native._case_output(root,expected,case_id)),expected)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2278, in success
+    self.fail("Fixed v3 wiring required: "+type(error).__name__+": "+str(error))
+AssertionError: Fixed v3 wiring required: ValueError: Fixed exclusive native case path required
+
+======================================================================
+FAIL: test_consumed_v3_output_is_rejected_without_touching_history (test_check_msb_native_supervision.NativeNamespaceV3Tests.test_consumed_v3_output_is_rejected_without_touching_history)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2276, in success
+    try:return operation()
+               ^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2453, in <lambda>
+    self.success(lambda:native.validate_native_protocol(root,protocol,approval=fixture_approval(protocol)))
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 257, in validate_native_protocol
+    result=_validate_protocol_fields(protocol,approval=approval)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 237, in _validate_protocol_fields
+    raise ValueError("Fixed native acceptance field differs: "+key)
+ValueError: Fixed native acceptance field differs: protocol
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2453, in test_consumed_v3_output_is_rejected_without_touching_history
+    self.success(lambda:native.validate_native_protocol(root,protocol,approval=fixture_approval(protocol)))
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2278, in success
+    self.fail("Fixed v3 wiring required: "+type(error).__name__+": "+str(error))
+AssertionError: Fixed v3 wiring required: ValueError: Fixed native acceptance field differs: protocol
+
+======================================================================
+FAIL: test_fixed_v3_constants_and_protocol_preserve_native_contract (test_check_msb_native_supervision.NativeNamespaceV3Tests.test_fixed_v3_constants_and_protocol_preserve_native_contract)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2304, in test_fixed_v3_constants_and_protocol_preserve_native_contract
+    self.assertEqual(getattr(native,"NATIVE_PROTOCOL_RELATIVE",None),
+AssertionError: None != 'docs/experiment_protocols/msb_native_supervision_v3.json'
+
+======================================================================
+FAIL: test_local_protocol_path_rejects_old_and_unregistered_paths (test_check_msb_native_supervision.NativeNamespaceV3Tests.test_local_protocol_path_rejects_old_and_unregistered_paths)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2276, in success
+    try:return operation()
+               ^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2381, in <lambda>
+    self.assertEqual(self.success(lambda:native._protocol_path(root,expected)),expected)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 858, in _protocol_path
+    if Path(path).resolve()!=expected:raise ValueError("Only the fixed native protocol path may be read")
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Only the fixed native protocol path may be read
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2381, in test_local_protocol_path_rejects_old_and_unregistered_paths
+    self.assertEqual(self.success(lambda:native._protocol_path(root,expected)),expected)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2278, in success
+    self.fail("Fixed v3 wiring required: "+type(error).__name__+": "+str(error))
+AssertionError: Fixed v3 wiring required: ValueError: Only the fixed native protocol path may be read
+
+======================================================================
+FAIL: test_old_mixed_and_arbitrary_namespaces_are_rejected (test_check_msb_native_supervision.NativeNamespaceV3Tests.test_old_mixed_and_arbitrary_namespaces_are_rejected) (change={'protocol': 'msb_native_supervision_v2', 'output_relative': 'outputs/msb_native_supervision_v2/acceptance_once'})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2337, in test_old_mixed_and_arbitrary_namespaces_are_rejected
+    with self.subTest(change=change),self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_remote_registration_requires_v3_path_and_exact_identities (test_check_msb_native_supervision.NativeNamespaceV3Tests.test_remote_registration_requires_v3_path_and_exact_identities)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2276, in success
+    try:return operation()
+               ^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2434, in <lambda>
+    result=self.success(lambda:service.verify_registration(root,path,protocol,approval,lambda:None))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 787, in verify_registration
+    if blobs.get(relative)!=blob(payload):raise ValueError("Registered native protocol blob differs")
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Registered native protocol blob differs
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2434, in test_remote_registration_requires_v3_path_and_exact_identities
+    result=self.success(lambda:service.verify_registration(root,path,protocol,approval,lambda:None))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2278, in success
+    self.fail("Fixed v3 wiring required: "+type(error).__name__+": "+str(error))
+AssertionError: Fixed v3 wiring required: ValueError: Registered native protocol blob differs
+
+======================================================================
+FAIL: test_v3_simulated_entries_preserve_claim_budget_and_case_order (test_check_msb_native_supervision.NativeNamespaceV3Tests.test_v3_simulated_entries_preserve_claim_budget_and_case_order)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2276, in success
+    try:return operation()
+               ^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2467, in <lambda>
+    result=self.success(lambda:native.run_acceptance(root,path,execute_native=True,
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 1216, in run_acceptance
+    root=Path(root).resolve();_execution_root(root);protocol_path=_protocol_path(root,protocol_path)
+                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 858, in _protocol_path
+    if Path(path).resolve()!=expected:raise ValueError("Only the fixed native protocol path may be read")
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Only the fixed native protocol path may be read
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2467, in test_v3_simulated_entries_preserve_claim_budget_and_case_order
+    result=self.success(lambda:native.run_acceptance(root,path,execute_native=True,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2278, in success
+    self.fail("Fixed v3 wiring required: "+type(error).__name__+": "+str(error))
+AssertionError: Fixed v3 wiring required: ValueError: Only the fixed native protocol path may be read
+
+======================================================================
+FAIL: test_worker_packet_binds_v3_prefix_and_inherited_capability (test_check_msb_native_supervision.NativeNamespaceV3Tests.test_worker_packet_binds_v3_prefix_and_inherited_capability)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2276, in success
+    try:return operation()
+               ^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2362, in <lambda>
+    packet=self.success(lambda:native._worker_packet(path,handles))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 203, in _worker_packet
+    if not path.is_relative_to(prefix):raise ValueError("Worker packet outside executing root")
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Worker packet outside executing root
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2362, in test_worker_packet_binds_v3_prefix_and_inherited_capability
+    packet=self.success(lambda:native._worker_packet(path,handles))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 2278, in success
+    self.fail("Fixed v3 wiring required: "+type(error).__name__+": "+str(error))
+AssertionError: Fixed v3 wiring required: ValueError: Worker packet outside executing root
+
+----------------------------------------------------------------------
+Ran 124 tests in 4.637s
+
+FAILED (failures=8)
