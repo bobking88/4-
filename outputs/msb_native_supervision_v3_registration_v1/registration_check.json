@@ -1,0 +1,84 @@
+{
+  "date": "2026-10-25",
+  "approval_id": "call_9c7c2737ea8440299d7799d573181300",
+  "status": "REGISTERED_AWAITING_NATIVE_APPROVAL",
+  "execution_status": "NOT_RUN",
+  "base_commit": "6982bcacb650d19a26251679fd365f16a14dbd9d",
+  "reviewed_code_commit": "4312036b33c05a9b8c29f4849860562eb7c68b87",
+  "review_verdict": "APPROVE_STATIC_ENGINEERING_ONLY",
+  "review_archive_commit": "6982bcacb650d19a26251679fd365f16a14dbd9d",
+  "protocol_path": "docs/experiment_protocols/msb_native_supervision_v3.json",
+  "output_relative": "outputs/msb_native_supervision_v3/acceptance_once",
+  "registration_evidence_root": "outputs/msb_native_supervision_v3_registration_v1",
+  "protocol_fields": 16,
+  "source_count": 46,
+  "source_closure_literal_checked": true,
+  "source_hashes_match_fixed_code_commit": true,
+  "remote_base_source_blobs_verified": 46,
+  "pending_authorization": {
+    "status": "REGISTERED_AWAITING_NATIVE_APPROVAL",
+    "approval_call_id": "NOT_GRANTED",
+    "approval_answer": "NOT_GRANTED",
+    "current_document_approval_not_copied_as_run_permission": true,
+    "intentionally_fails_runtime_status_and_permission_requirements": true,
+    "validator_imported_or_called": false
+  },
+  "runtime_contract": {
+    "execution_contract": "msb_parent_bound_v2",
+    "python_launch_contract": "DIRECT_CPYTHON311_VENV_V1",
+    "runtime_venv_root": "D:\\成信工科研\\人工智能选矿\\.venv-training",
+    "queried": false
+  },
+  "cases": {
+    "case_order": [
+      "N1",
+      "N2",
+      "N3",
+      "N4"
+    ],
+    "case_limits": [
+      90,
+      45,
+      75,
+      45
+    ],
+    "max_seconds": 480,
+    "require_ac": true,
+    "max_attempts": 1,
+    "max_collectors": 1,
+    "max_controllers": 4,
+    "max_workers": 4,
+    "fail_closed": true,
+    "keyboard_mouse_idle_required": false
+  },
+  "scope": {
+    "new_tests": 0,
+    "new_forwards": 0,
+    "new_fits": 0,
+    "new_native_runs": 0,
+    "project_imports": 0,
+    "source_edits": 0,
+    "agents_dispatched": 0,
+    "real_data_reads": 0,
+    "formal_report_edits": 0,
+    "network_formula_matrix_changes": 0
+  },
+  "preservation": {
+    "protected_records": 490,
+    "duplicates_preserved": true,
+    "allowed_existing_changes": [
+      "README.md"
+    ],
+    "old_v2_protocol_and_output_unchanged": true,
+    "new_native_output_created": false
+  },
+  "future_requirements": [
+    "Separate exact human native approval.",
+    "Only status and two native approval fields may be updated; re-register and actual remote readback before one run.",
+    "Identity or ownership drift: stop; no silent hash renewal.",
+    "Native failure or insufficient evidence: retain originals, no retry or resume.",
+    "Scientific protocol and fit-only mechanism execution still separately approved."
+  ],
+  "claim_boundary": "No native readiness, model superiority, theoretical novelty or industrial performance established. Git registration is not native/scientific execution.",
+  "publication_verification": "Pending actual content readback after commit; this JSON does not self-certify future remote success."
+}

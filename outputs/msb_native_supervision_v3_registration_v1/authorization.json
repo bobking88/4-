@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-25",
+  "approval_id": "call_9c7c2737ea8440299d7799d573181300",
+  "answer": "批准仅编写与登记待运行协议（推荐）",
+  "scope": "DOCUMENT_ONLY_PENDING_NATIVE_PROTOCOL_REGISTRATION",
+  "base_commit": "6982bcacb650d19a26251679fd365f16a14dbd9d",
+  "reviewed_code_commit": "4312036b33c05a9b8c29f4849860562eb7c68b87",
+  "review_archive_commit": "6982bcacb650d19a26251679fd365f16a14dbd9d",
+  "allowed": [
+    "Create fixed v3 pending protocol and registration records",
+    "Read static source, previous protocols, saved review records and hashes only",
+    "Nonforced GitHub branch archive and actual-content verification"
+  ],
+  "forbidden": [
+    "code development or project import",
+    "tests, forward, fitting, PCA/T0, timing or native acceptance",
+    "real data/prepared/fit/stop/images/weights/tensors/cache reads",
+    "agent dispatch",
+    "network/loss/formula/scientific matrix/formal report changes"
+  ],
+  "native_run_authorized": false,
+  "scientific_run_authorized": false,
+  "permission_fields_in_pending_protocol": "NOT_GRANTED",
+  "future_native_run_requires": "New exact human approval, three-field authorization update, reregistration and remote-content verification before one execution."
+}
