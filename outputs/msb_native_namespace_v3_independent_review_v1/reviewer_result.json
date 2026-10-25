@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-25",
+  "approval_id": "call_20f7ddf20125412c8ef12fa866a61a99",
+  "review_base": "5ff02a45b547f07410368adce7be0d959b92aa86",
+  "review_head": "4312036b33c05a9b8c29f4849860562eb7c68b87",
+  "dispatch": {
+    "agent_id": "01a17118-528b-7661-8ef1-fd10a9153777",
+    "nickname": "Gibbs"
+  },
+  "dispatch_attempts": 1,
+  "observation_timeouts": 1,
+  "authoritative_wait_result": {
+    "status": {
+      "01a17118-528b-7661-8ef1-fd10a9153777": {
+        "errored": "You’ve hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.com/settings/usage to purchase more credits or try again at 3:59 PM."
+      }
+    },
+    "timed_out": false
+  },
+  "terminal": {
+    "agent_id": "01a17118-528b-7661-8ef1-fd10a9153777",
+    "status": {
+      "errored": "You’ve hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.com/settings/usage to purchase more credits or try again at 3:59 PM."
+    },
+    "timed_out": false,
+    "observation_timeouts": 1,
+    "completed_report": null
+  },
+  "close_result": {
+    "previous_status": {
+      "errored": "You’ve hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.com/settings/usage to purchase more credits or try again at 3:59 PM."
+    }
+  },
+  "status": "INDEPENDENT_REVIEW_UNAVAILABLE_NO_CONCLUSION",
+  "completed_report": null,
+  "verdict": null,
+  "findings": null,
+  "redispatched": false
+}

@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-25",
+  "approval_id": "call_20f7ddf20125412c8ef12fa866a61a99",
+  "answer": "批准一次只读复查并归档（推荐）",
+  "scope": "ONE_INDEPENDENT_READ_ONLY_ENGINEERING_REVIEW_AND_GITHUB_ARCHIVE",
+  "review_base": "5ff02a45b547f07410368adce7be0d959b92aa86",
+  "review_head": "4312036b33c05a9b8c29f4849860562eb7c68b87",
+  "max_dispatches": 1,
+  "redispatch_allowed": false,
+  "fork_context": false,
+  "allowed": [
+    "one independent static engineering review",
+    "read-only source/diff/saved-log and hash inspection",
+    "parent archive and GitHub content verification"
+  ],
+  "forbidden": [
+    "tests or project imports",
+    "forward/fitting/timing/native acceptance",
+    "real data/images/prepared/fit/stop/weights/caches",
+    "code, formula, network, matrix or formal report changes",
+    "nested agent dispatch",
+    "new worktree, branch changes, checkouts or file copies by reviewer"
+  ],
+  "on_unavailable_or_terminal_no_conclusion": "Preserve failure and stop; do not redispatch.",
+  "observation_timeout_policy": "An observation timeout is not terminal; retain and wait on the same live agent handle only."
+}

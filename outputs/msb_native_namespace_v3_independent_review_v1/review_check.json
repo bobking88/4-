@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-25",
+  "approval_id": "call_20f7ddf20125412c8ef12fa866a61a99",
+  "status": "INDEPENDENT_REVIEW_UNAVAILABLE_NO_CONCLUSION",
+  "review_base": "5ff02a45b547f07410368adce7be0d959b92aa86",
+  "review_head": "4312036b33c05a9b8c29f4849860562eb7c68b87",
+  "dispatch_attempts": 1,
+  "terminal_error_preserved": true,
+  "reviewer_closed": true,
+  "redispatched": false,
+  "observation_timeouts": 1,
+  "independent_review_completed": false,
+  "verdict": null,
+  "actionable_findings": null,
+  "reason": "Single authorized reviewer terminated with usage-limit error; no completed report returned.",
+  "parent_actions": {
+    "new_tests": 0,
+    "new_forwards": 0,
+    "new_fits": 0,
+    "new_native_acceptances": 0,
+    "source_edits": 0,
+    "formal_report_edits": 0
+  },
+  "post_close_preservation": {
+    "protected_records": 470,
+    "unchanged": 470,
+    "head_unchanged": true,
+    "index_empty": true
+  },
+  "author_only_prior_evidence": {
+    "commit": "4312036b33c05a9b8c29f4849860562eb7c68b87",
+    "green": "124/124",
+    "final": "285/285",
+    "independently_verified_by_this_review": false
+  },
+  "gates": {
+    "engineering_review": false,
+    "native_readiness": false,
+    "scientific_benefit": false,
+    "formal_report_promotion": false
+  },
+  "limitations": [
+    "No completed report means neither approval nor a finding of no defects.",
+    "470 unchanged protected records establish fixed before/after identities, not every possible historical invocation or transient effect.",
+    "No complete reviewer action trace or compliance attestation is available; no speculative claim that the reviewer examined every requested item.",
+    "The reset time in the raw tool error is preserved verbatim but not independently verified or promised.",
+    "No automatic review retry, protocol registration, native or scientific experiment is authorized."
+  ]
+}

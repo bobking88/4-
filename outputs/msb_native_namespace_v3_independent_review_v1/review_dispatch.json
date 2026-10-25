@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-25",
+  "approval_id": "call_20f7ddf20125412c8ef12fa866a61a99",
+  "review_base": "5ff02a45b547f07410368adce7be0d959b92aa86",
+  "review_head": "4312036b33c05a9b8c29f4849860562eb7c68b87",
+  "dispatch_attempts": 1,
+  "fork_context": false,
+  "model_override": null,
+  "result": {
+    "agent_id": "01a17118-528b-7661-8ef1-fd10a9153777",
+    "nickname": "Gibbs"
+  },
+  "status": "DISPATCHED_NO_CONCLUSION_YET"
+}
