@@ -1,0 +1,61 @@
+{
+  "date": "2026-10-25",
+  "approval_id": "call_7e2c43cf35794bd5b76ae09dca272a86",
+  "status": "SPEC_AND_PLAN_WRITTEN_NOT_IMPLEMENTED_NOT_RUN",
+  "baseline_commit": "06829bcf6cdd2afd5b156d83019c7105a473a20f",
+  "reviewed_source_commit": "dee2be4045d325b417995da6d56943ccf06d1ee1",
+  "chosen_approach": "Fixed v3 namespace, not configurable executor",
+  "documents": [
+    "docs/superpowers/specs/2026-10-25-msb-native-namespace-v3-design.md",
+    "docs/superpowers/plans/2026-10-25-msb-native-namespace-v3.md"
+  ],
+  "proposed_source_files": [
+    "scripts/check_msb_native_supervision.py",
+    "tests/test_check_msb_native_supervision.py",
+    "tests/run_msb_native_supervision_synthetic_acceptance.py"
+  ],
+  "proposed_driver_constants": {
+    "NATIVE_PROTOCOL_RELATIVE": "docs/experiment_protocols/msb_native_supervision_v3.json",
+    "NATIVE_OUTPUT_RELATIVE": "outputs/msb_native_supervision_v3/acceptance_once"
+  },
+  "proposed_synthetic_root": "outputs/msb_native_namespace_v3_synthetic_v1",
+  "proposed_scratch": ".superpowers/sdd/2026-10-25-msb-native-namespace-v3/test-tmp",
+  "proposed_phase_names": [
+    "collector-red",
+    "collector-green",
+    "final"
+  ],
+  "proposed_max_attempts_per_phase": 3,
+  "proposed_new_methods": 8,
+  "historical_driver_methods": 116,
+  "historical_final_methods": 277,
+  "proposed_driver_methods": 124,
+  "proposed_final_methods": 285,
+  "self_review": {
+    "scope_coverage": true,
+    "interfaces_consistent": true,
+    "fixed_namespace_without_config": true,
+    "red_green_fixture_differences_explicit": true,
+    "old_test_names_preserved": true,
+    "review_focus_to_tests_explicit": true,
+    "no_agent_builder_check_by_human_constraint": true,
+    "no_executable_protocol_created": true,
+    "no_future_execution_implied": true
+  },
+  "counts": {
+    "source_edits": 0,
+    "project_imports": 0,
+    "tests": 0,
+    "forwards": 0,
+    "fits": 0,
+    "native_runs": 0,
+    "agent_dispatches": 0,
+    "formal_report_edits": 0
+  },
+  "limits": [
+    "Document self-review is author-only, not independent review or executed acceptance.",
+    "Future test totals are plans, not present results.",
+    "Engineering namespace adaptation is not network/theory innovation.",
+    "Native and scientific effectiveness remain unverified."
+  ]
+}

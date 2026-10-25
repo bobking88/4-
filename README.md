@@ -4,6 +4,7 @@
 
 ## 当前版本
 
+- MSB-RRE 固定v3命名空间适配（2026-10-25）：已按批准方案编写[规格](docs/superpowers/specs/2026-10-25-msb-native-namespace-v3-design.md)与[实施计划](docs/superpowers/plans/2026-10-25-msb-native-namespace-v3.md)，未来只拟调整原三文件的固定路径与证据位置，保留网络/公式/监督契约。当前仅文档，未开发、未测试、未生成执行协议、未做原生或科学实验；工程适配不作为论文创新，真实网络效果仍待验证。
 - MSB-RRE 原生登记兼容性核对（2026-10-24）：已审源码仍固定绑定已消耗的 v2 协议/输出；46项登记源码中43项一致、3项已因既有修复更新，不能仅改 JSON 开启新验收。下一步仅建议另行编写固定命名空间适配规格与计划，本轮不开发、不运行、不生成执行协议，模型科学效果仍未验证。见 [核对与后续方案](docs/experiment_records/2026-10-24_msb_native_registration_compatibility.md)。
 - 最终数据版本：`dataset_final_v1`
 - 图像总数：8,529 张

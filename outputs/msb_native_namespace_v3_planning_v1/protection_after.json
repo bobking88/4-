@@ -1,0 +1,152 @@
+{
+  "date": "2026-10-25",
+  "approval_id": "call_7e2c43cf35794bd5b76ae09dca272a86",
+  "status": "DOCUMENT_ONLY_PRESERVED_NOT_IMPLEMENTED_NOT_RUN",
+  "protected_record_count": 436,
+  "unchanged_records": 418,
+  "changed_records": 18,
+  "allowed_changed_paths": [
+    "README.md"
+  ],
+  "unauthorized_changes": [],
+  "reviewed_source_unchanged": true,
+  "current_driver_method_names": 116,
+  "future_method_names": [
+    "test_fixed_v3_constants_and_protocol_preserve_native_contract",
+    "test_old_mixed_and_arbitrary_namespaces_are_rejected",
+    "test_case_output_uses_only_fixed_v3_root",
+    "test_worker_packet_binds_v3_prefix_and_inherited_capability",
+    "test_local_protocol_path_rejects_old_and_unregistered_paths",
+    "test_remote_registration_requires_v3_path_and_exact_identities",
+    "test_consumed_v3_output_is_rejected_without_touching_history",
+    "test_v3_simulated_entries_preserve_claim_budget_and_case_order"
+  ],
+  "future_plan_steps": 9,
+  "future_execution_paths_absent": [
+    "docs/experiment_protocols/msb_native_supervision_v3.json",
+    "outputs/msb_native_supervision_v3",
+    "outputs/msb_native_namespace_v3_synthetic_v1",
+    ".superpowers/sdd/2026-10-25-msb-native-namespace-v3"
+  ],
+  "counts": {
+    "source_edits": 0,
+    "project_imports": 0,
+    "tests": 0,
+    "forwards": 0,
+    "fits": 0,
+    "native_runs": 0,
+    "agent_dispatches": 0,
+    "formal_report_edits": 0
+  },
+  "changes": [
+    {
+      "path": "README.md",
+      "before_sha256": "badc34da21749f38366813264ab6426864e6201c38a03dd5459a58e89792cd35",
+      "after_sha256": "29dc6368859955979365275ff8005e7d5f36bb985efa7633fb7ff853fe0540ae",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "badc34da21749f38366813264ab6426864e6201c38a03dd5459a58e89792cd35",
+      "after_sha256": "29dc6368859955979365275ff8005e7d5f36bb985efa7633fb7ff853fe0540ae",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "badc34da21749f38366813264ab6426864e6201c38a03dd5459a58e89792cd35",
+      "after_sha256": "29dc6368859955979365275ff8005e7d5f36bb985efa7633fb7ff853fe0540ae",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "badc34da21749f38366813264ab6426864e6201c38a03dd5459a58e89792cd35",
+      "after_sha256": "29dc6368859955979365275ff8005e7d5f36bb985efa7633fb7ff853fe0540ae",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "badc34da21749f38366813264ab6426864e6201c38a03dd5459a58e89792cd35",
+      "after_sha256": "29dc6368859955979365275ff8005e7d5f36bb985efa7633fb7ff853fe0540ae",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "badc34da21749f38366813264ab6426864e6201c38a03dd5459a58e89792cd35",
+      "after_sha256": "29dc6368859955979365275ff8005e7d5f36bb985efa7633fb7ff853fe0540ae",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "badc34da21749f38366813264ab6426864e6201c38a03dd5459a58e89792cd35",
+      "after_sha256": "29dc6368859955979365275ff8005e7d5f36bb985efa7633fb7ff853fe0540ae",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "badc34da21749f38366813264ab6426864e6201c38a03dd5459a58e89792cd35",
+      "after_sha256": "29dc6368859955979365275ff8005e7d5f36bb985efa7633fb7ff853fe0540ae",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "badc34da21749f38366813264ab6426864e6201c38a03dd5459a58e89792cd35",
+      "after_sha256": "29dc6368859955979365275ff8005e7d5f36bb985efa7633fb7ff853fe0540ae",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "badc34da21749f38366813264ab6426864e6201c38a03dd5459a58e89792cd35",
+      "after_sha256": "29dc6368859955979365275ff8005e7d5f36bb985efa7633fb7ff853fe0540ae",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "badc34da21749f38366813264ab6426864e6201c38a03dd5459a58e89792cd35",
+      "after_sha256": "29dc6368859955979365275ff8005e7d5f36bb985efa7633fb7ff853fe0540ae",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "badc34da21749f38366813264ab6426864e6201c38a03dd5459a58e89792cd35",
+      "after_sha256": "29dc6368859955979365275ff8005e7d5f36bb985efa7633fb7ff853fe0540ae",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "badc34da21749f38366813264ab6426864e6201c38a03dd5459a58e89792cd35",
+      "after_sha256": "29dc6368859955979365275ff8005e7d5f36bb985efa7633fb7ff853fe0540ae",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "badc34da21749f38366813264ab6426864e6201c38a03dd5459a58e89792cd35",
+      "after_sha256": "29dc6368859955979365275ff8005e7d5f36bb985efa7633fb7ff853fe0540ae",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "badc34da21749f38366813264ab6426864e6201c38a03dd5459a58e89792cd35",
+      "after_sha256": "29dc6368859955979365275ff8005e7d5f36bb985efa7633fb7ff853fe0540ae",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "badc34da21749f38366813264ab6426864e6201c38a03dd5459a58e89792cd35",
+      "after_sha256": "29dc6368859955979365275ff8005e7d5f36bb985efa7633fb7ff853fe0540ae",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "badc34da21749f38366813264ab6426864e6201c38a03dd5459a58e89792cd35",
+      "after_sha256": "29dc6368859955979365275ff8005e7d5f36bb985efa7633fb7ff853fe0540ae",
+      "allowed": true
+    },
+    {
+      "path": "README.md",
+      "before_sha256": "badc34da21749f38366813264ab6426864e6201c38a03dd5459a58e89792cd35",
+      "after_sha256": "29dc6368859955979365275ff8005e7d5f36bb985efa7633fb7ff853fe0540ae",
+      "allowed": true
+    }
+  ],
+  "scientific_benefit_verified": false
+}
