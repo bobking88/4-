@@ -1,0 +1,89 @@
+{
+  "date": "2026-10-26",
+  "registration_commit": "a4a9ec4cdd85948af120d3f52f61c8179d6845c7",
+  "raw_native_originals": [
+    {
+      "bytes": 5592,
+      "sha256": "d7d2ddf8bc054f28038212939376a0e6ed494e24a476a65822c4d02963538dfb",
+      "path": "outputs/msb_native_supervision_v3/acceptance_once/registered_protocol.json"
+    },
+    {
+      "bytes": 7893,
+      "sha256": "d395b27ea6310a34fb004ba29e72b4c3ddb1e159edf990c7ddea43e64899532c",
+      "path": "outputs/msb_native_supervision_v3/acceptance_once/stage_state.json"
+    },
+    {
+      "bytes": 802,
+      "sha256": "77e0ea31f455fc92e5e3a48d68ac5be03ca6cdcf8419e2e791bfe7f03af17f95",
+      "path": "outputs/msb_native_supervision_v3/acceptance_once/cases/N1/controller_ready.json"
+    },
+    {
+      "bytes": 2210,
+      "sha256": "9f1a0289f7c5864a0d635cd4e59f5b7376dc30d783382a1da4d87ba8c4533f7a",
+      "path": "outputs/msb_native_supervision_v3/acceptance_once/cases/N1/controller.log"
+    },
+    {
+      "bytes": 2210,
+      "sha256": "6b9a59188c413dbdee225a1dfa682dec3db392989bf60ed7b5ae70e086c093f5",
+      "path": "outputs/msb_native_supervision_v3/acceptance_once/cases/N1/controller/controller_failure.json"
+    },
+    {
+      "bytes": 1315,
+      "sha256": "b5111ca5a84619f192b772fea8786c7af3f6800a61023b0a000346d699210737",
+      "path": "outputs/msb_native_supervision_v3/acceptance_once/cases/N1/controller/stage_state.json"
+    },
+    {
+      "bytes": 146,
+      "sha256": "e83afb10a7abd2c5961a95bb32b27af2dab416c80072ccc0f1965cd936263743",
+      "path": "outputs/msb_native_supervision_v3/acceptance_once/cases/N1/controller/trace.json"
+    },
+    {
+      "bytes": 146,
+      "sha256": "e83afb10a7abd2c5961a95bb32b27af2dab416c80072ccc0f1965cd936263743",
+      "path": "outputs/msb_native_supervision_v3/acceptance_once/cases/N1/controller/trace.json.pending"
+    },
+    {
+      "bytes": 1187,
+      "sha256": "63f1b076ed5a2d04afd1684f9e7272d8cae1bd6bfd91544c68bf0cd1c6f68645",
+      "path": "outputs/msb_native_supervision_v3/acceptance_once/cases/N1/controller/runs/N1/packet.json"
+    },
+    {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "path": "outputs/msb_native_supervision_v3/acceptance_once/cases/N1/controller/runs/N1/worker.log"
+    }
+  ],
+  "entry_originals": [
+    {
+      "path": ".superpowers/sdd/2026-10-25-msb-native-supervision-v3-execution/collector_stdout.log",
+      "sha256": "e912823a5047aef451344879d677a0e06b2e0233f60cdb33fd20e5151a7ec85d",
+      "bytes": 7965
+    },
+    {
+      "path": ".superpowers/sdd/2026-10-25-msb-native-supervision-v3-execution/collector_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  ],
+  "entry_copies": [
+    {
+      "path": "outputs/msb_native_supervision_v3_native_result_v1/collector_stdout.log",
+      "bytes": 7965,
+      "source": ".superpowers/sdd/2026-10-25-msb-native-supervision-v3-execution/collector_stdout.log",
+      "sha256": "e912823a5047aef451344879d677a0e06b2e0233f60cdb33fd20e5151a7ec85d"
+    },
+    {
+      "path": "outputs/msb_native_supervision_v3_native_result_v1/collector_stderr.log",
+      "bytes": 0,
+      "source": ".superpowers/sdd/2026-10-25-msb-native-supervision-v3-execution/collector_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "raw_integrity": "SHA-256 of actual raw bytes, not normalized text; immutable originals retained including .pending and zero-byte files.",
+  "publication_screen": {
+    "files_scanned": 12,
+    "raw_nonce_or_reusable_handle_keys_found": [],
+    "manual_content_inspection": "Only no-data binding, runtime, PID/creation identity and failure evidence. No raw inherited capability or credentials observed.",
+    "scope": "Limited to these 12 originals; not a general security audit."
+  }
+}

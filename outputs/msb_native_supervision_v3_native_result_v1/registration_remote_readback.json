@@ -1,0 +1,49 @@
+{
+  "commit": "a4a9ec4cdd85948af120d3f52f61c8179d6845c7",
+  "source_subtrees_match_reviewed": true,
+  "files": [
+    {
+      "actual_remote_content_verified": true,
+      "path": "README.md",
+      "bytes": 61843,
+      "git_blob": "d8943644fa8d89ba720ecb94969417eed05b230c"
+    },
+    {
+      "actual_remote_content_verified": true,
+      "path": "docs/experiment_protocols/msb_native_supervision_v3.json",
+      "bytes": 5772,
+      "git_blob": "01c08c1f151dcf73d864202709192fdebbaa1850"
+    },
+    {
+      "actual_remote_content_verified": true,
+      "path": "docs/experiment_records/2026-10-25_msb_native_supervision_v3_execution_registration.md",
+      "bytes": 5448,
+      "git_blob": "874373d5f83d1968ee0e37a21cf402bfac04896a"
+    },
+    {
+      "actual_remote_content_verified": true,
+      "path": "outputs/msb_native_supervision_v3_execution_registration_v1/authorization.json",
+      "bytes": 1355,
+      "git_blob": "4b18e618d69ffb7022899af4cb9f8555053f8142"
+    },
+    {
+      "actual_remote_content_verified": true,
+      "path": "outputs/msb_native_supervision_v3_execution_registration_v1/protection_before.json",
+      "bytes": 92636,
+      "git_blob": "0995fd8b64a06ea27fc4cd6e10f8ff6ef18cf01d"
+    },
+    {
+      "actual_remote_content_verified": true,
+      "path": "outputs/msb_native_supervision_v3_execution_registration_v1/protection_after.json",
+      "bytes": 6611,
+      "git_blob": "ab75446bf2160c5b95ac7b03a4e958d09c9d1bbc"
+    },
+    {
+      "actual_remote_content_verified": true,
+      "path": "outputs/msb_native_supervision_v3_execution_registration_v1/registration_check.json",
+      "bytes": 1775,
+      "git_blob": "60e2fcae1f0ca219aeaf7da94708333df67c4841"
+    }
+  ],
+  "tree": "142269f76bfedda936aa16a4079513900e19f7d3"
+}

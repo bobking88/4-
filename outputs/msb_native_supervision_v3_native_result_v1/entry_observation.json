@@ -1,0 +1,48 @@
+{
+  "date": "2026-10-26",
+  "registration_commit": "a4a9ec4cdd85948af120d3f52f61c8179d6845c7",
+  "approval_id": "call_d7ead69a9778437890a84a9c099e586a",
+  "run_command": "$ErrorActionPreference='Stop'\n$PSNativeCommandUseErrorActionPreference=$false\n$registration='a4a9ec4cdd85948af120d3f52f61c8179d6845c7'\nif((git rev-parse HEAD).Trim() -ne $registration){throw 'Registered HEAD drifted'}\nif(Test-Path -LiteralPath 'outputs/msb_native_supervision_v3'){throw 'Native output already consumed'}\n$entry='.superpowers/sdd/2026-10-25-msb-native-supervision-v3-execution'\nif(Test-Path -LiteralPath $entry){throw 'Entry directory already exists; no retry'}\n$p=Get-Content -LiteralPath 'docs/experiment_protocols/msb_native_supervision_v3.json' -Raw|ConvertFrom-Json\nif($p.status -ne 'APPROVED_NATIVE_ONLY' -or $p.approval_call_id -ne 'call_d7ead69a9778437890a84a9c099e586a' -or $p.approval_answer -cne '批准一次固定协议原生验收（推荐）'){throw 'Approval mismatch'}\nforeach($v in $p.source_sha256.PSObject.Properties){if((Get-FileHash -LiteralPath $v.Name -Algorithm SHA256).Hash.ToLowerInvariant() -ne $v.Value){throw \"Source drift $($v.Name)\"}}\nNew-Item -ItemType Directory -Path $entry | Out-Null\n$savedBytecode=$env:PYTHONDONTWRITEBYTECODE\n$savedUtf8=$env:PYTHONUTF8\n$env:PYTHONDONTWRITEBYTECODE='1'\n$env:PYTHONUTF8='1'\n$code=$null\ntry {\n& 'D:\\成信工科研\\人工智能选矿\\.venv-training\\Scripts\\python.exe' '.\\scripts\\check_msb_native_supervision.py' --root 'D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report' --protocol 'D:\\成信工科研\\人工智能选矿\\.worktrees\\theory-aware-report\\docs\\experiment_protocols\\msb_native_supervision_v3.json' --execute-native --approval-call-id 'call_d7ead69a9778437890a84a9c099e586a' --approval-answer '批准一次固定协议原生验收（推荐）' --registration-commit $registration 1> \"$entry/collector_stdout.log\" 2> \"$entry/collector_stderr.log\"\n$code=$LASTEXITCODE\n} finally {\n$env:PYTHONDONTWRITEBYTECODE=$savedBytecode\n$env:PYTHONUTF8=$savedUtf8\n}\nWrite-Output (\"COLLECTOR_EXIT_CODE=\"+$code)\nif($null -eq $code){throw 'Collector exit code unavailable; stop without retry'}\nexit $code",
+  "initial_tool_result": {
+    "chunk_id": "c87209",
+    "wall_time_seconds": 10.0062552,
+    "session_id": 93828,
+    "original_token_count": 0,
+    "output": ""
+  },
+  "terminal_tool_result": {
+    "chunk_id": "395282",
+    "wall_time_seconds": 0.0000102,
+    "exit_code": 1,
+    "original_token_count": 6,
+    "output": "COLLECTOR_EXIT_CODE=1\r\n"
+  },
+  "session_id": 93828,
+  "session_terminal": true,
+  "reinvocations": 0,
+  "remote_content_verified_before_invocation": true,
+  "metadata_only_errors": [
+    {
+      "phase": "pre-registration static output parsing",
+      "error": "Warning text preceding JSON prevented parsing; repeated read-only metadata check, no collector invocation."
+    },
+    {
+      "phase": "post-run protection command launch",
+      "error": "CreateProcessW error 206 (command length); replaced with read of stored metadata JSON, no native rerun."
+    }
+  ],
+  "capture_paths": [
+    {
+      "path": "outputs/msb_native_supervision_v3_native_result_v1/collector_stdout.log",
+      "bytes": 7965,
+      "source": ".superpowers/sdd/2026-10-25-msb-native-supervision-v3-execution/collector_stdout.log",
+      "sha256": "e912823a5047aef451344879d677a0e06b2e0233f60cdb33fd20e5151a7ec85d"
+    },
+    {
+      "path": "outputs/msb_native_supervision_v3_native_result_v1/collector_stderr.log",
+      "bytes": 0,
+      "source": ".superpowers/sdd/2026-10-25-msb-native-supervision-v3-execution/collector_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

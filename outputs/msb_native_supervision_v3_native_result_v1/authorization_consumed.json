@@ -1,0 +1,9 @@
+{
+  "date": "2026-10-26",
+  "approval_id": "call_d7ead69a9778437890a84a9c099e586a",
+  "answer": "批准一次固定协议原生验收（推荐）",
+  "scope": "ONE_FIXED_PROTOCOL_NATIVE_SUPERVISION_NO_DATA_ACCEPTANCE",
+  "consumed": true,
+  "native_runs": 1,
+  "real_mechanism_experiment_authorized": false
+}

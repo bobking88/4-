@@ -1,0 +1,18 @@
+{
+  "status": "VERIFIED_FAILURE_ARCHIVE_NOT_NATIVE_PASS",
+  "native_originals": 10,
+  "readme_only_changed_records": 24,
+  "source_changes": 0,
+  "byte_identical_entry_copies": 2,
+  "root_stdout_match": true,
+  "collector_terminal_exit_code": 1,
+  "unchanged_records": 481,
+  "private_entry_originals": 2,
+  "record_count": 505,
+  "no_retry": true,
+  "cases_started": [
+    "N1"
+  ],
+  "formal_report_changes": 0,
+  "files_to_archive": 21
+}

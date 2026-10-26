@@ -1,0 +1,83 @@
+{
+  "date": "2026-10-26",
+  "approval_id": "call_d7ead69a9778437890a84a9c099e586a",
+  "registration_commit": "a4a9ec4cdd85948af120d3f52f61c8179d6845c7",
+  "reviewed_source_commit": "4312036b33c05a9b8c29f4849860562eb7c68b87",
+  "status": "FAILED_NATIVE_SUPERVISION",
+  "delivery_verified": false,
+  "collector_exit_code": 1,
+  "collector_invocations": 1,
+  "controllers_started": 1,
+  "workers_started": 1,
+  "approval_consumed": true,
+  "retry_or_resume": false,
+  "case_results": [
+    {
+      "case_id": "N1",
+      "status": "FAILED_UNEXPECTED",
+      "outer_exit_code": 1,
+      "outer_elapsed_seconds": 16.81199999997625,
+      "inner_summary": {
+        "status": "FAILED",
+        "exit_code": 1,
+        "cleanup_confirmed": true,
+        "exit_confirmed": true,
+        "end_handshake_verified": false,
+        "lease_sequence": 1,
+        "error": "TracePublicationError: Trace publication failed; inspect redacted diagnostics"
+      }
+    },
+    {
+      "case_id": "N2",
+      "status": "NOT_STARTED"
+    },
+    {
+      "case_id": "N3",
+      "status": "NOT_STARTED"
+    },
+    {
+      "case_id": "N4",
+      "status": "NOT_STARTED"
+    }
+  ],
+  "collector_reported_elapsed_seconds": 43.76600000000326,
+  "limit_seconds": 480,
+  "deadline_claim": "Reported acceptance elapsed below 480 seconds; failure, not a successful timing/cleanup guarantee.",
+  "failure": {
+    "phase": "REPLACE",
+    "error_type": "PermissionError",
+    "errno": 13,
+    "winerror": 5,
+    "controller_status": "FAILED_CONTROLLER_TRACE_PUBLICATION",
+    "root_error": "ValueError: controller trace publication failure",
+    "underlying_os_cause": "NOT_ESTABLISHED; no additional diagnostic run or source change authorized"
+  },
+  "evidence": {
+    "root_power_released": true,
+    "outer_power_released": true,
+    "parent_power_released_in_failure_receipt": true,
+    "inner_cleanup_and_exit_reported": true,
+    "observer_identity_verified": false,
+    "observer_exit_observed": false,
+    "observer_handle_closed": false,
+    "observer_monitor_stopped": true,
+    "worker_power_release_evidence": "UNAVAILABLE",
+    "full_cleanup_acceptance": false,
+    "full_ac_continuity_acceptance": false,
+    "stale_inner_running_file": "Not proof of a live process; no manual process probe performed.",
+    "receipt_snapshot_note": "Disk receipt says ATTEMPTED; controller stdout reports PERSISTED. Both original artifacts retained, no rewriting."
+  },
+  "boundary": {
+    "real_data_reads": 0,
+    "scientific_fits": 0,
+    "model_forwards": 0,
+    "agents": 0,
+    "synthetic_test_reruns": 0,
+    "source_changes": 0,
+    "network_formula_matrix_changes": 0,
+    "formal_report_changes": 0,
+    "new_native_probes": 0,
+    "science_effect": "NOT_VALIDATED"
+  },
+  "next_action": "Stop native execution. Offline diagnosis, repair and any new experiment require separate permission."
+}

@@ -1,0 +1,24 @@
+{
+  "copies": [
+    {
+      "path": "outputs/msb_native_supervision_v3_native_result_v1/collector_stdout.log",
+      "bytes": 7965,
+      "source": ".superpowers/sdd/2026-10-25-msb-native-supervision-v3-execution/collector_stdout.log",
+      "sha256": "e912823a5047aef451344879d677a0e06b2e0233f60cdb33fd20e5151a7ec85d"
+    },
+    {
+      "path": "outputs/msb_native_supervision_v3_native_result_v1/collector_stderr.log",
+      "bytes": 0,
+      "source": ".superpowers/sdd/2026-10-25-msb-native-supervision-v3-execution/collector_stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "source_unchanged": true,
+  "native_runs": 1,
+  "formal_report_unchanged": true,
+  "unauthorized_changes": [],
+  "collector_terminal_exit_code": 1,
+  "retries": 0,
+  "unchanged_records": 505,
+  "protected_records": 505
+}
