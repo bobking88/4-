@@ -1,0 +1,53 @@
+{
+  "access_date": "2026-10-27",
+  "sources": [
+    {
+      "id": "M1",
+      "title": "CreateFileW: sharing modes and FILE_SHARE_DELETE",
+      "url": "https://learn.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-createfilew",
+      "claim": "Delete sharing is relevant to subsequent deletion/rename opens; sharing policy is distinct from desired read/write access."
+    },
+    {
+      "id": "M2",
+      "title": "MoveFileExW: replacement and permissions",
+      "url": "https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-movefileexw",
+      "claim": "Replacing an existing destination is subject to ACL requirements; rename/delete need appropriate file or directory rights."
+    },
+    {
+      "id": "M3",
+      "title": "Windows system error codes 0-499",
+      "url": "https://learn.microsoft.com/en-us/windows/win32/debug/system-error-codes--0-499-",
+      "claim": "WinError 5 is ERROR_ACCESS_DENIED; this label alone does not identify the owner of a conflicting handle or the failed access condition."
+    },
+    {
+      "id": "P1",
+      "title": "CPython v3.11.5 pathlib.py",
+      "url": "https://raw.githubusercontent.com/python/cpython/v3.11.5/Lib/pathlib.py",
+      "claim": "Path.read_text uses a managed open/read/close; Path.replace delegates to os.replace."
+    },
+    {
+      "id": "P2",
+      "title": "CPython v3.11.5 posixmodule.c",
+      "url": "https://raw.githubusercontent.com/python/cpython/v3.11.5/Modules/posixmodule.c",
+      "claim": "Windows internal_rename uses MoveFileExW; os.replace sets MOVEFILE_REPLACE_EXISTING."
+    },
+    {
+      "id": "P3",
+      "title": "CPython v3.11.5 fileio.c",
+      "url": "https://github.com/python/cpython/blob/v3.11.5/Modules/_io/fileio.c",
+      "claim": "Default Windows FileIO opening uses _wopen; this repository does not explicitly set FILE_SHARE_DELETE for trace readers."
+    },
+    {
+      "id": "P4",
+      "title": "Python os.replace documentation",
+      "url": "https://docs.python.org/3.11/library/os.html#os.replace",
+      "claim": "Replacement requires permission; atomicity on success is not an unconditional success guarantee."
+    },
+    {
+      "id": "M4",
+      "title": "Microsoft CRT _sopen and _wsopen",
+      "url": "https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/sopen-wsopen?view=msvc-170",
+      "claim": "The documented _SH_DENYNO mode permits read/write access; it is not a documented substitute for Win32 FILE_SHARE_DELETE."
+    }
+  ]
+}

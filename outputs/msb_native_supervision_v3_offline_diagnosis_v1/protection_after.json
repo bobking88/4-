@@ -1,0 +1,149 @@
+{
+  "unchanged_records": 505,
+  "local_links_verified": true,
+  "protected_records": 530,
+  "allowed_existing_changes": [
+    "README.md"
+  ],
+  "status": "READ_ONLY_DIAGNOSIS_ARCHIVE_CHECKED",
+  "source_count": 46,
+  "date": "2026-10-27",
+  "changes": [
+    {
+      "path": "README.md",
+      "after_sha256": "05a434edcebffa866010ee384656d4b2a54dfe93dcec57c93738c2ebb7f8e3e0",
+      "before_sha256": "98261484d5fbbcc83939768f2981134eb3b207e5406186c805ea492506c48a18"
+    },
+    {
+      "path": "README.md",
+      "after_sha256": "05a434edcebffa866010ee384656d4b2a54dfe93dcec57c93738c2ebb7f8e3e0",
+      "before_sha256": "98261484d5fbbcc83939768f2981134eb3b207e5406186c805ea492506c48a18"
+    },
+    {
+      "path": "README.md",
+      "after_sha256": "05a434edcebffa866010ee384656d4b2a54dfe93dcec57c93738c2ebb7f8e3e0",
+      "before_sha256": "98261484d5fbbcc83939768f2981134eb3b207e5406186c805ea492506c48a18"
+    },
+    {
+      "path": "README.md",
+      "after_sha256": "05a434edcebffa866010ee384656d4b2a54dfe93dcec57c93738c2ebb7f8e3e0",
+      "before_sha256": "98261484d5fbbcc83939768f2981134eb3b207e5406186c805ea492506c48a18"
+    },
+    {
+      "path": "README.md",
+      "after_sha256": "05a434edcebffa866010ee384656d4b2a54dfe93dcec57c93738c2ebb7f8e3e0",
+      "before_sha256": "98261484d5fbbcc83939768f2981134eb3b207e5406186c805ea492506c48a18"
+    },
+    {
+      "path": "README.md",
+      "after_sha256": "05a434edcebffa866010ee384656d4b2a54dfe93dcec57c93738c2ebb7f8e3e0",
+      "before_sha256": "98261484d5fbbcc83939768f2981134eb3b207e5406186c805ea492506c48a18"
+    },
+    {
+      "path": "README.md",
+      "after_sha256": "05a434edcebffa866010ee384656d4b2a54dfe93dcec57c93738c2ebb7f8e3e0",
+      "before_sha256": "98261484d5fbbcc83939768f2981134eb3b207e5406186c805ea492506c48a18"
+    },
+    {
+      "path": "README.md",
+      "after_sha256": "05a434edcebffa866010ee384656d4b2a54dfe93dcec57c93738c2ebb7f8e3e0",
+      "before_sha256": "98261484d5fbbcc83939768f2981134eb3b207e5406186c805ea492506c48a18"
+    },
+    {
+      "path": "README.md",
+      "after_sha256": "05a434edcebffa866010ee384656d4b2a54dfe93dcec57c93738c2ebb7f8e3e0",
+      "before_sha256": "98261484d5fbbcc83939768f2981134eb3b207e5406186c805ea492506c48a18"
+    },
+    {
+      "path": "README.md",
+      "after_sha256": "05a434edcebffa866010ee384656d4b2a54dfe93dcec57c93738c2ebb7f8e3e0",
+      "before_sha256": "98261484d5fbbcc83939768f2981134eb3b207e5406186c805ea492506c48a18"
+    },
+    {
+      "path": "README.md",
+      "after_sha256": "05a434edcebffa866010ee384656d4b2a54dfe93dcec57c93738c2ebb7f8e3e0",
+      "before_sha256": "98261484d5fbbcc83939768f2981134eb3b207e5406186c805ea492506c48a18"
+    },
+    {
+      "path": "README.md",
+      "after_sha256": "05a434edcebffa866010ee384656d4b2a54dfe93dcec57c93738c2ebb7f8e3e0",
+      "before_sha256": "98261484d5fbbcc83939768f2981134eb3b207e5406186c805ea492506c48a18"
+    },
+    {
+      "path": "README.md",
+      "after_sha256": "05a434edcebffa866010ee384656d4b2a54dfe93dcec57c93738c2ebb7f8e3e0",
+      "before_sha256": "98261484d5fbbcc83939768f2981134eb3b207e5406186c805ea492506c48a18"
+    },
+    {
+      "path": "README.md",
+      "after_sha256": "05a434edcebffa866010ee384656d4b2a54dfe93dcec57c93738c2ebb7f8e3e0",
+      "before_sha256": "98261484d5fbbcc83939768f2981134eb3b207e5406186c805ea492506c48a18"
+    },
+    {
+      "path": "README.md",
+      "after_sha256": "05a434edcebffa866010ee384656d4b2a54dfe93dcec57c93738c2ebb7f8e3e0",
+      "before_sha256": "98261484d5fbbcc83939768f2981134eb3b207e5406186c805ea492506c48a18"
+    },
+    {
+      "path": "README.md",
+      "after_sha256": "05a434edcebffa866010ee384656d4b2a54dfe93dcec57c93738c2ebb7f8e3e0",
+      "before_sha256": "98261484d5fbbcc83939768f2981134eb3b207e5406186c805ea492506c48a18"
+    },
+    {
+      "path": "README.md",
+      "after_sha256": "05a434edcebffa866010ee384656d4b2a54dfe93dcec57c93738c2ebb7f8e3e0",
+      "before_sha256": "98261484d5fbbcc83939768f2981134eb3b207e5406186c805ea492506c48a18"
+    },
+    {
+      "path": "README.md",
+      "after_sha256": "05a434edcebffa866010ee384656d4b2a54dfe93dcec57c93738c2ebb7f8e3e0",
+      "before_sha256": "98261484d5fbbcc83939768f2981134eb3b207e5406186c805ea492506c48a18"
+    },
+    {
+      "path": "README.md",
+      "after_sha256": "05a434edcebffa866010ee384656d4b2a54dfe93dcec57c93738c2ebb7f8e3e0",
+      "before_sha256": "98261484d5fbbcc83939768f2981134eb3b207e5406186c805ea492506c48a18"
+    },
+    {
+      "path": "README.md",
+      "after_sha256": "05a434edcebffa866010ee384656d4b2a54dfe93dcec57c93738c2ebb7f8e3e0",
+      "before_sha256": "98261484d5fbbcc83939768f2981134eb3b207e5406186c805ea492506c48a18"
+    },
+    {
+      "path": "README.md",
+      "after_sha256": "05a434edcebffa866010ee384656d4b2a54dfe93dcec57c93738c2ebb7f8e3e0",
+      "before_sha256": "98261484d5fbbcc83939768f2981134eb3b207e5406186c805ea492506c48a18"
+    },
+    {
+      "path": "README.md",
+      "after_sha256": "05a434edcebffa866010ee384656d4b2a54dfe93dcec57c93738c2ebb7f8e3e0",
+      "before_sha256": "98261484d5fbbcc83939768f2981134eb3b207e5406186c805ea492506c48a18"
+    },
+    {
+      "path": "README.md",
+      "after_sha256": "05a434edcebffa866010ee384656d4b2a54dfe93dcec57c93738c2ebb7f8e3e0",
+      "before_sha256": "98261484d5fbbcc83939768f2981134eb3b207e5406186c805ea492506c48a18"
+    },
+    {
+      "path": "README.md",
+      "after_sha256": "05a434edcebffa866010ee384656d4b2a54dfe93dcec57c93738c2ebb7f8e3e0",
+      "before_sha256": "98261484d5fbbcc83939768f2981134eb3b207e5406186c805ea492506c48a18"
+    },
+    {
+      "path": "README.md",
+      "after_sha256": "05a434edcebffa866010ee384656d4b2a54dfe93dcec57c93738c2ebb7f8e3e0",
+      "before_sha256": "98261484d5fbbcc83939768f2981134eb3b207e5406186c805ea492506c48a18"
+    }
+  ],
+  "source_changes": 0,
+  "os_root_cause_confirmed": false,
+  "fits": 0,
+  "native_runs": 0,
+  "tests_run": 0,
+  "approval_id": "call_eae1cfb62b064c1b95398ac87368af2d",
+  "changed_records": 25,
+  "model_forwards": 0,
+  "formal_report_changes": 0,
+  "real_data_reads": 0,
+  "agents": 0
+}

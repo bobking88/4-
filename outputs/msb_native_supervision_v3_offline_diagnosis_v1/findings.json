@@ -1,0 +1,105 @@
+{
+  "date": "2026-10-27",
+  "status": "OFFLINE_DIAGNOSIS_COMPLETE_OS_TRIGGER_UNCONFIRMED",
+  "base_commit": "06bc2fdc52069a6928d953143db8f1c169a1d538",
+  "reviewed_code": "4312036b33c05a9b8c29f4849860562eb7c68b87",
+  "confirmed": [
+    {
+      "id": "F1",
+      "claim": "Native v3 N1 failed in trace REPLACE with PermissionError, errno 13, winerror 5.",
+      "evidence": "controller/controller_failure.json; collector terminal exit 1"
+    },
+    {
+      "id": "F2",
+      "claim": "Two publication calls, one success; .pending and target contain identical spawn/assigned event snapshots; no final republish after failure.",
+      "evidence": "trace_publication record, trace.json/pending raw hashes, TracePublicationState"
+    },
+    {
+      "id": "F3",
+      "claim": "TraceAPI.pause persists on every supervisor 0.05-second polling wait, including unchanged event lists.",
+      "source": "scripts/check_msb_native_supervision.py:560; scripts/msb_execution_safety.py:619"
+    },
+    {
+      "id": "F4",
+      "claim": "Observer reads trace before checking whether worker_ready exists, using Path.read_text; its RLock does not synchronize the separate controller writer.",
+      "source": "scripts/check_msb_native_supervision.py:864,1095,1102,1105,1127,1262"
+    },
+    {
+      "id": "F5",
+      "claim": "TraceMemoryIO models serial replacement and injected exceptions, not native delete-sharing with a concurrent held reader.",
+      "source": "tests/test_check_msb_native_supervision.py:1729,1754,1808,1827"
+    },
+    {
+      "id": "F6",
+      "claim": "Own pending stream close is attempted and no CLOSE error recorded before replacement. The published error should not be reclassified as CREATE/FileExistsError.",
+      "source": "scripts/check_msb_native_supervision.py:307,314,317"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "priority": "PRIMARY_HYPOTHESIS_NOT_PROVEN",
+      "claim": "Observer reading target without an explicit delete-sharing policy may conflict with controller replacement.",
+      "support": [
+        "concurrent source paths",
+        "observer reads before ready",
+        "second replace of existing target",
+        "Windows sharing rules"
+      ],
+      "missing": [
+        "actual file handle/share-mask overlap at failure",
+        "runtime CRT share behavior observation",
+        "causal native comparison"
+      ],
+      "discriminator": "Future separately authorized controlled sharing-semantic test, first represented in a deterministic mock contract; not performed here."
+    },
+    {
+      "id": "H2",
+      "priority": "ALTERNATIVE_NOT_RULED_OUT",
+      "claim": "Destination ACL, attributes, external filter or third-party file opener may deny replacement.",
+      "support": [
+        "WinError5 permits multiple explanations"
+      ],
+      "missing": [
+        "ACL/attribute/owner/filter snapshots"
+      ],
+      "discriminator": "Additional permission-gated evidence, not attribution by error code alone."
+    }
+  ],
+  "excluded_claims": [
+    "285 previous synthetic passes prove live file-sharing correctness",
+    "PermissionError necessarily proves antivirus involvement",
+    "WinError5 is the same as WinError32",
+    "writer RLock in one process protects another process",
+    "early return before ready alone solves all future concurrent replacement",
+    "pending deletion or retry is authorized",
+    "native engineering evidence validates network/theory gains"
+  ],
+  "recommendation": {
+    "scope": "Draft a minimal reader/writer sharing contract before implementation; retain current protocol failure rules.",
+    "primary_candidate": "Explicit non-inheritable, read-only trace read adapter compatible with target replacement, potentially FILE_SHARE_READ|FILE_SHARE_WRITE|FILE_SHARE_DELETE; handles always closed and no broadened access privileges. This is a design candidate, not a proven fix.",
+    "secondary_candidate": "Short-circuit trace reads until ready/controller prerequisites exist; reduces unnecessary reads but is not the standalone repair.",
+    "larger_alternative": "Immutable versioned snapshots would avoid replacing an open target but change publication/read protocol; not selected for immediate implementation.",
+    "retain": [
+      "first-error latch",
+      "no retry after unexpected error",
+      "raw pending retention",
+      "inherited deadline",
+      "identity checks",
+      "N1-N4 acceptance conditions",
+      "network/formula/scientific matrix unchanged"
+    ]
+  },
+  "activity": {
+    "new_tests": 0,
+    "new_native_runs": 0,
+    "probes": 0,
+    "project_imports": 0,
+    "real_data_reads": 0,
+    "scientific_fits": 0,
+    "forwards": 0,
+    "agents": 0,
+    "source_changes": 0,
+    "formal_report_changes": 0
+  }
+}

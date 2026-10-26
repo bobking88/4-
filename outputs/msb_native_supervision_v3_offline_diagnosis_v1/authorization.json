@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-27",
+  "approval_id": "call_eae1cfb62b064c1b95398ac87368af2d",
+  "answer": "批准离线定位及结论归档（推荐）",
+  "scope": "READ_ONLY_OFFLINE_CAUSE_ANALYSIS_AND_GITHUB_ARCHIVE",
+  "base_commit": "06bc2fdc52069a6928d953143db8f1c169a1d538",
+  "authorized_sources": "Existing v3 failed originals, registered source and necessary official documentation.",
+  "forbidden": [
+    "source edits",
+    "project imports",
+    "tests or synthetic reruns",
+    "native probes or acceptance",
+    "real input access",
+    "forward or fitting",
+    "agent dispatch",
+    "formal report changes"
+  ],
+  "new_execution_authorized": false
+}
