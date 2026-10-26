@@ -1,0 +1,201 @@
+{
+  "date": "2026-10-26",
+  "verified_commit": "cc1204f00bd7a898fecd0fa7c43ad819ad32f3e6",
+  "verification": "22 actual remote Git blobs fetched and SHA-1 recomputed; entire tree/ref match; reviewed source subtrees unchanged.",
+  "remote_readback": {
+    "tree": "d507362113f5c4d3339ca1834c9a29c0fd72fc8f",
+    "source_subtrees_match_reviewed": true,
+    "commit": "cc1204f00bd7a898fecd0fa7c43ad819ad32f3e6",
+    "files": [
+      {
+        "bytes": 62466,
+        "actual_remote_content_verified": true,
+        "git_blob": "83bd656a3f536b34ed1fdc0f2a4719f6cd464485",
+        "path": "README.md"
+      },
+      {
+        "bytes": 4421,
+        "actual_remote_content_verified": true,
+        "git_blob": "cea4dab32fb70dd7db59edd145625820a38d2edd",
+        "path": "docs/experiment_records/2026-10-26_msb_native_supervision_v3_result.md"
+      },
+      {
+        "bytes": 93244,
+        "actual_remote_content_verified": true,
+        "git_blob": "f31a663f6656fb25611a20f7570d9714c56cbfa7",
+        "path": "outputs/msb_native_supervision_v3_native_result_v1/protection_before.json"
+      },
+      {
+        "bytes": 1762,
+        "actual_remote_content_verified": true,
+        "git_blob": "553e466472e89d3758e29967953f7a2b3c7f3cca",
+        "path": "outputs/msb_native_supervision_v3_native_result_v1/registration_remote_readback.json"
+      },
+      {
+        "bytes": 2865,
+        "actual_remote_content_verified": true,
+        "git_blob": "587a095550fa61e70aecf9f084f1927f874f2c6c",
+        "path": "outputs/msb_native_supervision_v3_native_result_v1/summary.json"
+      },
+      {
+        "bytes": 3880,
+        "actual_remote_content_verified": true,
+        "git_blob": "2bf8f0024589102b38d071efd5d30ab3b5e9f5b6",
+        "path": "outputs/msb_native_supervision_v3_native_result_v1/original_manifest.json"
+      },
+      {
+        "bytes": 3765,
+        "actual_remote_content_verified": true,
+        "git_blob": "fd4dcd181c35a43ec339990628f57c3d83b2fa5c",
+        "path": "outputs/msb_native_supervision_v3_native_result_v1/entry_observation.json"
+      },
+      {
+        "bytes": 309,
+        "actual_remote_content_verified": true,
+        "git_blob": "6351f3002aaffd352f3afe05be178f2eea9bda3e",
+        "path": "outputs/msb_native_supervision_v3_native_result_v1/authorization_consumed.json"
+      },
+      {
+        "bytes": 860,
+        "actual_remote_content_verified": true,
+        "git_blob": "3adec27c4d512c1bbd3449a06d271dc860f5ac74",
+        "path": "outputs/msb_native_supervision_v3_native_result_v1/protection_after.json"
+      },
+      {
+        "bytes": 7963,
+        "actual_remote_content_verified": true,
+        "git_blob": "6ea90ddf937b79a52ecae9568826e02ec4d173be",
+        "path": "outputs/msb_native_supervision_v3_native_result_v1/collector_stdout.log"
+      },
+      {
+        "bytes": 0,
+        "actual_remote_content_verified": true,
+        "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+        "path": "outputs/msb_native_supervision_v3_native_result_v1/collector_stderr.log"
+      },
+      {
+        "bytes": 5591,
+        "actual_remote_content_verified": true,
+        "git_blob": "3836164df70d4989b7c2be27c44ee19501300b75",
+        "path": "outputs/msb_native_supervision_v3/acceptance_once/registered_protocol.json"
+      },
+      {
+        "bytes": 7892,
+        "actual_remote_content_verified": true,
+        "git_blob": "571bbe6b1736cf8ecc90ff7df7b19cf1e0f27ca9",
+        "path": "outputs/msb_native_supervision_v3/acceptance_once/stage_state.json"
+      },
+      {
+        "bytes": 801,
+        "actual_remote_content_verified": true,
+        "git_blob": "156bf2d759533fb90b2380bd94592cfb63cb9902",
+        "path": "outputs/msb_native_supervision_v3/acceptance_once/cases/N1/controller_ready.json"
+      },
+      {
+        "bytes": 2209,
+        "actual_remote_content_verified": true,
+        "git_blob": "b6ad5f07cf5822fe16c8a1ea82548fe0fd18cc04",
+        "path": "outputs/msb_native_supervision_v3/acceptance_once/cases/N1/controller.log"
+      },
+      {
+        "bytes": 2209,
+        "actual_remote_content_verified": true,
+        "git_blob": "afde635ae9015ecad29296cb44a7c867275f6d30",
+        "path": "outputs/msb_native_supervision_v3/acceptance_once/cases/N1/controller/controller_failure.json"
+      },
+      {
+        "bytes": 1314,
+        "actual_remote_content_verified": true,
+        "git_blob": "30403145bddd440fb596b7e217c7d0683ff0110f",
+        "path": "outputs/msb_native_supervision_v3/acceptance_once/cases/N1/controller/stage_state.json"
+      },
+      {
+        "bytes": 145,
+        "actual_remote_content_verified": true,
+        "git_blob": "70791e44fdb7398fbacd3fe33a3a3b5d6d2ef9de",
+        "path": "outputs/msb_native_supervision_v3/acceptance_once/cases/N1/controller/trace.json"
+      },
+      {
+        "bytes": 145,
+        "actual_remote_content_verified": true,
+        "git_blob": "70791e44fdb7398fbacd3fe33a3a3b5d6d2ef9de",
+        "path": "outputs/msb_native_supervision_v3/acceptance_once/cases/N1/controller/trace.json.pending"
+      },
+      {
+        "bytes": 1186,
+        "actual_remote_content_verified": true,
+        "git_blob": "69fd6bc6124aa772800d0812be2122e5fefb4769",
+        "path": "outputs/msb_native_supervision_v3/acceptance_once/cases/N1/controller/runs/N1/packet.json"
+      },
+      {
+        "bytes": 0,
+        "actual_remote_content_verified": true,
+        "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+        "path": "outputs/msb_native_supervision_v3/acceptance_once/cases/N1/controller/runs/N1/worker.log"
+      },
+      {
+        "bytes": 441,
+        "actual_remote_content_verified": true,
+        "git_blob": "3ce0e2e0781d4a5b17674f659005ad58f2023f5f",
+        "path": "outputs/msb_native_supervision_v3_native_result_v1/archive_check.json"
+      }
+    ]
+  },
+  "publication_transport": "Ordinary git push failed to connect; exact tree and commit uploaded through GitHub API with force=false.",
+  "raw_vs_git": "The raw SHA-256 manifest describes retained local original bytes. Git text normalization changes CRLF to LF in stored blobs; Git blob IDs and returned byte lengths above identify repository content. Local originals were not rewritten.",
+  "local_raw_originals": [
+    {
+      "bytes": 5592,
+      "sha256": "d7d2ddf8bc054f28038212939376a0e6ed494e24a476a65822c4d02963538dfb",
+      "path": "outputs/msb_native_supervision_v3/acceptance_once/registered_protocol.json"
+    },
+    {
+      "bytes": 7893,
+      "sha256": "d395b27ea6310a34fb004ba29e72b4c3ddb1e159edf990c7ddea43e64899532c",
+      "path": "outputs/msb_native_supervision_v3/acceptance_once/stage_state.json"
+    },
+    {
+      "bytes": 802,
+      "sha256": "77e0ea31f455fc92e5e3a48d68ac5be03ca6cdcf8419e2e791bfe7f03af17f95",
+      "path": "outputs/msb_native_supervision_v3/acceptance_once/cases/N1/controller_ready.json"
+    },
+    {
+      "bytes": 2210,
+      "sha256": "9f1a0289f7c5864a0d635cd4e59f5b7376dc30d783382a1da4d87ba8c4533f7a",
+      "path": "outputs/msb_native_supervision_v3/acceptance_once/cases/N1/controller.log"
+    },
+    {
+      "bytes": 2210,
+      "sha256": "6b9a59188c413dbdee225a1dfa682dec3db392989bf60ed7b5ae70e086c093f5",
+      "path": "outputs/msb_native_supervision_v3/acceptance_once/cases/N1/controller/controller_failure.json"
+    },
+    {
+      "bytes": 1315,
+      "sha256": "b5111ca5a84619f192b772fea8786c7af3f6800a61023b0a000346d699210737",
+      "path": "outputs/msb_native_supervision_v3/acceptance_once/cases/N1/controller/stage_state.json"
+    },
+    {
+      "bytes": 146,
+      "sha256": "e83afb10a7abd2c5961a95bb32b27af2dab416c80072ccc0f1965cd936263743",
+      "path": "outputs/msb_native_supervision_v3/acceptance_once/cases/N1/controller/trace.json"
+    },
+    {
+      "bytes": 146,
+      "sha256": "e83afb10a7abd2c5961a95bb32b27af2dab416c80072ccc0f1965cd936263743",
+      "path": "outputs/msb_native_supervision_v3/acceptance_once/cases/N1/controller/trace.json.pending"
+    },
+    {
+      "bytes": 1187,
+      "sha256": "63f1b076ed5a2d04afd1684f9e7272d8cae1bd6bfd91544c68bf0cd1c6f68645",
+      "path": "outputs/msb_native_supervision_v3/acceptance_once/cases/N1/controller/runs/N1/packet.json"
+    },
+    {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "path": "outputs/msb_native_supervision_v3/acceptance_once/cases/N1/controller/runs/N1/worker.log"
+    }
+  ],
+  "entry_copy_note": "Local entry copies are raw-byte identical. Remote text blobs use repository newline normalization.",
+  "native_runs": 1,
+  "retries": 0
+}
