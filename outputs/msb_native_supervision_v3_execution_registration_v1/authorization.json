@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-25",
+  "approval_id": "call_d7ead69a9778437890a84a9c099e586a",
+  "answer": "批准一次固定协议原生验收（推荐）",
+  "scope": "ONE_FIXED_PROTOCOL_NATIVE_SUPERVISION_NO_DATA_ACCEPTANCE",
+  "confirmed_from_human": true,
+  "pending_protocol_commit": "f5fe149962c004ad1b1414eeee84fd55746bfc36",
+  "reviewed_code_commit": "4312036b33c05a9b8c29f4849860562eb7c68b87",
+  "max_invocations": 1,
+  "max_collectors": 1,
+  "max_controllers": 4,
+  "max_workers": 4,
+  "max_seconds": 480,
+  "require_ac": true,
+  "keyboard_mouse_allowed": true,
+  "fail_on_unexpected_failure_or_insufficient_evidence": true,
+  "retry_allowed": false,
+  "resume_allowed": false,
+  "allowed_protocol_changes": [
+    "status",
+    "approval_call_id",
+    "approval_answer"
+  ],
+  "run_only_after": "Authorization reregistration commit and actual remote content verification",
+  "forbidden": [
+    "extra timing/process/power/idle probes outside the registered single acceptance",
+    "synthetic test reruns",
+    "agent dispatch",
+    "real prepared/fit/stop/images/cache/weights/tensors",
+    "scientific fitting or model forward",
+    "source/network/loss/formula/scientific matrix/formal report changes"
+  ],
+  "real_mechanism_experiment_authorized": false,
+  "approval_consumed_on": "Any collector invocation, including early rejection or no output."
+}

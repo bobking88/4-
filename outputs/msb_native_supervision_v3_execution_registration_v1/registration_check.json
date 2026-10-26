@@ -1,0 +1,56 @@
+{
+  "date": "2026-10-25",
+  "approval_id": "call_d7ead69a9778437890a84a9c099e586a",
+  "status": "AUTHORIZED_NOT_STARTED_PENDING_REREGISTRATION_READBACK",
+  "pending_protocol_commit": "f5fe149962c004ad1b1414eeee84fd55746bfc36",
+  "reviewed_code_commit": "4312036b33c05a9b8c29f4849860562eb7c68b87",
+  "source_count": 46,
+  "protocol_field_count": 16,
+  "exact_changed_fields": [
+    "status",
+    "approval_call_id",
+    "approval_answer"
+  ],
+  "unchanged_protocol_fields": 13,
+  "unchanged_source_hashes": 46,
+  "native_output_created": false,
+  "collector_invocations": 0,
+  "tests": 0,
+  "real_data_reads": 0,
+  "model_forwards": 0,
+  "scientific_fits": 0,
+  "agents_dispatched": 0,
+  "source_edits": 0,
+  "formal_report_edits": 0,
+  "protected_records": 498,
+  "duplicates_preserved": true,
+  "allowed_existing_changes": [
+    "README.md",
+    "docs/experiment_protocols/msb_native_supervision_v3.json"
+  ],
+  "execution_plan": {
+    "entry_capture_root": ".superpowers/sdd/2026-10-25-msb-native-supervision-v3-execution",
+    "output_relative": "outputs/msb_native_supervision_v3/acceptance_once",
+    "max_seconds": 480,
+    "case_order": [
+      "N1",
+      "N2",
+      "N3",
+      "N4"
+    ],
+    "case_limits": [
+      90,
+      45,
+      75,
+      45
+    ],
+    "require_ac": true,
+    "keyboard_mouse_idle_required": false,
+    "max_invocations": 1,
+    "max_controllers": 4,
+    "max_workers": 4,
+    "registration_commit": "Passed externally after actual remote readback, not embedded here."
+  },
+  "claim_boundary": "Registration and native supervision acceptance are not scientific validation of MSB-RRE or theoretical innovation.",
+  "publication_verification": "Pending actual remote-content readback; no collector invocation authorized before that check."
+}
