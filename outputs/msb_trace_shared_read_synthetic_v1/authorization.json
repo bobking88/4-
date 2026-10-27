@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-27",
+  "approval_call_id": "call_4490c98e36aa4667a22d7065e677fb99",
+  "answer": "认可文件，批准代码与有限合成验收（推荐）",
+  "acknowledged_commit": "a09d55a8088c6c71806d077efe66846321ef309c",
+  "scope": "TASK1_CODE_AND_BOUNDED_SYNTHETIC_ONLY",
+  "source_allowlist": [
+    "scripts/check_msb_native_supervision.py",
+    "tests/test_check_msb_native_supervision.py",
+    "tests/run_msb_native_supervision_synthetic_acceptance.py"
+  ],
+  "phase_attempt_cap": 3,
+  "phases": ["collector-red", "collector-green", "final"],
+  "new_test_method_count": 12,
+  "preserved_historical_test_count": 285,
+  "native_acceptance_authorized": false,
+  "real_training_authorized": false,
+  "real_data_access_authorized": false,
+  "agents_authorized": false,
+  "formal_report_changes_authorized": false,
+  "executable_protocol_authorized": false
+}

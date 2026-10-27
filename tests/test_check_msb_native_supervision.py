@@ -739,11 +739,16 @@ class CollectorTests(unittest.TestCase):
 class ObserverTestServices(FakeDriverServices):
     def __init__(self):
         super().__init__(WorkerAPI());self.api.now=1103;self.opened=[];self.closed=[];self.identity=(8,202)
+        self.trace_reads=[];self.trace_value=None
     def open_query(self,pid):self.opened.append(pid);return 88
     def query_identity(self,handle):return self.identity
     def close_query(self,handle):self.closed.append(handle)
     def query_alive(self,handle):return self.api.now<1200
     def query_exit_code(self,handle):return 1
+    def read_trace(self,path,binding):
+        self.trace_reads.append((Path(path),copy.deepcopy(binding)))
+        if self.trace_value is not None:return copy.deepcopy(self.trace_value)
+        return native._read_json_if_present(path)
 
 
 class ObserverTests(unittest.TestCase):
@@ -836,6 +841,214 @@ class ObserverTests(unittest.TestCase):
             self.assertIsInstance(caught,RuntimeError)
             self.assertEqual(busy.enters,0)
             self.assertEqual(closed_before_cleanup,[])
+
+
+class SharedReadKernelFake:
+    """Deterministic FILE_SHARE model used only by the synthetic driver tests."""
+    INVALID_HANDLE_VALUE=-1
+
+    def __init__(self, snapshots=None):
+        self.snapshots={str(Path(path)):bytes(payload) for path,payload in (snapshots or {}).items()}
+        self.calls=[];self.handles={};self.closed=[];self.next_handle=(1 << 40) + 7
+        self.open_error=None;self.return_invalid=False;self.read_script=[];self.close_error=None
+
+    def create_file(self,path,access,share,security_attributes,creation,flags,template):
+        path=str(Path(path));self.calls.append(("CreateFileW",path,access,share,security_attributes,creation,flags,template))
+        if self.open_error is not None:raise self.open_error
+        if self.return_invalid:return self.INVALID_HANDLE_VALUE
+        handle=self.next_handle;self.next_handle+=1
+        self.handles[handle]=dict(path=path,payload=self.snapshots.get(path,b""),offset=0,share=share,closed=False)
+        return handle
+
+    def read_file(self,handle,size):
+        self.calls.append(("ReadFile",handle,size))
+        if self.read_script:
+            value=self.read_script.pop(0)
+            if isinstance(value,BaseException):raise value
+            return value
+        state=self.handles[handle];chunk=state["payload"][state["offset"]:state["offset"]+size]
+        state["offset"]+=len(chunk);return chunk
+
+    def close_handle(self,handle):
+        self.calls.append(("CloseHandle",handle));self.closed.append(handle)
+        if self.close_error is not None:raise self.close_error
+        self.handles[handle]["closed"]=True
+
+    def replace(self,path,payload):
+        blocked=[state for state in self.handles.values() if not state["closed"] and not (state["share"] & 4)]
+        if blocked:raise PermissionError("synthetic replacement blocked by FILE_SHARE_DELETE")
+        self.snapshots[str(Path(path))]=bytes(payload)
+
+
+def _synthetic_windows_error(winerror,message):
+    error=OSError(13,message);error.winerror=winerror
+    return error
+
+
+class TraceSharedReadTests(unittest.TestCase):
+    def function(self,name):
+        value=getattr(native,name,None)
+        self.assertTrue(callable(value),"Missing trace shared-read implementation: "+name)
+        return value
+
+    def reader(self,kernel):
+        adapter=self.function("_TraceReadFileIO")
+        with patch.object(native,"_trace_reader_kernel",side_effect=AssertionError("fake kernel must avoid native factory")) as factory:
+            result=adapter(kernel=kernel)
+        factory.assert_not_called();return result
+
+    def trace_read(self,path,*,kernel,check=lambda:None):
+        helper=self.function("_read_trace_json_if_present")
+        return helper(path,check=check,file_io=self.reader(kernel))
+
+    @staticmethod
+    def _trace_read_guard(trace):
+        original=Path.read_text
+        def guarded(path,*args,**kwargs):
+            if Path(path)==trace:raise AssertionError("ordinary trace Path.read_text fallback is forbidden")
+            return original(path,*args,**kwargs)
+        return patch.object(Path,"read_text",new=guarded)
+
+    def test_windows_read_flags_and_handle_abi(self):
+        path=Path("synthetic-trace.json");kernel=SharedReadKernelFake({path:b"[]"});reader=self.reader(kernel)
+        handle=reader.open_shared_read(path)
+        self.assertEqual(handle,(1 << 40)+7)
+        name,seen_path,access,share,security,creation,flags,template=kernel.calls[0]
+        self.assertEqual((name,seen_path,access,share,security,creation,flags,template),
+                         ("CreateFileW",str(path),0x80000000,7,None,3,0x80,None))
+        self.assertEqual(reader.read_chunk(handle,4096),b"[]")
+        reader.close(handle);self.assertEqual(kernel.closed,[handle])
+
+    def test_held_reader_sharing_controls_replacement(self):
+        path=Path("synthetic-trace.json");kernel=SharedReadKernelFake({path:b'{"version":"old"}'})
+        blocked=kernel.create_file(path,0x80000000,3,None,3,0x80,None)
+        with self.assertRaises(PermissionError):kernel.replace(path,b'{"version":"new"}')
+        kernel.close_handle(blocked)
+        reader=self.reader(kernel);old=reader.open_shared_read(path);kernel.replace(path,b'{"version":"new"}')
+        self.assertEqual(reader.read_chunk(old,4096),b'{"version":"old"}');reader.close(old)
+        fresh=reader.open_shared_read(path);self.assertEqual(reader.read_chunk(fresh,4096),b'{"version":"new"}');reader.close(fresh)
+
+    def test_missing_access_errors_and_json_polling(self):
+        path=Path("synthetic-trace.json");error_type=self.function("TraceReadError")
+        for code in (2,3):
+            kernel=SharedReadKernelFake();kernel.open_error=_synthetic_windows_error(code,"missing")
+            with self.subTest(code=code):self.assertIsNone(self.trace_read(path,kernel=kernel))
+        for code in (5,32):
+            original=_synthetic_windows_error(code,"access denied")
+            kernel=SharedReadKernelFake();kernel.open_error=original
+            with self.subTest(code=code),self.assertRaises(error_type) as caught:self.trace_read(path,kernel=kernel)
+            self.assertEqual(caught.exception.errors,(("OPEN",original),))
+        kernel=SharedReadKernelFake({path:b'{"partial":'})
+        with self.assertRaises(json.JSONDecodeError):self.trace_read(path,kernel=kernel)
+        self.assertEqual(len(kernel.closed),1)
+        close_error=_synthetic_windows_error(5,"close denied");kernel=SharedReadKernelFake({path:b'{"partial":'});kernel.close_error=close_error
+        with self.assertRaises(error_type) as caught:self.trace_read(path,kernel=kernel)
+        self.assertEqual(caught.exception.errors,(("CLOSE",close_error),))
+
+    def test_read_and_decode_failures_close_once(self):
+        path=Path("synthetic-trace.json");error_type=self.function("TraceReadError")
+        kernel=SharedReadKernelFake({path:b"ignored"});kernel.read_script=[b'["a",',b'"b"]',b""]
+        self.assertEqual(self.trace_read(path,kernel=kernel),["a","b"]);self.assertEqual(len(kernel.closed),1)
+        read_error=_synthetic_windows_error(32,"read sharing violation");kernel=SharedReadKernelFake({path:b"ignored"});kernel.read_script=[read_error]
+        with self.assertRaises(error_type) as caught:self.trace_read(path,kernel=kernel)
+        self.assertEqual(caught.exception.errors[0],("READ",read_error));self.assertEqual(len(kernel.closed),1)
+        kernel=SharedReadKernelFake({path:b"\xff"})
+        with self.assertRaises(UnicodeDecodeError):self.trace_read(path,kernel=kernel)
+        self.assertEqual(len(kernel.closed),1)
+        kernel=SharedReadKernelFake();kernel.return_invalid=True;reader=self.reader(kernel)
+        with self.assertRaises(OSError):reader.open_shared_read(path)
+        self.assertEqual(kernel.closed,[])
+
+    def test_close_failure_preserves_ordered_original_causes(self):
+        path=Path("synthetic-trace.json");error_type=self.function("TraceReadError")
+        read_error=_synthetic_windows_error(32,"read failure");close_error=_synthetic_windows_error(5,"close failure");check_error=RuntimeError("deadline expired")
+        kernel=SharedReadKernelFake({path:b"ignored"});kernel.read_script=[read_error];kernel.close_error=close_error
+        calls=[]
+        def check():
+            calls.append(len(calls))
+            if len(calls)>=3:raise check_error
+        with self.assertRaises(error_type) as caught:self.trace_read(path,kernel=kernel,check=check)
+        self.assertEqual(caught.exception.errors,(("READ",read_error),("CLOSE",close_error),("CHECK",check_error)))
+        self.assertEqual(kernel.closed.__len__(),1)
+
+    def test_inherited_deadline_checks_surround_owned_handle(self):
+        path=Path("synthetic-trace.json");error_type=self.function("TraceReadError")
+        for fail_at in (1,2,3,4):
+            kernel=SharedReadKernelFake({path:b"[]"});calls=[];deadline=RuntimeError("deadline")
+            def check():
+                calls.append(None)
+                if len(calls)==fail_at:raise deadline
+            with self.subTest(fail_at=fail_at),self.assertRaises(error_type) as caught:self.trace_read(path,kernel=kernel,check=check)
+            self.assertIs(caught.exception.errors[0][1],deadline)
+            self.assertEqual(len(kernel.closed),0 if fail_at==1 else 1)
+
+    def test_ready_absence_does_not_open_trace(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            observer,services,case=ObserverTests().make(tmp);trace=case/"controller/trace.json"
+            (case/"worker_ready.json").unlink()
+            with self._trace_read_guard(trace):observer.sample()
+            self.assertEqual(services.trace_reads,[]);self.assertEqual(services.opened,[]);self.assertFalse((case/"collector_ack.json").exists())
+        with tempfile.TemporaryDirectory() as tmp:
+            observer,services,case=ObserverTests().make(tmp);trace=case/"controller/trace.json"
+            (case/"controller_ready.json").unlink()
+            with self._trace_read_guard(trace):observer.sample()
+            self.assertEqual(services.trace_reads,[]);self.assertEqual(services.opened,[]);self.assertFalse((case/"collector_ack.json").exists())
+
+    def test_invalid_ready_binding_fails_before_trace(self):
+        variants=(
+            ("case",lambda ready,controller:ready.update(case_id="N1")),
+            ("working",lambda ready,controller:ready.update(working=False)),
+            ("job",lambda ready,controller:ready.update(job_assigned=False)),
+            ("binding",lambda ready,controller:controller.update(binding={"wrong":True})),
+            ("missing-pid",lambda ready,controller:ready.pop("pid")),
+        )
+        for name,mutate in variants:
+            with self.subTest(name=name),tempfile.TemporaryDirectory() as tmp:
+                observer,services,case=ObserverTests().make(tmp);trace=case/"controller/trace.json"
+                ready=json.loads((case/"worker_ready.json").read_text());controller=json.loads((case/"controller_ready.json").read_text())
+                mutate(ready,controller);(case/"worker_ready.json").write_text(json.dumps(ready));(case/"controller_ready.json").write_text(json.dumps(controller))
+                with self._trace_read_guard(trace),self.assertRaises((ValueError,KeyError)):observer.sample()
+                self.assertEqual(services.trace_reads,[]);self.assertEqual(services.opened,[])
+
+    def test_observer_uses_shared_reader_and_retains_ack_checks(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            observer,services,case=ObserverTests().make(tmp);trace=case/"controller/trace.json";services.trace_value=json.loads(trace.read_text())
+            with self._trace_read_guard(trace):observer.sample()
+            self.assertEqual(len(services.trace_reads),1);self.assertEqual(services.opened,[8]);self.assertTrue((case/"collector_ack.json").exists())
+        with tempfile.TemporaryDirectory() as tmp:
+            observer,services,case=ObserverTests().make(tmp);trace=case/"controller/trace.json";services.trace_value=json.loads(trace.read_text());services.api.now=6103
+            with self._trace_read_guard(trace),self.assertRaises(ValueError):observer.sample()
+            self.assertEqual(len(services.trace_reads),1);self.assertEqual(services.opened,[8]);self.assertFalse((case/"collector_ack.json").exists())
+
+    def test_callback_records_read_close_and_stop_causes(self):
+        error_type=self.function("TraceReadError")
+        read_error=_synthetic_windows_error(32,"nonce=secret\nC:\\private\\trace.json")
+        close_error=_synthetic_windows_error(5,"handle=99")
+        trace_error=error_type((("READ",read_error),("CLOSE",close_error)))
+        self.assertIs(trace_error.errors[0][1],read_error)
+        result=native.FaultStopResult(False,True,True,False,trace_error)
+        combined=native.ObserverTerminationError(result,[trace_error,RuntimeError("stop cause")])
+        record=combined.record();rows=record["callback_error"]["trace_read_errors"]
+        self.assertEqual([row["phase"] for row in rows],["READ","CLOSE"])
+        self.assertEqual(rows[0]["winerror"],32);self.assertEqual(rows[1]["winerror"],5)
+        self.assertNotIn("secret",json.dumps(record));self.assertNotIn("private",json.dumps(record));self.assertNotIn("99",json.dumps(record))
+
+    def test_trace_writer_and_n4_failure_precedence_unchanged(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path=Path(tmp)/"trace.json";events=[dict(kind="spawn",tick_ms=1,pid=8,created=199)]
+            native._write_trace_json(path,events);self.assertEqual(json.loads(path.read_text()),events)
+        records=[case_record(case_id) for case_id in ("N1","N2","N3","N4")]
+        records[-1]["fault"]["pre_fault_trace"]=[dict(kind="synthetic snapshot")]
+        result=native.classify_native_cases(records,outer_evidence=root_evidence())
+        self.assertFalse(result["accepted"]);self.assertIn("N4",result["reasons"])
+
+    def test_harness_guards_new_reader_native_boundary(self):
+        self.assertEqual(harness.EVIDENCE_ROOT,Path("outputs/msb_trace_shared_read_synthetic_v1"))
+        self.assertEqual(harness.SCRATCH_ROOT,Path(".superpowers/sdd/2026-10-27-msb-trace-shared-read/test-tmp"))
+        self.assertIn("_trace_reader_kernel",Path(harness.__file__).read_text(encoding="utf-8"))
+        result=unittest.TestResult();result.testsRun=1
+        self.assertTrue(harness._acceptance_passed(result,forbidden_calls=[],harness_error=None))
+        self.assertFalse(harness._acceptance_passed(result,forbidden_calls=["_trace_reader_kernel"],harness_error=None))
 
 
 def observed_origins(root):

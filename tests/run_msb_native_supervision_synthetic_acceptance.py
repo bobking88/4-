@@ -20,6 +20,8 @@ import unittest
 from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
+EVIDENCE_ROOT = Path("outputs/msb_trace_shared_read_synthetic_v1")
+SCRATCH_ROOT = Path(".superpowers/sdd/2026-10-27-msb-trace-shared-read/test-tmp")
 ALL_MODULES = (
     "test_msb_execution_safety", "test_msb_role_data", "test_msb_role_model",
     "test_msb_role_controls", "test_msb_role_audit", "test_msb_role_training",
@@ -74,7 +76,7 @@ def main(argv=None):
     parser = argparse.ArgumentParser()
     parser.add_argument("--phase", required=True, choices=tuple(PHASES))
     args = parser.parse_args(argv)
-    phase_root = ROOT/"outputs/msb_native_namespace_v3_synthetic_v1"/args.phase
+    phase_root = ROOT/EVIDENCE_ROOT/args.phase
     phase_root.mkdir(parents=True, exist_ok=True)
     legacy_attempt = (phase_root/"acceptance_summary.json").exists()
     for attempt in range(1, 4):
@@ -87,7 +89,7 @@ def main(argv=None):
             continue
     else:
         raise FileExistsError("Three synthetic attempts consumed; retain all evidence and stop")
-    scratch = ROOT/".superpowers/sdd/2026-10-25-msb-native-namespace-v3/test-tmp"
+    scratch = ROOT/SCRATCH_ROOT
     scratch.mkdir(parents=True, exist_ok=True)
     tempfile.tempdir = str(scratch)
     snapshots = _snapshot_sources(ROOT)
@@ -153,6 +155,8 @@ def main(argv=None):
             native = importlib.import_module("check_msb_native_supervision")
             if hasattr(native, "NativeServices"):
                 stack.enter_context(patch.object(native.NativeServices, "__init__", side_effect=forbidden("NativeServices")))
+            if hasattr(native, "_trace_reader_kernel"):
+                stack.enter_context(patch.object(native, "_trace_reader_kernel", side_effect=forbidden("_trace_reader_kernel")))
             result = _run_modules(PHASES[args.phase], log)
     except BaseException:
         error = traceback.format_exc()

@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-27",
+  "status": "RETROSPECTIVE_PROTECTION_COMPARISON_ONLY",
+  "baseline_manifest": "outputs/msb_trace_shared_read_plan_v1/protection_before.json",
+  "baseline_adjustments": "Use after_sha256 for the prior planning changes recorded in outputs/msb_trace_shared_read_plan_v1/protection_after.json; no new allowance for README changes.",
+  "protected_records_including_duplicates": 537,
+  "matched_records": 525,
+  "changed_records_including_duplicates": 12,
+  "changed_unique_paths": [
+    "tests/test_check_msb_native_supervision.py",
+    "tests/run_msb_native_supervision_synthetic_acceptance.py"
+  ],
+  "missing_paths": [],
+  "changes_outside_approved_source_allowlist": 0,
+  "production_driver_sha256": "d09a97dbff082f8081a74a96b84ecb2be1ad2cc16a33f8167b62c490f047ea78",
+  "draft_test_sha256": "ed4c6a2f4625c24bfd6ab36cfb5563d295f16a9f4edbc169e3fb4337994c3827",
+  "draft_harness_sha256": "a9217b5b96c7e5cffda0d6180b80adb081f01be4a72137365b53e53072a3e036",
+  "formal_reports_checked": 2,
+  "formal_report_sha256_both_locations": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+  "formal_report_changes": 0,
+  "six_existing_dirty_figures_changes_since_planning": 0,
+  "historical_failure_artifact_changes": 0,
+  "readme_changes_since_planning": 0,
+  "warning": "This comparison proves retained bytes, not a pre-run snapshot taken at the approved development start. The red run is invalid and is not accepted as a passing engineering result."
+}
