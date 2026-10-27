@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-27",
+  "approval_call_id": "call_65ac651439f34e59a781ce88d99d75bc",
+  "answer": "批准一次独立只读复查并归档（推荐）",
+  "reviewed_commit": "817513471f665256e747f02e07db8b0aad69bc8c",
+  "reviewed_tree": "e815f5b010f98ba4d9c2fd6276a501664d71d57a",
+  "review_base": "a09d55a8088c6c71806d077efe66846321ef309c",
+  "scope": "SINGLE_INDEPENDENT_STATIC_ENGINEERING_REVIEW_AND_ARCHIVE",
+  "reviewer_agent_id": "01a17cae-df49-7720-81ff-a1362cd1a29f",
+  "reviewer_nickname": "Planck",
+  "dispatch_count": 1,
+  "max_dispatches": 1,
+  "fork_context": false,
+  "model_override_requested": false,
+  "retry_or_redispatch_authorized": false,
+  "source_changes_authorized": false,
+  "test_or_native_run_authorized": false,
+  "forward_fit_or_timing_authorized": false,
+  "real_data_access_authorized": false,
+  "network_formula_matrix_or_formal_report_changes_authorized": false,
+  "repair_authorized": false,
+  "unavailable_or_no_conclusion_means_stop": true
+}

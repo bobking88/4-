@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-27",
+  "status": "REVIEW_POST_PROTECTION_VERIFIED",
+  "approval_id": "call_65ac651439f34e59a781ce88d99d75bc",
+  "reviewed_commit": "817513471f665256e747f02e07db8b0aad69bc8c",
+  "reviewed_tree": "e815f5b010f98ba4d9c2fd6276a501664d71d57a",
+  "protected_records": 570,
+  "matched_records": 570,
+  "changed_records": [],
+  "source_changes": 0,
+  "old_failure_original_changes": 0,
+  "existing_dirty_figure_changes": 0,
+  "formal_report_changes": 0,
+  "parent_test_runs": 0,
+  "parent_model_forwards": 0,
+  "parent_fits": 0,
+  "parent_native_runs": 0,
+  "reviewer_execution_claim": "NO_TESTS_IMPORTS_PROBES_OR_EXPERIMENTS",
+  "dispatches": 1,
+  "redispatches": 0,
+  "reviewer_closed_after_completed": true,
+  "reviewer_response_sha256": "6370f7896a5e2eaad7f15c09c3d3b7949c38f5df4cf725611c4c02cf83eb41b3"
+}

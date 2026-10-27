@@ -1,0 +1,52 @@
+{
+  "date": "2026-10-27",
+  "status": "APPROVE_LIMITED_STATIC_ENGINEERING_SCOPE",
+  "reviewed_commit": "817513471f665256e747f02e07db8b0aad69bc8c",
+  "files": [
+    {
+      "path": "docs/experiment_records/2026-10-27_msb_trace_shared_read_independent_review.md",
+      "bytes": 5331,
+      "sha256": "208fb8c0a07173972d49d21895ff9fd84580da517551da8e56e5c04e3bd63c5d"
+    },
+    {
+      "path": "outputs/msb_trace_shared_read_review_v1/authorization.json",
+      "bytes": 981,
+      "sha256": "62b4f5cac882d9450626f8579763487b2c222f84cbb3b4a227b36d0b00dfa77b"
+    },
+    {
+      "path": "outputs/msb_trace_shared_read_review_v1/implementation_remote_readback.json",
+      "bytes": 9244,
+      "sha256": "a70c66b73d429a75040cd1883e30929e2289de953665b0ac82ae307bd3da33d1"
+    },
+    {
+      "path": "outputs/msb_trace_shared_read_review_v1/protection_after.json",
+      "bytes": 844,
+      "sha256": "8e31553a79cd8b484da473f374438fdffa32038120df80a7bb36cc5b516fc294"
+    },
+    {
+      "path": "outputs/msb_trace_shared_read_review_v1/protection_before.json",
+      "bytes": 107992,
+      "sha256": "7466d82e43d2f3914c917d171a30b7aec10eeb7ee348675ce7141cf45486c377"
+    },
+    {
+      "path": "outputs/msb_trace_shared_read_review_v1/review_result.json",
+      "bytes": 1935,
+      "sha256": "346ada2852040a2a7e3805eb17d3b5aa8432508f4883ece7af17239a3ea3df33"
+    },
+    {
+      "path": "outputs/msb_trace_shared_read_review_v1/review_scope.md",
+      "bytes": 2455,
+      "sha256": "94282403342b37ad1453cf99a0dbc5e72a2c3c91f38d84d1d7671c6427c37973"
+    },
+    {
+      "path": "outputs/msb_trace_shared_read_review_v1/reviewer_response.md",
+      "bytes": 4430,
+      "sha256": "6370f7896a5e2eaad7f15c09c3d3b7949c38f5df4cf725611c4c02cf83eb41b3"
+    }
+  ],
+  "manifest_itself_excluded": true,
+  "dispatches": 1,
+  "reruns": 0,
+  "source_changes": 0,
+  "native_or_scientific_run_authorized": false
+}
