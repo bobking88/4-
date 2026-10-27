@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-27",
+  "approval_call_id": "call_3dd1ecba80c644358636e38b4f36ac60",
+  "answer": "批准修正并在原范围与剩余额度内继续（推荐）",
+  "acknowledged_commit": "43ddb021d9cd5e253ac1b9e5b9a117f83e922506",
+  "scope": "CORRECT_DRAFT_FIXED_TWELVE_TESTS_AND_CONTINUE_TASK1",
+  "preserve_attempt_001": true,
+  "remaining_top_level_red_attempts": 2,
+  "green_attempt_cap": 3,
+  "final_attempt_cap": 3,
+  "freeze_tests_after_valid_red": true,
+  "source_allowlist": [
+    "scripts/check_msb_native_supervision.py",
+    "tests/test_check_msb_native_supervision.py",
+    "tests/run_msb_native_supervision_synthetic_acceptance.py"
+  ],
+  "all_restricted_native_interfaces_mocked": true,
+  "real_data_authorized": false,
+  "native_acceptance_authorized": false,
+  "real_training_authorized": false,
+  "agents_authorized": false,
+  "network_formula_matrix_or_formal_report_changes_authorized": false,
+  "executable_protocol_authorized": false
+}

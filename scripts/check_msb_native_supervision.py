@@ -88,7 +88,7 @@ FIXED = dict(protocol="msb_native_supervision_v3", status="APPROVED_NATIVE_ONLY"
              real_training_authorized=False)
 
 
-def _fault_error_record(error):
+def _fault_error_record(error,*,include_trace_read=True):
     message=str(error)
     if (any(c in message for c in "\n\r\v\f\x1c\x1d\x1e\x85\u2028\u2029")
             or re.search(r"(?i)\b(?:nonce|handles?|environment|env)\b",message)):
@@ -98,7 +98,18 @@ def _fault_error_record(error):
     while trace is not None:
         frames.append(dict(file=trace.tb_frame.f_code.co_filename,function=trace.tb_frame.f_code.co_name,line=trace.tb_lineno))
         trace=trace.tb_next
-    return dict(type=type(error).__name__,message=message,frames=frames[-8:])
+    record=dict(type=type(error).__name__,message=message,frames=frames[-8:])
+    if include_trace_read and isinstance(error,TraceReadError):
+        rows=[]
+        for phase,cause in error.errors[:8]:
+            item=dict(phase=phase,**_fault_error_record(cause,include_trace_read=False))
+            if "/" in str(cause) or "\\" in str(cause):item["message"]="<redacted context>"
+            for name,maximum in (("errno",4095),("winerror",65535)):
+                value=getattr(cause,name,None) if isinstance(cause,OSError) else None
+                item[name]=value if type(value) is int and 0<=value<=maximum else None
+            rows.append(item)
+        record["trace_read_errors"]=rows
+    return record
 
 
 @dataclass(frozen=True)
@@ -297,6 +308,106 @@ class TracePublicationError(RuntimeError):
 class _TraceFileIO:
     def open_exclusive(self,path):return path.open("x",encoding="utf-8")
     def replace(self,source,target):source.replace(target)
+
+
+class TraceReadError(RuntimeError):
+    def __init__(self,errors):
+        self.errors=tuple(errors)
+        if not self.errors or any(phase not in ("OPEN","READ","CHECK","CLOSE")
+                                  or not isinstance(error,BaseException) for phase,error in self.errors):
+            raise ValueError("Ordered trace read causes required")
+        super().__init__("Trace read failed; inspect redacted diagnostics")
+
+    @property
+    def first_error(self):return self.errors[0][1]
+
+
+def _bind_trace_reader_kernel(kernel):
+    import ctypes
+    from ctypes import wintypes
+    kernel.CreateFileW.argtypes=[wintypes.LPCWSTR,wintypes.DWORD,wintypes.DWORD,
+                                ctypes.c_void_p,wintypes.DWORD,wintypes.DWORD,wintypes.HANDLE]
+    kernel.CreateFileW.restype=wintypes.HANDLE
+    kernel.ReadFile.argtypes=[wintypes.HANDLE,ctypes.c_void_p,wintypes.DWORD,
+                             ctypes.POINTER(wintypes.DWORD),ctypes.c_void_p]
+    kernel.ReadFile.restype=wintypes.BOOL
+    kernel.CloseHandle.argtypes=[wintypes.HANDLE];kernel.CloseHandle.restype=wintypes.BOOL
+    return kernel
+
+
+def _trace_reader_kernel():
+    import ctypes
+    kernel=_bind_trace_reader_kernel(ctypes.WinDLL("kernel32",use_last_error=True))
+    def capture_error():
+        number=ctypes.get_last_error()
+        return ctypes.WinError(number)
+    kernel.capture_error=capture_error
+    return kernel
+
+
+class _TraceReadFileIO:
+    def __init__(self,kernel=None):
+        import ctypes
+        self.kernel=_trace_reader_kernel() if kernel is None else _bind_trace_reader_kernel(kernel)
+        self.invalid_handle=ctypes.c_void_p(-1).value
+
+    def open_shared_read(self,path):
+        handle=self.kernel.CreateFileW(str(path),0x80000000,7,None,3,0x80,None)
+        if handle in (None,0,-1,self.invalid_handle):raise self.kernel.capture_error()
+        return handle
+
+    def read_chunk(self,handle,size):
+        import ctypes
+        from ctypes import wintypes
+        if type(size) is not int or not 0<size<=4096:raise ValueError("Bounded trace chunk required")
+        buffer=ctypes.create_string_buffer(size);count=wintypes.DWORD()
+        if not self.kernel.ReadFile(handle,buffer,size,ctypes.byref(count),None):
+            raise self.kernel.capture_error()
+        if count.value>size:raise OSError("Trace byte count exceeds buffer")
+        return buffer.raw[:count.value]
+
+    def close(self,handle):
+        if not self.kernel.CloseHandle(handle):raise self.kernel.capture_error()
+
+
+def _read_trace_json_if_present(path,*,check,file_io=None):
+    errors=[]
+    def checked():
+        try:check()
+        except BaseException as error:
+            errors.append(("CHECK",error));return False
+        return True
+    if not checked():raise TraceReadError(tuple(errors)) from None
+    try:
+        adapter=_TraceReadFileIO() if file_io is None else file_io
+        handle=adapter.open_shared_read(Path(path))
+    except BaseException as error:
+        if isinstance(error,OSError) and type(getattr(error,"winerror",None)) is int and error.winerror in (2,3):
+            if not checked():raise TraceReadError(tuple(errors)) from None
+            return None
+        errors.append(("OPEN",error));checked()
+        raise TraceReadError(tuple(errors)) from None
+    chunks=[]
+    try:
+        while checked():
+            try:
+                chunk=adapter.read_chunk(handle,4096)
+                if not isinstance(chunk,bytes):raise TypeError("Trace read must return bytes")
+            except BaseException as error:
+                errors.append(("READ",error));break
+            if not checked() or not chunk:break
+            chunks.append(chunk)
+    finally:
+        try:adapter.close(handle)
+        except BaseException as error:errors.append(("CLOSE",error))
+        checked()
+    if errors:raise TraceReadError(tuple(errors)) from None
+    try:value=json.loads(b"".join(chunks).decode("utf-8"))
+    except BaseException as error:
+        if not checked():raise TraceReadError((("READ",error),*errors)) from None
+        raise
+    if not checked():raise TraceReadError(tuple(errors)) from None
+    return value
 
 
 def _write_trace_json(path: Path, events: list, *, file_io=None) -> None:
@@ -811,6 +922,8 @@ class NativeServices:
         import os
         os._exit(code)
     def persist_trace(self,path,events):_write_trace_json(path,events)
+    def read_trace(self,path,binding):
+        return _read_trace_json_if_present(path,check=lambda:_remaining(binding,self))
     def write_ready(self,case_dir,ready):_write_json(case_dir/"worker_ready.json",ready,exclusive=True)
     def read_ack(self,case_dir,ready):
         path=case_dir/"collector_ack.json"
@@ -1098,13 +1211,20 @@ class NativeObserver:
             if self.handle is None:
                 try:
                     ready=_read_json_if_present(self.case_dir/"worker_ready.json")
+                    if ready is None:return
                     controller=_read_json_if_present(self.case_dir/"controller_ready.json")
-                    trace=_read_json_if_present(self.case_dir/"controller/trace.json")
+                    if controller is None:return
                 except json.JSONDecodeError:
                     return
-                if ready is None or controller is None or trace is None:return
+                _require(isinstance(ready,dict) and isinstance(controller,dict),"observer ready metadata shape")
                 _require(ready["case_id"]==self.case_dir.name and ready.get("working") is True and ready.get("job_assigned") is True,"observer WORKING")
                 _require(controller["binding"]==self.binding,"observer root binding")
+                _require(all(type(record.get(key)) is int and record[key]>0
+                             for record in (ready,controller) for key in ("pid","created")),"observer ready identity")
+                _require(type(ready.get("ready_tick_ms")) is int and ready["ready_tick_ms"]>=0,"observer ready clock")
+                try:trace=self.services.read_trace(self.case_dir/"controller/trace.json",self.binding)
+                except json.JSONDecodeError:return
+                if trace is None:return
                 assigned=any(e["kind"]=="assigned" and e.get("pid")==ready["pid"] for e in trace)
                 ack=any(e["kind"]=="ACK" and e.get("sequence")==1 and e.get("worker_pid")==ready["pid"]
                         and e.get("parent_pid")==controller["pid"] for e in trace)

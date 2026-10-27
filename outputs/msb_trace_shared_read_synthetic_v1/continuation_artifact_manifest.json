@@ -1,0 +1,158 @@
+{
+  "date": "2026-10-27",
+  "status": "AUTHOR_SYNTHETIC_ACCEPTED_INDEPENDENT_REVIEW_PENDING",
+  "approval_id": "call_3dd1ecba80c644358636e38b4f36ac60",
+  "files": [
+    {
+      "path": "docs/experiment_records/2026-10-27_msb_trace_shared_read_implementation.md",
+      "bytes": 9110,
+      "sha256": "4e53f2101531e00a417b6ea5c8c5f7b4da3d42567710eb379d87afd99150b27c"
+    },
+    {
+      "path": "outputs/msb_trace_shared_read_synthetic_v1/authorization.json",
+      "bytes": 870,
+      "sha256": "9afc815ab7db1afadcb6b9f399e98e3356a7342c6cff87ca0f21b622d0d10805"
+    },
+    {
+      "path": "outputs/msb_trace_shared_read_synthetic_v1/collector-green/attempt-001/acceptance_summary.json",
+      "bytes": 712,
+      "sha256": "99e5904d061ee608569137c6c1434eb34a315b97a6decb3f6ba536b7a7dede9f"
+    },
+    {
+      "path": "outputs/msb_trace_shared_read_synthetic_v1/collector-green/attempt-001/entry_stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "outputs/msb_trace_shared_read_synthetic_v1/collector-green/attempt-001/entry_stdout.log",
+      "bytes": 1218,
+      "sha256": "39fbc907044274576d45340cc556af443068a9a772f95af4bab2d8e94319ba55"
+    },
+    {
+      "path": "outputs/msb_trace_shared_read_synthetic_v1/collector-green/attempt-001/source_snapshot.json",
+      "bytes": 318952,
+      "sha256": "42774841bf396dac8bc3e6b0781137d67e461ec47b7df397fa85e78a941ca036"
+    },
+    {
+      "path": "outputs/msb_trace_shared_read_synthetic_v1/collector-green/attempt-001/synthetic_tests.log",
+      "bytes": 24784,
+      "sha256": "16cae39c7c5737dca7a75122f28255270088c8957a761c1e8de4de1a8b319990"
+    },
+    {
+      "path": "outputs/msb_trace_shared_read_synthetic_v1/collector-red/attempt-001/acceptance_summary.json",
+      "bytes": 712,
+      "sha256": "fbf151e76c3fe2a4d338e30321cd72ac7e3642d5a8f119d1db219eb62d1567c9"
+    },
+    {
+      "path": "outputs/msb_trace_shared_read_synthetic_v1/collector-red/attempt-001/source_snapshot.json",
+      "bytes": 300885,
+      "sha256": "bf8f87c7212da0f93fd633f207c71f25f36a6dea30ea18b0f0514b2f46678942"
+    },
+    {
+      "path": "outputs/msb_trace_shared_read_synthetic_v1/collector-red/attempt-001/synthetic_tests.log",
+      "bytes": 63598,
+      "sha256": "3b72c25c90577ae9e19c7746f4daece852e7cc2283206f8fafd050eabfd12969"
+    },
+    {
+      "path": "outputs/msb_trace_shared_read_synthetic_v1/collector-red/attempt-002/acceptance_summary.json",
+      "bytes": 711,
+      "sha256": "0e1aa884fd967fe1a26ae6e474614dc3d73d8d7ba6f712d968edbaa2804615f0"
+    },
+    {
+      "path": "outputs/msb_trace_shared_read_synthetic_v1/collector-red/attempt-002/entry_stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "outputs/msb_trace_shared_read_synthetic_v1/collector-red/attempt-002/entry_stdout.log",
+      "bytes": 11601,
+      "sha256": "5c303772f7b4535afa320167226fd14e481c7b9b1bd56e1adc46fc607c9084bb"
+    },
+    {
+      "path": "outputs/msb_trace_shared_read_synthetic_v1/collector-red/attempt-002/source_snapshot.json",
+      "bytes": 313296,
+      "sha256": "974aa5fd54a7133576a66bda8f7e10ffa965a48caa5224dfc5de8d5659edd1bc"
+    },
+    {
+      "path": "outputs/msb_trace_shared_read_synthetic_v1/collector-red/attempt-002/synthetic_tests.log",
+      "bytes": 53110,
+      "sha256": "b0e6566027e2d704152dc1f0fe5eaed97de55f284916cdd42e878a7c4546d782"
+    },
+    {
+      "path": "outputs/msb_trace_shared_read_synthetic_v1/continuation_authorization.json",
+      "bytes": 964,
+      "sha256": "04a454cbfa44a29d2af210e6fbc8f9b899a7d164c85d18ad5f484e6d39abd61a"
+    },
+    {
+      "path": "outputs/msb_trace_shared_read_synthetic_v1/continuation_protection_after.json",
+      "bytes": 4005,
+      "sha256": "0f5278f057dce94c8b04642833ba50fa33479f65b3c30704727f196184a21ee4"
+    },
+    {
+      "path": "outputs/msb_trace_shared_read_synthetic_v1/continuation_protection_before.json",
+      "bytes": 102112,
+      "sha256": "f33467cfe70781a5070371a83f4e0e8c08742ed668932d4fad499c368ac7ba5f"
+    },
+    {
+      "path": "outputs/msb_trace_shared_read_synthetic_v1/final/attempt-001/acceptance_summary.json",
+      "bytes": 995,
+      "sha256": "ac381496b96cfddd1c0cd78530bc937ef493129fa16faf5a57e1f4eb94288078"
+    },
+    {
+      "path": "outputs/msb_trace_shared_read_synthetic_v1/final/attempt-001/entry_stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "outputs/msb_trace_shared_read_synthetic_v1/final/attempt-001/entry_stdout.log",
+      "bytes": 1456,
+      "sha256": "7fa8b660eb37a19c8436000f56afbe0f6baedd8115d9ac0c87679fa4ddc4b166"
+    },
+    {
+      "path": "outputs/msb_trace_shared_read_synthetic_v1/final/attempt-001/source_snapshot.json",
+      "bytes": 318952,
+      "sha256": "42774841bf396dac8bc3e6b0781137d67e461ec47b7df397fa85e78a941ca036"
+    },
+    {
+      "path": "outputs/msb_trace_shared_read_synthetic_v1/final/attempt-001/synthetic_tests.log",
+      "bytes": 48665,
+      "sha256": "e46677859ab119e0c4d4cb00e1255ab02450b540e8c055d6fe7e152e008a1888"
+    },
+    {
+      "path": "outputs/msb_trace_shared_read_synthetic_v1/protection_check.json",
+      "bytes": 1485,
+      "sha256": "4536be6b3997ec2e43fc4f585a505262b576ce17bd6e50804bdd411663dcd1f8"
+    },
+    {
+      "path": "outputs/msb_trace_shared_read_synthetic_v1/red_assessment.json",
+      "bytes": 3721,
+      "sha256": "8b06bddd54deb2edaacfa6218fcfe698e64cfc44f8a83c625d0e9008852031ec"
+    },
+    {
+      "path": "outputs/msb_trace_shared_read_synthetic_v1/valid_red_gate.json",
+      "bytes": 906,
+      "sha256": "583b39c8b34dc1e085ba00209dffb39de97cfd8aed53a68fb95e9b6ca0b17eda"
+    },
+    {
+      "path": "scripts/check_msb_native_supervision.py",
+      "bytes": 87585,
+      "sha256": "2ecb7085e510c282fe7c31031fdb8a1c2a1406c30df7975b25a5d8009948f000"
+    },
+    {
+      "path": "tests/run_msb_native_supervision_synthetic_acceptance.py",
+      "bytes": 9576,
+      "sha256": "a9217b5b96c7e5cffda0d6180b80adb081f01be4a72137365b53e53072a3e036"
+    },
+    {
+      "path": "tests/test_check_msb_native_supervision.py",
+      "bytes": 193222,
+      "sha256": "7d6e11deb08fedd8bad41ba4ba12bcbbaaaa4ef5864ed6bf45f4eeafdf3f61da"
+    }
+  ],
+  "manifest_itself_excluded": true,
+  "independent_review": "NOT_PERFORMED",
+  "native_runs": 0,
+  "real_data_reads": 0,
+  "real_fits": 0,
+  "scientific_effect": "NOT_VALIDATED"
+}

@@ -1,0 +1,122 @@
+{"scope": "SYNTHETIC_CONTRACT_ONLY", "phase": "collector-green", "attempt": 1, "bootstrap": {"torch": "2.12.1+cu130", "sklearn": "1.9.0"}, "unused_dependency_stubs": ["torchvision.models", "torchvision.transforms"], "status": "FAILED", "modules": ["test_check_msb_native_supervision"], "tests_run": 1, "failures": 0, "errors": 0, "skipped": 1, "expected_failures": 0, "unexpected_successes": 0, "unmocked_boundary_calls": [], "native_os_exercised": false, "real_data_opened": false, "real_fits": 0, "temporary_synthetic_tensor_reads": 0, "source_snapshot": "DIRECT_PRE_RUN_CAPTURE", "harness_error": null}
+
+{"scope": "SYNTHETIC_CONTRACT_ONLY", "phase": "collector-red", "attempt": 2, "bootstrap": {"torch": "2.12.1+cu130", "sklearn": "1.9.0"}, "unused_dependency_stubs": ["torchvision.models", "torchvision.transforms"], "status": "FAILED", "modules": ["test_check_msb_native_supervision"], "tests_run": 136, "failures": 19, "errors": 0, "skipped": 0, "expected_failures": 0, "unexpected_successes": 0, "unmocked_boundary_calls": [], "native_os_exercised": false, "real_data_opened": false, "real_fits": 0, "temporary_synthetic_tensor_reads": 0, "source_snapshot": "DIRECT_PRE_RUN_CAPTURE", "harness_error": null}
+ore_trace
+    with self._trace_read_guard(trace),self.assertRaises((ValueError,KeyError)):observer.sample()
+                                                                                ^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 1102, in sample
+    trace=_read_json_if_present(self.case_dir/"controller/trace.json")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 866, in _read_json_if_present
+    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 942, in guarded
+    if Path(path)==trace:raise AssertionError("ordinary trace Path.read_text fallback is forbidden")
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ordinary trace Path.read_text fallback is forbidden
+
+======================================================================
+FAIL: test_invalid_ready_binding_fails_before_trace (test_check_msb_native_supervision.TraceSharedReadTests.test_invalid_ready_binding_fails_before_trace) (name='ready-tick')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 1099, in test_invalid_ready_binding_fails_before_trace
+    with self._trace_read_guard(trace),self.assertRaises((ValueError,KeyError)):observer.sample()
+                                                                                ^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 1102, in sample
+    trace=_read_json_if_present(self.case_dir/"controller/trace.json")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 866, in _read_json_if_present
+    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 942, in guarded
+    if Path(path)==trace:raise AssertionError("ordinary trace Path.read_text fallback is forbidden")
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ordinary trace Path.read_text fallback is forbidden
+
+======================================================================
+FAIL: test_invalid_ready_binding_fails_before_trace (test_check_msb_native_supervision.TraceSharedReadTests.test_invalid_ready_binding_fails_before_trace) (name='controller-created')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 1099, in test_invalid_ready_binding_fails_before_trace
+    with self._trace_read_guard(trace),self.assertRaises((ValueError,KeyError)):observer.sample()
+                                                                                ^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 1102, in sample
+    trace=_read_json_if_present(self.case_dir/"controller/trace.json")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 866, in _read_json_if_present
+    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 942, in guarded
+    if Path(path)==trace:raise AssertionError("ordinary trace Path.read_text fallback is forbidden")
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ordinary trace Path.read_text fallback is forbidden
+
+======================================================================
+FAIL: test_missing_access_errors_and_json_polling (test_check_msb_native_supervision.TraceSharedReadTests.test_missing_access_errors_and_json_polling)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 976, in test_missing_access_errors_and_json_polling
+    path=Path("synthetic-trace.json");error_type=self.function("TraceReadError")
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 912, in function
+    self.assertTrue(callable(value),"Missing trace shared-read implementation: "+name)
+AssertionError: False is not true : Missing trace shared-read implementation: TraceReadError
+
+======================================================================
+FAIL: test_observer_uses_shared_reader_and_retains_ack_checks (test_check_msb_native_supervision.TraceSharedReadTests.test_observer_uses_shared_reader_and_retains_ack_checks)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 1103, in test_observer_uses_shared_reader_and_retains_ack_checks
+    self.function("_read_trace_json_if_present")
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 912, in function
+    self.assertTrue(callable(value),"Missing trace shared-read implementation: "+name)
+AssertionError: False is not true : Missing trace shared-read implementation: _read_trace_json_if_present
+
+======================================================================
+FAIL: test_read_and_decode_failures_close_once (test_check_msb_native_supervision.TraceSharedReadTests.test_read_and_decode_failures_close_once)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 1009, in test_read_and_decode_failures_close_once
+    path=Path("synthetic-trace.json");error_type=self.function("TraceReadError")
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 912, in function
+    self.assertTrue(callable(value),"Missing trace shared-read implementation: "+name)
+AssertionError: False is not true : Missing trace shared-read implementation: TraceReadError
+
+======================================================================
+FAIL: test_ready_absence_does_not_open_trace (test_check_msb_native_supervision.TraceSharedReadTests.test_ready_absence_does_not_open_trace)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 1074, in test_ready_absence_does_not_open_trace
+    with self._trace_read_guard(trace):observer.sample()
+                                       ^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 1102, in sample
+    trace=_read_json_if_present(self.case_dir/"controller/trace.json")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\scripts\check_msb_native_supervision.py", line 866, in _read_json_if_present
+    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 942, in guarded
+    if Path(path)==trace:raise AssertionError("ordinary trace Path.read_text fallback is forbidden")
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ordinary trace Path.read_text fallback is forbidden
+
+======================================================================
+FAIL: test_windows_read_flags_and_handle_abi (test_check_msb_native_supervision.TraceSharedReadTests.test_windows_read_flags_and_handle_abi)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 949, in test_windows_read_flags_and_handle_abi
+    path=Path("synthetic-trace.json");kernel=SharedReadKernelFake({path:b"[]"});reader=self.reader(kernel)
+                                                                                       ^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 916, in reader
+    adapter=self.function("_TraceReadFileIO")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\成信工科研\人工智能选矿\.worktrees\theory-aware-report\tests\test_check_msb_native_supervision.py", line 912, in function
+    self.assertTrue(callable(value),"Missing trace shared-read implementation: "+name)
+AssertionError: False is not true : Missing trace shared-read implementation: _TraceReadFileIO
+
+----------------------------------------------------------------------
+Ran 136 tests in 5.157s
+
+FAILED (failures=19)
+

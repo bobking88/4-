@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-27",
+  "status": "VALID_RED_TESTS_FROZEN",
+  "attempt": "collector-red/attempt-002",
+  "tests_run": 136,
+  "historical_driver_tests_passed": 124,
+  "fixed_new_methods": 12,
+  "failure_entries_including_subtests": 19,
+  "errors": 0,
+  "skipped": 0,
+  "expected_failures": 0,
+  "unexpected_successes": 0,
+  "unmocked_boundary_calls": [],
+  "required_R01_R07_R09_R10_R12_failed_by_assertion": true,
+  "R11_existing_writer_and_failure_precedence_passed": true,
+  "frozen_test_sha256": "7d6e11deb08fedd8bad41ba4ba12bcbbaaaa4ef5864ed6bf45f4eeafdf3f61da",
+  "frozen_harness_sha256": "a9217b5b96c7e5cffda0d6180b80adb081f01be4a72137365b53e53072a3e036",
+  "production_driver_before_implementation_sha256": "d09a97dbff082f8081a74a96b84ecb2be1ad2cc16a33f8167b62c490f047ea78",
+  "validity": "AUTHOR_REVIEW_OF_FULL_LOG_ONLY",
+  "native_os_exercised": false,
+  "scientific_effect": "NOT_VALIDATED"
+}

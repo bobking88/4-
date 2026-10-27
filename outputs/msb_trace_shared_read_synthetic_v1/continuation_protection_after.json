@@ -1,0 +1,93 @@
+{
+  "date": "2026-10-27",
+  "status": "STATIC_POST_RUN_PROTECTION_AND_TEST_SET_VERIFIED",
+  "protected_records": 540,
+  "matched_records": 528,
+  "changed_records": [
+    {
+      "path": "scripts/check_msb_native_supervision.py",
+      "before_sha256": "d09a97dbff082f8081a74a96b84ecb2be1ad2cc16a33f8167b62c490f047ea78",
+      "after_sha256": "2ecb7085e510c282fe7c31031fdb8a1c2a1406c30df7975b25a5d8009948f000"
+    },
+    {
+      "path": "tests/test_check_msb_native_supervision.py",
+      "before_sha256": "ed4c6a2f4625c24bfd6ab36cfb5563d295f16a9f4edbc169e3fb4337994c3827",
+      "after_sha256": "7d6e11deb08fedd8bad41ba4ba12bcbbaaaa4ef5864ed6bf45f4eeafdf3f61da"
+    },
+    {
+      "path": "scripts/check_msb_native_supervision.py",
+      "before_sha256": "d09a97dbff082f8081a74a96b84ecb2be1ad2cc16a33f8167b62c490f047ea78",
+      "after_sha256": "2ecb7085e510c282fe7c31031fdb8a1c2a1406c30df7975b25a5d8009948f000"
+    },
+    {
+      "path": "tests/test_check_msb_native_supervision.py",
+      "before_sha256": "ed4c6a2f4625c24bfd6ab36cfb5563d295f16a9f4edbc169e3fb4337994c3827",
+      "after_sha256": "7d6e11deb08fedd8bad41ba4ba12bcbbaaaa4ef5864ed6bf45f4eeafdf3f61da"
+    },
+    {
+      "path": "scripts/check_msb_native_supervision.py",
+      "before_sha256": "d09a97dbff082f8081a74a96b84ecb2be1ad2cc16a33f8167b62c490f047ea78",
+      "after_sha256": "2ecb7085e510c282fe7c31031fdb8a1c2a1406c30df7975b25a5d8009948f000"
+    },
+    {
+      "path": "tests/test_check_msb_native_supervision.py",
+      "before_sha256": "ed4c6a2f4625c24bfd6ab36cfb5563d295f16a9f4edbc169e3fb4337994c3827",
+      "after_sha256": "7d6e11deb08fedd8bad41ba4ba12bcbbaaaa4ef5864ed6bf45f4eeafdf3f61da"
+    },
+    {
+      "path": "scripts/check_msb_native_supervision.py",
+      "before_sha256": "d09a97dbff082f8081a74a96b84ecb2be1ad2cc16a33f8167b62c490f047ea78",
+      "after_sha256": "2ecb7085e510c282fe7c31031fdb8a1c2a1406c30df7975b25a5d8009948f000"
+    },
+    {
+      "path": "tests/test_check_msb_native_supervision.py",
+      "before_sha256": "ed4c6a2f4625c24bfd6ab36cfb5563d295f16a9f4edbc169e3fb4337994c3827",
+      "after_sha256": "7d6e11deb08fedd8bad41ba4ba12bcbbaaaa4ef5864ed6bf45f4eeafdf3f61da"
+    },
+    {
+      "path": "scripts/check_msb_native_supervision.py",
+      "before_sha256": "d09a97dbff082f8081a74a96b84ecb2be1ad2cc16a33f8167b62c490f047ea78",
+      "after_sha256": "2ecb7085e510c282fe7c31031fdb8a1c2a1406c30df7975b25a5d8009948f000"
+    },
+    {
+      "path": "tests/test_check_msb_native_supervision.py",
+      "before_sha256": "ed4c6a2f4625c24bfd6ab36cfb5563d295f16a9f4edbc169e3fb4337994c3827",
+      "after_sha256": "7d6e11deb08fedd8bad41ba4ba12bcbbaaaa4ef5864ed6bf45f4eeafdf3f61da"
+    },
+    {
+      "path": "scripts/check_msb_native_supervision.py",
+      "before_sha256": "d09a97dbff082f8081a74a96b84ecb2be1ad2cc16a33f8167b62c490f047ea78",
+      "after_sha256": "2ecb7085e510c282fe7c31031fdb8a1c2a1406c30df7975b25a5d8009948f000"
+    },
+    {
+      "path": "tests/test_check_msb_native_supervision.py",
+      "before_sha256": "ed4c6a2f4625c24bfd6ab36cfb5563d295f16a9f4edbc169e3fb4337994c3827",
+      "after_sha256": "7d6e11deb08fedd8bad41ba4ba12bcbbaaaa4ef5864ed6bf45f4eeafdf3f61da"
+    }
+  ],
+  "changed_unique_paths": [
+    "scripts/check_msb_native_supervision.py",
+    "tests/test_check_msb_native_supervision.py"
+  ],
+  "unapproved_changes": 0,
+  "historical_test_names": 285,
+  "new_fixed_test_names": 12,
+  "final_test_names": 297,
+  "exact_test_set_union": true,
+  "green_final_source_identity_equal": true,
+  "protected_source_identity_count": 56,
+  "old_failure_originals_changes": 0,
+  "formal_report_changes": 0,
+  "existing_dirty_figure_changes": 0,
+  "top_level_attempts": {
+    "collector-red": 2,
+    "collector-green": 1,
+    "final": 1
+  },
+  "native_runs": 0,
+  "real_data_reads": 0,
+  "real_fits": 0,
+  "agents": 0,
+  "scientific_effect": "NOT_VALIDATED",
+  "independent_review": "NOT_PERFORMED"
+}
