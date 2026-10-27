@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-27",
+  "status": "READ_ONLY_COMPATIBILITY_AND_UNSELECTED_CANDIDATE_SCHEME",
+  "approval_id": "call_debfbb814ff04b9290582f449536f98f",
+  "base_commit": "8890384fe7037eb9e41381fbfb30f4be0ccd3327",
+  "files": [
+    {
+      "path": "docs/experiment_records/2026-10-27_msb_native_registration_compatibility_v2.md",
+      "bytes": 8348,
+      "sha256": "3d6623cc2633641968f93a16acdde25c1ee69824042c5f1f7f587c7a222a1aac"
+    },
+    {
+      "path": "outputs/msb_native_registration_compatibility_v2/authorization.json",
+      "bytes": 818,
+      "sha256": "34b80562a1c8f8e1ea5d16511ac085792702aae67a0a8c08e27f6d77ba23121c"
+    },
+    {
+      "path": "outputs/msb_native_registration_compatibility_v2/compatibility_check.json",
+      "bytes": 26283,
+      "sha256": "4575ccce9e0b1df69235ebe1ebf6be3e33062d20677269e266f16d4cee977d48"
+    },
+    {
+      "path": "outputs/msb_native_registration_compatibility_v2/document_check.json",
+      "bytes": 694,
+      "sha256": "de26bb67a73d29fa2749f3398de555e89d11f85b14de5f3d228944d161e83552"
+    },
+    {
+      "path": "outputs/msb_native_registration_compatibility_v2/protection_after.json",
+      "bytes": 842,
+      "sha256": "667d3365b0c807615e2c25c1e06f699df68f34f8026393c83c6d15818fc09ebc"
+    },
+    {
+      "path": "outputs/msb_native_registration_compatibility_v2/protection_before.json",
+      "bytes": 109987,
+      "sha256": "7da69ab9606de99fa429958c9a454d6a5d02a8bba61e00f00c05fc1576198fc2"
+    }
+  ],
+  "manifest_itself_excluded": true,
+  "execution_authorized": false,
+  "scientific_effect": "NOT_VALIDATED"
+}

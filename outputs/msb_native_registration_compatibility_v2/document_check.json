@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-27",
+  "status": "AUTHOR_STATIC_DOCUMENT_CONSISTENCY_CHECK_ONLY",
+  "independent_document_review": false,
+  "document": "docs/experiment_records/2026-10-27_msb_native_registration_compatibility_v2.md",
+  "direct_registration_compatible": false,
+  "source_count": 46,
+  "old_hash_matches": 43,
+  "old_hash_differences": 3,
+  "reviewed_and_current_source_hashes_match": true,
+  "proposal_A_recommended_but_not_selected": true,
+  "no_executable_command_or_protocol": true,
+  "no_project_import_or_function_call": true,
+  "no_tests_or_probes": true,
+  "no_real_data_or_agent": true,
+  "formal_report_unchanged": true,
+  "source_and_protocol_unchanged": true
+}
