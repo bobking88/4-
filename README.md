@@ -4,6 +4,7 @@
 
 ## 当前版本
 
+- MSB trace共享读取修复文档（2026-10-27）：已编写[最小规格](docs/superpowers/specs/2026-10-27-msb-trace-shared-read-design.md)、[单工作包计划](docs/superpowers/plans/2026-10-27-msb-trace-shared-read.md)与[登记记录](docs/experiment_records/2026-10-27_msb_trace_shared_read_planning.md)。拟仅在原三文件明确只读/share7/非继承、一次关闭和ready前置；保留首因、累计期限与失败关闭。固定12个新反例、136/297仅未来目标；本轮DOCUMENTED_NOT_IMPLEMENTED_NOT_RUN，无代码、测试、探查、数据、代理、原生运行或报告变更。537条保护仅允许索引变化；WinError 5唯一成因和网络理论效果仍未验证，开发/合成及实际实验分别另批。
 - MSB-RRE v3离线诊断（2026-10-27）：[诊断记录](docs/experiment_records/2026-10-27_msb_native_supervision_v3_offline_diagnosis.md)确认trace替换REPLACE / WinError 5及反复发布与观察器普通读取并发风险；将读者共享冲突列为优先假设，尚未证实唯一OS根因。既有模拟错误保留测试没有验证真实文件共享语义。仅归档最小共享读取适配建议，不改代码、不重跑或探查、不读真实数据，网络理论效果仍未验证；修复规格、开发和新实验另批。
 - MSB-RRE v3单次原生监督验收结果（2026-10-26）：授权登记a4a9ec4实际回读后仅运行一次，N1在trace替换阶段PermissionError / WinError 5失败，collector退出1，N2–N4未启动；见[结果与证据边界](docs/experiment_records/2026-10-26_msb_native_supervision_v3_result.md). 原件及.pending保留，没有重试或修改源码；505条运行前保护均未变。外部worker身份/退出证据不足，不宣称完整清理验收通过。许可已消费，离线定位、修复及新实验另批；未读真实数据、未训练，正式报告不变，网络理论效果仍未验证。
 - MSB-RRE 原生监督验收v3单次真实授权重登记（2026-10-25）：依据新许可call_d7ead69a9778437890a84a9c099e586a，仅补协议状态和两个授权字段，其余13字段及46项源码身份不变，见[执行授权登记](docs/experiment_records/2026-10-25_msb_native_supervision_v3_execution_registration.md)。登记时尚未运行，须先提交并回读核验后调用唯一collector；固定N1–N4、480秒累计、持续接电，键鼠可正常使用。任何入口调用即消费许可，失败或证据不足即停，不重试/续跑/扩场景，不读真实数据、不训练、不改源码或报告。原生结果另行按实际证据归档，网络理论效果仍未验证。

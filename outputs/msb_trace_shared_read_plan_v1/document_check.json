@@ -1,0 +1,106 @@
+{
+  "kind": "STATIC_DOCUMENT_CHECK_ONLY",
+  "independent_review_performed": false,
+  "proposed_final_tests": 297,
+  "index_was_empty": true,
+  "actual_tests_run_this_round": 0,
+  "spec_plan_tokens_match": true,
+  "source_changes": 0,
+  "checker_note": "Initial method-name regex omitted digits and rejected test name containing n4; corrected document checker only, no project test/import/execution.",
+  "status": "AUTHOR_DOCUMENT_CONSISTENCY_VERIFIED",
+  "future_commands_documented": 3,
+  "implementation_authorized": false,
+  "local_links": [
+    {
+      "target": "../../experiment_records/2026-10-27_msb_native_supervision_v3_offline_diagnosis.md",
+      "source": "docs/superpowers/specs/2026-10-27-msb-trace-shared-read-design.md",
+      "exists_or_planned_check_only": true
+    },
+    {
+      "target": "../specs/2026-10-27-msb-trace-shared-read-design.md",
+      "source": "docs/superpowers/plans/2026-10-27-msb-trace-shared-read.md",
+      "exists_or_planned_check_only": true
+    },
+    {
+      "target": "../superpowers/specs/2026-10-27-msb-trace-shared-read-design.md",
+      "source": "docs/experiment_records/2026-10-27_msb_trace_shared_read_planning.md",
+      "exists_or_planned_check_only": true
+    },
+    {
+      "target": "../superpowers/plans/2026-10-27-msb-trace-shared-read.md",
+      "source": "docs/experiment_records/2026-10-27_msb_trace_shared_read_planning.md",
+      "exists_or_planned_check_only": true
+    },
+    {
+      "target": "../../outputs/msb_trace_shared_read_plan_v1/authorization.json",
+      "source": "docs/experiment_records/2026-10-27_msb_trace_shared_read_planning.md",
+      "exists_or_planned_check_only": true
+    },
+    {
+      "target": "../../outputs/msb_trace_shared_read_plan_v1/protection_before.json",
+      "source": "docs/experiment_records/2026-10-27_msb_trace_shared_read_planning.md",
+      "exists_or_planned_check_only": true
+    },
+    {
+      "target": "../../outputs/msb_trace_shared_read_plan_v1/protection_after.json",
+      "source": "docs/experiment_records/2026-10-27_msb_trace_shared_read_planning.md",
+      "exists_or_planned_check_only": true
+    },
+    {
+      "target": "../../outputs/msb_trace_shared_read_plan_v1/document_check.json",
+      "source": "docs/experiment_records/2026-10-27_msb_trace_shared_read_planning.md",
+      "exists_or_planned_check_only": true
+    }
+  ],
+  "proposed_collector_tests": 136,
+  "proposed_new_methods": [
+    {
+      "id": "R01",
+      "method": "test_windows_read_flags_and_handle_abi"
+    },
+    {
+      "id": "R02",
+      "method": "test_held_reader_sharing_controls_replacement"
+    },
+    {
+      "id": "R03",
+      "method": "test_missing_access_errors_and_json_polling"
+    },
+    {
+      "id": "R04",
+      "method": "test_read_and_decode_failures_close_once"
+    },
+    {
+      "id": "R05",
+      "method": "test_close_failure_preserves_ordered_original_causes"
+    },
+    {
+      "id": "R06",
+      "method": "test_inherited_deadline_checks_surround_owned_handle"
+    },
+    {
+      "id": "R07",
+      "method": "test_ready_absence_does_not_open_trace"
+    },
+    {
+      "id": "R08",
+      "method": "test_invalid_ready_binding_fails_before_trace"
+    },
+    {
+      "id": "R09",
+      "method": "test_observer_uses_shared_reader_and_retains_ack_checks"
+    },
+    {
+      "id": "R10",
+      "method": "test_callback_records_read_close_and_stop_causes"
+    },
+    {
+      "id": "R11",
+      "method": "test_trace_writer_and_n4_failure_precedence_unchanged"
+    },
+    {
+      "id": "R12",
+      "method": "test_harness_guards_new_reader_native_boundary"
+    }
+  ]
+}
