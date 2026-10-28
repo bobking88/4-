@@ -1,0 +1,126 @@
+{
+  "date": "2026-10-28",
+  "planning_started": "2026-10-27",
+  "status": "AUTHOR_DOCUMENT_STATIC_CHECKED_NOT_IMPLEMENTED_NOT_RUN",
+  "approval_id": "call_6912f128ec5a4fb0a8e847242f3c76cf",
+  "checks": {
+    "base_head_unchanged": true,
+    "source_and_protocol_diff_empty": true,
+    "protected_588_match": true,
+    "previous_after_588_match": true,
+    "future_locations_absent": true,
+    "inventory_31_entries": true,
+    "inventory_pre_red_4": true,
+    "inventory_post_red_26": true,
+    "inventory_keep_1": true,
+    "inventory_baseline_matches": true,
+    "four_new_methods_in_spec": true,
+    "future_targets_140_301": true,
+    "actual_tests_zero": true,
+    "status_explicit": true,
+    "no_checked_execution_steps": true,
+    "nine_unchecked_steps": true,
+    "plan_sections_present": true,
+    "partial_freeze_explicit": true,
+    "only_three_sources": true,
+    "scientific_benefit_not_claimed": true
+  },
+  "future_locations": [
+    {
+      "path": "docs/experiment_protocols/msb_native_supervision_v4.json",
+      "absent": true
+    },
+    {
+      "path": "outputs/msb_native_supervision_v4",
+      "absent": true
+    },
+    {
+      "path": "outputs/msb_native_supervision_v4/acceptance_once",
+      "absent": true
+    },
+    {
+      "path": "outputs/msb_native_namespace_v4_synthetic_v1",
+      "absent": true
+    },
+    {
+      "path": ".superpowers/sdd/2026-10-27-msb-native-namespace-v4/test-tmp",
+      "absent": true
+    }
+  ],
+  "prior_document_check_interruption": {
+    "message": "Document link missing",
+    "cause": "Planning record referenced document_check.json before this metadata file was written",
+    "source_or_project_test_failure": false,
+    "resolution": "Create metadata record, then resolve every link, then write final link results"
+  },
+  "author_review_only": true,
+  "independent_review_performed": false,
+  "project_imports": 0,
+  "project_function_calls": 0,
+  "tests_run": 0,
+  "real_data_reads": 0,
+  "native_runs": 0,
+  "agents_dispatched": 0,
+  "formal_report_changed": false,
+  "executable_protocol_generated": false,
+  "scientific_effect_status": "NOT_VALIDATED",
+  "source_changes": [],
+  "local_links": [
+    {
+      "document": "docs/superpowers/specs/2026-10-27-msb-native-namespace-v4-design.md",
+      "target": "../../experiment_records/2026-10-27_msb_native_registration_compatibility_v2.md",
+      "exists": true
+    },
+    {
+      "document": "docs/superpowers/specs/2026-10-27-msb-native-namespace-v4-design.md",
+      "target": "../../../outputs/msb_native_namespace_v4_plan_v1/fixture_migration_inventory.json",
+      "exists": true
+    },
+    {
+      "document": "docs/superpowers/plans/2026-10-27-msb-native-namespace-v4.md",
+      "target": "../specs/2026-10-27-msb-native-namespace-v4-design.md",
+      "exists": true
+    },
+    {
+      "document": "docs/superpowers/plans/2026-10-27-msb-native-namespace-v4.md",
+      "target": "../../../outputs/msb_native_namespace_v4_plan_v1/fixture_migration_inventory.json",
+      "exists": true
+    },
+    {
+      "document": "docs/experiment_records/2026-10-27_msb_native_namespace_v4_planning.md",
+      "target": "../superpowers/specs/2026-10-27-msb-native-namespace-v4-design.md",
+      "exists": true
+    },
+    {
+      "document": "docs/experiment_records/2026-10-27_msb_native_namespace_v4_planning.md",
+      "target": "../superpowers/plans/2026-10-27-msb-native-namespace-v4.md",
+      "exists": true
+    },
+    {
+      "document": "docs/experiment_records/2026-10-27_msb_native_namespace_v4_planning.md",
+      "target": "../../outputs/msb_native_namespace_v4_plan_v1/fixture_migration_inventory.json",
+      "exists": true
+    },
+    {
+      "document": "docs/experiment_records/2026-10-27_msb_native_namespace_v4_planning.md",
+      "target": "../../outputs/msb_native_namespace_v4_plan_v1/authorization.json",
+      "exists": true
+    },
+    {
+      "document": "docs/experiment_records/2026-10-27_msb_native_namespace_v4_planning.md",
+      "target": "../../outputs/msb_native_namespace_v4_plan_v1/protection_before.json",
+      "exists": true
+    },
+    {
+      "document": "docs/experiment_records/2026-10-27_msb_native_namespace_v4_planning.md",
+      "target": "../../outputs/msb_native_namespace_v4_plan_v1/protection_after.json",
+      "exists": true
+    },
+    {
+      "document": "docs/experiment_records/2026-10-27_msb_native_namespace_v4_planning.md",
+      "target": "../../outputs/msb_native_namespace_v4_plan_v1/document_check.json",
+      "exists": true
+    }
+  ],
+  "all_links_resolve": true
+}

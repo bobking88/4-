@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-28",
+  "status": "DOCUMENTS_ONLY",
+  "base_commit": "d2fa0408e36d9b1118d9a33b9678bb3eaea3a412",
+  "count": 8,
+  "manifest_excludes_itself": true,
+  "files": [
+    {
+      "path": "docs/superpowers/specs/2026-10-27-msb-native-namespace-v4-design.md",
+      "size_bytes": 9124,
+      "sha256": "a33f3b99661b297223cf5f46bf7de3ef8ee0f93876710044c62035e985a36cce"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-27-msb-native-namespace-v4.md",
+      "size_bytes": 11243,
+      "sha256": "f3a6ebc55fce2280527f1df265b6f1106c9df85f65e1bf2494b499572f1811e7"
+    },
+    {
+      "path": "docs/experiment_records/2026-10-27_msb_native_namespace_v4_planning.md",
+      "size_bytes": 3076,
+      "sha256": "98887913bd588031b6a587bb2da3d48f9244364206422c2b8e0335b5a30600f0"
+    },
+    {
+      "path": "outputs/msb_native_namespace_v4_plan_v1/authorization.json",
+      "size_bytes": 790,
+      "sha256": "cdc2bd5d21f1ed84247d97ce2a3189cff2b2013cd8cd8fa12e539b3e5ff8dda7"
+    },
+    {
+      "path": "outputs/msb_native_namespace_v4_plan_v1/document_check.json",
+      "size_bytes": 4660,
+      "sha256": "69545858060022e5beeafe58de5ba06cb259ab58d1f34166e0bce59a8cda7170"
+    },
+    {
+      "path": "outputs/msb_native_namespace_v4_plan_v1/fixture_migration_inventory.json",
+      "size_bytes": 14607,
+      "sha256": "0e72c937213850173dd2507359eec82754b46f8ec314feecefd80ca553117b20"
+    },
+    {
+      "path": "outputs/msb_native_namespace_v4_plan_v1/protection_after.json",
+      "size_bytes": 183791,
+      "sha256": "5fe8fa00be611fde8bfc01b3a4f56a2e0b64e7eb0c6db19fbca0962f7bf64e15"
+    },
+    {
+      "path": "outputs/msb_native_namespace_v4_plan_v1/protection_before.json",
+      "size_bytes": 111310,
+      "sha256": "888748a4642017cba4b859917e8eeb0007f2a2bfd902c7f2229f330b3d3c285e"
+    }
+  ]
+}

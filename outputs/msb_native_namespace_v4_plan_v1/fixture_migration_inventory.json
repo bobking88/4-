@@ -1,0 +1,304 @@
+{
+  "date": "2026-10-27",
+  "status": "FUTURE_MIGRATION_INVENTORY_ONLY_NOT_APPLIED",
+  "source": "tests/test_check_msb_native_supervision.py",
+  "baseline_sha256": "7d6e11deb08fedd8bad41ba4ba12bcbbaaaa4ef5864ed6bf45f4eeafdf3f61da",
+  "extraction": "ISOLATED_STANDARD_LIBRARY_AST_NO_PROJECT_IMPORT",
+  "pre_red_count": 4,
+  "post_valid_red_count": 26,
+  "keep_count": 1,
+  "entries": [
+    {
+      "line": 25,
+      "context": "fixture_protocol",
+      "old_literal": "msb_native_supervision_v3",
+      "future_literal": "msb_native_supervision_v4",
+      "phase": "POST_VALID_RED_LEGACY_LITERAL_ONLY",
+      "method_or_helper_name_changes_allowed": false,
+      "assertion_structure_changes_allowed": false
+    },
+    {
+      "line": 29,
+      "context": "fixture_protocol",
+      "old_literal": "outputs/msb_native_supervision_v3/acceptance_once",
+      "future_literal": "outputs/msb_native_supervision_v4/acceptance_once",
+      "phase": "POST_VALID_RED_LEGACY_LITERAL_ONLY",
+      "method_or_helper_name_changes_allowed": false,
+      "assertion_structure_changes_allowed": false
+    },
+    {
+      "line": 64,
+      "context": "ContractTests.test_fixed_protocol_validates_without_reading_assets",
+      "old_literal": "outputs/msb_native_supervision_v3/acceptance_once",
+      "future_literal": "outputs/msb_native_supervision_v4/acceptance_once",
+      "phase": "POST_VALID_RED_LEGACY_LITERAL_ONLY",
+      "method_or_helper_name_changes_allowed": false,
+      "assertion_structure_changes_allowed": false
+    },
+    {
+      "line": 133,
+      "context": "HarnessGateTests.test_actual_main_never_passes_a_skipped_input",
+      "old_literal": "outputs/msb_trace_shared_read_synthetic_v1/collector-green/attempt-001/acceptance_summary.json",
+      "future_literal": "outputs/msb_native_namespace_v4_synthetic_v1/collector-green/attempt-001/acceptance_summary.json",
+      "phase": "PRE_RED_HARNESS_EXPECTATION",
+      "method_or_helper_name_changes_allowed": false,
+      "assertion_structure_changes_allowed": false
+    },
+    {
+      "line": 227,
+      "context": "WorkerTests.case_root",
+      "old_literal": "outputs/msb_native_supervision_v3/acceptance_once/cases",
+      "future_literal": "outputs/msb_native_supervision_v4/acceptance_once/cases",
+      "phase": "POST_VALID_RED_LEGACY_LITERAL_ONLY",
+      "method_or_helper_name_changes_allowed": false,
+      "assertion_structure_changes_allowed": false
+    },
+    {
+      "line": 525,
+      "context": "CollectorTests.protocol_file",
+      "old_literal": "docs/experiment_protocols/msb_native_supervision_v3.json",
+      "future_literal": "docs/experiment_protocols/msb_native_supervision_v4.json",
+      "phase": "POST_VALID_RED_LEGACY_LITERAL_ONLY",
+      "method_or_helper_name_changes_allowed": false,
+      "assertion_structure_changes_allowed": false
+    },
+    {
+      "line": 723,
+      "context": "CollectorTests.test_registered_git_tree_and_protocol_bytes_bind_all_sources",
+      "old_literal": "docs/experiment_protocols/msb_native_supervision_v3.json",
+      "future_literal": "docs/experiment_protocols/msb_native_supervision_v4.json",
+      "phase": "POST_VALID_RED_LEGACY_LITERAL_ONLY",
+      "method_or_helper_name_changes_allowed": false,
+      "assertion_structure_changes_allowed": false
+    },
+    {
+      "line": 1195,
+      "context": "TraceSharedReadTests.test_harness_guards_new_reader_native_boundary",
+      "old_literal": "outputs/msb_trace_shared_read_synthetic_v1",
+      "future_literal": "outputs/msb_native_namespace_v4_synthetic_v1",
+      "phase": "PRE_RED_HARNESS_EXPECTATION",
+      "method_or_helper_name_changes_allowed": false,
+      "assertion_structure_changes_allowed": false
+    },
+    {
+      "line": 1196,
+      "context": "TraceSharedReadTests.test_harness_guards_new_reader_native_boundary",
+      "old_literal": ".superpowers/sdd/2026-10-27-msb-trace-shared-read/test-tmp",
+      "future_literal": ".superpowers/sdd/2026-10-27-msb-native-namespace-v4/test-tmp",
+      "phase": "PRE_RED_HARNESS_EXPECTATION",
+      "method_or_helper_name_changes_allowed": false,
+      "assertion_structure_changes_allowed": false
+    },
+    {
+      "line": 1278,
+      "context": "OriginRepairTests.test_three_entrypoints_reject_wrong_origins_before_native",
+      "old_literal": "docs/experiment_protocols/msb_native_supervision_v3.json",
+      "future_literal": "docs/experiment_protocols/msb_native_supervision_v4.json",
+      "phase": "POST_VALID_RED_LEGACY_LITERAL_ONLY",
+      "method_or_helper_name_changes_allowed": false,
+      "assertion_structure_changes_allowed": false
+    },
+    {
+      "line": 1417,
+      "context": "N4RepairTests.test_controller_rechecks_loaded_module_origins_before_launch",
+      "old_literal": "outputs/msb_native_supervision_v3/acceptance_once/cases/N1",
+      "future_literal": "outputs/msb_native_supervision_v4/acceptance_once/cases/N1",
+      "phase": "POST_VALID_RED_LEGACY_LITERAL_ONLY",
+      "method_or_helper_name_changes_allowed": false,
+      "assertion_structure_changes_allowed": false
+    },
+    {
+      "line": 2058,
+      "context": "DirectLaunchBoundaryTests.test_missing_ready_and_old_permission_never_pass_native_v2",
+      "old_literal": "msb_native_supervision_v3",
+      "future_literal": "msb_native_supervision_v4",
+      "phase": "POST_VALID_RED_LEGACY_LITERAL_ONLY",
+      "method_or_helper_name_changes_allowed": false,
+      "assertion_structure_changes_allowed": false
+    },
+    {
+      "line": 2099,
+      "context": "DirectLaunchBoundaryTests.test_synthetic_scope_covers_runtime_and_thread_adapters",
+      "old_literal": "outputs/msb_trace_shared_read_synthetic_v1/collector-green/attempt-001/acceptance_summary.json",
+      "future_literal": "outputs/msb_native_namespace_v4_synthetic_v1/collector-green/attempt-001/acceptance_summary.json",
+      "phase": "PRE_RED_HARNESS_EXPECTATION",
+      "method_or_helper_name_changes_allowed": false,
+      "assertion_structure_changes_allowed": false
+    },
+    {
+      "line": 2271,
+      "context": "TracePublicationRetentionTests.test_controller_failure_receipt_error_is_distinct_and_fail_closed",
+      "old_literal": "docs/experiment_protocols/msb_native_supervision_v3.json",
+      "future_literal": "docs/experiment_protocols/msb_native_supervision_v4.json",
+      "phase": "POST_VALID_RED_LEGACY_LITERAL_ONLY",
+      "method_or_helper_name_changes_allowed": false,
+      "assertion_structure_changes_allowed": false
+    },
+    {
+      "line": 2390,
+      "context": "TraceRetentionReviewFixTests.cli",
+      "old_literal": "docs/experiment_protocols/msb_native_supervision_v3.json",
+      "future_literal": "docs/experiment_protocols/msb_native_supervision_v4.json",
+      "phase": "POST_VALID_RED_LEGACY_LITERAL_ONLY",
+      "method_or_helper_name_changes_allowed": false,
+      "assertion_structure_changes_allowed": false
+    },
+    {
+      "line": 2646,
+      "context": "fixture_v3_protocol",
+      "old_literal": "msb_native_supervision_v3",
+      "future_literal": "msb_native_supervision_v4",
+      "phase": "POST_VALID_RED_LEGACY_LITERAL_ONLY",
+      "method_or_helper_name_changes_allowed": false,
+      "assertion_structure_changes_allowed": false
+    },
+    {
+      "line": 2647,
+      "context": "fixture_v3_protocol",
+      "old_literal": "outputs/msb_native_supervision_v3/acceptance_once",
+      "future_literal": "outputs/msb_native_supervision_v4/acceptance_once",
+      "phase": "POST_VALID_RED_LEGACY_LITERAL_ONLY",
+      "method_or_helper_name_changes_allowed": false,
+      "assertion_structure_changes_allowed": false
+    },
+    {
+      "line": 2660,
+      "context": "NativeNamespaceV3Tests.protocol_file",
+      "old_literal": "docs/experiment_protocols/msb_native_supervision_v3.json",
+      "future_literal": "docs/experiment_protocols/msb_native_supervision_v4.json",
+      "phase": "POST_VALID_RED_LEGACY_LITERAL_ONLY",
+      "method_or_helper_name_changes_allowed": false,
+      "assertion_structure_changes_allowed": false
+    },
+    {
+      "line": 2669,
+      "context": "NativeNamespaceV3Tests.packet",
+      "old_literal": "outputs/msb_native_supervision_v3/acceptance_once/cases",
+      "future_literal": "outputs/msb_native_supervision_v4/acceptance_once/cases",
+      "phase": "POST_VALID_RED_LEGACY_LITERAL_ONLY",
+      "method_or_helper_name_changes_allowed": false,
+      "assertion_structure_changes_allowed": false
+    },
+    {
+      "line": 2682,
+      "context": "NativeNamespaceV3Tests.test_fixed_v3_constants_and_protocol_preserve_native_contract",
+      "old_literal": "docs/experiment_protocols/msb_native_supervision_v3.json",
+      "future_literal": "docs/experiment_protocols/msb_native_supervision_v4.json",
+      "phase": "POST_VALID_RED_LEGACY_LITERAL_ONLY",
+      "method_or_helper_name_changes_allowed": false,
+      "assertion_structure_changes_allowed": false
+    },
+    {
+      "line": 2684,
+      "context": "NativeNamespaceV3Tests.test_fixed_v3_constants_and_protocol_preserve_native_contract",
+      "old_literal": "outputs/msb_native_supervision_v3/acceptance_once",
+      "future_literal": "outputs/msb_native_supervision_v4/acceptance_once",
+      "phase": "POST_VALID_RED_LEGACY_LITERAL_ONLY",
+      "method_or_helper_name_changes_allowed": false,
+      "assertion_structure_changes_allowed": false
+    },
+    {
+      "line": 2709,
+      "context": "NativeNamespaceV3Tests.test_old_mixed_and_arbitrary_namespaces_are_rejected",
+      "old_literal": "msb_native_supervision_v3",
+      "future_literal": "msb_native_supervision_v3",
+      "phase": "KEEP_NEGATIVE_EXTRA_FIELD",
+      "method_or_helper_name_changes_allowed": false,
+      "assertion_structure_changes_allowed": false
+    },
+    {
+      "line": 2722,
+      "context": "NativeNamespaceV3Tests.test_case_output_uses_only_fixed_v3_root",
+      "old_literal": "outputs/msb_native_supervision_v3/acceptance_once/cases",
+      "future_literal": "outputs/msb_native_supervision_v4/acceptance_once/cases",
+      "phase": "POST_VALID_RED_LEGACY_LITERAL_ONLY",
+      "method_or_helper_name_changes_allowed": false,
+      "assertion_structure_changes_allowed": false
+    },
+    {
+      "line": 2726,
+      "context": "NativeNamespaceV3Tests.test_case_output_uses_only_fixed_v3_root",
+      "old_literal": "other/outputs/msb_native_supervision_v3/acceptance_once/cases",
+      "future_literal": "other/outputs/msb_native_supervision_v4/acceptance_once/cases",
+      "phase": "POST_VALID_RED_LEGACY_LITERAL_ONLY",
+      "method_or_helper_name_changes_allowed": false,
+      "assertion_structure_changes_allowed": false
+    },
+    {
+      "line": 2743,
+      "context": "NativeNamespaceV3Tests.test_worker_packet_binds_v3_prefix_and_inherited_capability",
+      "old_literal": "outputs/msb_native_supervision_v3/acceptance_once/cases/N1/controller/runs/N2/packet.json",
+      "future_literal": "outputs/msb_native_supervision_v4/acceptance_once/cases/N1/controller/runs/N2/packet.json",
+      "phase": "POST_VALID_RED_LEGACY_LITERAL_ONLY",
+      "method_or_helper_name_changes_allowed": false,
+      "assertion_structure_changes_allowed": false
+    },
+    {
+      "line": 2744,
+      "context": "NativeNamespaceV3Tests.test_worker_packet_binds_v3_prefix_and_inherited_capability",
+      "old_literal": "outputs/msb_native_supervision_v3/acceptance_once/cases/N1/runs/N1/packet.json",
+      "future_literal": "outputs/msb_native_supervision_v4/acceptance_once/cases/N1/runs/N1/packet.json",
+      "phase": "POST_VALID_RED_LEGACY_LITERAL_ONLY",
+      "method_or_helper_name_changes_allowed": false,
+      "assertion_structure_changes_allowed": false
+    },
+    {
+      "line": 2757,
+      "context": "NativeNamespaceV3Tests.test_local_protocol_path_rejects_old_and_unregistered_paths",
+      "old_literal": "docs/experiment_protocols/msb_native_supervision_v3.json",
+      "future_literal": "docs/experiment_protocols/msb_native_supervision_v4.json",
+      "phase": "POST_VALID_RED_LEGACY_LITERAL_ONLY",
+      "method_or_helper_name_changes_allowed": false,
+      "assertion_structure_changes_allowed": false
+    },
+    {
+      "line": 2764,
+      "context": "NativeNamespaceV3Tests.test_local_protocol_path_rejects_old_and_unregistered_paths",
+      "old_literal": "other/msb_native_supervision_v3.json",
+      "future_literal": "other/msb_native_supervision_v4.json",
+      "phase": "POST_VALID_RED_LEGACY_LITERAL_ONLY",
+      "method_or_helper_name_changes_allowed": false,
+      "assertion_structure_changes_allowed": false
+    },
+    {
+      "line": 2765,
+      "context": "NativeNamespaceV3Tests.test_local_protocol_path_rejects_old_and_unregistered_paths",
+      "old_literal": "other/docs/experiment_protocols/msb_native_supervision_v3.json",
+      "future_literal": "other/docs/experiment_protocols/msb_native_supervision_v4.json",
+      "phase": "POST_VALID_RED_LEGACY_LITERAL_ONLY",
+      "method_or_helper_name_changes_allowed": false,
+      "assertion_structure_changes_allowed": false
+    },
+    {
+      "line": 2791,
+      "context": "NativeNamespaceV3Tests.test_remote_registration_requires_v3_path_and_exact_identities",
+      "old_literal": "docs/experiment_protocols/msb_native_supervision_v3.json",
+      "future_literal": "docs/experiment_protocols/msb_native_supervision_v4.json",
+      "phase": "POST_VALID_RED_LEGACY_LITERAL_ONLY",
+      "method_or_helper_name_changes_allowed": false,
+      "assertion_structure_changes_allowed": false
+    },
+    {
+      "line": 2831,
+      "context": "NativeNamespaceV3Tests.test_consumed_v3_output_is_rejected_without_touching_history",
+      "old_literal": "outputs/msb_native_supervision_v3/acceptance_once",
+      "future_literal": "outputs/msb_native_supervision_v4/acceptance_once",
+      "phase": "POST_VALID_RED_LEGACY_LITERAL_ONLY",
+      "method_or_helper_name_changes_allowed": false,
+      "assertion_structure_changes_allowed": false
+    }
+  ],
+  "future_new_class": "NativeNamespaceV4Tests",
+  "future_new_test_methods": [
+    "test_v4_fixed_protocol_paths_and_legacy_rejection",
+    "test_v4_case_worker_roots_keep_inherited_identity",
+    "test_v4_registration_uses_exact_remote_identity",
+    "test_v4_single_use_collector_preserves_supervision_and_history"
+  ],
+  "current_source_changed": false,
+  "future_targets": {
+    "driver_tests": 140,
+    "full_tests": 301
+  },
+  "actual_tests_run": 0
+}
