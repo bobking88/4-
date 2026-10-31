@@ -194,15 +194,17 @@
 
 | 论文主张 | 数学/算法证据 | 实验证据 | 图表 | 可复现文件 | 表述强度 |
 |---|---|---|---|---|---|
-| RSG 凸融合的真值类路由后悔具有精确分解并受上界控制 | 引理 A.0 与 B.1，凸融合恒等式和 Lipschitz 上界 | 9 次高精度重放的精确分解最大绝对残差为 8.44e-7、B.1 最大残差为 9.41e-8，均为 0 次违反；固定测试路由后悔 -1.77 pp [−2.86, −0.69] | `fig_rsg_theory_evidence*` | `docs/paper_v1/theoretical_appendix.md`；`outputs/business_metrics/rsg_hrgv/gate_reliability/` | 数学恒等式与界确定；经验结论限于预定义路由后悔 |
-| 软目标按专家差距逼近硬最优门控 | B.2，指数界 | 9 次高精度重放最大残差 $5.94\times10^{-8}$；硬目标使后悔上升 1.94 pp [1.30, 2.60] | `fig_rsg_gate_reliability*` | `outputs/business_metrics/rsg_hrgv/theory_ablation/`；`outputs/business_metrics/rsg_hrgv/gate_reliability/` | 公式和本数据消融支持；不推及所有任务 |
+| RSG 凸融合的真值类路由后悔具有精确分解并受上界控制 | 引理 A.0 与 B.1，凸融合恒等式和 Lipschitz 上界 | 9 次高精度重放的精确分解最大绝对残差为 8.44e-7、B.1 最大残差为 9.41e-8，均为 0 次违反；固定测试路由后悔 -0.0177 nat [−0.0286, −0.0069] | `fig_rsg_theory_evidence*` | `docs/paper_v1/theoretical_appendix.md`；`outputs/business_metrics/rsg_hrgv/gate_reliability/` | 数学恒等式与界确定；经验结论限于预定义路由后悔 |
+| 软目标按专家差距逼近硬最优门控 | B.2，指数界 | 9 次高精度重放最大残差 $5.94\times10^{-8}$；硬目标使后悔上升 0.0194 nat [0.0130, 0.0260] | `fig_rsg_gate_reliability*` | `outputs/business_metrics/rsg_hrgv/theory_ablation/`；`outputs/business_metrics/rsg_hrgv/gate_reliability/` | 公式和本数据消融支持；不推及所有任务 |
 | 后悔分支只更新门控 | B.3，stop-gradient 链式法则 | 取消局部隔离降低后悔但 Macro F1 呈下降趋势 | 路由组件消融表 | `scripts/hrgv_network.py`；`outputs/business_metrics/rsg_hrgv/theory_ablation/` | 计算图性质确定；性能为经验取舍 |
-| RSG 路由机制在摄影者变化下保持预定义收益 | RSG 损失与两阶段 Bootstrap | 摄影者留出路由后悔 -3.53 pp [−4.75, −2.17] | `fig_rsg_theory_evidence_portability*` | `outputs/business_metrics/rsg_hrgv/source_holdout/` | 仅摄影风格变化下的机制确认 |
-| RSG 融合层机制在第二 CNN 主干上重现 | 仅依赖概率凸融合与 stop-gradient 的条件性质 | ResNet50 路由后悔 -3.33 pp [−4.86, −1.98] | `fig_rsg_theory_evidence_portability*` | `outputs/business_metrics/rsg_hrgv/resnet50_portability/` | 经验可迁移，不是任意主干性能保证 |
+| RSG 路由机制在摄影者变化下保持预定义收益 | RSG 损失与两阶段 Bootstrap | 摄影者留出路由后悔 -0.0353 nat [−0.0475, −0.0217] | `fig_rsg_theory_evidence_portability*` | `outputs/business_metrics/rsg_hrgv/source_holdout/` | 仅摄影风格变化下的机制确认 |
+| RSG 融合层机制在第二 CNN 主干上重现 | 仅依赖概率凸融合与 stop-gradient 的条件性质 | ResNet50 路由后悔 -0.0333 nat [−0.0486, −0.0198] | `fig_rsg_theory_evidence_portability*` | `outputs/business_metrics/rsg_hrgv/resnet50_portability/` | 经验可迁移，不是任意主干性能保证 |
 | 角色感知对比约束改善 HRGV 基础性能 | 监督对比损失 | Accuracy +1.09 pp [0.08, 2.15]；Macro F1 +1.08 pp [0.12, 2.06] | 组件效应图 | `outputs/business_metrics/hrgv_network/paired_no_contrast_vs_residual_complete.json` | 当前总体分类最强组件证据 |
 | 残差验证器调节困难负样本风险 | 中性区残差校正与目标赔率单调性 | gate-only 与完整 HRGV 的误入/召回取舍 | HRGV 网络图、风险取舍表 | `outputs/business_metrics/hrgv_network/` | 风险控制组件，不称总体性能保证 |
 
 ## 4. 图表清单
+
+2026-10-30：本文稿的 nat 单位修订不代表旧位图已经重绘。本轮新增 RSG 的 Mermaid 结构源位于正文 4.6；MSB 的结构源、公式 C1--C10 和证据表位于[候选方法节](msb_role_methods_candidate.md)。后者仅有解析/结构证据，暂无真实 MSB 效果，不加入上述主结果表或效果摘要。正式投稿前仍需对最终图件单独排版核对。
 
 1. 数据构建与防泄漏流程图。
 2. 四类选矿角色与十七类矿物映射图。

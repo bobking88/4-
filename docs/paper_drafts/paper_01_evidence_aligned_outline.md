@@ -24,8 +24,8 @@ In closed-set four-role recognition of vanadium-titanium-magnetite-related miner
 - The data pipeline fixes a 17-species-to-four-role mapping, controls exact and near duplicate leakage, and preserves split groups.
 - HRGV-Net retains both a direct-role posterior and a species-mapped-role posterior, then fuses them with a constrained gate.
 - For the RSG gate, two-expert convex fusion gives an exact routing-regret decomposition and a probability lower-bound-based upper bound; the soft target converges exponentially toward hard expert selection as the true-role expert gap grows.
-- In the three-seed fixed-test comparison, RSG reduced mean routing regret by 1.77 percentage points relative to matched HRGV, with paired split-group clustered Bootstrap 95% CI [-2.86, -0.69].
-- In the independent photographer-held-out three-seed confirmation and a matched ResNet50 backbone replacement, RSG reduced mean routing regret by 3.53 and 3.33 percentage points, respectively; both corresponding intervals excluded zero.
+- In the three-seed fixed-test comparison, RSG reduced mean routing regret by 0.0177 nat relative to matched HRGV, with paired split-group clustered Bootstrap 95% CI [-0.0286, -0.0069] nat for the difference.
+- In the independent photographer-held-out three-seed confirmation and a matched ResNet50 backbone replacement, RSG reduced mean routing regret by 0.0353 and 0.0333 nat, respectively; both corresponding intervals excluded zero. Routing regret is a natural-log loss difference, not a probability percentage-point difference.
 - Nine high-precision checkpoint replays over 10,242 images produced zero numerical violations of the registered fusion identity and routing bounds within the stated tolerance.
 
 ### Evidence that must be stated as inconclusive
