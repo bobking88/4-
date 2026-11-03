@@ -1,0 +1,221 @@
+{
+  "scope": "Non-experimental extraction of 18 archived environment.json files; no metrics, predictions, images or weights loaded.",
+  "collected_date": "2026-11-03",
+  "source_commit": "8592b4e8dd400e33c149cb5d9deb3f7da7b4e208",
+  "common_recorded_fields": {
+    "torch_version": "2.12.1+cu130",
+    "device": "cuda",
+    "lambda_direct": 0.25,
+    "lambda_species": 0.5,
+    "lambda_consistency": 0.1,
+    "lambda_verifier": 0.5,
+    "lambda_contrast": 0.1,
+    "gate_regret_temperature": 0.2,
+    "gate_gap_temperature": 0.5,
+    "hard_gate_target": false,
+    "unweighted_gate_regret": false,
+    "contrast_temperature": 0.1,
+    "embedding_dim": 128,
+    "gate_hidden_dim": 128,
+    "fixed_gate": null,
+    "disable_verifiers": false,
+    "verifier_mode": "residual",
+    "ti_verifier_threshold": 0.5,
+    "metallic_verifier_threshold": 0.5,
+    "ti_verifier_strength": 1,
+    "metallic_verifier_strength": 1,
+    "detach_verifier_features": false,
+    "smoke_run": false
+  },
+  "runs": [
+    {
+      "path": "outputs/training/rsg_controlled/formal_hrgv_reference_seed20260727/environment.json",
+      "sha256": "b442b0492eb6531344654ea570d615d951909ba9fa3dcea234fe42fa307849f1",
+      "timestamp": "2026-08-22T23:12:32.014191",
+      "seed": 20260727,
+      "model": "hrgv_efficientnet_b0_residual_coupled_verifier_features",
+      "lambda_gate_regret": 0,
+      "detach_gate_features": false
+    },
+    {
+      "path": "outputs/training/rsg_controlled/formal_hrgv_reference_seed20260728/environment.json",
+      "sha256": "eefef3f686584dfd1c6e2056c3d9abcf69890b58395d31790f9e39487bbf5a05",
+      "timestamp": "2026-08-22T23:37:23.018456",
+      "seed": 20260728,
+      "model": "hrgv_efficientnet_b0_residual_coupled_verifier_features",
+      "lambda_gate_regret": 0,
+      "detach_gate_features": false
+    },
+    {
+      "path": "outputs/training/rsg_controlled/formal_hrgv_reference_seed20260729/environment.json",
+      "sha256": "c13e89b09b737747a0947ea260d52947775c6012ea2b4994099ea6a5e8ff0e8d",
+      "timestamp": "2026-08-23T00:01:57.089611",
+      "seed": 20260729,
+      "model": "hrgv_efficientnet_b0_residual_coupled_verifier_features",
+      "lambda_gate_regret": 0,
+      "detach_gate_features": false
+    },
+    {
+      "path": "outputs/training/rsg_controlled/formal_rsg_complete_seed20260727/environment.json",
+      "sha256": "905546a5258ec43bd1ace6ad30706e433a9b919615c290900d62e256dd6ed15d",
+      "timestamp": "2026-08-23T00:26:12.76007",
+      "seed": 20260727,
+      "model": "hrgv_efficientnet_b0_residual_coupled_verifier_features_rsg",
+      "lambda_gate_regret": 0.1,
+      "detach_gate_features": true
+    },
+    {
+      "path": "outputs/training/rsg_controlled/formal_rsg_complete_seed20260728/environment.json",
+      "sha256": "2aae02e37de9857f6c1eca9c828650c53a3737b52a94c661ef1bf9cf175b38c5",
+      "timestamp": "2026-08-23T11:00:13.908148",
+      "seed": 20260728,
+      "model": "hrgv_efficientnet_b0_residual_coupled_verifier_features_rsg",
+      "lambda_gate_regret": 0.1,
+      "detach_gate_features": true
+    },
+    {
+      "path": "outputs/training/rsg_controlled/formal_rsg_complete_seed20260729/environment.json",
+      "sha256": "8da5ffd016092f2f2b327bbb9b1efb93b91ca4faf270e82bc839141253017cbf",
+      "timestamp": "2026-08-23T11:23:56.886708",
+      "seed": 20260729,
+      "model": "hrgv_efficientnet_b0_residual_coupled_verifier_features_rsg",
+      "lambda_gate_regret": 0.1,
+      "detach_gate_features": true
+    },
+    {
+      "path": "outputs/training/rsg_source_holdout/formal_hrgv_reference_seed20260727/environment.json",
+      "sha256": "1cab90ac5f040d59425b7b7900b95bc2c6ee4ebe18dbc27a98858ec8ec35855b",
+      "timestamp": "2026-08-24T23:54:24.530321",
+      "seed": 20260727,
+      "model": "hrgv_efficientnet_b0_residual_coupled_verifier_features",
+      "lambda_gate_regret": 0,
+      "detach_gate_features": false
+    },
+    {
+      "path": "outputs/training/rsg_source_holdout/formal_hrgv_reference_seed20260729/environment.json",
+      "sha256": "17befbde60f4cee35d1f3799f1198801870851e2fb53041b416827bf6888838a",
+      "timestamp": "2026-08-25T00:23:56.626317",
+      "seed": 20260729,
+      "model": "hrgv_efficientnet_b0_residual_coupled_verifier_features",
+      "lambda_gate_regret": 0,
+      "detach_gate_features": false
+    },
+    {
+      "path": "outputs/training/rsg_source_holdout/formal_hrgv_reference_seed20260730/environment.json",
+      "sha256": "3e0419cea962a8380fb8f2178ae195a740162d29eaa2416f6716af1c0070d951",
+      "timestamp": "2026-08-25T00:43:21.460776",
+      "seed": 20260730,
+      "model": "hrgv_efficientnet_b0_residual_coupled_verifier_features",
+      "lambda_gate_regret": 0,
+      "detach_gate_features": false
+    },
+    {
+      "path": "outputs/training/rsg_source_holdout/formal_rsg_complete_seed20260727/environment.json",
+      "sha256": "638d11056c545a03c693efe2c10bf3ad1cb110315216a2ff438d74d619d81a3e",
+      "timestamp": "2026-08-25T00:09:26.049418",
+      "seed": 20260727,
+      "model": "hrgv_efficientnet_b0_residual_coupled_verifier_features_rsg",
+      "lambda_gate_regret": 0.1,
+      "detach_gate_features": true
+    },
+    {
+      "path": "outputs/training/rsg_source_holdout/formal_rsg_complete_seed20260729/environment.json",
+      "sha256": "1ebd27300645856b79a324178fac740e78baed6d938dd830d2e92dcf78d328ef",
+      "timestamp": "2026-08-25T00:32:50.679155",
+      "seed": 20260729,
+      "model": "hrgv_efficientnet_b0_residual_coupled_verifier_features_rsg",
+      "lambda_gate_regret": 0.1,
+      "detach_gate_features": true
+    },
+    {
+      "path": "outputs/training/rsg_source_holdout/formal_rsg_complete_seed20260730/environment.json",
+      "sha256": "2762185b2640ef2d561c6f641167c8ecfc952f3c30ac883de9b1dc32c67e3159",
+      "timestamp": "2026-08-25T08:14:25.905732",
+      "seed": 20260730,
+      "model": "hrgv_efficientnet_b0_residual_coupled_verifier_features_rsg",
+      "lambda_gate_regret": 0.1,
+      "detach_gate_features": true
+    },
+    {
+      "path": "outputs/training/rsg_resnet50_portability/resnet50/formal_hrgv_reference_seed20260727/environment.json",
+      "sha256": "a03401e53d7fb50a168511e6349a68462b31f4ea5f559a5e15329746ca6d6217",
+      "timestamp": "2026-08-31T15:12:29.710345",
+      "seed": 20260727,
+      "model": "hrgv_resnet50_residual_coupled_verifier_features",
+      "lambda_gate_regret": 0,
+      "detach_gate_features": false
+    },
+    {
+      "path": "outputs/training/rsg_resnet50_portability/resnet50/formal_hrgv_reference_seed20260728/environment.json",
+      "sha256": "32cd2b18b729f681053f6b58a108590400729f491b89c39fcdb78fe477079c1b",
+      "timestamp": "2026-08-31T17:27:21.769354",
+      "seed": 20260728,
+      "model": "hrgv_resnet50_residual_coupled_verifier_features",
+      "lambda_gate_regret": 0,
+      "detach_gate_features": false
+    },
+    {
+      "path": "outputs/training/rsg_resnet50_portability/resnet50/formal_hrgv_reference_seed20260729/environment.json",
+      "sha256": "dd678e5a74c7259d5643b1481f6c288d88598655e558c9874e49d07cd81336cd",
+      "timestamp": "2026-08-31T23:44:45.960031",
+      "seed": 20260729,
+      "model": "hrgv_resnet50_residual_coupled_verifier_features",
+      "lambda_gate_regret": 0,
+      "detach_gate_features": false
+    },
+    {
+      "path": "outputs/training/rsg_resnet50_portability/resnet50/formal_rsg_complete_seed20260727/environment.json",
+      "sha256": "a074854570b74da77d520c56b0015a47616a50d8bb3987648b6237b1e199996b",
+      "timestamp": "2026-09-01T00:01:42.350265",
+      "seed": 20260727,
+      "model": "hrgv_resnet50_residual_coupled_verifier_features_rsg",
+      "lambda_gate_regret": 0.1,
+      "detach_gate_features": true
+    },
+    {
+      "path": "outputs/training/rsg_resnet50_portability/resnet50/formal_rsg_complete_seed20260728/environment.json",
+      "sha256": "b826d1bc9e82b1a632e5ec905273f351c66791dc1a18b694977e991e8f37e8f3",
+      "timestamp": "2026-09-01T00:29:13.498768",
+      "seed": 20260728,
+      "model": "hrgv_resnet50_residual_coupled_verifier_features_rsg",
+      "lambda_gate_regret": 0.1,
+      "detach_gate_features": true
+    },
+    {
+      "path": "outputs/training/rsg_resnet50_portability/resnet50/formal_rsg_complete_seed20260729/environment.json",
+      "sha256": "b6dc60f4418bb970735fff3d16200c6f09c6f0e0d94b3a0d78e7d005ddc31305",
+      "timestamp": "2026-09-01T10:27:11.264456",
+      "seed": 20260729,
+      "model": "hrgv_resnet50_residual_coupled_verifier_features_rsg",
+      "lambda_gate_regret": 0.1,
+      "detach_gate_features": true
+    }
+  ],
+  "missing_per_run_fields": [
+    "optimizer",
+    "batch_size",
+    "learning_rate",
+    "weight_decay",
+    "scheduler",
+    "epochs_limit",
+    "patience",
+    "input_size",
+    "augmentation_arguments",
+    "python_version",
+    "torchvision_version",
+    "gpu_name",
+    "gpu_memory",
+    "cpu",
+    "ram",
+    "driver_version",
+    "cuda_runtime_version",
+    "cudnn_version",
+    "training_source_commit",
+    "pretrained_weight_hash"
+  ],
+  "limitations": [
+    "Source environment files are local archived records; hashes identify exact originals. This curated snapshot does not establish execution of unrecorded options.",
+    "The CUDA build suffix in torch_version does not identify the installed driver or system toolkit.",
+    "No historical result is recalculated."
+  ]
+}
