@@ -1,0 +1,27 @@
+{
+  "scope": "authorized formal-report integration only",
+  "date": "2026-11-06",
+  "source_commit": "296fa0948f07a0fc9d4353d1d3355e61271477c0",
+  "before_sha256": "b7319ccf6def029f5bbc9ae61a0a68ff867c2751433b4876d8f68f7a2ac82d0c",
+  "after_sha256": "4faaa82752f72a37d5784f5118f47f3a7be49bb24ef5214704f59681be1f3893",
+  "qa_pdf_sha256": "64b5b6862e79b6bc87de6b0fbbc5bde8d4dc855601af3b50faea81ffada70237",
+  "page_count": 86,
+  "native_omml_count": 29,
+  "unchanged_paragraph_preservation": "PASS",
+  "missing_unchanged_paragraphs": [],
+  "blank_page_text_check": "PASS",
+  "scope_boundary": "No training, model forwards, new statistics, original images, prediction tensors, weights, or experiment protocol edits.",
+  "sources": {
+    "docs/paper_v1/manuscript_core_draft.md": "c6b3123486aa9c011a669a10b67f0c17e7306847d91595117b5f87fbe23c1d90",
+    "docs/paper_v1/theoretical_appendix.md": "7d50f87c8b0e228fe07ce4c6e5a711798bc44b9ede01d5a8932a322bf34799e7",
+    "docs/paper_v1/reproducibility_materials.md": "b4f57ca4a9ff29eaea56224ba480fc71cc7b9d06b496ccc0baa17adb7a19b26c",
+    "docs/paper_v1/materials_2026-11-03/run_configuration_snapshot.json": "4b20224c150f0d41e85f617e014ac4808f55d11d563da32e5afcff8f9b677c39",
+    "docs/paper_v1/materials_2026-11-03/fig_rsg_r1_r12.png": "46468f65bc68b253f3d559e14081345d449a84e495d7111a03c81c89b06ab33a"
+  },
+  "remaining_limitations": [
+    "Overall classification superiority is not established.",
+    "Per-run optimization/hardware/dependency evidence remains incomplete.",
+    "Historical figures 22 and 23 retain a 100r display scale; explicit nat interpretation is provided in Appendix H.",
+    "Global risk and engineering acceptance are not evidence of new-network effectiveness."
+  ]
+}
