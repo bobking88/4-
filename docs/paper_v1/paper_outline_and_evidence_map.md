@@ -1,6 +1,6 @@
 # 第一篇论文大纲与证据映射（一轮整合稿）
 
-更新：2026-11-02。依据用户“采纳建议，批准一次草稿整合”及[有限复核](reviews/2026-11-01_msb_math_novelty_review.md)整理。不是新的模型规格或实验计划。
+更新：2026-11-07。保留2026-11-02草稿整合及[有限复核](reviews/2026-11-01_msb_math_novelty_review.md)的主线，完成一次与正式报告及既有配置表的文字一致性整理，见[修订记录](manuscript_consistency_2026-11-07.md)。不是新的模型规格或实验计划。
 
 ## 1. 一句话主张
 
@@ -11,10 +11,12 @@
 | 术语 / 符号 | 本稿约定 |
 |---|---|
 | RSG-HRGV-Net | 正文主网络；后悔监督的层级风险门控验证网络 |
-| HRGV-Net | 严格匹配的基础网络，不与RSG或MSB互换 |
+| HRGV-Net | 匹配的参考网络；与RSG推理拓扑相同，后悔损失与门控输入隔离两个训练设置不同，不作单一损失因果对照 |
 | $p_d,p_s,p_m$ | 直接角色、矿物种类、由种类映射得到的角色后验 |
 | $g,p_f,q$ | 直接角色权重、验证前融合后验、验证后最终后验 |
 | $g^*,g_o$ | 训练期软目标与真值类硬oracle；不是可部署标签 |
+| 硬专家二选一oracle | 按分类正确性选择专家的诊断参照；不等于按真值类概率定义的 $g_o$，也不是连续融合准确率通用上界 |
+| 一对一错子集的门控选择正确率 | 在恰有一位专家分类正确的子集上报告；不是全部图像的四分类Accuracy |
 | 路由后悔、NLL | 自然对数尺度，单位nat；不是百分比或百分点 |
 | Accuracy、Macro F1、召回、误入率 | 比例用百分比；比例差用百分点 |
 | MSB-RRE | 附录C中的未验证网络候选，不计入主结果 |
@@ -27,7 +29,7 @@
 | 摘要与第1章引言 | 任务、RSG机制、三项贡献和总体性能限制 | 不写工业分选、品位预测或网络首创 |
 | 第2章相关工作 | 多标签、矿物OOD、铁矿融合及通用门控先例 | 不跨任务直接比较准确率；沿用已核验引文范围 |
 | 第3章数据与任务 | 四角色、十七矿种、固定去重划分和指标 | 普通磁铁矿为代理；元数据和标签仍有限制 |
-| 第4章方法 | R1--R12、结构源、训练/推理路径和模块对应表 | 明确Dropout、偏置、批次权重归一化、局部梯度隔离 |
+| 第4章方法 | R1--R12、结构源、训练/推理路径和模块对应表；第4.7节列出改进单位 | 区分沿用主干、HRGV拓扑及RSG训练策略；不将公式数量视为创新数量 |
 | 第5章理论性质 | 通用条件性质、路由精确分解、上界、软目标及能力边界 | 不把经典性质逐项列为原创；不由界推出学习收益 |
 | 第6章实验设计 | 已有对照、消融、种子和成对簇Bootstrap | 归档方案是既有实验，不开启新配置 |
 | 第7章结果 | HRGV组件、RSG、摄影者留出与重放；第7.9节保留归因限制 | 各协议分开；不隐藏等权诊断、OOS召回损失及未晋级 |
@@ -52,13 +54,15 @@
 |---|---|---|---|---|---|
 | RSG 凸融合的真值类路由后悔具有精确分解并受上界控制 | 引理 A.0 与 B.1，凸融合恒等式和 Lipschitz 上界 | 9 次高精度重放的精确分解最大绝对残差为 8.44e-7、B.1 最大残差为 9.41e-8，均为 0 次违反；固定测试路由后悔 -0.0177 nat [−0.0286, −0.0069] | `fig_rsg_theory_evidence*` | `docs/paper_v1/theoretical_appendix.md`；`outputs/business_metrics/rsg_hrgv/gate_reliability/` | 数学恒等式与界确定；经验结论限于预定义路由后悔 |
 | 软目标按专家差距逼近硬最优门控 | B.2，指数界 | 9 次高精度重放最大残差 $5.94\times10^{-8}$；硬目标使后悔上升 0.0194 nat [0.0130, 0.0260] | `fig_rsg_gate_reliability*` | `outputs/business_metrics/rsg_hrgv/theory_ablation/`；`outputs/business_metrics/rsg_hrgv/gate_reliability/` | 公式和本数据消融支持；不推及所有任务 |
-| 后悔分支只更新门控 | B.3，stop-gradient 链式法则 | 取消局部隔离降低后悔但 Macro F1 呈下降趋势 | 路由组件消融表 | `scripts/hrgv_network.py`；`outputs/business_metrics/rsg_hrgv/theory_ablation/` | 计算图性质确定；性能为经验取舍 |
+| 后悔分支不向专家或共享主干反传 | B.3，stop-gradient 链式法则及R12归一化边界 | 取消局部隔离降低后悔但 Macro F1 呈下降趋势 | 路由组件消融表 | `scripts/hrgv_network.py`；`outputs/business_metrics/rsg_hrgv/theory_ablation/` | 局部零梯度性质确定；不保证门控参数每步梯度非零或性能总有利 |
 | RSG 路由机制在摄影者变化下保持预定义收益 | RSG 损失与两阶段 Bootstrap | 摄影者留出路由后悔 -0.0353 nat [−0.0475, −0.0217] | `fig_rsg_theory_evidence_portability*` | `outputs/business_metrics/rsg_hrgv/source_holdout/` | 仅摄影风格变化下的机制确认 |
 | RSG 融合层机制在第二 CNN 主干上重现 | 仅依赖概率凸融合与 stop-gradient 的条件性质 | ResNet50 路由后悔 -0.0333 nat [−0.0486, −0.0198] | `fig_rsg_theory_evidence_portability*` | `outputs/business_metrics/rsg_hrgv/resnet50_portability/` | 经验可迁移，不是任意主干性能保证 |
 | 角色感知对比约束改善 HRGV 基础性能 | 监督对比损失 | Accuracy +1.09 pp [0.08, 2.15]；Macro F1 +1.08 pp [0.12, 2.06] | 组件效应图 | `outputs/business_metrics/hrgv_network/paired_no_contrast_vs_residual_complete.json` | 当前总体分类最强组件证据 |
 | 残差验证器调节困难负样本风险 | 中性区残差校正与目标赔率单调性 | gate-only 与完整 HRGV 的误入/召回取舍 | HRGV 网络图、风险取舍表 | `outputs/business_metrics/hrgv_network/` | 风险控制组件，不称总体性能保证 |
 
 以上数值沿用既有文稿与归档，不在本轮重新计算。上界成立与模型取得较小后悔是两个不同命题；既有数值重放核对实现，成对比较检验经验效果。
+
+主对照同时改变后悔损失与门控输入梯度路径，相关收益归属于完整RSG训练策略；各消融只支持其自身配置下的结论。精确分解的偏导讨论固定 $M$，不能由跨样本绝对专家差距变大无条件推出后悔增大。上述修订不改变结果数值，也不新增实验或新颖性认定。
 
 ## 6. 图表与剩余写作工作
 
