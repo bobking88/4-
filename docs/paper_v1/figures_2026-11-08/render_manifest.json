@@ -1,0 +1,34 @@
+{
+  "source_commit": "aef98c6ff740aca2adbb25b629430c6633997a7b",
+  "source_sha256": {
+    "fig_rsg_theory_evidence_portability_source.json": "4f77a886a50a808125d4ca054005b30f71a6a7e4a3846c9ae20868ef22405b34",
+    "fig_rsg_expert_complementarity_source.json": "d90b1681d1e57a593b3c435a41646c39676922010d04bb84faa91b30df4f4a4d"
+  },
+  "renderer_sha256": "1540a078ec6df46ccb5891eb6d1a10cf25748dac3b04594accaac6c5b2b1e3f6",
+  "python": "3.12.14",
+  "matplotlib": "3.10.7",
+  "numpy": "2.5.4",
+  "scope": "Aggregate transcription and display only; no new statistics, predictions or experiments.",
+  "figures": {
+    "fig_rsg_routing_evidence_nat": {
+      "width_mm": 183.0,
+      "height_mm": 120.0,
+      "text_outside_canvas": [],
+      "files": {
+        "svg": "1caab7f0c2c86515d0cff7fca9dada8f02a07435a94f5bc2bbbb4b218062388f",
+        "pdf": "a6ccdebf81af9d492442355dd4e6e92bdbf706a50238059389761eb67303cc94",
+        "png": "c4d1b5d4ff31c146b64839f2e847464607e10bcf98d4a1d4e5c4bd8ede9f4cd3"
+      }
+    },
+    "fig_rsg_expert_diagnostics": {
+      "width_mm": 183.0,
+      "height_mm": 125.0,
+      "text_outside_canvas": [],
+      "files": {
+        "svg": "b9dc53bb7a6c9a1285db8090278471b6449f19cce806655532f05ece155d98af",
+        "pdf": "d71780c5ddca684d66e1796708927d671bdcd7c8ebc6fdd6721c17d9bf918e31",
+        "png": "38ead3c7e5bdacf78f542a5dcb2c18211f572a2902f3aa4b9c400d5279131b8b"
+      }
+    }
+  }
+}
