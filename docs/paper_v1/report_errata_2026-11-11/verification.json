@@ -1,0 +1,15 @@
+{
+  "report_sha256": "5c34b503034ad674563f68ba744996b267c307a83df624f4c9b9d0c39bd9774e",
+  "pdf_sha256": "c4da215331f6b2cc6bddbe1f038e1b32a7bebb33728a0337dc32e31a56e261b9",
+  "pages": 86,
+  "native_omml": 29,
+  "math_text_and_fraction_script_structure_preserved": true,
+  "all_65_table_bodies_preserved": true,
+  "all_revised_paragraphs_present": true,
+  "visual_review": "completed_with_inherited_layout_notes",
+  "visual_review_date": "2026-11-12",
+  "visually_reviewed_pages": 86,
+  "visual_review_scope": "All rendered pages inspected; revised figures, formulas and metric definitions checked. No new clipping, overlap or missing formula glyphs observed.",
+  "inherited_layout_notes": "Existing table-caption page separation and appendix table pagination retained; this is not a full layout redesign or a claim of flawless typesetting.",
+  "new_training_or_statistics": false
+}
