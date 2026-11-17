@@ -1,6 +1,6 @@
 # Supplementary Notes: Regret-Supervised Cross-Granularity Routing
 
-> Working supplement, 15 November 2026. This document translates and reorganizes previously archived definitions, proofs and diagnostics. It introduces no experiment, model, numerical recomputation or claim of priority. Equation labels R9a-R9e retain their Chinese-source identifiers; S-labels below are organizational labels, not additional original theorems. See the [manuscript](manuscript_en.md) and [source map](README.md).
+> Working supplement, 15 November 2026; baseline and provenance update, 17 November 2026. This document translates and reorganizes previously archived definitions, proofs and diagnostics. It introduces no experiment, model, numerical recomputation or claim of priority. Equation labels R9a-R9e retain their Chinese-source identifiers; S-labels below are organizational labels, not additional original theorems. See the [manuscript](manuscript_en.md) and [source map](README.md).
 
 ## S1. Exact Batch Loss Definitions
 
@@ -274,7 +274,29 @@ The source review includes a [snapshot with original-record hashes](../materials
 | Source identity | Current documentation and file hashes can be frozen | A modern documentation commit is not the commit used for every old training run |
 | Data and weights | Image manifests, provenance and some result artifacts are archived | All images are redistributable, all weights are supplied, or every original URL remains accessible |
 
-These are substantive reproducibility limitations, not merely missing typography. Before submission, existing historical commands and records should be reconciled once; unrecoverable values must remain disclosed and their implications assessed. New training must not be used to backfill a claim about an old run. A self-contained journal supplement and a frozen public artifact inventory are still required. Author identity, funding, conflicts and approval cannot be inferred from the repository and remain author-supplied information.
+### S5.3. Bounded Historical Trace
+
+A follow-up audit completed on 17 November 2026 examined the three main RSG protocol notes, the earlier HRGV note, existing training instructions, metadata-file identities and the available ResNet50 stdout/stderr logs. All 18 selected environment files matched their snapshot hashes. The fixed-split and ResNet50 documentation gives runner commands, but neither records explicit batch size, learning rate, decay or a resolved full argument set. The photographer-holdout note specifies the paired flags and shared training policy, not a complete per-run command. The available ResNet50 stdout includes skips of already completed runs, epoch progress and early-stopping messages; it does not supply the missing optimizer configuration. The stderr file is empty. A stopping epoch is not a record of the configured epoch limit or patience.
+
+The earlier baseline instructions specify an example epoch limit of 30 and batch size of 16, and the baseline summaries name AdamW. Those are historical instructions or family-level descriptions, not evidence that every subsequent RSG run used those exact settings. No value was promoted from a current default or a later experiment into the historical configuration table. The bounded trace therefore strengthens provenance reporting but does not close the missing fields in S5.2. Its inputs and file hashes are listed in the [audit record](archive_trace_2026-11-17.md).
+
+These are substantive reproducibility limitations, not merely missing typography. The one-pass archive trace is complete within its stated scope; repeating the same search or training again cannot repair an old execution record. Exact historical settings may be added only if an identifiable original record is supplied. A self-contained journal supplement and a frozen public artifact inventory are still required. Author identity, funding, conflicts and approval cannot be inferred from the repository and remain author-supplied information. Disclosure of the gaps is not assurance that an editor or reviewer will regard them as acceptable.
+
+## S6. Historical Baseline Provenance
+
+Table 5 transcribes existing three-seed aggregate results; it does not recompute scores from predictions. The dataset version is `dataset_final_v1`, with the fixed 5,961/1,284/1,284 split and seeds 20260727, 20260728 and 20260729 according to the archived notes. Row-specific provenance is as follows:
+
+| Main Table 5 rows | Archived source | Method distinction |
+|---|---|---|
+| Plain ResNet50 and EfficientNet-B0 | [Formal baseline summary](../../../outputs/training/formal_experiment_summary_v1.md) | ImageNet initialization, weighted cross-entropy; historical summary names AdamW and early stopping. |
+| Weighted Focal Loss | [Three-seed Focal note](../../experiment_records/2026-07-30_focal_loss_three_seed_ablation.md) | The note describes replacing weighted cross-entropy with weighted Focal Loss, gamma 2, under matched within-study settings. |
+| Role-aware precursor | [Role-aware experiment note](../../experiment_records/2026-07-30_role_aware_hard_negative_learning.md) | Four-role head, auxiliary binary head and 128-dimensional projection; loss weights 1, 0.25 and 0.10. |
+| Hierarchical precursor | [Hierarchical aggregate table](../../../outputs/business_metrics/hierarchical_efficientnet_b0/hierarchical_metrics_three_seed.md) and the preceding role-aware note | Adds the 17-species head and species-to-role aggregation. Its consistency direction is role-to-mapped KL, unlike the mapped-to-direct KL in R9b; it is not merely HRGV without a gate. |
+| Coupled residual HRGV and RSG-HRGV | [RSG fixed-split note](../../experiment_records/2026-08-22_rsg_hrgv.md) and main Table 1 | Shared inference topology; training differs in regret supervision and gate-input detachment. |
+
+This table is limited to already completed baselines. It neither reproduces the cited external papers on a common dataset nor constitutes a comparison with current state-of-the-art architectures. The earlier [HRGV record](../../experiment_records/2026-08-22_hrgv_network.md) states that plain-CNN per-image predictions were not saved; only their seed summaries are used here. No paired interval is reconstructed from those summaries.
+
+There is an unresolved reporting discrepancy outside the two selected Table 5 metrics: for the same plain EfficientNet-B0 target-recall mean of 71.98%, the old class-recall table reports a sample standard deviation of 0.83 percentage points, whereas the binary proxy table reports 0.46. If both summarize the same target labels, predictions and seeds, the recall statistic should coincide. The archived tables alone do not establish the cause. Table 5 therefore does not copy target-recall dispersion from either version; this is an explicitly disclosed exclusion, not a correction of the historical record. The discrepancy does not concern the separate HRGV/RSG rows in Table 1. Raw predictions and new calculations were not used to resolve it in this non-experimental consolidation.
 
 ## Supplementary Reference
 

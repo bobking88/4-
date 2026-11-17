@@ -1,6 +1,6 @@
 # Regret-Supervised Cross-Granularity Routing for Visual Role Recognition of Vanadium-Titanium-Related Minerals
 
-> English working draft, 15 November 2026. Provisional target: Minerals, Article. Not submission-ready. Author metadata, historical implementation gaps, reference review, and journal-format checks remain open in [README](README.md). This is an evidence-preserving adaptation of the Chinese manuscript, not a new experiment or a replacement for the official technical report.
+> English working draft, 15 November 2026; baseline and provenance update, 17 November 2026. Provisional target: Minerals, Article. Not submission-ready. Author metadata, historical implementation gaps, reference review, and journal-format checks remain open in [README](README.md). This is an evidence-preserving adaptation of the Chinese manuscript, not a new experiment or a replacement for the official technical report.
 
 **Authors:** [AUTHOR INPUT REQUIRED: names, order, affiliations, corresponding author and email]
 
@@ -195,7 +195,7 @@ Routing regret is not classification regret. Even with fixed experts, the optimu
 
 Eighteen archived environment records cover the two matched methods, three seeds and three protocols. The gate hidden dimension and contrastive embedding dimension are 128. Coefficients are $\lambda_d=0.25$, $\lambda_s=0.50$, $\lambda_c=0.10$, $\lambda_v=0.50$, $\lambda_{con}=0.10$ and $\lambda_g=0.10$. Temperatures are $T_r=0.20$, $T_w=0.50$ and $T_{con}=0.10$. Both verifier thresholds are 0.50 and both penalty strengths are one. Verifier features remain coupled to the backbone. The matched HRGV reference sets $\lambda_g=0$ and does not detach the gate input; therefore, the main comparison evaluates a training strategy with two changed settings, not the causal effect of one loss term alone.
 
-The inspected records identify CUDA execution and PyTorch 2.12.1+cu130. They do not establish every historical batch size, optimizer setting, input-transform parameter, GPU model or full dependency lock. Current source defaults and later hardware records are not substituted for those missing values. The [reproducibility record](../reproducibility_materials.md) distinguishes recorded parameters from remaining gaps. Exact run-by-run reconstruction is therefore not yet established.
+The inspected records identify CUDA execution and PyTorch 2.12.1+cu130. They do not establish every historical batch size, optimizer setting, input-transform parameter, GPU model or full dependency lock. A bounded follow-up audit of archived commands, protocol notes and the available ResNet50 console logs did not recover these missing per-run settings. The 18 environment-file hashes still matched the archived snapshot. Training instructions for earlier CNN baselines are not execution receipts for the RSG runs; current source defaults and later hardware records are not substituted for missing values. The [reproducibility record](../reproducibility_materials.md) and Supplementary Note S5 distinguish recorded parameters from remaining gaps. Exact run-by-run reconstruction is therefore not yet established.
 
 Accuracy, macro F1, target recall and class-specific interference-to-target rates are computed from final predictions $q$. Each interference rate uses the corresponding true interference class as its denominator; it is not contamination among accepted targets. Routing regret is measured before verification on $p_f$, in nat. The probability-oracle agreement metric compares $\mathbf1[g\ge0.5]$ with $g_o$ only among images where exactly one expert's argmax prediction is correct. It does not necessarily measure selection of the classification-correct expert. A separate hard expert-choice accuracy oracle uses the union of expert-correct events and is not a universal upper bound for continuous fusion or the verified final network.
 
@@ -270,6 +270,24 @@ Nine previously archived checkpoint replays, spanning three protocols and 10,242
 
 Descriptive stratification by the local upper bound separated low- and high-regret samples. This is a mechanism diagnostic because the bound already contains the gate deviation and expert gap; it is not an independent discovery of a new error class. Fixed-expert equal-weight substitutions produced inconsistent NLL directions across nine archived comparisons, and fixed-expert gate retraining did not establish a stable overall advantage. In a separate out-of-sample routing confirmation, NLL decreased by 0.014040 nat relative to equal weights but target recall decreased by 2.476 percentage points, exceeding its preset one-point harm limit. That candidate was not promoted into the main method. These negative results constrain attribution and are retained in Supplementary Note S4 and the development archive.
 
+### 3.5. Historical Baseline Context
+
+The archived development sequence provides context for the matched routing comparison (Table 5). All rows concern the same fixed public-image split and the same three seed identifiers, but the earlier models change supervision and architecture as well as the method. They are not single-component RSG ablations. The role-aware precursor adds a binary auxiliary head and targeted contrast; the hierarchical precursor also predicts mineral species and constrains agreement with the role head. Neither precursor contains the full HRGV routing and verification mechanism.
+
+**Table 5.** Historical fixed-split baseline overview. Entries are archived means +/- sample standard deviations across seeds 20260727, 20260728 and 20260729, in percent; 5,961/1,284/1,284 training/validation/test images. Only the first row uses ResNet50; all other rows use EfficientNet-B0. These are retrospective descriptive comparisons, not a newly harmonized benchmark or a claim of significant superiority. The matched HRGV/RSG pair is repeated from Table 1 for orientation.
+
+| Model or training strategy | Accuracy | Macro F1 |
+|---|---:|---:|
+| ResNet50, weighted cross-entropy | 74.84 +/- 1.56 | 72.06 +/- 0.92 |
+| EfficientNet-B0, weighted cross-entropy | 74.69 +/- 1.28 | 72.87 +/- 1.21 |
+| EfficientNet-B0, weighted Focal Loss | 75.21 +/- 0.74 | 73.22 +/- 0.83 |
+| Role-aware binary/contrastive precursor | 74.79 +/- 0.84 | 73.02 +/- 1.09 |
+| Species-role hierarchical precursor | 75.42 +/- 2.59 | 73.41 +/- 2.40 |
+| Coupled residual HRGV | 76.48 +/- 0.23 | 74.59 +/- 0.34 |
+| RSG-HRGV | 76.45 +/- 0.98 | 74.76 +/- 0.90 |
+
+The table places the existing method within its development sequence; it does not isolate the effect of regret supervision relative to ordinary CNN training. Historical notes state matched settings within the earlier comparisons, but complete per-run training provenance has not been recovered. The original plain-CNN runs did not retain per-image predictions according to the HRGV experiment record, so no retrospective paired image-level interval is asserted for those rows. Seed standard deviations alone do not test a difference. The evidential basis for the routing contribution remains the matched comparisons in Tables 1-3, whose overall classification intervals include zero. Supplementary Note S6 provides the source map and the limits of this baseline overview.
+
 ## 4. Discussion
 
 The central finding is a separation between routing quality and classification quality. Soft supervision from true-class expert losses lowered the defined routing regret across the fixed split, photographer holdout and a second backbone. Yet accuracy and macro F1 did not show a stable paired improvement. A method paper on this result should explain what its mechanism controls, rather than describe every lower intermediate loss as better mineral recognition.
@@ -290,7 +308,7 @@ RSG-HRGV-Net supplies explicit regret supervision for choosing between direct ro
 
 ## Supplementary Materials
 
-[Supplementary Notes S1-S5](supplementary_notes_en.md) provide batch loss definitions, supporting conditional analysis, the population counterexample, development limits and reproducibility gaps. Linked Chinese records remain provenance material; a final journal upload must include self-contained supplementary files rather than depend on relative repository links.
+[Supplementary Notes S1-S6](supplementary_notes_en.md) provide batch loss definitions, supporting conditional analysis, the population counterexample, development limits, reproducibility gaps and historical baseline provenance. Linked Chinese records remain provenance material; a final journal upload must include self-contained supplementary files rather than depend on relative repository links.
 
 ## Author Contributions
 
